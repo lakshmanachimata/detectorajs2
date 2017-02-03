@@ -1,0 +1,83 @@
+.bj-user-container{
+	position:absolute;
+	top:50px;
+	bottom:0;	/*removes the footer*/
+	right:0;
+	left:0;
+	z-index:5;
+	overflow-y: scroll;
+	width:100%;
+	font-size:20px;
+	background-color:#2d425b;
+	color:white;
+}
+div#bj-user-empty-list{
+	font-size:20px;
+	color:white;
+	top:50px;
+	left:50px;
+	right:50px;
+	bottom:0;
+}
+div.bj-user-container ul.bj-user-detectors-list{
+   right:0;
+   width:100%;
+   margin-bottom:0;
+   padding-left:0;
+   min-height : 90px;
+   border-bottom : solid 1px #202e3f;
+   list-style-type:none;
+}
+.bj-user-menu-icon{
+	font-size: 20px;
+	padding-top:18px;
+	padding-bottom:12px;
+	float:left;
+	text-align:center;
+	color:#000000;
+	width:60px;
+	height:100%;
+}
+ul.bj-user-detectors-list #bj-user-detector-icon{
+	padding-top: 30px;
+    padding-bottom: 18px;
+    float: left;
+    font-size: 30px;
+    border-right: solid 1px #202e3f;
+    text-align: center;
+    width: 90px;
+    color: #94b3d7;
+    height: 100%;
+}
+div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
+	width:100%;
+	display:block;
+	height:100%;
+    font-size: 18px;
+    font-weight:400;
+    text-align:left;
+	color:#94b3d7;
+    padding-top:30px;
+    padding-bottom:30px;
+	padding-left:110px;
+}
+.installed-detector-icon span.glyphicon.glyphicon-modal-window{
+	font-size:30px;
+}
+#bj-user-detector-icon-signal{
+	width:20px;
+	font-size:24px;
+	color:#94b3d7;
+	float:right;
+	/*padding-top:10px;*/
+	padding-right:40px;
+}
+.bj-user-detector-name #nav-right {
+	float:right;
+	width:20px;
+	color:#94b3d7;
+	font-weight: 600;
+    padding-top: 8px;
+    font-size:14px;
+	padding-right:40px;
+}

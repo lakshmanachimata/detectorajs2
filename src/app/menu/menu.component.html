@@ -1,0 +1,11 @@
+<div class="menuContainer"  [@slideIn]="menuState" (@slideIn.start)="animationStarted($event)"
+        (@slideIn.done)="animationDone($event)" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
+    <ul (click)="menuItemClick(item)" *ngFor="let item of getMenuItems()"  [ngClass]="{'bj-user-menu-list': getProfile() == 'user','bj-menu-list': getProfile() == 'electrician'}">
+        <div [ngClass]="{'bj-menu-icon':getProfile() == 'electrician','bj-user-menu-icon':getProfile() == 'user'}">
+            <span class="glyphicon glyphicon-cog"></span>
+            </div>
+        <li  [ngClass]="{'bj-menu-item':getProfile() == 'electrician','bj-user-menu-item':getProfile() == 'user'}">
+            {{ item.name }} <span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
+        </li>
+    </ul>
+</div>

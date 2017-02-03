@@ -1,0 +1,110 @@
+
+#bj-header {
+	position: absolute;
+	height: 50px;
+	top:0;
+	left:0;
+	right:0;
+	background-color: #1e2a3d;
+	/*z-index:150 !Important;*/
+    background-image: linear-gradient(#2e4761, #1e2a3d);
+	display:inline-block;
+	z-index:20;
+}
+
+#bj-header.bj-user-view {
+	position: absolute;
+	height: 50px;
+	top:0;
+	left:0;
+	right:0;
+	background-color:#666699;
+	background-image: linear-gradient(#8797ac, #6d8199);
+	color:black;
+	display:inline-block;
+	z-index:20;
+}
+/*
+
+#bj-header.bj-full-view {
+	height:0;
+	top:0;
+	left:0;
+	right:0;
+	width:0;
+}
+*/
+
+#bj-header .bj-menu{
+	padding-top:16px;
+	padding-bottom:16px;
+	text-align:center;
+	float:left;
+	width:60px;
+	height:100%;
+	color:white;
+}
+
+#bj-header.bj-user-view .bj-menu{
+	left:0;
+	padding-left:20px;
+	padding-top:16px;
+	padding-bottom:16px;
+	text-align:center;
+	float:left;
+	width:20px;
+	height:100%;
+	color:black;
+}
+
+.bj-menu #bj-back-glyph,.bj-menu #bj-menu-glyph{
+	font-size:20px;
+	font-family: "Glyphicons Halflings";
+}
+
+#bj-header #bj-nav{
+	float:right;
+	font-size:20px;
+	padding-top:12px;
+	text-align:center;
+	width:60px;
+	height:100%;
+	color:white;
+	font-family: "Glyphicons Halflings";
+}
+
+#bj-header.bj-user-view #bj-nav{
+	float:right;
+	padding-top:12px;
+	text-align:center;
+	width:60px;
+	height:100%;
+	color:black;
+	font-family: "Glyphicons Halflings";
+}
+
+#bj-header #bj-menu-head{
+	left:60px;
+    right:60px;
+	padding-top:14px;
+	padding-bottom:18px;
+	color:white;
+    text-align:center;
+    height:100%;
+    width:auto;
+	font-size:20px;
+	position:absolute;
+}
+
+#bj-header.bj-user-view #bj-menu-head{
+	left:60px;
+    right:60px;
+	padding-top:14px;
+	padding-bottom:18px;
+	color:#000000;
+    text-align:center;
+    height:100%;
+    width:auto;
+	font-size:20px;
+	position:absolute;
+}

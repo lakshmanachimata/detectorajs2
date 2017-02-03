@@ -1,0 +1,37 @@
+{
+  "detectors":[
+  {
+    "btDeviceName": "BT_Relais",
+    "articleNumber": "6819/x1",
+    "deviceType":"relay1c",
+    "contactName":"Bayer",
+    "buildingName":"Floor",
+    "date":"08.07.2016",
+    "firmwareupdateavailable":"true",
+    "modelType":"Sensor",
+    "firmwareVersion":"1.0"
+  },
+  {
+    "btDeviceName": "BT_MOSFET" ,
+    "articleNumber":"6817/x3",
+    "deviceType":"mosfet1c",
+    "contactName":"Bayer",
+    "buildingName":"Factory",
+    "date":"04.05.2016",
+    "modelType":"Sensor",
+    "firmwareupdateavailable":"false",
+    "firmwareVersion":"1.0"
+  },
+  {
+    "btDeviceName":"BT_DALI_Master",
+    "articleNumber":"6819/x5",
+    "deviceType":"daliMaster1c",
+    "contactName":"Behrens",
+    "buildingName":"Main building",
+    "date":"05.05.2016",
+    "modelType":"Corridor DALI",
+    "firmwareupdateavailable":"false",
+    "firmwareVersion":"1.0"
+  }
+]
+}

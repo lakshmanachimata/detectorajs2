@@ -1,0 +1,82 @@
+/*css for welcome.html*/
+.start-body{
+	background-color:#001a33;
+	position:absolute;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.box-welcome {
+    position: absolute;
+	top:35%;
+	left:44%;
+    margin: auto;
+    width: 30%;
+}
+#square-blue{
+	position:absolute;
+	width:50px;
+	height:50px;
+	background:#1a90ff;
+	border-radius:10px;
+}
+
+#square-white{
+	position:absolute;
+	width:20px;
+	height:20px;
+	background:white;
+	top:15px;
+	bottom:15px;
+	left:15px;
+	right:15px;
+}
+#label-welcome{
+	position:absolute;
+	color:white;
+	font-size:30px;
+    top:55px;
+    left:-40px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.bj-welcome-container{
+	position:fixed;
+	color: #87a4cb;
+	top:60%;
+	padding-left:0px;
+	width:100%;
+	bottom:0;
+}
+
+#bj-label-selection{
+	padding-left:20px;
+	font-size:15px;
+}
+
+#bj-welcome-nav li{
+	width: 100%;
+    display: block;
+    border-top: solid 1px #000d1a;
+    list-style-type: none;
+    font-size: 20px;
+    height: 80px;
+    text-align: left;
+    padding: 20px 0 20px 20px;
+}
+
+div#bj-main-menu-nav {
+    margin-top: 11px;
+    border-bottom: solid 1px #000d1a;
+}
+
+#bj-welcome-nav #nav-right-electrician,#bj-welcome-nav #nav-right-user{
+	float: right;
+    width: 20px;
+    font-size: 12px;
+    margin-right: 35px;
+    margin-top: 10px;
+}

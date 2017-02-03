@@ -1,0 +1,81 @@
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'help'"[@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
+    <label class="bj-instruction help" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{heloText}}</label>
+    <p class="bj-instruction-link-p">
+        <a 
+            class="bj-instruction-link help" 
+            href="{{helpLink}}">
+            {{helpLink}}
+        </a>
+    </p>
+</div>
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'about'" [@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
+    <label class="bj-instruction about" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{aboutText}}</label>
+    <p class="bj-instruction-link-p"><a class="bj-instruction-link about" href="{{aboutLink}}">{{aboutLink}}</a>
+    <small class="version">
+        Version: 1.0.1 - 18JAN2017  </small>
+    </p>
+</div>
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState">
+    <div id="bj-switch-mode-div">
+        <label class="bj-lbl">Selected user profile</label>
+        <div><label class="bj-config-setting ">Installer</label><input type="radio" class="operating-radio"/></div>
+        <div><label class="bj-config-setting">Standard user</label><input type="radio" class="operating-radio"/></div>
+    </div>
+</div>
+
+<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'user_profiles'" [@subMenuSlideIn]="subMenuState" >
+    <div class="bj-search-tab">
+        <div class="bj-search-tab-wrap">
+            <input type="text" id="search-control" placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+        </div>
+    </div>
+    <div class="bj-customised-detectors" *ngIf="detectors">
+            <ul class="bj-detectors-list" *ngFor="let detector of detectors">
+                <li class="bj-detector-name">{{detector.btDeviceName}}
+                    <div class="bj-detector-article-num">{{detector.articleNumber}}</div>
+                </li>
+            </ul>
+    </div>
+</div>
+<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'installed_devices'" [@subMenuSlideIn]="subMenuState" >
+    <div class="bj-sort-devices">
+        <select class="dropdown-sortby" name="sorttype" 
+                [(ngModel)]="selectedSortType"
+                (ngModelChange)="sortDetectors()">
+            <option *ngFor="let sortType of sortTypes" [ngValue]="sortType" [disabled]="sortType =='sort by'">{{sortType}}</option>
+        </select>
+    </div>
+    <div class="bj-search-tab">
+        <div class="bj-search-tab-wrap">
+            <input type="text" id="search-control" placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+        </div>
+    </div>
+
+    <div id="bj-empty-list" ng-hide="detectors">{{emptyListText}}</div>
+
+    <div class="bj-installed-detectors">
+        <ul class="bj-detectors-list" (click)="InstallerItemClick(detector)" *ngFor="let detector of detectors" >
+           <div class="installed-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
+           <li class="bj-detector-name">{{ detector.btDeviceName}}<span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
+               <div class="bj-detector-article-num">{{detector.articleNumber}}</div>
+           </li>
+        </ul>
+    </div>
+     <div ui-view="installed_detectorsView"> </div>
+</div>
+
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'sync'" [@subMenuSlideIn]="subMenuState">
+  <div id="#bj-sync-my-bj-div">
+    <label class="bj-config-lbl">My Busch-jaeger / myABB account</label>            
+  </div>
+  <div class="bj-sync-my-bj">
+    <label class="info"> Please fill in login information</label> 
+    <label class="field">Username</label>
+    <input type="text">
+
+    <label class="field" >Password</label>
+    <input type="text">
+  </div>
+</div>
+
+

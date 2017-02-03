@@ -1,0 +1,13 @@
+<div id="bj-header"  [ngClass]="{'bj-user-view': getProfile() == 'user'}">
+	<div class="bj-menu"  (click)="setArrowType()" *ngIf="arrowType() != -1">
+		<span id="bj-menu-glyph" [ngClass]="{'glyphicon glyphicon-menu-down':arrowType() == 0,'glyphicon glyphicon-menu-up':arrowType() == 1, 'glyphicon glyphicon-menu-left':arrowType() == 2}"></span>
+    </div>
+    <!--<div class="bj-menu" ng-click="navigateBack()" ng-if="menuItem">
+        <span id="bj-back-glyph" class="glyphicon glyphicon-menu-left"></span>
+    </div>-->
+	<div id="bj-menu-head" >{{ getTitle() }}</div>
+	<div id="bj-nav" (click)="switchProfile()" *ngIf="arrowType() != -1 && data.getProfileSwitch()">
+	    <!--<span ng-class="{'glyphicon glyphicon-home':(!showMenu && !menuItem && !configureDetector)}"></span>-->
+		<span class="glyphicon glyphicon-home"></span>
+	</div>
+</div>

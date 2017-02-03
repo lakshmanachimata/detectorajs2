@@ -1,0 +1,144 @@
+{
+  "info": {
+    "deviceid": "",
+    "devicetype": "daliMaster1c",
+    "firmwareversion": "",
+    "appversion": "",
+    "utc": "",
+    "sha1_hash": ""
+  },
+  "sensor_settings": {
+    "potentiometerMode": 0,
+    "constant_light_regulation": true,
+    "brightness_threshold": 500,
+    "brightness_setpoint": 500,
+    "brightness_max": 2000,
+    "brightness_min": 10,
+    "short_time_pulse": false,
+    "consider_slave_brightness": true,
+    "reference_brightness": true,
+    "switch_off_delay": 0,
+    "switch_off_delay_min": 10,
+    "switch_off_delay_max": 1800,
+    "additional_sensor_parameters": {
+      "brightness_correction": {
+        "enable": false,
+        "range": 0
+      },
+      "dynamic_switch_off_delay": false,
+      "set_detection_range": {
+        "outdoor_application": false,
+        "q1": 0,
+        "q2": 25,
+        "q3": 0,
+        "q4": 0
+      }
+    }
+  },
+  "operating_mode": 0,
+  "actuator1": {
+    "ch1_current_level": 70,
+    "ch1_on_off_state":true,
+    "durable_on_off_switching": {
+      "duration_on": 0,
+      "duration_off": 0
+    },
+    "soft_switching": {
+      "on": {
+        "enable": false,
+        "range": 10
+      },
+      "off": {
+        "enable": false,
+        "range": 10
+      }
+    },
+    "misc_settings": {
+      "switch_off_pre_warning":false,
+      "switch_on_with_last_brightness": false,
+      "limit_of_room_brightness": false,
+      "load_output": {
+        "minimum": {
+          "enable": false,
+          "value": 0
+        },
+        "maximum": {
+          "on": false,
+          "output_value": 0
+        }
+      }
+    },
+     "dali_settings": {
+        "use_master_in_slave_mode": false,
+        "power_on_level": 0
+     },
+     "fluorescent_lamps": {
+        "burn_in_function": false,
+        "burn_in_mode": 0,
+        "burn_in_hours": 1,
+        "operating hours": 0
+      },
+     "basic_illumination": {
+        "settings": 0,
+        "basic_illumination_level": 0,
+        "ambient_brightness_threshold": 0,
+        "start_time": 0,
+        "end_time": 0,
+        "astro_function": false
+     },
+     "night_time_anti_glare_function": {
+        "enable": false,
+        "start_time": 0,
+        "end_time": 0,
+        "illumination_level": 0
+     },
+     "time_shifted_switch_off": {
+        "enable": false,
+        "switch_off_time": 0,
+        "intermediate_stage_brightness": 0
+     }
+  },
+  "actuator2": {
+    "enable": true,
+    "ch2_on_off_state":false,
+    "circuit_logic": 0,
+    "ch2_mode": 1,
+    "hvacDynamicalControlEnable":false,
+    "durable_on_off_switching": {
+      "duration_on": 0,
+      "duration_off": 0
+    },
+    "switching_function": {
+      "function": 0,
+      "dynamical_control": false,
+      "switch_on_delay": 0,
+      "switch_off_delay": 0
+    }
+  },
+  "service": {
+    "energy_monitor": {
+      "connected_load": 0,
+      "lighting_duration_per_week": 0,
+      "electricity_price": "999 ct/kWh",
+      "currency": 0
+    }
+  },
+  "commissioning": {
+    "pins": {
+      "electrician": "1234",
+      "standard_user": "1234"
+    },
+    "building": {
+      "contact_name": "",
+      "building_name": ""
+    },
+    "user_settings": {
+      "brightness_threshold": false,
+      "switch_off_delay": false,
+      "energy_monitor": false,
+      "basic_illumination": false,
+      "anti_glare_function": false
+    },
+    "use_master_in_slave_mode": false
+  }
+}
