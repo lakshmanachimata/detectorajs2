@@ -5,14 +5,19 @@ import { HttpModule  } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
-
+import { HeaderComponent} from './header/header.component';
+import { MenuComponent} from './menu/menu.component';
+import { SubMenuComponent} from './menu/submenu.component';
 import { DataService } from './data.service';
 import { LoggerService } from './logger.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    HeaderComponent,
+    MenuComponent,
+    SubMenuComponent,
   ],
   imports: [
     BrowserModule,

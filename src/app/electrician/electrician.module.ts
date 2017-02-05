@@ -5,8 +5,6 @@ import { HttpModule  } from '@angular/http';
 import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { ElectricianComponent } from './electrician.component';
-import { HeaderComponent} from '../header/header.component';
-import { MenuComponent} from '../menu/menu.component';
 import { RouterModule, Routes,Router }  from '@angular/router';
 const ElctricianRoutes: Routes = [
   // { path: '', redirectTo: 'welcome', pathMatch: 'full'},

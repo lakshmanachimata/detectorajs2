@@ -1,1 +1,4 @@
+<header-root *ngIf="data.getHeader()==true"></header-root>
+<menu-root *ngIf="data.getMenuArrow() == 1"></menu-root>
+<submenu-root *ngIf="data.getMenuArrow() == 2"></submenu-root>
 <router-outlet></router-outlet>
