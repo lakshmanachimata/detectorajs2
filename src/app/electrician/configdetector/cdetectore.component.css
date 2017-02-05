@@ -1,0 +1,1640 @@
+.bj-config-container{
+	position:absolute;
+	top:50px;
+	bottom:50px;
+	left:0;
+	right:0;
+	font-size:20px;
+	overflow-y:scroll;
+	background-color:white;
+}
+
+.bj-config-detector-name-wrap{
+    left: 0;
+    z-index:5;
+    position: fixed;
+    right: 0;
+    height: 52px;
+    background-color: #0079bb;
+}
+
+#bj-config-detector-name{
+    top: 10px;
+    left: 10px;
+	right:10px;
+    position: absolute;
+    min-height: 30px;
+}
+
+
+#bj-config-detector-name input[type="text"]{
+	width:100%;
+	font-size:14px;
+	padding: 4px 12px;
+	color: #00395c;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.bj-config-lbl{
+    display: block;
+    left: 0;
+    right: 0;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #f9fafc;
+    color: #9eabbb;
+    border-bottom: solid 1px #9eabbb;
+    padding: 2px 20px;
+}
+#bj-config-settings-container{
+	top: 52px;
+	left:0;
+	right:0;
+	position:absolute;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+input.operating-radio {
+    float: right;
+    margin-right: 12px !Important;
+    margin-top: 5px !Important;
+    height: 36px;
+    width: 24px;
+}
+
+span.bj-actuator-bulb{
+	background-color:#25374c;
+	width: 100%;
+	height:100px;
+}
+
+img.next {
+    float: right;
+    margin-top: 7px;
+    margin-right: 4px;
+}
+
+.bj-actuator-brightness {
+	margin-left: 22px;
+	width: 334px;
+	height: 134px;
+	display: inline-flex;
+	margin-bottom: 8px;
+	margin-top: 18px;
+	z-index:3;
+	position:relative;
+}
+
+img.bulb-on,img.bulb-off {
+	height: 74px;
+    border-radius: 38px;
+    background:transparent;
+}
+
+img.bulb-off{
+    margin-left: 126px;
+}
+img.bulb-glow{
+    height: 166px;
+    width: 147px;
+    margin-top: -66px;
+    opacity:0.5;
+}
+
+img.bulb-on{
+	margin-top: -148px;
+    margin-left: 80px !Important;
+}
+
+.bulb-glow {
+    border-radius: 45px;
+    width: 74px;
+    height: 74px;
+    text-align: center;
+    margin-left: 44px;
+    margin-right: 20px;
+}
+
+label.actuator-name {
+	margin-left: 20px;
+    margin-top: 8px;
+    font-size: 26px;
+    width: 100%;
+    font-weight: 400;
+    color:#ffffff;
+}
+
+.bj-actuator-bulb {
+	height: 100%;
+	/*width: 76%;*/
+	border-top:3px solid #ffff00;
+	border-right:1px solid #000000;
+	background-color: #233348;
+	border-bottom-left-radius: 6px;
+}
+.bj-actuator-bulb.actuator2{
+	width: 100%;
+	border-bottom-right-radius: 6px;
+}
+.bj-actuator-bulb.actuator1{
+	width: 76%;
+}
+.bj-actuator-slider {
+	width: 24%;
+	height: 100%;
+	border-top:3px solid #ffff00;
+	border-left:1px solid #667a93;
+	background-color:#212e40;
+	border-bottom-right-radius: 6px;
+
+}
+
+label.bj-brightness-lbl{
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	padding-top: 8px;
+	font-size: 26px;
+	font-weight: 400;
+	color:#667a93;
+}
+
+span.slide-open {
+    height: 50px;
+ 	margin-left: 10px;
+    margin-top: 18px;
+}
+
+.bj-brightness-slider{
+	display:inline-block;
+	z-index:4;
+	height:84px;
+	width:0;
+	right:0;
+	bottom:0;
+	position:absolute;
+	background-color:#212e40;
+	border-bottom-right-radius: 6px;
+}
+
+div.bj-actuator-slider div.slide-open {
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+}
+div.bj-actuator-slider div.slide-open span.glyphicon.glyphicon-menu-left{
+	color:#697D96;
+	margin-left: 24px;
+	width:20px;
+    height:20px;
+}
+div.bj-brightness-slider div.slide-close span.glyphicon.glyphicon-menu-right{
+	color:#697D96;
+	float: left;
+    font-size: 20px;
+    margin-top: 32px;
+    width:20px;
+    height:20px;
+}
+div.slide-close {
+    height: 50px;
+    width: 0px;
+    bottom: 0;
+    float: left;
+    margin-left: 20px;
+}
+
+.bj-slider-control{
+	height: 72px;
+    width: 200px;
+    margin-left: 50px;
+    margin-top: 12px;
+    float: left;
+}
+.bj-slider-control input[type="range"]:active {
+
+}
+.bj-slider-control input[type="range"] {
+    -webkit-appearance: none;
+    outline: none;
+    height: 70px;
+    background:transparent;
+    pointer-events: none;
+}
+.bj-slider-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    pointer-events: auto;
+    background: transparent;
+    border: 8px solid white;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+   /* border: none;
+    pointer-events: auto;
+ *//*   background-image: url('../icons/08_011_actuator_deact.svg');*//*
+    background-image: url('../icons/circle-outline-xxl.png');
+    background-size:70px;
+    background-repeat: no-repeat;
+    background-position: center;*/
+  }
+
+
+img#mySpinner{
+  	width:50px;
+  	height:50px;
+	position: absolute;
+    top: 44%;
+    left: 44%;
+  }
+
+/*building-allocation*/
+input.bj-configure-input{
+	margin: 10px 20px 20px 20px;
+	height: 44px;
+	width: 90%;
+	font-size: 18px;
+	border-radius: 5px;
+	padding-left: 10px;
+	border: 1px solid #b4cbcb;
+	color: #697d96;
+}
+
+label.bj-config-lbl.building-alloc-building-div{
+	border-top: solid 1px #9eabbb;
+}
+label.bj-config-lbl.set-pins-user-div{
+	border-top: solid 1px #9eabbb;
+	margin-top: 14px;
+}
+
+label.set-pins-subtext {
+	font-size: 14px;
+	margin-left: 20px;
+	margin-top: -12px;
+	color: #bbbbbb;
+}
+
+.bj-config-setting-adjust.sensor-params-function {
+	margin-top: 12px;
+	margin-bottom: 22px;
+}
+
+.bj-config-setting-div.sensor-params-div {
+	height: 60px;
+	padding-top: 4px;
+}
+
+.bj-sensor-toggle.dynamic-delay {
+	border-bottom: solid 1px #9eabbb;
+	border-top: solid 1px #9eabbb;
+	margin-top: 20px;
+	padding-bottom: 14px;
+	padding-top: 6px;
+}
+
+.bj-config-setting-adjust.sensor-params-block {
+	margin-top: 12px;
+	margin-bottom: 22px;
+}
+
+.bj-sensor-toggle {
+	margin-top: 10px;
+}
+
+.bj-config-setting.inner-setting{
+	color: #9eabbb;
+}
+
+/*actuator 1 settings page*/
+.bj-actuator-toggle {
+    float: right;
+    margin-top: -2px;
+    margin-right: 20px;
+}
+
+input.circuit-radio,input.currency-radio{
+    float: right;
+    margin-right: 22px !Important;
+    margin-top: -4px !Important;
+    height: 36px;
+    width: 24px;
+}
+
+.bj-config-setting.inner-setting.actuator1,.bj-config-setting.inner-setting.actuator2,
+.bj-config-setting.inner-setting.energy-monitor,.bj-config-setting.inner-setting.profiles{
+	border-bottom: solid 1px #9eabbb;
+	min-height: 50px;
+    padding-bottom: 12px;
+}
+
+.bj-config-setting.inner-setting.actuator1.heading,.bj-config-setting.inner-setting.actuator2.heading,
+.bj-config-setting.inner-setting.energy-monitor.heading,.bj-config-setting.inner-setting.profiles.heading{
+	background:#eceff5;
+}
+
+label.actuator-circuit-logic-lbl {
+	margin-top: 2px;
+}
+
+div.bj-config-setting.actuator1.reset span.glyphicon.glyphicon-stop {
+	float: right;
+	margin-right: 22px;
+	margin-top: 4px;
+	font-size: 28px;
+}
+
+label.bj-config-setting.burn-in-mode {
+	padding-left: 0 !Important;
+	padding-top: 10px;
+}
+
+label.bj-config-setting.reset-inner-block {
+	padding-left: 0 !Important;
+	padding-top: 10px;
+}
+
+.bj-config-setting.actuator1.reset {
+	background: #eceff5;
+	height: 68px;
+	border-bottom: solid 1px #9eabbb;
+}
+
+label.actuator-basic-illumniation-lbl,label.actuator-ambient-brightness-lbl,
+label.actuator-anti-glare-level-lbl{
+	padding-bottom: 22px;
+}
+
+.anti-glare-level-div {
+	margin-top: 30px;
+}
+
+.bj-actuator1-slider{
+	height: 44px;
+    width: 273px;
+    margin-left: 4px;
+    border-bottom-left-radius: 32px;
+    border-top-left-radius: 32px;
+    border: 1px solid #8d8d8d;
+    border-right: none;
+    background:transparent;
+    margin-bottom:20px;
+}
+.bj-actuator1-slider input[type="range"]:active {
+
+}
+.bj-actuator1-slider input[type="range"] {
+	-webkit-appearance: none;
+	outline: none;
+	height: 44px;
+	background: transparent;
+	pointer-events: none;
+	float: left;
+}
+.bj-actuator1-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: pointer;
+    height: 52px;
+    width: 50px;
+    margin-top:-2px;
+    pointer-events: auto;
+    background: #afafaf;
+   	border: 1px solid #8d8d8d;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+ }
+
+.illumination-value-disp,.ambient-brightness-value-disp,
+.anti-glare-level-value-disp{
+	background: #e2e2e2;
+	width: 66px;
+	height: 44px;
+	border: 1px solid #8d8d8d;
+	border-left: none;
+	margin-top: -1px;
+	margin-left: 269px;
+	border-top-right-radius: 32px;
+	border-bottom-right-radius: 32px;
+	text-align:center;
+	color: #000000;
+    font-size: 18px;
+    padding: 8px;
+}
+
+.bj-config-setting-adjust.illumination-end-function,
+.bj-config-setting-adjust.anti-glare-end-function,
+.bj-config-setting-adjust.time-shift-brightness-function{
+	margin-bottom: 18px;
+	margin-top: 12px;
+}
+
+.bj-config-setting-adjust.illumination-start-function,
+.bj-config-setting-adjust.anti-glare-start-function,
+.bj-config-setting-adjust.time-shift-switchoff-function{
+	margin-bottom: 32px;
+	margin-top: 12px;
+}
+
+label.actuator-anti-glare-start-time-lbl {
+	margin-top: 24px;
+}
+
+.time-shift-settings-div {
+	margin-top: 22px;
+}
+
+.reset-dialog-header{
+	height:50px;
+	left:0;
+	right:0;
+	top:0;
+	background:#eeeff0;
+	border-bottom:1px solid #d2dadf;
+	text-align:center;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-header {
+    background-color: #eeeff0;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-header label.dialog-heading {
+    color: #000000;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-body label.dialog-text {
+    margin-top: 160px;
+    color: #000000;
+}
+
+label.dialog-heading {
+	padding: 14px;
+	color: #697d96;
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.reset-dialog-body{
+	left:0;
+	right:0;
+	top:50px;
+	background:white;
+	bottom:60px;
+	position:absolute;
+}
+
+label.dialog-text {
+	margin-top: 100px;
+	margin-left: 60px;
+	margin-right:30px;
+	font-weight: 400;
+	font-size: 20px;
+	color: #697d96;
+}
+
+.reset-dialog-footer{
+	bottom:0;
+	left:0;
+	right:0;
+	height:60px;
+	position:absolute;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-footer div.dialog-cancel-btn {
+    background-color: #bfbfbf;
+    border-right: 1px solid #a7a9ac;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-footer div.dialog-ok-btn {
+    background: #bfbfbf;
+}
+
+.reset-dialog-overlay{
+	position:absolute;
+	z-index:30;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.reset-dialog {
+	right: 40px;
+	left: 40px;
+	top: 80px;
+	bottom: 80px;
+	z-index: 30;
+	box-shadow: 4px 4px 80px #000;
+	position: absolute;
+	opacity: 1;
+}
+
+.dialog-cancel-btn{
+	float:left;
+	width:30%;
+	height:100%;
+	text-align:center;
+	background: #02507c;
+}
+
+img.reset-cancel{
+	margin-top:18px;
+}
+
+.dialog-ok-btn{
+	height:100%;
+	background: #0171ae;
+	text-align:center;
+}
+
+img.reset-save{
+	margin-top:18px;
+}
+
+img.slave-dis {
+	float: right;
+	margin-top: 4px;
+	margin-right: 10px;
+	width: 44px;
+}
+
+/*test mode*/
+div#testmode-master-inner-icon,div#detection-outdoor-inner-icon {
+    margin: 7px;
+    border-radius: 50%;
+}
+
+div#testmode-master-inner-ring,div#detection-outdoor-inner-ring{
+	border-radius: 50%;
+	border: 4px solid #001a33;
+	width: 46px;
+	height: 46px;
+	text-align: center;
+	/*margin-left: 45%;*/
+	margin-left: 172px;
+	margin-top: -6%;
+	z-index: 10;
+	background: white;
+	position: relative;
+	box-shadow: 0px 4px 6px #abb3b7;
+}
+
+.testmode-quadrant,.detection-outdoor-quadrant {
+	border: 1px solid #e7e9ea;
+	width: 154px;
+	height: 150px;
+	z-index: 2;
+	position: absolute;
+	background: #f9fafc;
+}
+
+.testmode-sensor-status,.detection-outdoor-sensor-status{
+	width: 6px;
+	background: red;
+	height: 6px;
+	border-radius: 100%;
+	margin-top: -5px;
+	margin-left: 8px;
+}
+
+.q2{
+	border-top-left-radius: 100%;
+	margin-left: 8px;
+}
+
+.q1 {
+	border-top-right-radius: 100%;
+	margin-left: 166px;
+}
+
+.q3 {
+	border-bottom-left-radius: 100%;
+	margin-left: 8px;
+	box-shadow: -1px 4px 4px #e7e9ea;
+}
+
+.q4 {
+	border-bottom-right-radius: 100%;
+	margin-left: 166px;
+	box-shadow: 2px 4px 4px #e7e9ea;
+}
+
+.testmode-master-div,.detection-outdoor-div {
+	min-height: 150px;
+}
+
+.testmode-top-quadrants,.detection-outdoor-top-quadrants {
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: 40px;
+	height: 150px;
+	z-index: 2;
+}
+
+.testmode-bottom-quadrants,.detection-outdoor-bottom-quadrants{
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: -19px;
+	height: 150px;
+	z-index: 2;
+	margin-bottom: 30px;
+}
+
+img.user-active {
+	height: 50px;
+}
+
+.q1-icon{
+	margin-top: 43%;
+	margin-left: 25%;
+}
+
+.q2-icon{
+	margin-top: 43%;
+	margin-left: 42%;
+}
+
+.q4-icon{
+	margin-top: 26%;
+	margin-left: 25%;
+}
+
+.q3-icon{
+	margin-top: 26%;
+	margin-left: 42%;
+}
+
+.bj-config-setting-adjust.switch-on-delay-actuator2 {
+	margin-bottom: 28px;
+}
+
+.bj-config-setting.inner-setting.energy-monitor-reference-load,
+.bj-config-setting.inner-setting.energy-monitor-lighting-reference,.bj-config-setting.inner-setting.energy-monitor-price-reference{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.bj-config-setting-div.energy-monitor-currency-div {
+	margin-top: 28px;
+	border-top: 1px solid #9eabbb;
+}
+
+li.bj-detector-name.update {
+	list-style-type: none;
+	padding-left: 10px;
+	padding-top: 14px;
+	position: relative;
+	float: left;
+	font-size: 18px;
+	color: #2e4761;
+	font-weight: 400;
+}
+
+div#bj-detector-icon-update {
+	height: 80px;
+	float: left;
+	width: 80px;
+	text-align: center;
+	padding-top: 24px;
+	border-right: 1px solid #9eabbb;
+	position: relative;
+	font-size: 30px;
+	color: #2e4761;
+}
+
+div#bj-update-firmware-div,#bj-detector-info-div {
+	width: 100%;
+	min-height: 80px;
+	border-bottom: 1px solid #9eabbb;
+}
+
+div#bj-detector-icon-signal-update {
+	float: right;
+	width: 80px;
+	text-align: center;
+	height: 80px;
+	padding-top: 20px;
+	font-size: 28px;
+	color: #2e4761;
+	padding-right: 20px;
+}
+
+.bj-detector-version-num.update {
+	color: #9eabbb;
+}
+
+div#cancel-update {
+	float: left;
+	width: 100%;
+	height: 100%;
+	padding-top: 14px;
+	text-align: center;
+	background-color: #015c8e;
+	color: #ffffff;
+}
+
+div#update-progress {
+	height: 100%;
+	position: absolute;
+	width: 1%;
+	background: #8ea9db;
+}
+
+div#bj-update-firmware-progressbar {
+	height: 6px;
+	width: 100%;
+	position: relative;
+	background: #f2f2f2;
+	border-bottom: 1px solid #9eabbb;
+}
+
+.bj-sensor-toggle.outdoor-application {
+	border-bottom: 1px solid #9eabbb;
+	padding-bottom: 12px;
+}
+
+label.detection-quad-value {
+	color: #093c5b;
+	font-size: 25px;
+	font-weight: 600;
+}
+
+.q1-val {
+	margin-top: 76px;
+	margin-left: 56px;
+}
+
+.q2-val {
+	margin-top: 76px;
+	margin-left: 78px;
+}
+
+.q3-val {
+	margin-left: 76px;
+	margin-top: 46px;
+}
+
+.q4-val {
+	margin-top: 46px;
+	margin-left: 56px;
+}
+
+.bj-detection-outdoor-slider {
+	border: 4px solid #b5c4cd;
+	/*margin-left: 15px;
+	margin-right: 18px;*/
+	left:20px;
+	width:329px;
+	height: 50px;
+	border-radius: 50px;
+	margin-bottom: 30px;
+	position:relative;
+}
+
+input#value0,input#value25,input#value50,input#value75,input#value100{
+	position: absolute;
+	width: 26px;
+	height: 26px;
+	-webkit-appearance: none;
+	border-radius: 100%;
+	background-color: #b5c4cd;
+	opacity: 0.5;
+	outline:0;
+}
+
+input#value0{
+	margin-left: 6px;
+	margin-top: 8px;
+}
+
+input#value25{
+	margin-left: 76px;
+	margin-top: 8px;
+}
+
+input#value50{
+	margin-left: 150px;
+	margin-top: 8px;
+}
+
+input#value75{
+	margin-left: 224px;
+	margin-top: 8px;
+}
+
+input#value100{
+	margin-left: 288px;
+	margin-top: 8px;
+}
+
+.detection-slider-value {
+	border: 8px solid #263548;
+	width: 54px;
+	height: 54px;
+	border-radius: 100%;
+	position: absolute;
+	margin-top: -6px;
+	box-shadow: 4px 4px 4px #b4b4b4;
+}
+
+.value0 {
+	margin-left: -8px;
+}
+
+.value25 {
+	margin-left: 62px;
+}
+
+.value50 {
+	margin-left: 136px;
+}
+
+.value75 {
+	margin-left: 210px;
+}
+
+.value100 {
+	margin-left: 274px;
+}
+
+.add-profile {
+	width: 100%;
+	height: 58px;
+	border-bottom: 1px solid #d0d6dc;
+	background: linear-gradient(#fefefe,#f3f4f6);
+}
+
+img.add-new-profile {
+	float: right;
+	margin-right: 16px;
+    margin-top: 8px;
+}
+
+#add-profile-lbl{
+	font-size: 16px;
+	font-weight: 600;
+	margin-top: 18px;
+	color: #094062;
+	margin-left: 22px;
+}
+
+.saved-profile {
+	width: 100%;
+	height: 70px;
+	border-bottom: 1px solid #d0d6dc;
+	padding-left: 20px;
+	padding-top: 18px;
+	color: #094062;
+	font-weight: 400;
+}
+
+li#profile-list {
+	list-style: none;
+}
+
+.bj-config-setting.inner-setting.pre-profiles{
+	border-bottom: solid 1px #9eabbb;
+	min-height: 70px;
+    padding-bottom: 12px;
+    padding-top: 22px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #043c5e;
+}
+
+/****styling for user profile****/
+
+.bj-config-container-user{
+	position:absolute;
+    top:50px;
+    bottom:50px;
+    left:0;
+    right:0;
+    font-size:20px;
+    overflow-y:scroll;
+    background-color:#1e2a38;
+}
+
+#bj-user-config-settings-container{
+	margin-bottom: 20px;
+	top: 52px;
+	left:0;
+	right:0;
+	position:absolute;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.bj-footer.bj-user-view {
+	position: absolute;
+	height: 50px;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#ffffff;
+	text-align:center;
+	color:#093c5b;
+	padding:14px;
+	display: inline;
+}
+
+.bj-user-config-setting-div{
+    margin-left: 22px;
+    right: 0;
+    min-height: 60px;
+    border-top: 3px solid yellow;
+    background-color: #2a3f57;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 2px;
+    -moz-box-shadow: 0 8px 6px -6px #0e141b;
+    box-shadow: 0px 8px 6px -6px #0e141b;
+}
+
+.bj-user-config-setting-div.light1-div {
+    height: 234px;
+    position: relative;
+    background-color: #24364b;
+}
+
+label.bj-light-brightness-lbl {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #4d637c;
+}
+
+label.light-name {
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #f0f0f1;
+    margin-top: 10px;
+}
+
+.bulb-channel-info.light1-div {
+    left: 0;
+    right: 0;
+    height: 90px;
+}
+
+.bulb-glow.light1 {
+    margin-left: 20px;
+    width: 208px;
+    height: 185px;
+    float:left;
+}
+
+img.bulb-on.light1 {
+    margin-top: -190px;
+    margin-left: 50px !Important;
+    height: 90px;
+}
+
+.slide-next.light1 {
+    margin-right: 30px;
+    float: right;
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #4d637c;
+}
+.slide-prev.light1 {
+    margin-left: 30px;
+    float: left;
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #4d637c;
+}
+
+.bj-brightness-slider.light1 {
+    margin-right: 32px;
+    height: 72px;
+    right: inherit;
+    left: inherit;
+    width: 78%;
+    border-top: 1px solid #131c2c;
+    background-color: inherit;
+    position: absolute;
+    z-index:0;
+}
+
+.bj-slider-control.light1 {
+    margin-left: 0px;
+    margin-top: 0px;
+    border-top: 1px solid #2b3b4f;
+    width: 100%;
+}
+
+.bj-user-config-setting-div.light2-div {
+    margin-top: 18px;
+    height: 122px;
+}
+
+img.bulb-on.light2 {
+    margin-left: 94px !Important;
+    margin-top: -176px;
+}
+
+.bulb-glow.light2 {
+    margin-left: 60px;
+}
+/*preethi*/
+/*label.bj-config-lbl.service-div {
+    color: #56677d;
+    background-color: #18222d;
+    border-top: 2px solid #111821;
+    border-bottom: 2px solid #111821;
+    margin-top: 20px;
+}*/
+
+.bj-config-setting-div.other-settings-div {
+    color: #86a2c3;
+    border-bottom: 2px solid #111821;
+    border-top: 2px solid #2c3a4a;
+    margin-top: -4px;
+}
+
+label.bj-config-setting.user-energy-monitor-block,label.bj-config-setting.user-settings-block {
+    color: #86a2c3;
+}
+
+.slide-next {
+	float: right;
+    margin-right: 12px;
+    margin-top: 6px;
+    color: #86a2c3;
+}
+
+div.slide-next.energy-monitor span.glyphicon.glyphicon-menu-right,
+div.slide-next.settings span.glyphicon.glyphicon-menu-right{
+    font-size: 12px;
+}
+
+div#bj-other-user-settings-div {
+    border-bottom: 2px solid #2c3a4a;
+}
+
+.channel-info {
+    margin-left: 52px;
+}
+
+.bulb-on.light1.state2{
+	margin-top:0;
+}
+
+label.bj-config-lbl.other-settings-div {
+    color: #56677d;
+    background-color: #18222d;
+    border-top: 2px solid #111821;
+    border-bottom: 2px solid #111821;
+    margin-top: 20px;
+}
+
+label.bj-config-lbl.presence-simulation-div,label.bj-config-lbl.user-sensor-div,
+ label.bj-config-lbl.user-basic-illumination-div,label.bj-config-lbl.user-anti-glare-div{
+    background-color: #18222d;
+    color: #63778f;
+    border-bottom: 2px solid #131b25;
+    border-top: 2px solid #131b25;
+}
+
+div#bj-user-sensor-div {
+    padding-bottom: 20px;
+}
+
+.bj-config-setting-div.presence-simulation-div.ng-scope {
+    border-bottom: 2px solid #39414a;
+    border-top: 2px solid #39414a;
+    margin-top: -5px;
+    color: #63778f;
+}
+
+label.bj-config-setting.presence-simulation-block {
+    color: #63778f;
+}
+
+.bj-config-setting-block-div.brightness-user-div{
+    border-bottom: 2px solid #131b25;
+    border-top: 2px solid #39414a;
+    margin-top: -5px;
+    padding-bottom: 22px;
+}
+
+.bj-config-setting-block-div.short-time-pulse-user-div {
+    border-top: 2px solid #39414a;
+    border-bottom: 2px solid #131b25;
+}
+
+label.bj-config-setting-block-lbl.brightness-user-function{
+    color: #63778f;
+    font-size: 16px;
+    margin-top: 12px;
+}
+
+.bj-config-setting-adjust.brightness-user-function {
+    margin-left: 26px;
+    margin-top: 12px;
+}
+
+.bj-config-setting-adjust.brightness-user-function,
+.bj-config-setting-adjust.short-time-pulse-user-function{
+    margin-left: 26px;
+    margin-top: 12px;
+}
+
+label.bj-config-setting.brightness-user-function,
+label.bj-config-setting-block-lbl.short-time-pulse-user-function {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #63778f;
+}
+
+div#bj-user-basic-illumination-div {
+    margin-top: -22px;
+}
+
+label.switch-onlabel.user {
+    color: #000000;
+}
+
+.track.user{
+    background-color: #a8a8a8;
+}
+
+label.switch-offlabel.user{
+    color: #000000;
+}
+
+.switch.user.switch-on {
+    background-color: #e2e2e2;
+    border-left: 1px solid #7a7f85;
+}
+
+.switch.user.switch-off {
+    background-color: #e2e2e2;
+    border-right: 1px solid #7a7f85;
+}
+
+.static-unit-text.user {
+    color: #0173b2;
+}
+
+input.adjust.user{
+    border: 2px solid #3f5064;
+    background-color: inherit;
+    color: #0173b2;
+}
+
+input.adjust-value.brightness-user-function{
+    background-color: inherit;
+    border: 2px solid #3f5064;
+    color: #0173b2;
+}
+
+.adjust-minus.user,.adjust-plus.user {
+    color: #63778f;
+}
+
+.bj-config-setting.inner-setting.user {
+    color: #63778f;
+    min-height: 50px;
+    padding-bottom: 12px;
+}
+
+label.anti-glare-function-lbl {
+    color: #63778f;
+}
+
+div#bj-send-to-device-user {
+    float: right;
+    width: 70%;
+    height: 100%;
+    padding-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    margin-top: -4px;
+}
+
+.bj-back.user {
+    background-color: #e7eaee;
+    border-right: 1px solid #939393;
+}
+
+div.bj-back.user span.glyphicon.glyphicon-remove {
+    text-shadow: -2px 0 black,1px 0 black,2px 0 black,1px 0 black;
+}
+
+.bj-footer.user-settings{
+    background-color: #ffffff;
+}
+
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a,
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a:focus,
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a:hover {
+    background-color: #202d40 !Important;
+    color: #026fae !Important;
+    border: 2px solid #1a2433 !Important;
+    border-bottom: 1px solid #1a2433;
+}
+
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-month,
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-year{
+    width: 50%;
+    text-align: center;
+}
+
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li a {
+    background-color: #2b3f57;
+    color: #92b0d4;
+    border-radius: 0 0 0 0 !Important;
+}
+
+div#user-energymonitor-tabpanel ul.nav.nav-tabs {
+    border-bottom: none !Important;
+}
+
+div#user-energymonitor-currentMonth {
+    color: #8ca9cc;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    width:100%;
+    min-height:20px;
+}
+
+.energymonitor-maximum {
+    margin-top: 30px;
+    border-bottom: 4px solid red;
+    height: 40px;
+    width: 100%;
+    display: inline-flex;
+}
+
+
+.energymonitor-graph {
+    height: 200px;
+    border-bottom: 1px solid #1c2937;
+    position:relative;
+}
+
+.month-graph-max {
+    color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+}
+
+.energymonitor-week-info {
+    bottom: 0;
+    height: 28px;
+    background-color: #1c2937;
+    position: absolute;
+    display: inline-flex;
+    color: #647790;
+    border-top: 1px solid #3e4955;
+    width: 100%;
+}
+
+.month-bar-graph {
+    width: 24%;
+    position:absolute;
+    background-color: #98b6db;;
+    bottom: 0;
+    margin-bottom: 0;
+}
+
+.energymonitor-bar-graphs {
+    display: inline-flex;
+    bottom: 0;
+    margin-bottom: 28px;
+    height: 180px;
+    position: absolute;
+    width: 100%;
+}
+
+.month-bar-graph.bar2{
+	margin-left: 26%;
+}
+
+.month-bar-graph.bar3{
+	margin-left: 52%;
+}
+
+.month-bar-graph.bar4{
+	margin-left: 78%;
+}
+
+.energymonitor-details {
+    bottom: 0;
+    background-color: #233345;
+    left: 0;
+    right: 0;
+    min-height: 200px;
+}
+
+.month-graph-value {
+    min-height: 20%;
+    top: 40%;
+    background-color: #7892b2;
+    position: relative;
+    color: #40546a;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.month-graph-value.bar1 {
+    font-size: 26px;
+}
+
+.month-graph-value.bar2 {
+    font-size: 26px;
+    padding-top: 4px;
+}
+
+.month-graph-value.bar3 {
+    font-size: 22px;
+    padding-bottom: 2px;
+}
+
+.month-graph-value.bar4 {
+    font-size: 15px;
+}
+
+.details {
+    height: 60px;
+    border-top: 1px solid #2f4660;
+    border-bottom: 2px solid #1f2939;
+}
+
+div#user-energymonitor-tab-content {
+    margin-bottom: 30px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+
+.energymonitor-maximum-yearly {
+    margin-top: 58px;
+    border-top: 4px solid red;
+    position: relative;
+    bottom: 0;
+    height: 71%;
+}
+
+label.current-duration.month {
+    margin-top: 16px;
+    margin-left: 34px;
+    color: #566980;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+label.current-duration-value.month {
+    margin-right: 20px;
+    float: right;
+    margin-top: 14px;
+    color: #8ca8cb;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+label.total-savings.month {
+    margin-top: 16px;
+    margin-left: 34px;
+    color: #566980;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+label.total-savings-value.month {
+    margin-right: 20px;
+    float: right;
+    margin-top: 12px;
+    color: #8ca8cb;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.details.reference-details {
+    padding-left: 34px;
+    padding-top: 12px;
+    color: #8ca8cb;
+    font-size: 18px;
+}
+
+.details.reset-data {
+    padding-left: 36px;
+    padding-top: 14px;
+    color: #8ca8cb;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(#2e455e, #25344a);
+}
+
+div.details.reference-details span.glyphicon.glyphicon-menu-right{
+	float: right;
+    font-size: 12px;
+    margin-top: 6px;
+    margin-right: 10px;
+}
+
+div.details.reset-data span.glyphicon.glyphicon-remove{
+	color: #8ca8cb;
+    font-size: 22px;
+    float: right;
+    margin-right: 24px;
+}
+
+.barGraphPanel{
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    overflow-x: scroll;
+    min-width: 200%;
+    font-size: 50px;
+    float: left;
+    overflow-y: hidden;
+    display:inline-flex;
+}
+
+.barGraphPanel.month {
+    overflow-x: hidden;
+}
+
+.yearBarGraph{
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 400px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.barGraphMonth {
+    width: 104px;
+    height: 100%;
+    float: left;
+    position:relative;
+}
+
+.energymonitor-month-info {
+    bottom: 0;
+    height: 28px;
+    background-color: #1c2937;
+    position: absolute;
+    color: #647790;
+    border-top: 1px solid #3e4955;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+}
+
+.energymonitor-maximum-monthly {
+    margin-top: 90px;
+    border-top: 4px solid red;
+    position: relative;
+    bottom: 0;
+    height: 71%;
+}
+
+.monthly-max-threshold {
+    width: 100%;
+    height: 36px;
+    background-color: red;
+    position: absolute;
+    margin-top: 54px;
+}
+
+.monthBarGraph {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.monthly-bar-graph{
+    background-color: #7daddc;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-right: 6%;
+    margin-left: 6%;
+}
+
+.user-energymonitor-year {
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 30px;
+    margin-top: 10px;
+   	color: #8ca9cc;
+}
+
+.user-sensor-settings {
+    background-color: #1c2937;
+    color: #8ca8cb;
+    padding-left: 34px;
+    font-size: 18px;
+    height: 32px;
+    padding-top: 3px;
+}
+
+label.bj-config-lbl.energy-monitor-reference-div.user {
+    background-color: #1b2635;
+    border-bottom: solid 1px #111821;
+    color: #697d96;
+}
+
+.bj-config-setting.inner-setting.energy-monitor-reference-load.user {
+    border-bottom: 1px solid #334253;
+    border-top: 1px solid #334253;
+    margin-top: -4px;
+    padding-bottom: 20px;
+}
+
+.bj-config-setting.inner-setting.energy-monitor-lighting-reference.user {
+    border-bottom: 1px solid #334253;
+    padding-bottom: 20px;
+}
+
+.bj-config-setting.inner-setting.energy-monitor-price-reference.user {
+    border-bottom: 1px solid #334253;
+    padding-bottom: 20px;
+}
+
+/*menu-help && menu-about*/
+
+.version {
+	font-size: 12px;
+	color: black;
+}
+
+
+label.bj-instruction.help.bj-user-view,label.bj-instruction.about.bj-user-view {
+    width: 50%;
+    color: #000000;
+    font-size: 20px;
+    margin-top: 50%;
+    margin-left: 20%;
+}
+
+label.bj-instruction.help,label.bj-instruction.about{
+    width: 50%;
+    color: #6b7f97;
+    font-size: 14px;
+    margin-top: 50%;
+    margin-left: 20%;
+}
+
+a.bj-instruction-link.help.bj-user-view,a.bj-instruction-link.about.bj-user-view  {
+    color: #a3a3a3;
+    font-size: 12px;
+}
+
+a.bj-instruction-link.help,a.bj-instruction-link.about{
+    color: #2288c0;
+    font-size: 12px;
+}
+
+.bj-instruction-link-p{
+    margin-top: 10px;
+    margin-left: 20%;
+    text-align: left;
+    margin-right: 26%;
+}
+/*menu-help && menu-about*/
+
+/*switch mode*/
+label.bj-config-setting.switchmode {
+    color: #000000;
+    font-size: 18px;
+}
+
+.switch-mode-selection {
+    min-height: 62px;
+    border-bottom: 1px solid #666666;
+}
+
+.bj-config-lbl.switch-mode-txt {
+    background-color: #bfbfbf;
+    border-bottom: solid 1px #b8b8b8;
+    color: #000000;
+}
