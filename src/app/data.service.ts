@@ -10,6 +10,7 @@ export class SubMenuItem {
 @Injectable()
 export class DataService {
       private showHeader = false;
+      private showFooter = false;
       private arrowState = -1;
       private devices:Array<any>;
       private profileSwitch = true;
@@ -68,6 +69,13 @@ export class DataService {
     getMenuArrow() {
       return this.arrowState;
     }
+    setFooter(footerState) {
+      this.showFooter =  footerState;
+    }
+    getFooter() {
+      return this.showFooter;
+    }
+
     setHeader(headerState) {
       this.showHeader =  headerState;
     }

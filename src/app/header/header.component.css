@@ -108,3 +108,82 @@
 	font-size:20px;
 	position:absolute;
 }
+
+/*css for bj-footer*/
+.bj-footer {
+	position: absolute;
+	height: 50px;
+	left:0;
+	right:0;
+	bottom:0;
+	display: inline-flex;
+}
+
+
+.bj-footer.bj-full-view  {
+	height: 0;
+	left:0;
+    right:0;
+    bottom:0;
+}
+
+.bj-footer.bj-user-view .bj-back{
+	float:left;
+    width:25%;
+    height:100%;
+    padding-top: 14px;
+    text-align:center;
+	background-color:#8080ff;
+	color:#000000;
+}
+
+.bj-footer .bj-back{
+	float:left;
+	width:30%;
+	height:100%;
+	padding-top: 14px;
+	text-align:center;
+	background-color:#015c8e;;
+	color:#ffffff;
+}
+
+.bj-footer #bj-send-to-device,.bj-footer #bj-load-profile{
+	float:right;
+	width:70%;
+	height:100%;
+	padding-top: 10px;
+	text-align:center;
+	background-color:#0171af;;
+	color:#015c8e;
+	font-size:20px;
+}
+
+.bj-footer .glyphicon{
+	font-size:20px;
+}
+
+.bj-footer #deactivate-testmode{
+	width:100%;
+	height:100%;
+	padding-top: 10px;
+	text-align:center;
+	background-color:#0171af;;
+	color:#ffffff;
+	font-size:20px;
+}
+
+.bj-footer.bj-user-view {
+	position: absolute;
+	height: 50px;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#ffffff;
+	text-align:center;
+	color:#093c5b;
+	padding:14px;
+	display: inline;
+}
+.bj-footer.user-settings{
+    background-color: #ffffff;
+}
