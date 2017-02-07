@@ -7,30 +7,60 @@ export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
 }
 
+export class UIParams {
+
+      constructor() {}
+      public showHeader = false;
+      public showFooter = false;
+      public arrowState = -1;
+      public devices:Array<any>;
+      public profileSwitch = true;
+      public subMenuVal= 'none';
+      public profile = 'none';
+      public mainTitle = 'BJ DETECTOR';
+      arrowStateChange: EventEmitter<any> = new EventEmitter();
+}
+
+export class DeviceParams {
+        constructor(){}
+        public deviceName = '';
+        public deviceType= '';
+        public articleNumber= '';
+        public contactName= '';
+        public buildingName= '';
+        public date= '';
+        public fwupdate = false;
+        public modelType= '';
+        public firmwareVersion= '';
+        public devicetype= -1;
+}
+
+
 @Injectable()
 export class DataService {
-      private showHeader = false;
-      private showFooter = false;
-      private arrowState = -1;
-      private devices:Array<any>;
-      private profileSwitch = true;
-      private subMenuVal= 'none';
-      private profile = 'none';
-      private mainTitle = 'BJ DETECTOR';
-      arrowStateChange: EventEmitter<any> = new EventEmitter();
-    constructor(private http:Http,private logger: LoggerService) {
 
+    uiParams:UIParams   =  new UIParams();
+    deviceParams:DeviceParams   =  new DeviceParams();
+    deviceData:any;
+
+    constructor(private http:Http,private logger: LoggerService) {
     }
 
     setMainTitle(title) {
-        this.mainTitle = title;
+        this.uiParams.mainTitle = title;
     }
     getMainTitle() {
-        return this.mainTitle;
+        return this.uiParams.mainTitle;
     }
     public initDevices() {
         this.loadDevices().then((devs) => {
-             this.devices = devs;
+             this.uiParams.devices = devs;
+        });
+    }
+
+    public getDeviceData(item){
+        this.loadDeviceData(item).then((data) => {
+             this.deviceData = data;
         });
     }
 
@@ -42,74 +72,101 @@ export class DataService {
         });
     }
 
+    loadDeviceData(item) {
+        if(item.deviceType == 'relay1c') {
+            this.deviceParams.devicetype = 2;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/relay1c.json').subscribe(response => {
+                    resolve(response.json());
+                    
+                });
+            });
+            
+        }else if(item.deviceType == 'mosfet1c') {
+            this.deviceParams.devicetype = 1;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/mosfet1c.json').subscribe(response => {
+                    resolve(response.json());
+                });
+            });
+        }else if(item.deviceType == 'daliMaster1c') {
+            this.deviceParams.devicetype = 0;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/daliMaster1c.json').subscribe(response => {
+                    resolve(response.json());
+                });
+            });
+        }
+    }
+
     getDevice(i) {
-        return this.devices[i];
+        return this.uiParams.devices[i];
     }
     setDevice(device) {
-        this.devices.concat(device);
+        this.uiParams.devices.concat(device);
     }
     setDevices(devices) {
         this.clearDevices();
-        this.devices = devices;
+        this.uiParams.devices = devices;
     }
     clearDevices() {
-        this.devices.splice(0,this.devices.length);
+        this.uiParams.devices.splice(0,this.uiParams.devices.length);
     }
     getDevices(){
-        if(this.devices && (this.devices.length > 0)) {
-            return this.devices;
+        if(this.uiParams.devices && (this.uiParams.devices.length > 0)) {
+            return this.uiParams.devices;
         }
     }
     setMenuArrow(menuState) {
-      this.arrowState =  menuState;
+      this.uiParams.arrowState =  menuState;
     }
     closeMenu() {
         this.arrowStateEmit();
     }
     getMenuArrow() {
-      return this.arrowState;
+      return this.uiParams.arrowState;
     }
     setFooter(footerState) {
-      this.showFooter =  footerState;
+      this.uiParams.showFooter =  footerState;
     }
     getFooter() {
-      return this.showFooter;
+      return this.uiParams.showFooter;
     }
 
     setHeader(headerState) {
-      this.showHeader =  headerState;
+      this.uiParams.showHeader =  headerState;
     }
     getHeader() {
-      return this.showHeader;
+      return this.uiParams.showHeader;
     }
     setProfile(in_profile) {
-      this.profile = in_profile;
+      this.uiParams.profile = in_profile;
     }
     getProfile(){
-      return this.profile;
+      return this.uiParams.profile;
     }
 
     getProfileSwitch() {
-        return this.profileSwitch;
+        return this.uiParams.profileSwitch;
     }
     setProfileSwitch(switchprofile) {
-        this.profileSwitch = switchprofile;
+        this.uiParams.profileSwitch = switchprofile;
     }
     arrowStateEmit() {
-        this.arrowStateChange.emit(0);
+        this.uiParams.arrowStateChange.emit(0);
     }
     subscribe(component, callback) {
-        return this.arrowStateChange.subscribe(data => callback(component, data));
+        return this.uiParams.arrowStateChange.subscribe(data => callback(component, data));
     }
     setSubMenuVal(submenuval) {
-        this.subMenuVal =  submenuval;
+        this.uiParams.subMenuVal =  submenuval;
     }
     getSubMenuVal() {
-        return this.subMenuVal;
+        return this.uiParams.subMenuVal;
     }
 
     getSubMenuItems() {
-        if(this.profile == 'user') {
+        if(this.uiParams.profile == 'user') {
             let menuItems: Array<SubMenuItem> = [ 
                 new SubMenuItem('Help','help'),
                 new SubMenuItem('About Busch-Jaeger','about'), 

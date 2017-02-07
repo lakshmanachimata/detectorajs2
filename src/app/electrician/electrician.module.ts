@@ -9,7 +9,7 @@ import { RouterModule, Routes,Router }  from '@angular/router';
 const ElctricianRoutes: Routes = [
   // { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: '', component: ElectricianComponent },
-  { path: 'electrician', loadChildren: './configdetector/cdetector.module#CDetectorEModule' },
+  { path: 'econfigdetector', loadChildren: './configdetector/cdetectore.module#CDetectorEModule' },
 ];
 
 @NgModule({

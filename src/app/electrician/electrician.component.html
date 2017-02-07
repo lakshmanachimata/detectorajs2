@@ -1,8 +1,8 @@
 <div class="bj-electrician-container"> 
     <div id="bj-empty-list" *ngIf="detectors"></div>
-    <ul  (click)="configureDetector(detector.btDeviceName)" *ngFor="let detector of detectors" class="bj-detectors-list">
+    <ul  (click)="configureDetector(detector)" *ngFor="let detector of detectors" class="bj-detectors-list">
         <div id="bj-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
-        <div class="bj-detector-firmware-update" *ngIf="detector.firmwareupdateavailable=='true'">firware update available</div>
+        <div class="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">firware update available</div>
         <li class="bj-detector-name">{{ detector.btDeviceName }}
             <span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
             <span id="bj-detector-icon-signal" class="glyphicon glyphicon-signal"></span>

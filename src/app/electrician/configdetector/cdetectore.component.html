@@ -1,11 +1,11 @@
 <div class="bj-config-container">
-      <div class="bj-config-detector-name-wrap" ng-show="groundLevel==0">
+      <div class="bj-config-detector-name-wrap" *ngIf="groundLevel==0">
          <div id="bj-config-detector-name">
-                <input id="device-name-input" type="text" ng-model="device.deviceName" ng-model-options="validate" ng-change="deviceNameChanged()">
+                <input id="device-name-input" type="text" [(ngModel)]="device.deviceName" ng-model-options="validate" ng-change="deviceNameChanged()">
          </div>
       </div>
 
-    <img id="mySpinner" src="icons/spinner.gif" ng-hide="doneLoading" />
+    <img id="mySpinner" src="../../../assets/icons/spinner.gif" ng-hide="doneLoading" />
       <div id="bj-config-settings-container" ng-show="doneLoading && groundLevel==0">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
