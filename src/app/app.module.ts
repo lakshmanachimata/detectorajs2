@@ -11,6 +11,7 @@ import { SubMenuComponent} from './menu/submenu.component';
 import { DataService } from './data.service';
 import { LoggerService } from './logger.service';
 import { FooterComponent} from './header/footer.component';
+
 @NgModule({
   declarations: [
     AppComponent,

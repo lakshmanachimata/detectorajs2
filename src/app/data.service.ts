@@ -33,6 +33,7 @@ export class DeviceParams {
         public modelType= '';
         public firmwareVersion= '';
         public devicetype= -1;
+        jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
 }
 
 
@@ -61,6 +62,7 @@ export class DataService {
     public getDeviceData(item){
         this.loadDeviceData(item).then((data) => {
              this.deviceData = data;
+             this.jsonLoadEmit();
         });
     }
 
@@ -99,6 +101,9 @@ export class DataService {
         }
     }
 
+    jsonLoadEmit() {
+        this.deviceParams.jsonLoadEmitter.emit();
+    }
     getDevice(i) {
         return this.uiParams.devices[i];
     }

@@ -11,8 +11,8 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 })
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-    private detectors:Array<any>;
-    private snap:RouterStateSnapshot;
+    jsonLoadObserve: any;
+    jsonLoaded = false;
     constructor(private logger: LoggerService,private data: DataService, private router:Router) {
     }
 
@@ -29,6 +29,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   ngOnInit () {
+    this.jsonLoadObserve = this.data.subscribe(this, this.jsonOnLoad);
+  }
+  jsonOnLoad() {
+    this.jsonLoaded =  true;
   }
   ngOnDestroy() {
   }
