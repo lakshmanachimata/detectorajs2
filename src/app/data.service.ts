@@ -37,13 +37,14 @@ export class DeviceParams {
 }
 
 
+
 @Injectable()
 export class DataService {
 
     uiParams:UIParams   =  new UIParams();
     deviceParams:DeviceParams   =  new DeviceParams();
     deviceData:any;
-
+    private selectedDevice:any;
     constructor(private http:Http,private logger: LoggerService) {
     }
 
@@ -59,12 +60,7 @@ export class DataService {
         });
     }
 
-    public getDeviceData(item){
-        this.loadDeviceData(item).then((data) => {
-             this.deviceData = data;
-             this.jsonLoadEmit();
-        });
-    }
+   
 
     loadDevices() {
         return new Promise<Array<any>>(resolve => {
@@ -72,37 +68,6 @@ export class DataService {
                 resolve(response.json().detectors);
             });
         });
-    }
-
-    loadDeviceData(item) {
-        if(item.deviceType == 'relay1c') {
-            this.deviceParams.devicetype = 2;
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/relay1c.json').subscribe(response => {
-                    resolve(response.json());
-                    
-                });
-            });
-            
-        }else if(item.deviceType == 'mosfet1c') {
-            this.deviceParams.devicetype = 1;
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/mosfet1c.json').subscribe(response => {
-                    resolve(response.json());
-                });
-            });
-        }else if(item.deviceType == 'daliMaster1c') {
-            this.deviceParams.devicetype = 0;
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/daliMaster1c.json').subscribe(response => {
-                    resolve(response.json());
-                });
-            });
-        }
-    }
-
-    jsonLoadEmit() {
-        this.deviceParams.jsonLoadEmitter.emit();
     }
     getDevice(i) {
         return this.uiParams.devices[i];
@@ -190,4 +155,53 @@ export class DataService {
             return menuItems;
         }
     }
+/****************  DEVICE INFO APIs specific to each device ******************/
+
+    public setSelectedDevice(device) {
+        this.selectedDevice =  device;
+    }
+    public getSelectedDevice() {
+        return this.selectedDevice;
+    }
+    public getDeviceData(item){
+    this.loadDeviceData(item).then((data) => {
+             this.deviceData = data;
+             this.jsonLoadEmit();
+        });
+    }
+
+    public getDeviceName() {
+
+    }
+    loadDeviceData(item) {
+        if(item.deviceType == 'relay1c') {
+            this.deviceParams.devicetype = 2;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/relay1c.json').subscribe(response => {
+                    resolve(response.json());
+                    
+                });
+            });
+            
+        }else if(item.deviceType == 'mosfet1c') {
+            this.deviceParams.devicetype = 1;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/mosfet1c.json').subscribe(response => {
+                    resolve(response.json());
+                });
+            });
+        }else if(item.deviceType == 'daliMaster1c') {
+            this.deviceParams.devicetype = 0;
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('../assets/daliMaster1c.json').subscribe(response => {
+                    resolve(response.json());
+                });
+            });
+        }
+    }
+
+    jsonLoadEmit() {
+        this.deviceParams.jsonLoadEmitter.emit();
+    }
+
 }

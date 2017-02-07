@@ -13,7 +13,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     jsonLoadObserve: any;
     jsonLoaded = false;
+    activeDevice:any;
     constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+      this.activeDevice = this.data.getSelectedDevice();
     }
 
   ngOnChanges() { 
@@ -33,7 +35,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   jsonOnLoad() {
     this.jsonLoaded =  true;
+    this.activeDevice = this.data.getSelectedDevice();
   }
   ngOnDestroy() {
+  }
+  deviceNameChanged(nameChanged) {
+    this.logger.log('name changed to ' + nameChanged);
   }
 }

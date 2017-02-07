@@ -1,12 +1,12 @@
 <div class="bj-config-container">
-      <div class="bj-config-detector-name-wrap" *ngIf="groundLevel==0">
+      <div class="bj-config-detector-name-wrap">
          <div id="bj-config-detector-name">
-                <input id="device-name-input" type="text" [(ngModel)]="device.deviceName" ng-model-options="validate" ng-change="deviceNameChanged()">
+                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="deviceNameChanged()">
          </div>
       </div>
 
-    <img id="mySpinner" src="../../../assets/icons/spinner.gif" ng-hide="doneLoading" />
-      <div id="bj-config-settings-container" ng-show="doneLoading && groundLevel==0">
+    <!--<img id="mySpinner" src="../../../assets/icons/spinner.gif" ng-hide="doneLoading" />
+      <div id="bj-config-settings-container" ng-show="doneLoading">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
              <div class="bj-config-setting-div" ng-if="potentiometerMode !== undefined">
@@ -111,7 +111,7 @@
                          <div class="slide-open" ng-click="slideActuatorOpen()"><span class="glyphicon glyphicon-menu-left"></span></div>
                      </div>
                      <div class="bj-brightness-slider" ng-show="showSlider" ng-style="{'display':showSlider== true ? 'inline-block':'none'}">
-                         <div class="slide-close"ng-click="slideActuatorOpen()"><span class="glyphicon glyphicon-menu-right"></span></div> <!--ng-include="'../icons/12_012_left_def.svg'" slider model="$parent"></div>-->
+                         <div class="slide-close"ng-click="slideActuatorOpen()"><span class="glyphicon glyphicon-menu-right"></span></div> 
                          <div class="bj-slider-control">
                              <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" ng-model="actuator1.ch1_currentLevel" ng-style="sliderBackground(actuator1.ch1_currentLevel)">
                          </div>
@@ -178,10 +178,10 @@
              </div>
       </div>
     </div>
-    <div class="secondLevel-config-container" ui-view="secondLevel" ng-hide="groundLevel==0"></div>
+    <div class="secondLevel-config-container" ui-view="secondLevel" ></div>-->
 </div>
 
-<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && !testmodeEnable && !updateEnable && !loadProfileState">
+<!--<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && !testmodeEnable && !updateEnable && !loadProfileState">
     <div class="bj-back" ng-click="cancelModifications()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-send-to-device" ng-click="sendToDevice();showDialog('overwriteprofile')" ng-disabled="!sendChangesToDevice" ng-style="{'color':sendChangesToDevice==true ? '#ffffff' :'#015c8e'}">Send</div>
 </div>
@@ -197,4 +197,4 @@
 <div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && loadProfileState && !testmodeEnable && !updateEnable">
     <div class="bj-back" ng-click="cancelModifications()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-load-profile" ng-click="loadProfile()" ng-disabled="!loadNewProfile" ng-style="{'color':loadNewProfile==true ? '#ffffff' :'#015c8e'}">Load</div>
-</div>
+</div>-->
