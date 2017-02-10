@@ -8,6 +8,37 @@
 	overflow-y:scroll;
 	background-color:white;
 }
+.bj-config-setting-div{
+	width:100%;
+	min-height:50px;
+	border-bottom: solid 1px #9eabbb;
+}
+
+.bj-config-setting{
+	color: #0c4264;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+	padding-left: 18px;
+}
+
+.bj-service-setting-div{
+	width:100%;
+	min-height:50px;
+	border-bottom: solid 1px #9eabbb;
+}
+
+.bj-service-setting{
+	color: #0c4264;
+    width:100%;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+	padding-left: 18px;
+    background-color: #ffffff;
+}
+
+
 
 .bj-config-detector-name-wrap{
     left: 0;
@@ -36,6 +67,19 @@
     font-weight: 400;
     border-radius: 5px;
     background-color: #ffffff;
+}
+
+.bj-service-lbl{
+    display: block;
+    left: 0;
+    right: 0;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #f9fafc;
+    color: #9eabbb;
+    border-bottom: solid 1px #9eabbb;
+    padding: 2px 20px;
 }
 
 .bj-config-lbl{
@@ -244,7 +288,13 @@ div.slide-close {
     background-repeat: no-repeat;
     background-position: center;*/
   }
-
+cdtector-nav-right{
+	float: right;
+    width: 20px;
+    font-size: 20px;
+    margin-right: 35px;
+    margin-top: 10px;
+}
 
 img#mySpinner{
   	width:50px;
@@ -1112,6 +1162,68 @@ div#bj-user-sensor-div {
     padding-bottom: 20px;
 }
 
+.adjust-minus{
+	color: #26394f;
+    width: 60px;
+    float: left;
+    text-align: center;
+    padding-left: 24px;
+    padding-right: 56px;
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 400;
+    border: solid 1px #9eabbb;
+    margin-left: 5px;
+	background: #e6e8ed;
+}
+.adjust-plus{
+	color: #26394f;
+    width: 60px;
+    float: right;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    padding-left: 30px;
+    padding-right: 56px;
+    margin-top: 10px;
+    border: solid 1px #9eabbb;
+    background: #e6e8ed;
+	margin-right:5px;
+}
+.bj-current-val{
+	/*display:inline-flex;*/
+	left:0;
+	right:0;
+	height: 40px;
+}
+
+.bj-config-setting-adjust .adjust{
+	width: 100%;
+    border: solid 1px;
+    border-color: #9eabbb;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+}
+.adjust-value{
+    width: 112px;
+    height: 34px;
+    border-radius: 7px;
+    background: #e6e8ed;
+    border:1px solid;
+    border-color:#c0c0bf;
+    color: #26394f;
+    font-size: 15px;
+    float:right;
+    font-weight: 400;
+    margin-top: 26px;
+    /*margin-left: 8px;*/
+    margin-right: 12px;
+    text-align:center;
+}
+
 .bj-config-setting-div.presence-simulation-div.ng-scope {
     border-bottom: 2px solid #39414a;
     border-top: 2px solid #39414a;
@@ -1119,8 +1231,20 @@ div#bj-user-sensor-div {
     color: #63778f;
 }
 
+.bj-config-setting-adjust{
+	left:0;
+	right:0;
+	height:50px;
+	display:flex;
+}
+
 label.bj-config-setting.presence-simulation-block {
     color: #63778f;
+}
+.bj-config-setting-block-div{
+	width:100%;
+   	min-height:250px;
+   	border-bottom: solid 1px #9eabbb;
 }
 
 .bj-config-setting-block-div.brightness-user-div{
@@ -1133,6 +1257,13 @@ label.bj-config-setting.presence-simulation-block {
 .bj-config-setting-block-div.short-time-pulse-user-div {
     border-top: 2px solid #39414a;
     border-bottom: 2px solid #131b25;
+}
+.bj-config-setting-block-lbl{
+	color: #9eabbb;
+	font-size: 14px;
+	font-weight: 600;
+	padding-top: 8px;
+	padding-left: 18px;
 }
 
 label.bj-config-setting-block-lbl.brightness-user-function{
@@ -1163,8 +1294,71 @@ div#bj-user-basic-illumination-div {
     margin-top: -22px;
 }
 
+
+.switch-onlabel{
+	height: 100%;
+    width: 10px;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+    padding-top: 8px;
+    padding-left: 8px;
+    font-weight:400;
+    color:#26394f;
+}
+.switch-offlabel{
+    height: 100%;
+    width: 28px;
+    font-size: 20px;
+    text-align: center;
+    float: right;
+    padding-top: 10px;
+    padding-right: 32px;
+    font-weight: 400;
+    color: #5e738e;
+}
+
+.switch.switch-off{
+	border-right: 1px solid;
+	border-color:#c0c1c3;
+ 	transition: linear 0.3s;
+  	-o-transition: linear 0.3s;
+  	-moz-transition: linear 0.3s;
+  	-webkit-transition: linear 0.3s;
+  	transform: translateX(0);
+}
+
+.switch.switch-on{
+	transition: linear 0.3s;
+  	-o-transition: linear 0.3s;
+  	-moz-transition: linear 0.3s;
+  	-webkit-transition: linear 0.3s;
+  	transform: translateX(219%);
+}
+
 label.switch-onlabel.user {
     color: #000000;
+}
+.bj-config-toggle-switch{
+	float: right;
+    padding-top: 12px;
+    padding-right: 10px;
+}
+.bj-config-toggle-switch.actuator1,.bj-config-toggle-switch.actuator2{
+	margin-top:-12px;
+}
+
+
+.track{
+	width:56px;
+	height:28px;
+	border-radius:3px;
+	border: 1px solid;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    line-height: 8px;
+    margin-top:-3px;
 }
 
 .track.user{
@@ -1183,6 +1377,18 @@ label.switch-offlabel.user{
 .switch.user.switch-off {
     background-color: #e2e2e2;
     border-right: 1px solid #7a7f85;
+}
+.static-unit-text{
+    font-size: 17px;
+    height: 40px;
+    width: 50px;
+    text-align: center;
+    margin-top: 10px;
+    color: #26394f;
+    border: solid 1px #9eabbb;
+    padding-top: 6px;
+    border-right: none;
+    border-left: none;
 }
 
 .static-unit-text.user {
@@ -1512,6 +1718,10 @@ div.details.reset-data span.glyphicon.glyphicon-remove{
     height: 71%;
 }
 
+label.bj-config-setting-block-lbl.short-time-pulse-function {
+	margin-top: 20px;
+}
+
 .monthly-max-threshold {
     width: 100%;
     height: 36px;
@@ -1578,63 +1788,4 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
 .bj-config-setting.inner-setting.energy-monitor-price-reference.user {
     border-bottom: 1px solid #334253;
     padding-bottom: 20px;
-}
-
-/*menu-help && menu-about*/
-
-.version {
-	font-size: 12px;
-	color: black;
-}
-
-
-label.bj-instruction.help.bj-user-view,label.bj-instruction.about.bj-user-view {
-    width: 50%;
-    color: #000000;
-    font-size: 20px;
-    margin-top: 50%;
-    margin-left: 20%;
-}
-
-label.bj-instruction.help,label.bj-instruction.about{
-    width: 50%;
-    color: #6b7f97;
-    font-size: 14px;
-    margin-top: 50%;
-    margin-left: 20%;
-}
-
-a.bj-instruction-link.help.bj-user-view,a.bj-instruction-link.about.bj-user-view  {
-    color: #a3a3a3;
-    font-size: 12px;
-}
-
-a.bj-instruction-link.help,a.bj-instruction-link.about{
-    color: #2288c0;
-    font-size: 12px;
-}
-
-.bj-instruction-link-p{
-    margin-top: 10px;
-    margin-left: 20%;
-    text-align: left;
-    margin-right: 26%;
-}
-/*menu-help && menu-about*/
-
-/*switch mode*/
-label.bj-config-setting.switchmode {
-    color: #000000;
-    font-size: 18px;
-}
-
-.switch-mode-selection {
-    min-height: 62px;
-    border-bottom: 1px solid #666666;
-}
-
-.bj-config-lbl.switch-mode-txt {
-    background-color: #bfbfbf;
-    border-bottom: solid 1px #b8b8b8;
-    color: #000000;
 }

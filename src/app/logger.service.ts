@@ -6,17 +6,18 @@ export class LoggerService {
   private logData = true;
   private logWarn = true;
   private logErr = true;  
+
   log(msg: any)   { 
     if(this.logData == true)
-      console.log(msg);
+      console.log(msg + '  ' + (new Date).getTime());
    }
   error(msg: any) { 
     if(this.logWarn == true)
-      console.error(msg); 
+      console.error(msg+ '  ' + (new Date).getTime()); 
   }
   warn(msg: any)  { 
     if(this.logErr == true)
-    console.warn(msg); 
+    console.warn(msg+ '  ' + (new Date).getTime()); 
   }
   
 }

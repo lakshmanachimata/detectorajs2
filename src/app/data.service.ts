@@ -125,8 +125,11 @@ export class DataService {
     arrowStateEmit() {
         this.uiParams.arrowStateChange.emit(0);
     }
-    subscribe(component, callback) {
+    subscribeArrowState(component, callback) {
         return this.uiParams.arrowStateChange.subscribe(data => callback(component, data));
+    }
+    subscribeJsonLoad(component, callback) {
+        return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));
     }
     setSubMenuVal(submenuval) {
         this.uiParams.subMenuVal =  submenuval;
@@ -159,23 +162,33 @@ export class DataService {
 
     public setSelectedDevice(device) {
         this.selectedDevice =  device;
+        if(device.deviceType == 'relay1c') {
+            this.deviceParams.devicetype = 2;
+        }else if(device.deviceType == 'mosfet1c') {
+            this.deviceParams.devicetype = 1;
+        }else if(device.deviceType == 'daliMaster1c') {
+            this.deviceParams.devicetype = 0;
+        }
     }
     public getSelectedDevice() {
         return this.selectedDevice;
     }
-    public getDeviceData(item){
+    public getSelectedDeviceType() {
+        return this.deviceParams.devicetype;
+    }
+    public initDeviceData(item){
     this.loadDeviceData(item).then((data) => {
              this.deviceData = data;
+             this.logger.log('jsonLoaded called');
              this.jsonLoadEmit();
         });
     }
 
-    public getDeviceName() {
-
+    public getDevicedata() {
+        return this.deviceData;
     }
     loadDeviceData(item) {
         if(item.deviceType == 'relay1c') {
-            this.deviceParams.devicetype = 2;
             return new Promise<Array<any>>(resolve => {
             this.http.get('../assets/relay1c.json').subscribe(response => {
                     resolve(response.json());
@@ -184,14 +197,12 @@ export class DataService {
             });
             
         }else if(item.deviceType == 'mosfet1c') {
-            this.deviceParams.devicetype = 1;
             return new Promise<Array<any>>(resolve => {
             this.http.get('../assets/mosfet1c.json').subscribe(response => {
                     resolve(response.json());
                 });
             });
         }else if(item.deviceType == 'daliMaster1c') {
-            this.deviceParams.devicetype = 0;
             return new Promise<Array<any>>(resolve => {
             this.http.get('../assets/daliMaster1c.json').subscribe(response => {
                     resolve(response.json());
@@ -201,7 +212,7 @@ export class DataService {
     }
 
     jsonLoadEmit() {
-        this.deviceParams.jsonLoadEmitter.emit();
+        this.deviceParams.jsonLoadEmitter.emit(0);
     }
 
 }

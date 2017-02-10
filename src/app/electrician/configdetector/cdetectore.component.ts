@@ -11,16 +11,24 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 })
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-    jsonLoadObserve: any;
-    jsonLoaded = false;
+    
     activeDevice:any;
+    activeDeviceInfo:any;
+    onLabel = 'on';
+    offLable = 'off';
+    deviceType = -1;
     constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice();
+      this.deviceType = data.getSelectedDeviceType();
+      this.data.setFooter(true);
     }
 
   ngOnChanges() { 
   }
   ngDoCheck() { 
+  }
+  ngOnInit() {
+    
   }
   ngAfterContentInit() { 
   }
@@ -30,13 +38,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngAfterViewChecked() { 
   }
-  ngOnInit () {
-    this.jsonLoadObserve = this.data.subscribe(this, this.jsonOnLoad);
-  }
-  jsonOnLoad() {
-    this.jsonLoaded =  true;
-    this.activeDevice = this.data.getSelectedDevice();
-  }
+  
   ngOnDestroy() {
   }
   deviceNameChanged(nameChanged) {

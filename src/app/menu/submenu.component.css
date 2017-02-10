@@ -333,12 +333,7 @@ div#bj-user-empty-list{
 	min-height:100px;
 	width:100%;
 }
-.bj-current-val{
-	/*display:inline-flex;*/
-	left:0;
-	right:0;
-	height: 40px;
-}
+
 div.bj-sort-devices,select.dropdown-sortby{
 	left:0;
 	right:0;

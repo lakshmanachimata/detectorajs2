@@ -12,14 +12,15 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
     private detectors:Array<any>;
+    jsonLoadObserve: any;
     private snap:RouterStateSnapshot;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetector(item){
       this.logger.log("configure detector selecter" + item.btDeviceName);
-      this.data.getDeviceData(item);
-      this.router.navigate(['econfigdetector'],{relativeTo: this.route});
+      this.data.initDeviceData(item);
       this.data.setSelectedDevice(item);
+      
   }
   ngOnChanges() { 
   }
@@ -35,14 +36,20 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.snap = this.router.routerState.snapshot;
   }
   ngOnInit () {
+    this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     this.detectors = this.data.getDevices();
     this.data.setMainTitle('Detecors');
     this.logger.log('ElectricianComponent called' + this.detectors.length);
-      this.data.setHeader(true);
-      this.data.setMenuArrow(0);
-      this.data.setProfile('electrician');
-      this.data.setProfileSwitch(true);
+    this.data.setHeader(true);
+    this.data.setMenuArrow(0);
+    this.data.setProfile('electrician');
+    this.data.setProfileSwitch(true);
+  }
+
+  jsonOnLoad(component) {
+      component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
   ngOnDestroy() {
+    this.logger.log("ngOnDestroy of electrician" );
   }
 }

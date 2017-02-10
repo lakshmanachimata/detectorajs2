@@ -65,7 +65,7 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
 
     ngOnInit() { 
-        this.arrowStateObserve = this.data.subscribe(this, this.menuArrowStateChange);
+        this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
         if (this.menuState == 'none') {
             setTimeout(() => this.menuState = "topin")
         }

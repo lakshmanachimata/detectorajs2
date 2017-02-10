@@ -5,180 +5,178 @@
          </div>
       </div>
 
-    <!--<img id="mySpinner" src="../../../assets/icons/spinner.gif" ng-hide="doneLoading" />
-      <div id="bj-config-settings-container" ng-show="doneLoading">
+    <!--<img id="mySpinner" src="../../../assets/icons/spinner.gif"  />-->
+      <div id="bj-config-settings-container">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
-             <div class="bj-config-setting-div" ng-if="potentiometerMode !== undefined">
+             <div class="bj-config-setting-div" >
                     <label class="bj-config-setting potentiometer-block">Potentiometers</label>
-                    <div><label class="bj-config-setting">Enabled</label><input type="radio" class="operating-radio" ng-model="$parent.potentiometerMode" name="potentiometer_mode" ng-value="0"/></div>
-                    <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" ng-model="$parent.potentiometerMode" name="potentiometer_mode" ng-value="1"/></div>
-                    <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio" ng-model="$parent.potentiometerMode" name="potentiometer_mode" ng-value="2"/></div>
+                    <div><label class="bj-config-setting">Enabled</label><input type="radio" class="operating-radio" name="potentiometer_mode" value="0"/></div>
+                    <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="1"/></div>
+                    <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="2"/></div>
             </div>
-            <div class="bj-config-setting-div constant-light-div" ng-if="constantLightControlEnable !== undefined && device.deviceType == deviceTypes.DALI">
+            <div class="bj-config-setting-div constant-light-div">
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                      <span class="bj-config-toggle-switch">
-                         <div class="track" ng-model="constantLightControlEnable" ng-click="$parent.constantLightControlEnable=!$parent.constantLightControlEnable" ng-style="{'border-color':constantLightControlEnable== true ? '#26394f':'#c0c1c3'}">
-                             <label class="switch-onlabel" ng-if="constantLightControlEnable">{{onLabel}}</label>
-                             <label class="switch-offlabel" ng-if="!constantLightControlEnable">{{offLabel}}</label>
-                                <div class="switch" ng-class="{'switch-on':constantLightControlEnable,'switch-off':!constantLightControlEnable}" ng-style="{'background-color':constantLightControlEnable== true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"   [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
                        </div></span>
             </div>
 
-            <div class="bj-config-setting-block-div brightness-div" ng-if="brightnessthreshold.brightnessThreshold !== undefined">
-              <label class="bj-config-setting brightnessthreshold-function">Brightness threshold ({{brightnessthreshold.brightnessThresholdMin}}-{{brightnessthreshold.brightnessThresholdMax}} lx)</label>
+            <div class="bj-config-setting-block-div brightness-div" >
+              <label class="bj-config-setting brightnessthreshold-function">Brightness threshold (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
-                  <div class="adjust-minus" ng-click="decrementVal(brightnessthreshold.brightnessThreshold,brightnessthreshold.type)"><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust"type="text" ng-model="brightnessthreshold.brightnessThreshold" ng-model-options="validate" ng-change="validateInput(brightnessthreshold.brightnessThreshold,brightnessthreshold.type)" ng-style="{'color':brightnessthreshold.error==true ? 'red' : '#26394f'}">
+                  <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                  <input class="adjust" type="text"  [ngStyle]="{'color': false?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus" ng-click="incrementVal(brightnessthreshold.brightnessThreshold,brightnessthreshold.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                  <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
               </div>
-              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{brightnesssetpoint.brightnessSetPointMin}}-{{brightnesssetpoint.brightnessSetPointMax}} lx)</label>
+              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
-                  <div class="adjust-minus" ng-click="decrementVal(brightnesssetpoint.brightnessSetpoint,brightnesssetpoint.type)"><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust"type="text" ng-model="brightnesssetpoint.brightnessSetpoint" ng-model-options="validate" ng-change="validateInput(brightnesssetpoint.brightnessSetpoint,brightnesssetpoint.type)" ng-style="{'color':brightnesssetpoint.error==true ? 'red' : '#26394f'}">
+                  <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                  <input class="adjust"type="text"   [ngStyle]="{'color': false? 'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus" ng-click="incrementVal(brightnesssetpoint.brightnessSetpoint,brightnesssetpoint.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                  <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
               </div>
               <div class = "bj-current-val">
                     <label class="bj-config-setting brightness-function">Take over current brightness</label>
-                    <input class="adjust-value brightness-function" type="text" disabled ng-model="currentBrightness">
+                    <input class="adjust-value brightness-function" type="text">
               </div>
             </div>
 
-            <div class="bj-config-setting-div slave-brightness-div" ng-if="considerSlaveBrightnessEnable !== undefined && device.deviceType == deviceTypes.DALI" 
-                 ng-hide="$parent.constantLightControlEnable">
+           <div class="bj-config-setting-div slave-brightness-div" >
                  <label class="bj-config-setting slave-brightness-function">Consider slave brightness</label>
                       <span class="bj-config-toggle-switch">
-                         <div class="track" ng-model="considerSlaveBrightnessEnable" ng-click="$parent.considerSlaveBrightnessEnable=!$parent.considerSlaveBrightnessEnable" ng-style="{'border-color':considerSlaveBrightnessEnable== true ? '#26394f':'#c0c1c3'}">
-                             <label class="switch-onlabel" ng-if="considerSlaveBrightnessEnable == true">{{onLabel}}</label>
-                             <label class="switch-offlabel" ng-if="!considerSlaveBrightnessEnable == true">{{offLabel}}</label>
-                                 <div class="switch" ng-class="{'switch-on':considerSlaveBrightnessEnable == true,'switch-off':!considerSlaveBrightnessEnable == true}" ng-style="{'background-color':considerSlaveBrightnessEnable== true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                                 <div class="switch" [ngClass]="{'switch-on': true,'switch-off':false}" [ngStyle]="{'background-color' :true ? '#26394f':'#ccc'}"></div>
                          </div></span>
             </div>
-            <div class="bj-config-setting-div reference-brightness-div" ng-if="constantLightControlConsiderSlaveBrightnessEnable !== undefined && device.deviceType == deviceTypes.DALI"
-                 ng-show="$parent.constantLightControlEnable">
+            <div class="bj-config-setting-div reference-brightness-div">
                  <label class="bj-config-setting reference-brightness-function">Smallest brightness value as reference</label>
                        <span class="bj-config-toggle-switch">
-                             <div class="track" ng-model="constantLightControlConsiderSlaveBrightnessEnable" ng-click="$parent.constantLightControlConsiderSlaveBrightnessEnable=!$parent.constantLightControlConsiderSlaveBrightnessEnable" ng-style="{'border-color':constantLightControlConsiderSlaveBrightnessEnable== true ? '#26394f':'#c0c1c3'}">
-                                 <label class="switch-onlabel" ng-if="constantLightControlConsiderSlaveBrightnessEnable == true">{{onLabel}}</label>
-                                 <label class="switch-offlabel" ng-if="!constantLightControlConsiderSlaveBrightnessEnable == true">{{offLabel}}</label>
-                                     <div class="switch" ng-class="{'switch-on':constantLightControlConsiderSlaveBrightnessEnable == true,'switch-off':!constantLightControlConsiderSlaveBrightnessEnable == true}" ng-style="{'background-color':constantLightControlConsiderSlaveBrightnessEnable== true ? '#26394f':'#ccc'}"></div>
+                             <div class="track"  [ngStyle]="{'border-color' : true ? '#26394f':'#c0c1c3'}">
+                                 <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                                 <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                                     <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                             </div>
                         </span>
             </div>
-            <div class="bj-config-setting-block-div short-time-pulse-div" ng-if="shortTimePulseEnable !== undefined">
+            <div class="bj-config-setting-block-div short-time-pulse-div" >
                   <label class="bj-config-setting short-time-pulse-function">Short-time pulse</label>
                        <span class="bj-config-toggle-switch">
-                             <div class="track" ng-model="shortTimePulseEnable" ng-click="$parent.shortTimePulseEnable=!$parent.shortTimePulseEnable"  ng-style="{'border-color':shortTimePulseEnable== true ? '#26394f':'#c0c1c3'}">
-                                 <label class="switch-onlabel" ng-if="shortTimePulseEnable == true">{{onLabel}}</label>
-                                 <label class="switch-offlabel" ng-if="!shortTimePulseEnable == true">{{offLabel}}</label>
-                                <div class="switch" ng-class="{'switch-on':shortTimePulseEnable == true,'switch-off':!shortTimePulseEnable == true}" ng-style="{'background-color':shortTimePulseEnable== true ? '#26394f':'#ccc'}"></div>
+                             <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                                 <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                                 <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                                <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                              </div></span>
-                <label class="bj-config-setting-block-lbl short-time-pulse-function" ng-if="(((shortTimePulseEnable == false) && (device.deviceType == deviceTypes.MOSFET || device.deviceType == deviceTypes.RELAY)) || device.deviceType == deviceTypes.DALI) " >Switch-off delay ({{switchoffdelay.switchOffDelayMin}} s-{{switchoffdelay.switchOffDelayMax}} min)</label>
-                <div class="bj-config-setting-adjust short-time-pulse-function " ng-if="(((shortTimePulseEnable == false) && (device.deviceType == deviceTypes.MOSFET || device.deviceType == deviceTypes.RELAY)) || device.deviceType == deviceTypes.DALI)">
-                      <div class="adjust-minus" ng-click="decrementVal(switchoffdelay.switchOffDelay,switchoffdelay.type)"><span class="glyphicon glyphicon-minus"></span></div>
-                      <input class="adjust"type="text" ng-model="switchoffdelay.switchOffDelay" ng-model-options="validate" ng-change="validateInput(switchoffdelay.switchOffDelay,switchoffdelay.type)" ng-style="{'color':switchoffdelay.error==true ? 'red' : '#26394f'}">
-                            <div class="static-unit-text">{{delayTimeLabel}}</div>
-                       <div class="adjust-plus" ng-click="incrementVal(switchoffdelay.switchOffDelay,switchoffdelay.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                <label class="bj-config-setting-block-lbl short-time-pulse-function" >Switch-off delay (10 s -  30 min)</label>
+                <div class="bj-config-setting-adjust short-time-pulse-function " >
+                      <div class="adjust-minus"> <span class="glyphicon glyphicon-minus"></span></div>
+                      <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
+                            <div class="static-unit-text">s</div>
+                       <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             </div>
             <div class="bj-config-setting-div additional-sensor-div">
-                  <label class="bj-config-setting additional-sensor-lbl">Additional sensor parameters</label><next ng-click="secondLevelNavigation('sensor')"></next>
+                  <label class="bj-config-setting additional-sensor-lbl">Additional sensor parameters</label>
             </div>
         </div>
         <div id="bj-config-operating-div">
             <label class="bj-config-lbl operating-div">Operating mode</label>
 
-            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" ng-model="operationMode" name="operating_mode" value="0"/></div>
-            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio" ng-model="operationMode" name="operating_mode" value="1"/></div>
-            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" ng-model="operationMode" name="operating_mode" value="2"/></div>
+            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio"  name="operating_mode" value="0"/></div>
+            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"  name="operating_mode" value="1"/></div>
+            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio"  name="operating_mode" value="2"/></div>
       </div>
       <div id="bj-actuator-settings-div">
             <label class="bj-config-lbl actuator-div">Actuator settings</label>
-            <div class="bj-config-setting-div actuator1-div" ng-if="device.deviceType == deviceTypes.DALI">
+            <div class="bj-config-setting-div actuator1-div">
                  <div class="bj-actuator-brightness">
                      <div class="bj-actuator-bulb actuator1">
                         <label class="actuator-name">Actuator 1</label>
-                         <img class="bulb-off" ng-hide="actuator1.ch1_onOffState" ng-src="icons/08_001_light_deact.svg" alt="bulb_inactive">
-                         <div class="bulb-glow" ng-show="actuator1.ch1_onOffState">
-                            <img class="bulb-glow" ng-show="actuator1.ch1_onOffState" ng-src="icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on" ng-show="actuator1.ch1_onOffState" ng-src="icons/08_001_light_act.svg" alt="bulb_active">
+                         <img class="bulb-off" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                         <div class="bulb-glow" >
+                            <img class="bulb-glow" *ngIf="true" src="../../../assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
+                            <img class="bulb-on" *ngIf="true" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
-                         <label class="bj-brightness-lbl">{{actuator1.ch1_currentLevel}}%</label>
-                         <div class="slide-open" ng-click="slideActuatorOpen()"><span class="glyphicon glyphicon-menu-left"></span></div>
+                         <label class="bj-brightness-lbl">20%</label>
+                         <div class="slide-open" ><span class="glyphicon glyphicon-menu-left"></span></div>
                      </div>
-                     <div class="bj-brightness-slider" ng-show="showSlider" ng-style="{'display':showSlider== true ? 'inline-block':'none'}">
-                         <div class="slide-close"ng-click="slideActuatorOpen()"><span class="glyphicon glyphicon-menu-right"></span></div> 
+                     <div class="bj-brightness-slider"  [ngStyle]="{'display': true ? 'inline-block':'none'}">
+                         <div class="slide-close"><span class="glyphicon glyphicon-menu-right"></span></div> 
                          <div class="bj-slider-control">
-                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" ng-model="actuator1.ch1_currentLevel" ng-style="sliderBackground(actuator1.ch1_currentLevel)">
+                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" >
                          </div>
                      </div>
                  </div>
             </div>
             <div class="bj-config-setting-div service-div">
-                <label class="bj-config-setting actuator1-block">Actuator 1</label><next ng-click="secondLevelNavigation('actuator1')"></next>
+                <label class="bj-config-setting actuator1-block">Actuator 1</label>
             </div>
-            <div class="bj-config-setting-div actuator2-div" ng-if="actuator2.enable">
+            <div class="bj-config-setting-div actuator2-div" >
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
-                          <img class="bulb-off" ng-hide="actuator2.ch2_onOffState" ng-src="icons/08_001_light_deact.svg" alt="bulb_inactive">
-                          <div class="bulb-glow" ng-show="actuator2.ch12_onOffState">
-                              <img class="bulb-on" ng-show="actuator2.ch2_onOffState" ng-src="icons/08_001_light_act.svg" alt="bulb_active">
+                          <img class="bulb-off" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                          <div class="bulb-glow" *ngIf="true">
+                              <img class="bulb-on" *ngIf="true"src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>
             </div>
-            <div class="bj-config-setting-div service-div" ng-if="actuator2.enable">
-                <label class="bj-config-setting actuator2-block">Actuator 2</label><next ng-click="secondLevelNavigation('actuator2')"></next>
+            <div class="bj-config-setting-div service-div" >
+                <label class="bj-config-setting actuator2-block">Actuator 2</label>
             </div>
 
           </div>
 
       <div id="bj-service-settings-div">
-            <label class="bj-config-lbl service-div">Service functions</label>
-            <div class="bj-config-setting-div service-div">
-              <label class="bj-config-setting testmode-block">Test mode</label><next ng-click="secondLevelNavigation('testmode')"></next>
+            <label class="bj-service-lbl service-div">Service functions</label>
+            <div class="bj-service-setting-div service-div">
+              <label class="bj-service-setting testmode-block">Test mode<span class="cdtector-nav-right" ></span></label>
             </div>
-            <div class="bj-config-setting-div service-div">
-              <label class="bj-config-setting load-detector-block">Load detector profile</label><next ng-click="secondLevelNavigation('loadprofile')"></next>
+            <div class="bj-service-setting-div service-div">
+              <label class="bj-service-setting load-detector-block">Load detector profile</label>
             </div>
-            <div class="bj-config-setting-div service-div">
-              <label class="bj-config-setting save-user-profile-block">Save as user profile</label><next ng-click="secondLevelNavigation('saveprofile')"></next>
+            <div class="bj-service-setting-div service-div">
+              <label class="bj-service-setting save-user-profile-block">Save as user profile</label>
             </div>
-            <div class="bj-config-setting-div service-div">
-              <label class="bj-config-setting update-firmware-block">Update firmware</label><next ng-click="secondLevelNavigation('update')"></next>
+            <div class="bj-service-setting-div service-div">
+              <label class="bj-service-setting update-firmware-block">Update firmware</label>
             </div>
-            <div class="bj-config-setting-div service-div">
-              <label class="bj-config-setting energy-monitor-block">Energy monitor</label><next ng-click="secondLevelNavigation('energymonitor')"></next>
+            <div class="bj-service-setting-div service-div">
+              <label class="bj-service-setting energy-monitor-block">Energy monitor</label>
             </div>
-            <div class="bj-config-setting-div service-div" ng-click="showDialog('resetDevice')">
-              <label class="bj-config-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
+            <div class="bj-service-setting-div service-div" >
+              <label class="bj-service-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
             </div>
-             <div class="bj-config-setting-div commissioning-div">
-                  <label class="bj-config-setting pin-block">Set PINs</label><next ng-click="secondLevelNavigation('set-pin')"></next>
+             <div class="bj-service-setting-div commissioning-div">
+                  <label class="bj-service-setting pin-block">Set PINs</label>
              </div>
-             <div class="bj-config-setting-div commissioning-div">
-                  <label class="bj-config-setting building-allocation-block">Building allocation</label><next ng-click="secondLevelNavigation('alloc')"></next>
+             <div class="bj-service-setting-div commissioning-div">
+                  <label class="bj-service-setting building-allocation-block">Building allocation</label>
              </div>
-             <div class="bj-config-setting-div commissioning-div">
-                  <label class="bj-config-setting building-allocation-block">Release to user</label><next ng-click="secondLevelNavigation('enable')"></next>
+             <div class="bj-service-setting-div commissioning-div">
+                  <label class="bj-service-setting building-allocation-block">Release to user</label>
              </div>
-             <div class="bj-config-setting-div commissioning-div" ng-if="slaveModeEnable !== undefined && device.deviceType == deviceTypes.DALI">
-                  <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
-                   <span class="bj-config-toggle-switch">
-                         <div class="track" ng-model="slaveModeEnable" ng-click="$parent.slaveModeEnable=!$parent.slaveModeEnable" ng-style="{'border-color':slaveModeEnable== true ? '#26394f':'#c0c1c3'}">
-                             <label class="switch-onlabel" ng-if="slaveModeEnable">{{onLabel}}</label>
-                             <label class="switch-offlabel" ng-if="!slaveModeEnable">{{offLabel}}</label>
-                             <div class="switch" ng-class="{'switch-on':slaveModeEnable,'switch-off':!slaveModeEnable}" ng-style="{'background-color':slaveModeEnable== true ? '#26394f':'#ccc'}"></div>
+             <div class="bj-service-setting-div commissioning-div">
+                  <label class="bj-service-setting master-in-slave-block">Use master in slave mode</label>
+                   <span class="bj-service-toggle-switch">
+                         <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" ng-class="{'switch-on':true,'switch-off':false}" ng-style="{'background-color': true ? '#26394f':'#ccc'}"></div>
                          </div></span>
              </div>
       </div>
     </div>
-    <div class="secondLevel-config-container" ui-view="secondLevel" ></div>-->
+    <div class="secondLevel-service-container" ui-view="secondLevel" ></div>
 </div>
 
 <!--<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && !testmodeEnable && !updateEnable && !loadProfileState">
