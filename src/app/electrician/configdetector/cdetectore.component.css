@@ -348,15 +348,15 @@ label.set-pins-subtext {
 	padding-bottom: 14px;
 	padding-top: 6px;
 }
-
+.bj-sensor-toggle {
+	margin-top: 10px;
+}
 .bj-config-setting-adjust.sensor-params-block {
 	margin-top: 12px;
 	margin-bottom: 22px;
 }
 
-.bj-sensor-toggle {
-	margin-top: 10px;
-}
+
 
 .bj-config-setting.inner-setting{
 	color: #9eabbb;

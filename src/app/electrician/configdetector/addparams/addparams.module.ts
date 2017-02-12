@@ -9,6 +9,8 @@ import { EAddParamsComponent } from './addparams.component';
 
 const EAddParamsRoutes: Routes = [
   { path: '', component: EAddParamsComponent },
+    { path: 'sensitivity', loadChildren: './configdetector/addparams/sensitivity/sensitivity.module#ESensitivityComponenet' },
+
 ];
 
 @NgModule({

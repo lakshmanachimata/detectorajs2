@@ -10,7 +10,7 @@ import { RouterModule, Routes,Router }  from '@angular/router';
 
 const CDetectorERoutes: Routes = [
   { path: '', component: CDetectorEComponent },
-  { path: 'addparams', loadChildren: './configdetector/addparams/addparams.module#EAddParamModule' },
+  { path: 'addparams', loadChildren: './configdetector/addparams/addparams.module#EAddParamsModule' },
 ];
 
 @NgModule({

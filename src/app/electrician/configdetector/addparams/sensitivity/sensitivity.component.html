@@ -1,0 +1,50 @@
+<div id="bj-detection-range-div">
+    <div class="bj-sensor-toggle outdoor-application">
+        <label class="bj-config-setting inner-setting outdoor-application-function">Outdoor application</label>
+            <span class="bj-config-toggle-switch">
+                  <div class="track" ng-model="$parent.$parent.outDoorApplicationEnable" ng-click="$parent.$parent.outDoorApplicationEnable=!$parent.$parent.outDoorApplicationEnable"  ng-style="{'border-color':$parent.$parent.outDoorApplicationEnable== true ? '#26394f':'#c0c1c3'}">
+                      <label class="switch-onlabel" ng-if="$parent.$parent.outDoorApplicationEnable== true">{{onLabel}}</label>
+                      <label class="switch-offlabel" ng-if="!$parent.$parent.outDoorApplicationEnable== true">{{offLabel}}</label>
+                      <div class="switch" ng-class="{'switch-on':$parent.$parent.outDoorApplicationEnable== true,'switch-off':!$parent.$parent.outDoorApplicationEnable== true}" ng-style="{'background-color':$parent.$parent.outDoorApplicationEnable== true ? '#26394f':'#ccc'}"></div>
+                  </div>
+            </span>
+    </div>
+    <div class="detection-outdoor-div" ng-hide="$parent.$parent.outDoorApplicationEnable">
+        <div class="detection-outdoor-top-quadrants">
+            <div class="detection-outdoor-quadrant q1" ng-click="quadrantSelected('q1')" ng-style="{'background': Q1selected == true ? '#0076b7' :'#f9fafc'}">
+                <label class="detection-quad-value q1-val">{{detection_range.q1}}%</label></div>
+            <div class="detection-outdoor-quadrant q2" ng-click="quadrantSelected('q2')" ng-style="{'background': Q2selected == true ? '#0076b7' :'#f9fafc'}">
+                <label class="detection-quad-value q2-val">{{detection_range.q2}}%</label></div>
+        </div>
+        <div id="detection-outdoor-inner-ring">
+            <div id="detection-outdoor-inner-icon">
+                <span class="glyphicon glyphicon-modal-window"></span>
+            </div>
+        </div>
+        <div class="detection-outdoor-bottom-quadrants">
+            <div class="detection-outdoor-quadrant q3" ng-click="quadrantSelected('q3')" ng-style="{'background': Q3selected==true ? '#0076b7' :'#f9fafc'}">
+                <label class="detection-quad-value q3-val">{{detection_range.q3}}%</label></div>
+            <div class="detection-outdoor-quadrant q4" ng-click="quadrantSelected('q4')" ng-style="{'background': Q4selected==true? '#0076b7' :'#f9fafc'}">
+                <label class="detection-quad-value q4-val">{{detection_range.q4}}%</label></div>
+        </div>
+        <div class="bj-detection-outdoor-slider">
+            <div ng-click="setValue(0)"><input id="value0" type="radio"  value="0" />
+                <div class="detection-slider-value value0" ng-show="selected0" ></div>
+            </div>
+            <div  ng-click="setValue(25)"><input id="value25" type="radio"  value="25" />
+                 <div class="detection-slider-value value25" ng-show="selected25"></div>
+            </div>
+            <div ng-click="setValue(50)"><input id="value50" type="radio"  value="50" />
+                <div class="detection-slider-value value50" ng-show="selected50"></div>
+            </div>
+            <div ng-click="setValue(75)"><input id="value75" type="radio"  value="75" />
+                <div class="detection-slider-value value75" ng-show="selected75"></div>
+            </div>
+            <div ng-click="setValue(100)"><input id="value100" type="radio"  value="100" />
+                <div class="detection-slider-value value100" ng-show="selected100"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
