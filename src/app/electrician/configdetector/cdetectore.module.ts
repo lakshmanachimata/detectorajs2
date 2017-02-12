@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule  } from '@angular/http';
 import { LoggerService } from '../../logger.service';
 import { DataService } from '../../data.service';
-import { ElectricianComponent } from '../electrician.component';
 import { CDetectorEComponent } from './cdetectore.component';
 import { RouterModule, Routes,Router }  from '@angular/router';
 
 
 const CDetectorERoutes: Routes = [
-  // { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: '', component: CDetectorEComponent },
+  { path: 'addparams', loadChildren: './configdetector/addparams/addparams.module#EAddParamModule' },
 ];
 
 @NgModule({

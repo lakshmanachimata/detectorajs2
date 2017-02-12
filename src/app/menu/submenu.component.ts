@@ -138,7 +138,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             return groupNew;
        }
     ngOnInit() { 
-        this.arrowStateObserve = this.data.subscribe(this, this.menuArrowStateChange);
+        this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
          if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }

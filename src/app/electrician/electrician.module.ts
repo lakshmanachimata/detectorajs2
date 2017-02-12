@@ -7,7 +7,6 @@ import { DataService } from '../data.service';
 import { ElectricianComponent } from '../electrician/electrician.component';
 import { RouterModule, Routes,Router }  from '@angular/router';
 const ElctricianRoutes: Routes = [
-  // { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: '', component: ElectricianComponent },
   { path: 'econfigdetector', loadChildren: './configdetector/cdetectore.module#CDetectorEModule' },
 ];
