@@ -5,15 +5,15 @@ import { HttpModule  } from '@angular/http';
 import { LoggerService } from '../../../../logger.service';
 import { DataService } from '../../../../data.service';
 import { RouterModule, Routes,Router }  from '@angular/router';
-import { ESensitivityComponenet } from './sensitivity.component';
+import { ESensitivityComponent } from './sensitivity.component';
 
 const ESensitivityRoutes: Routes = [
-  { path: '', component: ESensitivityComponenet },
+  { path: '', component: ESensitivityComponent },
 ];
 
 @NgModule({
   declarations: [
-    ESensitivityComponenet,
+    ESensitivityComponent,
   ],
   imports: [
     CommonModule,

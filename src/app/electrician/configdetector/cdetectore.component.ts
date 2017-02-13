@@ -19,6 +19,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     deviceType = -1;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice();
+      this.activeDeviceInfo = this.data.getDevicedata();
       this.deviceType = data.getSelectedDeviceType();
       this.data.setFooter(true);
     }

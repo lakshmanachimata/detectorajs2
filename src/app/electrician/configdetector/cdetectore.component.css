@@ -116,11 +116,6 @@ span.bj-actuator-bulb{
 	height:100px;
 }
 
-img.next {
-    float: right;
-    margin-top: 7px;
-    margin-right: 4px;
-}
 
 .bj-actuator-brightness {
 	margin-left: 22px;
@@ -1218,7 +1213,7 @@ div#bj-user-sensor-div {
     font-size: 15px;
     float:right;
     font-weight: 400;
-    margin-top: 26px;
+    margin-top: 10px;
     /*margin-left: 8px;*/
     margin-right: 12px;
     text-align:center;
@@ -1241,12 +1236,17 @@ div#bj-user-sensor-div {
 label.bj-config-setting.presence-simulation-block {
     color: #63778f;
 }
-.bj-config-setting-block-div{
+.bj-config-setting-block-br-div{
 	width:100%;
-   	min-height:250px;
+   	min-height:240px;
    	border-bottom: solid 1px #9eabbb;
 }
 
+.bj-config-setting-block-sp-div{
+    width:100%;
+   	min-height:150px;
+   	border-bottom: solid 1px #9eabbb;
+}
 .bj-config-setting-block-div.brightness-user-div{
     border-bottom: 2px solid #131b25;
     border-top: 2px solid #39414a;
@@ -1326,6 +1326,7 @@ div#bj-user-basic-illumination-div {
   	-moz-transition: linear 0.3s;
   	-webkit-transition: linear 0.3s;
   	transform: translateX(0);
+      background-color:   #ccc
 }
 
 .switch.switch-on{
@@ -1334,6 +1335,7 @@ div#bj-user-basic-illumination-div {
   	-moz-transition: linear 0.3s;
   	-webkit-transition: linear 0.3s;
   	transform: translateX(219%);
+    background-color:   #26394f
 }
 
 label.switch-onlabel.user {
@@ -1358,7 +1360,6 @@ label.switch-onlabel.user {
     text-align: left;
     overflow: hidden;
     line-height: 8px;
-    margin-top:-3px;
 }
 
 .track.user{

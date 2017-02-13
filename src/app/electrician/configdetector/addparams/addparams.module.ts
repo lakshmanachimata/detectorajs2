@@ -7,9 +7,10 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes,Router }  from '@angular/router';
 import { EAddParamsComponent } from './addparams.component';
 
+
 const EAddParamsRoutes: Routes = [
   { path: '', component: EAddParamsComponent },
-    { path: 'sensitivity', loadChildren: './configdetector/addparams/sensitivity/sensitivity.module#ESensitivityComponenet' },
+  { path: 'sensitivity', loadChildren: './sensitivity/sensitivity.module#ESensitivityModule'},
 
 ];
 

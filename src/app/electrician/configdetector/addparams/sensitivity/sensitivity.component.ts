@@ -5,11 +5,11 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 
 
 @Component({
-  selector: 'addparams-root',
-  templateUrl: './addparams.component.html',
+  selector: 'sensitivity-root',
+  templateUrl: './sensitivity.component.html',
   styleUrls: ['../../cdetectore.component.css']
 })
-export class ESensitivityComponenet implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
+export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
   onLabel = 'on';
   offLabel = 'off';

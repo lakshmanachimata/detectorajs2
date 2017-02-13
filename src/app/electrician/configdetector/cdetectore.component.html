@@ -15,17 +15,17 @@
                     <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="1"/></div>
                     <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="2"/></div>
             </div>
-            <div class="bj-config-setting-div constant-light-div">
+            <div class="bj-config-setting-div constant-light-div" *ngIf="activeDeviceInfo.sensor_settings.constant_light_regulation !== undefined">
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                      <span class="bj-config-toggle-switch">
-                         <div class="track"   [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"   [(ngModel)]="activeDeviceInfo.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': activeDeviceInfo.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="activeDeviceInfo.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="!activeDeviceInfo.sensor_settings.constant_light_regulation == true ">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':activeDeviceInfo.sensor_settings.constant_light_regulation == true,'switch-off':!activeDeviceInfo.sensor_settings.constant_light_regulation == true}"></div>
                        </div></span>
             </div>
 
-            <div class="bj-config-setting-block-div brightness-div" >
+            <div class="bj-config-setting-block-br-div brightness-div" >
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
@@ -65,7 +65,7 @@
                             </div>
                         </span>
             </div>
-            <div class="bj-config-setting-block-div short-time-pulse-div" >
+            <div class="bj-config-setting-block-sp-div short-time-pulse-div" >
                   <label class="bj-config-setting short-time-pulse-function">Short-time pulse</label>
                        <span class="bj-config-toggle-switch">
                              <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
@@ -81,8 +81,9 @@
                        <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             </div>
-            <div class="bj-config-setting-div additional-sensor-div">
-                  <label class="bj-config-setting additional-sensor-lbl" (click)="gotoaddParams()">Additional sensor parameters</label>
+            <div class="bj-config-setting-div additional-sensor-div" (click)="gotoaddParams()">
+                  <label class="bj-config-setting additional-sensor-lbl">Additional sensor parameters</label>
+                  <next-nav></next-nav>
             </div>
         </div>
         <div id="bj-config-operating-div">
@@ -118,6 +119,7 @@
             </div>
             <div class="bj-config-setting-div service-div">
                 <label class="bj-config-setting actuator1-block">Actuator 1</label>
+                <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div actuator2-div" >
                   <div class="bj-actuator-brightness">
@@ -132,46 +134,55 @@
             </div>
             <div class="bj-config-setting-div service-div" >
                 <label class="bj-config-setting actuator2-block">Actuator 2</label>
+                <next-nav></next-nav>
             </div>
 
           </div>
 
       <div id="bj-service-settings-div">
             <label class="bj-service-lbl service-div">Service functions</label>
-            <div class="bj-service-setting-div service-div">
-              <label class="bj-service-setting testmode-block">Test mode<span class="cdtector-nav-right" ></span></label>
+            <div class="bj-config-setting-div service-div">
+              <label class="bj-config-setting testmode-block">Test mode</label>
+              <next-nav></next-nav>
             </div>
-            <div class="bj-service-setting-div service-div">
-              <label class="bj-service-setting load-detector-block">Load detector profile</label>
+            <div class="bj-config-setting-div service-div">
+              <label class="bj-config-setting load-detector-block">Load detector profile</label>
+              <next-nav></next-nav>
             </div>
-            <div class="bj-service-setting-div service-div">
-              <label class="bj-service-setting save-user-profile-block">Save as user profile</label>
+            <div class="bj-config-setting-div service-div">
+              <label class="bj-config-setting save-user-profile-block">Save as user profile</label>
+              <next-nav></next-nav>
             </div>
-            <div class="bj-service-setting-div service-div">
-              <label class="bj-service-setting update-firmware-block">Update firmware</label>
+            <div class="bj-config-setting-div service-div">
+              <label class="bj-config-setting update-firmware-block">Update firmware</label>
+              <next-nav></next-nav>
             </div>
-            <div class="bj-service-setting-div service-div">
-              <label class="bj-service-setting energy-monitor-block">Energy monitor</label>
+            <div class="bj-config-setting-div service-div">
+              <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
+              <next-nav></next-nav>
             </div>
-            <div class="bj-service-setting-div service-div" >
-              <label class="bj-service-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
+            <div class="bj-config-setting-div service-div" >
+              <label class="bj-config-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
             </div>
-             <div class="bj-service-setting-div commissioning-div">
-                  <label class="bj-service-setting pin-block">Set PINs</label>
+             <div class="bj-config-setting-div commissioning-div">
+                  <label class="bj-config-setting pin-block">Set PINs</label>
+                  <next-nav></next-nav>
              </div>
-             <div class="bj-service-setting-div commissioning-div">
-                  <label class="bj-service-setting building-allocation-block">Building allocation</label>
+             <div class="bj-config-setting-div commissioning-div">
+                  <label class="bj-config-setting building-allocation-block">Building allocation</label>
+                  <next-nav></next-nav>
              </div>
-             <div class="bj-service-setting-div commissioning-div">
-                  <label class="bj-service-setting building-allocation-block">Release to user</label>
+             <div class="bj-config-setting-div commissioning-div">
+                  <label class="bj-config-setting building-allocation-block">Release to user</label>
+                  <next-nav></next-nav>
              </div>
-             <div class="bj-service-setting-div commissioning-div">
-                  <label class="bj-service-setting master-in-slave-block">Use master in slave mode</label>
-                   <span class="bj-service-toggle-switch">
+             <div class="bj-config-setting-div commissioning-div">
+                  <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
+                   <span class="bj-config-toggle-switch">
                          <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" ng-class="{'switch-on':true,'switch-off':false}" ng-style="{'background-color': true ? '#26394f':'#ccc'}"></div>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" ng-style="{'background-color': true ? '#26394f':'#ccc'}"></div>
                          </div></span>
              </div>
       </div>

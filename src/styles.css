@@ -11,3 +11,9 @@ div.bj-config-setting-div.commissioning-div span.glyphicon.glyphicon-menu-right{
     margin-right: 12px;
     font-size: 16px;
 }
+img.next {
+    float: right;
+    margin-top: 7px;
+    margin-right: 4px;
+    font-size: 40px;
+}

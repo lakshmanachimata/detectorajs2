@@ -1,7 +1,7 @@
 import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
-import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
+import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   onLabel = 'on';
   offLabel = 'off';
-  constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
   }
   ngOnChanges() { 
   }
@@ -30,5 +30,8 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
+  }
+  gotoSensitivity() {
+    this.router.navigate(['sensitivity'],{relativeTo: this.route})
   }
 }
