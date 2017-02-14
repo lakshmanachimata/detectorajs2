@@ -1,0 +1,373 @@
+<div id="bj-actuator1-sub-settings-div">
+    <!--circuit-logic-->
+    <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-circuit-logic-lbl">Circuit logic</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="showCircuitSettings"></down>
+                <up *ngIf="!showCircuitSettings"></up>
+            </div>
+        </div>
+        <div *ngIf="showCircuitSettings">
+            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="1"/></div>
+        </div>
+    </div>
+    <!--durable switching-->
+    <div class="bj-config-setting-div actuator1-durable-switching-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-durable-switching-lbl">Permanent light ON/OFF</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div *ngIf="showDurableSwitchingSettings">
+            <div class="bj-config-setting inner-setting actuator1">
+                <label class="actuator-durable-switching-lbl">Permanent ON for... (30min-8 h)</label>
+                <div class="bj-config-setting-adjust durable-switching-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text"   [ngStyle]="{'color':false? 'red' : '#26394f'}">
+                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+            <div class="bj-config-setting inner-setting actuator1">
+                <label class="actuator-durable-switching-lbl">Permanent OFF for... (30min-8 h)</label>
+                <div class="bj-config-setting-adjust durable-switching-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" [ngStyle]="{'color':false? 'red' : '#26394f'}">
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--soft switching-->
+    <div class="bj-config-setting-div actuator1-soft-switching-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-soft-switching-lbl">Soft switching of ON/OFF</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting actuator1 soft-on" *ngIf="showSoftSwitchingSettings">
+            <label class="actuator-soft-switching-lbl">Soft ON</label><label class="dali-soft-switching-unit" >(1 s - 1 min)</label>
+                <span class="bj-config-toggle-switch actuator1">
+                   <div class="track"   [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                         <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                         <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                   </div>
+                </span>
+            <div class="bj-config-setting-adjust soft-switching-on-function">
+                <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
+                <div class="static-unit-text">s</div>
+                <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting actuator1 soft-off">
+            <label class="actuator-soft-switching-lbl">Soft OFF</label><label class="dali-soft-switching-unit">(1 s - 1 min)</label>
+                <span class="bj-config-toggle-switch actuator1">
+                   <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                       <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                   </div>
+                </span>
+            <div class="bj-config-setting-adjust soft-switching-off-function">
+                <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                <input class="adjust"type="text" [ngStyle]="{'color':false ? 'red' : '#26394f'}">
+                <div class="static-unit-text">s</div>
+                <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+        </div>
+
+        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" >
+            <label class="actuator-phase-load-lbl" style="margin-left: 18px;">Dimming mode</label>
+            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-leading">Leading edge</label><input type="radio" class="circuit-radio" name="phase_load" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-trailing">Trailing edge</label><input type="radio" class="circuit-radio"  name="phase_load" value="1"/></div>
+        </div>
+    </div>
+    <!--misc settings-->
+    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-misc-settings-lbl">Additional Settings</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div *ngIf="showMiscSettings">
+                <div class="bj-config-setting inner-setting actuator1 memory-function">
+                    <label class="actuator-memory-function-lbl">Switch-off pre-warning</label>
+                     <span class="bj-config-toggle-switch actuator1">
+                         <div class="track" [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':$ true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                     </span>
+                </div>
+                <div class="bj-config-setting inner-setting actuator1 memory-function">
+                    <label class="actuator-memory-function-lbl">Memory function</label>
+                     <span class="bj-config-toggle-switch actuator1">
+                         <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                     </span>
+                </div>
+                <div class="bj-config-setting inner-setting actuator1 delimit-lighting">
+                    <label class="actuator-delimit-lighting-lbl">Limit room brightness</label>
+                     <span class="bj-config-toggle-switch actuator1">
+                         <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}"[ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                     </span>
+                </div>
+
+            <div class="bj-config-setting inner-setting actuator1 min-load">
+                <label class="actuator-min-load-lbl">Minimum load</label>
+                <span class="bj-config-toggle-switch actuator1">
+                   <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                       <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':rue ? '#26394f':'#ccc'}"></div>
+                   </div>
+                </span>
+                <div class="bj-config-setting-adjust min-load-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text">
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+            <div class="bj-config-setting inner-setting actuator1 max-load">
+                <label class="actuator-max-load-lbl">Maximum load</label>
+                <span class="bj-config-toggle-switch actuator1">
+                   <div class="track"    ng-style="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="!false">{{offLabel}}</label>
+                       <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                   </div>
+                </span>
+                <div class="bj-config-setting-adjust max-load-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" >
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--DALI settings-->
+    <div class="bj-config-setting-div actuator1-dali-settings-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-dali-settings-lbl">DALI Settings</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div>
+            <div class="bj-config-setting inner-setting actuator1 master-slave-function">
+                <label class="actuator-master-slave-lbl">Use master in slave operation</label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                 </span>
+            </div>
+            <label class="bj-config-lbl sensor-div">Power ON level</label>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl">OFF</label><input type="radio" class="circuit-radio"   name="power_level" value="0"/></div>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl">Memo</label><input type="radio" class="circuit-radio" name="power_level" value="1"/></div>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl">100%</label><input type="radio" class="circuit-radio"  name="power_level" value="2"/></div>
+            <div class="bj-config-setting actuator1 reset">
+                <label class="bj-config-setting reset-inner-block">Reset control gear</label><span class="glyphicon glyphicon-stop"></span>
+            </div>
+        </div>
+    </div>
+    <!--fluorescent lamp settings-->
+    <div class="bj-config-setting-div actuator1-fluorescent-settings-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-fluorescent-settings-lbl">Fluorescent lamps</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="showFluorescentSettings"></down>
+                <up *ngIf="!showFluorescentSettings"></up>
+            </div>
+        </div>
+        <div ng-show="showFluorescentSettings">
+            <div class="bj-config-setting inner-setting actuator1 fluorescent-function">
+                <label class="actuator-fluorescent-lbl">Burn in function</label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track" [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                 </span>
+            </div>
+                <label class="bj-config-lbl sensor-div" >Burn in mode</label>
+                <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl">Steady</label><input type="radio" class="circuit-radio"  name="burn_in_mode" value="0"/></div>
+                <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl">Accumulated</label><input type="radio" class="circuit-radio" name="burn_in_mode" value="1"/></div>
+            <div class="bj-config-setting inner-setting actuator1 burnInTime" >
+                <label class="actuator-burinin-switching-lbl">Duration for burn in(1h - 250 h)</label>
+                <div class="bj-config-setting-adjust durable-switching-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text"  [ngStyle]="{'color': false ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">h</div>
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+            <div class="bj-config-setting actuator1 reset">
+                <label class="bj-config-setting reset-inner-block">Reset operating hours</label><span class="glyphicon glyphicon-stop" ></span>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--basic illumination settings-->
+    <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" >
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-basic-illumination-lbl">Basic brightness</label>
+            <div class="bj-actuator-toggle" >
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div >
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="1"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="2"/></div>
+            <div class="bj-config-setting inner-setting actuator1" >
+                <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
+                <div class="bj-actuator1-slider">
+                    <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1">
+                    <div class="illumination-value-disp">48%</div>
+                </div>
+            </div>
+            <div class="bj-config-setting inner-setting actuator1" >
+                <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
+                <div class="bj-actuator1-slider">
+                    <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1">
+                    <div class="ambient-brightness-value-disp">1000lx</div>
+                </div>
+            </div>
+            <div class="bj-config-setting inner-setting actuator1" >
+                <label class="actuator-illumination-start-time-lbl">Start time</label>
+                <div class="bj-config-setting-adjust illumination-start-function">
+                    <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text"   ng-style="{'color': true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">h</div>
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+                <label class="actuator-illumination-end-time-lbl">End time</label>
+                <div class="bj-config-setting-adjust illumination-end-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text"  ng-style="{'color':true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">h</div>
+                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+            <div class="bj-config-setting inner-setting actuator1 astro-function" >
+                <label class="astro-function-lbl">Astro function</label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track" ng-style="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                 </span>
+            </div>
+        </div>
+    </div>
+  <!--night time anti-glare-->
+    <div class="bj-config-setting-div actuator1-night-anti-glare-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-night-anti-glare-lbl">Night light </label>
+            <div class="bj-actuator-toggle" >
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting actuator1 anti-glare-function" >
+           <div class="anti-glare-function-div">
+            <label class="anti-glare-function-lbl">Night light </label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                 </span>
+           </div>
+            <div class="anti-glare-start-end-time-div">
+                <label class="actuator-anti-glare-start-time-lbl">Start time</label>
+                <div class="bj-config-setting-adjust anti-glare-start-function">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-style="{'color':false ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(antiGlareStartTime,antiglarestart.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+                <label class="actuator-anti-glare-end-time-lbl">End time</label>
+                <div class="bj-config-setting-adjust anti-glare-end-function">
+                    <div class="adjust-minus" ng-click="decrementVal(antiGlareEndTime,antiglareend.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="antiGlareEndTime" ng-model-options="validate" ng-change="validateInput(antiGlareEndTime,antiglareend.type" ng-style="{'color':antiglareend.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(antiGlareEndTime,antiglareend.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+            <div class="anti-glare-level-div" ng-if="(antiGlareFunctionEnable==true)">
+                <label class="actuator-anti-glare-level-lbl">Illumination level</label>
+                <div class="bj-actuator1-slider">
+                    <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" ng-model="$parent.$parent.$parent.antiGlareLevel">
+                    <div class="anti-glare-level-value-disp">{{$parent.$parent.$parent.antiGlareLevel}}%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--time-shifted switch off-->
+    <div class="bj-config-setting-div actuator1-time-shifted-switchoff-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator1 heading">
+            <label class="actuator-time-shifted-switchoff-lbl">Stepwise switch-off</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting actuator1 time-shift-function">
+            <div class="time-shift-function-div">
+                <label class="time-shift-function-lbl">Stepwise switch-off</label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track"  ng-style="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" ng-class="{'switch-on':true'switch-off':false}" ng-style="{'background-color':$parent.stepwiseSwitchOffEnable== true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                 </span>
+            </div>
+            <div class="time-shift-settings-div" ng-if="($parent.stepwiseSwitchOffEnable==true)">
+                <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time (30 s-51 min)</label>
+                <div class="bj-config-setting-adjust time-shift-switchoff-function">
+                    <div class="adjust-minus" ng-click="decrementVal(stepwiseSwitchOffTime,stepwiseswitchoftime.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="stepwiseSwitchOffTime" ng-model-options="validate" ng-change="validateInput(stepwiseSwitchOffTime,stepwiseswitchoftime.type" ng-style="{'color':stepwiseswitchoftime.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(stepwiseSwitchOffTime,stepwiseswitchoftime.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+                <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate state</label>
+                <div class="bj-config-setting-adjust time-shift-brightness-function">
+                    <div class="adjust-minus" ng-click="decrementVal(stepwiseSwitchOffLevel,stepwiseswitchoflevel.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="stepwiseSwitchOffLevel" ng-model-options="validate" ng-change="validateInput(stepwiseSwitchOffLevel,stepwiseswitchoflevel.type" ng-style="{'color':stepwiseswitchoflevel.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(stepwiseSwitchOffLevel,stepwiseswitchoflevel.type)"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>

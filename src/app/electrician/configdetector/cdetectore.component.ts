@@ -13,13 +13,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     
     activeDevice:any;
-    activeDeviceInfo:any;
+    ad:any;
     onLabel = 'on';
     offLable = 'off';
     deviceType = -1;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice();
-      this.activeDeviceInfo = this.data.getDevicedata();
+      this.ad = this.data.getDevicedata();
       this.deviceType = data.getSelectedDeviceType();
       this.data.setFooter(true);
     }

@@ -1,0 +1,59 @@
+<div id="bj-actuator1-sub-settings-div">
+    <div class="bj-config-setting-div actuator2-circuit-logic-div" style="border-bottom:none;" ng-if="ch2_mode != 0 ">
+        <div class="bj-config-setting inner-setting actuator2 heading">
+            <label class="actuator-circuit-logic-lbl">Circuit logic</label>
+            <div class="bj-actuator-toggle" ng-click="showCircuitSettings = !showCircuitSettings">
+                <down ng-hide="showCircuitSettings"></down>
+                <up ng-show="showCircuitSettings"></up>
+            </div>
+        </div>
+        <div ng-show="showCircuitSettings">
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" ng-model="ch2_circuitLogic" name="circuit_logic" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" ng-model="ch2_circuitLogic" name="circuit_logic" value="1"/></div>
+        </div>
+    </div>
+    <div class="bj-config-setting-div actuator2-switching-function-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator2 heading">
+            <label class="actuator-switching-function-lbl">Switching function</label>
+            <div class="bj-actuator-toggle" ng-click="showSwitchSettings = !showSwitchSettings">
+                <down ng-hide="showSwitchSettings"></down>
+                <up ng-show="showSwitchSettings"></up>
+            </div>
+        </div>
+        <div ng-show="showSwitchSettings">
+            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl">Disabled</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl">Brightness independent</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl">Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="2"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl">Synchronous operation</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="3"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl">Blackboard lightening</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="4"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl">Manual</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="5"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl">HVAC</label><input type="radio" class="circuit-radio" ng-model="ch2_mode" name="circuit_mode" value="6"/></div>
+            <div class="bj-config-setting inner-setting actuator2 dynamic-control" ng-if="ch2_mode == 6">
+                <label class="actuator-dynamic-control-lbl">Dynamic control</label>
+                     <span class="bj-config-toggle-switch actuator2">
+                         <div class="track" ng-model="hvacDynamicalControlEnable" ng-click="hvacDynamicalControlEnable=!hvacDynamicalControlEnable" ng-style="{'border-color':hvacDynamicalControlEnable== true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" ng-if="hvacDynamicalControlEnable">{{onLabel}}</label>
+                             <label class="switch-offlabel" ng-if="!hvacDynamicalControlEnable">{{offLabel}}</label>
+                             <div class="switch" ng-class="{'switch-on':hvacDynamicalControlEnable,'switch-off':!hvacDynamicalControlEnable}" ng-style="{'background-color':hvacDynamicalControlEnable== true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                     </span>
+            </div>
+            <div class="bj-config-setting inner-setting actuator2 switch-on-delay-div" ng-if="(ch2_mode==6)&&(hvacDynamicalControlEnable==false)">
+                <label class="switch-on-delay-actuator2-lbl">Switch-on delay</label>
+                <div class="bj-config-setting-adjust switch-on-delay-actuator2">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="hvacSwitchOnDelay">
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+                <label class="switch-off-delay-actuator2-lbl">Switch-off delay</label>
+                <div class="bj-config-setting-adjust switch-off-delay-actuator2">
+                    <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="hvacSwitchOffDelay">
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

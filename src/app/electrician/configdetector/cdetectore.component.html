@@ -15,13 +15,13 @@
                     <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="1"/></div>
                     <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  name="potentiometer_mode" value="2"/></div>
             </div>
-            <div class="bj-config-setting-div constant-light-div" *ngIf="activeDeviceInfo.sensor_settings.constant_light_regulation !== undefined">
+            <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined">
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                      <span class="bj-config-toggle-switch">
-                         <div class="track"   [(ngModel)]="activeDeviceInfo.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': activeDeviceInfo.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                             <label class="switch-onlabel" *ngIf="activeDeviceInfo.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="!activeDeviceInfo.sensor_settings.constant_light_regulation == true ">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':activeDeviceInfo.sensor_settings.constant_light_regulation == true,'switch-off':!activeDeviceInfo.sensor_settings.constant_light_regulation == true}"></div>
+                         <div class="track"   [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="!ad.sensor_settings.constant_light_regulation == true ">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.constant_light_regulation == true,'switch-off':!ad.sensor_settings.constant_light_regulation == true}"></div>
                        </div></span>
             </div>
 
@@ -99,10 +99,10 @@
                  <div class="bj-actuator-brightness">
                      <div class="bj-actuator-bulb actuator1">
                         <label class="actuator-name">Actuator 1</label>
-                         <img class="bulb-off" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
-                         <div class="bulb-glow" >
-                            <img class="bulb-glow" *ngIf="true" src="../../../assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on" *ngIf="true" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
+                         <img class="bulb-off" *ngIf="!ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                         <div class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state">
+                            <img class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
+                            <img class="bulb-on" *ngIf="ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
@@ -125,9 +125,9 @@
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
-                          <img class="bulb-off" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
-                          <div class="bulb-glow" *ngIf="true">
-                              <img class="bulb-on" *ngIf="true"src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
+                          <img class="bulb-off" *ngIf="!ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                          <div class="bulb-glow" *ngIf="ad.actuator1.ch2_onOffState">
+                              <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>
