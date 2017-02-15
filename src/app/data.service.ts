@@ -19,6 +19,7 @@ export class UIParams {
       public profile = 'none';
       public mainTitle = 'BJ DETECTOR';
       arrowStateChange: EventEmitter<any> = new EventEmitter();
+      public otherparam = '';
 }
 
 export class DeviceParams {
@@ -137,6 +138,12 @@ export class DataService {
     getSubMenuVal() {
         return this.uiParams.subMenuVal;
     }
+    setOtherParam(item) {
+         this.uiParams.otherparam = item;
+    }
+    getOtherParam(){
+        return this.uiParams.otherparam;
+    }
 
     getSubMenuItems() {
         if(this.uiParams.profile == 'user') {
@@ -184,6 +191,7 @@ export class DataService {
         });
     }
 
+   
     public getDevicedata() {
         return this.deviceData;
     }

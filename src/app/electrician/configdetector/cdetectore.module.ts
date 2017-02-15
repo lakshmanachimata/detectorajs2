@@ -10,6 +10,7 @@ const CDetectorERoutes: Routes = [
   { path: 'addparams', loadChildren: './addparams/addparams.module#EAddParamsModule' },
   { path: 'eactuator1', loadChildren: './eactuator1/eactuator1.module#EActuator1Module' },
   { path: 'eactuator2', loadChildren: './eactuator2/eactuator2.module#EActuator2Module' },
+  { path: 'otherparams', loadChildren: './otherparams/otherparams.module#EOtherParamsModule' },
 ];
 
 @NgModule({

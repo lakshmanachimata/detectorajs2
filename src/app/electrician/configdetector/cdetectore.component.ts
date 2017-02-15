@@ -55,4 +55,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   gotoActuator2(){
     this.router.navigate(['eactuator2'],{relativeTo: this.route});
   }
+  gotoOtherParams(otherparam){
+    this.data.setOtherParam(otherparam);
+    this.router.navigate(['otherparams'],{relativeTo: this.route});
+  }
 }
