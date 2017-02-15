@@ -6,7 +6,7 @@ import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes,Router }  from '@angular/router';
 import { EAddParamsComponent } from './addparams.component';
-
+import { SharedModule } from '../../../shared/shared.module';
 
 const EAddParamsRoutes: Routes = [
   { path: '', component: EAddParamsComponent },
@@ -22,6 +22,7 @@ const EAddParamsRoutes: Routes = [
     CommonModule,
     FormsModule,
     HttpModule,
+    SharedModule, 
     RouterModule.forChild(EAddParamsRoutes)
   ],
 })

@@ -134,19 +134,21 @@
         <div class="saved-profile" >Entry of cellar</div>
     </li>
 </div>
-<div id="bj-update-firmware-div" *ngIf="getOtherParam()=='updatefirmware'">
+<div id="bj-update-firmware-div-top" *ngIf="getOtherParam()=='updatefirmware'">
+    <div id="bj-update-firmware-div" >
         <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
         <li class="bj-detector-name update">{{activeDevice.btDeviceName}}
             <div class="bj-detector-version-num update">Version {{activeDevice.firmwareVersion}}
             </div>
         </li>
        <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
-</div>
-<div id="bj-update-firmware-progressbar">
-    <div id="update-progress"></div>
-</div>
-<div id="bj-update-firmware-statusbar" >
-    <label class="bj-config-lbl no-update-status-div">No firmware update available</label>
+    </div>
+    <div id="bj-update-firmware-progressbar">
+        <div id="update-progress"></div>
+    </div>
+    <div id="bj-update-firmware-statusbar" >
+        <label class="bj-config-lbl no-update-status-div">No firmware update available</label>
+    </div>
 </div>
 <div id="bj-energy-monitor-div" *ngIf="getOtherParam()=='energymonitor'">
     <div class="bj-config-setting-div energy-monitor-reference-div" style="border-bottom:none;">
