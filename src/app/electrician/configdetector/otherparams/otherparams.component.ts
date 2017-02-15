@@ -11,9 +11,16 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 })
 export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
+  activeDevice:any;
+  ad:any;
   onLabel = 'on';
-  offLabel = 'off';
+  offLable = 'off';
+  deviceType = -1;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
+      this.activeDevice = this.data.getSelectedDevice();
+      this.ad = this.data.getDevicedata();
+      this.deviceType = data.getSelectedDeviceType();
+      this.data.setFooter(true);
   }
   ngOnChanges() { 
   }

@@ -50,6 +50,5 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
   ngOnDestroy() {
-    this.logger.log("ngOnDestroy of electrician" );
   }
 }

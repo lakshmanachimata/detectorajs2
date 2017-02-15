@@ -5,7 +5,6 @@
          </div>
       </div>
 
-    <!--<img id="mySpinner" src="../../../assets/icons/spinner.gif"  />-->
       <div id="bj-config-settings-container">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
@@ -17,14 +16,14 @@
             </div>
             <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined">
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
-                     <span class="bj-config-toggle-switch">
+                    <span class="bj-config-toggle-switch">
                          <div class="track"   [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="!ad.sensor_settings.constant_light_regulation == true ">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.constant_light_regulation == true,'switch-off':!ad.sensor_settings.constant_light_regulation == true}"></div>
-                       </div></span>
+                         </div>
+                    </span>
             </div>
-
             <div class="bj-config-setting-block-br-div brightness-div" >
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
@@ -61,7 +60,7 @@
                              <div class="track"  [ngStyle]="{'border-color' : true ? '#26394f':'#c0c1c3'}">
                                  <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                                  <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                                     <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                                 <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                             </div>
                         </span>
             </div>
@@ -127,7 +126,7 @@
                           <label class="actuator-name">Actuator 2</label>
                           <img class="bulb-off" *ngIf="!ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                           <div class="bulb-glow" *ngIf="ad.actuator1.ch2_onOffState">
-                              <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>
@@ -141,38 +140,38 @@
 
       <div id="bj-service-settings-div">
             <label class="bj-service-lbl service-div">Service functions</label>
-            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams(testmode)">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('testmode')">
               <label class="bj-config-setting testmode-block">Test mode</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('loaddetectorprofile')">
               <label class="bj-config-setting load-detector-block">Load detector profile</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('saveasuserprofile')">
               <label class="bj-config-setting save-user-profile-block">Save as user profile</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('updatefirmware')">
               <label class="bj-config-setting update-firmware-block">Update firmware</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('energymonitor')">
               <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" >
               <label class="bj-config-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
             </div>
-             <div class="bj-config-setting-div commissioning-div">
+             <div class="bj-config-setting-div commissioning-div" (click)="gotoOtherParams('setpins')">
                   <label class="bj-config-setting pin-block">Set PINs</label>
                   <next-nav></next-nav>
              </div>
-             <div class="bj-config-setting-div commissioning-div">
+             <div class="bj-config-setting-div commissioning-div" (click)="gotoOtherParams('buildingallocation')">
                   <label class="bj-config-setting building-allocation-block">Building allocation</label>
                   <next-nav></next-nav>
              </div>
-             <div class="bj-config-setting-div commissioning-div">
+             <div class="bj-config-setting-div commissioning-div" (click)="gotoOtherParams('releasetouser')">
                   <label class="bj-config-setting building-allocation-block">Release to user</label>
                   <next-nav></next-nav>
              </div>
@@ -183,7 +182,8 @@
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" ng-style="{'background-color': true ? '#26394f':'#ccc'}"></div>
-                         </div></span>
+                         </div>
+                  </span>
              </div>
       </div>
     </div>
