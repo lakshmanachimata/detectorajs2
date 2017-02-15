@@ -1,8 +1,8 @@
 import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy } from '@angular/core';
 import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
-import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
-
+import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common'
 @Component({
   selector: 'footer-root',
   templateUrl: './footer.component.html',
@@ -13,7 +13,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
  private snap:RouterStateSnapshot;
 
 
-  constructor(private logger: LoggerService,private router:Router,private data:DataService) {
+  constructor(private logger: LoggerService,private router:Router,private data:DataService,private route:ActivatedRoute,private location:Location) {
   }
 
   ngOnChanges() { 
@@ -44,5 +44,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   gotoPage(item) {
     this.router.navigateByUrl(item);
   }
-
+  bjGoBack() {
+    this.location.back();
+  }
 }

@@ -47,6 +47,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
+      component.data.setProfileSwitch(false);
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
   ngOnDestroy() {

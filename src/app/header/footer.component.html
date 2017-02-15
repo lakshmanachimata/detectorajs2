@@ -1,4 +1,4 @@
 <div class="bj-footer" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
-    <div class="bj-back" ><span class="glyphicon glyphicon-remove"></span></div>
+    <div class="bj-back" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-send-to-device"  [ngStyle]="{'color':'#ffffff'}">Send</div>
 </div>
