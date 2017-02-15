@@ -49,4 +49,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   deviceNameChanged(nameChanged) {
     this.logger.log('name changed to ' + nameChanged);
   }
+  gotoActuator1(){
+    this.router.navigate(['eactuator1'],{relativeTo: this.route});
+  }
+  gotoActuator2(){
+    this.router.navigate(['eactuator2'],{relativeTo: this.route});
+  }
 }

@@ -1,0 +1,59 @@
+<div id="bj-actuator1-sub-settings-div">
+    <div class="bj-config-setting-div actuator2-circuit-logic-div" style="border-bottom:none;" >
+        <div class="bj-config-setting inner-setting actuator2 heading">
+            <label class="actuator-circuit-logic-lbl">Circuit logic</label>
+            <div class="bj-actuator-toggle" >
+                <down *ngIf=="true"></down>
+                <up *ngIf="false"></up>
+            </div>
+        </div>
+        <div [ngStyle]>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio"  name="circuit_logic" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio"  name="circuit_logic" value="1"/></div>
+        </div>
+    </div>
+    <div class="bj-config-setting-div actuator2-switching-function-div" style="border-bottom:none;">
+        <div class="bj-config-setting inner-setting actuator2 heading">
+            <label class="actuator-switching-function-lbl">Switching function</label>
+            <div class="bj-actuator-toggle">
+                <down *ngIf="true"></down>
+                <up *ngIf=="true"></up>
+            </div>
+        </div>
+        <div >
+            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl">Disabled</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl">Brightness independent</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl">Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="2"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl">Synchronous operation</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="3"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl">Blackboard lightening</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="4"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl">Manual</label><input type="radio" class="circuit-radio" name="circuit_mode" value="5"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl">HVAC</label><input type="radio" class="circuit-radio"  name="circuit_mode" value="6"/></div>
+            <div class="bj-config-setting inner-setting actuator2 dynamic-control" >
+                <label class="actuator-dynamic-control-lbl">Dynamic control</label>
+                     <span class="bj-config-toggle-switch actuator2">
+                         <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':,true'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                         </div>
+                     </span>
+            </div>
+            <div class="bj-config-setting inner-setting actuator2 switch-on-delay-div" >
+                <label class="switch-on-delay-actuator2-lbl">Switch-on delay</label>
+                <div class="bj-config-setting-adjust switch-on-delay-actuator2">
+                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" >
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+                <label class="switch-off-delay-actuator2-lbl">Switch-off delay</label>
+                <div class="bj-config-setting-adjust switch-off-delay-actuator2">
+                    <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" >
+                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
+                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 
 @Component({
   selector: 'eactuator2-root',
-  templateUrl: './sensitivity.component.html',
+  templateUrl: './eactuator2.component.html',
   styleUrls: ['../cdetectore.component.css']
 })
 export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
