@@ -3,8 +3,8 @@
         <div class="bj-config-setting inner-setting actuator2 heading">
             <label class="actuator-circuit-logic-lbl">Circuit logic</label>
             <div class="bj-actuator-toggle" >
-                <down *ngIf=="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div [ngStyle]>
@@ -16,8 +16,8 @@
         <div class="bj-config-setting inner-setting actuator2 heading">
             <label class="actuator-switching-function-lbl">Switching function</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf=="true"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div >
@@ -34,7 +34,7 @@
                          <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':,true'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                          </div>
                      </span>
             </div>

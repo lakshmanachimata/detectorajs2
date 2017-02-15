@@ -4,11 +4,11 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-circuit-logic-lbl">Circuit logic</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="showCircuitSettings"></down>
-                <up *ngIf="!showCircuitSettings"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
-        <div *ngIf="showCircuitSettings">
+        <div>
             <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="0"/></div>
             <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="1"/></div>
         </div>
@@ -18,8 +18,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-durable-switching-lbl">Permanent light ON/OFF</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div *ngIf="showDurableSwitchingSettings">
@@ -35,7 +35,7 @@
                 <label class="actuator-durable-switching-lbl">Permanent OFF for... (30min-8 h)</label>
                 <div class="bj-config-setting-adjust durable-switching-function">
                     <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" [ngStyle]="{'color':false? 'red' : '#26394f'}">
+                    <input class="adjust"type="text" [ngStyle]="{'color': false ? 'red' : '#26394f'}">
                     <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
                     <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
@@ -47,17 +47,17 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-soft-switching-lbl">Soft switching of ON/OFF</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 soft-on" *ngIf="showSoftSwitchingSettings">
             <label class="actuator-soft-switching-lbl">Soft ON</label><label class="dali-soft-switching-unit" >(1 s - 1 min)</label>
                 <span class="bj-config-toggle-switch actuator1">
-                   <div class="track"   [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
+                   <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
                          <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                          <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                        <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false }" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-on-function">
@@ -95,8 +95,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-misc-settings-lbl">Additional Settings</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div *ngIf="showMiscSettings">
@@ -106,7 +106,7 @@
                          <div class="track" [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':$ true ? '#26394f':'#ccc'}"></div>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                          </div>
                      </span>
                 </div>
@@ -170,8 +170,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-dali-settings-lbl">DALI Settings</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div>
@@ -199,8 +199,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-fluorescent-settings-lbl">Fluorescent lamps</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="showFluorescentSettings"></down>
-                <up *ngIf="!showFluorescentSettings"></up>
+                <down-nav *ngIf="showFluorescentSettings"></down-nav>
+                <up-nav *ngIf="!showFluorescentSettings"></up-nav>
             </div>
         </div>
         <div >
@@ -230,15 +230,14 @@
                 <label class="bj-config-setting reset-inner-block">Reset operating hours</label><span class="glyphicon glyphicon-stop" ></span>
             </div>
         </div>
-        </div>
     </div>
     <!--basic illumination settings-->
     <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" >
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-basic-illumination-lbl">Basic brightness</label>
             <div class="bj-actuator-toggle" >
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div >
@@ -292,8 +291,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-night-anti-glare-lbl">Night light </label>
             <div class="bj-actuator-toggle" >
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 anti-glare-function" >
@@ -337,8 +336,8 @@
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-time-shifted-switchoff-lbl">Stepwise switch-off</label>
             <div class="bj-actuator-toggle">
-                <down *ngIf="true"></down>
-                <up *ngIf="false"></up>
+                <down-nav *ngIf="true"></down-nav>
+                <up-nav *ngIf="false"></up-nav>
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 time-shift-function">
@@ -348,7 +347,7 @@
                          <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':true'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
                          </div>
                  </span>
             </div>
