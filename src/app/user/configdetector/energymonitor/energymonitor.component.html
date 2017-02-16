@@ -1,0 +1,61 @@
+<div class="bj-config-container-user">
+<div id="bj-user-energymonitor-div">
+    <div id="user-energymonitor-tabpanel">
+        <ul class="nav nav-tabs">
+            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"><a href="" (click)="setActiveTab(1)">Month overview</a></li>
+            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}"><a href="" (click)="setActiveTab(2)">Year overview</a></li>
+        </ul>
+    </div>
+    <div id="user-energymonitor-tab-content">
+        <div class="tab-pane month" *ngIf="activeTab === 1">
+            <div id="user-energymonitor-currentMonth" ></div>
+            <div class="monthBarGraph">
+                <div class="barGraphPanel month">
+                    <div class="barGraphMonth" *ngFor="let data of onDurationWeek">
+                        <div class="monthly-max-threshold"  [ngStyle]="{'background-color' :true ? 'red':'transparent'}">
+                            <div class="month-graph-max">100 h</div>
+                        </div>
+                        <div class="energymonitor-maximum-monthly">
+                            <div class="monthly-bar-graph" >
+                                <div class="month-graph-value" >1 h</div>
+                            </div>
+                        </div>
+                        <div class="energymonitor-month-info">3.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane year"  *ngIf="activeTab === 2">
+            <div class="yearBarGraph">
+                <div class="barGraphPanel">
+                    <div class="barGraphMonth" *ngFor="let data of onDurationYear">
+                            <div class="user-energymonitor-year">2017</div>
+                            <div class="energymonitor-maximum-yearly">
+                                <div class="monthly-bar-graph" ></div>
+                            </div> <!--ng-bind="getEnergyMax(data)"-->
+                            <div class="energymonitor-month-info">{{data.month}}.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="energymonitor-details">
+            <div class="details current-duration">
+                <label class="current-duration month" *ngIf="activeTab === 1">abc</label>
+                <label class="current-duration month" *ngIf="activeTab === 2">def</label>
+                <label class="current-duration-value month" *ngIf="activeTab === 1">19 h</label>
+                <label class="current-duration-value month" *ngIf="activeTab === 2">200 h</label>
+            </div>
+            <div class="details total-savings">
+                <label class="total-savings month">{{TotalSavingsMonthText}}</label>
+                <label class="total-savings-value month" *ngIf="activeTab === 1">244$</label>
+                <label class="total-savings-value month" *ngIf="activeTab === 2">10$</label>
+            </div>
+            <div class="user-sensor-settings" *ngIf="activeTab === 2">Sensor settings</div>
+            <div class="details reference-details" >Reference details<span class="glyphicon glyphicon-menu-right"></span></div>
+            <div class="details reset-data" >Reset data<span class="glyphicon glyphicon-remove"></span></div>
+        </div>
+    </div>
+</div>
+<div class="secondLevel-config-container" ui-view="thirdLevelU"></div>
+</div>

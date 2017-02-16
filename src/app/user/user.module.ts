@@ -7,6 +7,8 @@ import { RouterModule, Routes,Router }  from '@angular/router';
 const UserRoutes: Routes = [
   // { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: '', component: UserComponent },
+  { path: 'uconfigdetector', loadChildren: './configdetector/cdetectoru.module#CDetectorUModule' },
+
 ];
 
 @NgModule({

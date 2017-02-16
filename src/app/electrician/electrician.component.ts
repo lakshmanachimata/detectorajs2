@@ -17,10 +17,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetector(item){
-      this.logger.log("configure detector selecter" + item.btDeviceName);
       this.data.initDeviceData(item);
       this.data.setSelectedDevice(item);
-      
   }
   ngOnChanges() { 
   }
