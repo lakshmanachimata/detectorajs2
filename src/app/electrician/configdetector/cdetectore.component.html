@@ -27,17 +27,17 @@
             <div class="bj-config-setting-block-br-div brightness-div" >
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
-                  <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust" type="text"  [ngStyle]="{'color': false?'red' : '#26394f'}">
+                  <div class="adjust-minus" (click)="reduceBrightness('threshold')" ><span class="glyphicon glyphicon-minus"></span></div>
+                  <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_threshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                  <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span></div>
               </div>
               <label class="bj-config-setting brightnesssetpoint-function">Brightness set point (10-2000 lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
-                  <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust"type="text"   [ngStyle]="{'color': false? 'red' : '#26394f'}">
+                  <div class="adjust-minus" (click)="reduceBrightness('setpoint')"><span class="glyphicon glyphicon-minus"></span></div>
+                  <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_setpoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                  <div class="adjust-plus" (click)="increaseBrightness('setpoint')"><span class="glyphicon glyphicon-plus"></span></div>
               </div>
               <div class = "bj-current-val">
                     <label class="bj-config-setting brightness-function">Take over current brightness</label>
@@ -105,13 +105,13 @@
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
-                         <label class="bj-brightness-lbl">20%</label>
-                         <div class="slide-open" ><span class="glyphicon glyphicon-menu-left"></span></div>
+                         <label class="bj-brightness-lbl">{{ad.actuator1.ch1_current_level}}%</label>
+                         <div class="slide-open" (click)="slideBrightnessIn()"><span class="glyphicon glyphicon-menu-left"></span></div>
                      </div>
-                     <div class="bj-brightness-slider"  [ngStyle]="{'display': true ? 'inline-block':'none'}">
-                         <div class="slide-close"><span class="glyphicon glyphicon-menu-right"></span></div> 
+                     <div class="bj-brightness-slider" [@slideIn]="aslider" (@slideIn.start)="animationStarted($event)" (@slideIn.done)="animationDone($event)" [ngStyle]="{'display': showSlider == true ? 'inline-block':'none'}">
+                         <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div> 
                          <div class="bj-slider-control">
-                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" >
+                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                          </div>
                      </div>
                  </div>
@@ -181,7 +181,7 @@
                          <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
                              <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" ng-style="{'background-color': true ? '#26394f':'#ccc'}"></div>
+                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
                          </div>
                   </span>
              </div>
@@ -189,21 +189,3 @@
     </div>
     <div class="secondLevel-service-container" ui-view="secondLevel" ></div>
 </div>
-
-<!--<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && !testmodeEnable && !updateEnable && !loadProfileState">
-    <div class="bj-back" ng-click="cancelModifications()"><span class="glyphicon glyphicon-remove"></span></div>
-    <div id="bj-send-to-device" ng-click="sendToDevice();showDialog('overwriteprofile')" ng-disabled="!sendChangesToDevice" ng-style="{'color':sendChangesToDevice==true ? '#ffffff' :'#015c8e'}">Send</div>
-</div>
-
-<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && testmodeEnable && !updateEnable && !loadProfileState">
-    <div id="deactivate-testmode" ng-click="cancelModifications()">Deactivate test mode</div>
-</div>
-
-<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && !testmodeEnable && updateEnable  && !loadProfileState">
-    <div id="cancel-update" ng-click="cancelModifications()"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
-
-<div class="bj-footer" ng-class="{'bj-user-view':profile == operatorProfile.USER}" ng-show="doneLoading && loadProfileState && !testmodeEnable && !updateEnable">
-    <div class="bj-back" ng-click="cancelModifications()"><span class="glyphicon glyphicon-remove"></span></div>
-    <div id="bj-load-profile" ng-click="loadProfile()" ng-disabled="!loadNewProfile" ng-style="{'color':loadNewProfile==true ? '#ffffff' :'#015c8e'}">Load</div>
-</div>-->
