@@ -25,6 +25,15 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.setFooter(true);
     }
 
+  slideBackground (value) {
+    let stringval = value.toString();
+    let stylestr = "linear-gradient(to right,#2c435c " + stringval + "%, transparent 0%";
+    let mystyles =  {
+      'background': stylestr
+    }
+    return mystyles;
+  }
+
   slideNext() {
     this.light1state = this.light1state + 1;
   }

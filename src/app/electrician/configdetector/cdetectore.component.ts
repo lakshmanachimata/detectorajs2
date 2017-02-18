@@ -85,6 +85,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
 
 
+
   validatebrparams(item) {
     if(item == 'threshold') {
       if(this.ad.sensor_settings.brightness_threshold < 10 || 
