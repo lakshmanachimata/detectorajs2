@@ -1240,10 +1240,9 @@ label.bj-config-setting.presence-simulation-block {
    	min-height:240px;
    	border-bottom: solid 1px #9eabbb;
 }
-
 .bj-config-setting-block-sp-div{
     width:100%;
-   	min-height:150px;
+   	min-height:50px;
    	border-bottom: solid 1px #9eabbb;
 }
 .bj-config-setting-block-div.brightness-user-div{
