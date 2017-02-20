@@ -14,7 +14,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   activeDevice:any;
   ad:any;
   onLabel = 'on';
-  offLable = 'off';
+  offLabel = 'off';
   deviceType = -1;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice();
@@ -27,6 +27,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ngDoCheck() { 
   }
   ngOnInit() {
+      this.data.setMainTitle(this.data.getOtherParamTitle());
   }
   ngAfterContentInit() { 
   }

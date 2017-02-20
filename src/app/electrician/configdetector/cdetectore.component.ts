@@ -31,11 +31,12 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     onLabel = 'on';
-    offLable = 'off';
+    offLabel = 'off';
     deviceType = -1;
     brthresholderror = false;
     brsetpointerror = false;
     aslider = 'none';
+    currentBrightness = '450 lx';
     showSlider = false;
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
@@ -53,7 +54,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-    
+    this.data.setMainTitle('Config detector');
+    this.currentBrightness = this.data.getCurrentBrightness();
   }
   ngAfterContentInit() { 
   }
@@ -140,8 +142,8 @@ slideBackground (value) {
   gotoActuator2(){
     this.router.navigate(['eactuator2'],{relativeTo: this.route});
   }
-  gotoOtherParams(otherparam){
-    this.data.setOtherParam(otherparam);
+  gotoOtherParams(otherparam,otherParamTitle){
+    this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
   }
 }

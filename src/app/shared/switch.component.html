@@ -1,0 +1,7 @@
+<span class="bj-config-toggle-switch">
+    <div class="track"  (click)="ad.sensor_settings.constant_light_regulation = !ad.sensor_settings.constant_light_regulation"  [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+        <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
+        <label class="switch-offlabel" *ngIf="ad.sensor_settings.constant_light_regulation == false">{{offLabel}}</label>
+        <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.constant_light_regulation == true,'switch-off':!ad.sensor_settings.constant_light_regulation == true}" [ngStyle]="{'background-color':ad.sensor_settings.constant_light_regulation== true ? '#26394f':'#ccc'}"></div>
+    </div>
+</span>

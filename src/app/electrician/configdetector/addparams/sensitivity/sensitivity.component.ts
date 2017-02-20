@@ -11,15 +11,22 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 })
 export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-  onLabel = 'on';
-  offLabel = 'off';
+   activeDevice:any;
+    ad:any;
+    onLabel = 'on';
+    offLabel = 'off';
+    deviceType = -1;
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+      this.activeDevice = this.data.getSelectedDevice();
+      this.ad = this.data.getDevicedata();
+      this.deviceType = data.getSelectedDeviceType();
   }
   ngOnChanges() { 
   }
   ngDoCheck() { 
   }
   ngOnInit() {
+    this.data.setMainTitle('Sensitivity of sensors');
   }
   ngAfterContentInit() { 
   }

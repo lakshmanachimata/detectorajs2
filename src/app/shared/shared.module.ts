@@ -7,12 +7,13 @@ import { LoggerService } from '../logger.service';
 import { NextComponent} from './next.component';
 import { UpComponent} from './up.component';
 import { DownComponent} from './down.component';
-
+import { SwitchComponent} from './switch.component';
 @NgModule({
   declarations: [
   NextComponent,
   UpComponent,
   DownComponent,
+  SwitchComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { DownComponent} from './down.component';
       NextComponent,
       UpComponent,
       DownComponent,
+      SwitchComponent,
       CommonModule,
       FormsModule,
       HttpModule,

@@ -1,35 +1,35 @@
-<div class="bj-config-container">
+<div class="bj-config-container"> 
 <div id="bj-sensor-params-settings-div">
     <div class="bj-sensor-toggle brighteness-correction">
        <label class="bj-config-setting inner-setting sensor-params-function">Brightness correction</label>
             <span class="bj-config-toggle-switch">
-                  <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
-                    <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                    <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                    <div class="switch"[ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+            <div class="track"  (click)="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable = !ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true,'switch-off':!ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true ? '#26394f':'#ccc'}"></div>
                 </div>
-            </span>
+        </span>
     </div>
-    <label class="bj-config-setting inner-setting sensor-params-function">Brightness setpoint</label>
-    <div class="bj-config-setting-adjust sensor-params-block" >
+    <label class="bj-config-setting inner-setting sensor-params-function" *ngIf ="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true">Brightness setpoint</label>
+    <div class="bj-config-setting-adjust sensor-params-block" *ngIf ="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true" >
         <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
         <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
         <div class="static-unit-text">lx</div>
         <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
     </div>
     <div class = "bj-current-val">
-        <label class="bj-config-setting current-brightness-function">Current brightness :</label>
-        <input class="current-adjust-value brightness-function" type="text">
+        <label class="bj-config-setting brightness-function">Current brightness : </label>
+        <input class="adjust-value brightness-function" type="text" disabled [(ngModel)]="currentBrightness">
     </div>
     <div class="bj-sensor-toggle dynamic-delay">
     <label class="bj-config-setting inner-setting sensor-params-function">Dynamic switch-off delay</label>
             <span class="bj-config-toggle-switch">
-                 <div class="track"   [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
-                     <label class="switch-onlabel" *ngIf=" true">{{onLabel}}</label>
-                     <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                     <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-                 </div>
-            </span>
+            <div class="track"  (click)="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay = !ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true,'switch-off':!ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true ? '#26394f':'#ccc'}"></div>
+                </div>
+        </span>
     </div>
     <div class="bj-config-setting-div sensor-params-div" (click)="gotoSensitivity()" >
         <label class="bj-config-setting inner-setting sensor-params-lbl" >Set sensitivity</label>

@@ -18,6 +18,7 @@ export class UIParams {
       public subMenuVal= 'none';
       public profile = 'none';
       public mainTitle = 'BJ DETECTOR';
+      public otherparamTitle = '';
       arrowStateChange: EventEmitter<any> = new EventEmitter();
       public otherparam = '';
 }
@@ -38,7 +39,7 @@ export class DeviceParams {
 }
 
 
-
+    
 @Injectable()
 export class DataService {
 
@@ -46,6 +47,7 @@ export class DataService {
     deviceParams:DeviceParams   =  new DeviceParams();
     deviceData:any;
     private selectedDevice:any;
+    currentBrightness = '498';
     constructor(private http:Http,private logger: LoggerService) {
     }
 
@@ -61,7 +63,13 @@ export class DataService {
         });
     }
 
+    getCurrentBrightness() {
+        return this.currentBrightness+ 'lx';
+    }
    
+    setCurrentBrightness(brightness) {
+        this.currentBrightness = brightness;
+    }
 
     loadDevices() {
         return new Promise<Array<any>>(resolve => {
@@ -138,8 +146,12 @@ export class DataService {
     getSubMenuVal() {
         return this.uiParams.subMenuVal;
     }
-    setOtherParam(item) {
+    setOtherParam(item,itemTitle) {
          this.uiParams.otherparam = item;
+         this.uiParams.otherparamTitle = itemTitle;
+    }
+    getOtherParamTitle() {
+        return this.uiParams.otherparamTitle;
     }
     getOtherParam(){
         return this.uiParams.otherparam;
