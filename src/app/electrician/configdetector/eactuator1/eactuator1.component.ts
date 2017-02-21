@@ -12,15 +12,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 })
 export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-   showCircuitSettings = false;
-   showDurableSwitchingSettings = false;
-   showSoftSwitchingSettings = false;
-   showMiscSettings = false;
-   showDaliSettings = false;
-   showFluorescentSettings = false;
-   showBasicIlluminationSettings = false;
-   showNightAntiGlareSettings = false;
-   showTimeShiftedSwitchOffSettings = false
+
     activeDevice:any;
     deviceType = -1;
     ad:any;

@@ -16,6 +16,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   onLabel = 'on';
   offLabel = 'off';
   deviceType = -1;
+  showFitterPin = false;
+  showUserPin = false;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice();
       this.ad = this.data.getDevicedata();

@@ -79,12 +79,12 @@
     <div class="bj-config-setting-div predefined-profiles-div" style="border-bottom:none;">
         <div class="bj-config-setting inner-setting profiles heading">
             <label class="predefined-profiles-lbl">Predefined profiles</label>
-            <div class="bj-actuator-toggle" >
-                <down-nav *ngIf="true"></down-nav>
-                <up-nav *ngIf="false"></up-nav>
+            <div class="bj-actuator-toggle" (click)="showPredefinedProfiles = !showPredefinedProfiles">
+                <down-nav *ngIf="!showPredefinedProfiles"></down-nav>
+                <up-nav *ngIf="showPredefinedProfiles"></up-nav>
             </div>
         </div>
-        <div>
+        <div *ngIf="showPredefinedProfiles">
             <div class="bj-config-setting inner-setting pre-profiles classroom-lbl">
                 <label class="pre-profile-lbl" >Classroom</label>
             </div>
@@ -105,9 +105,9 @@
     <div class="bj-config-setting-div userdefined-profiles-div" style="border-bottom:none;">
         <div class="bj-config-setting inner-setting profiles heading">
             <label class="userdefined-profiles-lbl">User profiles</label>
-            <div class="bj-actuator-toggle">
-                <down-nav *ngIf="true"></down-nav>
-                <up-nav *ngIf="false"></up-nav>
+            <div class="bj-actuator-toggle" (click)="showUserdefinedProfiles = !showUserdefinedProfiles">
+                <down-nav *ngIf="!showUserdefinedProfiles"></down-nav>
+                <up-nav *ngIf="showUserdefinedProfiles"></up-nav>
             </div>
         </div>
     </div>
@@ -185,12 +185,12 @@
     <div class="bj-config-setting-div energy-monitor-currency-div" style="border-bottom:none;">
         <div class="bj-config-setting inner-setting energy-monitor heading">
             <label class="energy-monitor-currency-lbl">Currency</label>
-            <div class="bj-actuator-toggle" >
-                <down-nav *ngIf="true"></down-nav>
-                <up-nav *ngIf="flase"></up-nav>
+            <div class="bj-actuator-toggle" (click)="currencyDetails = !currencyDetails">
+                <down-nav *ngIf="!currencyDetails"></down-nav>
+                <up-nav *ngIf="currencyDetails"></up-nav>
             </div>
         </div>
-        <div>
+        <div  *ngIf="currencyDetails">
             <div class="bj-config-setting inner-setting energy-monitor"><label id="currency-all">All</label><input type="radio" class="currency-radio"  name="currency" value="0"/></div>
             <div class="bj-config-setting inner-setting energy-monitor"><label id="currency-eur">EUR</label><input type="radio" class="currency-radio"  name="currency" value="1"/></div>
             <div class="bj-config-setting inner-setting energy-monitor"><label id="currency-usd">USD</label><input type="radio" class="currency-radio"  name="currency" value="2"/></div>
@@ -200,27 +200,27 @@
 <div id="bj-set-pins-settings-div" *ngIf="getOtherParam()=='setpins'">
     <label class="bj-config-lbl set-pins-fitter-div">Installer PIN</label>
     <div id="bj-set-pins-fitter">
-        <input class="bj-configure-input" type="{{true ? 'text' : 'password'}}" >
+        <input class="bj-configure-input" type="{{showFitterPin == true ? 'text' : 'password'}}"  [(ngModel)]="ad.commissioning.pins.electrician" >
         <label class="set-pins-subtext">With this PIN you gain access to all the settings of the device.</label>
         <label class="bj-config-setting inner-setting set-pins-fitter-block">Show password</label>
             <span class="bj-config-toggle-switch">
-                 <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
-                       <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                       <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+                 <div class="track"  (click)="showFitterPin=!showFitterPin"  [ngStyle]="{'border-color': showFitterPin ==true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="showFitterPin == true">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="!showFitterPin == true">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':showFitterPin == true,'switch-off':!showFitterPin == true}" [ngStyle]="{'background-color':showFitterPin == true ? '#26394f':'#ccc'}"></div>
                  </div>
             </span>
     </div>
     <label class="bj-config-lbl set-pins-user-div">Standard user password</label>
     <div id="bj-set-pins-user">
-        <input class="bj-configure-input" type="{{true ? 'text' : 'password'}}">
+        <input class="bj-configure-input" type="{{showUserPin == true ? 'text' : 'password'}}" [(ngModel)]="ad.commissioning.pins.standard_user">
         <label class="set-pins-subtext">With this PIN the user gains access to simple light settings.</label>
         <label class="bj-config-setting inner-setting set-pins-user-block">Show password</label>
-            <span class="bj-config-toggle-switch">
-                 <div class="track" [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                     <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                     <label class="switch-offlabel" *ngIf="flase">{{offLabel}}</label>
-                     <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
+             <span class="bj-config-toggle-switch">
+                 <div class="track"  (click)="showUserPin=!showUserPin"  [ngStyle]="{'border-color': showUserPin ==true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="showUserPin == true">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="!showUserPin == true">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':showUserPin == true,'switch-off':!showUserPin == true}" [ngStyle]="{'background-color':showFitterPin == true ? '#26394f':'#ccc'}"></div>
                  </div>
             </span>
     </div>
@@ -228,11 +228,11 @@
 <div id="bj-building-alloc-settings-div"  *ngIf="getOtherParam()=='buildingallocation'">
     <label class="bj-config-lbl building-alloc-contact-div">Contact name</label>
     <div id="bj-building-alloc-contact">
-        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}">
+        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}" [(ngModel)]="activeDevice.contactName">
     </div>
     <label class="bj-config-lbl building-alloc-building-div">Building</label>
     <div id="bj-building-alloc-building">
-        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}">
+        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" [(ngModel)]="activeDevice.buildingName">
     </div>
 </div>
 <div id="bj-release-to-user-dev" *ngIf="getOtherParam()=='releasetouser'">
