@@ -13,10 +13,11 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     
     activeDevice:any;
+    deviceType = -1;
     ad:any;
     onLabel = 'on';
     offLabel = 'off';
-    deviceType = -1;
+    
     light1state = 0;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice();

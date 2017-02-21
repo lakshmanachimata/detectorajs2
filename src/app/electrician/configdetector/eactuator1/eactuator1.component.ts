@@ -4,6 +4,7 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 
 
+
 @Component({
   selector: 'eactuator1-root',
   templateUrl: './eactuator1.component.html',
@@ -11,9 +12,23 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router
 })
 export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
+   showCircuitSettings = false;
+   showDurableSwitchingSettings = false;
+   showSoftSwitchingSettings = false;
+   showMiscSettings = false;
+   showFluorescentSettings = false;
+   showBasicIlluminationSettings = false;
+   showNightAntiGlareSettings = false;
+   showTimeShiftedSwitchOffSettings = false
+    activeDevice:any;
+    deviceType = -1;
+    ad:any;
   onLabel = 'on';
   offLabel = 'off';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+      this.activeDevice = this.data.getSelectedDevice();
+      this.ad = this.data.getDevicedata();
+      this.deviceType = data.getSelectedDeviceType();
   }
   ngOnChanges() { 
   }
