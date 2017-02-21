@@ -4,10 +4,10 @@
     <div class="testmode-master-div">
         <div class="testmode-top-quadrants">
             <div class="testmode-quadrant q1" [ngStyle]="{'background':masterQuad=='q1' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q1-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" >
+                <img class="user-active q1-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q1')">
             </div>
             <div class="testmode-quadrant q2" [ngStyle]="{'background':masterQuad=='q2' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q2-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" >
+                <img class="user-active q2-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q2')">
             </div>
         </div>
         <div id="testmode-master-inner-ring">
@@ -18,10 +18,10 @@
         </div>
         <div class="testmode-bottom-quadrants">
             <div class="testmode-quadrant q3" [ngStyle]="{'background':masterQuad=='q3' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q3-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" >
+                <img class="user-active q3-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q3')">
             </div>
             <div class="testmode-quadrant q4" [ngStyle]="{'background':masterQuad=='q4' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q4-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" >
+                <img class="user-active q4-icon" src="../../../../assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q4')">
             </div>
         </div>
     </div>
@@ -34,31 +34,34 @@
         <div class="bj-config-setting-div testmode-settings-test-actuator1-div" >
             <label class="bj-config-setting testmode-settings-test-actuator1-block">Identify load on actuator 1</label>
                 <span class="bj-config-toggle-switch">
-                   <div class="track"  [ngStyle]="{'border-color':ch1_identifyingLoad== true ? '#26394f':'#c0c1c3'}">
-                      <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                      <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                      <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
-                   </div>
+                   <div class="track"  (click)="A1LoadIdentify = !A1LoadIdentify"  [(ngModel)]="A1LoadIdentify" [ngStyle]="{'border-color': A1LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="A1LoadIdentify == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="A1LoadIdentify == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':A1LoadIdentify == true,'switch-off':!A1LoadIdentify == true }" [ngStyle]="{'background-color': A1LoadIdentify == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
                 </span>
         </div>
         <div class="bj-config-setting-div testmode-settings-test-actuator2-div" >
             <label class="bj-config-setting testmode-settings-test-actuator2-block">Identify load on actuator 2</label>
                 <span class="bj-config-toggle-switch">
-                  <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                     <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                     <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                     <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color': true ? '#26394f':'#ccc'}"></div>
-                  </div>
+                  <div class="track"  (click)="A2LoadIdentify = !A2LoadIdentify"  [(ngModel)]="A2LoadIdentify" [ngStyle]="{'border-color': A2LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="A2LoadIdentify == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="A2LoadIdentify == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':A2LoadIdentify == true,'switch-off':!A2LoadIdentify == true }" [ngStyle]="{'background-color': A2LoadIdentify == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
                 </span>
         </div>
         <div class="bj-config-setting-div testmode-settings-test-deactivate-div" >
             <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivation of outputs</label>
                 <span class="bj-config-toggle-switch">
-                  <div class="track"  [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
-                      <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                      <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                      <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-                  </div>
+                  <div class="track"  (click)="DeactivateOp = !DeactivateOp"  [(ngModel)]="DeactivateOp" [ngStyle]="{'border-color': DeactivateOp == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="DeactivateOp == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="DeactivateOp == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':DeactivateOp == true,'switch-off':!DeactivateOp == true }" [ngStyle]="{'background-color': DeactivateOp == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
                 </span>
         </div>
     </div>

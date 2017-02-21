@@ -1,4 +1,5 @@
 <div class="bj-footer" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
-    <div class="bj-back" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
-    <div id="bj-send-to-device"  [ngStyle]="{'color':'#ffffff'}">Send</div>
+    <div class="bj-back"  *ngIf="getOtherParam()!='testmode'" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
+    <div id="bj-send-to-device"  [ngStyle]="{'color':'#ffffff'}" *ngIf="getOtherParam()!='testmode'">Send</div>
+    <div id="deactivate-testmode" *ngIf="getOtherParam()=='testmode'">Deactivate test mode</div>
 </div>

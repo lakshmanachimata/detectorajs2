@@ -56,6 +56,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnInit() {
     this.data.setMainTitle('Config detector');
     this.currentBrightness = this.data.getCurrentBrightness();
+    this.data.setOtherParam('','');
   }
   ngAfterContentInit() { 
   }

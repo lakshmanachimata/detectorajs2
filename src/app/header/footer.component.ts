@@ -47,4 +47,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   bjGoBack() {
     this.location.back();
   }
+  getOtherParam() {
+    return this.data.getOtherParam();
+  }
 }

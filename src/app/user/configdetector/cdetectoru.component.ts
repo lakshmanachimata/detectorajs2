@@ -51,7 +51,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-    
+    this.data.setOtherParam('','');
   }
   ngAfterContentInit() { 
   }
