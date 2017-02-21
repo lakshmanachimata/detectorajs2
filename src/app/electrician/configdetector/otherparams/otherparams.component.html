@@ -239,51 +239,56 @@
     <div class="bj-config-setting-div prog-brightness-div" >
         <label class="bj-config-setting prog-brightness-block">Programming brightness</label>
            <span class="bj-config-toggle-switch">
-               <div class="track" [ngStyle]="{'border-color': true ? '#26394f':'#c0c1c3'}">
-                  <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                  <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                  <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':enableUserSetBrightnessThreshold== true ? '#26394f':'#ccc'}"></div>
-               </div>
+            <div class="track"  (click)="ad.commissioning.user_settings.brightness_threshold = !ad.commissioning.user_settings.brightness_threshold"  [(ngModel)]="ad.commissioning.user_settings.brightness_threshold" [ngStyle]="{'border-color': ad.commissioning.user_settings.brightness_threshold == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.brightness_threshold == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.brightness_threshold == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.brightness_threshold == true,'switch-off':!ad.commissioning.user_settings.brightness_threshold == true }" [ngStyle]="{'background-color': ad.commissioning.user_settings.brightness_threshold == true ? '#26394f':'#ccc'}">
+                </div>
+            </div>
            </span>
     </div>
     <div class="bj-config-setting-div switch-off-delay-div" >
         <label class="bj-config-setting switch-off-delay-block">Settings switch-off delay</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  [ngStyle]="{'border-color':enableUserSetSwitchOffDelay== true ? '#26394f':'#c0c1c3'}">
-                   <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                   <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                   <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':enableUserSetSwitchOffDelay== true ? '#26394f':'#ccc'}"></div>
-               </div>
+               <div class="track"  (click)="ad.commissioning.user_settings.switch_off_delay = !ad.commissioning.user_settings.switch_off_delay"  [(ngModel)]="ad.commissioning.user_settings.switch_off_delay" [ngStyle]="{'border-color': ad.commissioning.user_settings.switch_off_delay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.switch_off_delay == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.switch_off_delay == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.switch_off_delay == true,'switch-off':!ad.commissioning.user_settings.switch_off_delay == true }" [ngStyle]="{'background-color': ad.commissioning.user_settings.switch_off_delay == true ? '#26394f':'#ccc'}">
+                </div>
+            </div>
            </span>
     </div>
     <div class="bj-config-setting-div energy-monitor-div" >
         <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                   <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                   <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                   <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-               </div>
+               <div class="track"  (click)="ad.commissioning.user_settings.energy_monitor = !ad.commissioning.user_settings.energy_monitor"  [(ngModel)]="ad.commissioning.user_settings.energy_monitor" [ngStyle]="{'border-color': ad.commissioning.user_settings.energy_monitor == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.energy_monitor == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.energy_monitor == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.energy_monitor == true,'switch-off':!ad.commissioning.user_settings.energy_monitor == true }" [ngStyle]="{'background-color': ad.commissioning.user_settings.energy_monitor == true ? '#26394f':'#ccc'}">
+                </div>
+            </div>
            </span>
     </div>
     <div class="bj-config-setting-div ground-illumination-div" >
         <label class="bj-config-setting ground-illumination-block">Illumination function of grounds</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                   <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                   <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                   <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-               </div>
+               <div class="track"  (click)="ad.commissioning.user_settings.basic_illumination = !ad.commissioning.user_settings.basic_illumination"  [(ngModel)]="ad.commissioning.user_settings.basic_illumination" [ngStyle]="{'border-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.basic_illumination == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.basic_illumination == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.basic_illumination == true,'switch-off':!ad.commissioning.user_settings.basic_illumination == true }" [ngStyle]="{'background-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#ccc'}">
+                </div>
+            </div>
            </span>
     </div>
     <div class="bj-config-setting-div anti-night-glare-div" >
         <label class="bj-config-setting anti-night-glare-block">Night-time anti-glare function</label>
            <span class="bj-config-toggle-switch">
-               <div class="track" [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                   <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                   <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                   <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-               </div>
+                <div class="track"  (click)="ad.commissioning.user_settings.anti_glare_function = !ad.commissioning.user_settings.anti_glare_function"  [(ngModel)]="ad.commissioning.user_settings.anti_glare_function" [ngStyle]="{'border-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.anti_glare_function == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.anti_glare_function == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.anti_glare_function == true,'switch-off':!ad.commissioning.user_settings.anti_glare_function == true }" [ngStyle]="{'background-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#ccc'}">
+                </div>
+            </div>
            </span>
     </div>
 <!--
