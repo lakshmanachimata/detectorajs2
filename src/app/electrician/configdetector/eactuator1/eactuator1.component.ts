@@ -16,6 +16,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
    showDurableSwitchingSettings = false;
    showSoftSwitchingSettings = false;
    showMiscSettings = false;
+   showDaliSettings = false;
    showFluorescentSettings = false;
    showBasicIlluminationSettings = false;
    showNightAntiGlareSettings = false;
