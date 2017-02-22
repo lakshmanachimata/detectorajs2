@@ -10,7 +10,7 @@
                 </div>
         </span>
     </div>
-    <div class="detection-outdoor-div" >
+    <div class="detection-outdoor-div" *ngIf="ad.sensor_settings.additional_sensor_parameters.outdoor_application == false">
         <div class="detection-outdoor-top-quadrants">
             <div class="detection-outdoor-quadrant q1"  [ngStyle]="{'background':true ? '#0076b7' :'#f9fafc'}">
                 <label class="detection-quad-value q1-val">25%</label></div>
@@ -29,19 +29,19 @@
                 <label class="detection-quad-value q4-val">100%</label></div>
         </div>
         <div class="bj-detection-outdoor-slider">
-            <div ng-click="setValue(0)"><input id="value0" type="radio"  value="0" />
+            <div (click)="setValue(0)"><input id="value0" type="radio"  value="0" />
                 <div class="detection-slider-value value0"  ></div>
             </div>
-            <div  ng-click="setValue(25)"><input id="value25" type="radio"  value="25" />
+            <div  (click)="setValue(25)"><input id="value25" type="radio"  value="25" />
                  <div class="detection-slider-value value25" ></div>
             </div>
-            <div ng-click="setValue(50)"><input id="value50" type="radio"  value="50" />
+            <div (click)="setValue(50)"><input id="value50" type="radio"  value="50" />
                 <div class="detection-slider-value value50" ></div>
             </div>
-            <div ng-click="setValue(75)"><input id="value75" type="radio"  value="75" />
+            <div (click)="setValue(75)"><input id="value75" type="radio"  value="75" />
                 <div class="detection-slider-value value75" ></div>
             </div>
-            <div ng-click="setValue(100)"><input id="value100" type="radio"  value="100" />
+            <div (click)="setValue(100)"><input id="value100" type="radio"  value="100" />
                 <div class="detection-slider-value value100" ></div>
             </div>
         </div>

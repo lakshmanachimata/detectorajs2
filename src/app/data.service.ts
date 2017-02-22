@@ -21,6 +21,7 @@ export class UIParams {
       public otherparamTitle = '';
       arrowStateChange: EventEmitter<any> = new EventEmitter();
       public otherparam = '';
+      showOnlyCancel =  false;
 }
 
 export class DeviceParams {
@@ -149,6 +150,12 @@ export class DataService {
     setOtherParam(item,itemTitle) {
          this.uiParams.otherparam = item;
          this.uiParams.otherparamTitle = itemTitle;
+    }
+    setShowOnlyCancel(cancel) {
+        this.uiParams.showOnlyCancel = cancel;
+    }
+    showOnlyCancel() {
+        return this.uiParams.showOnlyCancel;
     }
     getOtherParamTitle() {
         return this.uiParams.otherparamTitle;

@@ -38,4 +38,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   ngOnDestroy() {
   }
+  setValue(item) {
+    
+  }
 }

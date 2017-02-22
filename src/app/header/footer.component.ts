@@ -50,4 +50,8 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   getOtherParam() {
     return this.data.getOtherParam();
   }
+  showOnlyCancel() {
+    return this.data.showOnlyCancel();
+  }
+  
 }
