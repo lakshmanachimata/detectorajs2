@@ -98,7 +98,7 @@
         </div>
     </div>
     <!--misc settings-->
-    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-misc-settings-lbl">Additional Settings</label>
             <div class="bj-actuator-toggle" (click)="showMiscSettings = !showMiscSettings">
@@ -151,10 +151,11 @@
                         </div>
                 </span>
                 <div class="bj-config-setting-adjust min-load-function" *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text">
-                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('minload')" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust" type="number" [(ngModel)]="ad.actuator1.misc_settings.load_output.minimum.value" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text" > s </div>
+                    <div class="adjust-plus" (click)="increaseCount('minload')" ><span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
             </div>
             <div class="bj-config-setting inner-setting actuator1 max-load">
@@ -168,16 +169,17 @@
                         </div>
                 </span>
                 <div class="bj-config-setting-adjust max-load-function" *ngIf="ad.actuator1.misc_settings.load_output.maximum.on">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" >
-                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('maxload')" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust" type="number" [(ngModel)]="ad.actuator1.misc_settings.load_output.maximum.output_value" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text" > s </div>
+                    <div class="adjust-plus" (click)="increaseCount('maxload')" ><span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!--DALI settings-->
-    <div class="bj-config-setting-div actuator1-dali-settings-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-dali-settings-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-dali-settings-lbl">DALI Settings</label>
             <div class="bj-actuator-toggle" (click)="showDaliSettings = !showDaliSettings">
@@ -198,16 +200,16 @@
                  </span>
             </div>
             <label class="bj-config-lbl sensor-div">Power ON level</label>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl">OFF</label><input type="radio" class="circuit-radio"   name="power_level" value="0"/></div>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl">Memo</label><input type="radio" class="circuit-radio" name="power_level" value="1"/></div>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl">100%</label><input type="radio" class="circuit-radio"  name="power_level" value="2"/></div>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl">OFF</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.dali_settings.power_on_level" [checked]="ad.actuator1.dali_settings.power_on_level === 0"  name="power_level" [value]="0"/></div>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl">Memo</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.dali_settings.power_on_level" [checked]="ad.actuator1.dali_settings.power_on_level === 1" name="power_level" [value]="1"/></div>
+                <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl">100%</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.dali_settings.power_on_level" [checked]="ad.actuator1.dali_settings.power_on_level === 2" name="power_level" [value]="2"/></div>
             <div class="bj-config-setting actuator1 reset">
                 <label class="bj-config-setting reset-inner-block">Reset control gear</label><span class="glyphicon glyphicon-stop"></span>
             </div>
         </div>
     </div>
     <!--fluorescent lamp settings-->
-    <div class="bj-config-setting-div actuator1-fluorescent-settings-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-fluorescent-settings-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-fluorescent-settings-lbl">Fluorescent lamps</label>
             <div class="bj-actuator-toggle" (click)="showFluorescentSettings =!showFluorescentSettings">
@@ -229,15 +231,16 @@
             </div>
             <div *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function">
                     <label class="bj-config-lbl sensor-div" >Burn in mode</label>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl">Steady</label><input type="radio" class="circuit-radio"  name="burn_in_mode" value="0"/></div>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl">Accumulated</label><input type="radio" class="circuit-radio" name="burn_in_mode" value="1"/></div>
+                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl">Steady</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.fluorescent_lamps.burn_in_mode" [checked]="ad.actuator1.fluorescent_lamps.burn_in_mode === 0" name="burn_in_mode" [value]="0"/></div>
+                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl">Accumulated</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.fluorescent_lamps.burn_in_mode" [checked]="ad.actuator1.fluorescent_lamps.burn_in_mode === 1" name="burn_in_mode" [value]="1"/></div>
                 <div class="bj-config-setting inner-setting actuator1 burnInTime" >
                     <label class="actuator-burinin-switching-lbl">Duration for burn in(1h - 250 h)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust"type="text"  [ngStyle]="{'color': false ? 'red' : '#26394f'}">
-                        <div class="static-unit-text">h</div>
-                        <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                        <div class="adjust-minus" (click)="reduceCount('burnduration')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.fluorescent_lamps.burn_in_hours" [ngStyle]="{'color':burnHours ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" > s </div>
+                        <div class="adjust-plus" (click)="increaseCount('burnduration')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="bj-config-setting actuator1 reset">
@@ -247,7 +250,7 @@
         </div>
     </div>
     <!--basic illumination settings-->
-    <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" >
+    <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-basic-illumination-lbl">Basic brightness</label>
             <div class="bj-actuator-toggle" (click)="showBasicIlluminationSettings = !showBasicIlluminationSettings">
@@ -255,41 +258,43 @@
                 <up-nav *ngIf="showBasicIlluminationSettings"></up-nav>
             </div>
         </div>
-        <div *ngIf="showBasicIlluminationSettings">
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="1"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio"  name="illuminiation-mode" value="2"/></div>
-            <div class="bj-config-setting inner-setting actuator1" >
+        <div *ngIf="showBasicIlluminationSettings"> 
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.basic_illumination.settings" [checked]="ad.actuator1.basic_illumination.settings === 0"  name="illuminiation-mode" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.basic_illumination.settings" [checked]="ad.actuator1.basic_illumination.settings === 1"  name="illuminiation-mode" [value]="1"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator1.basic_illumination.settings" [checked]="ad.actuator1.basic_illumination.settings === 2" name="illuminiation-mode" [value]="2"/></div>
+            <div class="bj-config-setting inner-setting actuator1" *ngIf="ad.actuator1.basic_illumination.settings == 1 || ad.actuator1.basic_illumination.settings == 2" >
                 <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
                 <div class="bj-actuator1-slider">
-                    <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1">
-                    <div class="illumination-value-disp">48%</div>
+                    <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.basic_illumination.basic_illumination_level" >
+                    <div class="illumination-value-disp">{{ad.actuator1.basic_illumination.basic_illumination_level}} %</div>
                 </div>
             </div>
-            <div class="bj-config-setting inner-setting actuator1" >
+            <div class="bj-config-setting inner-setting actuator1" *ngIf=" ad.actuator1.basic_illumination.settings == 2">
                 <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
                 <div class="bj-actuator1-slider">
-                    <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1">
-                    <div class="ambient-brightness-value-disp">1000lx</div>
+                    <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1" [(ngModel)]="ad.actuator1.basic_illumination.ambient_brightness_threshold">
+                    <div class="ambient-brightness-value-disp">{{ad.actuator1.basic_illumination.ambient_brightness_threshold}}lx</div>
                 </div>
             </div>
-            <div class="bj-config-setting inner-setting actuator1" >
+            <div class="bj-config-setting inner-setting actuator1"  *ngIf=" ad.actuator1.basic_illumination.settings == 1">
                 <label class="actuator-illumination-start-time-lbl">Start time</label>
                 <div class="bj-config-setting-adjust illumination-start-function">
-                    <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text"   [ngStyle]="{'color': true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text">h</div>
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('brightstart')" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust" type="number" [(ngModel)]="ad.actuator1.basic_illumination.start_time" [ngStyle]="{'color':brightStart ==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text" > h </div>
+                    <div class="adjust-plus" (click)="increaseCount('brightstart')" ><span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
                 <label class="actuator-illumination-end-time-lbl">End time</label>
                 <div class="bj-config-setting-adjust illumination-end-function">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text"  [ngStyle]="{'color':true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text">h</div>
-                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('brightend')" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust" type="number" [(ngModel)]="ad.actuator1.basic_illumination.end_time" [ngStyle]="{'color':brightEnd ==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text" > h </div>
+                    <div class="adjust-plus" (click)="increaseCount('brightend')" ><span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
             </div>
-            <div class="bj-config-setting inner-setting actuator1 astro-function" >
+            <div class="bj-config-setting inner-setting actuator1 astro-function" *ngIf=" ad.actuator1.basic_illumination.settings == 1" >
                 <label class="astro-function-lbl">Astro function</label>
                  <span class="bj-config-toggle-switch actuator1">
                           <div class="track"   (click)="ad.actuator1.basic_illumination.astro_function = !ad.actuator1.basic_illumination.astro_function"  [(ngModel)]="ad.actuator1.basic_illumination.astro_function" [ngStyle]="{'border-color': ad.actuator1.basic_illumination.astro_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -303,7 +308,7 @@
         </div>
     </div>
   <!--night time anti-glare-->
-    <div class="bj-config-setting-div actuator1-night-anti-glare-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-night-anti-glare-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-night-anti-glare-lbl">Night light </label>
             <div class="bj-actuator-toggle"(click)="showNightAntiGlareSettings = !showNightAntiGlareSettings" >
@@ -327,24 +332,26 @@
                 <div class="anti-glare-start-end-time-div">
                     <label class="actuator-anti-glare-start-time-lbl">Start time</label>
                     <div class="bj-config-setting-adjust anti-glare-start-function">
-                        <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust"type="text" [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                        <div class="static-unit-text">s</div>
-                        <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                        <div class="adjust-minus" (click)="reduceCount('glarestart')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.night_time_anti_glare_function.start_time" [ngStyle]="{'color':glareStart ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" > h </div>
+                        <div class="adjust-plus" (click)="increaseCount('glarestart')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                     </div>
                     <label class="actuator-anti-glare-end-time-lbl">End time</label>
                     <div class="bj-config-setting-adjust anti-glare-end-function">
-                        <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust"type="text" [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                        <div class="static-unit-text">s</div>
-                        <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                        <div class="adjust-minus" (click)="reduceCount('glareend')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.night_time_anti_glare_function.end_time" [ngStyle]="{'color':glareEnd ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" > h </div>
+                        <div class="adjust-plus" (click)="increaseCount('glareend')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="anti-glare-level-div">
                     <label class="actuator-anti-glare-level-lbl">Illumination level</label>
                     <div class="bj-actuator1-slider">
-                        <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" >
-                        <div class="anti-glare-level-value-disp">48%</div>
+                        <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.night_time_anti_glare_function.illumination_level">
+                        <div class="anti-glare-level-value-disp">{{ad.actuator1.night_time_anti_glare_function.illumination_level}}%</div>
                     </div>
                 </div>
            </div>
@@ -374,17 +381,19 @@
             <div class="time-shift-settings-div" *ngIf="ad.actuator1.time_shifted_switch_off.enable" >
                 <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time (30 s-51 min)</label>
                 <div class="bj-config-setting-adjust time-shift-switchoff-function">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                    <div class="static-unit-text">s</div>
-                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                        <div class="adjust-minus" (click)="reduceCount('sstime')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.time_shifted_switch_off.switch_off_time" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" > h </div>
+                        <div class="adjust-plus" (click)="increaseCount('sstime')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                 </div>
                 <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate state</label>
                 <div class="bj-config-setting-adjust time-shift-brightness-function">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text"  [ngStyle]="{'color':false? 'red' : '#26394f'}">
-                    <div class="static-unit-text">s</div>
-                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('ssinter')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" > h </div>
+                        <div class="adjust-plus" (click)="increaseCount('ssinter')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                 </div>
             </div>
          </div>

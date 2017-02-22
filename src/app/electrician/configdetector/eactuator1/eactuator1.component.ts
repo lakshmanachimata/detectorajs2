@@ -20,6 +20,15 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     perOff = false;
     softOn = false;
     softOff = false;
+    minLoad = false;
+    maxLoad = false;
+    burnHours = false;
+    brightStart = false;
+    brightEnd = false;
+    glareStart = false;
+    glareEnd = false;
+    ssOffTime = false;
+    ssInter = false;
   onLabel = 'on';
   offLabel = 'off';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
@@ -57,7 +66,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'softoff' && (this.ad.actuator1.soft_switching.off.range > 1 && this.ad.actuator1.soft_switching.off.range <= 60)){
       this.ad.actuator1.soft_switching.off.range = this.ad.actuator1.soft_switching.off.range - 1;
       this.validateParam(item);
-    } 
+    } else if(item == 'minload') {
+        this.ad.actuator1.misc_settings.load_output.minimum.value = this.ad.actuator1.misc_settings.load_output.minimum.value - 1;
+        this.validateParam(item);
+    } else if(item == 'maxload') {
+        this.ad.actuator1.misc_settings.load_output.maximum.output_value = this.ad.actuator1.misc_settings.load_output.maximum.output_value - 1;
+        this.validateParam(item);
+    } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours > 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours <= 250)){
+      this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours - 1;
+      this.validateParam(item);
+    }else if(item == 'brightstart') {
+        this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time - 1;
+        this.validateParam(item);
+    } else if(item == 'brightend') {
+        this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time - 1;
+        this.validateParam(item);
+    }else if(item == 'glarestart') {
+        this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time - 1;
+        this.validateParam(item);
+    } else if(item == 'glareend') {
+        this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time - 1;
+        this.validateParam(item);
+    }else if(item == 'sstime') {
+        this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time - 1;
+        this.validateParam(item);
+    } else if(item == 'ssinter') {
+        this.ad.actuator1.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness - 1;
+        this.validateParam(item);
+    }
   }
 
   increaseCount(item) {
@@ -73,7 +109,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'softoff' && (this.ad.actuator1.soft_switching.off.range >= 1 && this.ad.actuator1.soft_switching.off.range < 60)){
       this.ad.actuator1.soft_switching.off.range = this.ad.actuator1.soft_switching.off.range + 1;
       this.validateParam(item);
-    } 
+    } else if(item == 'minload') {
+        this.ad.actuator1.misc_settings.load_output.minimum.value = this.ad.actuator1.misc_settings.load_output.minimum.value + 1;
+      this.validateParam(item);
+    } else if(item == 'maxload') {
+        this.ad.actuator1.misc_settings.load_output.maximum.output_value = this.ad.actuator1.misc_settings.load_output.maximum.output_value + 1;
+      this.validateParam(item);
+    } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours >= 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours < 250)){
+      this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours + 1;
+      this.validateParam(item);
+    }else if(item == 'brightstart') {
+        this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time + 1;
+        this.validateParam(item);
+    } else if(item == 'brightend') {
+        this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time + 1;
+        this.validateParam(item);
+    }else if(item == 'glarestart') {
+        this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time +  1;
+        this.validateParam(item);
+    } else if(item == 'glareend') {
+        this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time + 1;
+        this.validateParam(item);
+    }else if(item == 'sstime') {
+        this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time +  1;
+        this.validateParam(item);
+    } else if(item == 'ssinter') {
+        this.ad.actuator1.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness + 1;
+        this.validateParam(item);
+    }
   }
   validateParam(item) {
      if(item == 'peron') {
@@ -99,6 +162,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
          this.softOff = true;
        }else {
          this.softOff = false;
+       }
+     } else  if(item == 'minload') {
+       
+     }else  if(item == 'maxload') {
+       
+     } else if(item == 'burnduration') {
+       if(this.ad.actuator1.soft_switching.off.range < 1 || this.ad.actuator1.soft_switching.off.range > 250) {
+         this.burnHours = true;
+       }else {
+         this.burnHours = false;
        }
      }
   }
