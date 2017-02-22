@@ -11,7 +11,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
   animations: [
       trigger('slideIn', [
         state('*', style({
-            transform: 'translateX(+100%)',
+            transform: 'translateX(0%)',
         })),
         state('in', style({
             width:'300px',
@@ -125,6 +125,8 @@ slideBackground (value) {
   animationStarted($event) {
      if($event.toState == "in") {
         this.showSlider = true;
+    } else if($event.toState == "in") {
+      
     }
   }
   animationDone($event) {

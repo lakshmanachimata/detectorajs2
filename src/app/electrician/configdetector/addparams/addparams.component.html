@@ -6,7 +6,7 @@
             <div class="track"  (click)="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable = !ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == false">{{offLabel}}</label>
-                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true,'switch-off':!ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true ? '#26394f':'#ccc'}"></div>
+                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true,'switch-off':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == false}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable == true ? '#26394f':'#ccc'}"></div>
                 </div>
         </span>
     </div>
@@ -27,7 +27,7 @@
             <div class="track"  (click)="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay = !ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == false">{{offLabel}}</label>
-                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true,'switch-off':!ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true ? '#26394f':'#ccc'}"></div>
+                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true,'switch-off':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == false}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay == true ? '#26394f':'#ccc'}"></div>
                 </div>
         </span>
     </div>

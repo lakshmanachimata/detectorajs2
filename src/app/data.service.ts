@@ -198,12 +198,9 @@ export class DataService {
     public initDeviceData(item){
     this.loadDeviceData(item).then((data) => {
              this.deviceData = data;
-             this.logger.log('jsonLoaded called');
              this.jsonLoadEmit();
         });
     }
-
-   
     public getDevicedata() {
         return this.deviceData;
     }

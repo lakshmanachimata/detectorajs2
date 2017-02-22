@@ -58,7 +58,7 @@
                    <div class="track"   (click)="ad.actuator1.soft_switching.on.enable = !ad.actuator1.soft_switching.on.enable"  [(ngModel)]="ad.actuator1.soft_switching.on.enable" [ngStyle]="{'border-color': ad.actuator1.soft_switching.on.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.actuator1.soft_switching.on.enable == true">{{onLabel}}</label>
                          <label class="switch-offlabel" *ngIf="!ad.actuator1.soft_switching.on.enable == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.soft_switching.on.enable == true,'switch-off':!ad.actuator1.soft_switching.on.enable == true }" [ngStyle]="{'background-color':ad.actuator1.soft_switching.on.enable == true ? '#26394f':'#ccc'}"></div>
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.soft_switching.on.enable == true,'switch-off':ad.actuator1.soft_switching.on.enable == false }" [ngStyle]="{'background-color':ad.actuator1.soft_switching.on.enable == true ? '#26394f':'#ccc'}"></div>
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.actuator1.soft_switching.on.enable" >
@@ -74,7 +74,7 @@
                    <div class="track"   (click)="ad.actuator1.soft_switching.off.enable = !ad.actuator1.soft_switching.off.enable"  [(ngModel)]="ad.actuator1.soft_switching.off.enable" [ngStyle]="{'border-color': ad.actuator1.soft_switching.off.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.actuator1.soft_switching.off.enable == true">{{onLabel}}</label>
                          <label class="switch-offlabel" *ngIf="!ad.actuator1.soft_switching.off.enable == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.soft_switching.off.enable == true,'switch-off':!ad.actuator1.soft_switching.off.enable == true }" [ngStyle]="{'background-color':ad.actuator1.soft_switching.off.enable == true ? '#26394f':'#ccc'}"></div>
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.soft_switching.off.enable == true,'switch-off':ad.actuator1.soft_switching.off.enable == false }" [ngStyle]="{'background-color':ad.actuator1.soft_switching.off.enable == true ? '#26394f':'#ccc'}"></div>
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.actuator1.soft_switching.off.enable">
@@ -107,7 +107,7 @@
                          <div class="track"   (click)="ad.actuator1.misc_settings.switch_off_pre_warning = !ad.actuator1.misc_settings.switch_off_pre_warning"  [(ngModel)]="ad.actuator1.misc_settings.switch_off_pre_warning" [ngStyle]="{'border-color': ad.actuator1.misc_settings.switch_off_pre_warning== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.actuator1.misc_settings.switch_off_pre_warning == true">{{onLabel}}</label>
                          <label class="switch-offlabel" *ngIf="!ad.actuator1.misc_settings.switch_off_pre_warning == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.switch_off_pre_warning == true,'switch-off':!ad.actuator1.misc_settings.switch_off_pre_warning == true }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.switch_off_pre_warning == true ? '#26394f':'#ccc'}"></div>
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.switch_off_pre_warning == true,'switch-off':ad.actuator1.misc_settings.switch_off_pre_warning == false }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.switch_off_pre_warning == true ? '#26394f':'#ccc'}"></div>
                    </div>
                      </span>
                 </div>
@@ -117,7 +117,7 @@
                         <div class="track"   (click)="ad.actuator1.misc_settings.switch_on_with_last_brightness = !ad.actuator1.misc_settings.switch_on_with_last_brightness"  [(ngModel)]="ad.actuator1.misc_settings.switch_on_with_last_brightness" [ngStyle]="{'border-color': ad.actuator1.misc_settings.switch_on_with_last_brightness== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.misc_settings.switch_on_with_last_brightness == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.misc_settings.switch_on_with_last_brightness == true">{{offLabel}}</label>
-                            <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.switch_on_with_last_brightness == true,'switch-off':!ad.actuator1.misc_settings.switch_on_with_last_brightness == true }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.switch_on_with_last_brightness == true ? '#26394f':'#ccc'}">
+                            <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.switch_on_with_last_brightness == true,'switch-off':ad.actuator1.misc_settings.switch_on_with_last_brightness == false }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.switch_on_with_last_brightness == true ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                      </span>
@@ -128,7 +128,7 @@
                          <div class="track"   (click)="ad.actuator1.misc_settings.limit_of_room_brightness = !ad.actuator1.misc_settings.limit_of_room_brightness"  [(ngModel)]="ad.actuator1.misc_settings.limit_of_room_brightness" [ngStyle]="{'border-color': ad.actuator1.misc_settings.limit_of_room_brightness== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.misc_settings.limit_of_room_brightness == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.limit_of_room_brightness == true,'switch-off':!ad.actuator1.misc_settings.switch_on_with_last_brightness == true }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.limit_of_room_brightness == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.limit_of_room_brightness == true,'switch-off':ad.actuator1.misc_settings.switch_on_with_last_brightness == false }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.limit_of_room_brightness == true ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                      </span>
@@ -140,7 +140,7 @@
                     <div class="track"   (click)="ad.actuator1.misc_settings.load_output.minimum.enable = !ad.actuator1.misc_settings.load_output.minimum.enable "  [(ngModel)]="ad.actuator1.misc_settings.load_output.minimum.enable " [ngStyle]="{'border-color': ad.actuator1.misc_settings.load_output.minimum.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.misc_settings.load_output.minimum.enable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.load_output.minimum.enable  == true,'switch-off':!ad.actuator1.misc_settings.load_output.minimum.enable  == true }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.load_output.minimum.enable  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.load_output.minimum.enable  == true,'switch-off':ad.actuator1.misc_settings.load_output.minimum.enable  == false }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.load_output.minimum.enable  == true ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                 </span>
@@ -157,7 +157,7 @@
                    <div class="track"   (click)="ad.actuator1.misc_settings.load_output.maximum.on = !ad.actuator1.misc_settings.load_output.maximum.on"  [(ngModel)]="ad.actuator1.misc_settings.load_output.maximum.on" [ngStyle]="{'border-color': ad.actuator1.misc_settings.load_output.maximum.on == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.misc_settings.load_output.maximum.on  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.misc_settings.load_output.maximum.on  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.load_output.maximum.on  == true,'switch-off':!ad.actuator1.misc_settings.load_output.maximum.on  == true }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.load_output.maximum.on  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.misc_settings.load_output.maximum.on  == true,'switch-off':ad.actuator1.misc_settings.load_output.maximum.on  == false }" [ngStyle]="{'background-color':ad.actuator1.misc_settings.load_output.maximum.on  == true ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                 </span>
@@ -186,7 +186,7 @@
                          <div class="track"   (click)="ad.commissioning.use_master_in_slave_mode = !ad.commissioning.use_master_in_slave_mode"  [(ngModel)]="ad.commissioning.use_master_in_slave_mode" [ngStyle]="{'border-color': ad.commissioning.use_master_in_slave_mode == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.commissioning.use_master_in_slave_mode  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.commissioning.use_master_in_slave_mode  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.commissioning.use_master_in_slave_mode  == true,'switch-off':!ad.commissioning.use_master_in_slave_mode  == true }" [ngStyle]="{'background-color':ad.commissioning.use_master_in_slave_mode  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.commissioning.use_master_in_slave_mode  == true,'switch-off':ad.commissioning.use_master_in_slave_mode  == false }" [ngStyle]="{'background-color':ad.commissioning.use_master_in_slave_mode  == true ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                  </span>
@@ -216,7 +216,7 @@
                           <div class="track"   (click)="ad.actuator1.fluorescent_lamps.burn_in_function = !ad.actuator1.fluorescent_lamps.burn_in_function"  [(ngModel)]="ad.actuator1.fluorescent_lamps.burn_in_function" [ngStyle]="{'border-color': ad.actuator1.fluorescent_lamps.burn_in_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.fluorescent_lamps.burn_in_function  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.fluorescent_lamps.burn_in_function  == true,'switch-off':!ad.actuator1.fluorescent_lamps.burn_in_function  == true }" [ngStyle]="{'background-color':ad.actuator1.fluorescent_lamps.burn_in_function  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.fluorescent_lamps.burn_in_function  == true,'switch-off':ad.actuator1.fluorescent_lamps.burn_in_function  == false }" [ngStyle]="{'background-color':ad.actuator1.fluorescent_lamps.burn_in_function  == true ? '#26394f':'#ccc'}">
                         </div>
                           </div>
                  </span>
@@ -289,7 +289,7 @@
                           <div class="track"   (click)="ad.actuator1.basic_illumination.astro_function = !ad.actuator1.basic_illumination.astro_function"  [(ngModel)]="ad.actuator1.basic_illumination.astro_function" [ngStyle]="{'border-color': ad.actuator1.basic_illumination.astro_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.basic_illumination.astro_function == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.basic_illumination.astro_function  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.basic_illumination.astro_function  == true,'switch-off':!ad.actuator1.basic_illumination.astro_function  == true }" [ngStyle]="{'background-color':ad.actuator1.basic_illumination.astro_function  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.basic_illumination.astro_function  == true,'switch-off':ad.actuator1.basic_illumination.astro_function  == false }" [ngStyle]="{'background-color':ad.actuator1.basic_illumination.astro_function  == true ? '#26394f':'#ccc'}">
                         </div>
                           </div>
                  </span>
@@ -312,7 +312,7 @@
                           <div class="track"   (click)="ad.actuator1.night_time_anti_glare_function.enable = !ad.actuator1.night_time_anti_glare_function.enable"  [(ngModel)]="ad.actuator1.night_time_anti_glare_function.enable" [ngStyle]="{'border-color': ad.actuator1.night_time_anti_glare_function.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.night_time_anti_glare_function.enable == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.night_time_anti_glare_function.enable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.night_time_anti_glare_function.enable  == true,'switch-off':!ad.actuator1.night_time_anti_glare_function.enable  == true }" [ngStyle]="{'background-color':ad.actuator1.night_time_anti_glare_function.enable  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.night_time_anti_glare_function.enable  == true,'switch-off':ad.actuator1.night_time_anti_glare_function.enable  == false }" [ngStyle]="{'background-color':ad.actuator1.night_time_anti_glare_function.enable  == true ? '#26394f':'#ccc'}">
                         </div>
                           </div>
                  </span>
@@ -360,7 +360,7 @@
                           <div class="track"   (click)="ad.actuator1.time_shifted_switch_off.enable = !ad.actuator1.time_shifted_switch_off.enable"  [(ngModel)]="ad.actuator1.time_shifted_switch_off.enable" [ngStyle]="{'border-color': ad.actuator1.time_shifted_switch_off.enable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator1.time_shifted_switch_off.enable == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator1.time_shifted_switch_off.enable == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.time_shifted_switch_off.enable  == true,'switch-off':!ad.actuator1.time_shifted_switch_off.enable  == true }" [ngStyle]="{'background-color':ad.actuator1.time_shifted_switch_off.enable  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator1.time_shifted_switch_off.enable  == true,'switch-off':ad.actuator1.time_shifted_switch_off.enable  == false }" [ngStyle]="{'background-color':ad.actuator1.time_shifted_switch_off.enable  == true ? '#26394f':'#ccc'}">
                         </div>
                           </div>
                  </span>
