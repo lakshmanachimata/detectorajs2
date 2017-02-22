@@ -91,7 +91,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time - 1;
         this.validateParam(item);
     } else if(item == 'ssinter') {
-        this.ad.actuator1.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness - 1;
+        this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness - 1;
         this.validateParam(item);
     }
   }
@@ -134,7 +134,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time +  1;
         this.validateParam(item);
     } else if(item == 'ssinter') {
-        this.ad.actuator1.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness + 1;
+        this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness + 1;
         this.validateParam(item);
     }
   }
@@ -172,6 +172,12 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
          this.burnHours = true;
        }else {
          this.burnHours = false;
+       }
+     }else if(item == 'sstime') {
+       if(this.ad.actuator1.time_shifted_switch_off.switch_off_time < 30 || this.ad.actuator1.time_shifted_switch_off.switch_off_time> 3060) {
+         this.ssOffTime = true;
+       }else {
+         this.ssOffTime = false;
        }
      }
   }
