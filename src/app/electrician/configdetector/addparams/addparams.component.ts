@@ -17,6 +17,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     offLabel = 'off';
     deviceType = -1;
     currentBrightness = '450 lx';
+    brrangeerror = false;
 
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     
@@ -45,4 +46,12 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   gotoSensitivity() {
     this.router.navigate(['sensitivity'],{relativeTo: this.route})
   }
+  reduceBrightness(item) {
+    this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on - 1;
+  }
+
+  increaseBrightness(item) {
+    this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on + 1;
+  }
+
 }

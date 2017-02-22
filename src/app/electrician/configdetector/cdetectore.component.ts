@@ -35,6 +35,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     deviceType = -1;
     brthresholderror = false;
     brsetpointerror = false;
+    sdelayerror = false;
     aslider = 'none';
     currentBrightness = '450 lx';
     showSlider = false;
@@ -76,6 +77,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold - 1;
     else if(item == 'setpoint')
           this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint - 1;
+    else if(item == 'sdelay')
+      this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
     this.validatebrparams(item)
   }
 
@@ -84,6 +87,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold + 1;
     else if(item == 'setpoint')
           this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint + 1;
+    else if(item == 'sdelay')
+          this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
     this.validatebrparams(item)  
     }
 
@@ -103,6 +108,12 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.brsetpointerror =  true;
       }else {
         this.brsetpointerror =  false;
+      }
+    }else  if(item == 'sdelay') {
+      if(this.ad.sensor_settings.switch_off_delay < 10 && this.ad.sensor_settings.switch_off_delay > 1800) {
+        this.sdelayerror = true;
+      }else {
+        this.sdelayerror = false;
       }
     }
   }

@@ -31,7 +31,8 @@
                   <div class="adjust-minus" (click)="reduceBrightness('threshold')" ><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_threshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span></div>
+                  <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span>
+                  </div>
               </div>
               <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.sensor_settings.brightness_min}} - {{ad.sensor_settings.brightness_max}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
@@ -78,10 +79,11 @@
                 <label class="bj-config-setting-block-lbl short-time-pulse-function" *ngIf = "ad.sensor_settings.short_time_pulse == false" >Switch-off delay 
                     {{ad.sensor_settings.switch_off_delay_min }} s - {{ad.sensor_settings.switch_off_delay_max/60}} min)</label>
                 <div class="bj-config-setting-adjust short-time-pulse-function " *ngIf = "ad.sensor_settings.short_time_pulse == false" >
-                      <div class="adjust-minus"> <span class="glyphicon glyphicon-minus"></span></div>
-                      <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                            <div class="static-unit-text">s</div>
-                       <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                      <div class="adjust-minus" (click)="reduceBrightness('sdelay')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.switch_off_delay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
+                        <div class="static-unit-text">s</div>
+                        <div class="adjust-plus" (click)="increaseBrightness('sdelay')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                 </div>
             </div>
             <div class="bj-config-setting-div additional-sensor-div" (click)="gotoaddParams()">

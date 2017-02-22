@@ -1,7 +1,7 @@
 <div class="bj-config-container">
 <div id="bj-actuator1-sub-settings-div">
     <!--circuit-logic-->
-    <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-circuit-logic-lbl">Circuit logic</label>
             <div class="bj-actuator-toggle" (click)="showCircuitSettings = !showCircuitSettings">
@@ -10,8 +10,8 @@
             </div>
         </div>
         <div *ngIf="showCircuitSettings">
-            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" name="circuit_logic" value="1"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.circuit_logic" [checked]="ad.actuator1.circuit_logic === 0" name="circuit_logic" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.circuit_logic" [checked]="ad.actuator1.circuit_logic === 1" name="circuit_logic" [value]="1"/></div>
         </div>
     </div>
     <!--durable switching-->
@@ -27,24 +27,28 @@
             <div class="bj-config-setting inner-setting actuator1">
                 <label class="actuator-durable-switching-lbl">Permanent ON for... (30min-8 h)</label>
                 <div class="bj-config-setting-adjust durable-switching-function">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text"   [ngStyle]="{'color':false? 'red' : '#26394f'}">
-                    <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('peron')" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust" type="number" [(ngModel)]="ad.actuator1.durable_on_off_switching.duration_on" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text" *ngIf="ad.actuator1.durable_on_off_switching.duration_on <= 60" > min </div>
+                    <div class="static-unit-text" *ngIf="ad.actuator1.durable_on_off_switching.duration_on > 60" > h </div>
+                    <div class="adjust-plus" (click)="increaseCount('peron')" ><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             </div>
-            <div class="bj-config-setting inner-setting actuator1">
-                <label class="actuator-durable-switching-lbl">Permanent OFF for... (30min-8 h)</label>
-                <div class="bj-config-setting-adjust durable-switching-function">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" [ngStyle]="{'color': false ? 'red' : '#26394f'}">
-                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label class="actuator-durable-switching-lbl">Permanent OFF for... (30min-8 h)</label>
+                    <div class="bj-config-setting-adjust durable-switching-function">
+                        <div class="adjust-minus" (click)="reduceCount('peroff')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator1.durable_on_off_switching.duration_off" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text" *ngIf="ad.actuator1.durable_on_off_switching.duration_off <= 60" > min </div>
+                        <div class="static-unit-text" *ngIf="ad.actuator1.durable_on_off_switching.duration_off > 60" > h </div>
+                        <div class="adjust-plus" (click)="increaseCount('peroff')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <!--soft switching-->
-    <div class="bj-config-setting-div actuator1-soft-switching-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-soft-switching-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'mosfet1c' || activeDevice.deviceType == 'daliMaster1c'" >
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-soft-switching-lbl">Soft switching of ON/OFF</label>
             <div class="bj-actuator-toggle" (click)="showSoftSwitchingSettings = !showSoftSwitchingSettings">
@@ -62,10 +66,11 @@
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.actuator1.soft_switching.on.enable" >
-                <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust"type="text"  [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                <div class="static-unit-text">s</div>
-                <div class="adjust-plus" ><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="adjust-minus" (click)="reduceCount('softon')" ><span class="glyphicon glyphicon-minus"></span></div>
+                <input class="adjust" type="number" [(ngModel)]="ad.actuator1.soft_switching.on.range" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
+                <div class="static-unit-text" > s </div>
+                <div class="adjust-plus" (click)="increaseCount('softon')" ><span class="glyphicon glyphicon-plus"></span>
+                </div>
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 soft-off" *ngIf="showSoftSwitchingSettings">
@@ -78,17 +83,18 @@
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.actuator1.soft_switching.off.enable">
-                <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust"type="text" [ngStyle]="{'color':false ? 'red' : '#26394f'}">
-                <div class="static-unit-text">s</div>
-                <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="adjust-minus" (click)="reduceCount('softoff')" ><span class="glyphicon glyphicon-minus"></span></div>
+                <input class="adjust" type="number" [(ngModel)]="ad.actuator1.soft_switching.off.range" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
+                <div class="static-unit-text" > s </div>
+                <div class="adjust-plus" (click)="increaseCount('softoff')" ><span class="glyphicon glyphicon-plus"></span>
+                </div>
             </div>
         </div>
 
-        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="showSoftSwitchingSettings" >
-            <label class="actuator-phase-load-lbl" style="margin-left: 18px;">Dimming mode</label>
-            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-leading">Leading edge</label><input type="radio" class="circuit-radio" name="phase_load" value="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-trailing">Trailing edge</label><input type="radio" class="circuit-radio"  name="phase_load" value="1"/></div>
+        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="showSoftSwitchingSettings && activeDevice.deviceType == 'mosfet1c'" >
+            <label class="actuator-phase-load-lbl" style="margin-left: 18px;">Dimming mode</label> 
+            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-leading">Leading edge</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge" [checked]="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge === 0" name="phase_load" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-trailing">Trailing edge</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge" [checked]="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge === 1" name="phase_load" [value]="1"/></div>
         </div>
     </div>
     <!--misc settings-->
