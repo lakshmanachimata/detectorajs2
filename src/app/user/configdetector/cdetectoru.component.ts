@@ -66,7 +66,6 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
   }
   deviceNameChanged(nameChanged) {
-    this.logger.log('name changed to ' + nameChanged);
   }
   
 }
