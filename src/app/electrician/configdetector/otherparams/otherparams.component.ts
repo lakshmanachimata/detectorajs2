@@ -49,4 +49,23 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   getOtherParam() {
     return this.data.getOtherParam();
   }
+  reduceCount(item) {
+    if(item == 'cload') {
+      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load - 1;
+    }else if(item == 'lduration') {
+      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week - 1;
+    }else if(item == 'eprice') {
+      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price - 1;
+    }
+
+  }
+  increaseCount(item) {
+    if(item == 'cload') {
+      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load + 1;
+    }else if(item == 'lduration') {
+      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week + 1;
+    }else if(item == 'eprice') {
+      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
+    }
+  }
 }

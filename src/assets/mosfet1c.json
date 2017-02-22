@@ -65,7 +65,7 @@
     "energy_monitor": {
       "connected_load": 0,
       "lighting_duration_per_week": 0,
-      "electricity_price": "",
+      "electricity_price": 10,
       "currency": 0
     }
   },
