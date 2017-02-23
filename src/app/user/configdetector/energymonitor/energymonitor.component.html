@@ -53,7 +53,7 @@
             </div>
             <div class="user-sensor-settings" *ngIf="activeTab === 2">Sensor settings</div>
             <div class="details reference-details" (click)="gotoReference()">Reference details<span class="glyphicon glyphicon-menu-right"></span></div>
-            <div class="details reset-data" >Reset data<span class="glyphicon glyphicon-remove"></span></div>
+            <div class="details reset-data" (click)="resetEM()" >Reset data<span class="glyphicon glyphicon-remove"></span></div>
         </div>
     </div>
 </div>

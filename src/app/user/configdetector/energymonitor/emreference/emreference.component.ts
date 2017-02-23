@@ -62,4 +62,6 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }
   }
+
+
 }

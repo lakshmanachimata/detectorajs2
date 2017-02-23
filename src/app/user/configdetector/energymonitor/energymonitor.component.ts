@@ -78,4 +78,9 @@ onDurationYear=[
       this.router.navigate(['emreference'],{relativeTo: this.route});
       this.data.setShowOnlyCancel(false);
   }
+  resetEM() {
+    this.data.setDialogTitle("Reset ");
+    this.data.setDialogText("Reset energy monitor");
+    this.data.setShowModal(true);
+  }
 }

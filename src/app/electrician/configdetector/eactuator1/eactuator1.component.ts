@@ -181,4 +181,14 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
        }
      }
   }
+  resetDali() {
+    this.data.setDialogTitle("Reset DALI");
+    this.data.setDialogText("Reset all DALI control gear to factory settings");
+    this.data.setShowModal(true);
+  }
+  resetHours() {
+    this.data.setDialogTitle("Reset");
+    this.data.setDialogText("Reset operating hours");
+    this.data.setShowModal(true);
+  }
 }
