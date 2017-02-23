@@ -46,6 +46,10 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.router.navigate(['energymonitor'],{relativeTo: this.route});
     this.data.setShowOnlyCancel(false);
   }
+  gotoSettings() {
+    this.router.navigate(['settingsu'],{relativeTo: this.route});
+    this.data.setShowOnlyCancel(false);
+  }
 
   ngOnChanges() { 
   }

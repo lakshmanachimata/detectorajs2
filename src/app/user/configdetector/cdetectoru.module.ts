@@ -8,7 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 const CDetectorURoutes: Routes = [
   { path: '', component: CDetectorUComponent },
   { path: 'energymonitor', loadChildren: './energymonitor/energymonitor.module#EnergyMonitorModule' },
-  { path: 'settingsu',loadChildren: './energymonitor/settingsu.module#SettingsuModule'}
+  { path: 'settingsu',loadChildren: './settings/settingsu.module#SettingsuModule'}
 ];
 
 @NgModule({

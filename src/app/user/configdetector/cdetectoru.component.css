@@ -1294,6 +1294,10 @@ div#bj-user-basic-illumination-div {
     margin-top: -22px;
 }
 
+.switch{
+  	height: 100%;
+    width:17px;
+}
 
 .switch-onlabel{
 	height: 100%;
