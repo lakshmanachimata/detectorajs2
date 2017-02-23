@@ -1,0 +1,10 @@
+<div class="reset-dialog-overlay" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
+    <div class="reset-dialog" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
+        <div class="reset-dialog-header"><label class="dialog-heading">{{getDialogTitle()}}</label></div>
+        <div class="reset-dialog-body"><label class="dialog-text">{{getDialogText()}}</label></div>
+        <div class="reset-dialog-footer">
+            <div class="dialog-cancel-btn" (click)="cancelStuff()"><img class="reset-cancel" src="../../assets/icons/05_017_button_delete_prs.svg" alt="cancel_btn"></div>
+            <div class="dialog-ok-btn" (click)="doStuff()" ><img class="reset-save" src="../../assets/icons/05_004_button_save_prs.svg" alt="save_btn"></div>
+        </div>
+    </div>
+</div>

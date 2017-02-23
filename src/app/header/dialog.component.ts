@@ -5,7 +5,7 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'dialog-root',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./switch.component.css'],
+  styleUrls: ['./header.component.css'],
 })
 
 export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
@@ -38,5 +38,14 @@ export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContent
   }
   getDialogText() {
       return this.data.getDialogText();
+  }
+  cancelStuff() {
+      this.data.setShowModal(false);
+  }
+  doStuff() {
+      this.data.setShowModal(false);
+  }
+  getProfile() {
+    return this.data.getProfile();
   }
 }

@@ -68,6 +68,12 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
 
+  showResetDialog() {
+    this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
+    this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );
+    this.data.setShowModal(true);
+  }
+
   gotoaddParams(){
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }

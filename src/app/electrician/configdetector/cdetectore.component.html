@@ -166,7 +166,7 @@
               <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div" >
+            <div class="bj-config-setting-div service-div" (click)="showResetDialog()" >
               <label class="bj-config-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
             </div>
              <div class="bj-config-setting-div commissioning-div" (click)="gotoOtherParams('setpins','Set passwords')">
