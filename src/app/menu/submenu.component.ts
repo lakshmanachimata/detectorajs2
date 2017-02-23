@@ -163,16 +163,3 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    }
 
 }
-@Pipe({
-  name: 'filter'
-})
-export class OrdinalPipe implements PipeTransform {
-  transform(input,value,scope): any {
-    let out = [];
-      for (var i = 0; i < input.length; i++){
-          if(input[i][scope.groupDet] == value)
-              out.push(input[i]);
-      }
-    return out;
-  }
-}

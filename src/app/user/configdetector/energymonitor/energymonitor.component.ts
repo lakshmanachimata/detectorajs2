@@ -11,6 +11,13 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 })
 export class EnergyMonitorComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
+TotalSavingsMonthText = "Total savings";
+currentDurationMonthText="Current duration of monthly light";
+currentDurationYearText="Current duration of yearly light";
+currentDurationMonthValue = 213;
+currentDurationYearValue = 3130;
+TotalSavingsMonthValue = 23;
+TotalSavingsYearValue = 759;
 onDurationWeek=[{month:"April",week:"CW04",value:40},{month:"April",week:"CW05",value:52},
                 {month:"April",week:"CW06",value:30},{month:"April",week:"CW07",value:22},];
 
@@ -67,6 +74,8 @@ onDurationYear=[
   }
   ngOnDestroy() {
   }
-
-  
+  gotoReference() {
+      this.router.navigate(['emreference'],{relativeTo: this.route});
+      this.data.setShowOnlyCancel(false);
+  }
 }

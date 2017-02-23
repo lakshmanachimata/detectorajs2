@@ -54,3 +54,117 @@ label.switch-onlabel.user {
     padding-top: 12px;
     padding-right: 10px;
 }
+.reset-dialog-header{
+	height:50px;
+	left:0;
+	right:0;
+	top:0;
+	background:#eeeff0;
+	border-bottom:1px solid #d2dadf;
+	text-align:center;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-header {
+    background-color: #eeeff0;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-header label.dialog-heading {
+    color: #000000;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-body label.dialog-text {
+    margin-top: 160px;
+    color: #000000;
+}
+
+label.dialog-heading {
+	padding: 14px;
+	color: #697d96;
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.reset-dialog-body{
+	left:0;
+	right:0;
+	top:50px;
+	background:white;
+	bottom:60px;
+	position:absolute;
+}
+
+label.dialog-text {
+	margin-top: 100px;
+	margin-left: 60px;
+	margin-right:30px;
+	font-weight: 400;
+	font-size: 20px;
+	color: #697d96;
+}
+
+.reset-dialog-footer{
+	bottom:0;
+	left:0;
+	right:0;
+	height:60px;
+	position:absolute;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-footer div.dialog-cancel-btn {
+    background-color: #bfbfbf;
+    border-right: 1px solid #a7a9ac;
+}
+
+.reset-dialog.bj-user-view div.reset-dialog-footer div.dialog-ok-btn {
+    background: #bfbfbf;
+}
+
+.reset-dialog-overlay{
+	position:absolute;
+	z-index:30;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.reset-dialog {
+	right: 40px;
+	left: 40px;
+	top: 80px;
+	bottom: 80px;
+	z-index: 30;
+	box-shadow: 4px 4px 80px #000;
+	position: absolute;
+	opacity: 1;
+}
+
+.dialog-cancel-btn{
+	float:left;
+	width:30%;
+	height:100%;
+	text-align:center;
+	background: #02507c;
+}
+
+img.reset-cancel{
+	margin-top:18px;
+}
+
+.dialog-ok-btn{
+	height:100%;
+	background: #0171ae;
+	text-align:center;
+}
+
+img.reset-save{
+	margin-top:18px;
+}
+
+img.slave-dis {
+	float: right;
+	margin-top: 4px;
+	margin-right: 10px;
+	width: 44px;
+}

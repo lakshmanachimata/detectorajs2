@@ -2,8 +2,8 @@
 <div id="bj-user-energymonitor-div">
     <div id="user-energymonitor-tabpanel">
         <ul class="nav nav-tabs">
-            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"><a href="" (click)="setActiveTab(1)">Month overview</a></li>
-            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}"><a href="" (click)="setActiveTab(2)">Year overview</a></li>
+            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"(click)="setActiveTab(1)" >Month overview</li>
+            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}" (click)="setActiveTab(2)">Year overview</li>
         </ul>
     </div>
     <div id="user-energymonitor-tab-content">
@@ -41,18 +41,18 @@
         </div>
         <div class="energymonitor-details">
             <div class="details current-duration">
-                <label class="current-duration month" *ngIf="activeTab === 1">abc</label>
-                <label class="current-duration month" *ngIf="activeTab === 2">def</label>
-                <label class="current-duration-value month" *ngIf="activeTab === 1">19 h</label>
-                <label class="current-duration-value month" *ngIf="activeTab === 2">200 h</label>
+                <label class="current-duration month" *ngIf="activeTab === 1">{{currentDurationMonthText}}</label>
+                <label class="current-duration month" *ngIf="activeTab === 2">{{currentDurationYearText}}</label>
+                <label class="current-duration-value month" *ngIf="activeTab === 1">{{currentDurationMonthValue}} h</label>
+                <label class="current-duration-value month" *ngIf="activeTab === 2">{{currentDurationYearValue}} h</label>
             </div>
             <div class="details total-savings">
                 <label class="total-savings month">{{TotalSavingsMonthText}}</label>
-                <label class="total-savings-value month" *ngIf="activeTab === 1">244$</label>
-                <label class="total-savings-value month" *ngIf="activeTab === 2">10$</label>
+                <label class="total-savings-value month" *ngIf="activeTab === 1">{{TotalSavingsMonthValue}}$</label>
+                <label class="total-savings-value month" *ngIf="activeTab === 2">{{TotalSavingsYearValue}}$</label>
             </div>
             <div class="user-sensor-settings" *ngIf="activeTab === 2">Sensor settings</div>
-            <div class="details reference-details" >Reference details<span class="glyphicon glyphicon-menu-right"></span></div>
+            <div class="details reference-details" (click)="gotoReference()">Reference details<span class="glyphicon glyphicon-menu-right"></span></div>
             <div class="details reset-data" >Reset data<span class="glyphicon glyphicon-remove"></span></div>
         </div>
     </div>

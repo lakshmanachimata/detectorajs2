@@ -7,6 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 
 const EnergyMonitorRoutes: Routes = [
   { path: '', component: EnergyMonitorComponent },
+  { path: 'emreference',loadChildren: './emreference/emreference.module#EMReferenceModule' }
 ];
 
 @NgModule({

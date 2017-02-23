@@ -94,14 +94,14 @@
             <div class="bj-config-setting-adjust anti-glare-start-function">
                     <div class="adjust-minus" (click)="reduceVal('glarestart')"><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust"type="text" [(ngModel)]="ad.actuator1.night_time_anti_glare_function.start_time"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text">s</div>
+                    <div class="static-unit-text  user">s</div>
                     <div class="adjust-plus" (click)="increaseVal('glarestart')"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
             <label class="actuator-anti-glare-end-time-lbl">End time</label>
             <div class="bj-config-setting-adjust anti-glare-end-function">
                     <div class="adjust-minus" (click)="reduceVal('glareend')"><span class="glyphicon glyphicon-minus"></span></div> 
                     <input class="adjust"type="text" [(ngModel)]="ad.actuator1.night_time_anti_glare_function.end_time"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text">s</div>
+                    <div class="static-unit-text user">s</div>
                     <div class="adjust-plus" (click)="increaseVal('glareend')"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
         </div>

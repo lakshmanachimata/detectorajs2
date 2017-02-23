@@ -22,6 +22,10 @@ export class UIParams {
       arrowStateChange: EventEmitter<any> = new EventEmitter();
       public otherparam = '';
       showOnlyCancel =  false;
+      dialogTitle = '';
+      dialogText = '';
+      showModal = false;
+
 }
 
 export class DeviceParams {
@@ -162,6 +166,24 @@ export class DataService {
     }
     getOtherParam(){
         return this.uiParams.otherparam;
+    }
+    setDialogTitle(item) {
+        this.uiParams.dialogTitle = item;
+    }   
+    setDialogText(item) {
+        this.uiParams.dialogText = item;
+    }
+    getDialogTitle() {
+        return this.uiParams.dialogTitle;
+    }
+    getDialogText() {
+        return this.uiParams.dialogText;
+    }
+    getShowModal() {
+        return this.uiParams.showModal;
+    }
+    setShowModal(item) {
+        this.uiParams.showModal = item;
     }
 
     getSubMenuItems() {
