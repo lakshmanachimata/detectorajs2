@@ -1,0 +1,115 @@
+<div id="bj-presence-simulation-div">
+    <label class="bj-config-lbl presence-simulation-div">Presence simulation</label>
+
+    <div class="bj-config-setting-div presence-simulation-div" ng-if="presenceSimulationEnable !== undefined">
+        <label class="bj-config-setting presence-simulation-block">Presence simulation</label>
+             <span class="bj-config-toggle-switch">
+                 <div class="track user" ng-model="presenceSimulationEnable" ng-click="$parent.presenceSimulationEnable=!$parent.presenceSimulationEnable" ng-style="{'border-color':'#7a7f85'}">
+                      <label class="switch-onlabel user" ng-if="presenceSimulationEnable">{{onLabel}}</label>
+                      <label class="switch-offlabel user" ng-if="!presenceSimulationEnable">{{offLabel}}</label>
+                      <div class="switch user" ng-class="{'switch-on':presenceSimulationEnable,'switch-off':!presenceSimulationEnable}" ng-style="{'background-color':'#ccc'}"></div>
+                 </div>
+             </span>
+    </div>
+</div>
+<div id="bj-user-sensor-div">
+    <label class="bj-config-lbl user-sensor-div">Sensor settings</label>
+    <div class="bj-config-setting-block-div brightness-user-div">
+        <label class="bj-config-setting-block-lbl brightness-user-function">Brightness threshold ({{$parent.brightness.brightnessThresholdMin}}-{{$parent.brightness.brightnessThresholdMax}} lx)</label>
+        <div class="bj-config-setting-adjust brightness-user-function">
+            <div class="adjust-minus user" ng-click="decrementVal($parent.brightness.brightnessThreshold,brightness.type)"><span class="glyphicon glyphicon-minus"></span></div>
+            <input class="adjust user"type="text" ng-model="$parent.brightness.brightnessThreshold" ng-model-options="validate" ng-change="validateInput($parent.brightness.brightnessThreshold,brightness.type)" ng-style="{'color':brightness.error==true ? 'red' : '#0173b2'}">
+            <div class="static-unit-text user">lx</div>
+            <div class="adjust-plus user" ng-click="incrementVal($parent.brightness.brightnessThreshold,brightness.type)"><span class="glyphicon glyphicon-plus"></span></div>
+        </div>
+        <div class = "bj-current-val">
+            <label class="bj-config-setting brightness-user-function">Take over current brightness</label>
+            <input class="adjust-value brightness-user-function" type="text" disabled ng-model="currentBrightness">
+        </div>
+    </div>
+    <div class="bj-config-setting-block-div short-time-pulse-user-div">
+        <label class="bj-config-setting-block-lbl short-time-pulse-user-function">Switch-off delay ({{switchoffdelay.switchOffDelayMin}} s-{{switchoffdelay.switchOffDelayMax}} min)</label>
+        <div class="bj-config-setting-adjust short-time-pulse-user-function">
+            <div class="adjust-minus user" ng-click="decrementVal(switchoffdelay.switchOffDelay,switchoffdelay.type)"><span class="glyphicon glyphicon-minus"></span></div>
+            <input class="adjust user"type="text" ng-model="switchoffdelay.switchOffDelay" ng-style="{'color':switchoffdelay.error==true ? 'red' : '#0173b2'}">
+            <div class="static-unit-text user">{{delayTimeLabel}}</div>
+            <div class="adjust-plus user" ng-click="incrementVal(switchoffdelay.switchOffDelay,switchoffdelay.type)"><span class="glyphicon glyphicon-plus"></span></div>
+        </div>
+    </div>
+</div>
+<div id="bj-user-basic-illumination-div">
+    <label class="bj-config-lbl user-basic-illumination-div">Basic brightness</label>
+    <div>
+        <div class="bj-config-setting inner-setting user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" ng-model="$parent.basicIlluminationMode" name="illuminiation-mode" value="0"/></div>
+        <div class="bj-config-setting inner-setting user"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" ng-model="$parent.basicIlluminationMode" name="illuminiation-mode" value="1"/></div>
+        <div class="bj-config-setting inner-setting user" style="border-bottom: 2px solid #131b25;"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio" ng-model="$parent.basicIlluminationMode" name="illuminiation-mode" value="2"/></div>
+        <div class="bj-config-setting inner-setting user" ng-if="($parent.basicIlluminationMode == 1) || ($parent.basicIlluminationMode == 2)">
+            <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
+            <div class="bj-actuator1-slider">
+                <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" ng-model="$parent.basicIlluminationLevel">
+                <div class="illumination-value-disp">{{$parent.basicIlluminationLevel}}%</div>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting user" ng-if="($parent.basicIlluminationMode == 2)">
+            <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
+            <div class="bj-actuator1-slider">
+                <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1" ng-model="basicIlluminationAmbientBrightnessThreshold">
+                <div class="ambient-brightness-value-disp">{{basicIlluminationAmbientBrightnessThreshold}}lx</div>
+            </div>
+        </div>
+        <div class="bj-config-setting inner-setting actuator1" ng-if="($parent.basicIlluminationMode == 1)">
+            <label class="actuator-illumination-start-time-lbl">Start time</label>
+            <div class="bj-config-setting-adjust illumination-start-function">
+                    <div class="adjust-minus" ng-click="decrementVal(basicIlluminationStartTime,illumincationstart.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="basicIlluminationStartTime" ng-model-options="validate" ng-change="validateInput(basicIlluminationStartTime,illumincationstart.type" ng-style="{'color':illumincationstart.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">h</div>
+                    <div class="adjust-plus" ng-click="incrementVal(basicIlluminationStartTime,illumincationstart.type)"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+            <label class="actuator-illumination-end-time-lbl">End time</label>
+            <div class="bj-config-setting-adjust illumination-end-function">
+                <div class="adjust-minus" ng-click="decrementVal(basicIlluminationEndTime,illumincationend.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                <input class="adjust"type="text" ng-model="basicIlluminationEndTime" ng-model-options="validate" ng-change="validateInput(basicIlluminationEndTime,illumincationend.type" ng-style="{'color':illumincationend.error==true ? 'red' : '#26394f'}">
+                <div class="static-unit-text">h</div>
+                <div class="adjust-plus" ng-click="incrementVal(basicIlluminationEndTime,illumincationend.type)"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bj-user-anti-glare-div">
+    <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
+    <div class="bj-config-setting inner-setting actuator1 anti-glare-function">
+        <div class="anti-glare-function-div">
+            <label class="anti-glare-function-lbl">Night-time anti-glare function</label>
+                 <span class="bj-config-toggle-switch actuator1">
+                         <div class="track user" ng-model="$parent.antiGlareFunctionEnable" ng-click="$parent.antiGlareFunctionEnable=!$parent.antiGlareFunctionEnable" ng-style="{'border-color':'#7a7f85'}">
+                             <label class="switch-onlabel user" ng-if="$parent.antiGlareFunctionEnable">{{onLabel}}</label>
+                             <label class="switch-offlabel user" ng-if="!$parent.antiGlareFunctionEnable">{{offLabel}}</label>
+                             <div class="switch user" ng-class="{'switch-on':$parent.antiGlareFunctionEnable,'switch-off':!$parent.antiGlareFunctionEnable}" ng-style="{'background-color':'#ccc'}"></div>
+                         </div>
+                 </span>
+        </div>
+        <div class="anti-glare-start-end-time-div" ng-if="($parent.antiGlareFunctionEnable==true)">
+            <label class="actuator-anti-glare-start-time-lbl">Start time</label>
+            <div class="bj-config-setting-adjust anti-glare-start-function">
+                    <div class="adjust-minus" ng-click="decrementVal(antiGlareStartTime,antiglarestart.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="antiGlareStartTime" ng-model-options="validate" ng-change="validateInput(antiGlareStartTime,antiglarestart.type" ng-style="{'color':antiglarestart.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(antiGlareStartTime,antiglarestart.type)"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+            <label class="actuator-anti-glare-end-time-lbl">End time</label>
+            <div class="bj-config-setting-adjust anti-glare-end-function">
+                    <div class="adjust-minus" ng-click="decrementVal(antiGlareEndTime,antiglareend.type)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <input class="adjust"type="text" ng-model="antiGlareEndTime" ng-model-options="validate" ng-change="validateInput(antiGlareEndTime,antiglareend.type" ng-style="{'color':antiglareend.error==true ? 'red' : '#26394f'}">
+                    <div class="static-unit-text">s</div>
+                    <div class="adjust-plus" ng-click="incrementVal(antiGlareEndTime,antiglareend.type)"><span class="glyphicon glyphicon-plus"></span></div>
+            </div>
+        </div>
+        <div class="anti-glare-level-div" ng-if="(antiGlareFunctionEnable==true)">
+            <label class="actuator-anti-glare-level-lbl">Illumination level</label>
+            <div class="bj-actuator1-slider">
+                 <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" ng-model="$parent.$parent.parent.antiGlareLevel">
+                <div class="anti-glare-level-value-disp">{{$parent.$parent.antiGlareLevel}}%</div>
+            </div>
+        </div>
+        </div>
+    </div>
