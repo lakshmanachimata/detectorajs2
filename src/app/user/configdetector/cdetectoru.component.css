@@ -1459,10 +1459,23 @@ div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a:hover {
     border-bottom: 1px solid #1a2433;
 }
 
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-month.active,
+div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-year.active{
+    background-color: #202d40 !Important;
+    color: #026fae !Important;
+    border: 2px solid #1a2433 !Important;
+    border-bottom: 1px solid #1a2433;
+}
+
 div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-month,
 div#user-energymonitor-tabpanel ul.nav.nav-tabs li.energy-monitor-year{
     width: 50%;
     text-align: center;
+    height:45px;
+    padding-top: 7px;
+    color: #ffffff;
+    background-color: #2b3f57;
+    border-radius:0,0,0,0;
 }
 
 div#user-energymonitor-tabpanel ul.nav.nav-tabs li a {
