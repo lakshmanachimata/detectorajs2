@@ -60,7 +60,6 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     ngAfterViewInit() { 
     }
     ngAfterViewChecked() { 
-        this.snap = this.router.routerState.snapshot;
     }
 
 

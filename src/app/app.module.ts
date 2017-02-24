@@ -12,6 +12,7 @@ import { DataService } from './data.service';
 import { LoggerService } from './logger.service';
 import { FooterComponent} from './header/footer.component';
 import {DialogComponent} from './header/dialog.component';
+import {CDetectorIComponent} from './menu/cdetectori.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import {DialogComponent} from './header/dialog.component';
     SubMenuComponent,
     FooterComponent,
     DialogComponent,
+    CDetectorIComponent,
   ],
   imports: [
     BrowserModule,

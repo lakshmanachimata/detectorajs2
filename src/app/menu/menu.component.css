@@ -108,3 +108,11 @@
 	width:20px;
 	padding-right:50px;
 }
+
+.bj-sensor-setting div{
+	color: #0c4264;
+	width:100%;
+	min-height:50px;
+	border-bottom: solid 1px #9eabbb;
+	font-size: 16px;
+}

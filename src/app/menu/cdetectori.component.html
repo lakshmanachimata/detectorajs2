@@ -1,0 +1,123 @@
+<div class="bj-submenu-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
+	
+	<div class="bj-sensor-setting">
+		
+		<label class="section">Sensor settings</label>
+		<div>
+		<label>Block potentiometer setting</label>
+		<span *ngIf="ad.sensor_settings.block_potentiometer == true">On</span>
+        <span *ngIf="ad.sensor_settings.block_potentiometer == false">Off</span>
+		
+		</div>
+		
+		<!--<div>
+		<label>Comfort function</label>
+		<span>{{Comfortfunction}}</span>
+		</div>
+		
+    
+		<div>
+		<label>Constant light regulation</label>
+		<span>{{Constantlightregulation}}</span>
+		</div>
+		
+		<div>
+		<label>brightness threshold</label>
+		<span>{{brightnessthreshold}} lx</span>
+		</div>
+		
+		<div>
+		<label>Consider slave brightness</label>
+		<span>{{Considerslavebrightness}}</span>
+		</div>
+		
+		<div>
+		<label>Limit  of room  brightness</label>
+		<span>{{Limitroombrightness}}</span>
+		</div>
+		
+		<div>
+		<label>Smallest value as reference</label>
+		<span>{{Smallestvaluereference}}</span>
+		</div>
+		
+		<div>
+		<label>Short-time pulse</label>
+		<span>{{Shorttimepulse}}</span>
+		</div>
+		
+		<div>
+		<label>Switch-off delay</label>
+		<span>{{Switchoffdelay}} min</span>
+		</div>
+		
+		<div ng-click="sensorsettingsTapped('additional_sensor')">
+		<label>Additional sensor parameters</label>
+		<next class ="next"></next>
+		</div>
+
+  
+	  	<label class="section">Operating mode</label>
+	  	
+	  	<div>
+	  	<label>{{operatingmode}}</label>
+	  	<span>selected</span>
+	  	</div>
+  
+  
+ 
+	  <label class="section">Actuator settings</label>
+	  
+	 <div ng-click="sensorsettingsTapped('settings_of_actuator1')">
+	  <label>Setttings of actuator 1</label>
+	  <next class ="next">  </next>
+	  </div>
+	   
+	  <div ng-click="sensorsettingsTapped('settings_of_actuator2')">
+	  <label>Setttings of actuator 2</label>
+	  <next class ="next">  </next>
+	  </div>
+
+
+	  <label class="section">Service</label>
+	   
+	   <div>
+	   <label>Saved profile</label>
+	   <span>{{Savedprofile}}</span>
+	   </div>
+	   
+	   <div> 
+	   <label>Firmware</label>
+	   <span>{{Firmware}}</span>
+	   </div>
+	   
+	    <div ng-click="sensorsettingsTapped('energy_monitor')">
+	   <label>Energy Monitor</label>
+	   <next class ="next">  </next>
+	   </div>
+
+	  <label class="section">Commissioning</label>
+	    <div ng-click="sensorsettingsTapped('pins')">
+	   <label>PINs</label>
+	   <next class ="next">  </next>
+	   </div>
+	   
+	   <div ng-click="sensorsettingsTapped('building_allocation')">
+	  <label>Building allocation</label>
+	  <next class ="next">  </next>
+	  </div>
+	  
+	  <div ng-click="sensorsettingsTapped('enable_settings')">
+	  <label>Enable settings</label>
+	  <next class ="next">  </next>
+	  </div>-->
+
+</div>  <!--   bj sensor setting class ending  -->
+
+
+<!--<div ui-view="sensor_settingsView"> </div>-->
+	
+</div>
+
+
+

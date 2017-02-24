@@ -1,7 +1,7 @@
 import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy } from '@angular/core';
 import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
-import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
+import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { Pipe, PipeTransform } from '@angular/core';
 @Component({
@@ -37,8 +37,9 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     helpLink ="https://www.busch-jaeger.de/en/service-int/downloads/downloads-data-sheets/";
     aboutText = "More information available on";
     aboutLink="https://www.busch-jaeger.de/en/";
-    
-    constructor(private logger: LoggerService,private data: DataService) {
+    jsonLoadObserve: any;
+    constructor(private logger: LoggerService,private data: DataService,
+                private router:Router,private route:ActivatedRoute) {
         this.subMenuState = 'none';
         this.detectors = data.getDevices();
         this.selectedSortType = this.sortTypes[0];
@@ -73,7 +74,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
 
     InstallerItemClick(item) {
-
+        this.data.initDeviceData(item);
+        this.data.setSelectedDevice(item);
     }
     sortDetectors()
     {
@@ -137,7 +139,11 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             }
             return groupNew;
        }
+    jsonOnLoad(component) {
+        component.data.setShowCDI(0);
+    }
     ngOnInit() { 
+        this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
         this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
          if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")

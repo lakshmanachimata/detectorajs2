@@ -25,6 +25,7 @@ export class UIParams {
       dialogTitle = '';
       dialogText = '';
       showModal = false;
+      showCDI = -1;
 
 }
 
@@ -141,6 +142,12 @@ export class DataService {
     }
     subscribeArrowState(component, callback) {
         return this.uiParams.arrowStateChange.subscribe(data => callback(component, data));
+    }
+    setShowCDI(item) {
+        this.uiParams.showCDI = item;
+    }
+    getShowCDI() {
+        return this.uiParams.showCDI;
     }
     subscribeJsonLoad(component, callback) {
         return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));

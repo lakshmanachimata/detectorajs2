@@ -5,9 +5,9 @@ import { HttpModule  } from '@angular/http';
 import { UserComponent } from '../user/user.component';
 import { ElectricianComponent } from '../electrician/electrician.component';
 import { HeaderComponent } from '../header/header.component';
-import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu.component';
-import {SubMenuComponent } from './submenu.component';
+import { SubMenuComponent } from './submenu.component';
+import { RouterModule, Routes,Router }  from '@angular/router';
 
 @NgModule({
   declarations: [
