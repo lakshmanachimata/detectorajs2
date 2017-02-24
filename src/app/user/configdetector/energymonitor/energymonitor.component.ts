@@ -18,39 +18,19 @@ currentDurationMonthValue = 213;
 currentDurationYearValue = 3130;
 TotalSavingsMonthValue = 23;
 TotalSavingsYearValue = 759;
-onDurationWeek=[{month:"April",week:"CW04",value:40},{month:"April",week:"CW05",value:52},
-                {month:"April",week:"CW06",value:30},{month:"April",week:"CW07",value:22},];
 
-onDurationYear=[
-        { month: "Jan", year: 2015, value: 89},
-        { month: "Feb", year: 2015, value: 43},
-        { month: "Mar", year: 2015, value: 67},
-        { month: "Apr", year: 2015, value: 46},
-        { month: "May", year: 2015, value: 78},
-        { month: "Jun", year: 2015, value: 24},
-        { month: "Jul", year: 2015, value: 65},
-        { month: "Aug", year: 2015, value: 43},
-        { month: "Sep", year: 2015, value: 45},
-        { month: "Oct", year: 2015, value: 78},
-        { month: "Nov", year: 2015, value: 78},
-        { month: "Dec", year: 2015, value: 50},
-        { month: "Jan", year: 2016, value: 30},
-        { month: "Feb", year: 2016, value: 45},
-        { month: "Mar", year: 2016, value: 67},
-        { month: "Apr", year: 2016, value: 76},
-        { month: "May", year: 2016, value: 56},
-        { month: "Jun", year: 2016, value: 35},
-        { month: "Jul", year: 2016, value: 65},
-        { month: "Aug", year: 2016, value: 43},
-        { month: "Sep", year: 2016, value: 89},
-        { month: "Oct", year: 2016, value: 78},
-        { month: "Nov", year: 2016, value: 67},
-        { month: "Dec", year: 2016, value: 65},
-
-        ]
 
   activeTab = 1;
+  activeDevice:any;
+  ad:any;
+  deviceType = -1;
+  maxYear = 0;
+  maxMonth = 0;
+  showData:any;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
+      this.activeDevice = this.data.getSelectedDevice();
+      this.ad = this.data.getDevicedata();
+      this.deviceType = data.getSelectedDeviceType();
   }
 
   setActiveTab(tab) {
@@ -62,7 +42,10 @@ onDurationYear=[
   ngDoCheck() { 
   }
   ngOnInit() {
-    
+    this.maxMonth = Math.max.apply(Math,this.ad.service.energy_monitor.energy_monitor_month_data.map(function(o){return o.data;}));
+    this.maxYear = Math.max.apply(Math,this.ad.service.energy_monitor.energy_monitor_year_data.map(function(o){return o.data;}));
+    this.maxMonth = (Math.round(this.maxMonth/10)*10) + 10;
+    this.maxYear = (Math.round(this.maxYear/10)*10) + 10;
   }
   ngAfterContentInit() { 
   }
@@ -82,5 +65,29 @@ onDurationYear=[
     this.data.setDialogTitle("Reset ");
     this.data.setDialogText("Reset energy monitor");
     this.data.setShowModal(true);
+  }
+  getStyle (data, isYear) {
+    let percentage;
+    if(isYear ==  true) {
+        percentage =  data.data / this.maxYear;
+    }else {
+      percentage =  data.data / this.maxMonth;
+    }
+    let stringval = data.data.toString();
+    let stylestr = "" + (percentage * 100) + "%";
+    let mystyles =  {
+      'height': stylestr
+    }
+    return mystyles;
+  }
+  showDataForBar(data) {
+    this.showData = data;
+  }
+  getShowData(data) {
+    if(this.showData != 'undefined'){
+      return (this.showData == data);
+    } else {
+      return false;
+    }
   }
 }

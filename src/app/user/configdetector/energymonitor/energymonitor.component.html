@@ -11,16 +11,16 @@
             <div id="user-energymonitor-currentMonth" ></div>
             <div class="monthBarGraph">
                 <div class="barGraphPanel month">
-                    <div class="barGraphMonth" *ngFor="let data of onDurationWeek">
-                        <div class="monthly-max-threshold"  [ngStyle]="{'background-color' :true ? 'red':'transparent'}">
-                            <div class="month-graph-max">100 h</div>
+                    <div class="barGraphMonth" *ngFor="let data of ad.service.energy_monitor.energy_monitor_month_data">
+                        <div class="monthly-max-threshold"  *ngIf="getShowData(data)" [ngStyle]="getShowData(data) == true ? {'background-color':'red'}:{'background-color':'transparent'}">
+                            <div class="month-graph-max">{{maxMonth}} h</div>
                         </div>
-                        <div class="energymonitor-maximum-monthly">
-                            <div class="monthly-bar-graph" >
-                                <div class="month-graph-value" >1 h</div>
+                        <div class="energymonitor-maximum-monthly" >
+                            <div class="monthly-bar-graph" [ngStyle]="getStyle(data,false)" (click)="showDataForBar(data)">
+                                <div class="month-graph-value" *ngIf="getShowData(data)">{{data.data}} h</div>
                             </div>
                         </div>
-                        <div class="energymonitor-month-info">3.</div>
+                        <div class="energymonitor-month-info">{{data.week}}</div>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,16 @@
         <div class="tab-pane year"  *ngIf="activeTab === 2">
             <div class="yearBarGraph">
                 <div class="barGraphPanel">
-                    <div class="barGraphMonth" *ngFor="let data of onDurationYear">
-                            <div class="user-energymonitor-year">2017</div>
-                            <div class="energymonitor-maximum-yearly">
-                                <div class="monthly-bar-graph" ></div>
-                            </div> <!--ng-bind="getEnergyMax(data)"-->
-                            <div class="energymonitor-month-info">{{data.month}}.</div>
+                    <div class="barGraphMonth" *ngFor="let data of ad.service.energy_monitor.energy_monitor_year_data">
+                            <div class="monthly-max-threshold" *ngIf="getShowData(data)" [ngStyle]="getShowData(data) == true ? {'background-color':'red'}:{'background-color':'transparent'}">
+                            <div class="month-graph-max">{{maxYear}} h</div>
+                        </div>
+                        <div class="energymonitor-maximum-monthly">
+                            <div class="monthly-bar-graph" [ngStyle]="getStyle(data,true)" (click)="showDataForBar(data)">
+                                <div class="month-graph-value" *ngIf="getShowData(data)">{{data.data}} h</div>
+                            </div>
+                        </div>
+                        <div class="energymonitor-month-info">{{data.month}}</div>
                     </div>
                 </div>
             </div>
