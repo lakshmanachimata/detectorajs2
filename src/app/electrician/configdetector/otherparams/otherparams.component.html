@@ -42,7 +42,7 @@
                 </div>
                 </span>
         </div>
-        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" >
+        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
             <label class="bj-config-setting testmode-settings-test-actuator2-block">Identify load on actuator 2</label>
                 <span class="bj-config-toggle-switch">
                   <div class="track"  (click)="A2LoadIdentify = !A2LoadIdentify"  [(ngModel)]="A2LoadIdentify" [ngStyle]="{'border-color': A2LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -275,8 +275,8 @@
             </div>
            </span>
     </div>
-    <div class="bj-config-setting-div ground-illumination-div" >
-        <label class="bj-config-setting ground-illumination-block">Illumination function of grounds</label>
+    <div class="bj-config-setting-div ground-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+        <label class="bj-config-setting ground-illumination-block">Basic brigthtness</label>
            <span class="bj-config-toggle-switch">
                <div class="track"  (click)="ad.commissioning.user_settings.basic_illumination = !ad.commissioning.user_settings.basic_illumination"  [(ngModel)]="ad.commissioning.user_settings.basic_illumination" [ngStyle]="{'border-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.basic_illumination == true">{{onLabel}}</label>
@@ -286,8 +286,8 @@
             </div>
            </span>
     </div>
-    <div class="bj-config-setting-div anti-night-glare-div" >
-        <label class="bj-config-setting anti-night-glare-block">Night-time anti-glare function</label>
+    <div class="bj-config-setting-div anti-night-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+        <label class="bj-config-setting anti-night-glare-block">Nightlight function</label>
            <span class="bj-config-toggle-switch">
                 <div class="track"  (click)="ad.commissioning.user_settings.anti_glare_function = !ad.commissioning.user_settings.anti_glare_function"  [(ngModel)]="ad.commissioning.user_settings.anti_glare_function" [ngStyle]="{'border-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.anti_glare_function == true">{{onLabel}}</label>

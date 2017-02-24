@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-basic-illumination-div">
+<div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-basic-illumination-div">Basic brightness</label>
     <div>
         <div class="bj-config-setting inner-setting user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator1.basic_illumination.settings" [checked]="ad.actuator1.basic_illumination.settings === 0" name="illuminiation-mode" [value]="0"/></div>
@@ -76,7 +76,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-anti-glare-div">
+<div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
     <div class="bj-config-setting inner-setting actuator1 anti-glare-function">
         <div class="anti-glare-function-div">

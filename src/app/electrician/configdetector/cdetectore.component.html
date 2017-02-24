@@ -116,9 +116,9 @@
                          <label class="bj-brightness-lbl">{{ad.actuator1.ch1_current_level}}%</label>
                          <div class="slide-open" (click)="slideBrightnessIn()"><span class="glyphicon glyphicon-menu-left"></span></div>
                      </div>
-                     <div class="bj-brightness-slider" [@slideIn]="aslider" (@slideIn.start)="animationStarted($event)" (@slideIn.done)="animationDone($event)" [ngStyle]="{'display': showSlider == true ? 'inline-block':'none'}">
+                     <div class="bj-brightness-slider" *ngIf="activeDevice.deviceType == 'daliMaster1c'" [@slideIn]="aslider" (@slideIn.start)="animationStarted($event)" (@slideIn.done)="animationDone($event)" [ngStyle]="{'display': showSlider == true ? 'inline-block':'none'}">
                          <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div> 
-                         <div class="bj-slider-control" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+                         <div class="bj-slider-control" >
                              <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                          </div>
                      </div>
@@ -139,7 +139,7 @@
                       </div>
                   </div>
             </div>
-            <div class="bj-config-setting-div service-div" (click)="gotoActuator2()">
+            <div class="bj-config-setting-div service-div" (click)="gotoActuator2()" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                 <label class="bj-config-setting actuator2-block">Actuator 2</label>
                 <next-nav></next-nav>
             </div>

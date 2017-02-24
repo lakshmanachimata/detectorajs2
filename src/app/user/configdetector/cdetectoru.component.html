@@ -3,7 +3,7 @@
         <div id="bj-light-settings-div">
             <div class="bj-user-config-setting-div light1-div">
                 <label class="light-name">Light 1</label>
-                <label class="bj-light-brightness-lbl" >{{ad.actuator1.ch1_current_level}}%</label>
+                <label class="bj-light-brightness-lbl" *ngIf="activeDevice.deviceType == 'daliMaster1c'" >{{ad.actuator1.ch1_current_level}}%</label>
                 <div class="bulb-channel-info light1-div">
                     <div class="slide-prev light1" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
                     <div class="channel-info">
@@ -26,13 +26,13 @@
                     </div>
                     <div class="slide-next light1" (click)="slideNext()" *ngIf="light1state < 3" ><span class="glyphicon glyphicon-menu-right"></span></div>
                 </div>
-                <div class="bj-brightness-slider light1">
+                <div class="bj-brightness-slider light1" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                     <div class="bj-slider-control light1">
                         <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                     </div>
                 </div>
             </div>
-            <div class="bj-user-config-setting-div light2-div">
+            <div class="bj-user-config-setting-div light2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                 <label class="light-name">Light 2</label>
                 <div class="bulb-channel-info light2-div">
                     <div class="bulb-glow light2" >
