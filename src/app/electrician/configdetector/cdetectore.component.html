@@ -14,7 +14,7 @@
                     <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" [(ngModel)]="ad.sensor_settings.potentiometerMode" [checked]="ad.sensor_settings.potentiometerMode === 1" name="potentiometer_mode" [value]="1"/></div>
                     <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.sensor_settings.potentiometerMode" [checked]="ad.sensor_settings.potentiometerMode === 2" name="potentiometer_mode" [value]="2"/></div>
         </div>
-            <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined">
+            <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                  <!--<switch-root></switch-root>-->
                     <span class="bj-config-toggle-switch">
@@ -47,7 +47,7 @@
               </div>
             </div>
 
-           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="!ad.sensor_settings.constant_light_regulation == true" >
+           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="ad.sensor_settings.consider_slave_brightness = !ad.sensor_settings.consider_slave_brightness"  [(ngModel)]="ad.sensor_settings.consider_slave_brightness" [ngStyle]="{'border-color': ad.sensor_settings.consider_slave_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -57,7 +57,7 @@
                          </div>
                     </span>
             </div>
-            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == true">
+            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == true && activeDevice.deviceType == 'daliMaster1c'">
                  <label class="bj-config-setting reference-brightness-function">Smallest brightness value as reference</label>
                       <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="ad.sensor_settings.reference_brightness = !ad.sensor_settings.reference_brightness"  [(ngModel)]="ad.sensor_settings.reference_brightness" [ngStyle]="{'border-color': ad.sensor_settings.reference_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -67,7 +67,7 @@
                          </div>
                     </span>
             </div>
-            <div class="bj-config-setting-block-sp-div short-time-pulse-div" >
+            <div class="bj-config-setting-block-sp-div short-time-pulse-div" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
                   <label class="bj-config-setting short-time-pulse-function">Short-time pulse</label>
                     <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="ad.sensor_settings.short_time_pulse = !ad.sensor_settings.short_time_pulse"  [(ngModel)]="ad.sensor_settings.short_time_pulse" [ngStyle]="{'border-color': ad.sensor_settings.short_time_pulse == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -76,6 +76,7 @@
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.short_time_pulse == true,'switch-off':ad.sensor_settings.short_time_pulse == false}" [ngStyle]="{'background-color': ad.sensor_settings.short_time_pulse == true ? '#26394f':'#ccc'}"></div>
                          </div>
                     </span>
+                    <div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.sensor_settings.short_time_pulse == false) || activeDevice.deviceType == 'daliMaster1c')">
                 <label class="bj-config-setting-block-lbl short-time-pulse-function" *ngIf = "ad.sensor_settings.short_time_pulse == false" >Switch-off delay 
                     {{ad.sensor_settings.switch_off_delay_min }} s - {{ad.sensor_settings.switch_off_delay_max/60}} min)</label>
                 <div class="bj-config-setting-adjust short-time-pulse-function " *ngIf = "ad.sensor_settings.short_time_pulse == false" >
@@ -85,6 +86,7 @@
                         <div class="adjust-plus" (click)="increaseBrightness('sdelay')" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
                 </div>
+                    </div>
             </div>
             <div class="bj-config-setting-div additional-sensor-div" (click)="gotoaddParams()">
                   <label class="bj-config-setting additional-sensor-lbl">Additional sensor parameters</label>
@@ -116,7 +118,7 @@
                      </div>
                      <div class="bj-brightness-slider" [@slideIn]="aslider" (@slideIn.start)="animationStarted($event)" (@slideIn.done)="animationDone($event)" [ngStyle]="{'display': showSlider == true ? 'inline-block':'none'}">
                          <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div> 
-                         <div class="bj-slider-control">
+                         <div class="bj-slider-control" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                              <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                          </div>
                      </div>
@@ -126,7 +128,7 @@
                 <label class="bj-config-setting actuator1-block">Actuator 1</label>
                 <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div actuator2-div" >
+            <div class="bj-config-setting-div actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'" >
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
@@ -181,7 +183,7 @@
                   <label class="bj-config-setting building-allocation-block">Release to user</label>
                   <next-nav></next-nav>
              </div>
-             <div class="bj-config-setting-div commissioning-div">
+             <div class="bj-config-setting-div commissioning-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                   <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
                     <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="ad.commissioning.use_master_in_slave_mode = !ad.commissioning.use_master_in_slave_mode"  [(ngModel)]="ad.commissioning.use_master_in_slave_mode" [ngStyle]="{'border-color': ad.commissioning.use_master_in_slave_mode == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
