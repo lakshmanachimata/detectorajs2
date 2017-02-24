@@ -71,6 +71,7 @@
       "energy_monitor_lighting_duration_year":"240",
       "energy_monitor_lighting_duration_month":"60",
       "energy_monitor_year":"2017",
+      "energy_monitor_month":"JUNE",
       "energy_monitor_year_data":[
         {
           "month":"JAN",
