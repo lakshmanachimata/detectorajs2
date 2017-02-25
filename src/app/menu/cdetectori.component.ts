@@ -3,8 +3,6 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import { SubMenuItem} from '../data.service';
-
-
 @Component({
   selector: 'cdetectori-root',
   templateUrl: './cdetectori.component.html',
@@ -64,9 +62,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
     ngOnDestroy() {
     }
-
-    gotoParam(item) {
+    gotoInstalledParams(item,itemtitle) {
 
     }
-
 }

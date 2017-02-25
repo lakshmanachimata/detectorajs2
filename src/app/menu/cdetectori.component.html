@@ -1,4 +1,4 @@
-<div class="bj-submenu-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
+<div class="bj-installed-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
 	
 	<div class="bj-sensor-setting">
 		<label class="section">Sensor settings</label>
@@ -9,10 +9,10 @@
 			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 2">Limited</span>
 		</div>
 		
-		<div>
+		<!--<div>
 		<label>Comfort function</label>
 		<span>{{Comfortfunction}}</span>
-		</div>
+		</div>-->
 		
     
 		<div>
@@ -28,55 +28,59 @@
 		
 		<div>
 		<label>Consider slave brightness</label>
-			<span *ngIf="ad.sensor_settings.consider_slave_brightnes == true">On</span>
-			<span *ngIf="ad.sensor_settings.consider_slave_brightnes == false">Off</span>
+			<span *ngIf="ad.sensor_settings.consider_slave_brightness == true">on</span>
+			<span *ngIf="ad.sensor_settings.consider_slave_brightness == false">off</span>
 		</div>
 		
 		<div>
 		<label>Limit  of room  brightness</label>
-		<span>{{Limitroombrightness}}</span>
+			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == true">on</span>
+			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == false">off</span>
 		</div>
 		
 		<div>
 		<label>Smallest value as reference</label>
-		<span>{{Smallestvaluereference}}</span>
+			<span *ngIf="ad.sensor_settings.reference_brightness == true">on</span>
+			<span *ngIf="ad.sensor_settings.reference_brightness == false">off</span>
 		</div>
 		
 		<div>
 		<label>Short-time pulse</label>
-		<span>{{Shorttimepulse}}</span>
+			<span *ngIf="ad.sensor_settings.short_time_pulse == true">on</span>
+			<span *ngIf="ad.sensor_settings.short_time_pulse == false">off</span>
 		</div>
 		
 		<div>
 		<label>Switch-off delay</label>
-		<span>{{Switchoffdelay}} min</span>
+			<span>{{ad.sensor_settings.switch_off_delay}} min</span>
 		</div>
 		
-		<div ng-click="sensorsettingsTapped('additional_sensor')">
+		<div (click)="gotoInstalledParams('additional')">
 		<label>Additional sensor parameters</label>
-		<!--<next class ="next"></next>-->
+		<next-nav></next-nav>
 		</div>
 
   
 	  	<label class="section">Operating mode</label>
-	  	
 	  	<div>
-	  	<label>{{operatingmode}}</label>
-	  	<span>selected</span>
+	  	<label>Operating mode</label>
+	  		<span *ngIf="ad.operating_mode == 0">Automatic</span>
+			<span *ngIf="ad.operating_mode == 1">Semiautomatic</span>
+			<span *ngIf="ad.operating_mode == 2">Semiautomatic comfort</span>
 	  	</div>
   
   
  
 	  <label class="section">Actuator settings</label>
 	  
-	 <div ng-click="sensorsettingsTapped('settings_of_actuator1')">
+	 <div (click)="gotoInstalledParams('actuator1')">
 	  <label>Setttings of actuator 1</label>
-	  <!--<next class ="next">  </next>-->
+	  	<next-nav></next-nav>
 	  </div>
 	   
-	  <div ng-click="sensorsettingsTapped('settings_of_actuator2')">
+	  <div (click)="gotoInstalledParams('actuator2')">
 	  <label>Setttings of actuator 2</label>
-	  <!--<next class ="next">  </next>-->
+	  	<next-nav></next-nav>
 	  </div>
 
 
@@ -84,40 +88,36 @@
 	   
 	   <div>
 	   <label>Saved profile</label>
-	   <span>{{Savedprofile}}</span>
+	   <span>Garage</span>
 	   </div>
 	   
 	   <div> 
 	   <label>Firmware</label>
-	   <span>{{Firmware}}</span>
+	   <span>{{activeDevice.firmwareVersion}}</span>
 	   </div>
 	   
-	    <div ng-click="sensorsettingsTapped('energy_monitor')">
+	    <div (click)="gotoInstalledParams('emonitor')">
 	   <label>Energy Monitor</label>
-	   <!--<next class ="next">  </next>-->
+	   	<next-nav></next-nav>
 	   </div>
 
 	  <label class="section">Commissioning</label>
-	    <div ng-click="sensorsettingsTapped('pins')">
+	    <div (click)="gotoInstalledParams('pins')">
 	   <label>PINs</label>
-	   <!--<next class ="next">  </next>-->
+		<next-nav></next-nav>
 	   </div>
 	   
-	   <div ng-click="sensorsettingsTapped('building_allocation')">
+	   <div (click)="gotoInstalledParams('buildingallocation')">
 	  <label>Building allocation</label>
-	  <!--<next class ="next">  </next>-->
+		<next-nav></next-nav>
 	  </div>
 	  
-	  <div ng-click="sensorsettingsTapped('enable_settings')">
+	  <div (click)="gotoInstalledParams('enablesettings')">
 	  <label>Enable settings</label>
-	  <!--<next class ="next">  </next>-->
+		<next-nav></next-nav>
 	  </div>
 
-</div>  <!--   bj sensor setting class ending  -->
-
-
-<!--<div ui-view="sensor_settingsView"> </div>-->
-	
+</div>  <!--   bj sensor setting class ending  -->	
 </div>
 
 

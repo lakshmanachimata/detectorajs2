@@ -13,6 +13,7 @@ import { LoggerService } from './logger.service';
 import { FooterComponent} from './header/footer.component';
 import {DialogComponent} from './header/dialog.component';
 import {CDetectorIComponent} from './menu/cdetectori.component';
+import {SharedModule} from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import {CDetectorIComponent} from './menu/cdetectori.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule,
     AppRoutingModule
   ],
   providers: [
