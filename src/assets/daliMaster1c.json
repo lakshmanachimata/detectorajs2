@@ -8,7 +8,7 @@
     "sha1_hash": ""
   },
   "sensor_settings": {
-    "potentiometerMode": 0,
+    "potentio_meter_mode": 0,
     "constant_light_regulation": true,
     "brightness_threshold": 500,
     "brightness_setpoint": 500,

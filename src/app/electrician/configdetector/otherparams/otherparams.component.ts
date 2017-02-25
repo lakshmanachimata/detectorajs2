@@ -15,7 +15,6 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ad:any;
   onLabel = 'on';
   offLabel = 'off';
-  deviceType = -1;
   showFitterPin = false;
   showUserPin = false;
   DeactivateOp = false;
@@ -24,9 +23,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   masterQuad = 'q1';
   
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
   }
   ngOnChanges() { 

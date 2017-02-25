@@ -13,16 +13,14 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
 
   presenceSimulationEnable = true;
   activeDevice:any;
-  deviceType = -1;
   ad:any;
   onLabel = 'on';
   offLabel = 'off';
   brightnessError = false;
   currentBrightness = '450 lx';
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
   }
 
   setActiveTab(tab) {

@@ -31,7 +31,6 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     subMenuState = 'none';
     activeDevice:any;
     ad:any;
-    deviceType = -1;
     constructor(private logger: LoggerService,private data: DataService,private router:Router) {
         this.subMenuState = 'none';
     }
@@ -57,9 +56,8 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     ngAfterViewChecked() { 
     }
     ngOnInit() { 
-        this.activeDevice = this.data.getSelectedDevice();
-        this.ad = this.data.getDevicedata();
-        this.deviceType = this.data.getSelectedDeviceType();
+        this.activeDevice = this.data.getSelectedDevice(true);
+        this.ad = this.data.getDevicedata(true);
         if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }

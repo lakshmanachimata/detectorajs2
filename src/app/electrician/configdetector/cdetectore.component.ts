@@ -32,7 +32,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     ad:any;
     onLabel = 'on';
     offLabel = 'off';
-    deviceType = -1;
     brthresholderror = false;
     brsetpointerror = false;
     sdelayerror = false;
@@ -42,9 +41,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
       this.aslider = 'none';
       this.showSlider = false;

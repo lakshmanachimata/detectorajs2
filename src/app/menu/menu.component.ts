@@ -87,13 +87,4 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
    getArrowType() {
     return  this.data.getMenuArrow();
    }
-   
-   setArrowType() {
-     if(this.data.getMenuArrow() == 0) {
-       this.data.setMenuArrow(1);
-     }else {
-       this.data.setMenuArrow(0);
-     }
-   }
-
 }

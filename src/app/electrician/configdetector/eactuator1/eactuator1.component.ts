@@ -14,7 +14,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
 
     activeDevice:any;
-    deviceType = -1;
     ad:any;
     perOn = false;
     perOff = false;
@@ -32,9 +31,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   onLabel = 'on';
   offLabel = 'off';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
   }
   ngOnChanges() { 
   }

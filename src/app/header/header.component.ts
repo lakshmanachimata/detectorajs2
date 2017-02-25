@@ -44,7 +44,10 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
     return this.data.getMenuArrow();
   }
   setArrowType() {
-    if(this.data.getMenuArrow() == 0) {
+    if(this.data.getShowCDI() >= 0) {
+        this.data.setShowCDI(this.data.getShowCDI() -1);
+    }else {
+      if(this.data.getMenuArrow() == 0) {
       this.data.setMenuArrow(1);
       this.data.setProfileSwitch(false);
     }else if(this.data.getMenuArrow() ==2 ) {
@@ -55,6 +58,8 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
       this.data.closeMenu();
       this.data.setProfileSwitch(true);
     }
+    }
+    
   }
   getProfile() {
     return this.data.getProfile();

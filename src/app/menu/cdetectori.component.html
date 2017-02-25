@@ -1,16 +1,15 @@
 <div class="bj-submenu-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
 	
 	<div class="bj-sensor-setting">
-		
 		<label class="section">Sensor settings</label>
 		<div>
-		<label>Block potentiometer setting</label>
-		<span *ngIf="ad.sensor_settings.block_potentiometer == true">On</span>
-        <span *ngIf="ad.sensor_settings.block_potentiometer == false">Off</span>
-		
+			<label>Block potentiometer setting</label>
+			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 0">Enabled</span>
+			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 1">Disabled</span>
+			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 2">Limited</span>
 		</div>
 		
-		<!--<div>
+		<div>
 		<label>Comfort function</label>
 		<span>{{Comfortfunction}}</span>
 		</div>
@@ -18,17 +17,19 @@
     
 		<div>
 		<label>Constant light regulation</label>
-		<span>{{Constantlightregulation}}</span>
+			<span *ngIf="ad.sensor_settings.constant_light_regulation == true">on</span>
+			<span *ngIf="ad.sensor_settings.constant_light_regulation == false">off</span>
 		</div>
 		
 		<div>
 		<label>brightness threshold</label>
-		<span>{{brightnessthreshold}} lx</span>
+		<span>{{ad.sensor_settings.brightness_threshold}} lx</span>
 		</div>
 		
 		<div>
 		<label>Consider slave brightness</label>
-		<span>{{Considerslavebrightness}}</span>
+			<span *ngIf="ad.sensor_settings.consider_slave_brightnes == true">On</span>
+			<span *ngIf="ad.sensor_settings.consider_slave_brightnes == false">Off</span>
 		</div>
 		
 		<div>
@@ -53,7 +54,7 @@
 		
 		<div ng-click="sensorsettingsTapped('additional_sensor')">
 		<label>Additional sensor parameters</label>
-		<next class ="next"></next>
+		<!--<next class ="next"></next>-->
 		</div>
 
   
@@ -70,12 +71,12 @@
 	  
 	 <div ng-click="sensorsettingsTapped('settings_of_actuator1')">
 	  <label>Setttings of actuator 1</label>
-	  <next class ="next">  </next>
+	  <!--<next class ="next">  </next>-->
 	  </div>
 	   
 	  <div ng-click="sensorsettingsTapped('settings_of_actuator2')">
 	  <label>Setttings of actuator 2</label>
-	  <next class ="next">  </next>
+	  <!--<next class ="next">  </next>-->
 	  </div>
 
 
@@ -93,24 +94,24 @@
 	   
 	    <div ng-click="sensorsettingsTapped('energy_monitor')">
 	   <label>Energy Monitor</label>
-	   <next class ="next">  </next>
+	   <!--<next class ="next">  </next>-->
 	   </div>
 
 	  <label class="section">Commissioning</label>
 	    <div ng-click="sensorsettingsTapped('pins')">
 	   <label>PINs</label>
-	   <next class ="next">  </next>
+	   <!--<next class ="next">  </next>-->
 	   </div>
 	   
 	   <div ng-click="sensorsettingsTapped('building_allocation')">
 	  <label>Building allocation</label>
-	  <next class ="next">  </next>
+	  <!--<next class ="next">  </next>-->
 	  </div>
 	  
 	  <div ng-click="sensorsettingsTapped('enable_settings')">
 	  <label>Enable settings</label>
-	  <next class ="next">  </next>
-	  </div>-->
+	  <!--<next class ="next">  </next>-->
+	  </div>
 
 </div>  <!--   bj sensor setting class ending  -->
 

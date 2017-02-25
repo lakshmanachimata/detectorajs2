@@ -74,8 +74,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
 
     InstallerItemClick(item) {
-        this.data.initDeviceData(item);
-        this.data.setSelectedDevice(item);
+        this.data.initDeviceData(item,true);
+        this.data.setSelectedDevice(item,true);
     }
     sortDetectors()
     {
@@ -143,7 +143,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
         component.data.setShowCDI(0);
     }
     ngOnInit() { 
-        this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
+        this.jsonLoadObserve = this.data.subscribeIJsonLoad(this, this.jsonOnLoad);
         this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
          if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
@@ -159,13 +159,4 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    getArrowType() {
     return  this.data.getMenuArrow();
    }
-   
-   setArrowType() {
-     if(this.data.getMenuArrow() == 0) {
-       this.data.setMenuArrow(1);
-     }else {
-       this.data.setMenuArrow(0);
-     }
-   }
-
 }

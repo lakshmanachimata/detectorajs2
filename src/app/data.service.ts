@@ -40,8 +40,9 @@ export class DeviceParams {
         public fwupdate = false;
         public modelType= '';
         public firmwareVersion= '';
-        public devicetype= -1;
         jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
+        iJsonLoadEmitter: EventEmitter<any> = new EventEmitter();
+
 }
 
 
@@ -53,6 +54,8 @@ export class DataService {
     deviceParams:DeviceParams   =  new DeviceParams();
     deviceData:any;
     private selectedDevice:any;
+    private iSelectedDevice:any;
+    iDeviceData:any;
     currentBrightness = '498';
     constructor(private http:Http,private logger: LoggerService) {
     }
@@ -149,9 +152,7 @@ export class DataService {
     getShowCDI() {
         return this.uiParams.showCDI;
     }
-    subscribeJsonLoad(component, callback) {
-        return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));
-    }
+
     setSubMenuVal(submenuval) {
         this.uiParams.subMenuVal =  submenuval;
     }
@@ -215,32 +216,45 @@ export class DataService {
     }
 /****************  DEVICE INFO APIs specific to each device ******************/
 
-    public setSelectedDevice(device) {
-        this.selectedDevice =  device;
-        if(device.deviceType == 'relay1c') {
-            this.deviceParams.devicetype = 2;
-        }else if(device.deviceType == 'mosfet1c') {
-            this.deviceParams.devicetype = 1;
-        }else if(device.deviceType == 'daliMaster1c') {
-            this.deviceParams.devicetype = 0;
+    public setSelectedDevice(device,installed) {
+        if(installed) {
+            this.iSelectedDevice = device;
+        } else {
+            this.selectedDevice =  device;
         }
     }
-    public getSelectedDevice() {
-        return this.selectedDevice;
+    public getSelectedDevice(installed) {
+        if(installed) {
+            return this.iSelectedDevice;
+        }else {
+            return this.selectedDevice;
+        }
     }
-    public getSelectedDeviceType() {
-        return this.deviceParams.devicetype;
+    subscribeJsonLoad(component, callback) {
+        return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));
     }
-    public initDeviceData(item){
-    this.loadDeviceData(item).then((data) => {
+    public initDeviceData(item,installed){
+    this.loadDeviceData(item,installed).then((data) => {
+            if(installed) {
+                this.iDeviceData = data;
+                this.iJsonLoadEmit();
+            }else {
              this.deviceData = data;
              this.jsonLoadEmit();
+            }
         });
     }
-    public getDevicedata() {
-        return this.deviceData;
+    subscribeIJsonLoad(component, callback) {
+        return this.deviceParams.iJsonLoadEmitter.subscribe(data => callback(component, data));
     }
-    loadDeviceData(item) {
+    public getDevicedata(installed) {
+        if(installed) {
+            return this.iDeviceData;
+        }else {
+            return this.deviceData;
+        }
+    }
+    loadDeviceData(item,installed) {
         if(item.deviceType == 'relay1c') {
             return new Promise<Array<any>>(resolve => {
             this.http.get('../assets/relay1c.json').subscribe(response => {
@@ -266,6 +280,9 @@ export class DataService {
 
     jsonLoadEmit() {
         this.deviceParams.jsonLoadEmitter.emit(0);
+    }
+    iJsonLoadEmit() {
+        this.deviceParams.iJsonLoadEmitter.emit(0);
     }
 
 }

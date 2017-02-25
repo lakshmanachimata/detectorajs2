@@ -15,14 +15,12 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     ad:any;
     onLabel = 'on';
     offLabel = 'off';
-    deviceType = -1;
     selectedQuadrant = '';
     selectedQuadrantValue = 0;
     styleValue = '#ffffff';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
   }
   ngOnChanges() { 
   }

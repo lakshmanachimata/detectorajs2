@@ -16,12 +16,10 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   cLoad = false;
   lDuration = false;
   activeDevice:any;
-  deviceType = -1;
   ad:any;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
-      this.activeDevice = this.data.getSelectedDevice();
-      this.ad = this.data.getDevicedata();
-      this.deviceType = data.getSelectedDeviceType();
+      this.activeDevice = this.data.getSelectedDevice(false);
+      this.ad = this.data.getDevicedata(false);
   }
 
   setActiveTab(tab) {

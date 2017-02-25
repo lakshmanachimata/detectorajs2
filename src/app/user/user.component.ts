@@ -17,8 +17,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetectorUser(item){
-      this.data.initDeviceData(item);
-      this.data.setSelectedDevice(item);
+      this.data.initDeviceData(item,false);
+      this.data.setSelectedDevice(item,false);
   }
   ngOnChanges() { 
   }

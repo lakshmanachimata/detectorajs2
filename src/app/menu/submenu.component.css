@@ -398,17 +398,181 @@ div.bj-sort-devices,select.dropdown-sortby{
     padding: 2px 20px;
 }
 
-.bj-submenu-container label.info
+.bj-sensor-setting div{
+	color: #0c4264;
+	width:100%;
+	min-height:50px;
+	border-bottom: solid 1px #9eabbb;
+	font-size: 16px;
+}
+
+.bj-sensor-setting div .sub{
+	color: #0c4264;
+	width:100%;
+	min-height:50px;
+	font-size: 16px;
+	border:none
+}
+
+.bj-sensor-setting label
+{
+	padding-top:  12px;
+	padding-left: 18px;
+}
+
+.bj-sensor-setting span
+{
+	float: right;
+    padding-top: 12px;
+    padding-right: 30px;
+    font-size: 20px;
+}
+.bj-sensor-setting .next
+{
+	float: right;
+    padding-top: 1px;
+    padding-right: 30px;
+    font-size: 20px;
+}
+
+.bj-sensor-setting .section
+{
+	display: block;
+    left: 0;
+    right: 0;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #f9fafc;
+    color: #9eabbb;
+    border-bottom: solid 1px #9eabbb;
+    padding: 2px 20px;
+}
+
+.bj-sensor-setting .actuatorsection 
+{
+	display: block;
+    left: 0;
+    right: 0;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #f9fafc;
+    color: #9eabbb;
+    border-bottom: solid 1px #9eabbb;
+    padding: 2px 20px;
+    padding-left: 1px;
+}
+
+
+.bj-sensor-setting .arrow 
+{
+float: right;
+padding-top: 12px;
+padding-right: 1px;;
+ 
+}
+
+#detection-outdoor-div
+{
+	min-height: 150px;
+}
+
+.bj-sensor-setting-pin
 {
 	
- width: 100px;
- margin-top: 1%;
- margin-left: 5%;
- text-align:left;
- width : 80%;
- color: #8798AA;
- font-size:18px;
- font-weight:normal;
-	
+}
+.bj-sensor-setting-pin .section
+{
+	display: block;
+    left: 0;
+    right: 0;
+    height: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #f9fafc;
+    color: #9eabbb;
+    border-bottom: solid 1px #9eabbb;
+    padding: 2px 20px;
+}
+
+.bj-sensor-setting-pin .main{
+	color: #0c4264;
+	width:100%;
+	min-height:50px;
+	border-bottom: solid 1px #9eabbb;
+	font-size: 16px;
+	height: 100px;
+}
+
+.bj-sensor-setting-pin .sub{
+	color: #0c4264;
+	width:100%;
+	min-height:50px;
+	font-size: 16px;
+	border:none
+}
+
+
+.bj-sensor-setting-pin .track{
+	width:56px;
+	height:28px;
+	border-radius:3px;
+	border: 1px solid;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    line-height: 8px;
+    margin-top:-3px;
+/*     margin-right: 30px; */
+}
+
+.bj-sensor-setting-pin .switch-onlabel{
+	height: 100%;
+    width: 10px;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+    padding-top: 8px;
+    padding-left: 5px;
+    font-weight:400;
+    color:#26394f;
+}
+
+.bj-sensor-setting-pin .switch-offlabel{
+    height: 100%;
+    width: 28px;
+    font-size: 20px;
+    text-align: center;
+    float: right;
+    padding-top: 8px;
+    padding-right: 32px;
+    font-weight: 400;
+    color: #5e738e;
+}
+
+.bj-sensor-setting-pin label
+{
+	padding-top:  12px;
+	padding-left: 18px;
+}
+
+.bj-sensor-setting-pin span
+{
+	float: right;
+    padding-top: 12px;
+    padding-right: 30px;
+    font-size: 20px;
+}
+
+.bj-sensor-setting-pin input
+{
+	border: none;
+	float: right;
+    padding-top: 12px;
+    margin-right: 10px;
+    padding-right: 30px;
+    font-size: 20px;
+    width: 80px;
 }
 
