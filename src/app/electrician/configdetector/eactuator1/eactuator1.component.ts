@@ -28,6 +28,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     glareEnd = false;
     ssOffTime = false;
     ssInter = false;
+    
+    showCircuitSettings = false;
+    showDurableSwitchingSettings = false;
+    showMiscSettings = false;
+    showNightAntiGlareSettings = false;
+    showBasicIlluminationSettings = false;
+    showDaliSettings = false;
+    showTimeShiftedSwitchOffSettings = false;
+    showFluorescentSettings = false;
+    
   onLabel = 'on';
   offLabel = 'off';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {

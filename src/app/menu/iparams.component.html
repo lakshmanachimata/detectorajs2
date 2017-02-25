@@ -1,0 +1,489 @@
+<div class="bj-installed-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
+	<div *ngIf="data.getIParam() == 'additional'">
+		<div class="bj-sensor-setting">
+		
+		<div >
+		<label>Brightness correction value</label>
+		<span>{{ad.sensor_settings.additional_sensor_parameters.brightness_correction.range}} lx</span>
+		</div>
+		
+		<div>
+		<label>Dynamic switch-off delay</label>
+		<span *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay ==  true">on</span>		
+		<span *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay ==  false">off</span>
+		</div>
+
+	</div>
+	
+    <div class="detection-outdoor-div">
+        <div class="detection-outdoor-top-quadrants">
+            <div class="detection-outdoor-quadrant q1" [ngStyle]="getMystyle('q1')">
+                <label class="detection-quad-value q1-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1}}%</label></div>
+            <div class="detection-outdoor-quadrant q2" [ngStyle]="getMystyle('q2')">
+                <label class="detection-quad-value q2-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q2}}%</label></div>
+        </div>
+        <div id="detection-outdoor-inner-ring">
+            <div id="detection-outdoor-inner-icon">
+                <span class="glyphicon glyphicon-modal-window"></span>
+            </div>
+        </div>
+        <div class="detection-outdoor-bottom-quadrants">
+            <div class="detection-outdoor-quadrant q3" [ngStyle]="getMystyle('q3')">
+                <label class="detection-quad-value q3-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q3}}%</label></div>
+            <div class="detection-outdoor-quadrant q4" [ngStyle]="getMystyle('q4')">
+                <label class="detection-quad-value q4-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q4}}%</label></div>
+        </div>	
+
+		<div class="bj-sensor-setting">
+			<div class="bj-installed-outdoor">
+				<label>Outdoor application</label>
+					<span *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application ==  true">on</span>		
+					<span *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application ==  false">off</span>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	<div *ngIf="data.getIParam() == 'actuator1'">
+		<div class="bj-container" style="overflow-y: scroll;" >
+			<div class="bj-sensor-setting">	
+				<div *ngIf="activeDevice.deviceType == 'mosfet1c' || activeDevice.deviceType == 'relay1c'">
+					<div class="actuatorsection" (click)="showCircuitSettings=!showCircuitSettings">	
+					<label> Circuit logic </label>
+						<up-nav *ngIf="showCircuitSettings"></up-nav>
+						<down-nav *ngIf="!showCircuitSettings"></down-nav>
+					</div>
+
+					<div  *ngIf="showCircuitSettings" >
+						<label *ngIf="ad.actuator1.circuit_logic ==  0">NC contact</label>
+						<label *ngIf="ad.actuator1.circuit_logic ==  1">NO contact</label>
+					</div>
+				</div>
+
+				<div>
+				<div class="actuatorsection" (click)="showDurableSwitchingSettings=!showDurableSwitchingSettings">
+				<label>Continuous ON/OFF switching</label> 
+					<up-nav  *ngIf="showDurableSwitchingSettings"></up-nav>
+					<down-nav *ngIf="!showDurableSwitchingSettings"></down-nav>
+				</div>
+				
+				
+				<div  *ngIf="showDurableSwitchingSettings" >
+				<label>Permanent ON for ...</label>
+				<span>{{ad.actuator1.durable_on_off_switching.duration_on}}</span>
+				</div>
+
+				<div  *ngIf="showDurableSwitchingSettings" >
+				<label>Permanent OFF for ...</label>
+				<span>{{ad.actuator1.durable_on_off_switching.duration_off}}</span>
+				</div>
+				</div>
+
+				<div *ngIf="activeDevice.deviceType == 'mosfet1c' || activeDevice.deviceType == 'daliMaster1c'"> 
+				<div class="actuatorsection" (click)="showSoftSwitchingSettings=!showSoftSwitchingSettings">
+				<label>Soft switching of ON/OFF</label>
+				<up-nav  *ngIf="showSoftSwitchingSettings"></up-nav>
+				<down-nav  *ngIf="!showSoftSwitchingSettings"></down-nav>
+				</div>
+			
+				<div  *ngIf="showSoftSwitchingSettings" >
+				<label>Soft ON</label>
+				<span *ngIf="ad.actuator1.soft_switching.on.enable ==  true">ON</span>
+				<span *ngIf="ad.actuator1.soft_switching.on.enable ==  false">OFF</span>
+				</div>
+
+				<div  *ngIf="showSoftSwitchingSettings" >
+				<label>Soft ON</label>
+				<span>{{ad.actuator1.soft_switching.on.range}} s</span>
+				</div>
+				
+				<div  *ngIf="showSoftSwitchingSettings" >
+				<label>Soft OFF</label>
+				<span *ngIf="ad.actuator1.soft_switching.off.enable ==  true">ON</span>
+				<span *ngIf="ad.actuator1.soft_switching.off.enable ==  false">OFF</span>
+				</div>
+				
+				<div  *ngIf="showSoftSwitchingSettings" >
+				<label>Soft OFF</label>
+				<span>{{ad.actuator1.soft_switching.off.range}} s</span>
+				</div>
+				
+
+				<div  *ngIf="showSoftSwitchingSettings || activeDevice.deviceType == 'mosfet1c'">
+				<label>Dimming mode</label>
+				<span *ngIf="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge ==  0">Leading Edge</span>
+				<span *ngIf="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge ==  1">Trailing Edge</span>
+				</div>
+				</div>
+				<div>
+				<div class="actuatorsection" (click)="showMiscSettings=!showMiscSettings">
+				<label>Additional settings</label>
+				<up-nav  *ngIf="showMiscSettings"></up-nav>
+				<down-nav  *ngIf="!showMiscSettings"></down-nav>
+				</div>
+				
+
+				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
+				<label>Memory function</label>
+				<span *ngIf="ad.actuator1.misc_settings.switch_on_with_last_brightness ==  true">ON</span>
+				<span *ngIf="ad.actuator1.misc_settings.switch_on_with_last_brightness ==  false">OFF</span>
+				</div>
+
+				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
+				<label>Limit room brightness</label>
+				<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness ==  true">ON</span>
+				<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness ==  false">OFF</span>
+				</div>
+				
+				<div  *ngIf="showMiscSettings" >
+				<label>Minimum load</label>
+				<span *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable ==  true">ON</span>
+				<span *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable ==  false">OFF</span>
+				</div>
+
+				<div  *ngIf="showMiscSettings" >
+				<label>Minimum load</label>
+				<span>{{ad.actuator1.misc_settings.load_output.minimum.value}} %</span>
+				</div>
+				
+				<div  *ngIf="showMiscSettings" >
+				<label>Maximum load</label>
+				<span *ngIf="ad.actuator1.misc_settings.load_output.maximum.on ==  true">ON</span>
+				<span *ngIf="ad.actuator1.misc_settings.load_output.maximum.on ==  false">OFF</span>
+				</div>
+
+				<div  *ngIf="showMiscSettings" >
+				<label>Maximum load</label>
+				<span>{{ad.actuator1.misc_settings.load_output.maximum.output_value}} %</span>
+				</div>
+				</div>
+				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div class="actuatorsection" (click)="showDaliSettings=!showDaliSettings">
+				<label >DALI settings</label>
+				<up-nav  *ngIf="showDaliSettings"></up-nav>
+				<down-nav  *ngIf="!showDaliSettings"></down-nav>
+				</div>
+				
+				<div  *ngIf="showDaliSettings" >
+				<label>User master in slave mode</label>
+				<span *ngIf="ad.commissioning.use_master_in_slave_mode ==  true">ON</span>
+				<span *ngIf="ad.commissioning.use_master_in_slave_mode ==  false">OFF</span>
+				</div>
+
+				<div  *ngIf="showDaliSettings" >
+				<label>Power ON level</label>
+				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  0">OFF</span>
+				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  1">Memo</span>
+				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  2">100%</span>
+				</div>
+				</div>
+				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div class="actuatorsection" (click)="showFluorescentSettings=!showFluorescentSettings">
+				<label >Fluorescent lamps</label>
+				<up-nav  *ngIf="showFluorescentSettings"></up-nav>
+				<down-nav  *ngIf="!showFluorescentSettings"></down-nav>
+				</div>
+				
+				
+				<div  *ngIf="showFluorescentSettings">
+				<label>Burn in function</label>
+				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function ==  true">ON</span>
+				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function ==  false">OFF</span>
+				</div>
+				
+				<div  *ngIf="showFluorescentSettings" >
+				<label>Burin in mode</label>
+				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_mode ==  0">Steady</span>
+				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_mode ==  1">Accumulated</span>
+				</div>
+
+				<div  *ngIf="showFluorescentSettings">
+				<label>operating hours</label>
+				<span>{{ad.actuator1.fluorescent_lamps.burn_in_hours}} h</span>
+				</div>
+				</div>
+				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div class="actuatorsection" (click)="showBasicIlluminationSettings=!showBasicIlluminationSettings">
+				<label >Basic brightness</label>
+				<up-nav  *ngIf="showBasicIlluminationSettings"></up-nav>
+				<down-nav  *ngIf="!showBasicIlluminationSettings"></down-nav>
+				</div>
+				
+				
+				<div  *ngIf="showBasicIlluminationSettings">
+					<label *ngIf="ad.actuator1.basic_illumination.settings ==  true">ON</label>
+					<label *ngIf="ad.actuator1.basic_illumination.settings ==  false">OFF</label>
+				</div>
+				
+				<div  *ngIf="showBasicIlluminationSettings">
+				<label>Basic illumination level</label>
+				<span>{{ad.actuator1.basic_illumination.basic_illumination_level}} %</span>
+				</div>
+				
+				<div  *ngIf="showBasicIlluminationSettings">
+				<label>Start time</label>
+				<span>{{ad.actuator1.basic_illumination.start_time}} h</span>
+				</div>
+				
+				<div  *ngIf="showBasicIlluminationSettings">
+				<label>End time</label>
+				<span>{{ad.actuator1.basic_illumination.end_time}} h</span>
+				</div>
+				
+				<div  *ngIf="showBasicIlluminationSettings">
+				<label>Astro function</label>
+				<span *ngIf="ad.actuator1.basic_illumination.astro_function ==  true">ON</span>
+				<span *ngIf="ad.actuator1.basic_illumination.astro_function ==  false">OFF</span>
+				</div>
+				</div>
+				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div class="actuatorsection" (click)="showNightAntiGlareSettings=!showNightAntiGlareSettings">
+				<label >Night-time anti-glare function</label>
+				<up-nav  *ngIf="showNightAntiGlareSettings"></up-nav>
+				<down-nav  *ngIf="!showNightAntiGlareSettings"></down-nav>
+				</div>
+				
+				<div  *ngIf="showNightAntiGlareSettings">
+					<label *ngIf="ad.actuator1.night_time_anti_glare_function.enable ==  true">ON</label>
+					<label *ngIf="ad.actuator1.night_time_anti_glare_function.enable ==  false">OFF</label>
+				</div>
+				
+				
+
+				<div  *ngIf="showNightAntiGlareSettings">
+				<label>Start time</label>
+				<span>{{ad.actuator1.night_time_anti_glare_function.start_time}} h</span>
+				</div>
+				
+				<div  *ngIf="showNightAntiGlareSettings">
+				<label>End time</label>
+				<span>{{ad.actuator1.night_time_anti_glare_function.end_time}} h</span>
+				</div>
+				
+				<div  *ngIf="showNightAntiGlareSettings">
+				<label>illumination level</label>
+				<span>{{ad.actuator1.night_time_anti_glare_function.illumination_level}} %</span>
+				</div>
+				</div>
+				<div class="actuatorsection" (click)="showTimeShiftedSwitchOffSettings=!showTimeShiftedSwitchOffSettings">		
+				<label >Time-shifted switch-off</label>
+				<up-nav  *ngIf="showTimeShiftedSwitchOffSettings"></up-nav>
+				<down-nav  *ngIf="!showTimeShiftedSwitchOffSettings"></down-nav>
+				</div>
+				
+				<div  *ngIf="showTimeShiftedSwitchOffSettings">
+					<label *ngIf="ad.actuator1.time_shifted_switch_off.enable ==  true">ON</label>
+					<label *ngIf="ad.actuator1.time_shifted_switch_off.enable ==  false">OFF</label>
+				</div>
+
+				<div  *ngIf="showTimeShiftedSwitchOffSettings">
+				<label>Switch-off time</label>
+				<span>{{ad.actuator1.time_shifted_switch_off.switch_off_time}} h</span>
+				</div>
+				
+				<div  *ngIf="showTimeShiftedSwitchOffSettings">
+				<label>Brightness of intermediate stage</label>
+				<span>{{ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness}} %</span>
+				</div>	
+			</div>
+		</div>
+	</div>
+	<div *ngIf="data.getIParam() == 'actuator2' && activeDevice.deviceType == 'daliMaster1c'">
+		<div class="bj-container" >
+			<div class="bj-sensor-setting">	
+				<div class="actuatorsection" (click)="showCircuitSettings=!showCircuitSettings">		
+				<label>Circuit logic</label>
+				<up-nav  *ngIf="showCircuitSettings"></up-nav>
+				<down-nav *ngIf="!showCircuitSettings"></down-nav>
+				</div>
+				
+					<div  *ngIf="showCircuitSettings" >
+						<label *ngIf="ad.actuator2.circuit_logic==  0">NC contact</label>
+						<label *ngIf="ad.actuator2.circuit_logic ==  1">NO contact</label>
+					</div>
+
+				
+				<div class="actuatorsection" (click)="showSwitching=!showSwitching">
+				<label>Switching function</label>
+				<up-nav *ngIf="showSwitching"></up-nav>
+				<down-nav  *ngIf="!showSwitching"></down-nav>
+				</div>
+				
+				
+				<div  *ngIf="showSwitching" >
+					<label *ngIf="ad.actuator2.ch2_mode==  0">Disabled</label>
+					<label *ngIf="ad.actuator2.ch2_mode ==  1">Brightness independent</label>
+					<label *ngIf="ad.actuator2.ch2_mode==  2">Switch off DALI control gear voltage</label>
+					<label *ngIf="ad.actuator2.ch2_mode ==  3">Synchronous operation</label>
+					<label *ngIf="ad.actuator2.ch2_mode==  4">Blackboard lightening</label>
+					<label *ngIf="ad.actuator2.ch2_mode ==  5">Manual</label>
+					<label *ngIf="ad.actuator2.ch2_mode==  6">HVAC</label>
+				</div>
+
+				<div  *ngIf="showSwitching" >
+				<label>Dynamic control</label>
+				<span *ngIf="ad.actuator2.hvacDynamicalControlEnable ==  true">ON</span>
+				<span *ngIf="ad.actuator2.hvacDynamicalControlEnable ==  false">OFF</span>
+				</div>
+				
+				<div  *ngIf="showSwitching" >
+				<label>Switch-on delay</label>
+				<span>{{ad.actuator2.durable_on_off_switching.duration_on}} s</span>
+				</div>
+
+				<div  *ngIf="showSwitching" >
+				<label>Switch-off delay</label>
+				<span>{{ad.actuator2.durable_on_off_switching.duration_off}} s</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="data.getIParam() == 'emonitor'">
+		<div class="bj-container" >
+		<div class="bj-sensor-setting">	
+			
+			<div>
+			<label>Connected load</label>
+			<span>{{ad.service.energy_monitor.connected_load}} w</span>
+			</div>
+			
+			<div>
+			<label>Light duration per week</label>
+			<span>{{ad.service.energy_monitor.lighting_duration_per_week}} h</span>
+			</div>
+		
+			<div>
+			<label>Electricity price</label>
+			<span>{{ad.service.energy_monitor.electricity_price}} kWh</span>
+			</div>
+			
+			
+			<div>
+			<label>Currency</label>
+			<span>{{ad.service.energy_monitor.currency}}</span>
+			</div>
+			
+		</div>
+	</div>
+
+	</div>
+	<div *ngIf="data.getIParam() == 'pins'">
+
+<div class="bj-container" >
+	<div class="bj-sensor-setting-pin">	
+		
+		<label class="section">Fitter PIN</label>
+		<div class="main">
+			
+			<div class="sub">	
+			<label  >Installed Fitter PIN</label>
+			<input type="{{showFitterPin ? 'text' : 'password'}}" [(ngModel)]="ad.commissioning.pins.electrician" >  
+
+			</div>
+		
+		
+			<div class="sub">
+			<label style="color: #9eabbb;">Show Fitter PIN</label> 
+			
+						 <span class="bj-config-toggle-switch">
+                 <div class="track"  (click)="showFitterPin=!showFitterPin" [ngStyle]="{'border-color':showFitterPin== true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="showFitterPin">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="!showFitterPin">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':showFitterPin,'switch-off':!showFitterPin}" [ngStyle]="{'background-color':showFitterPin== true ? '#26394f':'#ccc'}"></div>
+                 </div>
+            </span>
+
+
+			</div><!--end of class sub div -->
+	
+		</div> <!--end of class main div -->
+		<label class="section">Standard User PIN</label>
+		<div class="main">
+			
+			<div class="sub">
+			<label>Installed Standard User PIN</label>
+			<input type="{{showUserPin ? 'text' : 'password'}}" [(ngModel)]="ad.commissioning.pins.standard_user" > 
+			</div>
+			
+			
+
+			<div class="sub">
+			<label style="color: #9eabbb;">Show Standard User PIN</label>
+			 <span class="bj-config-toggle-switch">
+                 <div class="track"  (click)="showUserPin=!showUserPin" [ngStyle]="{'border-color':showUserPin== true ? '#26394f':'#c0c1c3'}">
+                       <label class="switch-onlabel" *ngIf="showUserPin">{{onLabel}}</label>
+                       <label class="switch-offlabel" *ngIf="!showUserPin">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':showUserPin,'switch-off':!showUserPin}" [ngStyle]="{'background-color':showUserPin== true ? '#26394f':'#ccc'}"></div>
+                 </div>
+            </span>
+
+			</div><!--end of class sub div -->
+	
+		</div> <!--end of class main div -->
+
+				
+	</div>
+</div>
+	</div>
+	<div *ngIf="data.getIParam() == 'buildingallocation'">
+		<div class="bj-container" >
+	<div class="bj-sensor-setting">	
+			
+		<label class="section">Contact name</label>
+		<div>
+		<label style="font-size: 20px;"> {{activeDevice.contactName}} </label>
+		</div>
+		
+		<label class="section">Building</label>
+		<div>
+		<label style="font-size: 20px;"> {{activeDevice.buildingName}} </label>
+		</div>
+		
+		
+	</div>
+</div>
+	</div>
+	<div *ngIf="data.getIParam() == 'enablesettings'">
+
+<div class="bj-container" >
+	<div class="bj-sensor-setting">	
+			
+		
+		<div>
+		<label>programming brightness</label>
+			<span *ngIf="ad.commissioning.user_settings.brightness_threshold == true">ON</span>
+			<span *ngIf="ad.commissioning.user_settings.brightness_threshold == false">OFF</span>
+		</div>
+		
+		<div>
+		<label>Setting switch-off delay</label>
+			<span *ngIf="ad.commissioning.user_settings.switch_off_delay == true">ON</span>
+			<span *ngIf="ad.commissioning.user_settings.switch_off_delay == false">OFF</span>
+		</div>
+
+		<div>
+		<label>Energy monitor</label>
+			<span *ngIf="ad.commissioning.user_settings.energy_monitor == true">ON</span>
+			<span *ngIf="ad.commissioning.user_settings.energy_monitor == false">OFF</span>
+		</div>
+		
+		<div>
+		<label>Illumination function of grounds</label>
+			<span *ngIf="ad.commissioning.user_settings.basic_illumination == true">ON</span>
+			<span *ngIf="ad.commissioning.user_settings.basic_illumination == false">OFF</span>
+		</div>
+		
+		<div>
+		<label>Night-time anti-glare function</label>
+			<span *ngIf="ad.commissioning.user_settings.anti_glare_function == true">ON</span>
+			<span *ngIf="ad.commissioning.user_settings.anti_glare_function == false">OFF</span>
+		</div>
+				
+	</div>
+</div>
+
+
+
+
+	</div>
+</div>

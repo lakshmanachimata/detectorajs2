@@ -15,7 +15,7 @@
 		</div>-->
 		
     
-		<div>
+		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Constant light regulation</label>
 			<span *ngIf="ad.sensor_settings.constant_light_regulation == true">on</span>
 			<span *ngIf="ad.sensor_settings.constant_light_regulation == false">off</span>
@@ -26,36 +26,36 @@
 		<span>{{ad.sensor_settings.brightness_threshold}} lx</span>
 		</div>
 		
-		<div>
+		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Consider slave brightness</label>
 			<span *ngIf="ad.sensor_settings.consider_slave_brightness == true">on</span>
 			<span *ngIf="ad.sensor_settings.consider_slave_brightness == false">off</span>
 		</div>
 		
-		<div>
+		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
-			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == true">on</span>
-			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == false">off</span>
+			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == true">ON</span>
+			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == false">OFF</span>
 		</div>
 		
 		<div>
 		<label>Smallest value as reference</label>
-			<span *ngIf="ad.sensor_settings.reference_brightness == true">on</span>
-			<span *ngIf="ad.sensor_settings.reference_brightness == false">off</span>
+			<span *ngIf="ad.sensor_settings.reference_brightness == true">ON</span>
+			<span *ngIf="ad.sensor_settings.reference_brightness == false">OFF</span>
 		</div>
 		
-		<div>
+		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
 		<label>Short-time pulse</label>
-			<span *ngIf="ad.sensor_settings.short_time_pulse == true">on</span>
-			<span *ngIf="ad.sensor_settings.short_time_pulse == false">off</span>
+			<span *ngIf="ad.sensor_settings.short_time_pulse == true">ON</span>
+			<span *ngIf="ad.sensor_settings.short_time_pulse == false">OFF</span>
 		</div>
 		
-		<div>
+		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.sensor_settings.short_time_pulse == false) || activeDevice.deviceType == 'daliMaster1c')">
 		<label>Switch-off delay</label>
 			<span>{{ad.sensor_settings.switch_off_delay}} min</span>
 		</div>
 		
-		<div (click)="gotoInstalledParams('additional')">
+		<div (click)="gotoInstalledParams('additional','Additional sensor parameters')">
 		<label>Additional sensor parameters</label>
 		<next-nav></next-nav>
 		</div>
@@ -73,12 +73,12 @@
  
 	  <label class="section">Actuator settings</label>
 	  
-	 <div (click)="gotoInstalledParams('actuator1')">
+	 <div (click)="gotoInstalledParams('actuator1','Settings of actuator1')">
 	  <label>Setttings of actuator 1</label>
 	  	<next-nav></next-nav>
 	  </div>
 	   
-	  <div (click)="gotoInstalledParams('actuator2')">
+	  <div (click)="gotoInstalledParams('actuator2','Settings of actuator2')">
 	  <label>Setttings of actuator 2</label>
 	  	<next-nav></next-nav>
 	  </div>
@@ -96,23 +96,23 @@
 	   <span>{{activeDevice.firmwareVersion}}</span>
 	   </div>
 	   
-	    <div (click)="gotoInstalledParams('emonitor')">
+	    <div (click)="gotoInstalledParams('emonitor','Energy monitor')">
 	   <label>Energy Monitor</label>
 	   	<next-nav></next-nav>
 	   </div>
 
 	  <label class="section">Commissioning</label>
-	    <div (click)="gotoInstalledParams('pins')">
+	    <div (click)="gotoInstalledParams('pins','Set pins')">
 	   <label>PINs</label>
 		<next-nav></next-nav>
 	   </div>
 	   
-	   <div (click)="gotoInstalledParams('buildingallocation')">
+	   <div (click)="gotoInstalledParams('buildingallocation','Building allocation')">
 	  <label>Building allocation</label>
 		<next-nav></next-nav>
 	  </div>
 	  
-	  <div (click)="gotoInstalledParams('enablesettings')">
+	  <div (click)="gotoInstalledParams('enablesettings','Enable user settings')">
 	  <label>Enable settings</label>
 		<next-nav></next-nav>
 	  </div>

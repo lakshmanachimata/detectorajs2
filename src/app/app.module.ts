@@ -13,6 +13,7 @@ import { LoggerService } from './logger.service';
 import { FooterComponent} from './header/footer.component';
 import {DialogComponent} from './header/dialog.component';
 import {CDetectorIComponent} from './menu/cdetectori.component';
+import {IParamsComponent} from './menu/iparams.component';
 import {SharedModule} from './shared/shared.module';
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {SharedModule} from './shared/shared.module';
     FooterComponent,
     DialogComponent,
     CDetectorIComponent,
+    IParamsComponent,
   ],
   imports: [
     BrowserModule,

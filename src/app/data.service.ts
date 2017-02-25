@@ -21,6 +21,7 @@ export class UIParams {
       public otherparamTitle = '';
       arrowStateChange: EventEmitter<any> = new EventEmitter();
       public otherparam = '';
+      public iparam = '';
       showOnlyCancel =  false;
       dialogTitle = '';
       dialogText = '';
@@ -174,6 +175,14 @@ export class DataService {
     }
     getOtherParam(){
         return this.uiParams.otherparam;
+    }
+     setIParam(item,itemTitle) {
+         this.uiParams.iparam = item;
+         this.setMainTitle(itemTitle);
+    }
+
+    getIParam(){
+        return this.uiParams.iparam;
     }
     setDialogTitle(item) {
         this.uiParams.dialogTitle = item;

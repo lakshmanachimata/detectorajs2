@@ -46,6 +46,19 @@
         "intermediate_stage_brightness": 0
     }
   },
+   "misc_settings": {
+      "switch_off_pre_warning":false,
+      "load_output": {
+        "minimum": {
+          "enable": false,
+          "value": 0
+        },
+        "maximum": {
+          "on": false,
+          "output_value": 0
+        }
+      }
+    },
  "service": {
     "energy_monitor": {
       "connected_load": 0,

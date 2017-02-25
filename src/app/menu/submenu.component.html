@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div id="bj-empty-list" ng-hide="detectors">{{emptyListText}}</div>
+    <div id="bj-empty-list" *ngIf="detectors">{{emptyListText}}</div>
 
     <div class="bj-installed-detectors">
         <ul class="bj-detectors-list" (click)="InstallerItemClick(detector)" *ngFor="let detector of detectors" >

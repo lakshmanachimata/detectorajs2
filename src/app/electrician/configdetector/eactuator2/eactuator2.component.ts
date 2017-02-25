@@ -36,4 +36,19 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
+  reduceCount(item){
+    if(item == 'sondelay') {
+      this.ad.actuator2.durable_on_off_switching.duration_on = this.ad.actuator2.durable_on_off_switching.duration_on -1;
+    }else if(item == 'soffdelay') {
+      this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off -1;
+    }
+
+  }
+  increaseCount(item) {
+ if(item == 'sondelay') {
+      this.ad.actuator2.durable_on_off_switching.duration_on = this.ad.actuator2.durable_on_off_switching.duration_on + 1;
+    }else if(item == 'soffdelay') {
+      this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off + 1;
+    }
+  }
 }

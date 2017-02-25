@@ -98,7 +98,7 @@
         </div>
     </div>
     <!--misc settings-->
-    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;" >
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-misc-settings-lbl">Additional Settings</label>
             <div class="bj-actuator-toggle" (click)="showMiscSettings = !showMiscSettings">
@@ -391,7 +391,7 @@
                 <div class="bj-config-setting-adjust time-shift-brightness-function">
                     <div class="adjust-minus" (click)="reduceCount('ssinter')" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > h </div>
+                        <div class="static-unit-text" > % </div>
                         <div class="adjust-plus" (click)="increaseCount('ssinter')" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
                 </div>

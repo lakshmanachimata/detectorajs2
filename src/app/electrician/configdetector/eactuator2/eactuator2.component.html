@@ -32,27 +32,30 @@
             <div class="bj-config-setting inner-setting actuator2 dynamic-control" >
                 <label class="actuator-dynamic-control-lbl">Dynamic control</label>
                      <span class="bj-config-toggle-switch actuator2">
-                         <div class="track"  [ngStyle]="{'border-color':true ? '#26394f':'#c0c1c3'}">
-                             <label class="switch-onlabel" *ngIf="true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':true,'switch-off':false}" [ngStyle]="{'background-color':true ? '#26394f':'#ccc'}"></div>
-                         </div>
+                        <div class="track"   (click)="ad.actuator2.hvacDynamicalControlEnable = !ad.actuator2.hvacDynamicalControlEnable"  [(ngModel)]="ad.actuator2.hvacDynamicalControlEnable" [ngStyle]="{'border-color': ad.actuator2.hvacDynamicalControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                        <label class="switch-onlabel" *ngIf="ad.actuator2.hvacDynamicalControlEnable  == true">{{onLabel}}</label>
+                        <label class="switch-offlabel" *ngIf="!ad.actuator2.hvacDynamicalControlEnable  == true">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':ad.actuator2.hvacDynamicalControlEnable  == true,'switch-off':ad.actuator2.hvacDynamicalControlEnable  == false }" [ngStyle]="{'background-color':ad.actuator2.hvacDynamicalControlEnable  == true ? '#26394f':'#ccc'}">
+                        </div>
+                          </div>
                      </span>
             </div>
             <div class="bj-config-setting inner-setting actuator2 switch-on-delay-div" >
                 <label class="switch-on-delay-actuator2-lbl">Switch-on delay</label>
                 <div class="bj-config-setting-adjust switch-on-delay-actuator2">
-                    <div class="adjust-minus" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" >
-                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                        <div class="adjust-minus" (click)="reduceCount('sondelay')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator2.durable_on_off_switching.duration_on" [ngStyle]="{'color': '#26394f'}">
+                        <div class="static-unit-text" > s </div>
+                        <div class="adjust-plus" (click)="increaseCount('sondelay')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                 </div>
                 <label class="switch-off-delay-actuator2-lbl">Switch-off delay</label>
                 <div class="bj-config-setting-adjust switch-off-delay-actuator2">
-                    <div class="adjust-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" >
-                    <!--<div class="static-unit-text">{{delayTimeLabel}}</div>-->
-                    <div class="adjust-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-minus" (click)="reduceCount('soffdelay')" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <input class="adjust" type="number" [(ngModel)]="ad.actuator2.durable_on_off_switching.duration_off" [ngStyle]="{'color': '#26394f'}">
+                        <div class="static-unit-text" > s </div>
+                        <div class="adjust-plus" (click)="increaseCount('soffdelay')" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
                 </div>
             </div>
         </div>

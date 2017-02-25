@@ -34,7 +34,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
 
     animationStarted($event) {
-        this.data.setMainTitle('Installed detector');
+        this.data.setMainTitle(this.activeDevice.btDeviceName);
     }
 
     animationDone($event) {
@@ -59,10 +59,13 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }
+        this.data.setMainTitle(this.activeDevice.btDeviceName);
+
     }
     ngOnDestroy() {
     }
     gotoInstalledParams(item,itemtitle) {
-
+        this.data.setIParam(item,itemtitle);
+        this.data.setShowCDI(this.data.getShowCDI() + 1);
     }
 }

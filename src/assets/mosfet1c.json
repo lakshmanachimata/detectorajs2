@@ -40,6 +40,19 @@
       "duration_on": 0,
       "duration_off": 0
     },
+     "misc_settings": {
+      "switch_off_pre_warning":false,
+      "load_output": {
+        "minimum": {
+          "enable": false,
+          "value": 0
+        },
+        "maximum": {
+          "on": false,
+          "output_value": 0
+        }
+      }
+    },
     "soft_switching": {
       "on": {
         "enable": false,
