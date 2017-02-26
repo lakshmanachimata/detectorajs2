@@ -248,6 +248,7 @@ div.slide-close {
 }
 
 .bj-slider-control{
+    position: absolute;
 	height: 72px;
     width: 200px;
     margin-left: 50px;

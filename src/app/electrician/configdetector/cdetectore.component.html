@@ -16,7 +16,6 @@
         </div>
             <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
-                 <!--<switch-root></switch-root>-->
                     <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="ad.sensor_settings.constant_light_regulation = !ad.sensor_settings.constant_light_regulation"  [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
@@ -116,9 +115,9 @@
                          <label class="bj-brightness-lbl">{{ad.actuator1.ch1_current_level}}%</label>
                          <div class="slide-open" (click)="slideBrightnessIn()"><span class="glyphicon glyphicon-menu-left"></span></div>
                      </div>
-                     <div class="bj-brightness-slider" *ngIf="activeDevice.deviceType == 'daliMaster1c'" [@slideIn]="aslider" (@slideIn.start)="animationStarted($event)" (@slideIn.done)="animationDone($event)" [ngStyle]="{'display': showSlider == true ? 'inline-block':'none'}">
+                     <div class="bj-brightness-slider" *ngIf="activeDevice.deviceType == 'daliMaster1c'" [@slideIn1]="aslider" (@slideIn1.start)="animationStarted($event)" (@slideIn1.done)="animationDone($event)">
                          <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div> 
-                         <div class="bj-slider-control" >
+                         <div class="bj-slider-control" [@slideIn2]="aslider" (@slideIn2.start)="animationStarted($event)" (@slideIn2.done)="animationDone($event)">
                              <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                          </div>
                      </div>

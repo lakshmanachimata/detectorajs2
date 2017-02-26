@@ -9,19 +9,32 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
   templateUrl: './cdetectore.component.html',
   styleUrls: ['./cdetectore.component.css'],
   animations: [
-      trigger('slideIn', [
+      trigger('slideIn1', [
         state('*', style({
-            transform: 'translateX(0%)',
+            display: 'none',
         })),
         state('in', style({
             width:'300px',
-            transform: 'translateX(0%)',
+            display: 'block',
         })),
         state('out',   style({
-            transform: 'translateX(+100%)',
+            display: 'none',
         })),
-        transition('* => in', animate('500ms ease-in')),
-        transition('in => out', animate('500ms ease-in')),
+        transition('* => in', animate('300ms ease-in')),
+        transition('in => out', animate('300ms ease-in')),
+        ]),
+        trigger('slideIn2', [
+        state('*', style({
+            display: 'none',
+        })),
+        state('in', style({
+            display: 'block',
+        })),
+        state('out',   style({
+            display: 'none',
+        })),
+        transition('* => in', animate('300ms ease-in')),
+        transition('in => out', animate('300ms ease-in')),
         ])
     ]
 })
