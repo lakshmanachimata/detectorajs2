@@ -47,19 +47,31 @@
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control" [(ngModel)]='searchText' placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
 
     <div id="bj-empty-list" *ngIf="detectors">{{emptyListText}}</div>
 
     <div class="bj-installed-detectors">
-        <ul class="bj-detectors-list" (click)="InstallerItemClick(detector)" *ngFor="let detector of detectors" >
+        <ul class="bj-detectors-list" (click)="InstallerItemClick(detector)" *ngFor="let detector of searchDetectors()" >
            <div class="installed-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
            <li class="bj-detector-name">{{ detector.btDeviceName}}<span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
                <div class="bj-detector-article-num">{{detector.articleNumber}}</div>
            </li>
         </ul>
+        <!--<div *ngFor="let detector of detectors | groupBy:selectedSortType">
+            selectedSortType {{ detector.key }} has {{ detector }} employees
+        </div>-->
+         <!--<div  class="bj-grouping-block" *ngFor="let det in detectorsToFilter() | filter:filterDet" *ngIf="sortType !='sort by'">
+            <div class= "bj-grouping">{{selectedSortType}}</div>
+            <ul class="bj-detectors-list" *ngFor="detector in detectorsToFilter() | filterGroup : det[groupDet] : this">
+                <div class="installed-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
+                <li class="bj-detector-name">{{ detector.btDeviceName}}<span id="nav-right-sorted" class="glyphicon glyphicon-menu-right"></span>
+                    <div class="bj-detector-article-num">{{detector.articleNumber}}</div>
+                </li>
+            </ul>
+        </div>-->
     </div>
      <div ui-view="installed_detectorsView"> </div>
 </div>

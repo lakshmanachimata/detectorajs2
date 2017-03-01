@@ -3,7 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common'
-import { Pipe, PipeTransform } from '@angular/core';
+
 @Component({
   selector: 'submenu-root',
   templateUrl: './submenu.component.html',
@@ -38,6 +38,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     aboutText = "More information available on";
     aboutLink="https://www.busch-jaeger.de/en/";
     jsonLoadObserve: any;
+    searchText = '';
     constructor(private logger: LoggerService,private data: DataService,
                 private router:Router,private route:ActivatedRoute) {
         this.subMenuState = 'none';
@@ -76,6 +77,22 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     InstallerItemClick(item) {
         this.data.initDeviceData(item,true);
         this.data.setSelectedDevice(item,true);
+    }
+    searchDetectors() {
+        let sortedGroupList =[];
+           if(this.searchText){
+                let result = [];
+                var searchString = new RegExp(this.searchText.toLowerCase());
+                for (let detector of this.detectors) {
+                    if( detector.btDeviceName.toLowerCase().indexOf(this.searchText) >= 0){
+                        result.push(detector);
+                    }
+                }
+                let detectorsFiltered = result;
+                return detectorsFiltered;
+           }else{
+              return this.detectors;
+           }
     }
     sortDetectors()
     {
@@ -159,4 +176,6 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    getArrowType() {
     return  this.data.getMenuArrow();
    }
+   
 }
+
