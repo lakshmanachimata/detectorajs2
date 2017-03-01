@@ -342,10 +342,6 @@ div#bj-user-empty-list{
 	padding-top: 6px;
     padding-left: 26px;
 }
-.bj-grouping-block{
-	min-height:100px;
-	width:100%;
-}
 
 div.bj-sort-devices,select.dropdown-sortby{
 	left:0;
@@ -788,5 +784,18 @@ label.switch-onlabel.user {
     overflow: hidden;
     line-height: 8px;
 }
-
+.bj-grouping{
+	width:100%;
+	height:30px;
+	color:#26394f;
+	font-size:16px;
+	text-align:left;
+	border-bottom: 1px solid #b4cbcb;
+	padding-top: 6px;
+    padding-left: 26px;
+}
+.bj-grouping-block{
+	min-height:1px;
+	width:100%;
+}
 

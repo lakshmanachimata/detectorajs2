@@ -8,19 +8,16 @@ import { HeaderComponent } from '../header/header.component';
 import { MenuComponent } from './menu.component';
 import { SubMenuComponent } from './submenu.component';
 import { RouterModule, Routes,Router }  from '@angular/router';
-import {groupByPipe } from './groupby.pipe';
 @NgModule({
   declarations: [
-    groupByPipe
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpModule,
-    groupByPipe,
   ],
   exports: [
-    groupByPipe
   ]
   
 })
