@@ -83,23 +83,28 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
         this.data.setSelectedDevice(item,true);
     }
     searchDetectors(items) {
-           if(this.searchText){
-                let result = [];
-                var searchString = new RegExp(this.searchText.toLowerCase());
-                for(var j =0; j < items.length; j++) {
-                    let detector = items[j];
-                    if(detector.btDeviceName === undefined) {
+        if(this.searchText)
+        {
+            let result = [];
+            var searchString = new RegExp(this.searchText.toLowerCase());
+            for(var j =0; j < items.length; j++) {
+                let detector = items[j];
+                if(detector.btDeviceName === undefined) {
+                    result.push(detector);
+                }else {
+                    if( detector.btDeviceName.toLowerCase().indexOf(this.searchText) >= 0){
                         result.push(detector);
-                    }else {
-                        if( detector.btDeviceName.toLowerCase().indexOf(this.searchText) >= 0){
-                            result.push(detector);
-                        }
                     }
                 }
-                 this.sortedMap = result;
+            }
+            this.sortedMap = result;
+            return this.sortedMap;
+        }
+        else{
+            if(this.selectedSortType == this.sortUITypes[0])
+                return this.detectors;
+            else 
                 return this.sortedMap;
-           }else{
-              return this.sortedMap;
         }
     }
     sortDetectors()
@@ -205,7 +210,13 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
         component.data.setShowCDI(0);
     }
     sortedMapValues(){
-        this.sortedMap = this.searchDetectors(this.sortedMap);
+        if(this.selectedSortType == this.sortUITypes[0]) {
+            this.sortedMap = this.searchDetectors(this.detectors);
+        }
+        else {
+            this.sortDetectors();
+            this.sortedMap = this.searchDetectors(this.sortedMap);
+         }
         return this.sortedMap;
     }
     getIfName(item) {
