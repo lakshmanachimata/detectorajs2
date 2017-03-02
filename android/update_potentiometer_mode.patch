@@ -1,0 +1,99 @@
+From 7636d694510c1f3af0430e330e6a5e3be90c91a9 Mon Sep 17 00:00:00 2001
+From: Sriharsha Vardhan <sriharsha.vardhan@gmail.com>
+Date: Fri, 6 Jan 2017 10:58:48 +0530
+Subject: [PATCH] update potentiometer mode
+
+---
+ app/src/main/assets/html/configure_detector.html    | 15 +++++++--------
+ app/src/main/assets/js/configuredetector.js         |  2 +-
+ app/src/main/assets/json/daliMaster1c.json          |  2 +-
+ app/src/main/assets/json/mosfet1c.json              |  2 +-
+ app/src/main/assets/json/relay1c.json               |  2 +-
+ app/src/main/assets/update_potentiometer_mode.patch |  0
+ 6 files changed, 11 insertions(+), 12 deletions(-)
+ create mode 100644 app/src/main/assets/update_potentiometer_mode.patch
+
+diff --git a/app/src/main/assets/html/configure_detector.html b/app/src/main/assets/html/configure_detector.html
+index d0f4616..f9fa3f9 100644
+--- a/app/src/main/assets/html/configure_detector.html
++++ b/app/src/main/assets/html/configure_detector.html
+@@ -10,14 +10,13 @@
+         <div id="bj-config-sensor-div">
+              <label class="bj-config-lbl sensor-div">Sensor settings</label>
+ 
+-             <div class="bj-config-setting-div potentiometer-div" ng-if="blockPotentiometerEnable !== undefined">
+-                  <label class="bj-config-setting potentiometer-block">Block potentiometer setting</label>
+-                     <span class="bj-config-toggle-switch">
+-                         <div class="track" ng-model="blockPotentiometerEnable" ng-click="$parent.blockPotentiometerEnable=!$parent.blockPotentiometerEnable" ng-style="{'border-color':blockPotentiometerEnable== true ? '#26394f':'#c0c1c3'}">
+-                             <label class="switch-onlabel" ng-if="blockPotentiometerEnable">{{onLabel}}</label>
+-                             <label class="switch-offlabel" ng-if="!blockPotentiometerEnable">{{offLabel}}</label>
+-                                 <div class="switch" ng-class="{'switch-on':blockPotentiometerEnable,'switch-off':!blockPotentiometerEnable}" ng-style="{'background-color':blockPotentiometerEnable== true ? '#26394f':'#ccc'}"></div>
+-                        </div></span>
++             <div class="bj-config-setting-div potentiometer-div" ng-if="potentiometerMode !== undefined">
++                  <label class="bj-config-setting potentiometer-block">Potentiometers</label>
++
++                    <div><label class="bj-config-setting">Enabled</label><input type="radio" class="operating-radio" ng-model="potentiometerMode" name="potentiometer_mode" value="1"/></div>
++                    <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" ng-model="potentiometerMode" name="potentiometer_mode" value="0"/></div>
++                    <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio" ng-model="potentiometerMode" name="potentiometer_mode" value="2"/></div>
++
+             </div>
+             <div class="bj-config-setting-div constant-light-div" ng-if="constantLightControlEnable !== undefined">
+                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
+diff --git a/app/src/main/assets/js/configuredetector.js b/app/src/main/assets/js/configuredetector.js
+index 58a3b91..ca4a3b6 100644
+--- a/app/src/main/assets/js/configuredetector.js
++++ b/app/src/main/assets/js/configuredetector.js
+@@ -50,7 +50,7 @@ configureDetectorModule.controller('configuredetectorController',function($scope
+ 
+ 	   $http.get(deviceJSON).success(function(data) {
+        		$.each(data.sensor_settings,function(){
+-       			 $scope.blockPotentiometerEnable=data.sensor_settings.block_potentiometer;
++       			 $scope.potentiometerMode=data.sensor_settings.potentiometerMode;
+          		 $scope.constantLightControlEnable = data.sensor_settings.constant_light_regulation;
+            	 	 $scope.considerSlaveBrightnessEnable=data.sensor_settings.consider_slave_brightness;
+         	 	 $scope.constantLightControlConsiderSlaveBrightnessEnable=data.sensor_settings.reference_brightness;
+diff --git a/app/src/main/assets/json/daliMaster1c.json b/app/src/main/assets/json/daliMaster1c.json
+index 3684aff..9d689b6 100644
+--- a/app/src/main/assets/json/daliMaster1c.json
++++ b/app/src/main/assets/json/daliMaster1c.json
+@@ -8,7 +8,7 @@
+     "sha1_hash": ""
+   },
+   "sensor_settings": {
+-    "block_potentiometer": true,
++    "potentiometerMode": 1,
+     "constant_light_regulation": false,
+     "brightness_threshold": 500,
+     "brightness_max": 2000,
+diff --git a/app/src/main/assets/json/mosfet1c.json b/app/src/main/assets/json/mosfet1c.json
+index 4992262..8c73d7d 100644
+--- a/app/src/main/assets/json/mosfet1c.json
++++ b/app/src/main/assets/json/mosfet1c.json
+@@ -8,7 +8,7 @@
+     "sha1_hash": ""
+   },
+   "sensor_settings": {
+-    "block_potentiometer": false,
++    "potentiometerMode": 1,
+     "brightness_threshold": 500,
+     "brightness_max": 2000,
+     "brightness_min": 10,
+diff --git a/app/src/main/assets/json/relay1c.json b/app/src/main/assets/json/relay1c.json
+index 3a1e7ed..14338bf 100644
+--- a/app/src/main/assets/json/relay1c.json
++++ b/app/src/main/assets/json/relay1c.json
+@@ -8,7 +8,7 @@
+     "sha1_hash": ""
+   },
+   "sensor_settings": {
+-    "block_potentiometer": false,
++    "potentiometerMode": 1,
+     "brightness_threshold": 500,
+     "brightness_max": 2000,
+     "brightness_min": 10,
+diff --git a/app/src/main/assets/update_potentiometer_mode.patch b/app/src/main/assets/update_potentiometer_mode.patch
+new file mode 100644
+index 0000000..e69de29
+-- 
+2.10.1 (Apple Git-78)
+

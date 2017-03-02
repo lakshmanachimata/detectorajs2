@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/.idea
+assets/
+/assets
+/app/src/main/assets/www/lib
+/app/src/main/assets/www/node_modules
+/bower_components
+/app/src/main/assets/node_modules/

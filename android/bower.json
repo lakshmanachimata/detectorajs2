@@ -1,0 +1,35 @@
+{
+  "name": "staticwebapp",
+  "description": "webapp",
+  "main": "index.html",
+  "keywords": [
+    "android",
+    "angular",
+    "ios"
+  ],
+  "authors": [
+    "Preethi Warrier<preethi.warrier@in.abb.com>"
+  ],
+  "dependencies": {
+    "angular": "~1.3.10",
+    "angular-route": "~1.3.10",
+    "angular-animate": "~1.3.10",
+    "bootstrap": "~3.3.0",
+    "jquery": "~2.1.3",
+    "angular-gettext": "~1.1.3"
+  },
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "jquery": "~2.1.3",
+    "angular": ">=1.2.0"
+  }
+}
