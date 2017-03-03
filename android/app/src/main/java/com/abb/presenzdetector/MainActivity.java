@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     if (splashScreen.getVisibility() == View.VISIBLE) {
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
+
                         view.loadUrl("javascript:BJ_startBLEScan(true)");
                     }
                     if ((splashScreen.getVisibility() == View.INVISIBLE)
