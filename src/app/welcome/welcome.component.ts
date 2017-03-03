@@ -3,19 +3,55 @@ import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes,Router }  from '@angular/router';
 import { Location }  from '@angular/common';
+import {Observable} from 'rxjs/Rx';
+
+declare var scan:any;
+declare var connect:any;
+declare var services:any;
+declare var devices:any;
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+    scanobj: any;
+    connectobj:any;
+    servicesobj:any;
+     devicesobj:any;
+    timer;
+  constructor(private logger:LoggerService, private data:DataService,private router:Router,private location:Location) {
+     this.scanobj = new scan();
+     setTimeout(() => {
+      this.connectIt();
+    }, 5000);
+  }
 
-  constructor(private data:DataService,private router:Router,private location:Location) {
+  connectIt() {
+    this.connectobj = new connect();
+    setTimeout(() => {
+      this.servicesIt();
+    }, 3000);
+
+  }
+  servicesIt() {
+    this.connectobj = new services();
+    setTimeout(() => {
+      this.devicesIt();
+    }, 7000);
+  }
+  devicesIt() {
+    this.connectobj = new devices(this);
   }
 
   ngOnInit() {
   }
 
+ onDevices(scanned) {
+   let str = JSON.stringify(scanned) 
+   this.logger.log(str);
+   this.data.setScannedData(scanned);
+ }
   gotoProfile(item) {
     this.data.setProfile(item);
     this.location.replaceState('/');

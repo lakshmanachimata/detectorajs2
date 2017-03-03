@@ -12,6 +12,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
     private detectors:Array<any>;
+    scannedData:any;
     jsonLoadObserve: any;
     private snap:RouterStateSnapshot;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
@@ -36,11 +37,20 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   ngOnInit () {
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     this.detectors = this.data.getDevices();
+    this.scannedData = this.data.getScannedData();
+    this.setScannedDataToFirst();
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('electrician');
     this.data.setProfileSwitch(true);
+  }
+
+  setScannedDataToFirst(){
+    this.detectors[2].btDeviceName = this.scannedData.name;
+    this.detectors[2].firmwareVersion = this.scannedData.firmwareRevision;
+    this.detectors[2].articleNumber = this.scannedData.modelNumber;
+    this.detectors[2].contactName = this.scannedData.manufacturerName;
   }
 
   jsonOnLoad(component) {

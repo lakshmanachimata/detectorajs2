@@ -51,6 +51,7 @@ export class DeviceParams {
 @Injectable()
 export class DataService {
 
+    scanneddata:any;
     uiParams:UIParams   =  new UIParams();
     deviceParams:DeviceParams   =  new DeviceParams();
     deviceData:any;
@@ -61,6 +62,13 @@ export class DataService {
     constructor(private http:Http,private logger: LoggerService) {
     }
 
+    setScannedData(scanned){
+        this.scanneddata = scanned;
+    }
+
+    getScannedData() {
+        return this.scanneddata;
+    }
     setMainTitle(title) {
         this.uiParams.mainTitle = title;
     }
@@ -83,7 +91,7 @@ export class DataService {
 
     loadDevices() {
         return new Promise<Array<any>>(resolve => {
-        this.http.get('../assets/detectorslist.json').subscribe(response => {
+        this.http.get('assets/detectorslist.json').subscribe(response => {
                 resolve(response.json().detectors);
             });
         });
@@ -266,7 +274,7 @@ export class DataService {
     loadDeviceData(item,installed) {
         if(item.deviceType == 'relay1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/relay1c.json').subscribe(response => {
+            this.http.get('assets/relay1c.json').subscribe(response => {
                     resolve(response.json());
                     
                 });
@@ -274,13 +282,13 @@ export class DataService {
             
         }else if(item.deviceType == 'mosfet1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/mosfet1c.json').subscribe(response => {
+            this.http.get('assets/mosfet1c.json').subscribe(response => {
                     resolve(response.json());
                 });
             });
         }else if(item.deviceType == 'daliMaster1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('../assets/daliMaster1c.json').subscribe(response => {
+            this.http.get('assets/daliMaster1c.json').subscribe(response => {
                     resolve(response.json());
                 });
             });
