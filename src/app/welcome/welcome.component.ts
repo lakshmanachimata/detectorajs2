@@ -9,6 +9,7 @@ declare var scan:any;
 declare var connect:any;
 declare var services:any;
 declare var devices:any;
+declare var setDevicesCallBack:any;
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -19,12 +20,15 @@ export class WelcomeComponent implements OnInit {
     connectobj:any;
     servicesobj:any;
      devicesobj:any;
+     setDevicesCallBackobj:any;
     timer;
   constructor(private logger:LoggerService, private data:DataService,private router:Router,private location:Location) {
      this.scanobj = new scan();
+     
      setTimeout(() => {
       this.connectIt();
     }, 5000);
+    this.setDevicesCallBackobj = new setDevicesCallBack(this);
   }
 
   connectIt() {
@@ -38,9 +42,9 @@ export class WelcomeComponent implements OnInit {
     this.connectobj = new services();
     setTimeout(() => {
       this.devicesIt();
-    }, 7000);
+    }, 4000);
   }
-  devicesIt() {
+  devicesIt() {    
     this.connectobj = new devices(this);
   }
 
@@ -48,8 +52,7 @@ export class WelcomeComponent implements OnInit {
   }
 
  onDevices(scanned) {
-   let str = JSON.stringify(scanned) 
-   this.logger.log(str);
+   this.logger.log("devices data is " + scanned);
    this.data.setScannedData(scanned);
  }
   gotoProfile(item) {
