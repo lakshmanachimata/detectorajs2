@@ -50,6 +50,8 @@ import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -158,7 +160,9 @@ public class MainActivity extends Activity {
             webview.getSettings().setAllowFileAccessFromFileURLs(true);
             webview.clearCache(true);
         }
-        webview.setWebContentsDebuggingEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webview.setWebContentsDebuggingEnabled(true);
+        }
 
         webview.addJavascriptInterface(webInterface,"BJE");
 
@@ -178,7 +182,8 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 // do your stuff here
-                if (url.equals("file:///android_asset/")) {
+                if (url.equals("file:///android_asset/") ||
+                        url.equals("file:///android_asset/welcome")) {
                     if (splashScreen.getVisibility() == View.VISIBLE) {
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
@@ -261,7 +266,7 @@ public class MainActivity extends Activity {
             if (webview != null) {
                 //Review javaScript Enbable again:
                 webview.getSettings().setJavaScriptEnabled(true);
-                webview.loadUrl("javascript:resumeListener()");
+                //webview.loadUrl("javascript:resumeListener()");
             }
         }
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
@@ -296,11 +301,21 @@ public class MainActivity extends Activity {
                     }
                     if(deviceInfo.size() >= 5) {
                         mBluetoothLeService.disconnect();
+                        sendDeviceInfo();
                     }
             }
         }
     };
 
+    public void sendDeviceInfo() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webInterface.DevInfo = new JSONObject(deviceInfo);
+                webview.loadUrl("javascript:BJ_updateScanList()");
+            }
+        });
+    }
     public void getDeviceInfo() {
         for(int i =0; i < mGattServices.size(); i++) {
             if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.INFO_SERVICE)){
