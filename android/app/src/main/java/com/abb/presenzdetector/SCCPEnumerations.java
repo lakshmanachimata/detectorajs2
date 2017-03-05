@@ -196,22 +196,24 @@ public class SCCPEnumerations {
     static int     SCCP_TYPE_INT64    = 0x0F;
 
 
-    static public String calculateCRCCCITT(String data) {
-        int crc = 0xFFFF;          // initial value
-        int polynomial = 0x1021;   // 0001 0000 0010 0001  (0, 5, 12)
-
-        byte[] bytes = data.getBytes();
-
-        for (byte b : bytes) {
-            for (int i = 0; i < 8; i++) {
-                boolean bit = ((b   >> (7-i) & 1) == 1);
-                boolean c15 = ((crc >> 15    & 1) == 1);
-                crc <<= 1;
-                if (c15 ^ bit) crc ^= polynomial;
-            }
+    static int ComputeCRC(byte[] val) {
+        int crc;
+        int q;
+        byte c;
+        crc = 0x0000;
+        for (int i = 0; i < val.length; i++) {
+            c = val[i];
+            q = (crc ^ c) & 0x0f;
+            crc = (crc >> 4) ^ (q * 0x1081);
+            q = (crc ^ (c >> 4)) & 0x0f;
+            crc = (crc >> 4) ^ (q * 0x1081);
         }
-
-        crc &= 0xffff;
-        return Integer.toHexString(crc);
+        int crcend = ((byte) crc << 8 | (byte) (crc >> 8)) & 0xffff;
+//Swap bytes
+        int byte1 = (crcend & 0xff);
+        int byte2 = ((crcend >> 8) & 0xff);
+        int result = ((byte1 << 8) | (byte2));
+//Swap
+        return result;
     }
 }
