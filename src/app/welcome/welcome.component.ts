@@ -52,8 +52,8 @@ export class WelcomeComponent implements OnInit {
   }
 
  onDevices(scanned) {
-   this.logger.log("devices data is " + scanned);
-   this.data.setScannedData(scanned);
+   let obj = JSON.parse(scanned);
+   this.data.setScannedData(obj);
  }
   gotoProfile(item) {
     this.data.setProfile(item);

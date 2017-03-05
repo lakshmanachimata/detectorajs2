@@ -47,7 +47,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   setScannedDataToFirst(){
-    this.detectors[2].btDeviceName = this.scannedData.name;
+    this.detectors[2].btDeviceName = this.scannedData.btDeviceName;
     this.detectors[2].firmwareVersion = this.scannedData.firmwareRevision;
     this.detectors[2].articleNumber = this.scannedData.modelNumber;
     this.detectors[2].contactName = this.scannedData.manufacturerName;
