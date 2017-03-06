@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 public class WebInterface {
 
     public JSONObject DevInfo;
+    public String brThreshold;
 
     public MainActivity mainActivity;
 
@@ -48,4 +49,14 @@ public class WebInterface {
     public void writeBrightnessThresholdMax(char value) {
         mainActivity.sendBLEdata(value);
     }
+
+    @JavascriptInterface
+    public void writeBrightnessThresholdSubscribe(boolean value) {
+        mainActivity.notifyForBrThreshold(value);
+    }
+    @JavascriptInterface
+    public String getBrThreshold() {
+        return brThreshold;
+    }
+
 }

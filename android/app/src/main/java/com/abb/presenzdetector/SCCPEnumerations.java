@@ -237,7 +237,7 @@ public class SCCPEnumerations {
     };
 
 
-    static int  computeCRC(byte[] data)  {
+    static char  computeCRC(byte[] data)  {
         char sum = seed;
 
         byte[] array = (data);
@@ -349,7 +349,6 @@ public class SCCPEnumerations {
                 byteArrayOutputStream.write((byte)0x00);
                 byteArrayOutputStream.write((byte)commandType);
                 for(int i = 0; i < data.length; i = i + 6) {
-                    byteArrayOutputStream.write((byte)(data[i] & 0x00ff)); // ADDR LOW
                     byteArrayOutputStream.write(data[i]); // ADDR LOW
                     byteArrayOutputStream.write(data[i+1]); // ADDR HIGH
                     byteArrayOutputStream.write(data[i+2]);
@@ -361,7 +360,7 @@ public class SCCPEnumerations {
 
                 byte len1[] =  new byte[1];
                 len1[0] = (byte)(6+counter);
-                byteArrayOutputStream1.write((byte)(7+counter));
+                byteArrayOutputStream1.write((byte)(6+counter));
                 byteArrayOutputStream1.write(byteArrayOutputStream.toByteArray(),0,3+counter);
                 stream = ByteBuffer.allocate(8+counter);
                 stream.put((byte)0x7e);
@@ -369,7 +368,6 @@ public class SCCPEnumerations {
                 crcVal = computeCRC(byteArrayOutputStream1.toByteArray());
                 stream.put((byte)(crcVal >> 8)); // CRC LOWER
                 stream.put((byte)(crcVal & 0x00ff)); // CRC UPPER
-                stream.put((byte)0x7e); // END BYTE
                 stream.put((byte)0x7e); // END BYTE
                 break;
 //            case REPORT_ATTRIBUTE:
