@@ -1,4 +1,4 @@
-import { Component ,trigger, state, animate, transition, style, OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,Renderer, ViewChild, ElementRef} from '@angular/core';
+import { Component ,trigger, state, animate, transition, style, OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,Renderer, ViewChild, ElementRef,ChangeDetectorRef} from '@angular/core';
 import { LoggerService } from '../../logger.service';
 import { DataService } from '../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -6,7 +6,8 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 
 
 declare var BJ_updateBrightnessThreshold:any;
-
+declare var BJ_updateBrightnessThresholdSubscribe:any;
+declare var setCDECallback:any;
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -44,6 +45,8 @@ declare var BJ_updateBrightnessThreshold:any;
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
     BJ_updateBrightnessThresholdObj:any
+    BJ_updateBrightnessThresholdSubscribeObj:any;
+    setCDECallbackObj:any;
     activeDevice:any;
     ad:any;
     onLabel = 'on';
@@ -54,9 +57,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     aslider = 'none';
     currentBrightness = '450 lx';
     showSlider = false;
+    brSubScribed = false;
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
-                private renderer:Renderer,private elRef:ElementRef) {
+                private renderer:Renderer,private elRef:ElementRef,
+                private ref:ChangeDetectorRef) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -72,6 +77,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setMainTitle('Config detector');
     this.currentBrightness = this.data.getCurrentBrightness();
     this.data.setOtherParam('','');
+
+    this.setCDECallbackObj = new setCDECallback(this);
   }
   ngAfterContentInit() { 
   }
@@ -81,7 +88,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngAfterViewChecked() { 
   }
-
+  setBrThreshold(brThresholdData){
+    this.ad.sensor_settings.brightness_threshold = brThresholdData;
+    this.ref.markForCheck();
+    this.logger.log("threshold value is " + this.ad.sensor_settings.brightness_threshold);
+  }
   showResetDialog() {
     this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
     this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );
@@ -115,8 +126,40 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.BJ_updateBrightnessThresholdObj = new BJ_updateBrightnessThreshold(this.ad.sensor_settings.brightness_threshold)
     }
 
+  subScribeThreshold() {
+    this.brSubScribed = !this.brSubScribed;
+      this.BJ_updateBrightnessThresholdSubscribeObj = new BJ_updateBrightnessThresholdSubscribe(this.brSubScribed );
+  }
 
-
+getMystyle(item) {
+    let styleValue;
+    if(item == false){
+      styleValue = "float: right; \
+      font-size: 12px;\
+    margin-right: 5px;\
+    margin-top: 10px;\
+    color: #212e40;\
+    padding: 3px;\
+    border-radius: 2px;\
+    border: 1px solid #212e40;"
+    }else {
+      styleValue = "float: right; \
+      font-size: 12px;\
+      margin-right: 5px;\
+      margin-top: 10px;\
+      color: #ffffff;\
+      padding: 3px;\
+      border-radius: 2px;\
+      background-color: #212e40;\
+      border: 1px solid #212e40;"
+    }
+    let mystyles =  {
+      styleValue
+    }
+    return mystyles;
+    
+  }
+  
   validatebrparams(item) {
     if(item == 'threshold') {
       if(this.ad.sensor_settings.brightness_threshold < 10 || 

@@ -1,6 +1,6 @@
 
 var welcomecomponent;
-
+var CDEcallback;
 function scan() {
     //window.webkit.messageHandlers.api.postMessage("scan");
     console.log('scan start');
@@ -19,6 +19,7 @@ function updateScanList(devData) {
     //welcomecomponent.onDevices(scanned);
     console.log("whats  this " + devData);
 }
+
 
 
 function setDevicesCallBack(component) {
@@ -47,5 +48,18 @@ function BJ_updateBrightnessThresholdMin(value) {
 }
 function BJ_updateBrightnessThresholdMax(value) {
     BJE.writeBrightnessThresholdMax(value);
+}
+function BJ_updateBrightnessThresholdSubscribe(value){
+    BJE.writeBrightnessThresholdSubscribe(value);
+}
+
+function BJ_getBrThreshold(){
+    var brData = BJE.getBrThreshold();
+    var brIntData = parseInt(brData, 10);
+    CDEcallback.setBrThreshold(brIntData);
+}
+
+function setCDECallback(component) {
+    CDEcallback = component;
 }
 

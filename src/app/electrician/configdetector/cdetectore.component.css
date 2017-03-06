@@ -290,7 +290,16 @@ cdtector-nav-right{
     margin-right: 35px;
     margin-top: 10px;
 }
-
+.bj-subscribe-br-threshold {
+    float: right;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-top: 10px;
+    color: #212e40;
+    padding: 3px;
+    border-radius: 2px;
+    border: 1px solid #212e40;
+}
 img#mySpinner{
   	width:50px;
   	height:50px;
