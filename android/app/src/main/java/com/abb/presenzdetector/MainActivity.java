@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
     Animation out;
     ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
 
-
+    BluetoothGattCharacteristic writeCharecteristic;
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     Animation in;
@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         splashScreen = View.inflate(activity,R.layout.activity_splash,null);
         addContentView(splashScreen, lp);
-        webInterface = new WebInterface(getApplicationContext());
+        webInterface = new WebInterface(MainActivity.this);
         TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
         String logoText = "BJE\n presence\n detector";
         tvLogo.setText(logoText);
@@ -261,7 +261,6 @@ public class MainActivity extends Activity {
         else {
             scanLeDevice(true);
         }
-
         if (loaded) {
             if (webview != null) {
                 //Review javaScript Enbable again:
@@ -300,12 +299,59 @@ public class MainActivity extends Activity {
                         deviceInfo.put("softwareRevision",data);
                     }
                     if(deviceInfo.size() >= 5) {
-                        mBluetoothLeService.disconnect();
+                        //mBluetoothLeService.disconnect();
                         sendDeviceInfo();
+
                     }
             }
         }
     };
+
+    void sendBLEdata(int value) {
+        sendRequestFrame(SCCPEnumerations.WRITE_ATTRIBUTE_REQUEST,value);
+    }
+
+    void sendRequestFrame(final int command, final int val) {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                byte mydata[] = new byte[5];
+                mydata[0] = (byte) 0x31;
+                mydata[1] = (byte) 0x00;
+                mydata[2] = (byte) 0x04;
+                mydata[3] = (byte) 0x64;
+                mydata[4] = (byte) 0x00;
+                final byte[] data = SCCPEnumerations.makeRequestFrame(command, mydata);
+                for(int i =0; i < mGattServices.size(); i++) {
+                    if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
+                        final List<BluetoothGattCharacteristic> gattCharacteristics =
+                                mGattServices.get(i).getCharacteristics();
+                        if (writeCharecteristic != null) {
+                            writeCharecteristic.setValue(data);
+                            writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                            return;
+                        }
+                        else {
+                            for (int j = 0; j < gattCharacteristics.size(); j++) {
+                                if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.SERVER_RX_DATA)) {
+                                    BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
+                                    writeme.setValue(data);
+                                    writeme.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                                    mBluetoothLeService.writeCharacteristic(writeme);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }, 10);
+    }
+
+
+
 
     public void sendDeviceInfo() {
         MainActivity.this.runOnUiThread(new Runnable() {
@@ -316,6 +362,8 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+
     public void getDeviceInfo() {
         for(int i =0; i < mGattServices.size(); i++) {
             if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.INFO_SERVICE)){
@@ -338,12 +386,24 @@ public class MainActivity extends Activity {
                     }
                 }, 1000);
             }
+            else if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
+                    final List<BluetoothGattCharacteristic> gattCharacteristics =
+                            mGattServices.get(i).getCharacteristics();
+                for(int j =0;j < gattCharacteristics.size(); j++ ){
+                    String uuidstr = gattCharacteristics.get(j).getUuid().toString();
+                    if(uuidstr.equalsIgnoreCase(SCCPEnumerations.SERVER_RX_DATA)) {
+                        writeCharecteristic =  gattCharacteristics.get(j);
+                    }else if(uuidstr.equalsIgnoreCase(SCCPEnumerations.SERVER_TX_DATA)) {
+                        mBluetoothLeService.setCharacteristicNotification(gattCharacteristics.get(j),true);
+                    }
+                }
+            }
+
         }
     }
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         mGattServices.addAll(gattServices);
-
     }
 
     @Override
