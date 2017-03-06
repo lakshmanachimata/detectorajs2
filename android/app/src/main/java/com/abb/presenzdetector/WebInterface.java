@@ -37,15 +37,15 @@ public class WebInterface {
         return DevInfo.toString();
     }
     @JavascriptInterface
-    public void writeBrightnessThreshold(int value) {
+    public void writeBrightnessThreshold(char value) {
         mainActivity.sendBLEdata(value);
     }
     @JavascriptInterface
-    public void writeBrightnessThresholdMin(int value) {
+    public void writeBrightnessThresholdMin(char value) {
         mainActivity.sendBLEdata(value);
     }
     @JavascriptInterface
-    public void writeBrightnessThresholdMax(int value) {
+    public void writeBrightnessThresholdMax(char value) {
         mainActivity.sendBLEdata(value);
     }
 }

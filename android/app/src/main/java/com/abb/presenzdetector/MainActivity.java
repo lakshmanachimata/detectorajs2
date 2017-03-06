@@ -301,17 +301,17 @@ public class MainActivity extends Activity {
                     if(deviceInfo.size() >= 5) {
                         //mBluetoothLeService.disconnect();
                         sendDeviceInfo();
-
+                        Toast.makeText(getApplicationContext(),"Go to detector now",Toast.LENGTH_LONG).show();
                     }
             }
         }
     };
 
-    void sendBLEdata(int value) {
+    void sendBLEdata(char value) {
         sendRequestFrame(SCCPEnumerations.WRITE_ATTRIBUTE_REQUEST,value);
     }
 
-    void sendRequestFrame(final int command, final int val) {
+    void sendRequestFrame(final int command, final char val) {
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -320,9 +320,10 @@ public class MainActivity extends Activity {
                 byte mydata[] = new byte[5];
                 mydata[0] = (byte) 0x31;
                 mydata[1] = (byte) 0x00;
-                mydata[2] = (byte) 0x04;
-                mydata[3] = (byte) 0x64;
-                mydata[4] = (byte) 0x00;
+                mydata[2] = (byte) SCCPEnumerations.SCCP_TYPE_UINT16;
+                mydata[3] = ((byte)(val & 0x00FF));
+                mydata[4] = (byte)(val >> 8);
+
                 final byte[] data = SCCPEnumerations.makeRequestFrame(command, mydata);
                 for(int i =0; i < mGattServices.size(); i++) {
                     if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
@@ -331,6 +332,7 @@ public class MainActivity extends Activity {
                         if (writeCharecteristic != null) {
                             writeCharecteristic.setValue(data);
                             writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                            mBluetoothLeService.writeCharacteristic(writeCharecteristic);
                             return;
                         }
                         else {
