@@ -4,6 +4,9 @@ import { DataService } from '../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
 
+
+declare var BJ_updateBrightnessThreshold:any;
+
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -40,7 +43,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 })
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-    
+    BJ_updateBrightnessThresholdObj:any
     activeDevice:any;
     ad:any;
     onLabel = 'on';
@@ -97,6 +100,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     else if(item == 'sdelay')
       this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
     this.validatebrparams(item)
+    this.BJ_updateBrightnessThresholdObj = new BJ_updateBrightnessThreshold(this.ad.sensor_settings.brightness_threshold)
   }
 
   increaseBrightness(item) {
@@ -107,6 +111,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     else if(item == 'sdelay')
           this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
     this.validatebrparams(item)  
+
+    this.BJ_updateBrightnessThresholdObj = new BJ_updateBrightnessThreshold(this.ad.sensor_settings.brightness_threshold)
     }
 
 

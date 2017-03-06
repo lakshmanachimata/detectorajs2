@@ -39,3 +39,13 @@ function BJ_stopBLEScan(toast) {
     BJE.stopBLEScan(toast);
 }
 
+function BJ_updateBrightnessThreshold(value) {
+    BJE.writeBrightnessThreshold(value);
+}
+function BJ_updateBrightnessThresholdMin(value) {
+    BJE.writeBrightnessThresholdMin(value);
+}
+function BJ_updateBrightnessThresholdMax(value) {
+    BJE.writeBrightnessThresholdMax(value);
+}
+
