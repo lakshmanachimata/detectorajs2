@@ -1,4 +1,4 @@
-import { Component ,trigger, state, animate, transition, style, OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,Renderer, ViewChild, ElementRef,ChangeDetectorRef} from '@angular/core';
+import { Component ,trigger, state, animate, transition, style, OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,Renderer, ViewChild, ElementRef,NgZone} from '@angular/core';
 import { LoggerService } from '../../logger.service';
 import { DataService } from '../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -61,7 +61,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
-                private ref:ChangeDetectorRef) {
+                private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -89,8 +89,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   setBrThreshold(brThresholdData){
-    this.ad.sensor_settings.brightness_threshold = brThresholdData;
-    this.ref.markForCheck();
+     this.zone.run(() => {
+      this.ad.sensor_settings.brightness_threshold = brThresholdData;     
+   }); 
     this.logger.log("threshold value is " + this.ad.sensor_settings.brightness_threshold);
   }
   showResetDialog() {
