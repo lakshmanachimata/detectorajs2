@@ -27,10 +27,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.ParcelUuid;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -54,7 +56,9 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,8 +93,6 @@ public class MainActivity extends Activity {
     byte blePacketCounter = 0;
     ByteBuffer bleRecvBuffer;
     private BluetoothLeService mBluetoothLeService;
-    private String mDeviceName;
-    private String mDeviceAddress;
     private boolean loaded = false;
     final Activity activity = this;
     private BluetoothAdapter mBluetoothAdapter;
@@ -108,6 +110,13 @@ public class MainActivity extends Activity {
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
 
+
+    class ScannedDeviceInfo{
+        int hascode;
+        BluetoothDevice device;
+    }
+
+    ArrayList<ScannedDeviceInfo> scannedDevices =  new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -227,7 +236,8 @@ public class MainActivity extends Activity {
                 finish();
             }
             // Automatically connects to the device upon successful start-up initialization.
-            mBluetoothLeService.connect(mDeviceAddress);
+            if(scannedDevices.size() > 0)
+                mBluetoothLeService.connect(scannedDevices.get(0).device.getAddress());
 
         }
 
@@ -285,7 +295,7 @@ public class MainActivity extends Activity {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-                deviceInfo.put("btDeviceName",mDeviceName);
+                deviceInfo.put("btDeviceName",scannedDevices.get(0).device.getName());
                 invalidateOptionsMenu();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
@@ -538,11 +548,23 @@ public class MainActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(device.getAddress().equalsIgnoreCase("00:13:43:1E:8E:79")){
-                                mDeviceAddress = device.getAddress();
+                            if(device.getName() != null && device.getName().equalsIgnoreCase("BJE_HOLGER")){
                                 if(mBluetoothLeService != null) {
-                                    mBluetoothLeService.connect(mDeviceAddress);
-                                    mDeviceName = device.getName();
+                                    mBluetoothLeService.connect(device.getAddress());
+
+                                    boolean deviceExists = false;
+                                    for(int i = 0; i < scannedDevices.size(); i++) {
+                                        if(device.hashCode() == scannedDevices.get(i).hascode) {
+                                            deviceExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if(deviceExists == false){
+                                        ScannedDeviceInfo deviceInfo = new ScannedDeviceInfo();
+                                        deviceInfo.hascode = device.hashCode();
+                                        deviceInfo.device = device;
+                                        scannedDevices.add(deviceInfo);
+                                    }
                                 }
                             }
                         }
@@ -554,8 +576,11 @@ public class MainActivity extends Activity {
 
 
 
+
     private void scanLeDevice(final boolean enable) {
+
         if (enable) {
+            scannedDevices.clear();
             // Stops scanning after a pre-defined scan period.
             mHandler.postDelayed(new Runnable() {
                 @Override
