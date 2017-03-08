@@ -1,26 +1,7 @@
 
 var welcomecomponent;
 var CDEcallback;
-function scan() {
-    //window.webkit.messageHandlers.api.postMessage("scan");
-    console.log('scan start');
-}
-function connect() {
-    //window.webkit.messageHandlers.api.postMessage("connect");
-}
-function services() {
-    //window.webkit.messageHandlers.api.postMessage("services");
-}
-function devices(component) {
-    welcomecomponent = component;
-    //window.webkit.messageHandlers.api.postMessage("devices");
-}
-function updateScanList(devData) {
-    //welcomecomponent.onDevices(scanned);
-    console.log("whats  this " + devData);
-}
-
-
+var scannedDevices;
 
 function setDevicesCallBack(component) {
     welcomecomponent = component;
@@ -63,3 +44,47 @@ function setCDECallback(component) {
     CDEcallback = component;
 }
 
+
+
+function connect(uid) {
+    console.log(uid)
+    window.webkit.messageHandlers.api.postMessage('{ "command" : "connect", "data" : { "uid" : "' + uid + '" } }');
+}
+function devices() {
+    $("#devices").empty();
+    window.webkit.messageHandlers.api.postMessage('{ "command" : "devices" }');
+}
+
+function updateScanList(scanned) {
+    scannedDevices = scanned
+    console.log(scanned)
+    $("#devices").empty();
+    for (var device in scanned) {
+        var node = "<p onclick=\"connect(\'" + scanned[device].uuidString + "\')\">" + scanned[device].name + "</p>"
+        $("#devices").append(node)
+    }
+}
+
+function reset() {
+    var data = getRequestFrame(SCCP_COMMAND.RESET);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    window.webkit.messageHandlers.api.postMessage(args);
+}
+
+function readAttr() {
+    var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, [0x31]);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    window.webkit.messageHandlers.api.postMessage(args);
+}
+
+function writeAttr() {
+    var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, [0x31, 0x9, 0x200]);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    window.webkit.messageHandlers.api.postMessage(args);
+}
+
+function configureReporting() {
+    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, [0x31, 0x3, 0x0A]);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    window.webkit.messageHandlers.api.postMessage(args);    
+}
