@@ -213,7 +213,7 @@ public class BluetoothLeService extends Service {
      *         {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
      *         callback.
      */
-    public boolean connect(final String address) {
+    public boolean  connect(final String address) {
         if (mBluetoothAdapter == null || address == null) {
             Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
             return false;
@@ -271,6 +271,10 @@ public class BluetoothLeService extends Service {
         mBluetoothGatt = null;
     }
 
+
+    public BluetoothGatt getGatt() {
+        return mBluetoothGatt;
+    }
     /**
      * Request a read on a given {@code BluetoothGattCharacteristic}. The read result is reported
      * asynchronously through the {@code BluetoothGattCallback#onCharacteristicRead(android.bluetooth.BluetoothGatt, android.bluetooth.BluetoothGattCharacteristic, int)}
@@ -283,7 +287,11 @@ public class BluetoothLeService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
-        mBluetoothGatt.readCharacteristic(characteristic);
+        if(mBluetoothGatt.readCharacteristic(characteristic)){
+
+        }else {
+            Log.d("BJE","not able to send readCharacteristic");
+        }
     }
 
     public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {

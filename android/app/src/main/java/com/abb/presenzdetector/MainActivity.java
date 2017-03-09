@@ -5,40 +5,34 @@
  */
 package com.abb.presenzdetector;
 
-import android.app.ActionBar;
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.ParcelUuid;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -47,76 +41,79 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import org.json.JSONArray;
+
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.UUID;
 
 /*
     Main Activity
  */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private WebView webview;
     View splashScreen;
     View mainScreen;
-    static final int EBLE_128BitUUIDCom   = 0x07;//«Complete List of 128-bit Service Class UUIDs»	Bluetooth Core Specification:
-    static final int EBLE_32BitUUIDCom    = 0x05;//«Complete List of 32-bit Service Class UUIDs»	Bluetooth Core Specification:
 
-    private final String LIST_NAME = "NAME";
-    private final String LIST_UUID = "UUID";
     int infocharcount = 0;
-    LinkedHashMap  deviceInfo  =  new LinkedHashMap();
-
-
+    BluetoothManager bluetoothManager;
     boolean blePacketStart = false;
     boolean blePacketEnd = false;
     byte blePacketCounter = 0;
     ByteBuffer bleRecvBuffer;
+
     private BluetoothLeService mBluetoothLeService;
     private boolean loaded = false;
     final Activity activity = this;
     private BluetoothAdapter mBluetoothAdapter;
-    private boolean mScanning;
     private Handler mHandler;
     Animation out;
-    ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
 
+    ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
     BluetoothGattCharacteristic writeCharecteristic;
-    private boolean mConnected = false;
-    private BluetoothGattCharacteristic mNotifyCharacteristic;
+
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
-    private static final long SCAN_PERIOD = 10000;
+    private static final long SCAN_PERIOD = 1000;
 
 
-    class ScannedDeviceInfo{
-        int hascode;
-        BluetoothDevice device;
+    int deviceIndex = 0;
+
+    private static final int REQUEST_PERMISSIONS = 124;
+    private static String[] PERMISSIONS_BJE = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+    };
+
+    class DetectorInfo {
+        String hashCode;
+        String btDeviceName;
+        String modelNumber;
+        String manufacturerName;
+        String firmwareVersion;
+        String softwareVersion;
+        String btAddress;
     }
+    BluetoothLeScanner scanner;
+    BluetoothGatt mBleGatt;
 
-    ArrayList<ScannedDeviceInfo> scannedDevices =  new ArrayList<>();
+    LinkedHashMap<String, String> deviceInfo = new LinkedHashMap<>();
+
+    ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -130,21 +127,24 @@ public class MainActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();//zf.close here
         }
+
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            verifyStoragePermissions(MainActivity.this);
+        }
+        else {
+            setUpBluetooth();
+        }
+
+
         String version = pInfo.versionName;
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
 
         // Checks if Bluetooth is supported on the device.
-        if (mBluetoothAdapter == null) {
-            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
+
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         splashScreen = View.inflate(activity,R.layout.activity_splash,null);
         addContentView(splashScreen, lp);
         webInterface = new WebInterface(MainActivity.this);
+
         TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
         String logoText = "BJE\n presence\n detector";
         tvLogo.setText(logoText);
@@ -160,6 +160,8 @@ public class MainActivity extends Activity {
         in = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
         in.setDuration(2500);//TODO: instead of static duration value,animate as soon as webview is loaded
         webview = (WebView) findViewById(R.id.webViewMain);
+        webview.addJavascriptInterface(webInterface,"BJE");
+
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setDomStorageEnabled(true);
 
@@ -180,7 +182,6 @@ public class MainActivity extends Activity {
             webview.setWebContentsDebuggingEnabled(true);
         }
 
-        webview.addJavascriptInterface(webInterface,"BJE");
 
         webview.setWebViewClient(new WebViewClient() {
 
@@ -204,7 +205,6 @@ public class MainActivity extends Activity {
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
 
-                        view.loadUrl("javascript:BJ_startBLEScan(true)");
                     }
                     if ((splashScreen.getVisibility() == View.INVISIBLE)
                             && (mainScreen.getVisibility() == View.INVISIBLE)) {
@@ -227,6 +227,65 @@ public class MainActivity extends Activity {
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
 
+
+    void setUpBluetooth() {
+
+
+        bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+        scanner = mBluetoothAdapter.getBluetoothLeScanner();
+
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        if (mBluetoothAdapter != null && !mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+        else {
+            scanLeDevice(true);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setUpBluetooth();
+                } else {
+                    // handle permissions rejection
+                }
+                return;
+            }
+        }
+    }
+
+
+    public  void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_BJE,
+                    REQUEST_PERMISSIONS
+            );
+        }
+        else if(permission == PackageManager.PERMISSION_GRANTED) {
+            setUpBluetooth();
+        }
+    }
+
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         @Override
@@ -235,9 +294,11 @@ public class MainActivity extends Activity {
             if (!mBluetoothLeService.initialize()) {
                 finish();
             }
+
+            mBleGatt =  mBluetoothLeService.getGatt();
             // Automatically connects to the device upon successful start-up initialization.
             if(scannedDevices.size() > 0)
-                mBluetoothLeService.connect(scannedDevices.get(0).device.getAddress());
+                mBluetoothLeService.connect(scannedDevices.get(0).btAddress);
 
         }
 
@@ -270,22 +331,36 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        deviceInfo.clear();
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-        else {
-            scanLeDevice(true);
-        }
+
         if (loaded) {
             if (webview != null) {
                 //Review javaScript Enbable again:
                 webview.getSettings().setJavaScriptEnabled(true);
-                //webview.loadUrl("javascript:resumeListener()");
             }
         }
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+
+    }
+
+
+    void connectNextDevice() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (deviceIndex < scannedDevices.size()) {
+                            mBluetoothLeService.connect(scannedDevices.get(deviceIndex).btAddress);
+                        }
+                        else {
+                            sendDeviceInfo();
+                        }
+                    }
+                });
+            }
+        },10);
 
     }
 
@@ -294,93 +369,105 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
-                mConnected = true;
-                deviceInfo.put("btDeviceName",scannedDevices.get(0).device.getName());
-                invalidateOptionsMenu();
-            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                mConnected = false;
-                invalidateOptionsMenu();
-            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                displayGattServices(mBluetoothLeService.getSupportedGattServices());
+            }
+            else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+                connectNextDevice();
+            }
+            else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                getGattServices(mBluetoothLeService.getSupportedGattServices());
                 getDeviceInfo();
-            } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                    byte[] data = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
-
-                    String charecterstic = intent.getStringExtra(BluetoothLeService.EXTRA_CHARECTERSTIC);
-                    if(charecterstic.contains("00805f9b34fb")) {
-                        if (charecterstic.contains("2a29")) {
-                            deviceInfo.put("manufacturerName", new String(data));
-                        }
-                        if (charecterstic.contains("2a24")) {
-                            deviceInfo.put("modelNumber", new String(data));
-                        }
-                        if (charecterstic.contains("2a26")) {
-                            deviceInfo.put("firmwareRevision", new String(data));
-                        }
-                        if (charecterstic.contains("2a28")) {
-                            deviceInfo.put("softwareRevision", new String(data));
-                        }
-                        if (deviceInfo.size() >= 5) {
-                            //mBluetoothLeService.disconnect();
-                            sendDeviceInfo();
-                            Toast.makeText(getApplicationContext(), "Go to detector now", Toast.LENGTH_LONG).show();
-                        }
-                    }else if(charecterstic.equalsIgnoreCase("0783b03e-8535-b5a0-7140-a304d2495cb8")){
-
-                        byte[] rawdata = data;
-                        if (rawdata.length == 2 && rawdata[0] == (byte) 126) {
-                            blePacketStart = true;
-                            bleRecvBuffer = ByteBuffer.allocate(rawdata[1]);
-                            bleRecvBuffer.put(rawdata[1]);
-                            blePacketCounter = 0;
-                        }
-                        else if (blePacketStart == true) {
-
-
-                            if (rawdata[0] == (byte) 126) {
-                                if (blePacketCounter == bleRecvBuffer.get(0) -1) {
-                                    blePacketEnd = true;
-                                    char recvCRC = SCCPEnumerations.computeCRC(bleRecvBuffer.array());
-                                    if (recvCRC == 0) {
-                                        byte[] recvData = bleRecvBuffer.array();
-                                        Log.d("BJE", "CRC MATCH");
-                                        if(recvData[4] == 0x31 && recvData[3] == 0x06){
-
-                                            char data1 = (char)(recvData[8] & 0x00FF);
-                                            data1 = (char)(data1 << 8);
-                                            char data2 = (char)(recvData[7] & 0x00FF);
-                                            char brData = (char)(data1 | data2);
-                                            setBrDataBack((int)brData);
-                                        }
-
-                                    }
-                                    else {
-                                        Log.d("BJE", "CRC MIS MATCH");
-                                    }
-                                }
-                                else {
-                                    Log.d("BJE", "LENGTH MIS MATCH");
-                                }
-                            }
-                            else {
-                                for (int i = 0; i < rawdata.length; i++) {
-                                    bleRecvBuffer.put(rawdata[i]);
-                                }
-
-                                blePacketCounter = (byte) (blePacketCounter + (byte) rawdata.length);
-                            }
-                        }
-                    }
-
+            }
+            else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+                setDeviceInfo(intent);
             }
         }
     };
 
 
-    void setBrDataBack(int brData) {
-        webInterface.brThreshold = Integer.toString(brData);
-        webview.loadUrl("javascript:BJ_getBrThreshold()");
+    void setDeviceInfo(final Intent intent){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] data = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
+                String charecterstic = intent.getStringExtra(BluetoothLeService.EXTRA_CHARECTERSTIC);
+
+                if (charecterstic.contains("00805f9b34fb")) {
+
+                    if (charecterstic.contains("2a29")) {
+                        deviceInfo.put("manufacturerName", new String(data));
+                    }
+                    if (charecterstic.contains("2a24")) {
+                        deviceInfo.put("modelNumber", new String(data));
+                    }
+                    if (charecterstic.contains("2a26")) {
+                        deviceInfo.put("firmwareVersion", new String(data));
+                    }
+                    if (charecterstic.contains("2a28")) {
+                        deviceInfo.put("softwareVersion", new String(data));
+                    }
+                    if (deviceInfo.size() == 4 && deviceIndex < scannedDevices.size()) {
+                        scannedDevices.get(deviceIndex).manufacturerName = deviceInfo.get("manufacturerName");
+                        scannedDevices.get(deviceIndex).modelNumber = deviceInfo.get("modelNumber");
+                        scannedDevices.get(deviceIndex).firmwareVersion = deviceInfo.get("firmwareVersion");
+                        scannedDevices.get(deviceIndex).softwareVersion = deviceInfo.get("softwareVersion");
+
+                        mBluetoothLeService.disconnect();
+                        deviceInfo.clear();
+                        deviceIndex = deviceIndex + 1;
+                    }
+                }
+                else if (charecterstic.equalsIgnoreCase("0783b03e-8535-b5a0-7140-a304d2495cb8")) {
+
+                    byte[] rawdata = data;
+                    if (rawdata.length == 2 && rawdata[0] == (byte) 126) {
+                        blePacketStart = true;
+                        bleRecvBuffer = ByteBuffer.allocate(rawdata[1]);
+                        bleRecvBuffer.put(rawdata[1]);
+                        blePacketCounter = 0;
+                    }
+                    else if (blePacketStart == true) {
+
+
+                        if (rawdata[0] == (byte) 126) {
+                            if (blePacketCounter == bleRecvBuffer.get(0) - 1) {
+                                blePacketEnd = true;
+                                char recvCRC = SCCPEnumerations.computeCRC(bleRecvBuffer.array());
+                                if (recvCRC == 0) {
+                                    byte[] recvData = bleRecvBuffer.array();
+                                    Log.d("BJE", "CRC MATCH");
+                                    if (recvData[4] == 0x31 && recvData[3] == 0x06) {
+
+                                        char data1 = (char) (recvData[8] & 0x00FF);
+                                        data1 = (char) (data1 << 8);
+                                        char data2 = (char) (recvData[7] & 0x00FF);
+                                        char brData = (char) (data1 | data2);
+                                    }
+
+                                }
+                                else {
+                                    Log.d("BJE", "CRC MIS MATCH");
+                                }
+                            }
+                            else {
+                                Log.d("BJE", "LENGTH MIS MATCH");
+                            }
+                        }
+                        else {
+                            for (int i = 0; i < rawdata.length; i++) {
+                                bleRecvBuffer.put(rawdata[i]);
+                            }
+
+                            blePacketCounter = (byte) (blePacketCounter + (byte) rawdata.length);
+                        }
+                    }
+                }
+            }
+        });
     }
+
+
+
+
 
     void sendBLEdata(char value) {
         sendRequestFrame(SCCPEnumerations.WRITE_ATTRIBUTE_REQUEST,value);
@@ -415,6 +502,7 @@ public class MainActivity extends Activity {
                                 if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.SERVER_RX_DATA)) {
                                     BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
                                     writeme.setValue(data);
+
                                     writeme.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
                                     mBluetoothLeService.writeCharacteristic(writeme);
                                     break;
@@ -426,6 +514,8 @@ public class MainActivity extends Activity {
             }
         }, 10);
     }
+
+
 
 
     public void notifyForBrThreshold(boolean value) {
@@ -478,8 +568,17 @@ public class MainActivity extends Activity {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                webInterface.DevInfo = new JSONObject(deviceInfo);
-                webview.loadUrl("javascript:BJ_updateScanList()");
+                try {
+                    Gson gson = new GsonBuilder().create();
+                    JsonArray myCustomArray = gson.toJsonTree(scannedDevices).getAsJsonArray();
+                    String devicesdata =  "updateScanList(";
+                    devicesdata = devicesdata + myCustomArray.toString();
+                    devicesdata = devicesdata + ")";
+
+                    webview.evaluateJavascript(devicesdata,null);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -496,16 +595,20 @@ public class MainActivity extends Activity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(infocharcount<gattCharacteristics.size()) {
+                        if(gattCharacteristics.size() > 0 && (gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a24")
+                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a26")
+                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a28")
+                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a29"))
+                                ){
                             mBluetoothLeService.readCharacteristic(gattCharacteristics.get(infocharcount));
                             infocharcount++;
-                            handler.postDelayed(this,1000);
+                            handler.postDelayed(this,150);
                         }else {
                             handler.removeCallbacks(this);
                         }
 
                     }
-                }, 1000);
+                }, 10);
             }
             else if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
@@ -523,7 +626,8 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void displayGattServices(List<BluetoothGattService> gattServices) {
+    private void getGattServices(List<BluetoothGattService> gattServices) {
+        mGattServices.clear();
         mGattServices.addAll(gattServices);
     }
 
@@ -538,42 +642,64 @@ public class MainActivity extends Activity {
             webview.destroy();
         }
         super.onDestroy();
+        unbindService(mServiceConnection);
     }
 
-    private BluetoothAdapter.LeScanCallback mLeScanCallback =
-            new BluetoothAdapter.LeScanCallback() {
 
+
+
+    ScanCallback bleCallback =  new ScanCallback() {
+        @Override
+        public void onScanResult(int callbackType, final ScanResult result) {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void onLeScan(final BluetoothDevice device, int rssi, final byte[] scanRecord) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(device.getName() != null && device.getName().equalsIgnoreCase("BJE_HOLGER")){
-                                if(mBluetoothLeService != null) {
-                                    mBluetoothLeService.connect(device.getAddress());
-
-                                    boolean deviceExists = false;
-                                    for(int i = 0; i < scannedDevices.size(); i++) {
-                                        if(device.hashCode() == scannedDevices.get(i).hascode) {
-                                            deviceExists = true;
-                                            break;
-                                        }
-                                    }
-                                    if(deviceExists == false){
-                                        ScannedDeviceInfo deviceInfo = new ScannedDeviceInfo();
-                                        deviceInfo.hascode = device.hashCode();
-                                        deviceInfo.device = device;
-                                        scannedDevices.add(deviceInfo);
-                                    }
+                public void run() {
+                    BluetoothDevice device = result.getDevice();
+                    if(device.getName() != null && device.getName().equalsIgnoreCase("BJE_HOLGER")){
+                        if(mBluetoothLeService != null) {
+                            boolean deviceExists = false;
+                            //parseAdvertisementPacket(scanRecord);
+                            for(int i = 0; i < scannedDevices.size(); i++) {
+                                if(device.hashCode() == Integer.parseInt(scannedDevices.get(i).hashCode)) {
+                                    deviceExists = true;
+                                    break;
                                 }
                             }
+                            if(deviceExists == false){
+                                DetectorInfo deviceInfo = new DetectorInfo();
+                                deviceInfo.hashCode = Integer.toString(device.hashCode());
+                                deviceInfo.btAddress = device.getAddress();
+                                deviceInfo.btDeviceName = device.getName();
+                                scannedDevices.add(deviceInfo);
+                            }
                         }
-                    });
+                    }
                 }
-            };
+            });
+            super.onScanResult(callbackType, result);
+        }
 
+        /**
+         * Callback when batch results are delivered.
+         *
+         * @param results List of scan results that are previously scanned.
+         */
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            super.onBatchScanResults(results);
+        }
 
+        /**
+         * Callback when scan could not be started.
+         *
+         * @param errorCode Error code (one of SCAN_FAILED_*) for scan failure.
+         */
+        @Override
+        public void onScanFailed(int errorCode) {
+            super.onScanFailed(errorCode);
+        }
 
+    };
 
 
 
@@ -585,19 +711,17 @@ public class MainActivity extends Activity {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mScanning = false;
-                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-                    invalidateOptionsMenu();
+                    scanner.stopScan(bleCallback);
+                    deviceIndex = 0;
+                    if(scannedDevices.size() > 0)
+                        mBluetoothLeService.connect(scannedDevices.get(deviceIndex).btAddress);
                 }
             }, SCAN_PERIOD);
 
-            mScanning = true;
-            mBluetoothAdapter.startLeScan(mLeScanCallback);
+            scanner.startScan(bleCallback);
         } else {
-            mScanning = false;
-            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            scanner.stopScan(bleCallback);
         }
-        invalidateOptionsMenu();
     }
 
 }
