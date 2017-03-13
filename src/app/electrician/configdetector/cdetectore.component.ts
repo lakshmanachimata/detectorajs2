@@ -7,7 +7,6 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 
 declare var BJ_updateBrightnessThreshold:any;
 declare var BJ_updateBrightnessThresholdSubscribe:any;
-declare var setCDECallback:any;
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -46,7 +45,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     BJ_updateBrightnessThresholdObj:any
     BJ_updateBrightnessThresholdSubscribeObj:any;
-    setCDECallbackObj:any;
     activeDevice:any;
     ad:any;
     onLabel = 'on';
@@ -78,8 +76,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setMainTitle('Config detector');
     this.currentBrightness = this.data.getCurrentBrightness();
     this.data.setOtherParam('','');
-
-    this.setCDECallbackObj = new setCDECallback(this);
   }
   ngAfterContentInit() { 
   }
@@ -89,12 +85,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngAfterViewChecked() { 
   }
-  setBrThreshold(brThresholdData){
-     this.zone.run(() => {
-      this.ad.sensor_settings.brightness_threshold = brThresholdData;     
-   }); 
-    this.logger.log("threshold value is " + this.ad.sensor_settings.brightness_threshold);
-  }
+
   showResetDialog() {
     this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
     this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );

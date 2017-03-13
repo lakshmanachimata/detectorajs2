@@ -30,10 +30,8 @@ function BJ_updateBrightnessThresholdSubscribe(value){
     BJE.writeBrightnessThresholdSubscribe(value);
 }
 
-function BJ_getBrThreshold(){
-    var brData = BJE.getBrThreshold();
-    var brIntData = parseInt(brData, 10);
-    CDEcallback.setBrThreshold(brIntData);
+function setBLEDataToService(){
+
 }
 
 function setCDECallback(component) {

@@ -417,8 +417,12 @@ export class DataService {
     }
 
     notifyActiveComponentWithBLEdata(attrType, attrValue) {
-        this.setBLEdataOnDeviceData(attrType,attrValue);
         this.activeComponent.onBLEdata(attrType,attrValue);
+    }
+
+    setBLEDataToSerice(attrType, attrValue) {
+        this.setBLEdataOnDeviceData(attrType,attrValue);
+        this.notifyActiveComponentWithBLEdata(attrType, attrValue)
     }
 
     subscribeIJsonLoad(component, callback) {
