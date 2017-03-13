@@ -21,6 +21,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
   ngOnChanges() { 
   }
@@ -51,4 +52,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on + 1;
   }
 
+  onBLEdata(dataType, dataValue) {
+    
+  }
 }

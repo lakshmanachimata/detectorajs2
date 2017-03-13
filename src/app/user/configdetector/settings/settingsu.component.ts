@@ -21,6 +21,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
 
   setActiveTab(tab) {
@@ -79,5 +80,8 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     else if(item == 'glareend') {
       this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time + 1;
     }
+  }
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

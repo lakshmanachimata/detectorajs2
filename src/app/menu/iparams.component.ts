@@ -72,6 +72,7 @@ showFitterPin = false;
         if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }
+        this.data.setActiveComponent(this);
     }
     ngOnDestroy() {
     }
@@ -113,6 +114,10 @@ showFitterPin = false;
       'background': this.styleValue
     }
     return mystyles;
+    
+  }
+
+  onBLEdata(dataType, dataValue) {
     
   }
 }

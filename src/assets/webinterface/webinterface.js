@@ -3,6 +3,11 @@ var welcomecomponent;
 var CDEcallback;
 var scannedDevices;
 
+if(BJE == undefined) {
+    //BJE = window.webkit.messageHandlers.webapi;
+}
+
+
 function setDevicesCallBack(component) {
     welcomecomponent = component;
 }
@@ -11,15 +16,6 @@ function BJ_updateScanList() {
     welcomecomponent.onDevices(devData);
 }
 
-function BJ_showToast(toast) {
-    BJE.showToast(toast);
-}
-function BJ_startBLEScan(toast) {
-    BJE.startBLEScan(toast);
-}
-function BJ_stopBLEScan(toast) {
-    BJE.stopBLEScan(toast);
-}
 
 function BJ_updateBrightnessThreshold(value) {
     BJE.writeBrightnessThreshold(value);
@@ -45,46 +41,43 @@ function setCDECallback(component) {
 }
 
 
-
+function scan() {
+}
 function connect(uid) {
     console.log(uid)
-    window.webkit.messageHandlers.api.postMessage('{ "command" : "connect", "data" : { "uid" : "' + uid + '" } }');
+    //window.webkit.messageHandlers.api.postMessage('{ "command" : "connect", "data" : { "uid" : "' + uid + '" } }');
 }
 function devices() {
     $("#devices").empty();
-    window.webkit.messageHandlers.api.postMessage('{ "command" : "devices" }');
+    //window.webkit.messageHandlers.api.postMessage('{ "command" : "devices" }');
 }
 
 function updateScanList(scanned) {
     scannedDevices = scanned
-    console.log(scanned)
-    $("#devices").empty();
-    for (var device in scanned) {
-        var node = "<p onclick=\"connect(\'" + scanned[device].uuidString + "\')\">" + scanned[device].name + "</p>"
-        $("#devices").append(node)
-    }
+    var deviceData =  JSON.stringify(scannedDevices);
+    console.log(deviceData)
 }
 
 function reset() {
     var data = getRequestFrame(SCCP_COMMAND.RESET);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    window.webkit.messageHandlers.api.postMessage(args);
+   // window.webkit.messageHandlers.api.postMessage(args);
 }
 
 function readAttr() {
     var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, [0x31]);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    window.webkit.messageHandlers.api.postMessage(args);
+    //window.webkit.messageHandlers.api.postMessage(args);
 }
 
 function writeAttr() {
     var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, [0x31, 0x9, 0x200]);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    window.webkit.messageHandlers.api.postMessage(args);
+    //window.webkit.messageHandlers.api.postMessage(args);
 }
 
 function configureReporting() {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, [0x31, 0x3, 0x0A]);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    window.webkit.messageHandlers.api.postMessage(args);    
+    //window.webkit.messageHandlers.api.postMessage(args);    
 }

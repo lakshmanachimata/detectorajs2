@@ -43,6 +43,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
   ngOnChanges() { 
   }
@@ -198,5 +199,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setDialogTitle("Reset");
     this.data.setDialogText("Reset operating hours");
     this.data.setShowModal(true);
+  }
+
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

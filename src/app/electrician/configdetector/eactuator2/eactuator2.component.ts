@@ -18,6 +18,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
   ngOnChanges() { 
   }
@@ -50,5 +51,8 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }else if(item == 'soffdelay') {
       this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off + 1;
     }
+  }
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

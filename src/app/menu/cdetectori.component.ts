@@ -60,7 +60,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
             setTimeout(() => this.subMenuState = "rightin")
         }
         this.data.setMainTitle(this.activeDevice.btDeviceName);
-
+        this.data.setActiveComponent(this);
     }
     ngOnDestroy() {
     }
@@ -68,4 +68,9 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.setIParam(item,itemtitle);
         this.data.setShowCDI(this.data.getShowCDI() + 1);
     }
+
+    onBLEdata(dataType, dataValue) {
+    
+    }
+
 }

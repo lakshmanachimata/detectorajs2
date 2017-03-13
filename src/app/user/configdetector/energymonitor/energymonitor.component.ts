@@ -29,6 +29,7 @@ TotalSavingsYearValue = 759;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
 
   setActiveTab(tab) {
@@ -87,5 +88,8 @@ TotalSavingsYearValue = 759;
     } else {
       return false;
     }
+  }
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

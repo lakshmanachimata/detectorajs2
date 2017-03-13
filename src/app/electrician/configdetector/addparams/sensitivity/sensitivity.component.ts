@@ -21,6 +21,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
   ngOnChanges() { 
   }
@@ -107,4 +108,9 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     return mystyles;
     
   }
+
+  onBLEdata(dataType, dataValue) {
+    
+  }
+  
 }

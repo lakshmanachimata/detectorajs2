@@ -20,6 +20,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      this.data.setActiveComponent(this);
   }
 
   setActiveTab(tab) {
@@ -60,6 +61,9 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }
   }
-
+  
+  onBLEdata(dataType, dataValue) {
+    
+  }
 
 }

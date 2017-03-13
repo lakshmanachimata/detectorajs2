@@ -67,6 +67,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.setFooter(true);
       this.aslider = 'none';
       this.showSlider = false;
+      this.data.setActiveComponent(this);
     }
 
   ngOnChanges() { 
@@ -226,5 +227,9 @@ slideBackground (value) {
   gotoOtherParams(otherparam,otherParamTitle){
     this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
+  }
+
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

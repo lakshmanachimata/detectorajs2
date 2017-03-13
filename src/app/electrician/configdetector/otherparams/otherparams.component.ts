@@ -26,6 +26,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
+      this.data.setActiveComponent(this);
   }
   ngOnChanges() { 
   }
@@ -65,5 +66,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }else if(item == 'eprice') {
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }
+  }
+  onBLEdata(dataType, dataValue) {
+    
   }
 }

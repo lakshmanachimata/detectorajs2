@@ -22,6 +22,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
+      this.data.setActiveComponent(this);
     }
 
   slideBackground (value) {
@@ -68,6 +69,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
   }
   deviceNameChanged(nameChanged) {
+  }
+  onBLEdata(dataType, dataValue) {
+    
   }
   
 }
