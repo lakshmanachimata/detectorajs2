@@ -420,7 +420,8 @@ export class DataService {
     }
 
     notifyActiveComponentWithBLEdata(attrType, attrValue) {
-        this.activeComponent.onBLEdata(attrType,attrValue);
+        if(this.activeComponent != undefined)
+            this.activeComponent.onBLEdata(attrType,attrValue);
     }
 
     setBLEDataToService(attrType, attrValue) {
