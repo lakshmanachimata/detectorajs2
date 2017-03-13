@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
-    private static final long SCAN_PERIOD = 1000;
+    private static final long SCAN_PERIOD = 5000;
 
 
     int deviceIndex = 0;
@@ -342,6 +342,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    void connectDevice(final String address){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mBluetoothLeService.connect(address);
+            }
+        });
+    }
 
     void connectNextDevice() {
         final Handler handler = new Handler();
@@ -383,6 +391,18 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    void sendBLEDataToApp(final int dataType, final int dataValue ) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String devicesdata= "";
+                devicesdata = devicesdata + "setBLEDataToService(";
+                String bleData = "" + "{AttrType:"+ Integer.toString(dataType) + "," +"AttrValue:" +Integer.toString(dataValue) +"}";
+                devicesdata = devicesdata + bleData + ")";
+                webview.evaluateJavascript(devicesdata,null);
+            }
+        });
+    }
 
     void setDeviceInfo(final Intent intent){
         runOnUiThread(new Runnable() {
@@ -441,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
                                         data1 = (char) (data1 << 8);
                                         char data2 = (char) (recvData[7] & 0x00FF);
                                         char brData = (char) (data1 | data2);
+                                        sendBLEDataToApp( 0x31,(int)brData);
                                     }
 
                                 }
@@ -602,13 +623,13 @@ public class MainActivity extends AppCompatActivity {
                                 ){
                             mBluetoothLeService.readCharacteristic(gattCharacteristics.get(infocharcount));
                             infocharcount++;
-                            handler.postDelayed(this,150);
+                            handler.postDelayed(this,200);
                         }else {
                             handler.removeCallbacks(this);
                         }
 
                     }
-                }, 10);
+                }, 200);
             }
             else if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
                     final List<BluetoothGattCharacteristic> gattCharacteristics =

@@ -59,4 +59,12 @@ public class WebInterface {
         return brThreshold;
     }
 
+    @JavascriptInterface
+    public void connectDevice(String address) {
+        mainActivity.connectDevice(address);
+    }
+
+
+
+
 }
