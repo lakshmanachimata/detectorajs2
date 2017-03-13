@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
 
+declare var connectDevice;
 @Component({
   selector: 'electrician-root',
   templateUrl: './electrician.component.html',
@@ -12,14 +13,17 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
     private detectors:Array<any>;
-    scannedData:any;
+    scannedData:Array<any>;
     jsonLoadObserve: any;
+    connectDeviceObj:any;
     private snap:RouterStateSnapshot;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetector(item){
       this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
+      this.logger.log("selected item is " + JSON.stringify(item));
+      this.connectDeviceObj = new connectDevice(item.btDeviceAddress);
   }
   ngOnChanges() { 
   }
@@ -38,7 +42,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     this.detectors = this.data.getDevices();
     this.scannedData = this.data.getScannedData();
-    //this.setScannedDataToFirst();
+    this.logger.log("scanned data is  " + JSON.stringify(this.scannedData));
+    this.setScannedDataToFirst();
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
@@ -47,10 +52,12 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   setScannedDataToFirst(){
-    this.detectors[2].btDeviceName = this.scannedData.btDeviceName;
-    this.detectors[2].firmwareVersion = this.scannedData.firmwareRevision;
-    this.detectors[2].articleNumber = this.scannedData.modelNumber;
-    this.detectors[2].contactName = this.scannedData.manufacturerName;
+    this.logger.log("device address  is  " + this.scannedData[0].btAddress);
+    this.detectors[2].btDeviceName = this.scannedData[0].btDeviceName;
+    this.detectors[2].firmwareVersion = this.scannedData[0].firmwareRevision;
+    this.detectors[2].articleNumber = this.scannedData[0].modelNumber;
+    this.detectors[2].btDeviceAddress = this.scannedData[0].btAddress;
+    this.detectors[2].contactName = this.scannedData[0].manufacturerName;
   }
 
   jsonOnLoad(component) {

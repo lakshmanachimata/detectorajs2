@@ -2,6 +2,7 @@
   "detectors":[
   {
     "btDeviceName": "BT_Relais",
+    "btDeviceAddress": "",
     "articleNumber": "6819/x1",
     "deviceType":"relay1c",
     "contactName":"Bayer",
@@ -13,6 +14,7 @@
   },
   {
     "btDeviceName": "BT_MOSFET" ,
+    "btDeviceAddress": "",
     "articleNumber":"6817/x3",
     "deviceType":"mosfet1c",
     "contactName":"Bayer",
@@ -24,6 +26,7 @@
   },
   {
     "btDeviceName":"BT_DALI_Master",
+    "btDeviceAddress": "",
     "articleNumber":"6819/x5",
     "deviceType":"daliMaster1c",
     "contactName":"Behrens",

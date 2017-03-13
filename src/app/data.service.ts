@@ -182,6 +182,7 @@ export class DeviceParams {
         constructor(){}
         public deviceName = '';
         public deviceType= '';
+        public deviceAddress = '';
         public articleNumber= '';
         public contactName= '';
         public buildingName= '';
@@ -194,7 +195,7 @@ export class DeviceParams {
 
 }
 
-
+declare var setDataServiceCallBack;
     
 @Injectable()
 export class DataService {
@@ -205,10 +206,12 @@ export class DataService {
     deviceData:any;
     private selectedDevice:any;
     private iSelectedDevice:any;
+    setDataServiceCallBackObj:any;
     iDeviceData:any;
     currentBrightness = '498';
     activeComponent:any;
     constructor(private http:Http,private logger: LoggerService) {
+        this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
     }
 
     setScannedData(scanned){
@@ -420,7 +423,7 @@ export class DataService {
         this.activeComponent.onBLEdata(attrType,attrValue);
     }
 
-    setBLEDataToSerice(attrType, attrValue) {
+    setBLEDataToService(attrType, attrValue) {
         this.setBLEdataOnDeviceData(attrType,attrValue);
         this.notifyActiveComponentWithBLEdata(attrType, attrValue)
     }
@@ -480,6 +483,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.POTENTIOMETER_MODE                                      : 
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD                                    : 
+                this.deviceData.sensor_settings.brightness_threshold = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN                                : 
             break;

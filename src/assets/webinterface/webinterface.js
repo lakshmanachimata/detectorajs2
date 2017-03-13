@@ -1,6 +1,6 @@
 
 var welcomecomponent;
-var CDEcallback;
+var appDataService;
 var scannedDevices;
 
 if(BJE == undefined) {
@@ -16,7 +16,9 @@ function BJ_updateScanList() {
     welcomecomponent.onDevices(devData);
 }
 
-
+function connectDevice(deviceAddress){
+    BJE.connectDevice(deviceAddress)
+}
 function BJ_updateBrightnessThreshold(value) {
     BJE.writeBrightnessThreshold(value);
 }
@@ -30,12 +32,14 @@ function BJ_updateBrightnessThresholdSubscribe(value){
     BJE.writeBrightnessThresholdSubscribe(value);
 }
 
-function setBLEDataToService(){
-
+function setBLEDataToService(data){
+    var typeAttr = data.AttrType;
+    var dataAttr = data.AttrValue;
+    appDataService.setBLEDataToService(typeAttr,dataAttr);
 }
 
-function setCDECallback(component) {
-    CDEcallback = component;
+function setDataServiceCallBack(dataService) {
+    appDataService = dataService;
 }
 
 
@@ -53,7 +57,7 @@ function devices() {
 function updateScanList(scanned) {
     scannedDevices = scanned
     var deviceData =  JSON.stringify(scannedDevices);
-    console.log(deviceData)
+    appDataService.setScannedData(scanned);
 }
 
 function reset() {
