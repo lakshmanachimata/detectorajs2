@@ -2,11 +2,13 @@ import { Component ,trigger, state, animate, transition, style, OnChanges,OnInit
 import { LoggerService } from '../../logger.service';
 import { DataService } from '../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
+import {SCCP_DATATYPES} from'../../data.service';
+import {SCCP_ATTRIBUTES} from'../../data.service';
 
 
+declare var configureReporting;
+declare var writeAttr;
 
-declare var BJ_updateBrightnessThreshold:any;
-declare var BJ_updateBrightnessThresholdSubscribe:any;
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -42,9 +44,6 @@ declare var BJ_updateBrightnessThresholdSubscribe:any;
     ]
 })
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
-
-    BJ_updateBrightnessThresholdObj:any
-    BJ_updateBrightnessThresholdSubscribeObj:any;
     activeDevice:any;
     ad:any;
     onLabel = 'on';
@@ -56,6 +55,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     currentBrightness = '450 lx';
     showSlider = false;
     brSubScribed = false;
+    configureReportingObj:any;
+    writeAttrObj:any;
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
@@ -104,7 +105,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     else if(item == 'sdelay')
       this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
     this.validatebrparams(item)
-    this.BJ_updateBrightnessThresholdObj = new BJ_updateBrightnessThreshold(this.ad.sensor_settings.brightness_threshold)
+    this.writeAttrObj = new writeAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold]);
   }
 
   increaseBrightness(item) {
@@ -114,14 +115,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint + 1;
     else if(item == 'sdelay')
           this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
-    this.validatebrparams(item)  
-
-    this.BJ_updateBrightnessThresholdObj = new BJ_updateBrightnessThreshold(this.ad.sensor_settings.brightness_threshold)
+    this.validatebrparams(item) 
+    this.writeAttrObj = new writeAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold]);
     }
 
   subScribeThreshold() {
     this.brSubScribed = !this.brSubScribed;
-      this.BJ_updateBrightnessThresholdSubscribeObj = new BJ_updateBrightnessThresholdSubscribe(this.brSubScribed );
+    this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A]);
   }
 
 getMystyle(item) {
@@ -221,8 +221,8 @@ slideBackground (value) {
   }
 
   onBLEdata(dataType, dataValue) {
-    this.logger.log("incoming data is " + dataType + "   " + dataValue);
     this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.logger.log("incoming data is " + dataType + "   " + dataValue);
         this.ad.sensor_settings.brightness_threshold = dataValue;
       });
   }

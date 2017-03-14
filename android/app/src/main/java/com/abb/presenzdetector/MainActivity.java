@@ -49,6 +49,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 5000;
-
+    JSONArray inDataArray = new JSONArray();
 
     int deviceIndex = 0;
 
@@ -391,15 +392,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    void sendBLEDataToApp(final int dataType, final int dataValue ) {
+    void sendBLEDataToApp(final int dataType, final int dataValue , final boolean isLastAttr) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 String devicesdata= "";
-                devicesdata = devicesdata + "setBLEDataToService(";
-                String bleData = "" + "{AttrType:"+ Integer.toString(dataType) + "," +"AttrValue:" +Integer.toString(dataValue) +"}";
-                devicesdata = devicesdata + bleData + ")";
-                webview.evaluateJavascript(devicesdata,null);
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("AttrType", dataType);
+                    jsonObject.put("AttrValue", dataValue);
+                    inDataArray.put(jsonObject);
+                    if(isLastAttr == true) {
+                        devicesdata = devicesdata + "setBLEDataToService(";
+                        String bleData = inDataArray.toString();
+                        devicesdata = devicesdata + bleData + ")";
+                        webview.evaluateJavascript(devicesdata, null);
+                    }
+                }catch ( Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -441,6 +453,7 @@ public class MainActivity extends AppCompatActivity {
                     byte[] rawdata = data;
                     if (rawdata.length == 2 && rawdata[0] == (byte) 126) {
                         blePacketStart = true;
+                        inDataArray =  new JSONArray();
                         bleRecvBuffer = ByteBuffer.allocate(rawdata[1]);
                         bleRecvBuffer.put(rawdata[1]);
                         blePacketCounter = 0;
@@ -461,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
                                         data1 = (char) (data1 << 8);
                                         char data2 = (char) (recvData[7] & 0x00FF);
                                         char brData = (char) (data1 | data2);
-                                        sendBLEDataToApp( 0x31,(int)brData);
+                                        sendBLEDataToApp( 0x31,(int)brData,true);
                                     }
 
                                 }
@@ -489,25 +502,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+   void sendBLEAppFrame(byte[] appData) {
+       sendBLEFrame(appData);
+   }
 
-    void sendBLEdata(char value) {
-        sendRequestFrame(SCCPEnumerations.WRITE_ATTRIBUTE_REQUEST,value);
-    }
 
-    void sendRequestFrame(final int command, final char val) {
+    void sendBLEFrame(final byte[] data) {
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                byte mydata[] = new byte[5];
-                mydata[0] = (byte) 0x31;
-                mydata[1] = (byte) 0x00;
-                mydata[2] = (byte) SCCPEnumerations.SCCP_TYPE_UINT16;
-                mydata[3] = ((byte)(val & 0x00FF));
-                mydata[4] = (byte)(val >> 8);
 
-                final byte[] data = SCCPEnumerations.makeRequestFrame(command, mydata);
                 for(int i =0; i < mGattServices.size(); i++) {
                     if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
                         final List<BluetoothGattCharacteristic> gattCharacteristics =
@@ -535,55 +541,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 10);
     }
-
-
-
-
-    public void notifyForBrThreshold(boolean value) {
-        if(value == false)
-            return;
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                byte mydata[] = new byte[6];
-                mydata[0] = (byte) 0x31;
-                mydata[1] = (byte) 0x00;
-                mydata[2] = (byte) 0x03;
-                mydata[3] = (byte) 0x00;
-                mydata[4] = (byte) 0x0A;
-                mydata[5] = (byte) 0x00;
-
-                final byte[] data = SCCPEnumerations.makeRequestFrame(SCCPEnumerations.CONFIGURE_REPORTING_REQUEST, mydata);
-
-                for(int i =0; i < mGattServices.size(); i++) {
-                    if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
-                        final List<BluetoothGattCharacteristic> gattCharacteristics =
-                                mGattServices.get(i).getCharacteristics();
-                        if (writeCharecteristic != null) {
-                            writeCharecteristic.setValue(data);
-                            writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                            mBluetoothLeService.writeCharacteristic(writeCharecteristic);
-                            return;
-                        }
-                        else {
-                            for (int j = 0; j < gattCharacteristics.size(); j++) {
-                                if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.SERVER_RX_DATA)) {
-                                    BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
-                                    writeme.setValue(data);
-                                    writeme.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                                    mBluetoothLeService.writeCharacteristic(writeme);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }, 10);
-    }
-
-
 
     public void sendDeviceInfo() {
         MainActivity.this.runOnUiThread(new Runnable() {

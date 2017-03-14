@@ -3,7 +3,6 @@ import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
-
 declare var connectDevice;
 @Component({
   selector: 'electrician-root',

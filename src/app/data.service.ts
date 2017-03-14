@@ -7,151 +7,151 @@ export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
 }
 
-var SCCP_DATATYPES = { 
-    SCCP_TYPE_BOOL     : 0x01,
-    SCCP_TYPE_STRING   : 0x02,
-    SCCP_TYPE_ENUM8    : 0x03,
-    SCCP_TYPE_ENUM16   : 0x04,
-    SCCP_TYPE_TIME     : 0x05,
-    SCCP_TYPE_UINT8    : 0x08,
-    SCCP_TYPE_UINT16   : 0x09,
-    SCCP_TYPE_UINT32   : 0x0A,
-    SCCP_TYPE_UINT64   : 0x0B,
-    SCCP_TYPE_INT8     : 0x0C,
-    SCCP_TYPE_INT16    : 0x0D,
-    SCCP_TYPE_INT32    : 0x0E,
-    SCCP_TYPE_INT64    : 0x0F
+ export class  SCCP_DATATYPES  { 
+    static SCCP_TYPE_BOOL     = 0x01;
+    static SCCP_TYPE_STRING   = 0x02;
+    static SCCP_TYPE_ENUM8    = 0x03;
+    static SCCP_TYPE_ENUM16   = 0x04;
+    static SCCP_TYPE_TIME     = 0x05;
+    static SCCP_TYPE_UINT8    = 0x08;
+    static SCCP_TYPE_UINT16   = 0x09;
+    static SCCP_TYPE_UINT32   = 0x0A;
+    static SCCP_TYPE_UINT64   = 0x0B;
+    static SCCP_TYPE_INT8     = 0x0C;
+    static SCCP_TYPE_INT16    = 0x0D;
+    static SCCP_TYPE_INT32    = 0x0E;
+    static SCCP_TYPE_INT64    = 0x0F;
 }
 
-var SCCP_ATTRIBUTES = {
-    FIRMWARE_VERSION                                        : 0x0000,
-    BT_DEVICE_NAME                                          : 0x0020,
-    ARTICLE_NUMBER                                          : 0x0021,
-    DEVICE_TYPE                                             : 0x0022,
-    POTENTIOMETER_MODE                                      : 0x0030,
-    BRIGHTNESS_THRESHOLD                                    : 0x0031,
-    BRIGHTNESS_THRESHOLD_MIN                                : 0x0032,
-    BRIGHTNESS_THRESHOLD_MAX                                : 0x0033,
-    CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        : 0x0034,
-    CONSTANT_LIGHT_CONTROL_ENABLE                           : 0x0038,
-    CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 0x0039,
-    CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 : 0x003A,
-    CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 : 0x003B,
-    CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE : 0x003C,
-    SHORT_TIME_PULSE_ENABLE                                 : 0x0040,
-    SWITCH_OFF_DELAY                                        : 0x0041,
-    SWITCH_OFF_DELAY_MIN                                    : 0x0042,
-    SWITCH_OFF_DELAY_MAX                                    : 0x0043,
-    OPERATION_MODE                                          : 0x0044,
-    SLAVE_MODE_ENABLE                                       : 0x0045,
-    OUTDOOR_APPLICATION_ENABLE                              : 0x0050,
-    PIR_SENSITIVITY0                                        : 0x0051,
-    PIR_SENSITIVITY1                                        : 0x0052,
-    PIR_SENSITIVITY2                                        : 0x0053,
-    PIR_SENSITIVITY3                                        : 0x0054,
-    BRIGHTNESS_CORRECTION_ENABLE                            : 0x0058,
-    BRIGHTNESS_CORRECTION_VALUE                             : 0x0059,
-    DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         : 0x005A,
-    CH1_CIRCUIT_LOGIC                                       : 0x0060,
-    CH1_PERMANENT_ON_DURATION                               : 0x0061,
-    CH1_PERMANENT_ON_DURATION_MIN                           : 0x0062,
-    CH1_PERMANENT_ON_DURATION_MAX                           : 0x0063,
-    CH1_PERMANENT_OFF_DURATION                              : 0x0064,
-    CH1_PERMANENT_OFF_DURATION_MIN                          : 0x0065,
-    CH1_PERMANENT_OFF_DURATION_MAX                          : 0x0066,
-    SOFT_ON_ENABLE                                          : 0x0067,
-    SOFT_ON_DURATION                                        : 0x0068,
-    SOFT_ON_DURATION_MIN                                    : 0x0069,
-    SOFT_ON_DURATION_MAX                                    : 0x006A,
-    SOFT_OFF_ENABLE                                         : 0x006B,
-    SOFT_OFF_DURATION                                       : 0x006C,
-    SOFT_OFF_DURATION_MIN                                   : 0x006D,
-    SOFT_OFF_DURATION_MAX                                   : 0x006E,
-    PHASE_CUT_MODE                                          : 0x006F,
-    CH1_MEMORY_FUNCTION_ENABLE                              : 0x0070,
-    DELIMIT_LIGHTING_LEVEL_ENABLE                           : 0x0071,
-    CH1_MIN_LEVEL_ENABLE                                    : 0x0072,
-    CH1_MIN_LEVEL                                           : 0x0073,
-    CH1_MAX_LEVEL_ENABLE                                    : 0x0074,
-    CH1_MAX_LEVEL                                           : 0x0075,
-    LEVEL_MIN                                               : 0x0076,
-    LEVEL_MAX                                               : 0x0077,
-    DALI_POWER_ON_LEVEL                                     : 0x0078,
-    COLOR_TEMPERATURE                                       : 0x007C,
-    COLOR_TEMPERATURE_MIN                                   : 0x007D,
-    COLOR_TEMPERATURE_MAX                                   : 0x007E,
-    BURN_IN_ENABLE                                          : 0x0080,
-    BURN_IN_MODE                                            : 0x0081,
-    BURN_IN_DURATION                                        : 0x0082,
-    BURN_IN_DURATION_MIN                                    : 0x0083,
-    BURN_IN_DURATION_MAX                                    : 0x0084,
-    BASIC_BRIGHTNESS_MODE                                   : 0x0088,
-    BASIC_BRIGHTNESS_LEVEL                                  : 0x0089,
-    BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD           : 0x008A,
-    BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN       : 0x008B,
-    BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX       : 0x008C,
-    BASIC_BRIGHTNESS_START_TIME                             : 0x008D,
-    BASIC_BRIGHTNESS_END_TIME                               : 0x008E,
-    BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  : 0x008F,
-    NIGHT_LIGHT_FUNCTION_ENABLE                             : 0x0094,
-    NIGHT_LIGHT_START_TIME                                  : 0x0095,
-    NIGHT_LIGHT_END_TIME                                    : 0x0096,
-    NIGHT_LIGHT_LEVEL                                       : 0x0097,
-    STEPWISE_SWITCH_OFF_DELAY_ENABLE                        : 0x0098,
-    STEPWISE_SWITCH_OFF_DELAY                               : 0x0099,
-    STEPWISE_SWITCH_OFF_DELAY_MIN                           : 0x009A,
-    STEPWISE_SWITCH_OFF_DELAY_MAX                           : 0x009B,
-    STEPWISE_SWITCH_OFF_LEVEL                               : 0x009C,
-    PRESENCE_SIMULATION_ENABLE                              : 0x009D,
-    PRESENCE_SIMULATION_START_TIME                          : 0x009E,
-    PRESENCE_SIMULATION_END_TIME                            : 0x009F,
-    PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               : 0x00A0,
-    CH2_CIRCUIT_LOGIC                                       : 0x0100,
-    CH2_MODE                                                : 0x0101,
-    HVAC_DYNAMICAL_CONTROL_ENABLE                           : 0x0102,
-    HVAC_SWITCH_ON_DELAY                                    : 0x0103,
-    HVAC_SWITCH_ON_DELAY_MIN                                : 0x0104,
-    HVAC_SWITCH_ON_DELAY_MAX                                : 0x0105,
-    HVAC_SWITCH_OFF_DELAY                                   : 0x0106,
-    HVAC_SWITCH_OFF_DELAY_MIN                               : 0x0107,
-    HVAC_SWITCH_OFF_DELAY_MAX                               : 0x0108,
-    TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE                     : 0x00B0,
-    ENERGY_MONITOR_CONNECTED_LOAD                           : 0x00C0,
-    ENERGY_MONITOR_CONNECTED_LOAD_MIN                       : 0x00C1,
-    ENERGY_MONITOR_CONNECTED_LOAD_MAX                       : 0x00C2,
-    ENERGY_MONITOR_LIGHTING_DURATION                        : 0x00C3,
-    ENERGY_MONITOR_LIGHTING_DURATION_MIN                    : 0x00C4,
-    ENERGY_MONITOR_LIGHTING_DURATION_MAX                    : 0x00C5,
-    CONTACT                                                 : 0x00D0,
-    BUILDING                                                : 0x00D1,
-    ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    : 0x00E0,
-    ENABLE_USER_SET_SWITCH_OFF_DELAY                        : 0x00E1,
-    ENABLE_USER_ENERGY_MONITOR                              : 0x00E2,
-    ENABLE_USER_BASIC_BRIGHTNESS                            : 0x00E3,
-    ENABLE_USER_NIGHT_LIGHT_FUNCTION                        : 0x00E4,
-    ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            : 0x00E5,
-    CURRENT_BRIGHTNESS                                      : 0x1020,
-    IDENTIFYING_DEVICE                                      : 0x1021,
-    MOVEMENT                                                : 0x1040,
-    CH1_IDENTIFYING_LOAD                                    : 0x1060,
-    CH1_ON_OFF_STATE                                        : 0x1061,
-    CH1_CURRENT_LEVEL                                       : 0x1062,
-    CH2_IDENTIFYING_LOAD                                    : 0x10A0,
-    CH2_ON_OFF_STATE                                        : 0x10A1,
-    CH2_CURRENT_LEVEL                                       : 0x10A2,
-    TEST_MODE_ACTIVE                                        : 0x10B0,
-    ACCESS_LEVEL                                            : 0x10E0,
-    TEST_BOOL                                               : 0x8001,
-    TEST_STRING                                             : 0x8002,
-    TEST_ENUM8                                              : 0x8003,
-    TEST_ENUM16                                             : 0x8004,
-    TEST_TIME                                               : 0x8005,
-    TEST_UINT8                                              : 0x8008,
-    TEST_UINT16                                             : 0x8009,
-    TEST_UINT32                                             : 0x800A,
-    TEST_INT8                                               : 0x800C,
-    TEST_INT16                                              : 0x800D,
-    TEST_INT32                                              : 0x800E
+export class SCCP_ATTRIBUTES  {
+    static FIRMWARE_VERSION                                        = 0x0000;
+    static BT_DEVICE_NAME                                          = 0x0020;
+    static ARTICLE_NUMBER                                          = 0x0021;
+    static DEVICE_TYPE                                             = 0x0022;
+    static POTENTIOMETER_MODE                                      = 0x0030;
+    static BRIGHTNESS_THRESHOLD                                    = 0x0031;
+    static BRIGHTNESS_THRESHOLD_MIN                                = 0x0032;
+    static BRIGHTNESS_THRESHOLD_MAX                                = 0x0033;
+    static CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        = 0x0034;
+    static CONSTANT_LIGHT_CONTROL_ENABLE                           = 0x0038;
+    static CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     = 0x0039;
+    static CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 = 0x003A;
+    static CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 = 0x003B;
+    static CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE = 0x003C;
+    static SHORT_TIME_PULSE_ENABLE                                 = 0x0040;
+    static SWITCH_OFF_DELAY                                        = 0x0041;
+    static SWITCH_OFF_DELAY_MIN                                    = 0x0042;
+    static SWITCH_OFF_DELAY_MAX                                    = 0x0043;
+    static OPERATION_MODE                                          = 0x0044;
+    static SLAVE_MODE_ENABLE                                       = 0x0045;
+    static OUTDOOR_APPLICATION_ENABLE                              = 0x0050;
+    static PIR_SENSITIVITY0                                        = 0x0051;
+    static PIR_SENSITIVITY1                                        = 0x0052;
+    static PIR_SENSITIVITY2                                        = 0x0053;
+    static PIR_SENSITIVITY3                                        = 0x0054;
+    static BRIGHTNESS_CORRECTION_ENABLE                            = 0x0058;
+    static BRIGHTNESS_CORRECTION_VALUE                             = 0x0059;
+    static DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         = 0x005A;
+    static CH1_CIRCUIT_LOGIC                                       = 0x0060;
+    static CH1_PERMANENT_ON_DURATION                               = 0x0061;
+    static CH1_PERMANENT_ON_DURATION_MIN                           = 0x0062;
+    static CH1_PERMANENT_ON_DURATION_MAX                           = 0x0063;
+    static CH1_PERMANENT_OFF_DURATION                              = 0x0064;
+    static CH1_PERMANENT_OFF_DURATION_MIN                          = 0x0065;
+    static CH1_PERMANENT_OFF_DURATION_MAX                          = 0x0066;
+    static SOFT_ON_ENABLE                                          = 0x0067;
+    static SOFT_ON_DURATION                                        = 0x0068;
+    static SOFT_ON_DURATION_MIN                                    = 0x0069;
+    static SOFT_ON_DURATION_MAX                                    = 0x006A;
+    static SOFT_OFF_ENABLE                                         = 0x006B;
+    static SOFT_OFF_DURATION                                       = 0x006C;
+    static SOFT_OFF_DURATION_MIN                                   = 0x006D;
+    static SOFT_OFF_DURATION_MAX                                   = 0x006E;
+    static PHASE_CUT_MODE                                          = 0x006F;
+    static CH1_MEMORY_FUNCTION_ENABLE                              = 0x0070;
+    static DELIMIT_LIGHTING_LEVEL_ENABLE                           = 0x0071;
+    static CH1_MIN_LEVEL_ENABLE                                    = 0x0072;
+    static CH1_MIN_LEVEL                                           = 0x0073;
+    static CH1_MAX_LEVEL_ENABLE                                    = 0x0074;
+    static CH1_MAX_LEVEL                                           = 0x0075;
+    static LEVEL_MIN                                               = 0x0076;
+    static LEVEL_MAX                                               = 0x0077;
+    static DALI_POWER_ON_LEVEL                                     = 0x0078;
+    static COLOR_TEMPERATURE                                       = 0x007C;
+    static COLOR_TEMPERATURE_MIN                                   = 0x007D;
+    static COLOR_TEMPERATURE_MAX                                   = 0x007E;
+    static BURN_IN_ENABLE                                          = 0x0080;
+    static BURN_IN_MODE                                            = 0x0081;
+    static BURN_IN_DURATION                                        = 0x0082;
+    static BURN_IN_DURATION_MIN                                    = 0x0083;
+    static BURN_IN_DURATION_MAX                                    = 0x0084;
+    static BASIC_BRIGHTNESS_MODE                                   = 0x0088;
+    static BASIC_BRIGHTNESS_LEVEL                                  = 0x0089;
+    static BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD           = 0x008A;
+    static BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN       = 0x008B;
+    static BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX       = 0x008C;
+    static BASIC_BRIGHTNESS_START_TIME                             = 0x008D;
+    static BASIC_BRIGHTNESS_END_TIME                               = 0x008E;
+    static BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  = 0x008F;
+    static NIGHT_LIGHT_FUNCTION_ENABLE                             = 0x0094;
+    static NIGHT_LIGHT_START_TIME                                  = 0x0095;
+    static NIGHT_LIGHT_END_TIME                                    = 0x0096;
+    static NIGHT_LIGHT_LEVEL                                       = 0x0097;
+    static STEPWISE_SWITCH_OFF_DELAY_ENABLE                        = 0x0098;
+    static STEPWISE_SWITCH_OFF_DELAY                               = 0x0099;
+    static STEPWISE_SWITCH_OFF_DELAY_MIN                           = 0x009A;
+    static STEPWISE_SWITCH_OFF_DELAY_MAX                           = 0x009B;
+    static STEPWISE_SWITCH_OFF_LEVEL                               = 0x009C;
+    static PRESENCE_SIMULATION_ENABLE                              = 0x009D;
+    static PRESENCE_SIMULATION_START_TIME                          = 0x009E;
+    static PRESENCE_SIMULATION_END_TIME                            = 0x009F;
+    static PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               = 0x00A0;
+    static CH2_CIRCUIT_LOGIC                                       = 0x0100;
+    static CH2_MODE                                                = 0x0101;
+    static HVAC_DYNAMICAL_CONTROL_ENABLE                           = 0x0102;
+    static HVAC_SWITCH_ON_DELAY                                    = 0x0103;
+    static HVAC_SWITCH_ON_DELAY_MIN                                = 0x0104;
+    static HVAC_SWITCH_ON_DELAY_MAX                                = 0x0105;
+    static HVAC_SWITCH_OFF_DELAY                                   = 0x0106;
+    static HVAC_SWITCH_OFF_DELAY_MIN                               = 0x0107;
+    static HVAC_SWITCH_OFF_DELAY_MAX                               = 0x0108;
+    static TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE                     = 0x00B0;
+    static ENERGY_MONITOR_CONNECTED_LOAD                           = 0x00C0;
+    static ENERGY_MONITOR_CONNECTED_LOAD_MIN                       = 0x00C1;
+    static ENERGY_MONITOR_CONNECTED_LOAD_MAX                       = 0x00C2;
+    static ENERGY_MONITOR_LIGHTING_DURATION                        = 0x00C3;
+    static ENERGY_MONITOR_LIGHTING_DURATION_MIN                    = 0x00C4;
+    static ENERGY_MONITOR_LIGHTING_DURATION_MAX                    = 0x00C5;
+    static CONTACT                                                 = 0x00D0;
+    static BUILDING                                                = 0x00D1;
+    static ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    = 0x00E0;
+    static ENABLE_USER_SET_SWITCH_OFF_DELAY                        = 0x00E1;
+    static ENABLE_USER_ENERGY_MONITOR                              = 0x00E2;
+    static ENABLE_USER_BASIC_BRIGHTNESS                            = 0x00E3;
+    static ENABLE_USER_NIGHT_LIGHT_FUNCTION                        = 0x00E4;
+    static ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            = 0x00E5;
+    static CURRENT_BRIGHTNESS                                      = 0x1020;
+    static IDENTIFYING_DEVICE                                      = 0x1021;
+    static MOVEMENT                                                = 0x1040;
+    static CH1_IDENTIFYING_LOAD                                    = 0x1060;
+    static CH1_ON_OFF_STATE                                        = 0x1061;
+    static CH1_CURRENT_LEVEL                                       = 0x1062;
+    static CH2_IDENTIFYING_LOAD                                    = 0x10A0;
+    static CH2_ON_OFF_STATE                                        = 0x10A1;
+    static CH2_CURRENT_LEVEL                                       = 0x10A2;
+    static TEST_MODE_ACTIVE                                        = 0x10B0;
+    static ACCESS_LEVEL                                            = 0x10E0;
+    static TEST_BOOL                                               = 0x8001;
+    static TEST_STRING                                             = 0x8002;
+    static TEST_ENUM8                                              = 0x8003;
+    static TEST_ENUM16                                             = 0x8004;
+    static TEST_TIME                                               = 0x8005;
+    static TEST_UINT8                                              = 0x8008;
+    static TEST_UINT16                                             = 0x8009;
+    static TEST_UINT32                                             = 0x800A;;
+    static TEST_INT8                                               = 0x800C;
+    static TEST_INT16                                              = 0x800D;
+    static TEST_INT32                                              = 0x800E;
 };
 
 
@@ -420,13 +420,19 @@ export class DataService {
     }
 
     notifyActiveComponentWithBLEdata(attrType, attrValue) {
-        if(this.activeComponent != undefined)
+        if(this.activeComponent != undefined) {
             this.activeComponent.onBLEdata(attrType,attrValue);
+        }
     }
 
-    setBLEDataToService(attrType, attrValue) {
-        this.setBLEdataOnDeviceData(attrType,attrValue);
-        this.notifyActiveComponentWithBLEdata(attrType, attrValue)
+    setBLEDataToService(data) {
+        let bleData:Array<any> = JSON.parse(JSON.stringify(data));
+        for(let i =0 ; i < bleData.length; i++) {
+            let attrType = bleData[0].AttrType;
+            let attrValue = bleData[0].AttrValue;
+            this.setBLEdataOnDeviceData(attrType,attrValue);
+            this.notifyActiveComponentWithBLEdata(attrType, attrValue)
+        }
     }
 
     subscribeIJsonLoad(component, callback) {

@@ -37,23 +37,8 @@ public class WebInterface {
     public String getDeviceData() {
         return DevInfo.toString();
     }
-    @JavascriptInterface
-    public void writeBrightnessThreshold(char value) {
-        mainActivity.sendBLEdata(value);
-    }
-    @JavascriptInterface
-    public void writeBrightnessThresholdMin(char value) {
-        mainActivity.sendBLEdata(value);
-    }
-    @JavascriptInterface
-    public void writeBrightnessThresholdMax(char value) {
-        mainActivity.sendBLEdata(value);
-    }
 
-    @JavascriptInterface
-    public void writeBrightnessThresholdSubscribe(boolean value) {
-        mainActivity.notifyForBrThreshold(value);
-    }
+
     @JavascriptInterface
     public String getBrThreshold() {
         return brThreshold;
@@ -65,6 +50,19 @@ public class WebInterface {
     }
 
 
-
-
+    @JavascriptInterface
+    public boolean readAttr(byte[] data){
+        mainActivity.sendBLEAppFrame(data);
+        return true;
+    }
+    @JavascriptInterface
+    public boolean writeAttr(byte[] data){
+        mainActivity.sendBLEAppFrame(data);
+        return true;
+    }
+    @JavascriptInterface
+    public boolean configureAttr(byte[] data){
+        mainActivity.sendBLEAppFrame(data);
+        return true;
+    }
 }
