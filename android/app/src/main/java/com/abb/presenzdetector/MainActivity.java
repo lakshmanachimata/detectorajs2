@@ -392,26 +392,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    void sendBLEDataToApp(final int dataType, final int dataValue , final boolean isLastAttr) {
+    void sendBLEDataToApp(final byte[] data) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String devicesdata= "";
-
-                JSONObject jsonObject = new JSONObject();
+                char sendData[] = new char[data.length];
+                for(int i = 0; i < data.length; i++) {
+                    sendData[i] = (char)(0x00FF & data[i]);
+                }
                 try {
-                    jsonObject.put("AttrType", dataType);
-                    jsonObject.put("AttrValue", dataValue);
-                    inDataArray.put(jsonObject);
-                    if(isLastAttr == true) {
-                        devicesdata = devicesdata + "setBLEDataToService(";
-                        String bleData = inDataArray.toString();
-                        devicesdata = devicesdata + bleData + ")";
-                        webview.evaluateJavascript(devicesdata, null);
-                    }
+                    String devicesdata = "";
+                    JSONObject dataobject = new JSONObject();
+                    String text = String.copyValueOf(sendData);
+                    dataobject.put("data",text);
+                    devicesdata = devicesdata + "setBLEDataToService(";
+                    devicesdata = devicesdata + dataobject.toString() + ")";
+                    webview.evaluateJavascript(devicesdata, null);
                 }catch ( Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
     }
@@ -468,15 +468,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (recvCRC == 0) {
                                     byte[] recvData = bleRecvBuffer.array();
                                     Log.d("BJE", "CRC MATCH");
-                                    if (recvData[4] == 0x31 && recvData[3] == 0x06) {
-
-                                        char data1 = (char) (recvData[8] & 0x00FF);
-                                        data1 = (char) (data1 << 8);
-                                        char data2 = (char) (recvData[7] & 0x00FF);
-                                        char brData = (char) (data1 | data2);
-                                        sendBLEDataToApp( 0x31,(int)brData,true);
-                                    }
-
+                                    sendBLEDataToApp(bleRecvBuffer.array());
                                 }
                                 else {
                                     Log.d("BJE", "CRC MIS MATCH");

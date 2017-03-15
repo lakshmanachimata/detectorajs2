@@ -21,8 +21,17 @@ function connectDevice(deviceAddress){
     BJE.connectDevice(deviceAddress)
 }
 
-function setBLEDataToService(data){
-    appDataService.setBLEDataToService(data);
+function setBLEDataToService(indata){
+    // decode frame data
+    var databytes = [];
+   var bytedata = indata.data;
+    for (var i = 0; i < bytedata.length; ++i)
+    {
+        charCode = bytedata.charCodeAt(i);
+        databytes.push(charCode);
+    }
+    prepareAttributeArray(databytes);
+    //appDataService.setBLEDataToService(data);
 }
 
 function setDataServiceCallBack(dataService) {

@@ -8,7 +8,7 @@ import {SCCP_ATTRIBUTES} from'../../data.service';
 
 declare var configureReporting;
 declare var writeAttr;
-
+declare var readAttr;
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -57,6 +57,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     brSubScribed = false;
     configureReportingObj:any;
     writeAttrObj:any;
+    readAttrObj:any;
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
@@ -121,7 +122,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   subScribeThreshold() {
     this.brSubScribed = !this.brSubScribed;
-    this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A]);
+    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN]);
+    //this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A]);
   }
 
 getMystyle(item) {
