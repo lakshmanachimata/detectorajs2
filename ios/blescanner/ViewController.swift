@@ -35,7 +35,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         webView.configuration.websiteDataStore = WKWebsiteDataStore.default();
         //webView.configuration.userContentController.addUserScript(userScript);
-        webView.configuration.userContentController.add(self, name: "api");
+        webView.configuration.userContentController.add(self, name: "webapi");
 
         view.addSubview(webView)
         
@@ -71,8 +71,6 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         super.viewDidLoad()
         bleHelper = BLEHelper(webView: webView)
         bleHelper?.setup();
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

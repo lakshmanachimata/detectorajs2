@@ -22,7 +22,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
       this.logger.log("selected item is " + JSON.stringify(item));
-      this.connectDeviceObj = new connectDevice(item.btDeviceAddress);
+      //this.connectDeviceObj = new connectDevice(item.btDeviceAddress);
   }
   ngOnChanges() { 
   }
@@ -42,7 +42,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.detectors = this.data.getDevices();
     this.scannedData = this.data.getScannedData();
     this.logger.log("scanned data is  " + JSON.stringify(this.scannedData));
-    this.setScannedDataToFirst();
+    //this.setScannedDataToFirst();
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);

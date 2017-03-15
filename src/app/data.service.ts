@@ -211,7 +211,7 @@ export class DataService {
     currentBrightness = '498';
     activeComponent:any;
     constructor(private http:Http,private logger: LoggerService) {
-        this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
+        //this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
     }
 
     setScannedData(scanned){

@@ -2,6 +2,7 @@
 var welcomecomponent;
 var appDataService;
 var scannedDevices;
+var BJE;
 
 if(BJE == undefined) {
     //BJE = window.webkit.messageHandlers.webapi;

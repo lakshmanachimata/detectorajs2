@@ -26,6 +26,7 @@
             </div>
             <div class="bj-config-setting-block-br-div brightness-div" >
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold ({{ad.sensor_settings.brightness_min}} - {{ad.sensor_settings.brightness_max}} lx)</label>
+                           <div class="bj-subscribe-br-threshold" (click)="subScribeThreshold()" *ngIf="!brSubScribed"[ngStyle]="getMystyle(false)">subscribe</div>             <div class="bj-subscribe-br-threshold" (click)="subScribeThreshold()" *ngIf="brSubScribed" [ngStyle]="getMystyle(true)">unsubscribe</div>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" (click)="reduceBrightness('threshold')" ><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_threshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
@@ -105,10 +106,10 @@
                  <div class="bj-actuator-brightness">
                      <div class="bj-actuator-bulb actuator1">
                         <label class="actuator-name">Actuator 1</label>
-                         <img class="bulb-off" *ngIf="!ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                         <img class="bulb-off" *ngIf="!ad.actuator1.ch1_on_off_state" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                          <div class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state">
-                            <img class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on" *ngIf="ad.actuator1.ch1_on_off_state" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
+                            <img class="bulb-on" *ngIf="ad.actuator1.ch1_on_off_state" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
@@ -131,9 +132,9 @@
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
-                          <img class="bulb-off" *ngIf="!ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                          <img class="bulb-off" *ngIf="!ad.actuator1.ch2_onOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                           <div class="bulb-glow" *ngIf="ad.actuator1.ch2_onOffState">
-                            <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="../../../assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>

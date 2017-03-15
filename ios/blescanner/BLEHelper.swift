@@ -75,8 +75,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func writeWithoutResponse()  {
-         let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, data: [0x61, 0x62, 0x63])
-         //let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, data: [0x31, 0x03, 0x0A])
+         //let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, data: [0x61, 0x62, 0x63])
+         let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, data: [0x31, 0x03, 0x0A])
          peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
                                type: CBCharacteristicWriteType.withoutResponse);
     }
@@ -84,13 +84,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func getScannedDevices() {
         
         DispatchQueue.global(qos: .background).async {
-//            var data = Dictionary<String, String>()
-//            data = self.peripheralInfo;
-//            data["name"] = self.peripherals[0].name!
-//            data["modelNumber"] = self.modelNumber
-//            data["firmwareRevision"] = self.firmwareRevision
-//            data["softwareRevision"] = self.softwareRevision
-           let jData = Utilities.jsonStringify(data: self.peripheralInfo as AnyObject)
+            var data = Dictionary<String, String>()
+            data["name"] = self.peripherals[0].name!
+            data["modelNumber"] = self.modelNumber
+            data["firmwareRevision"] = self.firmwareRevision
+            data["softwareRevision"] = self.softwareRevision
+            let jData = Utilities.jsonStringify(data: data as AnyObject)
             let script: String = "updateScanList(\(jData))"
             DispatchQueue.main.async {
              //Run UI Updates
@@ -104,6 +103,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
             print("Bluetooth available.")
+            scan();
         } else {
             print("Bluetooth not available.")
         }
@@ -117,6 +117,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             if (peripherals.count == 0) {
                 print("adding " + peripheral.identifier.uuidString);
                 peripherals.append(peripheral);
+                connect();
             }
             let index = peripherals.index(of: peripheral)
             if (index == nil) {
@@ -130,6 +131,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         print("connected " + peripheral.identifier.uuidString)
         self.peripheral.delegate = self
+         getServices()
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -200,6 +202,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             default:
                 print("Unknown device information")
             }
+            writeWithoutResponse();
         }
 
         let recvData = [UInt8](characteristic.value!);

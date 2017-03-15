@@ -222,7 +222,6 @@ slideBackground (value) {
 
   onBLEdata(dataType, dataValue) {
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.logger.log("incoming data is " + dataType + "   " + dataValue);
         this.ad.sensor_settings.brightness_threshold = dataValue;
       });
   }
