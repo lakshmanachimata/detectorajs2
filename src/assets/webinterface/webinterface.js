@@ -30,10 +30,24 @@ function setBLEDataToService(indata){
         charCode = bytedata.charCodeAt(i);
         databytes.push(charCode);
     }
-    prepareAttributeArray(databytes);
-    //appDataService.setBLEDataToService(data);
+    var data  = prepareAttributeArray(databytes);
+    appDataService.setBLEDataToService(data);
 }
 
+function prepareAttributeArray(data) {
+    var parsedData;
+    switch(data[3]){
+        case 128: // standard response
+        break;
+        case 131: // read attr resonse
+        break;
+        case 132: // write attr response
+        break;
+        case 133: // configure attr response
+        break;
+    }
+    return parsedData;
+}
 function setDataServiceCallBack(dataService) {
     appDataService = dataService;
 }
@@ -79,7 +93,7 @@ function writeAttr(writeData) {
 }
 
 function configureReporting(notifyData) {
-    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, [0x31, 0x3, 0x0A]);
+    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     BJE.configureAttr(data);
     //window.webkit.messageHandlers.api.postMessage(args);    

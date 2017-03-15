@@ -122,8 +122,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   subScribeThreshold() {
     this.brSubScribed = !this.brSubScribed;
-    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN]);
-    //this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A]);
+    //this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN]);
+    this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,0x03,0x0A]);
   }
 
 getMystyle(item) {
