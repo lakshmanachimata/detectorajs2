@@ -175,6 +175,7 @@ export class UIParams {
       dialogText = '';
       showModal = false;
       showCDI = -1;
+      eDevParamsChanged = 0;
 
 }
 
@@ -192,11 +193,15 @@ export class DeviceParams {
         public firmwareVersion= '';
         jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
         iJsonLoadEmitter: EventEmitter<any> = new EventEmitter();
+        sendData = {};
 
 }
 
 declare var setDataServiceCallBack;
-    
+declare var configureAttr;
+declare var writeAttr;
+declare var readAttr;
+
 @Injectable()
 export class DataService {
 
@@ -207,6 +212,9 @@ export class DataService {
     private selectedDevice:any;
     private iSelectedDevice:any;
     setDataServiceCallBackObj:any;
+    writeAttrObj:any;
+    readAttrObj:any;
+    configureAttrObj:any;
     iDeviceData:any;
     currentBrightness = '498';
     activeComponent:any;
@@ -247,6 +255,13 @@ export class DataService {
                 resolve(response.json().detectors);
             });
         });
+    }
+
+    getEDevParamsState() {
+        return this.uiParams.eDevParamsChanged;
+    }
+    setEDevParamsState(paramsChanged) {
+        this.uiParams.eDevParamsChanged = paramsChanged;
     }
     getDevice(i) {
         return this.uiParams.devices[i];
@@ -476,6 +491,22 @@ export class DataService {
     iJsonLoadEmit() {
         this.deviceParams.iJsonLoadEmitter.emit(0);
     }
+
+    addToSendData(attrType, attrValue) {
+        this.deviceParams.sendData[attrType] = attrValue;
+    }
+    sendChangedParams() {
+        let dataBytes = [];
+        for(var k in this.deviceParams.sendData){
+            var kint = parseInt(k);
+            dataBytes.push(kint);
+            for(var j in this.deviceParams.sendData[k]){
+                dataBytes.push(this.deviceParams.sendData[k][j])
+            }
+        }
+       this.writeAttrObj =  new writeAttr(dataBytes);
+    }
+
 
 
     setBLEdataOnDeviceData(attrType,attrValue){

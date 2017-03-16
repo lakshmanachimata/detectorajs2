@@ -49,14 +49,22 @@ function prepareAttributeArray(indata) {
             switch(indata[lastParseByteIndex+3]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
+                    value = indata[lastParseByteIndex+4];
+                    var data = {
+                    "attrType": key,
+                    "attrValue": value
+                    }
                     lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_STRING:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
                     key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
+                    value = indata[lastParseByteIndex+4];
+                    var data = {
+                    "attrType": key,
+                    "attrValue": value
+                    }
                     lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
@@ -65,7 +73,11 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_UINT8:
                     key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
+                    value = indata[lastParseByteIndex+4];
+                    var data = {
+                    "attrType": key,
+                    "attrValue": value
+                    }
                     lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_UINT16:
@@ -200,7 +212,7 @@ function writeAttr(writeData) {
     //window.webkit.messageHandlers.api.postMessage(args);
 }
 
-function configureReporting(notifyData) {
+function configureAttr(notifyData) {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     BJE.configureAttr(data);

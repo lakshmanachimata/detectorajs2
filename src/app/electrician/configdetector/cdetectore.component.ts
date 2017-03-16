@@ -6,9 +6,8 @@ import {SCCP_DATATYPES} from'../../data.service';
 import {SCCP_ATTRIBUTES} from'../../data.service';
 
 
-declare var configureReporting;
-declare var writeAttr;
 declare var readAttr;
+
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -55,8 +54,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     currentBrightness = '450 lx';
     showSlider = false;
     brSubScribed = false;
-    configureReportingObj:any;
-    writeAttrObj:any;
     readAttrObj:any;
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
@@ -68,16 +65,34 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.aslider = 'none';
       this.showSlider = false;
       this.data.setActiveComponent(this);
+      this.data.setEDevParamsState(0);
     }
 
   ngOnChanges() { 
   }
   ngDoCheck() { 
   }
+  toggleclr() {
+    this.ad.sensor_settings.constant_light_regulation = !this.ad.sensor_settings.constant_light_regulation;
+    this.data.setEDevParamsState(1);
+  }
+  togglecsb() {
+    this.ad.sensor_settings.consider_slave_brightness = !this.ad.sensor_settings.consider_slave_brightness;
+    this.data.setEDevParamsState(1);
+  }
+  togglerrb() {
+    this.ad.sensor_settings.reference_brightness = !this.ad.sensor_settings.reference_brightness;
+    this.data.setEDevParamsState(1);
+  }
+  togglemsd() {
+    this.ad.commissioning.use_master_in_slave_mode = !this.ad.commissioning.use_master_in_slave_mode;
+    this.data.setEDevParamsState(1);
+  }
   ngOnInit() {
     this.data.setMainTitle('Config detector');
     this.currentBrightness = this.data.getCurrentBrightness();
     this.data.setOtherParam('','');
+    this.data.setEDevParamsState(0);
   }
   ngAfterContentInit() { 
   }
@@ -99,30 +114,45 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   reduceBrightness(item) {
-    if(item == 'threshold')
+    this.data.setEDevParamsState(1);
+    if(item == 'threshold') {
       this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold - 1;
-    else if(item == 'setpoint')
-          this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint - 1;
+      this.data.addToSendData(SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold])
+    }
+    else if(item == 'setpoint'){
+      this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint - 1;
+      this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_setpoint])
+    }
     else if(item == 'sdelay')
       this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
     this.validatebrparams(item)
-    this.writeAttrObj = new writeAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold]);
   }
 
   increaseBrightness(item) {
-    if(item == 'threshold')
+    this.data.setEDevParamsState(1);
+    if(item == 'threshold') {
       this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold + 1;
-    else if(item == 'setpoint')
+      this.data.addToSendData(SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold])
+    }
+    else if(item == 'setpoint') {
           this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint + 1;
+          this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_setpoint])
+    }
     else if(item == 'sdelay')
           this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
     this.validatebrparams(item) 
-    this.writeAttrObj = new writeAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_threshold]);
     }
 
   subScribeThreshold() {
     this.brSubScribed = !this.brSubScribed;
-    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX]);
+    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
+                                      SCCP_ATTRIBUTES.PIR_SENSITIVITY0,
+                                      SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
+                                      // SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
+                                      // SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,
+                                      // SCCP_ATTRIBUTES.FIRMWARE_VERSION,
+                                      // SCCP_ATTRIBUTES.BT_DEVICE_NAME
+                                      ]);
     //this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,0x03,0x0A]);
   }
 
@@ -209,7 +239,8 @@ slideBackground (value) {
 
   ngOnDestroy() {
   }
-  deviceNameChanged(nameChanged) {
+  paramsChanged() {
+    this.data.setEDevParamsState(1);
   }
   gotoActuator1(){
     this.router.navigate(['eactuator1'],{relativeTo: this.route});

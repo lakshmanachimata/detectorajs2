@@ -48,6 +48,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.data.setMenuArrow(0);
     this.data.setProfile('electrician');
     this.data.setProfileSwitch(true);
+    this.data.setEDevParamsState(0);
   }
 
   setScannedDataToFirst(){

@@ -1,7 +1,7 @@
 <div class="bj-config-container">
       <div class="bj-config-detector-name-wrap">
          <div id="bj-config-detector-name">
-                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="deviceNameChanged()">
+                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="paramsChanged()">
          </div>
       </div>
 
@@ -10,14 +10,14 @@
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
              <div class="bj-config-setting-div" >
                     <label class="bj-config-setting potentiometer-block">Potentiometers</label>
-                    <div><label class="bj-config-setting">Enabled</label><input type="radio" class="operating-radio" [(ngModel)]="ad.sensor_settings.potentio_meter_mode" [checked]="ad.sensor_settings.potentio_meter_mode === 0" name="potentiometer_mode" [value]="0"/></div>
-                    <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" [(ngModel)]="ad.sensor_settings.potentio_meter_mode" [checked]="ad.sensor_settings.potentio_meter_mode === 1" name="potentiometer_mode" [value]="1"/></div>
-                    <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.sensor_settings.potentio_meter_mode" [checked]="ad.sensor_settings.potentio_meter_mode === 2" name="potentiometer_mode" [value]="2"/></div>
+                    <div><label class="bj-config-setting">Enabled</label><input type="radio" class="operating-radio" [(ngModel)]="ad.sensor_settings.potentio_meter_mode" (ngModelChange)="paramsChanged()" [checked]="ad.sensor_settings.potentio_meter_mode === 0" name="potentiometer_mode" [value]="0"/></div>
+                    <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" [(ngModel)]="ad.sensor_settings.potentio_meter_mode" (ngModelChange)="paramsChanged()" [checked]="ad.sensor_settings.potentio_meter_mode === 1" name="potentiometer_mode" [value]="1"/></div>
+                    <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.sensor_settings.potentio_meter_mode" (ngModelChange)="paramsChanged()" [checked]="ad.sensor_settings.potentio_meter_mode === 2" name="potentiometer_mode" [value]="2"/></div>
         </div>
             <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="ad.sensor_settings.constant_light_regulation = !ad.sensor_settings.constant_light_regulation"  [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="toggleclr()" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.sensor_settings.constant_light_regulation == false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.constant_light_regulation == true,'switch-off':ad.sensor_settings.constant_light_regulation == false}" [ngStyle]="{'background-color':ad.sensor_settings.constant_light_regulation== true ? '#26394f':'#ccc'}"></div>
@@ -29,7 +29,7 @@
                            <div class="bj-subscribe-br-threshold" (click)="subScribeThreshold()" *ngIf="!brSubScribed"[ngStyle]="getMystyle(false)">subscribe</div>             <div class="bj-subscribe-br-threshold" (click)="subScribeThreshold()" *ngIf="brSubScribed" [ngStyle]="getMystyle(true)">unsubscribe</div>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" (click)="reduceBrightness('threshold')" ><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_threshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
+                  <input class="adjust" type="number"  (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.brightness_threshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
                   <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span>
                   </div>
@@ -37,7 +37,7 @@
               <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.sensor_settings.brightness_min}} - {{ad.sensor_settings.brightness_max}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" (click)="reduceBrightness('setpoint')"><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.brightness_setpoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
+                  <input class="adjust" type="number" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.brightness_setpoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
                   <div class="adjust-plus" (click)="increaseBrightness('setpoint')"><span class="glyphicon glyphicon-plus"></span></div>
               </div>
@@ -50,7 +50,7 @@
            <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="ad.sensor_settings.consider_slave_brightness = !ad.sensor_settings.consider_slave_brightness"  [(ngModel)]="ad.sensor_settings.consider_slave_brightness" [ngStyle]="{'border-color': ad.sensor_settings.consider_slave_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="togglecsb()"  (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.consider_slave_brightness" [ngStyle]="{'border-color': ad.sensor_settings.consider_slave_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.consider_slave_brightness == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.sensor_settings.consider_slave_brightness == false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.consider_slave_brightness == true,'switch-off':ad.sensor_settings.consider_slave_brightness == false}" [ngStyle]="{'background-color': ad.sensor_settings.consider_slave_brightness == true ? '#26394f':'#ccc'}"></div>
@@ -60,7 +60,7 @@
             <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == true && activeDevice.deviceType == 'daliMaster1c'">
                  <label class="bj-config-setting reference-brightness-function">Smallest brightness value as reference</label>
                       <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="ad.sensor_settings.reference_brightness = !ad.sensor_settings.reference_brightness"  [(ngModel)]="ad.sensor_settings.reference_brightness" [ngStyle]="{'border-color': ad.sensor_settings.reference_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="togglerrb()"(ngModelChange)="paramsChanged()"  [(ngModel)]="ad.sensor_settings.reference_brightness" [ngStyle]="{'border-color': ad.sensor_settings.reference_brightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.reference_brightness == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.sensor_settings.reference_brightness == false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.reference_brightness == true,'switch-off':ad.sensor_settings.reference_brightness == false}" [ngStyle]="{'background-color': ad.sensor_settings.reference_brightness == true ? '#26394f':'#ccc'}"></div>
@@ -70,7 +70,7 @@
             <div class="bj-config-setting-block-sp-div short-time-pulse-div" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
                   <label class="bj-config-setting short-time-pulse-function">Short-time pulse</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="ad.sensor_settings.short_time_pulse = !ad.sensor_settings.short_time_pulse"  [(ngModel)]="ad.sensor_settings.short_time_pulse" [ngStyle]="{'border-color': ad.sensor_settings.short_time_pulse == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="ad.sensor_settings.short_time_pulse = !ad.sensor_settings.short_time_pulse"  (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.short_time_pulse" [ngStyle]="{'border-color': ad.sensor_settings.short_time_pulse == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.sensor_settings.short_time_pulse == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.sensor_settings.short_time_pulse == false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.short_time_pulse == true,'switch-off':ad.sensor_settings.short_time_pulse == false}" [ngStyle]="{'background-color': ad.sensor_settings.short_time_pulse == true ? '#26394f':'#ccc'}"></div>
@@ -81,7 +81,7 @@
                     {{ad.sensor_settings.switch_off_delay_min }} s - {{ad.sensor_settings.switch_off_delay_max/60}} min)</label>
                 <div class="bj-config-setting-adjust short-time-pulse-function " *ngIf = "ad.sensor_settings.short_time_pulse == false" >
                       <div class="adjust-minus" (click)="reduceBrightness('sdelay')" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.sensor_settings.switch_off_delay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
+                        <input class="adjust" type="number" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.sensor_settings.switch_off_delay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
                         <div class="static-unit-text">s</div>
                         <div class="adjust-plus" (click)="increaseBrightness('sdelay')" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
@@ -96,9 +96,9 @@
         <div id="bj-config-operating-div">
             <label class="bj-config-lbl operating-div">Operating mode</label>
 
-            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 0"  name="operating_mode" [value]="0"/></div>
-            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   [(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 1" name="operating_mode" [value]="1"/></div>
-            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 2"  name="operating_mode" [value]="2"/></div>
+            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 0"  name="operating_mode" [value]="0"/></div>
+            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   (ngModelChange)="paramsChanged()"[(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 1" name="operating_mode" [value]="1"/></div>
+            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.operating_mode" [checked]="ad.operating_mode === 2"  name="operating_mode" [value]="2"/></div>
       </div>
       <div id="bj-actuator-settings-div">
             <label class="bj-config-lbl actuator-div">Actuator settings</label>
@@ -119,7 +119,7 @@
                      <div class="bj-brightness-slider" *ngIf="activeDevice.deviceType == 'daliMaster1c'" [@slideIn1]="aslider" (@slideIn1.start)="animationStarted($event)" (@slideIn1.done)="animationDone($event)">
                          <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div> 
                          <div class="bj-slider-control" [@slideIn2]="aslider" (@slideIn2.start)="animationStarted($event)" (@slideIn2.done)="animationDone($event)">
-                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
+                             <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" (ngModelChange)="paramsChanged()"  [(ngModel)]="ad.actuator1.ch1_current_level" [ngStyle]="slideBackground(ad.actuator1.ch1_current_level)">
                          </div>
                      </div>
                  </div>
@@ -186,7 +186,7 @@
              <div class="bj-config-setting-div commissioning-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                   <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="ad.commissioning.use_master_in_slave_mode = !ad.commissioning.use_master_in_slave_mode"  [(ngModel)]="ad.commissioning.use_master_in_slave_mode" [ngStyle]="{'border-color': ad.commissioning.use_master_in_slave_mode == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="togglemsd()" (ngModelChange)="paramsChanged()"  [(ngModel)]="ad.commissioning.use_master_in_slave_mode" [ngStyle]="{'border-color': ad.commissioning.use_master_in_slave_mode == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.commissioning.use_master_in_slave_mode == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.commissioning.use_master_in_slave_mode== false">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.commissioning.use_master_in_slave_mode == true,'switch-off':ad.commissioning.use_master_in_slave_mode == false}" [ngStyle]="{'background-color': ad.commissioning.use_master_in_slave_mode == true ? '#26394f':'#ccc'}"></div>
