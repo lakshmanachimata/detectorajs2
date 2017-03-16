@@ -426,12 +426,13 @@ export class DataService {
     }
 
     setBLEDataToService(data) {
-        let bleData:Array<any> = JSON.parse(JSON.stringify(data));
-        for(let i =0 ; i < bleData.length; i++) {
-            let attrType = bleData[0].AttrType;
-            let attrValue = bleData[0].AttrValue;
-            this.setBLEdataOnDeviceData(attrType,attrValue);
-            this.notifyActiveComponentWithBLEdata(attrType, attrValue)
+        let indata = data.datas;
+        for(let i =0 ; i < indata.length; i++) {
+            let atrType = indata[i].attrType;
+            let atrValue = indata[i].attrValue;
+            this.logger.log("attr  "+ atrType + "is  " + atrValue);
+            this.setBLEdataOnDeviceData(atrType,atrValue);
+            this.notifyActiveComponentWithBLEdata(atrType, atrValue)
         }
     }
 
@@ -493,8 +494,10 @@ export class DataService {
                 this.deviceData.sensor_settings.brightness_threshold = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN                                : 
+                this.deviceData.sensor_settings.brightness_min = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX                                : 
+                this.deviceData.sensor_settings.brightness_max = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
             break; 

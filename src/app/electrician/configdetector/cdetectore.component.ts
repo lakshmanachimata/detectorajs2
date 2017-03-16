@@ -122,8 +122,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   subScribeThreshold() {
     this.brSubScribed = !this.brSubScribed;
-    //this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN]);
-    this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,0x03,0x0A]);
+    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX]);
+    //this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,0x03,0x0A]);
   }
 
 getMystyle(item) {
@@ -224,7 +224,7 @@ slideBackground (value) {
 
   onBLEdata(dataType, dataValue) {
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.sensor_settings.brightness_threshold = dataValue;
+        this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold ;
       });
   }
 }

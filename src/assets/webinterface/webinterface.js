@@ -34,93 +34,127 @@ function setBLEDataToService(indata){
     appDataService.setBLEDataToService(data);
 }
 
-function prepareAttributeArray(data) {
-    var parsedData;
-    switch(data[3]){
+function prepareAttributeArray(indata) {
+    var bledata = {};
+    var datas = [];
+    bledata.datas = datas;
+    switch(indata[3]){
         case 128: // standard response
         break;
         case 131: // read attr resonse
-        var dataLength = data.length - 6;
-        var dataParased = 0;
-        var bytesParsed = 0;
-        var lastParseByteIndex = 3;
-        while(dataParased <= dataLength  ) {
-            switch(data[lastParseByteIndex+2]){
+        var dataLength = indata.length - 6;
+        var lastParseByteIndex = 4;
+        while(lastParseByteIndex <= dataLength  ) {
+            var key,value; 
+            switch(indata[lastParseByteIndex+3]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_STRING:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_TIME:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT8:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT16:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT32:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT64:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT8:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT16:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT32:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT64:
-                break;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT8:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT16:
+                    
+                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
+                    value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                    var data = {
+                    "attrType": key,
+                    "attrValue": value
+                    }
+                    lastParseByteIndex = lastParseByteIndex + 6;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT32:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT64:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT8:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT16:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT32:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT64:
+                    break;
                 default:
                 break;
             }
-            dataParased = + bytesParsed;
+            bledata.datas.push(data);
         }
         break;
         case 132: // write attr response
         break;
         case 133: // configure attr response
-        var dataLength = data.length - 6;
-        var dataParased = 0;
-        var bytesParsed = 0;
-        var lastParseByteIndex = 3;
-        while(dataParased <= dataLength  ) {
-            switch(data[lastParseByteIndex+2]){
+         var dataLength = indata.length - 6;
+        var lastParseByteIndex = 4;
+        while(lastParseByteIndex <= dataLength  ) {
+            var key,value; 
+            switch(indata[lastParseByteIndex+3]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_STRING:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_TIME:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT8:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT16:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT32:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_UINT64:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT8:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT16:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT32:
-                break;
-                    case SCCP_DATATYPES.SCCP_TYPE_INT64:
-                break;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT8:
+                    key = indata[lastParseByteIndex];
+                    value = indata[lastParseByteIndex+4]
+                    lastParseByteIndex = lastParseByteIndex + 5;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT16:
+                    
+                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
+                    value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                    var data = {
+                    "attrType": key,
+                    "attrValue": value
+                    }
+                    lastParseByteIndex = lastParseByteIndex + 6;
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT32:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_UINT64:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT8:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT16:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT32:
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_INT64:
+                    break;
                 default:
                 break;
             }
-            dataParased = + bytesParsed;
+            bledata.datas.push(data);
         }
         break;
     }
-    return parsedData;
+    return bledata;
 }
 function setDataServiceCallBack(dataService) {
     appDataService = dataService;
