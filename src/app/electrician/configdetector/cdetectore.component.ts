@@ -74,18 +74,27 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   toggleclr() {
     this.ad.sensor_settings.constant_light_regulation = !this.ad.sensor_settings.constant_light_regulation;
+    this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,[SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.constant_light_regulation?1:0])
     this.data.setEDevParamsState(1);
   }
   togglecsb() {
     this.ad.sensor_settings.consider_slave_brightness = !this.ad.sensor_settings.consider_slave_brightness;
+    this.data.addToSendData(SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,[SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
     this.data.setEDevParamsState(1);
   }
   togglerrb() {
     this.ad.sensor_settings.reference_brightness = !this.ad.sensor_settings.reference_brightness;
+    this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,[SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
     this.data.setEDevParamsState(1);
   }
   togglemsd() {
     this.ad.commissioning.use_master_in_slave_mode = !this.ad.commissioning.use_master_in_slave_mode;
+    this.data.addToSendData(SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,[SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
+    this.data.setEDevParamsState(1);
+  }
+  togglestp(){
+    this.ad.sensor_settings.short_time_pulse= !this.ad.sensor_settings.short_time_pulse;
+    this.data.addToSendData(SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,[SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.short_time_pulse?1:0])
     this.data.setEDevParamsState(1);
   }
   ngOnInit() {
@@ -113,6 +122,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }
 
+  potentioMeterChanged() {
+    this.data.addToSendData(SCCP_ATTRIBUTES.POTENTIOMETER_MODE,[SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.sensor_settings.potentio_meter_mode])
+    this.data.setEDevParamsState(1);
+  }
+  operationChanged() {
+    this.data.addToSendData(SCCP_ATTRIBUTES.OPERATION_MODE,[SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.sensor_settings.potentio_meter_mode])
+    this.data.setEDevParamsState(1);
+  }
   reduceBrightness(item) {
     this.data.setEDevParamsState(1);
     if(item == 'threshold') {
@@ -123,8 +140,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint - 1;
       this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_setpoint])
     }
-    else if(item == 'sdelay')
+    else if(item == 'sdelay') {
       this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
+      this.data.addToSendData(SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.switch_off_delay])
+    }
     this.validatebrparams(item)
   }
 
@@ -138,8 +157,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint + 1;
           this.data.addToSendData(SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.brightness_setpoint])
     }
-    else if(item == 'sdelay')
+    else if(item == 'sdelay'){
           this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
+          this.data.addToSendData(SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,[SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.sensor_settings.switch_off_delay])
+    }
     this.validatebrparams(item) 
     }
 
@@ -217,6 +238,7 @@ getMystyle(item) {
   setActuatorBrightness() {
   }
 slideBackground (value) {
+  this.data.addToSendData(SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,[SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.sensor_settings.brightness_threshold])
   let stringval = value.toString();
   let stylestr = "linear-gradient(to right,#2c435c " + stringval + "%, transparent 0%";
   let mystyles =  {

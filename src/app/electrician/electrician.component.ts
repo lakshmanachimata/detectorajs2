@@ -41,7 +41,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     this.detectors = this.data.getDevices();
     this.scannedData = this.data.getScannedData();
-    this.logger.log("scanned data is  " + JSON.stringify(this.scannedData));
     this.setScannedDataToFirst();
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
@@ -52,12 +51,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   setScannedDataToFirst(){
-    this.logger.log("device address  is  " + this.scannedData[0].btAddress);
-    this.detectors[2].btDeviceName = this.scannedData[0].btDeviceName;
-    this.detectors[2].firmwareVersion = this.scannedData[0].firmwareRevision;
-    this.detectors[2].articleNumber = this.scannedData[0].modelNumber;
-    this.detectors[2].btDeviceAddress = this.scannedData[0].btAddress;
-    this.detectors[2].contactName = this.scannedData[0].manufacturerName;
+    if(this.scannedData != undefined) {
+      this.detectors[2].btDeviceName = this.scannedData[0].btDeviceName;
+      this.detectors[2].firmwareVersion = this.scannedData[0].firmwareRevision;
+      this.detectors[2].articleNumber = this.scannedData[0].modelNumber;
+      this.detectors[2].btDeviceAddress = this.scannedData[0].btAddress;
+      this.detectors[2].contactName = this.scannedData[0].manufacturerName;
+    }
   }
 
   jsonOnLoad(component) {
