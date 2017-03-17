@@ -81,7 +81,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time + 1;
     }
   }
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

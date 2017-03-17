@@ -71,7 +71,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     paramsChanged() {
     this.data.setEDevParamsState(1);
   }
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
   

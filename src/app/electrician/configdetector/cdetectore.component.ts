@@ -6,7 +6,6 @@ import {SCCP_DATATYPES} from'../../data.service';
 import {SCCP_ATTRIBUTES} from'../../data.service';
 
 
-declare var readAttr;
 
 @Component({
   selector: 'cdetectore-root',
@@ -54,7 +53,21 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     currentBrightness = '450 lx';
     showSlider = false;
     brSubScribed = false;
-    readAttrObj:any;
+    loadingDataDone = false;
+    readAttrs =[SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,
+                SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
+                SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
+                SCCP_ATTRIBUTES.OPERATION_MODE,
+                SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE
+                ]
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
@@ -164,18 +177,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.validatebrparams(item) 
     }
 
-  subScribeThreshold() {
-    this.brSubScribed = !this.brSubScribed;
-    this.readAttrObj = new readAttr([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
-                                      SCCP_ATTRIBUTES.PIR_SENSITIVITY0,
-                                      SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
-                                      // SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
-                                      // SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,
-                                      // SCCP_ATTRIBUTES.FIRMWARE_VERSION,
-                                      // SCCP_ATTRIBUTES.BT_DEVICE_NAME
-                                      ]);
-    //this.configureReportingObj =  new configureReporting([ SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,0x03,0x0A,SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,0x03,0x0A]);
-  }
+  
+
 
 getMystyle(item) {
     let styleValue;
@@ -275,9 +278,15 @@ slideBackground (value) {
     this.router.navigate(['otherparams'],{relativeTo: this.route});
   }
 
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
+    this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold ;
       });
+  }
+
+  onDeviceConnected(deviceAddress){
+    this.loadingDataDone = false;
+    this.data.readData(this.readAttrs,this.readAttrs.length);
   }
 }

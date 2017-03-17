@@ -52,7 +52,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on + 1;
   }
 
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

@@ -69,7 +69,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.setShowCDI(this.data.getShowCDI() + 1);
     }
 
-    onBLEdata(dataType, dataValue) {
+    onBLEdata() {
     
     }
 

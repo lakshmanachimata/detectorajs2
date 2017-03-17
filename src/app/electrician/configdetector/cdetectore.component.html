@@ -4,8 +4,8 @@
                 <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="paramsChanged()">
          </div>
       </div>
-
-      <div id="bj-config-settings-container">
+      <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf="!loadingDataDone" />
+      <div id="bj-config-settings-container" *ngIf="loadingDataDone">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
              <div class="bj-config-setting-div" >
@@ -34,7 +34,7 @@
                   <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span>
                   </div>
               </div>
-              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.sensor_settings.brightness_min}} - {{ad.sensor_settings.brightness_max}} lx)</label>
+              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.sensor_settings.setpoint_min}} - {{ad.sensor_settings.setpoint_max}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" (click)="reduceBrightness('setpoint')"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number"  [(ngModel)]="ad.sensor_settings.brightness_setpoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
@@ -195,5 +195,4 @@
              </div>
       </div>
     </div>
-    <div class="secondLevel-service-container" ui-view="secondLevel" ></div>
 </div>

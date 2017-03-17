@@ -21,6 +21,52 @@ function connectDevice(deviceAddress){
     BJE.connectDevice(deviceAddress)
 }
 
+function disConnectDevice(deviceAddress) {
+    BJE.disConnectDevice(deviceAddress)
+}
+
+function onDeviceConnected(deviceAddress){
+    appDataService.onDeviceConnected(deviceAddress);
+}
+
+
+function updateScanList(scanned) {
+    scannedDevices = scanned
+    var deviceData =  JSON.stringify(scannedDevices);
+    appDataService.setScannedData(scanned);
+}
+
+function reset() {
+    var data = getRequestFrame(SCCP_COMMAND.RESET);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    BJE.writeAttr(data);
+
+   // window.webkit.messageHandlers.api.postMessage(args);
+}
+
+function readAttr(readData) {
+    var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    //window.webkit.messageHandlers.api.postMessage(args);
+    BJE.readAttr(data);
+}
+
+function writeAttr(writeData) {
+    var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    BJE.writeAttr(data);
+    //window.webkit.messageHandlers.api.postMessage(args);
+}
+
+function configureAttr(notifyData) {
+    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
+    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
+    BJE.configureAttr(data);
+    //window.webkit.messageHandlers.api.postMessage(args);    
+}
+
+
+
 function setBLEDataToService(indata){
     // decode frame data
     var databytes = [];
@@ -33,6 +79,7 @@ function setBLEDataToService(indata){
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data);
 }
+
 
 function prepareAttributeArray(indata) {
     var bledata = {};
@@ -48,7 +95,7 @@ function prepareAttributeArray(indata) {
             var key,value; 
             switch(indata[lastParseByteIndex+3]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
-                    key = indata[lastParseByteIndex];
+                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
                     value = indata[lastParseByteIndex+4];
                     var data = {
                     "attrType": key,
@@ -59,7 +106,7 @@ function prepareAttributeArray(indata) {
                 case SCCP_DATATYPES.SCCP_TYPE_STRING:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
-                    key = indata[lastParseByteIndex];
+                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
                     value = indata[lastParseByteIndex+4];
                     var data = {
                     "attrType": key,
@@ -72,7 +119,7 @@ function prepareAttributeArray(indata) {
                 case SCCP_DATATYPES.SCCP_TYPE_TIME:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_UINT8:
-                    key = indata[lastParseByteIndex];
+                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
                     value = indata[lastParseByteIndex+4];
                     var data = {
                     "attrType": key,
@@ -173,48 +220,3 @@ function setDataServiceCallBack(dataService) {
 }
 
 
-function scan() {
-}
-function connect(uid) {
-    console.log(uid)
-    //window.webkit.messageHandlers.api.postMessage('{ "command" : "connect", "data" : { "uid" : "' + uid + '" } }');
-}
-function devices() {
-    $("#devices").empty();
-    //window.webkit.messageHandlers.api.postMessage('{ "command" : "devices" }');
-}
-
-function updateScanList(scanned) {
-    scannedDevices = scanned
-    var deviceData =  JSON.stringify(scannedDevices);
-    appDataService.setScannedData(scanned);
-}
-
-function reset() {
-    var data = getRequestFrame(SCCP_COMMAND.RESET);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.writeAttr(data);
-
-   // window.webkit.messageHandlers.api.postMessage(args);
-}
-
-function readAttr(readData) {
-    var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    //window.webkit.messageHandlers.api.postMessage(args);
-    BJE.readAttr(data);
-}
-
-function writeAttr(writeData) {
-    var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.writeAttr(data);
-    //window.webkit.messageHandlers.api.postMessage(args);
-}
-
-function configureAttr(notifyData) {
-    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.configureAttr(data);
-    //window.webkit.messageHandlers.api.postMessage(args);    
-}

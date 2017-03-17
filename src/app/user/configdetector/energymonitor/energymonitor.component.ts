@@ -89,7 +89,7 @@ TotalSavingsYearValue = 759;
       return false;
     }
   }
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

@@ -62,7 +62,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
   }
   
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 

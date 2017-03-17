@@ -117,7 +117,7 @@ showFitterPin = false;
     
   }
 
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

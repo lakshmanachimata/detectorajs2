@@ -52,7 +52,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off + 1;
     }
   }
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

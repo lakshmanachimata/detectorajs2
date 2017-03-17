@@ -201,7 +201,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowModal(true);
   }
 
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }

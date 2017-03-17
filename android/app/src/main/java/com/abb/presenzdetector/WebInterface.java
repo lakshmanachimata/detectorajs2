@@ -49,6 +49,11 @@ public class WebInterface {
         mainActivity.connectDevice(address);
     }
 
+    @JavascriptInterface
+    public void disConnectDevice(String address) {
+        mainActivity.disConnectDevice();
+    }
+
 
     @JavascriptInterface
     public boolean readAttr(byte[] data){

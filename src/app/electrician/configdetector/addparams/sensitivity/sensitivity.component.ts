@@ -109,7 +109,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     
   }
 
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
   

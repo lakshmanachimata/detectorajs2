@@ -218,6 +218,10 @@ export class DataService {
     iDeviceData:any;
     currentBrightness = '498';
     activeComponent:any;
+    readArray=[];
+    readDoneArray=[];
+    writeArray=[];
+    writeDoneArray=[];
     constructor(private http:Http,private logger: LoggerService) {
         this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
     }
@@ -434,21 +438,52 @@ export class DataService {
         this.activeComponent = component;
     }
 
-    notifyActiveComponentWithBLEdata(attrType, attrValue) {
+    notifyActiveComponentWithBLEdata() {
         if(this.activeComponent != undefined) {
-            this.activeComponent.onBLEdata(attrType,attrValue);
+            this.activeComponent.onBLEdata();
         }
     }
 
     setBLEDataToService(data) {
         let indata = data.datas;
+        let readDoneData = [];
         for(let i =0 ; i < indata.length; i++) {
             let atrType = indata[i].attrType;
             let atrValue = indata[i].attrValue;
-            this.logger.log("attr  "+ atrType + "is  " + atrValue);
+            readDoneData.push(atrType);
             this.setBLEdataOnDeviceData(atrType,atrValue);
-            this.notifyActiveComponentWithBLEdata(atrType, atrValue)
         }
+       this.readArray = this.readArray.slice(10,this.readArray.length);  
+        if(this.readArray.length > 0){
+            this.readData(this.readArray,this.readArray.length);
+        }else {
+            this.notifyActiveComponentWithBLEdata()
+        }
+    }
+
+    onDeviceConnected(deviceAddress) {
+        if(this.activeComponent != undefined) {
+            this.activeComponent.onDeviceConnected(deviceAddress);
+        }
+    }
+
+    readData(data, length) {
+        this.logger.log("data length is " + data.length);
+        if(this.readArray.length == 0) {
+            this.readArray = data;
+            this.logger.log("readArray length is " + this.readArray.length);
+        }
+        if(this.readArray.length <= 10) {
+            this.readAttrObj =  new readAttr(this.readArray);
+        }else {
+            let partArray =  this.readArray.slice(0, 9);
+            this.logger.log("partArray length is " + partArray.length);
+            this.readAttrObj =  new readAttr(partArray);
+        }
+    }
+
+    configureData(data, length){
+        this.configureAttrObj =  new configureAttr(data);
     }
 
     subscribeIJsonLoad(component, callback) {
@@ -504,12 +539,21 @@ export class DataService {
                 dataBytes.push(this.deviceParams.sendData[k][j])
             }
         }
-       this.writeAttrObj =  new writeAttr(dataBytes);
+    //    this.writeAttrObj =  new writeAttr([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,1,
+    //                                         SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,0,
+    //                                         SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,1,
+    //                                         SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,1,
+    //                                         SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,501,
+    //                                         SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,501,
+    //                                         SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,67,
+    //                                         SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,1]
+    //    )
+        this.writeAttrObj =  new writeAttr(dataBytes);
     }
 
 
-
     setBLEdataOnDeviceData(attrType,attrValue){
+        this.logger.log("attrType is   " + attrType  + "   " + attrValue );
         switch(attrType) {
             case SCCP_ATTRIBUTES.FIRMWARE_VERSION                                        :
             break;
@@ -520,6 +564,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.DEVICE_TYPE                                             : 
             break;
             case SCCP_ATTRIBUTES.POTENTIOMETER_MODE                                      : 
+                this.deviceData.sensor_settings.potentio_meter_mode
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD                                    : 
                 this.deviceData.sensor_settings.brightness_threshold = attrValue;
@@ -531,16 +576,22 @@ export class DataService {
                 this.deviceData.sensor_settings.brightness_max = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
+                this.deviceData.sensor_settings.consider_slave_brightness = attrValue;
             break; 
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE                           : 
+                this.deviceData.sensor_settings.constant_light_regulation = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 
+                this.deviceData.sensor_settings.brightness_setpoint = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 : 
+                this.deviceData.sensor_settings.setpoint_min = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 : 
+                this.deviceData.sensor_settings.setpoint_max = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE : 
+                this.deviceData.sensor_settings.reference_brightness = attrValue;
             break;
             case SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE                                 : 
             break;
@@ -551,9 +602,11 @@ export class DataService {
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX                                    : 
             break;
             case SCCP_ATTRIBUTES.OPERATION_MODE                                          : 
+                this.deviceData.operating_mode = attrValue;
             break;
             case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
-            break;
+                this.deviceData.commissioning.use_master_in_slave_mode = attrValue;
+           break;
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY0                                        : 
@@ -737,6 +790,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.CH1_ON_OFF_STATE                                        : 
             break;
             case SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL                                       : 
+                this.deviceData.actuator1.ch1_current_level = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD                                    : 
             break;

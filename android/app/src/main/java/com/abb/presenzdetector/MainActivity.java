@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     int deviceIndex = 0;
 
+    boolean getDeviceInfo =  false;
     private static final int REQUEST_PERMISSIONS = 124;
     private static String[] PERMISSIONS_BJE = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -347,7 +348,18 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                getDeviceInfo = true;
                 mBluetoothLeService.connect(address);
+            }
+        });
+    }
+
+    void disConnectDevice() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getDeviceInfo = false;
+                mBluetoothLeService.disconnect();
             }
         });
     }
@@ -370,7 +382,25 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         },10);
+    }
 
+    void notifyAppAboutConnection(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BluetoothDevice device = mBluetoothLeService.getGatt().getDevice();
+                try {
+                    JSONObject jsonObject =  new JSONObject();
+                    jsonObject.put("deviceaddress",device.getAddress());
+                    String deviceData = "";
+                    deviceData = deviceData + "onDeviceConnected(";
+                    deviceData = deviceData + jsonObject.toString() + ")";
+                    webview.evaluateJavascript(deviceData, null);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
@@ -378,6 +408,8 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
+                if(getDeviceInfo == true)
+                    notifyAppAboutConnection();
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 connectNextDevice();

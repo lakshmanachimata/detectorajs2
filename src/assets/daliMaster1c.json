@@ -14,6 +14,8 @@
     "brightness_setpoint": 500,
     "brightness_max": 2000,
     "brightness_min": 10,
+    "setpoint_min":10,
+    "setpoint_max":2000,
     "short_time_pulse": false,
     "consider_slave_brightness": true,
     "reference_brightness": true,

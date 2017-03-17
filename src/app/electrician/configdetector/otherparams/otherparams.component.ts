@@ -67,7 +67,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }
   }
-  onBLEdata(dataType, dataValue) {
+  onBLEdata() {
     
   }
 }
