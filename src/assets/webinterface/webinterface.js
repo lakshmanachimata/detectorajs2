@@ -77,7 +77,7 @@ function setBLEDataToService(indata){
         databytes.push(charCode);
     }
     var data  = prepareAttributeArray(databytes);
-    appDataService.setBLEDataToService(data);
+    appDataService.setBLEDataToService(data,databytes[3]);
 }
 
 
