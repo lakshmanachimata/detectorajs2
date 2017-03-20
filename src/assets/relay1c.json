@@ -40,7 +40,11 @@
     "circuit_logic": 0,
     "durable_on_off_switching": {
       "duration_on": 0,
-      "duration_off": 0
+      "duration_on_min":30,
+      "duration_on_max":8,
+      "duration_off": 0,
+      "duration_off_min":30,
+      "duration_off_max":8
     },
     "time_shifted_switch_off": {
         "enable": false,

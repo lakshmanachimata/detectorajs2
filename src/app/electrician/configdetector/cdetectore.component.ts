@@ -179,7 +179,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.switch_off_delay)])
     }
     this.validatebrparams(item) 
-    }
+  }
 
   
 

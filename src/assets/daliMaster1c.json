@@ -43,7 +43,11 @@
     "ch1_on_off_state":true,
     "durable_on_off_switching": {
       "duration_on": 0,
-      "duration_off": 0
+      "duration_on_min":30,
+      "duration_on_max":8,
+      "duration_off": 0,
+      "duration_off_min":30,
+      "duration_off_max":8
     },
     "soft_switching": {
       "on": {
@@ -108,7 +112,11 @@
     "hvacDynamicalControlEnable":false,
     "durable_on_off_switching": {
       "duration_on": 0,
-      "duration_off": 0
+      "duration_on_min":30,
+      "duration_on_max":8,
+      "duration_off": 0,
+      "duration_off_min":30,
+      "duration_off_max":8
     },
     "switching_function": {
       "function": 0,

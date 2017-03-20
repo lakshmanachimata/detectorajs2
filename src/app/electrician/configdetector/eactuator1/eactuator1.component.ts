@@ -2,7 +2,8 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
-
+import {SCCP_DATATYPES} from'../../../data.service';
+import {SCCP_ATTRIBUTES} from'../../../data.service';
 
 
 @Component({
@@ -62,25 +63,63 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
+  
+
+  circuitModeChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.circuit_logic]);
+  }
+  togglesn(){
+    this.ad.actuator1.soft_switching.on.enable = !this.ad.actuator1.soft_switching.on.enable
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.soft_switching.on.enable?1:0])
+  }
+   togglesf(){
+    this.ad.actuator1.soft_switching.off.enable = !this.ad.actuator1.soft_switching.off.enable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.soft_switching.off.enable?1:0])
+   }
+   phaseCutModeChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.soft_switching.load_phase_cut_dimmable_edge]);
+   }
+   togglemf(){
+     this.ad.actuator1.misc_settings.switch_on_with_last_brightness = !this.ad.actuator1.misc_settings.switch_on_with_last_brightness;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.switch_on_with_last_brightness?1:0])
+   }
+   togglelrb() {
+     this.ad.actuator1.misc_settings.limit_of_room_brightness = !this.ad.actuator1.misc_settings.limit_of_room_brightness
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.limit_of_room_brightness?1:0])
+   }
+   toggleminl() {
+     this.ad.actuator1.misc_settings.load_output.minimum.enable = !this.ad.actuator1.misc_settings.load_output.minimum.enable
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.minimum.enable?1:0])
+   }
+   togglemaxl(){
+     this.ad.actuator1.misc_settings.load_output.maximum.on = !this.ad.actuator1.misc_settings.load_output.maximum.on
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.maximum.on?1:0])
+   }
   reduceCount(item) {
     if(item == 'peron') {
       this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on - 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.durable_on_off_switching.duration_on])
     } else if(item == 'peroff') {
       this.ad.actuator1.durable_on_off_switching.duration_off = this.ad.actuator1.durable_on_off_switching.duration_off - 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.durable_on_off_switching.duration_off])
     } else if(item == 'softon' && (this.ad.actuator1.soft_switching.on.range > 1 && this.ad.actuator1.soft_switching.on.range <= 60)){
       this.ad.actuator1.soft_switching.on.range = this.ad.actuator1.soft_switching.on.range - 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.on.range ])
     } else if(item == 'softoff' && (this.ad.actuator1.soft_switching.off.range > 1 && this.ad.actuator1.soft_switching.off.range <= 60)){
       this.ad.actuator1.soft_switching.off.range = this.ad.actuator1.soft_switching.off.range - 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.off.range ])
     } else if(item == 'minload') {
         this.ad.actuator1.misc_settings.load_output.minimum.value = this.ad.actuator1.misc_settings.load_output.minimum.value - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.misc_settings.load_output.minimum.value ])
     } else if(item == 'maxload') {
         this.ad.actuator1.misc_settings.load_output.maximum.output_value = this.ad.actuator1.misc_settings.load_output.maximum.output_value - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.misc_settings.load_output.maximum.output_value ])
     } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours > 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours <= 250)){
       this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours - 1;
       this.validateParam(item);
@@ -109,21 +148,27 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     if(item == 'peron') {
       this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.durable_on_off_switching.duration_on])
     }  else if(item == 'peroff') {
       this.ad.actuator1.durable_on_off_switching.duration_off = this.ad.actuator1.durable_on_off_switching.duration_off + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.durable_on_off_switching.duration_off])
     } else if(item == 'softon' && (this.ad.actuator1.soft_switching.on.range >= 1 && this.ad.actuator1.soft_switching.on.range < 60)) {
       this.ad.actuator1.soft_switching.on.range = this.ad.actuator1.soft_switching.on.range + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.on.range ])
     } else if(item == 'softoff' && (this.ad.actuator1.soft_switching.off.range >= 1 && this.ad.actuator1.soft_switching.off.range < 60)){
       this.ad.actuator1.soft_switching.off.range = this.ad.actuator1.soft_switching.off.range + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.off.range ])
     } else if(item == 'minload') {
         this.ad.actuator1.misc_settings.load_output.minimum.value = this.ad.actuator1.misc_settings.load_output.minimum.value + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.misc_settings.load_output.minimum.value ])
     } else if(item == 'maxload') {
         this.ad.actuator1.misc_settings.load_output.maximum.output_value = this.ad.actuator1.misc_settings.load_output.maximum.output_value + 1;
-      this.validateParam(item);
+        this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.misc_settings.load_output.maximum.output_value ])
     } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours >= 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours < 250)){
       this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours + 1;
       this.validateParam(item);
