@@ -2,7 +2,8 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../../../../logger.service';
 import { DataService } from '../../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
-
+import {SCCP_DATATYPES} from'../../../../data.service';
+import {SCCP_ATTRIBUTES} from'../../../../data.service';
 
 @Component({
   selector: 'sensitivity-root',
@@ -45,15 +46,19 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     switch(this.selectedQuadrant) {
       case 'q1' :
         this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1 = value;
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q2' :
         this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q2 = value;
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q3' :
         this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q3 = value;
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q4' :
         this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q4 = value;
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
     }
     this.setStyleAttr(this.selectedQuadrantValue);
@@ -76,6 +81,10 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         this.styleValue = "#01b3ff"
         break;
     }
+  }
+  toggleoa() {
+    this.ad.sensor_settings.additional_sensor_parameters.outdoor_application = !this.ad.sensor_settings.additional_sensor_parameters.outdoor_application;
+    this.data.addToSendData([SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.outdoor_application?1:0])
   }
   getRangeValue() {
     return this.selectedQuadrantValue;
