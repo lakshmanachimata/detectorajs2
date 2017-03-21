@@ -82,12 +82,16 @@
         "burn_in_function": false,
         "burn_in_mode": 0,
         "burn_in_hours": 1,
+        "burn_in_hours_min": 1,
+        "burn_in_hours_max": 250,
         "operating hours": 0
       },
      "basic_illumination": {
         "settings": 0,
         "basic_illumination_level": 0,
         "ambient_brightness_threshold": 0,
+        "ambient_brightness_threshold_min": 0,
+        "ambient_brightness_threshold_max": 500,
         "start_time": 0,
         "end_time": 0,
         "astro_function": false
@@ -101,6 +105,8 @@
      "time_shifted_switch_off": {
         "enable": false,
         "switch_off_time": 0,
+        "switch_off_time_min": 31,
+        "switch_off_time_max": 50,
         "intermediate_stage_brightness": 0
      }
   },

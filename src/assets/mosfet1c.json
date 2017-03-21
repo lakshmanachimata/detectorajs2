@@ -77,6 +77,8 @@
      "time_shifted_switch_off": {
         "enable": false,
         "switch_off_time": 0,
+        "switch_off_time_min": 31,
+        "switch_off_time_max": 50,
         "intermediate_stage_brightness": 0
      }
   },

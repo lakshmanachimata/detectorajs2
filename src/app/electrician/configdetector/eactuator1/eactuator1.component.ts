@@ -63,8 +63,21 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
-  
-
+  nightLightLevelChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.night_time_anti_glare_function.illumination_level]);
+  }
+  ambientBrChange(){
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.basic_illumination.ambient_brightness_threshold]);
+  }
+  basicBrLevelChange(){
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.basic_illumination.basic_illumination_level]);
+  }
+  basicBrModeChange(){
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.basic_illumination.settings]);
+  }
+  burnInModeChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.fluorescent_lamps.burn_in_mode]);
+  }
   circuitModeChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.circuit_logic]);
   }
@@ -95,6 +108,22 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
      this.ad.actuator1.misc_settings.load_output.maximum.on = !this.ad.actuator1.misc_settings.load_output.maximum.on
      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.maximum.on?1:0])
    }
+   togglebn(){
+     this.ad.actuator1.fluorescent_lamps.burn_in_function = !this.ad.actuator1.fluorescent_lamps.burn_in_function;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.fluorescent_lamps.burn_in_function?1:0])
+   }
+   toggleAs(){
+     this.ad.actuator1.basic_illumination.astro_function = !this.ad.actuator1.basic_illumination.astro_function
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.basic_illumination.astro_function?1:0])
+   }
+   toggleNl() {
+     this.ad.actuator1.night_time_anti_glare_function.enable = !this.ad.actuator1.night_time_anti_glare_function.enable
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.night_time_anti_glare_function.enable?1:0])
+   }
+   togglesso(){
+     this.ad.actuator1.time_shifted_switch_off.enable = !this.ad.actuator1.time_shifted_switch_off.enable
+     this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.time_shifted_switch_off.enable?1:0])
+   }
   reduceCount(item) {
     if(item == 'peron') {
       this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on - 1;
@@ -123,24 +152,31 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours > 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours <= 250)){
       this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours - 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.fluorescent_lamps.burn_in_hours ])
     }else if(item == 'brightstart') {
         this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.start_time ])
     } else if(item == 'brightend') {
         this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.end_time ])
     }else if(item == 'glarestart') {
         this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.start_time ])
     } else if(item == 'glareend') {
         this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
     }else if(item == 'sstime') {
         this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.time_shifted_switch_off.switch_off_time ])
     } else if(item == 'ssinter') {
         this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness - 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness ])
     }
   }
 
@@ -172,24 +208,31 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'burnduration' && (this.ad.actuator1.fluorescent_lamps.burn_in_hours >= 1 && this.ad.actuator1.fluorescent_lamps.burn_in_hours < 250)){
       this.ad.actuator1.fluorescent_lamps.burn_in_hours = this.ad.actuator1.fluorescent_lamps.burn_in_hours + 1;
       this.validateParam(item);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.fluorescent_lamps.burn_in_hours ])
     }else if(item == 'brightstart') {
         this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time + 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.start_time ])
     } else if(item == 'brightend') {
         this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time + 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.end_time ])
     }else if(item == 'glarestart') {
         this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time +  1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.start_time ])
     } else if(item == 'glareend') {
         this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time + 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
     }else if(item == 'sstime') {
         this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time +  1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.time_shifted_switch_off.switch_off_time ])
     } else if(item == 'ssinter') {
         this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness = this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness + 1;
         this.validateParam(item);
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness ])
     }
   }
   validateParam(item) {
