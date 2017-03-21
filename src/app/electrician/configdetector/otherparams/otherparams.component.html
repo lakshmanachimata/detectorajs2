@@ -34,7 +34,7 @@
         <div class="bj-config-setting-div testmode-settings-test-actuator1-div" >
             <label class="bj-config-setting testmode-settings-test-actuator1-block">Identify load on actuator 1</label>
                 <span class="bj-config-toggle-switch">
-                   <div class="track"  (click)="A1LoadIdentify = !A1LoadIdentify"  [(ngModel)]="A1LoadIdentify" [ngStyle]="{'border-color': A1LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                   <div class="track"  (click)="togglech1ID()"  [(ngModel)]="A1LoadIdentify" [ngStyle]="{'border-color': A1LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="A1LoadIdentify == true">{{onLabel}}</label>
                     <label class="switch-offlabel" *ngIf="A1LoadIdentify == false">{{offLabel}}</label>
                     <div class="switch" [ngClass]="{'switch-on':A1LoadIdentify == true,'switch-off':A1LoadIdentify == false }" [ngStyle]="{'background-color': A1LoadIdentify == true ? '#26394f':'#ccc'}">
@@ -45,7 +45,7 @@
         <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
             <label class="bj-config-setting testmode-settings-test-actuator2-block">Identify load on actuator 2</label>
                 <span class="bj-config-toggle-switch">
-                  <div class="track"  (click)="A2LoadIdentify = !A2LoadIdentify"  [(ngModel)]="A2LoadIdentify" [ngStyle]="{'border-color': A2LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                  <div class="track"  (click)="togglech2ID()"  [(ngModel)]="A2LoadIdentify" [ngStyle]="{'border-color': A2LoadIdentify == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="A2LoadIdentify == true">{{onLabel}}</label>
                     <label class="switch-offlabel" *ngIf="A2LoadIdentify == false">{{offLabel}}</label>
                     <div class="switch" [ngClass]="{'switch-on':A2LoadIdentify == true,'switch-off':A2LoadIdentify == false }" [ngStyle]="{'background-color': A2LoadIdentify == true ? '#26394f':'#ccc'}">
@@ -56,7 +56,7 @@
         <div class="bj-config-setting-div testmode-settings-test-deactivate-div" >
             <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivation of outputs</label>
                 <span class="bj-config-toggle-switch">
-                  <div class="track"  (click)="DeactivateOp = !DeactivateOp"  [(ngModel)]="DeactivateOp" [ngStyle]="{'border-color': DeactivateOp == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                  <div class="track"  (click)="toggleDP()"  [(ngModel)]="DeactivateOp" [ngStyle]="{'border-color': DeactivateOp == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="DeactivateOp == true">{{onLabel}}</label>
                     <label class="switch-offlabel" *ngIf="DeactivateOp == false">{{offLabel}}</label>
                     <div class="switch" [ngClass]="{'switch-on':DeactivateOp == true,'switch-off':DeactivateOp == false }" [ngStyle]="{'background-color': DeactivateOp == true ? '#26394f':'#ccc'}">
@@ -234,18 +234,18 @@
 <div id="bj-building-alloc-settings-div"  *ngIf="getOtherParam()=='buildingallocation'">
     <label class="bj-config-lbl building-alloc-contact-div">Contact name</label>
     <div id="bj-building-alloc-contact">
-        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}" [(ngModel)]="activeDevice.contactName">
+        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}" (ngModelChange)="CNameChanged()" [(ngModel)]="activeDevice.contactName">
     </div>
     <label class="bj-config-lbl building-alloc-building-div">Building</label>
     <div id="bj-building-alloc-building">
-        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" [(ngModel)]="activeDevice.buildingName">
+        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" (ngModelChange)="BuildingChanged()" [(ngModel)]="activeDevice.buildingName">
     </div>
 </div>
 <div id="bj-release-to-user-dev" *ngIf="getOtherParam()=='releasetouser'">
     <div class="bj-config-setting-div prog-brightness-div" >
         <label class="bj-config-setting prog-brightness-block">Programming brightness</label>
            <span class="bj-config-toggle-switch">
-            <div class="track"  (click)="ad.commissioning.user_settings.brightness_threshold = !ad.commissioning.user_settings.brightness_threshold"  [(ngModel)]="ad.commissioning.user_settings.brightness_threshold" [ngStyle]="{'border-color': ad.commissioning.user_settings.brightness_threshold == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+            <div class="track"  (click)="togglepbr()"  [(ngModel)]="ad.commissioning.user_settings.brightness_threshold" [ngStyle]="{'border-color': ad.commissioning.user_settings.brightness_threshold == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.brightness_threshold == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.brightness_threshold == false">{{offLabel}}</label>
                 <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.brightness_threshold == true,'switch-off':ad.commissioning.user_settings.brightness_threshold == false }" [ngStyle]="{'background-color': ad.commissioning.user_settings.brightness_threshold == true ? '#26394f':'#ccc'}">
@@ -256,7 +256,7 @@
     <div class="bj-config-setting-div switch-off-delay-div" >
         <label class="bj-config-setting switch-off-delay-block">Settings switch-off delay</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  (click)="ad.commissioning.user_settings.switch_off_delay = !ad.commissioning.user_settings.switch_off_delay"  [(ngModel)]="ad.commissioning.user_settings.switch_off_delay" [ngStyle]="{'border-color': ad.commissioning.user_settings.switch_off_delay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+               <div class="track"  (click)="togglessod()"  [(ngModel)]="ad.commissioning.user_settings.switch_off_delay" [ngStyle]="{'border-color': ad.commissioning.user_settings.switch_off_delay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.switch_off_delay == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.switch_off_delay == false">{{offLabel}}</label>
                 <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.switch_off_delay == true,'switch-off':ad.commissioning.user_settings.switch_off_delay == false }" [ngStyle]="{'background-color': ad.commissioning.user_settings.switch_off_delay == true ? '#26394f':'#ccc'}">
@@ -267,7 +267,7 @@
     <div class="bj-config-setting-div energy-monitor-div" >
         <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  (click)="ad.commissioning.user_settings.energy_monitor = !ad.commissioning.user_settings.energy_monitor"  [(ngModel)]="ad.commissioning.user_settings.energy_monitor" [ngStyle]="{'border-color': ad.commissioning.user_settings.energy_monitor == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+               <div class="track"  (click)="toggleem()"  [(ngModel)]="ad.commissioning.user_settings.energy_monitor" [ngStyle]="{'border-color': ad.commissioning.user_settings.energy_monitor == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.energy_monitor == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.energy_monitor == false">{{offLabel}}</label>
                 <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.energy_monitor == true,'switch-off':ad.commissioning.user_settings.energy_monitor == false }" [ngStyle]="{'background-color': ad.commissioning.user_settings.energy_monitor == true ? '#26394f':'#ccc'}">
@@ -278,7 +278,7 @@
     <div class="bj-config-setting-div ground-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <label class="bj-config-setting ground-illumination-block">Basic brigthtness</label>
            <span class="bj-config-toggle-switch">
-               <div class="track"  (click)="ad.commissioning.user_settings.basic_illumination = !ad.commissioning.user_settings.basic_illumination"  [(ngModel)]="ad.commissioning.user_settings.basic_illumination" [ngStyle]="{'border-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+               <div class="track"  (click)="togglebi()"  [(ngModel)]="ad.commissioning.user_settings.basic_illumination" [ngStyle]="{'border-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.basic_illumination == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.basic_illumination == false">{{offLabel}}</label>
                 <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.basic_illumination == true,'switch-off':ad.commissioning.user_settings.basic_illumination == false }" [ngStyle]="{'background-color': ad.commissioning.user_settings.basic_illumination == true ? '#26394f':'#ccc'}">
@@ -289,7 +289,7 @@
     <div class="bj-config-setting-div anti-night-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <label class="bj-config-setting anti-night-glare-block">Nightlight function</label>
            <span class="bj-config-toggle-switch">
-                <div class="track"  (click)="ad.commissioning.user_settings.anti_glare_function = !ad.commissioning.user_settings.anti_glare_function"  [(ngModel)]="ad.commissioning.user_settings.anti_glare_function" [ngStyle]="{'border-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <div class="track"  (click)="togglenf()"  [(ngModel)]="ad.commissioning.user_settings.anti_glare_function" [ngStyle]="{'border-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.commissioning.user_settings.anti_glare_function == true">{{onLabel}}</label>
                 <label class="switch-offlabel" *ngIf="ad.commissioning.user_settings.anti_glare_function == false">{{offLabel}}</label>
                 <div class="switch" [ngClass]="{'switch-on':ad.commissioning.user_settings.anti_glare_function == true,'switch-off':ad.commissioning.user_settings.anti_glare_function == false }" [ngStyle]="{'background-color': ad.commissioning.user_settings.anti_glare_function == true ? '#26394f':'#ccc'}">

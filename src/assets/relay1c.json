@@ -68,9 +68,16 @@
       }
     },
  "service": {
+   "testmode": {
+      "deactivate_outputs_enable":false
+    },
     "energy_monitor": {
       "connected_load": 0,
+      "connected_load_min": 0,
+      "connected_load_max": 10,
       "lighting_duration_per_week": 0,
+      "lighting_duration_per_week_min": 0,
+      "lighting_duration_per_week_max": 0,
       "electricity_price": 10,
       "currency": 0,
       "energy_monitor_select_period": 0,

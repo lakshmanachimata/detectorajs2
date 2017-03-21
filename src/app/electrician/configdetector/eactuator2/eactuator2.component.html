@@ -9,8 +9,8 @@
             </div>
         </div>
         <div *ngIf="showCircuitSettings">
-            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator2.circuit_logic" [checked]="ad.actuator2.circuit_logic === 0" name="circuit_logic" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator2.circuit_logic" [checked]="ad.actuator2.circuit_logic === 1"  name="circuit_logic" [value]="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" (ngModelChange)="circuitModeChange()"  [(ngModel)]="ad.actuator2.circuit_logic" [checked]="ad.actuator2.circuit_logic === 0" name="circuit_logic" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" (ngModelChange)="circuitModeChange()"  [(ngModel)]="ad.actuator2.circuit_logic" [checked]="ad.actuator2.circuit_logic === 1"  name="circuit_logic" [value]="1"/></div>
         </div>
     </div>
     <div class="bj-config-setting-div actuator2-switching-function-div" style="border-bottom:none;">
@@ -22,17 +22,17 @@
             </div>
         </div>
         <div *ngIf="showSoftSwitchingSettings">
-            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl">Disabled</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 0" name="circuit_mode" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl">Brightness independent</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 1"name="circuit_mode" [value]="1"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl">Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 2" name="circuit_mode" [value]="2"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl">Synchronous operation</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 3" name="circuit_mode" [value]="3"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl">Blackboard lightening</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 4" name="circuit_mode" [value]="4"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl">Manual</label><input type="radio" class="circuit-radio" name="circuit_mode" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 5" [value]="5"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl">HVAC</label><input type="radio" class="circuit-radio"  name="circuit_mode" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 6" [value]="6"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl">Disabled</label><input type="radio" class="circuit-radio" (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 0" name="circuit_mode" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl">Brightness independent</label><input type="radio" class="circuit-radio"  (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 1"name="circuit_mode" [value]="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl">Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio" (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 2" name="circuit_mode" [value]="2"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl">Synchronous operation</label><input type="radio" class="circuit-radio"  (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 3" name="circuit_mode" [value]="3"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl">Blackboard lightening</label><input type="radio" class="circuit-radio" (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 4" name="circuit_mode" [value]="4"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl">Manual</label><input type="radio" class="circuit-radio" name="circuit_mode" (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 5" [value]="5"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl">HVAC</label><input type="radio" class="circuit-radio"  name="circuit_mode" (ngModelChange)="ch2ModeChange()" [(ngModel)]="ad.actuator2.ch2_mode" [checked]="ad.actuator2.ch2_mode === 6" [value]="6"/></div>
             <div class="bj-config-setting inner-setting actuator2 dynamic-control" >
                 <label class="actuator-dynamic-control-lbl">Dynamic control</label>
                      <span class="bj-config-toggle-switch actuator2">
-                        <div class="track"   (click)="ad.actuator2.hvacDynamicalControlEnable = !ad.actuator2.hvacDynamicalControlEnable"  [(ngModel)]="ad.actuator2.hvacDynamicalControlEnable" [ngStyle]="{'border-color': ad.actuator2.hvacDynamicalControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                        <div class="track"   (click)="togglehvacDC()"  [(ngModel)]="ad.actuator2.hvacDynamicalControlEnable" [ngStyle]="{'border-color': ad.actuator2.hvacDynamicalControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.actuator2.hvacDynamicalControlEnable  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.actuator2.hvacDynamicalControlEnable  == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':ad.actuator2.hvacDynamicalControlEnable  == true,'switch-off':ad.actuator2.hvacDynamicalControlEnable  == false }" [ngStyle]="{'background-color':ad.actuator2.hvacDynamicalControlEnable  == true ? '#26394f':'#ccc'}">
