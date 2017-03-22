@@ -19,10 +19,18 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     currentBrightness = '450 lx';
     brrangeerror = false;
 
+    readAttrs =[
+          SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
+          SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
+          SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE
+          ]
+
+
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      this.data.readData(this.readAttrs);
   }
   ngOnChanges() { 
   }
@@ -61,7 +69,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   toggledsd(){
     this.ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay = !this.ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay?1:0])
   }
   onBLEdata() {
     

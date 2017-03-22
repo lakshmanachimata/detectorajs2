@@ -16,10 +16,19 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ad:any;
   onLabel = 'on';
   offLabel = 'off';
+
+   readAttrs =[SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,
+                SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,
+                SCCP_ATTRIBUTES.CH2_MODE,
+                SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE
+                ]
+
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      this.data.readData(this.readAttrs);
   }
   ngOnChanges() { 
   }

@@ -39,12 +39,44 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     showTimeShiftedSwitchOffSettings = false;
     showFluorescentSettings = false;
     
+     readAttrs =[SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
+                SCCP_ATTRIBUTES.BURN_IN_MODE,
+                SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,
+                SCCP_ATTRIBUTES.SOFT_ON_ENABLE,
+                SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,
+                SCCP_ATTRIBUTES.PHASE_CUT_MODE,
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
+                SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
+                SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,
+                SCCP_ATTRIBUTES.CH1_MIN_LEVEL,
+                SCCP_ATTRIBUTES.CH1_MAX_LEVEL,
+                SCCP_ATTRIBUTES.BURN_IN_ENABLE,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,
+                SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,
+                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,
+                SCCP_ATTRIBUTES.SOFT_ON_DURATION,
+                SCCP_ATTRIBUTES.BURN_IN_DURATION,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,
+                SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,
+                SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
+                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,
+                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE
+                ]
+
   onLabel = 'on';
   offLabel = 'off';
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      this.data.readData(this.readAttrs);
   }
   ngOnChanges() { 
   }
@@ -70,7 +102,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator1.basic_illumination.ambient_brightness_threshold]);
   }
   basicBrLevelChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.basic_illumination.basic_illumination_level]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.basic_illumination.basic_illumination_level]);
   }
   basicBrModeChange(){
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.basic_illumination.settings]);
@@ -87,7 +119,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
    togglesf(){
     this.ad.actuator1.soft_switching.off.enable = !this.ad.actuator1.soft_switching.off.enable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.soft_switching.off.enable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.soft_switching.off.enable?1:0])
    }
    phaseCutModeChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator1.soft_switching.load_phase_cut_dimmable_edge]);
@@ -98,15 +130,15 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
    }
    togglelrb() {
      this.ad.actuator1.misc_settings.limit_of_room_brightness = !this.ad.actuator1.misc_settings.limit_of_room_brightness
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.limit_of_room_brightness?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.limit_of_room_brightness?1:0])
    }
    toggleminl() {
      this.ad.actuator1.misc_settings.load_output.minimum.enable = !this.ad.actuator1.misc_settings.load_output.minimum.enable
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.minimum.enable?1:0])
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.minimum.enable?1:0])
    }
    togglemaxl(){
      this.ad.actuator1.misc_settings.load_output.maximum.on = !this.ad.actuator1.misc_settings.load_output.maximum.on
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.maximum.on?1:0])
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator1.misc_settings.load_output.maximum.on?1:0])
    }
    togglebn(){
      this.ad.actuator1.fluorescent_lamps.burn_in_function = !this.ad.actuator1.fluorescent_lamps.burn_in_function;
@@ -136,11 +168,11 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'softon' && (this.ad.actuator1.soft_switching.on.range > 1 && this.ad.actuator1.soft_switching.on.range <= 60)){
       this.ad.actuator1.soft_switching.on.range = this.ad.actuator1.soft_switching.on.range - 1;
       this.validateParam(item);
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.on.range ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.on.range ])
     } else if(item == 'softoff' && (this.ad.actuator1.soft_switching.off.range > 1 && this.ad.actuator1.soft_switching.off.range <= 60)){
       this.ad.actuator1.soft_switching.off.range = this.ad.actuator1.soft_switching.off.range - 1;
       this.validateParam(item);
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.off.range ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.soft_switching.off.range ])
     } else if(item == 'minload') {
         this.ad.actuator1.misc_settings.load_output.minimum.value = this.ad.actuator1.misc_settings.load_output.minimum.value - 1;
         this.validateParam(item);
@@ -168,7 +200,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'glareend') {
         this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time - 1;
         this.validateParam(item);
-        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
     }else if(item == 'sstime') {
         this.ad.actuator1.time_shifted_switch_off.switch_off_time = this.ad.actuator1.time_shifted_switch_off.switch_off_time - 1;
         this.validateParam(item);

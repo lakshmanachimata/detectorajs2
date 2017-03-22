@@ -294,7 +294,7 @@ slideBackground (value) {
 
   onDeviceConnected(deviceAddress){
     this.loadingDataDone = false;
-    this.data.readData(this.readAttrs,this.readAttrs.length);
+    this.data.readData(this.readAttrs);
   }
 
   

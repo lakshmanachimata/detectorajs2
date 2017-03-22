@@ -22,11 +22,26 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   A2LoadIdentify = false;
   masterQuad = 'q1';
   
+      readAttrs =[SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,
+                SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,
+                SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,
+                SCCP_ATTRIBUTES.CONTACT,
+                SCCP_ATTRIBUTES.BUILDING,
+                SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,
+                SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,
+                SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,
+                SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,
+                SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,
+                SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,
+                SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD
+                ]
+
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
       this.data.setActiveComponent(this);
+      this.data.readData(this.readAttrs);
   }
   ngOnChanges() { 
   }
