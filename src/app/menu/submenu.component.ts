@@ -3,7 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common'
-
+import {HeaderComponent} from '../header/header.component'
 @Component({
   selector: 'submenu-root',
   templateUrl: './submenu.component.html',
@@ -37,6 +37,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     aboutLink="https://www.busch-jaeger.de/en/";
     jsonLoadObserve: any;
     sortedMap;
+    profile_name;
+    header:HeaderComponent;
     searchText = '';
     constructor(private logger: LoggerService,private data: DataService,
                 private router:Router,private route:ActivatedRoute) {
@@ -48,6 +50,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             this.sortedMap.push(this.detectors[i]);
         }
         this.detectors = this.sortedMap;
+        this.profile_name = this.data.getProfile();
+        this.header = this.data.getHeaderComponent();
     }
 
     subMenuVal() {
@@ -73,6 +77,20 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     animationDone($event) {
         if(this.subMenuState  == 'rightout')
             this.data.setMenuArrow(0);
+    }
+
+    switchProfile(profilename) {
+        if(profilename == 'electrician' && this.data.getProfile() == 'user') {
+            this.data.setProfile('electrician');
+            this.gotoPage('electrician');
+        }else if(profilename == 'user' && this.data.getProfile() == 'electrician') {
+            this.data.setProfile('user');
+            this.gotoPage('user');
+        }
+    }
+
+    gotoPage(item) {
+        this.header.gotoPage(item);
     }
 
     menuArrowStateChange (arrowState){

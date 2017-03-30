@@ -220,6 +220,7 @@ export class DataService {
     iDeviceData:any;
     currentBrightness = '498';
     activeComponent:any;
+    headerComponent:any;
     readArray=[];
     readDoneArray=[];
     writeArray=[];
@@ -228,13 +229,19 @@ export class DataService {
     writeCount = 10;
     addData=[];
     sendData =  new Array<WriteData>();
+    screenWidth;
+    screenHeight;
     constructor(private http:Http,private logger: LoggerService) {
-        this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
+        //this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
+        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight;
     }
 
     setScannedData(scanned){
         this.scanneddata = scanned;
     }
+
+    
 
     getScannedData() {
         return this.scanneddata;
@@ -440,6 +447,16 @@ export class DataService {
     }
 
 
+ setHeaderComponent(component) {
+        this.headerComponent = component;
+    }
+
+    getHeaderComponent() {
+        if(this.headerComponent != undefined) {
+            return this.headerComponent;
+        }
+    }
+
     setActiveComponent(component) {
         this.activeComponent = component;
     }
@@ -468,7 +485,7 @@ export class DataService {
                     this.readArray = [];
                 }  
                 if(this.readArray.length > 0){
-                    this.readData(this.readArray,this.readArray.length);
+                    this.readData(this.readArray);
                 }else {
                     this.notifyActiveComponentWithBLEdata()
                 }
@@ -500,7 +517,7 @@ export class DataService {
         }
     }
 
-    readData(data, length) {
+    readData(data) {
         this.logger.log("data length is " + data.length);
         if(this.readArray.length == 0) {
             this.readArray = data;

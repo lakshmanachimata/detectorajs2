@@ -32,8 +32,8 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     onLabel = 'on';
     offLabel = 'off';
     styleValue = '#ffffff';
-showUserPin = false;
-showFitterPin = false;
+    showUserPin = false;
+    showFitterPin = false;
     showCircuitSettings = false;
     showDurableSwitchingSettings = false;
     showMiscSettings = false;

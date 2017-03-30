@@ -54,7 +54,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     showSlider = false;
     brSubScribed = false;
     loadingDataDone = false;
-    readAttrs =[SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
+    readAttrs =[
+                SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,

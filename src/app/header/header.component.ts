@@ -19,6 +19,7 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   ngOnChanges() { 
   }
     ngOnInit() { 
+      this.data.setHeaderComponent(this);
   }
   ngDoCheck() { 
   }
