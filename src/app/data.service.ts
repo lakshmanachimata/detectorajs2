@@ -218,6 +218,7 @@ export class DataService {
     readAttrObj:any;
     configureAttrObj:any;
     iDeviceData:any;
+    public DeviceBuild = 0;
     currentBrightness = '498';
     activeComponent:any;
     headerComponent:any;
@@ -232,7 +233,8 @@ export class DataService {
     screenWidth;
     screenHeight;
     constructor(private http:Http,private logger: LoggerService) {
-        //this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
+        if(this.DeviceBuild == 1)
+            this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
     }
@@ -518,17 +520,21 @@ export class DataService {
     }
 
     readData(data) {
-        this.logger.log("data length is " + data.length);
-        if(this.readArray.length == 0) {
-            this.readArray = data;
-            this.logger.log("readArray length is " + this.readArray.length);
-        }
-        if(this.readArray.length <= this.readCount) {
-            this.readAttrObj =  new readAttr(this.readArray);
+        if(this.DeviceBuild == 1){
+            this.logger.log("data length is " + data.length);
+            if(this.readArray.length == 0) {
+                this.readArray = data;
+                this.logger.log("readArray length is " + this.readArray.length);
+            }
+            if(this.readArray.length <= this.readCount) {
+                this.readAttrObj =  new readAttr(this.readArray);
+            }else {
+                let partArray =  this.readArray.slice(0, this.readCount-1);
+                this.logger.log("partArray length is " + partArray.length);
+                this.readAttrObj =  new readAttr(partArray);
+            }
         }else {
-            let partArray =  this.readArray.slice(0, this.readCount-1);
-            this.logger.log("partArray length is " + partArray.length);
-            this.readAttrObj =  new readAttr(partArray);
+
         }
     }
 

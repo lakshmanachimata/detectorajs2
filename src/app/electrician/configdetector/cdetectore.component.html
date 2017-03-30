@@ -4,9 +4,8 @@
                 <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="paramsChanged()">
          </div>
       </div>
-      <!--<img id="mySpinner" src="assets/icons/spinner.gif" *ngIf="!loadingDataDone" />-->
-      <!--<div id="bj-config-settings-container" *ngIf="loadingDataDone">-->
-      <div id="bj-config-settings-container" >
+      <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
+      <div id="bj-config-settings-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
              <div class="bj-config-setting-div" >
