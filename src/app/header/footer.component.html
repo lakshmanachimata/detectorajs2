@@ -1,9 +1,9 @@
-<div class="bj-footer" [ngClass]="{'bj-user-view': getProfile() == 'user'}" *ngIf="getProfile() == 'electrician'">
+<div class="bj-footer"  *ngIf="getProfile() == 'electrician'">
     <div class="bj-back"  *ngIf="getOtherParam()!='testmode'" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-send-to-device"   (click)= "sendChangedParams()"[ngStyle]="{'color': getEDevParamsState() === 1 ? '#ffffff':'#A9A9A9'}"*ngIf="getOtherParam()!='testmode'">Send</div>
     <div id="deactivate-testmode" *ngIf="getOtherParam()=='testmode'">Deactivate test mode</div>
 </div>
-<div class="bj-footer" [ngClass]="{'bj-user-view': getProfile() == 'user'}" *ngIf="getProfile() == 'user'">
+<div class="bj-footer-user" *ngIf="getProfile() == 'user'">
     <div class="bj-back"  [ngClass]="{'bj-cancel-only': showOnlyCancel() == true }" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-send-to-device"  [ngStyle]="{'color': getEDevParamsState() === 1 ? '#ffffff':'#A9A9A9'}"*ngIf="showOnlyCancel() == false">Send</div>
 </div>

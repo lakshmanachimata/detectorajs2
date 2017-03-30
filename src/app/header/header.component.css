@@ -127,20 +127,20 @@
     bottom:0;
 }
 
-.bj-footer.bj-user-view .bj-back{
+.bj-footer .bj-back{
 	float:left;
     width:30%;
     height:100%;
-    padding-top: 1px;
+    padding-top: 14px;
     text-align:center;
 	background-color:#8080ff;
 	color:#000000;
 }
-.bj-footer.bj-user-view .bj-back.bj-cancel-only{
+.bj-footer .bj-back.bj-cancel-only{
 	float:center;
     width:100%;
     height:100%;
-    padding-top: 1px;
+    padding-top: 14px;
     text-align:center;
 	color:#000000;
 	background-color:#ffffff;
@@ -192,10 +192,90 @@
 	background-color:#ffffff;
 	text-align:center;
 	color:#093c5b;
-	padding:14px;
 	display: inline;
 }
 .bj-footer.user-settings{
+    background-color: #ffffff;
+}
+
+
+
+.bj-footer-user {
+	position: absolute;
+	height: 50px;
+	left:0;
+	right:0;
+	bottom:0;
+	display: inline-flex;
+}
+
+
+.bj-footer-user.bj-full-view  {
+	height: 0;
+	left:0;
+    right:0;
+    bottom:0;
+}
+
+.bj-footer-user .bj-back{
+	float:left;
+    width:30%;
+    height:100%;
+    padding-top: 14px;
+    text-align:center;
+	background-color:#8080ff;
+	color:#000000;
+}
+.bj-footer-user .bj-back.bj-cancel-only{
+	float:center;
+    width:100%;
+    height:100%;
+    padding-top: 14px;
+    text-align:center;
+	color:#000000;
+	background-color:#ffffff;
+
+}
+
+
+.bj-footer-user .bj-back{
+	float:left;
+	width:30%;
+	height:100%;
+	padding-top: 14px;
+	text-align:center;
+	background-color:#015c8e;;
+	color:#ffffff;
+}
+
+.bj-footer-user #bj-send-to-device,.bj-footer #bj-load-profile{
+	float:right;
+	width:70%;
+	height:100%;
+	padding-top: 10px;
+	text-align:center;
+	background-color:#0171af;;
+	color:#015c8e;
+	font-size:20px;
+}
+
+.bj-footer-user .glyphicon{
+	font-size:20px;
+}
+
+
+.bj-footer-user {
+	position: absolute;
+	height: 50px;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#ffffff;
+	text-align:center;
+	color:#093c5b;
+	display: inline;
+}
+.bj-footer-user.user-settings{
     background-color: #ffffff;
 }
 

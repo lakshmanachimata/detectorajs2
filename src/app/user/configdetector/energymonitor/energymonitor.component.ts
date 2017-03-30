@@ -30,6 +30,7 @@ TotalSavingsYearValue = 759;
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      this.data.setMainTitle('Energy monitor')
   }
 
   setActiveTab(tab) {

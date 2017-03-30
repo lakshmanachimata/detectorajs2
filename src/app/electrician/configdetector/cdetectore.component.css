@@ -986,18 +986,6 @@ li#profile-list {
 	overflow-x: hidden;
 }
 
-.bj-footer.bj-user-view {
-	position: absolute;
-	height: 50px;
-	left:0;
-	right:0;
-	bottom:0;
-	background-color:#ffffff;
-	text-align:center;
-	color:#093c5b;
-	padding:14px;
-	display: inline;
-}
 
 .bj-user-config-setting-div{
     margin-left: 22px;
@@ -1454,9 +1442,6 @@ div.bj-back.user span.glyphicon.glyphicon-remove {
     text-shadow: -2px 0 black,1px 0 black,2px 0 black,1px 0 black;
 }
 
-.bj-footer.user-settings{
-    background-color: #ffffff;
-}
 
 div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a,
 div#user-energymonitor-tabpanel ul.nav.nav-tabs li.active a:focus,
