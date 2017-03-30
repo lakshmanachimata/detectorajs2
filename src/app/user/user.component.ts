@@ -41,6 +41,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     this.data.setMenuArrow(0);
     this.data.setProfile('user');
     this.data.setProfileSwitch(true);
+    this.data.setEDevParamsState(0);
   }
 
   jsonOnLoad(component) {

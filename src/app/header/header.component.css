@@ -244,8 +244,8 @@
 	height:100%;
 	padding-top: 14px;
 	text-align:center;
-	background-color:#015c8e;;
-	color:#ffffff;
+	background-color:#dedede;;
+	color:#4D4D4D;
 }
 
 .bj-footer-user #bj-send-to-device,.bj-footer #bj-load-profile{
@@ -254,7 +254,7 @@
 	height:100%;
 	padding-top: 10px;
 	text-align:center;
-	background-color:#0171af;;
+	background-color:#fefefe;
 	color:#015c8e;
 	font-size:20px;
 }
