@@ -54,8 +54,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
     return this.data.showOnlyCancel();
   }
   getEDevParamsState() {
-    let devparamstate  = this.data.getEDevParamsState();
-    return devparamstate;
+    return this.data.getEDevParamsState();
   }
   sendChangedParams() {
     this.data.sendChangedParams();

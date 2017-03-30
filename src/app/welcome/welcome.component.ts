@@ -24,5 +24,6 @@ export class WelcomeComponent implements OnInit {
     this.data.setProfile(item);
     this.location.replaceState('/');
     this.router.navigateByUrl(item);
+    this.data.setEDevParamsState(0);
   }
 }

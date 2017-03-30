@@ -584,6 +584,7 @@ export class DataService {
     }
 
     addToSendData(paramBytes) {
+        this.setEDevParamsState(1)
         this.addData = [];
         for(let i =1; i < paramBytes.length; i++){
             this.addData.push(paramBytes[i]);
