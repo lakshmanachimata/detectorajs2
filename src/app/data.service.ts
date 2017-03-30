@@ -605,29 +605,31 @@ export class DataService {
         }
     }
     sendChangedParams() {
-        if(this.activeComponent != undefined){
-            this.activeComponent.setLoadingDataDone(false);
-        }
-        let dataBytes = [];
-        if(this.writeArray.length > this.writeCount) {
-            for(let i = 0; i < this.writeCount; i++) {
-                let idata = this.sendData[i];
-                dataBytes.push(idata.attrType);
-                for(let j =0; j<idata.attrValue.length; j++){
-                    dataBytes.push(idata.attrValue[j]);
+        if(this.writeArray.length > 0) {
+            if(this.activeComponent != undefined){
+                this.activeComponent.setLoadingDataDone(false);
+            }
+            let dataBytes = [];
+            if(this.writeArray.length > this.writeCount) {
+                for(let i = 0; i < this.writeCount; i++) {
+                    let idata = this.sendData[i];
+                    dataBytes.push(idata.attrType);
+                    for(let j =0; j<idata.attrValue.length; j++){
+                        dataBytes.push(idata.attrValue[j]);
+                    }
                 }
             }
-        }
-        else {
-            for(let i = 0; i < this.writeArray.length; i++) {
-                let idata = this.sendData[i];
-                dataBytes.push(idata.attrType);
-                for(let j =0; j<idata.attrValue.length; j++){
-                    dataBytes.push(idata.attrValue[j]);
+            else {
+                for(let i = 0; i < this.writeArray.length; i++) {
+                    let idata = this.sendData[i];
+                    dataBytes.push(idata.attrType);
+                    for(let j =0; j<idata.attrValue.length; j++){
+                        dataBytes.push(idata.attrValue[j]);
+                    }
                 }
             }
+            this.writeAttrObj =  new writeAttr(dataBytes);
         }
-        this.writeAttrObj =  new writeAttr(dataBytes);
     }
 
 
