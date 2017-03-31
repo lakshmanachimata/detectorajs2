@@ -36,7 +36,8 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         webView.configuration.websiteDataStore = WKWebsiteDataStore.default();
         //webView.configuration.userContentController.addUserScript(userScript);
         webView.configuration.userContentController.add(self, name: "webapi");
-
+        webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
+        
         view.addSubview(webView)
         
         //https://www.raywenderlich.com/110393/auto-layout-visual-format-language-tutorial
@@ -66,11 +67,21 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         }
         
         let path = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "www")
-        webView.load(URLRequest(url: URL(fileURLWithPath: path!)));
+        let dirpath = Bundle.main.bundlePath.appending("/www/");
+        //let dirUrl = (URL(fileURLWithPath: dirpath));
+        let indexPath =  (URL(fileURLWithPath: path!));
+
+        let webAppUrl = URL(fileURLWithPath: dirpath, isDirectory: true)
+            
+        //webView.load(URLRequest(url: URL(fileURLWithPath: path!)));
+    
+        webView.loadFileURL( indexPath, allowingReadAccessTo: webAppUrl)
+
+        
         
         super.viewDidLoad()
-        bleHelper = BLEHelper(webView: webView)
-        bleHelper?.setup();
+//        bleHelper = BLEHelper(webView: webView)
+//        bleHelper?.setup();
     }
     
     override func didReceiveMemoryWarning() {
