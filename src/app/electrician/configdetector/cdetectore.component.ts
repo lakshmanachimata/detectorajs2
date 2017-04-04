@@ -58,9 +58,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,
@@ -70,7 +67,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
                 SCCP_ATTRIBUTES.OPERATION_MODE,
-                SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE
+                SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
                 ]
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,

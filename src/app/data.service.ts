@@ -218,7 +218,7 @@ export class DataService {
     readAttrObj:any;
     configureAttrObj:any;
     iDeviceData:any;
-    public DeviceBuild = 0;
+    public DeviceBuild = 1;
     currentBrightness = '498';
     activeComponent:any;
     headerComponent:any;
@@ -226,8 +226,8 @@ export class DataService {
     readDoneArray=[];
     writeArray=[];
     writeDoneArray=[];
-    readCount = 10;
-    writeCount = 10;
+    readCount = 9;
+    writeCount = 9;
     addData=[];
     sendData =  new Array<WriteData>();
     screenWidth;
@@ -481,7 +481,9 @@ export class DataService {
                     this.setBLEdataOnDeviceData(atrType,atrValue);
                 }
                 if(this.readArray.length > this.readCount){
+                    
                     this.readArray = this.readArray.slice(this.readCount,this.readArray.length);
+                    this.logger.log("data remaining is " + this.readArray.length)
                 }
                 else {
                     this.readArray = [];

@@ -9,15 +9,15 @@ export class LoggerService {
 
   log(msg: any)   { 
     if(this.logData == true)
-      console.log(msg + '  ' + (new Date).getTime());
+      console.log(msg + '  at time  ' + (new Date).getTime());
    }
   error(msg: any) { 
     if(this.logWarn == true)
-      console.error(msg+ '  ' + (new Date).getTime()); 
+      console.error(msg+ '  at time  ' + (new Date).getTime()); 
   }
   warn(msg: any)  { 
     if(this.logErr == true)
-    console.warn(msg+ '  ' + (new Date).getTime()); 
+    console.warn(msg+ '  at time  ' + (new Date).getTime()); 
   }
   
 }
