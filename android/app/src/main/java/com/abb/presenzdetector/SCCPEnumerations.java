@@ -20,6 +20,7 @@ public class SCCPEnumerations {
     static final String DSPS_SERVICE   = "0783B03E-8535-B5A0-7140-A304D2495CB7";
     static final String  SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
     static final String   SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
+
     static final String   INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
 
 
