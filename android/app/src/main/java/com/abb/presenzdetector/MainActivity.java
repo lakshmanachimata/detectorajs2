@@ -56,6 +56,7 @@ import org.json.JSONObject;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -493,6 +494,8 @@ public class MainActivity extends AppCompatActivity {
                 if (charecterstic.equalsIgnoreCase(SCCPEnumerations.SERVER_TX_DATA)) {
 
                     byte[] rawdata = data;
+
+                    rawdata = removeEscapeChars(rawdata);
                     if (blePacketStart == true) {
                         for(int i = 0; i < rawdata.length; i++){
                             bleRecvBuffer.put(bleDataLengthReceived - 1,rawdata[i]);
@@ -522,8 +525,17 @@ public class MainActivity extends AppCompatActivity {
                     if (rawdata[0] == (byte) 126) {
                         blePacketStart = true;
                         bleDataLengthReceived = 0;
-                        bleRecvBuffer = ByteBuffer.allocate(rawdata[1] +3);
-                        bleRecvBuffer.put(rawdata);
+                        try {
+                            if(rawdata[rawdata.length -1] == (byte) 126){
+                                bleRecvBuffer = ByteBuffer.allocate(rawdata.length);
+                                bleRecvBuffer.put(rawdata);
+                            }else {
+                                bleRecvBuffer = ByteBuffer.allocate(rawdata[1] + 2);
+                                bleRecvBuffer.put(rawdata);
+                            }
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         bleDataLengthReceived =  rawdata.length;
                         if(rawdata[rawdata.length -1] == (byte) 126) {
                             blePacketEnd = true;
@@ -560,7 +572,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    byte[] removeEscapeChars(byte[] data) {
+        byte[] mydata1,mydata2;
+        int escapeCharloc = 0;
+        //Arrays.copyOfRange(data,0,data.length -1);
+            for(int i =1; i<data.length -1;i++){
+                if(data[i] == (byte) 125 && data[i+1] == (byte) 126){
+                    escapeCharloc = i;
+                    break;
+                }
+            }
+        if(escapeCharloc > 0) {
+            mydata1 = Arrays.copyOfRange(data, 0, escapeCharloc);
+            mydata2 = Arrays.copyOfRange(data, escapeCharloc + 1, data.length);
+            byte[] outdata = new byte[data.length-1];
+            System.arraycopy(mydata1,0,outdata,0,mydata1.length);
+            System.arraycopy(mydata2,0,outdata,mydata1.length,mydata2.length);
+            return outdata;
+        }else {
+            return data;
+        }
 
+    }
 
 
    void sendBLEAppFrame(byte[] appData) {
