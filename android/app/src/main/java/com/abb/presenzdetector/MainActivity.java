@@ -522,8 +522,8 @@ public class MainActivity extends AppCompatActivity {
                     if (rawdata[0] == (byte) 126) {
                         blePacketStart = true;
                         bleDataLengthReceived = 0;
-                        bleRecvBuffer = ByteBuffer.allocate(rawdata[1] +2);
-                        bleRecvBuffer.put(rawdata );
+                        bleRecvBuffer = ByteBuffer.allocate(rawdata[1] +3);
+                        bleRecvBuffer.put(rawdata);
                         bleDataLengthReceived =  rawdata.length;
                         if(rawdata[rawdata.length -1] == (byte) 126) {
                             blePacketEnd = true;
@@ -582,6 +582,9 @@ public class MainActivity extends AppCompatActivity {
                         if (writeCharecteristic != null) {
                             writeCharecteristic.setValue(data);
                             writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                            blePacketStart = false;
+                            if(bleRecvBuffer != null)
+                                bleRecvBuffer.clear();
                             mBluetoothLeService.writeCharacteristic(writeCharecteristic);
                             return;
                         }
