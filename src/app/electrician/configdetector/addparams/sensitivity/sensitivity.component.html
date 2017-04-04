@@ -3,14 +3,14 @@
     <div class="bj-sensor-toggle outdoor-application">
         <label class="bj-config-setting inner-setting outdoor-application-function">Outdoor application</label>
             <span class="bj-config-toggle-switch">
-            <div class="track"  (click)="toggleoa()"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.outdoor_application" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.outdoor_application == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.outdoor_application == true">{{onLabel}}</label>
-                <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.outdoor_application == false">{{offLabel}}</label>
-                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.outdoor_application == true,'switch-off':ad.sensor_settings.additional_sensor_parameters.outdoor_application == false}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.outdoor_application == true ? '#26394f':'#ccc'}"></div>
+            <div class="track"  (click)="toggleoa()"  [(ngModel)]="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application" [ngStyle]="{'border-color': ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                <label class="switch-onlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == true">{{onLabel}}</label>
+                <label class="switch-offlabel" *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == false">{{offLabel}}</label>
+                <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == true,'switch-off':ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == false}" [ngStyle]="{'background-color':ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == true ? '#26394f':'#ccc'}"></div>
                 </div>
         </span>
     </div>
-    <div class="detection-outdoor-div" *ngIf="ad.sensor_settings.additional_sensor_parameters.outdoor_application == false">
+    <div class="detection-outdoor-div" *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application == false">
         <div class="detection-outdoor-top-quadrants">
             <div class="detection-outdoor-quadrant q1"  (click)="setQuadrantSelected('q1',ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1)" [ngStyle]="getMystyle('q1')">
                 <label class="detection-quad-value q1-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1}}%</label></div>

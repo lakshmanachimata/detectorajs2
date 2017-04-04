@@ -83,6 +83,12 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.showSlider = false;
       this.data.setActiveComponent(this);
       this.data.setEDevParamsState(0);
+      if(this.data.getDeviceConnectionState() == true){
+        this.data.readData(this.readAttrs);
+      }
+      else {
+        this.loadingDataDone = true;
+      }
     }
 
   ngOnChanges() { 
@@ -300,6 +306,4 @@ slideBackground (value) {
     this.loadingDataDone = false;
     this.data.readData(this.readAttrs);
   }
-
-  
 }

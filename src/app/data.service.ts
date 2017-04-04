@@ -197,6 +197,7 @@ export class DeviceParams {
         public firmwareVersion= '';
         jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
         iJsonLoadEmitter: EventEmitter<any> = new EventEmitter();
+        deviceConnected = false;
 }
 
 declare var setDataServiceCallBack;
@@ -516,9 +517,18 @@ export class DataService {
     }
 
     onDeviceConnected(deviceAddress) {
+        this.deviceParams.deviceConnected = true;
         if(this.activeComponent != undefined) {
             this.activeComponent.onDeviceConnected(deviceAddress);
         }
+    }
+
+    onDeviceDisconnected(deviceAddress){
+        this.deviceParams.deviceConnected = false;
+    }
+
+    getDeviceConnectionState(){
+        return this.deviceParams.deviceConnected;
     }
 
     readData(data) {
@@ -592,7 +602,6 @@ export class DataService {
             this.addData.push(paramBytes[i]);
         }
         let mydata = new WriteData(paramBytes[0],this.addData);
-
         if(this.writeArray.length == 0) {
             this.writeArray.push(paramBytes[0])
             this.sendData.push(mydata);
@@ -607,7 +616,7 @@ export class DataService {
         }
     }
     sendChangedParams() {
-        if(this.writeArray.length > 0) {
+        if(this.writeArray.length > 0 && this.DeviceBuild == 1) {
             if(this.activeComponent != undefined){
                 this.activeComponent.setLoadingDataDone(false);
             }
@@ -630,6 +639,7 @@ export class DataService {
                     }
                 }
             }
+            this.logger.log("write data is " + dataBytes);
             this.writeAttrObj =  new writeAttr(dataBytes);
         }
     }
@@ -659,10 +669,10 @@ export class DataService {
                 this.deviceData.sensor_settings.brightness_max = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
-                this.deviceData.sensor_settings.consider_slave_brightness = false;
+                this.deviceData.sensor_settings.consider_slave_brightness = attrValue;
             break; 
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE                           : 
-                this.deviceData.sensor_settings.constant_light_regulation = false;
+                this.deviceData.sensor_settings.constant_light_regulation = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 
                 this.deviceData.sensor_settings.brightness_setpoint = attrValue;
@@ -674,7 +684,7 @@ export class DataService {
                 this.deviceData.sensor_settings.setpoint_max = attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE : 
-                this.deviceData.sensor_settings.reference_brightness = false;
+                this.deviceData.sensor_settings.reference_brightness = attrValue;
             break;
             case SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE                                 : 
             break;
@@ -689,22 +699,29 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
                 this.deviceData.commissioning.use_master_in_slave_mode = false;
-           break;
+            break;
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY0                                        : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q1 = attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY1                                        : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q2 = attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q3 = attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q4 = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.brightness_correction.enable = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE                             : 
+                this.deviceData.actuator1.durable_on_off_switching.duration_on = attrValue;
             break;
             case SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         : 
+                this.deviceData.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay =attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC                                       : 
             break;

@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../../logger.service';
 import { DataService } from '../../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
@@ -19,10 +19,25 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     selectedQuadrant = '';
     selectedQuadrantValue = 0;
     styleValue = '#ffffff';
-  constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+    loadingDataDone = false;
+
+    readAttrs =[
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY0,
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY1,
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY2,
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY3,
+      SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE
+    ]
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      if(this.data.getDeviceConnectionState() == true){
+        this.data.readData(this.readAttrs);
+      }
+      else {
+        this.loadingDataDone = true;
+      }
   }
   ngOnChanges() { 
   }
@@ -83,8 +98,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }
   }
   toggleoa() {
-    this.ad.sensor_settings.additional_sensor_parameters.outdoor_application = !this.ad.sensor_settings.additional_sensor_parameters.outdoor_application;
-    this.data.addToSendData([SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.outdoor_application?1:0])
+    this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application = !this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application;
+    this.data.addToSendData([SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application?1:0])
   }
   getRangeValue() {
     return this.selectedQuadrantValue;
@@ -118,8 +133,14 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     
   }
 
+  setLoadingDataDone(){
+    this.loadingDataDone = false;
+  }
   onBLEdata() {
-    
+    this.loadingDataDone = true;
+     this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1 = this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1 ;
+      });
   }
   
 }

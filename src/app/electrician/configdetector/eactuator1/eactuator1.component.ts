@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
@@ -38,7 +38,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     showDaliSettings = false;
     showTimeShiftedSwitchOffSettings = false;
     showFluorescentSettings = false;
-    
+    loadingDataDone = false;
      readAttrs =[SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,
@@ -74,11 +74,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
   onLabel = 'on';
   offLabel = 'off';
-  constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      this.data.readData(this.readAttrs);
+      if(this.data.getDeviceConnectionState() == true){
+        this.data.readData(this.readAttrs);
+      }
+      else {
+        this.loadingDataDone = true;
+      }
   }
   ngOnChanges() { 
   }
@@ -324,6 +329,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   onBLEdata() {
-    
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.actuator1.soft_switching.on.enable = this.ad.actuator1.soft_switching.on.enable;
+    });
   }
 }

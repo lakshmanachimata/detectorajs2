@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -18,19 +18,24 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     offLabel = 'off';
     currentBrightness = '450 lx';
     brrangeerror = false;
-
+    loadingDataDone = false;
     readAttrs =[
           SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
           SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
-          SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE
+          SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,
           ]
 
 
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute, private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      this.data.readData(this.readAttrs);
+      if(this.data.getDeviceConnectionState() == true){
+        this.data.readData(this.readAttrs);
+      }
+      else {
+        this.loadingDataDone = true;
+      }
   }
   ngOnChanges() { 
   }
@@ -72,6 +77,9 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay?1:0])
   }
   onBLEdata() {
-    
+    this.loadingDataDone = true;
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable = this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.enable ;
+      });
   }
 }
