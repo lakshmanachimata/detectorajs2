@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
 //        },10);
 //    }
 
-    void notifyAppAboutConnection(){
+    void notifyAppAboutConnection(final boolean isConnection){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -401,7 +401,10 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jsonObject =  new JSONObject();
                     jsonObject.put("deviceaddress",device.getAddress());
                     String deviceData = "";
-                    deviceData = deviceData + "onDeviceConnected(";
+                    if(isConnection == true)
+                        deviceData = deviceData + "onDeviceConnected(";
+                    else
+                        deviceData = deviceData + "onDeviceDisconnected(";
                     deviceData = deviceData + jsonObject.toString() + ")";
                     webview.evaluateJavascript(deviceData, null);
                 }catch (Exception e) {
@@ -419,17 +422,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-
-                int a = 1;
-                int b = 2;
-                int c = a + b;
-                //connectNextDevice();
+                notifyAppAboutConnection(false);
             }
             else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
                 getDeviceInfo();
                 if(getDeviceInfo == true)
-                    notifyAppAboutConnection();
+                    notifyAppAboutConnection(true);
             }
             else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
