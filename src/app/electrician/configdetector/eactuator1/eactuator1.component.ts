@@ -40,7 +40,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     showFluorescentSettings = false;
     loadingDataDone = false;
      readAttrs =[
-                SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,                                        
+                SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 
+                SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,                                        
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,                                
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN,                            
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX,                                        
@@ -65,9 +66,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.LEVEL_MIN,                                                
                 SCCP_ATTRIBUTES.LEVEL_MAX,                                                
                 SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,                                      
-                SCCP_ATTRIBUTES.COLOR_TEMPERATURE,                                        
-                // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,                                    
-                // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX,                                    
+                SCCP_ATTRIBUTES.COLOR_TEMPERATURE,                                                                           
+                SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX,                                    
                 SCCP_ATTRIBUTES.BURN_IN_ENABLE,                                           
                 SCCP_ATTRIBUTES.BURN_IN_MODE,                                             
                 SCCP_ATTRIBUTES.BURN_IN_DURATION,                                         

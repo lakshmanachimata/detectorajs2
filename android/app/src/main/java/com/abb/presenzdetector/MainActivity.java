@@ -33,6 +33,7 @@ import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -576,32 +577,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
     byte[] removeEscapeChars(byte[] data) {
-        byte[] mydata1,mydata2;
-        int escapeCharloc = 0;
-        //Arrays.copyOfRange(data,0,data.length -1);
-            for(int i =1; i<data.length -1;i++){
-                if(data[i] == (byte) 125 && data[i+1] == (byte) 126){
-                    escapeCharloc = i;
-                    break;
-                }
+        boolean escapeCharloc = false;
+
+        Byte[] bytes = new Byte[data.length];
+        int i = 0;
+        for (byte b : data) bytes[i++] = b; // Autoboxing
+        ArrayList<Byte> indata = new ArrayList<Byte>(Arrays.asList(bytes));
+
+        for(int j =1; j<data.length -2;j++){
+            if(data[j] == (byte) 125 && (data[j+1] == (byte) 126 || data[j+1] == (byte) 125)){
+                escapeCharloc =true;
+                indata.remove(j);
             }
-        if(escapeCharloc > 0) {
-            mydata1 = Arrays.copyOfRange(data, 0, escapeCharloc);
-            mydata2 = Arrays.copyOfRange(data, escapeCharloc + 1, data.length);
-            byte[] outdata = new byte[data.length-1];
-            System.arraycopy(mydata1,0,outdata,0,mydata1.length);
-            System.arraycopy(mydata2,0,outdata,mydata1.length,mydata2.length);
-            return outdata;
+        }
+        if(escapeCharloc) {
+            byte[] obytes = new byte[indata.size()];
+            for(int k = 0; k < indata.size(); k++) {
+                obytes[k] = indata.get(k);
+            }
+            return obytes;
         }else {
             return data;
         }
-
     }
 
 
-   void sendBLEAppFrame(byte[] appData) {
-       sendBLEFrame(appData);
-       Log.d("lakshmana","lakshmana send frame" + appData);
+   void sendBLEAppFrame(byte[] data) {
+       boolean escapeCharloc = false;
+
+
+       Byte[] bytes = new Byte[data.length];
+       int i = 0;
+       for (byte b : data) bytes[i++] = b; // Autoboxing
+       ArrayList<Byte> indata = new ArrayList<Byte>(Arrays.asList(bytes));
+
+       for(int j =1; j<data.length -1;j++){
+           if(data[j] == (byte) 126 || data[j] == (byte) 125){
+               escapeCharloc =true;
+               indata.add(j,(byte) 125);
+           }
+       }
+
+       if(escapeCharloc) {
+           byte[] obytes = new byte[indata.size()];
+           for(int k = 0; k < indata.size(); k++) {
+               obytes[k] = indata.get(k);
+           }
+           sendBLEFrame(obytes);
+           Log.d("lakshmana","lakshmana sent frame" + obytes);
+       }else {
+           sendBLEFrame(data);
+           Log.d("lakshmana","lakshmana sent frame" + data);
+       }
+
+
    }
 
 
