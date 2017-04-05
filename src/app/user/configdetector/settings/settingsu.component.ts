@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -18,7 +18,12 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   ad:any;
   onLabel = 'on';
   offLabel = 'off';
+  loadingDataDone = false;
   readAttrs =[
+            SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
+            SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
+            SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
+            SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,     
             SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
             SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
             SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
@@ -36,7 +41,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
 
   brightnessError = false;
   currentBrightness = '450 lx';
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -52,7 +57,10 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.data.setMainTitle('Settings');
     this.currentBrightness = this.data.getCurrentBrightness();
     this.data.setOtherParam('','');
-    this.data.readData(this.readAttrs);
+    if(this.data.DeviceBuild == 1){
+      this.data.readData(this.readAttrs);
+      this.loadingDataDone = false;
+    }
   }
   ngAfterContentInit() { 
   }
@@ -113,6 +121,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
   }
   onBLEdata() {
-    
+     this.loadingDataDone =  true;
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold ;
+      });
   }
 }

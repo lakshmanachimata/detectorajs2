@@ -3,7 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
-
+declare var connectDevice;
 @Component({
   selector: 'user-root',
   templateUrl: './user.component.html',
@@ -13,13 +13,28 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
     private detectors:Array<any>;
     jsonLoadObserve: any;
+    scannedData:Array<any>;
+    connectDeviceObj:any;
     private snap:RouterStateSnapshot;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetectorUser(item){
       this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
+      if(this.data.DeviceBuild == 1)
+        this.connectDeviceObj = new connectDevice(item.btDeviceAddress);
   }
+
+  setScannedDataToFirst(){
+    if(this.scannedData != undefined) {
+      this.detectors[2].btDeviceName = this.scannedData[0].btDeviceName;
+      this.detectors[2].firmwareVersion = this.scannedData[0].firmwareRevision;
+      this.detectors[2].articleNumber = this.scannedData[0].modelNumber;
+      this.detectors[2].btDeviceAddress = this.scannedData[0].btAddress;
+      this.detectors[2].contactName = this.scannedData[0].manufacturerName;
+    }
+  }
+
   ngOnChanges() { 
   }
   ngDoCheck() { 
@@ -36,6 +51,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   ngOnInit () {
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     this.detectors = this.data.getDevices();
+    this.scannedData = this.data.getScannedData();
+    this.setScannedDataToFirst();
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
