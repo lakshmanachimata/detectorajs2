@@ -27,11 +27,15 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
   setScannedDataToFirst(){
     if(this.scannedData != undefined) {
-      this.detectors[2].btDeviceName = this.scannedData[0].btDeviceName;
-      this.detectors[2].firmwareVersion = this.scannedData[0].firmwareRevision;
-      this.detectors[2].articleNumber = this.scannedData[0].modelNumber;
-      this.detectors[2].btDeviceAddress = this.scannedData[0].btAddress;
-      this.detectors[2].contactName = this.scannedData[0].manufacturerName;
+      for(let i =0; i < this.scannedData.length; i++)
+      {
+        this.detectors[2-i].btDeviceName = this.scannedData[i].btDeviceName;
+        this.detectors[2-i].firmwareVersion = this.scannedData[i].firmwareRevision;
+        this.detectors[2-i].articleNumber = this.scannedData[i].modelNumber;
+        this.detectors[2-i].btDeviceAddress = this.scannedData[i].btAddress;
+        this.detectors[2-i].deviceType = 'daliMaster1c';
+        this.detectors[2-i].contactName = this.scannedData[i].manufacturerName;
+      }
     }
   }
 
