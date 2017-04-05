@@ -227,8 +227,8 @@ export class DataService {
     readDoneArray=[];
     writeArray=[];
     writeDoneArray=[];
-    readCount = 9;
-    writeCount = 9;
+    readCount = 10;
+    writeCount = 10;
     addData=[];
     sendData =  new Array<WriteData>();
     screenWidth;

@@ -420,6 +420,9 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
 
+                int a = 1;
+                int b = 2;
+                int c = a + b;
                 //connectNextDevice();
             }
             else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -523,6 +526,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (rawdata[0] == (byte) 126) {
+                        Log.d("lakshmana","lakshmana recv frame" + rawdata);
                         blePacketStart = true;
                         bleDataLengthReceived = 0;
                         try {
@@ -598,6 +602,7 @@ public class MainActivity extends AppCompatActivity {
 
    void sendBLEAppFrame(byte[] appData) {
        sendBLEFrame(appData);
+       Log.d("lakshmana","lakshmana send frame" + appData);
    }
 
 
