@@ -63,13 +63,13 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.router.navigate(['sensitivity'],{relativeTo: this.route})
   }
   reduceBrightness(item) {
-    this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on - 1;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.actuator1.durable_on_off_switching.duration_on])
+    this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range = this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range - 1;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range])
   }
 
   increaseBrightness(item) {
-    this.ad.actuator1.durable_on_off_switching.duration_on = this.ad.actuator1.durable_on_off_switching.duration_on + 1;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.actuator1.durable_on_off_switching.duration_on])
+    this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range = this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range + 1;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.sensor_settings.additional_sensor_parameters.brightness_correction.range])
   }
 
   toggledsd(){

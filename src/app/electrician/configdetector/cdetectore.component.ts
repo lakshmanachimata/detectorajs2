@@ -55,22 +55,23 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     brSubScribed = false;
     loadingDataDone = false;
     readAttrs =[
-                SCCP_ATTRIBUTES.POTENTIOMETER_MODE,
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,
-                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
-                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
-                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN,
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,
-                SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,
-                SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
-                SCCP_ATTRIBUTES.OPERATION_MODE,
+                SCCP_ATTRIBUTES.POTENTIOMETER_MODE,                                       
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,                                     
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,                                 
+                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,                                 
+                SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,                        
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,                            
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,                      
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN,                  
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,                  
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,  
+                SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,                                  
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,                                        
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,                                     
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,                                     
+                SCCP_ATTRIBUTES.OPERATION_MODE,                                           
                 SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
+                SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL
                 ]
     constructor(private logger: LoggerService,private data: DataService, 
                   private router:Router,private route:ActivatedRoute,
@@ -86,9 +87,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       if(this.data.getDeviceConnectionState() == true){
         this.data.readData(this.readAttrs);
       }
-      else {
-        this.loadingDataDone = true;
-      }
+      // else {
+      //   this.loadingDataDone = true;
+      // }
     }
 
   ngOnChanges() { 
@@ -117,7 +118,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   togglestp(){
     this.ad.sensor_settings.short_time_pulse= !this.ad.sensor_settings.short_time_pulse;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.short_time_pulse?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.short_time_pulse?1:0])
     this.data.setEDevParamsState(1);
   }
   ngOnInit() {

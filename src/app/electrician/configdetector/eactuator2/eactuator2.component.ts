@@ -17,11 +17,19 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   onLabel = 'on';
   offLabel = 'off';
 
-   readAttrs =[SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,
-                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,
-                SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,
-                SCCP_ATTRIBUTES.CH2_MODE,
-                SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE
+   readAttrs =[ SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,                
+                SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,                                        
+                SCCP_ATTRIBUTES.CH2_MODE,                                                 
+                SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,                            
+                SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,                                     
+                SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MIN,                                 
+                SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX,                                 
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,                                    
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN,                                
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX,                                
                 ]
 
   constructor(private logger: LoggerService,private data: DataService, private router:Router) {

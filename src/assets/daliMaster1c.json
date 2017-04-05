@@ -52,11 +52,15 @@
     "soft_switching": {
       "on": {
         "enable": false,
-        "range": 10
+        "range": 10,
+        "range_min": 10,
+        "range_max": 300
       },
       "off": {
         "enable": false,
-        "range": 10
+        "range": 10,
+        "range_min": 10,
+        "range_max": 300
       }
     },
     "misc_settings": {
