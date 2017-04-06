@@ -28,14 +28,14 @@
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Consider slave brightness</label>
-			<span *ngIf="ad..constantLightControlEnable == true">on</span>
-			<span *ngIf="ad..constantLightControlEnable == false">off</span>
+			<span *ngIf="ad.constantLightControlEnable == true">on</span>
+			<span *ngIf="ad.constantLightControlEnable == false">off</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
-			<span *ngIf="ad..delimitLightingLevelEnable == true">ON</span>
-			<span *ngIf="ad..delimitLightingLevelEnable == false">OFF</span>
+			<span *ngIf="ad.delimitLightingLevelEnable == true">ON</span>
+			<span *ngIf="ad.delimitLightingLevelEnable == false">OFF</span>
 		</div>
 		
 		<div>

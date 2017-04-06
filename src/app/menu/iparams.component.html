@@ -4,13 +4,13 @@
 		
 		<div >
 		<label>Brightness correction value</label>
-		<span>{{ad..brightnessCorrectionValue}} lx</span>
+		<span>{{ad.brightnessCorrectionValue}} lx</span>
 		</div>
 		
 		<div>
 		<label>Dynamic switch-off delay</label>
-		<span *ngIf="ad..DynamicSwitchOffDelayEnable ==  true">on</span>		
-		<span *ngIf="ad..DynamicSwitchOffDelayEnable ==  false">off</span>
+		<span *ngIf="ad.DynamicSwitchOffDelayEnable ==  true">on</span>		
+		<span *ngIf="ad.DynamicSwitchOffDelayEnable ==  false">off</span>
 		</div>
 
 	</div>
@@ -18,9 +18,9 @@
     <div class="detection-outdoor-div">
         <div class="detection-outdoor-top-quadrants">
             <div class="detection-outdoor-quadrant q1" [ngStyle]="getMystyle('q1')">
-                <label class="detection-quad-value q1-val">{{ad..pirSensitivity0}}%</label></div>
+                <label class="detection-quad-value q1-val">{{ad.pirSensitivity0}}%</label></div>
             <div class="detection-outdoor-quadrant q2" [ngStyle]="getMystyle('q2')">
-                <label class="detection-quad-value q2-val">{{ad..pirSensitivity1}}%</label></div>
+                <label class="detection-quad-value q2-val">{{ad.pirSensitivity1}}%</label></div>
         </div>
         <div id="detection-outdoor-inner-ring">
             <div id="detection-outdoor-inner-icon">
@@ -29,16 +29,16 @@
         </div>
         <div class="detection-outdoor-bottom-quadrants">
             <div class="detection-outdoor-quadrant q3" [ngStyle]="getMystyle('q3')">
-                <label class="detection-quad-value q3-val">{{ad..pirSensitivity2}}%</label></div>
+                <label class="detection-quad-value q3-val">{{ad.pirSensitivity2}}%</label></div>
             <div class="detection-outdoor-quadrant q4" [ngStyle]="getMystyle('q4')">
-                <label class="detection-quad-value q4-val">{{ad..pirSensitivity3}}%</label></div>
+                <label class="detection-quad-value q4-val">{{ad.pirSensitivity3}}%</label></div>
         </div>	
 
 		<div class="bj-sensor-setting">
 			<div class="bj-installed-outdoor">
 				<label>Outdoor application</label>
-					<span *ngIf="ad..outdoorApplicationEnable ==  true">on</span>		
-					<span *ngIf="ad..outdoorApplicationEnable ==  false">off</span>
+					<span *ngIf="ad.outdoorApplicationEnable ==  true">on</span>		
+					<span *ngIf="ad.outdoorApplicationEnable ==  false">off</span>
 			</div>
 		</div>
 
@@ -111,8 +111,8 @@
 
 				<div  *ngIf="showSoftSwitchingSettings || activeDevice.deviceType == 'mosfet1c'">
 				<label>Dimming mode</label>
-				<span *ngIf="ad..phaseCutMode ==  0">Leading Edge</span>
-				<span *ngIf="ad..phaseCutMode ==  1">Trailing Edge</span>
+				<span *ngIf="ad.phaseCutMode ==  0">Leading Edge</span>
+				<span *ngIf="ad.phaseCutMode ==  1">Trailing Edge</span>
 				</div>
 				</div>
 				<div>
@@ -131,30 +131,30 @@
 
 				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
 				<label>Limit room brightness</label>
-				<span *ngIf="ad..delimitLightingLevelEnable ==  true">ON</span>
-				<span *ngIf="ad..delimitLightingLevelEnable ==  false">OFF</span>
+				<span *ngIf="ad.delimitLightingLevelEnable ==  true">ON</span>
+				<span *ngIf="ad.delimitLightingLevelEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showMiscSettings" >
 				<label>Minimum load</label>
-				<span *ngIf="ad..ch1MinLevelEnable ==  true">ON</span>
-				<span *ngIf="ad..ch1MinLevelEnable ==  false">OFF</span>
+				<span *ngIf="ad.ch1MinLevelEnable ==  true">ON</span>
+				<span *ngIf="ad.ch1MinLevelEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showMiscSettings" >
 				<label>Minimum load</label>
-				<span>{{ad..ch1MinLevel}} %</span>
+				<span>{{ad.ch1MinLevel}} %</span>
 				</div>
 				
 				<div  *ngIf="showMiscSettings" >
 				<label>Maximum load</label>
-				<span *ngIf="ad..ch1MaxLevelEnable ==  true">ON</span>
-				<span *ngIf="ad..ch1MaxLevelEnable ==  false">OFF</span>
+				<span *ngIf="ad.ch1MaxLevelEnable ==  true">ON</span>
+				<span *ngIf="ad.ch1MaxLevelEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showMiscSettings" >
 				<label>Maximum load</label>
-				<span>{{ad..ch1MaxLevel}} %</span>
+				<span>{{ad.ch1MaxLevel}} %</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -172,9 +172,9 @@
 
 				<div  *ngIf="showDaliSettings" >
 				<label>Power ON level</label>
-				<span *ngIf="ad..daliPowerOnLevel ==  0">OFF</span>
-				<span *ngIf="ad..daliPowerOnLevel ==  1">Memo</span>
-				<span *ngIf="ad..daliPowerOnLevel ==  2">100%</span>
+				<span *ngIf="ad.daliPowerOnLevel ==  0">OFF</span>
+				<span *ngIf="ad.daliPowerOnLevel ==  1">Memo</span>
+				<span *ngIf="ad.daliPowerOnLevel ==  2">100%</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -187,19 +187,19 @@
 				
 				<div  *ngIf="showFluorescentSettings">
 				<label>Burn in function</label>
-				<span *ngIf="ad..burnInEnable ==  true">ON</span>
-				<span *ngIf="ad..burnInEnable ==  false">OFF</span>
+				<span *ngIf="ad.burnInEnable ==  true">ON</span>
+				<span *ngIf="ad.burnInEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showFluorescentSettings" >
 				<label>Burin in mode</label>
-				<span *ngIf="ad..burnInMode ==  0">Steady</span>
-				<span *ngIf="ad..burnInMode ==  1">Accumulated</span>
+				<span *ngIf="ad.burnInMode ==  0">Steady</span>
+				<span *ngIf="ad.burnInMode ==  1">Accumulated</span>
 				</div>
 
 				<div  *ngIf="showFluorescentSettings">
 				<label>operating hours</label>
-				<span>{{ad..burnInDuration}} h</span>
+				<span>{{ad.burnInDuration}} h</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -211,13 +211,13 @@
 				
 				
 				<div  *ngIf="showBasicIlluminationSettings">
-					<label *ngIf="ad..basicBrightnessMode ==  true">ON</label>
-					<label *ngIf="ad..basicBrightnessMode ==  false">OFF</label>
+					<label *ngIf="ad.basicBrightnessMode ==  true">ON</label>
+					<label *ngIf="ad.basicBrightnessMode ==  false">OFF</label>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">
 				<label>Basic illumination level</label>
-				<span>{{ad..basicBrightnessLevel}} %</span>
+				<span>{{ad.basicBrightnessLevel}} %</span>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">

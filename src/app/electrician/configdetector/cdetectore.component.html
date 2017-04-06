@@ -49,10 +49,10 @@
            <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.constantLightControlEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad..constantLightControlEnable" [ngStyle]="{'border-color': ad..constantLightControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                             <label class="switch-onlabel" *ngIf="ad..constantLightControlEnable == true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="ad..constantLightControlEnable == false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':ad..constantLightControlEnable == true,'switch-off':ad..constantLightControlEnable == false}" [ngStyle]="{'background-color': ad..constantLightControlEnable == true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad.constantLightControlEnable" [ngStyle]="{'border-color': ad.constantLightControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="ad.constantLightControlEnable == true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="ad.constantLightControlEnable == false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':ad.constantLightControlEnable == true,'switch-off':ad.constantLightControlEnable == false}" [ngStyle]="{'background-color': ad.constantLightControlEnable == true ? '#26394f':'#ccc'}"></div>
                          </div>
                     </span>
             </div>
