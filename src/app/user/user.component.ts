@@ -33,7 +33,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.detectors[2-i].firmwareVersion = this.scannedData[i].firmwareRevision;
         this.detectors[2-i].articleNumber = this.scannedData[i].modelNumber;
         this.detectors[2-i].btDeviceAddress = this.scannedData[i].btAddress;
-        this.detectors[2-i].deviceType = 'daliMaster1c';
+        this.detectors[2-i].deviceType = this.scannedData[i].deviceType;
         this.detectors[2-i].contactName = this.scannedData[i].manufacturerName;
       }
     }

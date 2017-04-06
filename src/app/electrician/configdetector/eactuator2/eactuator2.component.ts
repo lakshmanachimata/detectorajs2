@@ -57,35 +57,35 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   reduceCount(item){
     if(item == 'sondelay') {
-      this.ad.actuator2.durable_on_off_switching.duration_on = this.ad.actuator2.durable_on_off_switching.duration_on -1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator2.durable_on_off_switching.duration_on])
+      this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay -1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
     }else if(item == 'soffdelay') {
-      this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off -1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator2.durable_on_off_switching.duration_off])
+      this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelay -1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
     }
 
   }
   increaseCount(item) {
  if(item == 'sondelay') {
-      this.ad.actuator2.durable_on_off_switching.duration_on = this.ad.actuator2.durable_on_off_switching.duration_on + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator2.durable_on_off_switching.duration_on])
+      this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
     }else if(item == 'soffdelay') {
-      this.ad.actuator2.durable_on_off_switching.duration_off = this.ad.actuator2.durable_on_off_switching.duration_off + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.actuator2.durable_on_off_switching.duration_off])
+      this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelay + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
     }
   }
   onBLEdata() {
     
   }
   circuitModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator2.circuit_logic])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.ch2CircuitLogic])
   }
   ch2ModeChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.actuator2.ch2_mode])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.ch2Mode])
   }
   togglehvacDC(){
-    this.ad.actuator2.hvacDynamicalControlEnable = !this.ad.actuator2.hvacDynamicalControlEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.actuator2.hvacDynamicalControlEnable?1:0])
+    this.ad.hvacDynamicalControlEnable = !this.ad.hvacDynamicalControlEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.hvacDynamicalControlEnable?1:0])
   }
 
 }

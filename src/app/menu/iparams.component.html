@@ -4,13 +4,13 @@
 		
 		<div >
 		<label>Brightness correction value</label>
-		<span>{{ad.sensor_settings.additional_sensor_parameters.brightness_correction.range}} lx</span>
+		<span>{{ad..brightnessCorrectionValue}} lx</span>
 		</div>
 		
 		<div>
 		<label>Dynamic switch-off delay</label>
-		<span *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay ==  true">on</span>		
-		<span *ngIf="ad.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay ==  false">off</span>
+		<span *ngIf="ad..DynamicSwitchOffDelayEnable ==  true">on</span>		
+		<span *ngIf="ad..DynamicSwitchOffDelayEnable ==  false">off</span>
 		</div>
 
 	</div>
@@ -18,9 +18,9 @@
     <div class="detection-outdoor-div">
         <div class="detection-outdoor-top-quadrants">
             <div class="detection-outdoor-quadrant q1" [ngStyle]="getMystyle('q1')">
-                <label class="detection-quad-value q1-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1}}%</label></div>
+                <label class="detection-quad-value q1-val">{{ad..pirSensitivity0}}%</label></div>
             <div class="detection-outdoor-quadrant q2" [ngStyle]="getMystyle('q2')">
-                <label class="detection-quad-value q2-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q2}}%</label></div>
+                <label class="detection-quad-value q2-val">{{ad..pirSensitivity1}}%</label></div>
         </div>
         <div id="detection-outdoor-inner-ring">
             <div id="detection-outdoor-inner-icon">
@@ -29,16 +29,16 @@
         </div>
         <div class="detection-outdoor-bottom-quadrants">
             <div class="detection-outdoor-quadrant q3" [ngStyle]="getMystyle('q3')">
-                <label class="detection-quad-value q3-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q3}}%</label></div>
+                <label class="detection-quad-value q3-val">{{ad..pirSensitivity2}}%</label></div>
             <div class="detection-outdoor-quadrant q4" [ngStyle]="getMystyle('q4')">
-                <label class="detection-quad-value q4-val">{{ad.sensor_settings.additional_sensor_parameters.set_detection_range.q4}}%</label></div>
+                <label class="detection-quad-value q4-val">{{ad..pirSensitivity3}}%</label></div>
         </div>	
 
 		<div class="bj-sensor-setting">
 			<div class="bj-installed-outdoor">
 				<label>Outdoor application</label>
-					<span *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application ==  true">on</span>		
-					<span *ngIf="ad.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application ==  false">off</span>
+					<span *ngIf="ad..outdoorApplicationEnable ==  true">on</span>		
+					<span *ngIf="ad..outdoorApplicationEnable ==  false">off</span>
 			</div>
 		</div>
 
@@ -55,8 +55,8 @@
 					</div>
 
 					<div  *ngIf="showCircuitSettings" >
-						<label *ngIf="ad.actuator1.circuit_logic ==  0">NC contact</label>
-						<label *ngIf="ad.actuator1.circuit_logic ==  1">NO contact</label>
+						<label *ngIf="ad.ch1CircuitLogic ==  0">NC contact</label>
+						<label *ngIf="ad.ch1CircuitLogic ==  1">NO contact</label>
 					</div>
 				</div>
 
@@ -70,12 +70,12 @@
 				
 				<div  *ngIf="showDurableSwitchingSettings" >
 				<label>Permanent ON for ...</label>
-				<span>{{ad.actuator1.durable_on_off_switching.duration_on}}</span>
+				<span>{{ad.ch1PermanentOnDuration}}</span>
 				</div>
 
 				<div  *ngIf="showDurableSwitchingSettings" >
 				<label>Permanent OFF for ...</label>
-				<span>{{ad.actuator1.durable_on_off_switching.duration_off}}</span>
+				<span>{{ad.ch1PermanentOffDuration}}</span>
 				</div>
 				</div>
 
@@ -88,31 +88,31 @@
 			
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label>Soft ON</label>
-				<span *ngIf="ad.actuator1.soft_switching.on.enable ==  true">ON</span>
-				<span *ngIf="ad.actuator1.soft_switching.on.enable ==  false">OFF</span>
+				<span *ngIf="ad.softOnEnable ==  true">ON</span>
+				<span *ngIf="ad.softOnEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label>Soft ON</label>
-				<span>{{ad.actuator1.soft_switching.on.range}} s</span>
+				<span>{{ad.softOnDuration}} s</span>
 				</div>
 				
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label>Soft OFF</label>
-				<span *ngIf="ad.actuator1.soft_switching.off.enable ==  true">ON</span>
-				<span *ngIf="ad.actuator1.soft_switching.off.enable ==  false">OFF</span>
+				<span *ngIf="ad.softOffEnable ==  true">ON</span>
+				<span *ngIf="ad.softOffEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label>Soft OFF</label>
-				<span>{{ad.actuator1.soft_switching.off.range}} s</span>
+				<span>{{ad.softOffDuration}} s</span>
 				</div>
 				
 
 				<div  *ngIf="showSoftSwitchingSettings || activeDevice.deviceType == 'mosfet1c'">
 				<label>Dimming mode</label>
-				<span *ngIf="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge ==  0">Leading Edge</span>
-				<span *ngIf="ad.actuator1.soft_switching.load_phase_cut_dimmable_edge ==  1">Trailing Edge</span>
+				<span *ngIf="ad..phaseCutMode ==  0">Leading Edge</span>
+				<span *ngIf="ad..phaseCutMode ==  1">Trailing Edge</span>
 				</div>
 				</div>
 				<div>
@@ -125,36 +125,36 @@
 
 				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
 				<label>Memory function</label>
-				<span *ngIf="ad.actuator1.misc_settings.switch_on_with_last_brightness ==  true">ON</span>
-				<span *ngIf="ad.actuator1.misc_settings.switch_on_with_last_brightness ==  false">OFF</span>
+				<span *ngIf="ad.ch1MemoryFunctionEnable ==  true">ON</span>
+				<span *ngIf="ad.ch1MemoryFunctionEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
 				<label>Limit room brightness</label>
-				<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness ==  true">ON</span>
-				<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness ==  false">OFF</span>
+				<span *ngIf="ad..delimitLightingLevelEnable ==  true">ON</span>
+				<span *ngIf="ad..delimitLightingLevelEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showMiscSettings" >
 				<label>Minimum load</label>
-				<span *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable ==  true">ON</span>
-				<span *ngIf="ad.actuator1.misc_settings.load_output.minimum.enable ==  false">OFF</span>
+				<span *ngIf="ad..ch1MinLevelEnable ==  true">ON</span>
+				<span *ngIf="ad..ch1MinLevelEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showMiscSettings" >
 				<label>Minimum load</label>
-				<span>{{ad.actuator1.misc_settings.load_output.minimum.value}} %</span>
+				<span>{{ad..ch1MinLevel}} %</span>
 				</div>
 				
 				<div  *ngIf="showMiscSettings" >
 				<label>Maximum load</label>
-				<span *ngIf="ad.actuator1.misc_settings.load_output.maximum.on ==  true">ON</span>
-				<span *ngIf="ad.actuator1.misc_settings.load_output.maximum.on ==  false">OFF</span>
+				<span *ngIf="ad..ch1MaxLevelEnable ==  true">ON</span>
+				<span *ngIf="ad..ch1MaxLevelEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showMiscSettings" >
 				<label>Maximum load</label>
-				<span>{{ad.actuator1.misc_settings.load_output.maximum.output_value}} %</span>
+				<span>{{ad..ch1MaxLevel}} %</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -166,15 +166,15 @@
 				
 				<div  *ngIf="showDaliSettings" >
 				<label>User master in slave mode</label>
-				<span *ngIf="ad.commissioning.use_master_in_slave_mode ==  true">ON</span>
-				<span *ngIf="ad.commissioning.use_master_in_slave_mode ==  false">OFF</span>
+				<span *ngIf="ad.slaveModeEnable ==  true">ON</span>
+				<span *ngIf="ad.slaveModeEnable ==  false">OFF</span>
 				</div>
 
 				<div  *ngIf="showDaliSettings" >
 				<label>Power ON level</label>
-				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  0">OFF</span>
-				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  1">Memo</span>
-				<span *ngIf="ad.actuator1.dali_settings.power_on_level ==  2">100%</span>
+				<span *ngIf="ad..daliPowerOnLevel ==  0">OFF</span>
+				<span *ngIf="ad..daliPowerOnLevel ==  1">Memo</span>
+				<span *ngIf="ad..daliPowerOnLevel ==  2">100%</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -187,19 +187,19 @@
 				
 				<div  *ngIf="showFluorescentSettings">
 				<label>Burn in function</label>
-				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function ==  true">ON</span>
-				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_function ==  false">OFF</span>
+				<span *ngIf="ad..burnInEnable ==  true">ON</span>
+				<span *ngIf="ad..burnInEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showFluorescentSettings" >
 				<label>Burin in mode</label>
-				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_mode ==  0">Steady</span>
-				<span *ngIf="ad.actuator1.fluorescent_lamps.burn_in_mode ==  1">Accumulated</span>
+				<span *ngIf="ad..burnInMode ==  0">Steady</span>
+				<span *ngIf="ad..burnInMode ==  1">Accumulated</span>
 				</div>
 
 				<div  *ngIf="showFluorescentSettings">
 				<label>operating hours</label>
-				<span>{{ad.actuator1.fluorescent_lamps.burn_in_hours}} h</span>
+				<span>{{ad..burnInDuration}} h</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -211,29 +211,29 @@
 				
 				
 				<div  *ngIf="showBasicIlluminationSettings">
-					<label *ngIf="ad.actuator1.basic_illumination.settings ==  true">ON</label>
-					<label *ngIf="ad.actuator1.basic_illumination.settings ==  false">OFF</label>
+					<label *ngIf="ad..basicBrightnessMode ==  true">ON</label>
+					<label *ngIf="ad..basicBrightnessMode ==  false">OFF</label>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">
 				<label>Basic illumination level</label>
-				<span>{{ad.actuator1.basic_illumination.basic_illumination_level}} %</span>
+				<span>{{ad..basicBrightnessLevel}} %</span>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">
 				<label>Start time</label>
-				<span>{{ad.actuator1.basic_illumination.start_time}} h</span>
+				<span>{{ad.basicBrightnessStartTime}} h</span>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">
 				<label>End time</label>
-				<span>{{ad.actuator1.basic_illumination.end_time}} h</span>
+				<span>{{ad.basicBrightnessEndTime}} h</span>
 				</div>
 				
 				<div  *ngIf="showBasicIlluminationSettings">
 				<label>Astro function</label>
-				<span *ngIf="ad.actuator1.basic_illumination.astro_function ==  true">ON</span>
-				<span *ngIf="ad.actuator1.basic_illumination.astro_function ==  false">OFF</span>
+				<span *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable ==  true">ON</span>
+				<span *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable ==  false">OFF</span>
 				</div>
 				</div>
 				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
@@ -244,25 +244,25 @@
 				</div>
 				
 				<div  *ngIf="showNightAntiGlareSettings">
-					<label *ngIf="ad.actuator1.night_time_anti_glare_function.enable ==  true">ON</label>
-					<label *ngIf="ad.actuator1.night_time_anti_glare_function.enable ==  false">OFF</label>
+					<label *ngIf="ad.nightLightFunctionEnable ==  true">ON</label>
+					<label *ngIf="ad.nightLightFunctionEnable ==  false">OFF</label>
 				</div>
 				
 				
 
 				<div  *ngIf="showNightAntiGlareSettings">
 				<label>Start time</label>
-				<span>{{ad.actuator1.night_time_anti_glare_function.start_time}} h</span>
+				<span>{{ad.nightLightStartTime}} h</span>
 				</div>
 				
 				<div  *ngIf="showNightAntiGlareSettings">
 				<label>End time</label>
-				<span>{{ad.actuator1.night_time_anti_glare_function.end_time}} h</span>
+				<span>{{ad.nightLightEndTime}} h</span>
 				</div>
 				
 				<div  *ngIf="showNightAntiGlareSettings">
 				<label>illumination level</label>
-				<span>{{ad.actuator1.night_time_anti_glare_function.illumination_level}} %</span>
+				<span>{{ad.nightLightLevel}} %</span>
 				</div>
 				</div>
 				<div class="actuatorsection" (click)="showTimeShiftedSwitchOffSettings=!showTimeShiftedSwitchOffSettings">		
@@ -272,18 +272,18 @@
 				</div>
 				
 				<div  *ngIf="showTimeShiftedSwitchOffSettings">
-					<label *ngIf="ad.actuator1.time_shifted_switch_off.enable ==  true">ON</label>
-					<label *ngIf="ad.actuator1.time_shifted_switch_off.enable ==  false">OFF</label>
+					<label *ngIf="ad.stepwiseSwitchOffDelayEnable ==  true">ON</label>
+					<label *ngIf="ad.stepwiseSwitchOffDelayEnable ==  false">OFF</label>
 				</div>
 
 				<div  *ngIf="showTimeShiftedSwitchOffSettings">
 				<label>Switch-off time</label>
-				<span>{{ad.actuator1.time_shifted_switch_off.switch_off_time}} h</span>
+				<span>{{ad.stepwiseSwitchOffDelay}} h</span>
 				</div>
 				
 				<div  *ngIf="showTimeShiftedSwitchOffSettings">
 				<label>Brightness of intermediate stage</label>
-				<span>{{ad.actuator1.time_shifted_switch_off.intermediate_stage_brightness}} %</span>
+				<span>{{ad.stepwiseSwitchOffLevel}} %</span>
 				</div>	
 			</div>
 		</div>
@@ -298,8 +298,8 @@
 				</div>
 				
 					<div  *ngIf="showCircuitSettings" >
-						<label *ngIf="ad.actuator2.circuit_logic==  0">NC contact</label>
-						<label *ngIf="ad.actuator2.circuit_logic ==  1">NO contact</label>
+						<label *ngIf="ad.ch2CircuitLogic==  0">NC contact</label>
+						<label *ngIf="ad.ch2CircuitLogic ==  1">NO contact</label>
 					</div>
 
 				
@@ -311,29 +311,29 @@
 				
 				
 				<div  *ngIf="showSwitching" >
-					<label *ngIf="ad.actuator2.ch2_mode==  0">Disabled</label>
-					<label *ngIf="ad.actuator2.ch2_mode ==  1">Brightness independent</label>
-					<label *ngIf="ad.actuator2.ch2_mode==  2">Switch off DALI control gear voltage</label>
-					<label *ngIf="ad.actuator2.ch2_mode ==  3">Synchronous operation</label>
-					<label *ngIf="ad.actuator2.ch2_mode==  4">Blackboard lightening</label>
-					<label *ngIf="ad.actuator2.ch2_mode ==  5">Manual</label>
-					<label *ngIf="ad.actuator2.ch2_mode==  6">HVAC</label>
+					<label *ngIf="ad.ch2Mode==  0">Disabled</label>
+					<label *ngIf="ad.ch2Mode ==  1">Brightness independent</label>
+					<label *ngIf="ad.ch2Mode==  2">Switch off DALI control gear voltage</label>
+					<label *ngIf="ad.ch2Mode ==  3">Synchronous operation</label>
+					<label *ngIf="ad.ch2Mode==  4">Blackboard lightening</label>
+					<label *ngIf="ad.ch2Mode ==  5">Manual</label>
+					<label *ngIf="ad.ch2Mode==  6">HVAC</label>
 				</div>
 
 				<div  *ngIf="showSwitching" >
 				<label>Dynamic control</label>
-				<span *ngIf="ad.actuator2.hvacDynamicalControlEnable ==  true">ON</span>
-				<span *ngIf="ad.actuator2.hvacDynamicalControlEnable ==  false">OFF</span>
+				<span *ngIf="ad.hvacDynamicalControlEnable ==  true">ON</span>
+				<span *ngIf="ad.hvacDynamicalControlEnable ==  false">OFF</span>
 				</div>
 				
 				<div  *ngIf="showSwitching" >
 				<label>Switch-on delay</label>
-				<span>{{ad.actuator2.durable_on_off_switching.duration_on}} s</span>
+				<span>{{ad.hvacSwitchOnDelay}} s</span>
 				</div>
 
 				<div  *ngIf="showSwitching" >
 				<label>Switch-off delay</label>
-				<span>{{ad.actuator2.durable_on_off_switching.duration_off}} s</span>
+				<span>{{ad.hvacSwitchOffDelay}} s</span>
 				</div>
 			</div>
 		</div>
@@ -344,12 +344,12 @@
 			
 			<div>
 			<label>Connected load</label>
-			<span>{{ad.service.energy_monitor.connected_load}} w</span>
+			<span>{{ad.energyMonitorConnectedLoad}} w</span>
 			</div>
 			
 			<div>
 			<label>Light duration per week</label>
-			<span>{{ad.service.energy_monitor.lighting_duration_per_week}} h</span>
+			<span>{{ad.energyMonitorLightingDuration}} h</span>
 			</div>
 		
 			<div>
@@ -451,32 +451,32 @@
 		
 		<div>
 		<label>programming brightness</label>
-			<span *ngIf="ad.commissioning.user_settings.brightness_threshold == true">ON</span>
-			<span *ngIf="ad.commissioning.user_settings.brightness_threshold == false">OFF</span>
+			<span *ngIf="ad.enableUserSetBrightnessThreshold == true">ON</span>
+			<span *ngIf="ad.enableUserSetBrightnessThreshold == false">OFF</span>
 		</div>
 		
 		<div>
 		<label>Setting switch-off delay</label>
-			<span *ngIf="ad.commissioning.user_settings.switch_off_delay == true">ON</span>
-			<span *ngIf="ad.commissioning.user_settings.switch_off_delay == false">OFF</span>
+			<span *ngIf="ad.enableUserSetSwitchOffDelay == true">ON</span>
+			<span *ngIf="ad.enableUserSetSwitchOffDelay == false">OFF</span>
 		</div>
 
 		<div>
 		<label>Energy monitor</label>
-			<span *ngIf="ad.commissioning.user_settings.energy_monitor == true">ON</span>
-			<span *ngIf="ad.commissioning.user_settings.energy_monitor == false">OFF</span>
+			<span *ngIf="ad.enableUserEnergyMonitor == true">ON</span>
+			<span *ngIf="ad.enableUserEnergyMonitor == false">OFF</span>
 		</div>
 		
 		<div>
 		<label>Illumination function of grounds</label>
-			<span *ngIf="ad.commissioning.user_settings.basic_illumination == true">ON</span>
-			<span *ngIf="ad.commissioning.user_settings.basic_illumination == false">OFF</span>
+			<span *ngIf="ad.enableUserBasicBrightness == true">ON</span>
+			<span *ngIf="ad.enableUserBasicBrightness == false">OFF</span>
 		</div>
 		
 		<div>
 		<label>Night-time anti-glare function</label>
-			<span *ngIf="ad.commissioning.user_settings.anti_glare_function == true">ON</span>
-			<span *ngIf="ad.commissioning.user_settings.anti_glare_function == false">OFF</span>
+			<span *ngIf="ad.enableUserNightLightFunction == true">ON</span>
+			<span *ngIf="ad.enableUserNightLightFunction == false">OFF</span>
 		</div>
 				
 	</div>

@@ -45,18 +45,18 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   reduceVal(item) {
     if(item == 'cload') {
-      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load -1;
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad -1;
     }else if(item == 'lduration') {
-      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week -1;
+      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration -1;
     }else if(item == 'eprice') {
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price -1;
     }
   }
   increaseVal(item) {
     if(item == 'cload') {
-      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load + 1;
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
     }else if(item == 'lduration') {
-      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week + 1;
+      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
     }else if(item == 'eprice') {
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }

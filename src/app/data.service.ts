@@ -220,7 +220,6 @@ export class DataService {
     configureAttrObj:any;
     iDeviceData:any;
     public DeviceBuild = 1;
-    currentBrightness = '498';
     activeComponent:any;
     headerComponent:any;
     readArray=[];
@@ -262,13 +261,9 @@ export class DataService {
     }
 
     getCurrentBrightness() {
-        return this.currentBrightness+ 'lx';
+        return this.deviceData.currentBrightness;
     }
    
-    setCurrentBrightness(brightness) {
-        this.currentBrightness = brightness;
-    }
-
     loadDevices() {
         return new Promise<Array<any>>(resolve => {
         this.http.get('assets/detectorslist.json').subscribe(response => {
@@ -645,6 +640,11 @@ export class DataService {
     }
 
 
+    setBLEValuetoItem(item, value) {
+        if(item != undefined){
+            item = value;
+        }
+    }
     setBLEdataOnDeviceData(attrType,attrValue){
         this.logger.log("attrType is   " + attrType  + "   " + attrValue );
         switch(attrType) {
@@ -657,142 +657,142 @@ export class DataService {
             case SCCP_ATTRIBUTES.DEVICE_TYPE                                             : 
             break;
             case SCCP_ATTRIBUTES.POTENTIOMETER_MODE                                      : 
-                this.deviceData.sensor_settings.potentio_meter_mode = attrValue;
+                    this.setBLEValuetoItem(this.deviceData.potentiometerMode ,attrValue);
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD                                    : 
-                this.deviceData.sensor_settings.brightness_threshold = attrValue;
+                this.setBLEValuetoItem(this.deviceData.brightnessThreshold, attrValue);
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN                                : 
-                this.deviceData.sensor_settings.brightness_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.brightnessThresholdMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX                                : 
-                this.deviceData.sensor_settings.brightness_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.brightnessThresholdMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
-                this.deviceData.sensor_settings.consider_slave_brightness = attrValue;
+                this.setBLEValuetoItem(this.deviceData.constantLightControlEnable, attrValue);
             break; 
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE                           : 
-                this.deviceData.sensor_settings.constant_light_regulation = attrValue;
+                this.setBLEValuetoItem(this.deviceData.sensor_settings.constant_light_regulation, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 
-                this.deviceData.sensor_settings.brightness_setpoint = attrValue;
+                this.setBLEValuetoItem(this.deviceData.constantLightBrightnessSetPoint, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 : 
-                this.deviceData.sensor_settings.setpoint_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.sensor_settings.setpoint_min, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 : 
-                this.deviceData.sensor_settings.setpoint_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.constantLightBrightnessSetPointMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE : 
-                this.deviceData.sensor_settings.reference_brightness = attrValue;
+                this.setBLEValuetoItem(this.deviceData.constantLightControlConsiderSlaveBrightnessEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE                                 : 
-                this.deviceData.sensor_settings.short_time_pulse = attrValue;
+                this.setBLEValuetoItem(this.deviceData.shortTimePulseEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY                                        :
-                this.deviceData.sensor_settings.switch_off_delay = attrValue;
+                this.setBLEValuetoItem(this.deviceData.switchOffDelay, attrValue);
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN                                    : 
-                this.deviceData.sensor_settings.switch_off_delay_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.switchOffDelayMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX                                    : 
-                this.deviceData.sensor_settings.switch_off_delay_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.switchOffDelayMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.OPERATION_MODE                                          : 
-                this.deviceData.operating_mode = attrValue;
+                this.setBLEValuetoItem(this.deviceData.operationMode, attrValue);
             break;
             case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
-                this.deviceData.commissioning.use_master_in_slave_mode = attrValue;
+                this.setBLEValuetoItem(this.deviceData.slaveModeEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.outdoor_application = attrValue;
+                this.setBLEValuetoItem(this.deviceData.outdoorApplicationEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY0                                        : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q1 = attrValue;
+                this.setBLEValuetoItem(this.deviceData.pirSensitivity0, attrValue);
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY1                                        : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q2 = attrValue;
+                this.setBLEValuetoItem(this.deviceData.pirSensitivity1, attrValue);
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q3 = attrValue;
+                this.setBLEValuetoItem(this.deviceData.pirSensitivity2, attrValue);
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.set_detection_range.q4 = attrValue;
+                this.setBLEValuetoItem(this.deviceData.pirSensitivity3, attrValue);
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.brightness_correction.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.brightnessCorrectionEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE                             : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.brightness_correction.range = attrValue;
+                this.setBLEValuetoItem(this.deviceData.brightnessCorrectionValue, attrValue);
             break;
             case SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         : 
-                this.deviceData.sensor_settings.additional_sensor_parameters.dynamic_switch_off_delay =attrValue;
+                this.setBLEValuetoItem(this.deviceData.DynamicSwitchOffDelayEnable ,attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC                                       : 
-                this.deviceData.actuator1.circuit_logic = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1CircuitLogic, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION                               : 
-                this.deviceData.actuator1.durable_on_off_switching.duration_on = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOnDuration, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN                           : 
-            this.deviceData.actuator1.durable_on_off_switching.duration_on_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOnDurationMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX                           : 
-            this.deviceData.actuator1.durable_on_off_switching.duration_on_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOnDurationMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION                              : 
-                this.deviceData.actuator1.durable_on_off_switching.duration_off = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOffDuration, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN                          : 
-                this.deviceData.actuator1.durable_on_off_switching.duration_off_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOffDurationMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX                          : 
-                this.deviceData.actuator1.durable_on_off_switching.duration_off_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1PermanentOffDurationMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_ENABLE                                          : 
-                this.deviceData.actuator1.soft_switching.on.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOnEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION                                        :
-                this.deviceData.actuator1.soft_switching.on.range = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOnDuration, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION_MIN                                    :
-                this.deviceData.actuator1.soft_switching.on.range_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOnDurationMin, attrValue);
             break; 
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION_MAX                                    : 
-                this.deviceData.actuator1.soft_switching.on.range_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOnDurationMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_ENABLE                                         : 
-                this.deviceData.actuator1.soft_switching.off.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOffEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION                                       : 
-                this.deviceData.actuator1.soft_switching.off.range = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOffDuration, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN                                   : 
-                this.deviceData.actuator1.soft_switching.off.range_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOffDurationMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MAX                                   : 
-                this.deviceData.actuator1.soft_switching.off.range_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.softOffDurationMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.PHASE_CUT_MODE                                          : 
-                this.deviceData.actuator1.soft_switching.load_phase_cut_dimmable_edge = attrValue;
+                this.setBLEValuetoItem(this.deviceData.phaseCutMode, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE                              : 
-                this.deviceData.actuator1.misc_settings.switch_on_with_last_brightness = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1MemoryFunctionEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE                           : 
-                this.deviceData.actuator1.misc_settings.limit_of_room_brightness = attrValue;
+                this.setBLEValuetoItem(this.deviceData.delimitLightingLevelEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE                                    : 
-                this.deviceData.actuator1.misc_settings.load_output.minimum.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1MinLevelEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_MIN_LEVEL                                           : 
-                this.deviceData.actuator1.misc_settings.load_output.minimum.value = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1MinLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE                                    : 
-                this.deviceData.actuator1.misc_settings.load_output.maximum.on = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1MaxLevelEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH1_MAX_LEVEL                                           : 
-                this.deviceData.actuator1.misc_settings.load_output.maximum.output_value = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1MaxLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.LEVEL_MIN                                               : 
             break;
@@ -807,70 +807,70 @@ export class DataService {
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX                                   : 
             break;
             case SCCP_ATTRIBUTES.BURN_IN_ENABLE                                          : 
-                this.deviceData.actuator1.fluorescent_lamps.burn_in_function = attrValue;
+                this.setBLEValuetoItem(this.deviceData.burnInEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.BURN_IN_MODE                                            : 
-                this.deviceData.actuator1.fluorescent_lamps.burn_in_mode = attrValue;
+                this.setBLEValuetoItem(this.deviceData.burnInMode, attrValue);
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION                                        : 
-                this.deviceData.actuator1.fluorescent_lamps.burn_in_hours = attrValue;
+                this.setBLEValuetoItem(this.deviceData.burnInDuration, attrValue);
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN                                    : 
-                this.deviceData.actuator1.fluorescent_lamps.burn_in_hours_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.burnInDuration_min, attrValue);
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX                                    : 
-                 this.deviceData.actuator1.fluorescent_lamps.burn_in_hours_max = attrValue;
+                 this.setBLEValuetoItem(this.deviceData.burnInDuration_max, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE                                   : 
-                this.deviceData.actuator1.basic_illumination.settings = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessMode, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL                                  : 
-                this.deviceData.actuator1.basic_illumination.basic_illumination_level = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD           : 
-                this.deviceData.actuator1.basic_illumination.ambient_brightness_threshold = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessAmbientBrightnessThreshold, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN       : 
-                this.deviceData.actuator1.basic_illumination.ambient_brightness_threshold_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessAmbientBrightnessThresholdMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX       : 
-                this.deviceData.actuator1.basic_illumination.ambient_brightness_threshold_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessAmbientBrightnessThresholdMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME                             : 
-                this.deviceData.actuator1.basic_illumination.start_time = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessStartTime, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME                               : 
-                this.deviceData.actuator1.basic_illumination.end_time = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessEndTime, attrValue);
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  :
-                this.deviceData.actuator1.basic_illumination.astro_function = attrValue;
+                this.setBLEValuetoItem(this.deviceData.basicBrightnessStartTimeAstroFunctionEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE                             : 
-                this.deviceData.actuator1.night_time_anti_glare_function.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.nightLightFunctionEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME                                  : 
-                this.deviceData.actuator1.night_time_anti_glare_function.start_time = attrValue;
+                this.setBLEValuetoItem(this.deviceData.nightLightStartTime, attrValue);
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME                                    : 
-                this.deviceData.actuator1.night_time_anti_glare_function.end_time = attrValue;
+                this.setBLEValuetoItem(this.deviceData.nightLightEndTime, attrValue);
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL                                       : 
-                this.deviceData.actuator1.night_time_anti_glare_function.illumination_level = attrValue;
+                this.setBLEValuetoItem(this.deviceData.nightLightLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE                        : 
-                this.deviceData.actuator1.time_shifted_switch_off.enable = attrValue;
+                this.setBLEValuetoItem(this.deviceData.stepwiseSwitchOffDelayEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY                               : 
-                this.deviceData.actuator1.time_shifted_switch_off.switch_off_time = attrValue;
+                this.setBLEValuetoItem(this.deviceData.stepwiseSwitchOffDelay, attrValue);
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN                           : 
-                this.deviceData.actuator1.time_shifted_switch_off.switch_off_time_min = attrValue;
+                this.setBLEValuetoItem(this.deviceData.stepwiseSwitchOffDelayMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX                           : 
-                this.deviceData.actuator1.time_shifted_switch_off.switch_off_time_max = attrValue;
+                this.setBLEValuetoItem(this.deviceData.stepwiseSwitchOffDelayMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                               : 
-                this.deviceData.actuator1.time_shifted_switch_off.intermediate_stage_brightness = attrValue;
+                this.setBLEValuetoItem(this.deviceData.stepwiseSwitchOffLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              : 
             break;
@@ -929,6 +929,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            : 
             break;
             case SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS                                      : 
+                this.setBLEValuetoItem(this.deviceData.currentBrightness, attrValue);
             break;
             case SCCP_ATTRIBUTES.IDENTIFYING_DEVICE                                      : 
             break;
@@ -939,7 +940,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.CH1_ON_OFF_STATE                                        : 
             break;
             case SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL                                       : 
-                this.deviceData.actuator1.ch1_current_level = attrValue;
+                this.setBLEValuetoItem(this.deviceData.ch1CurrentLevel, attrValue);
             break;
             case SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD                                    : 
             break;

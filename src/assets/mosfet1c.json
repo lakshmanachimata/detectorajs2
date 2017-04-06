@@ -34,7 +34,7 @@
       }
     }
   },
-  "operating_mode": 0,
+  "operationMode": 0,
   "actuator1": {
     "ch1_current_level":0,
     "circuit_logic": 0,

@@ -80,11 +80,11 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   reduceCount(item) {
     if(item == 'cload') {
-      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.service.energy_monitor.connected_load])
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
-      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.service.energy_monitor.lighting_duration_per_week])
+      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price - 1;
     }
@@ -92,11 +92,11 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   increaseCount(item) {
     if(item == 'cload') {
-      this.ad.service.energy_monitor.connected_load = this.ad.service.energy_monitor.connected_load + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.service.energy_monitor.connected_load])
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
-      this.ad.service.energy_monitor.lighting_duration_per_week = this.ad.service.energy_monitor.lighting_duration_per_week + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.service.energy_monitor.lighting_duration_per_week])
+      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
     }
@@ -105,8 +105,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     
   }
   toggleDP(){
-    this.ad.service.testmode.deactivate_outputs_enable = !this.ad.service.testmode.deactivate_outputs_enable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.service.testmode.deactivate_outputs_enable])
+    this.ad.testModeDeactivateOutputsEnable = !this.ad.testModeDeactivateOutputsEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.testModeDeactivateOutputsEnable])
   }
   CNameChanged() {
     this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,this.activeDevice.contactName])
@@ -115,31 +115,31 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,this.activeDevice.buildingName])
   }
   togglepbr(){
-    this.ad.commissioning.user_settings.brightness_threshold = !this.ad.commissioning.user_settings.brightness_threshold
-    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.commissioning.user_settings.brightness_threshold])
+    this.ad.enableUserSetBrightnessThreshold = !this.ad.enableUserSetBrightnessThreshold
+    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.enableUserSetBrightnessThreshold])
   }
   togglessod(){
-    this.ad.commissioning.user_settings.switch_off_delay = !this.ad.commissioning.user_settings.switch_off_delay
-        this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.commissioning.user_settings.switch_off_delay])
+    this.ad.enableUserSetSwitchOffDelay = !this.ad.enableUserSetSwitchOffDelay
+        this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.enableUserSetSwitchOffDelay])
   }
   toggleem(){
-    this.ad.commissioning.user_settings.energy_monitor = !this.ad.commissioning.user_settings.energy_monitor
-    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.commissioning.user_settings.energy_monitor])
+    this.ad.enableUserEnergyMonitor = !this.ad.enableUserEnergyMonitor
+    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.enableUserEnergyMonitor])
   }
   togglebi(){
-    this.ad.commissioning.user_settings.basic_illumination = !this.ad.commissioning.user_settings.basic_illumination
-    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.commissioning.user_settings.basic_illumination])
+    this.ad.enableUserBasicBrightness = !this.ad.enableUserBasicBrightness
+    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.enableUserBasicBrightness])
   }
   togglenf(){
-    this.ad.commissioning.user_settings.anti_glare_function = !this.ad.commissioning.user_settings.anti_glare_function
-    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.commissioning.user_settings.anti_glare_function])
+    this.ad.enableUserNightLightFunction = !this.ad.enableUserNightLightFunction
+    this.data.addToSendData([SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.enableUserNightLightFunction])
   }
   togglech1ID(){
-    this.ad.service.testmode.ch1_identify_load = this.ad.service.testmode.ch1_identify_load;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.service.testmode.ch1_identify_load ])
+    this.ad.ch1IdentifyingLoad = this.ad.ch1IdentifyingLoad;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1IdentifyingLoad ])
   }
   togglech2ID(){
-    this.ad.service.testmode.ch2_identify_load = this.ad.service.testmode.ch2_identify_load;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.service.testmode.ch2_identify_load ])
+    this.ad.ch2IdentifyingLoad = this.ad.ch2IdentifyingLoad;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch2IdentifyingLoad ])
   }
 }

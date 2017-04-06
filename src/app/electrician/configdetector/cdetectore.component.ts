@@ -102,23 +102,23 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setEDevParamsState(1);
   }
   togglecsb() {
-    this.ad.sensor_settings.consider_slave_brightness = !this.ad.sensor_settings.consider_slave_brightness;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
+    this.ad..constantLightControlEnable = !this.ad..constantLightControlEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglerrb() {
-    this.ad.sensor_settings.reference_brightness = !this.ad.sensor_settings.reference_brightness;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
+    this.ad.constantLightControlConsiderSlaveBrightnessEnable = !this.ad.constantLightControlConsiderSlaveBrightnessEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglemsd() {
-    this.ad.commissioning.use_master_in_slave_mode = !this.ad.commissioning.use_master_in_slave_mode;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.consider_slave_brightness?1:0])
+    this.ad.slaveModeEnable = !this.ad.slaveModeEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglestp(){
-    this.ad.sensor_settings.short_time_pulse= !this.ad.sensor_settings.short_time_pulse;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.short_time_pulse?1:0])
+    this.ad.shortTimePulseEnable= !this.ad.shortTimePulseEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.shortTimePulseEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   ngOnInit() {
@@ -147,47 +147,47 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   potentioMeterChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.sensor_settings.potentio_meter_mode])
+    this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
     this.data.setEDevParamsState(1);
   }
   operationChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.sensor_settings.potentio_meter_mode])
+    this.data.addToSendData([SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
     this.data.setEDevParamsState(1);
   }
   reduceBrightness(item) {
     this.data.setEDevParamsState(1);
     if(item == 'threshold') {
-      this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_threshold)])
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }
     else if(item == 'setpoint'){
-      this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_setpoint)])
+      this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPoint - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
     }
     else if(item == 'sdelay') {
-      this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.switch_off_delay)])
+      this.ad.switchOffDelay = this.ad.switchOffDelay - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }
     this.validatebrparams(item)
   }
 
   brightnessChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.ch1_current_level])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1CurrentLevel])
     this.data.setEDevParamsState(1);
   }
   increaseBrightness(item) {
     this.data.setEDevParamsState(1);
     if(item == 'threshold') {
-      this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_threshold)])
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }
     else if(item == 'setpoint') {
-          this.ad.sensor_settings.brightness_setpoint = this.ad.sensor_settings.brightness_setpoint + 1;
-          this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_setpoint)])
+          this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPoint + 1;
+          this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
     }
     else if(item == 'sdelay'){
-          this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay + 1;
-          this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.switch_off_delay)])
+          this.ad.switchOffDelay = this.ad.switchOffDelay + 1;
+          this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }
     this.validatebrparams(item) 
   }
@@ -226,21 +226,21 @@ getMystyle(item) {
   
   validatebrparams(item) {
     if(item == 'threshold') {
-      if(this.ad.sensor_settings.brightness_threshold < 10 || 
-      this.ad.sensor_settings.brightness_threshold >2000) {
+      if(this.ad.brightnessThreshold < 10 || 
+      this.ad.brightnessThreshold >2000) {
         this.brthresholderror =  true;
       }else {
         this.brthresholderror =  false;
       }
     }else if(item == 'setpoint') {
-      if(this.ad.sensor_settings.brightness_setpoint < 10 || 
-      this.ad.sensor_settings.brightness_setpoint >2000) {
+      if(this.ad.constantLightBrightnessSetPoint < 10 || 
+      this.ad.constantLightBrightnessSetPoint >2000) {
         this.brsetpointerror =  true;
       }else {
         this.brsetpointerror =  false;
       }
     }else  if(item == 'sdelay') {
-      if(this.ad.sensor_settings.switch_off_delay < 10 && this.ad.sensor_settings.switch_off_delay > 1800) {
+      if(this.ad.switchOffDelay < 10 && this.ad.switchOffDelay > 1800) {
         this.sdelayerror = true;
       }else {
         this.sdelayerror = false;
@@ -295,7 +295,7 @@ slideBackground (value) {
   onBLEdata() {
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold ;
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
       });
   }
 

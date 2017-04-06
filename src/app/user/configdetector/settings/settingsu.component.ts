@@ -74,56 +74,56 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   reduceVal(item) {
     if(item == 'brightness') {
-      this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold- 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_threshold)])
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold- 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
-      this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay- 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.switch_off_delay)])
+      this.ad.switchOffDelay = this.ad.switchOffDelay- 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {
-      this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.start_time ])
+      this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     }
     else if(item == 'illuminationend') {
-      this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.end_time ])
+      this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }
     else if(item == 'glarestart') {
-      this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.start_time ])
+      this.ad.nightLightStartTime = this.ad.nightLightStartTime - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     }
     else if(item == 'glareend') {
-      this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
+      this.ad.nightLightEndTime = this.ad.nightLightEndTime - 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }
   }
   increaseVal(item) {
     if(item == 'brightness') {
-      this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold+ 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.brightness_threshold)])
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold+ 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
-      this.ad.sensor_settings.switch_off_delay = this.ad.sensor_settings.switch_off_delay+ 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.sensor_settings.switch_off_delay)])
+      this.ad.switchOffDelay = this.ad.switchOffDelay+ 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {
-      this.ad.actuator1.basic_illumination.start_time = this.ad.actuator1.basic_illumination.start_time +1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.start_time ])
+      this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime +1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     }
     else if(item == 'illuminationend') {
-      this.ad.actuator1.basic_illumination.end_time = this.ad.actuator1.basic_illumination.end_time + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.basic_illumination.end_time ])
+      this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }
     else if(item == 'glarestart') {
-      this.ad.actuator1.night_time_anti_glare_function.start_time = this.ad.actuator1.night_time_anti_glare_function.start_time + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.start_time ])
+      this.ad.nightLightStartTime = this.ad.nightLightStartTime + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     }
     else if(item == 'glareend') {
-      this.ad.actuator1.night_time_anti_glare_function.end_time = this.ad.actuator1.night_time_anti_glare_function.end_time + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.actuator1.night_time_anti_glare_function.end_time ])
+      this.ad.nightLightEndTime = this.ad.nightLightEndTime + 1;
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }
   }
   onBLEdata() {
      this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.sensor_settings.brightness_threshold = this.ad.sensor_settings.brightness_threshold ;
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
       });
   }
 }

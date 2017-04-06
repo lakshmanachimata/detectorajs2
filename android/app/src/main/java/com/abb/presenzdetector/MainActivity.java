@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         String btDeviceName;
         String modelNumber;
         String manufacturerName;
+        String deviceType;
         String firmwareVersion;
         String softwareVersion;
         String btAddress;
@@ -808,6 +809,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     deviceInfo.firmwareVersion = firmwareVersionStr.toString();
                                     deviceInfo.modelNumber = modelNumber.toString();
+                                    if( deviceInfo.modelNumber.contains("05"))
+                                        deviceInfo.deviceType = "daliMaster1c";
+                                    if( deviceInfo.modelNumber.contains("03"))
+                                        deviceInfo.deviceType = "mosfet1c";
+                                    if(deviceInfo.modelNumber.contains("01"))
+                                        deviceInfo.deviceType = "relay1c";
                                     scannedDevices.add(deviceInfo);
                                 }
                             }

@@ -98,16 +98,16 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     getMystyle(item) {
     switch(item) {
       case 'q1' :
-        this.setStyleAttr(this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q1);
+        this.setStyleAttr(this.ad..pirSensitivity0);
       break;
       case 'q2' :
-        this.setStyleAttr(this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q2);
+        this.setStyleAttr(this.ad..pirSensitivity1);
       break;
       case 'q3' :
-        this.setStyleAttr(this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q3);
+        this.setStyleAttr(this.ad..pirSensitivity2);
       break;
       case 'q4' :
-        this.setStyleAttr(this.ad.sensor_settings.additional_sensor_parameters.set_detection_range.q4);
+        this.setStyleAttr(this.ad..pirSensitivity3);
       break;
     }
     let mystyles =  {

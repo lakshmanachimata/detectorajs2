@@ -49,7 +49,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   brightnessChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.actuator1.ch1_current_level])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1CurrentLevel])
     this.data.setEDevParamsState(1);
   }
 
@@ -91,7 +91,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   onBLEdata() {
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.actuator1.ch1_current_level = this.ad.actuator1.ch1_current_level ;
+        this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
       });
   }
 

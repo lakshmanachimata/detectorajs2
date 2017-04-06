@@ -4,9 +4,9 @@
 		<label class="section">Sensor settings</label>
 		<div>
 			<label>Block potentiometer setting</label>
-			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 0">Enabled</span>
-			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 1">Disabled</span>
-			<span *ngIf="ad.sensor_settings.potentio_meter_mode == 2">Limited</span>
+			<span *ngIf="ad.potentiometerMode == 0">Enabled</span>
+			<span *ngIf="ad.potentiometerMode == 1">Disabled</span>
+			<span *ngIf="ad.potentiometerMode == 2">Limited</span>
 		</div>
 		
 		<!--<div>
@@ -23,36 +23,36 @@
 		
 		<div>
 		<label>brightness threshold</label>
-		<span>{{ad.sensor_settings.brightness_threshold}} lx</span>
+		<span>{{ad.brightnessThreshold}} lx</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Consider slave brightness</label>
-			<span *ngIf="ad.sensor_settings.consider_slave_brightness == true">on</span>
-			<span *ngIf="ad.sensor_settings.consider_slave_brightness == false">off</span>
+			<span *ngIf="ad..constantLightControlEnable == true">on</span>
+			<span *ngIf="ad..constantLightControlEnable == false">off</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
-			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == true">ON</span>
-			<span *ngIf="ad.actuator1.misc_settings.limit_of_room_brightness == false">OFF</span>
+			<span *ngIf="ad..delimitLightingLevelEnable == true">ON</span>
+			<span *ngIf="ad..delimitLightingLevelEnable == false">OFF</span>
 		</div>
 		
 		<div>
 		<label>Smallest value as reference</label>
-			<span *ngIf="ad.sensor_settings.reference_brightness == true">ON</span>
-			<span *ngIf="ad.sensor_settings.reference_brightness == false">OFF</span>
+			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == true">ON</span>
+			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false">OFF</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
 		<label>Short-time pulse</label>
-			<span *ngIf="ad.sensor_settings.short_time_pulse == true">ON</span>
-			<span *ngIf="ad.sensor_settings.short_time_pulse == false">OFF</span>
+			<span *ngIf="ad.shortTimePulseEnable == true">ON</span>
+			<span *ngIf="ad.shortTimePulseEnable == false">OFF</span>
 		</div>
 		
-		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.sensor_settings.short_time_pulse == false) || activeDevice.deviceType == 'daliMaster1c')">
+		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
 		<label>Switch-off delay</label>
-			<span>{{ad.sensor_settings.switch_off_delay}} min</span>
+			<span>{{ad.switchOffDelay}} min</span>
 		</div>
 		
 		<div (click)="gotoInstalledParams('additional','Additional sensor parameters')">
@@ -64,9 +64,9 @@
 	  	<label class="section">Operating mode</label>
 	  	<div>
 	  	<label>Operating mode</label>
-	  		<span *ngIf="ad.operating_mode == 0">Automatic</span>
-			<span *ngIf="ad.operating_mode == 1">Semiautomatic</span>
-			<span *ngIf="ad.operating_mode == 2">Semiautomatic comfort</span>
+	  		<span *ngIf="adoperationMode == 0">Automatic</span>
+			<span *ngIf="adoperationMode == 1">Semiautomatic</span>
+			<span *ngIf="adoperationMode == 2">Semiautomatic comfort</span>
 	  	</div>
   
   

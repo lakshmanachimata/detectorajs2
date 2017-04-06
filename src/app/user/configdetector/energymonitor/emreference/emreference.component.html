@@ -5,7 +5,7 @@
         <label class="energy-monitor-reference-load-lbl user">Connected Load</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-load-function user">
             <div class="adjust-minus" (click)="reduceVal('cload')"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust"type="text" [(ngModel)]="ad.service.energy_monitor.connected_load"   [ngStyle]="{'color': cLoad ==true ? 'red' : '#26394f'}">
+            <input class="adjust"type="text" [(ngModel)]="ad.energyMonitorConnectedLoad"   [ngStyle]="{'color': cLoad ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">W</div>
             <div class="adjust-plus" (click)="increaseVal('cload')"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
@@ -14,7 +14,7 @@
         <label class="energy-monitor-reference-lighting-lbl user">Lighting duration per week</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-lighting-function user">
             <div class="adjust-minus" (click)="reduceVal('lduration')"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust"type="text" [(ngModel)]="ad.service.energy_monitor.lighting_duration_per_week"   [ngStyle]="{'color': lDuration ==true ? 'red' : '#26394f'}">
+            <input class="adjust"type="text" [(ngModel)]="ad.energyMonitorLightingDuration"   [ngStyle]="{'color': lDuration ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">h</div>
             <div class="adjust-plus" (click)="increaseVal('lduration')"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
