@@ -126,16 +126,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.nightLightLevel]);
   }
   ambientBrChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad..basicBrightnessAmbientBrightnessThreshold]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.basicBrightnessAmbientBrightnessThreshold]);
   }
   basicBrLevelChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..basicBrightnessLevel]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.basicBrightnessLevel]);
   }
   basicBrModeChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad..basicBrightnessMode]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode]);
   }
   burnInModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad..burnInMode]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.burnInMode]);
   }
   circuitModeChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.ch1CircuitLogic]);
@@ -149,27 +149,27 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.softOffEnable?1:0])
    }
    phaseCutModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad..phaseCutMode]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.phaseCutMode]);
    }
    togglemf(){
      this.ad.ch1MemoryFunctionEnable = !this.ad.ch1MemoryFunctionEnable;
     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MemoryFunctionEnable?1:0])
    }
    togglelrb() {
-     this.ad..delimitLightingLevelEnable = !this.ad..delimitLightingLevelEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..delimitLightingLevelEnable?1:0])
+     this.ad.delimitLightingLevelEnable = !this.ad.delimitLightingLevelEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.delimitLightingLevelEnable?1:0])
    }
    toggleminl() {
-     this.ad..ch1MinLevelEnable = !this.ad..ch1MinLevelEnable
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..ch1MinLevelEnable?1:0])
+     this.ad.ch1MinLevelEnable = !this.ad.ch1MinLevelEnable
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MinLevelEnable?1:0])
    }
    togglemaxl(){
-     this.ad..ch1MaxLevelEnable = !this.ad..ch1MaxLevelEnable
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..ch1MaxLevelEnable?1:0])
+     this.ad.ch1MaxLevelEnable = !this.ad.ch1MaxLevelEnable
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MaxLevelEnable?1:0])
    }
    togglebn(){
-     this.ad..burnInEnable = !this.ad..burnInEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..burnInEnable?1:0])
+     this.ad.burnInEnable = !this.ad.burnInEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.burnInEnable?1:0])
    }
    toggleAs(){
      this.ad.basicBrightnessStartTimeAstroFunctionEnable = !this.ad.basicBrightnessStartTimeAstroFunctionEnable
@@ -201,17 +201,17 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.validateParam(item);
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
-        this.ad..ch1MinLevel = this.ad..ch1MinLevel - 1;
+        this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
         this.validateParam(item);
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..ch1MinLevel ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
     } else if(item == 'maxload') {
-        this.ad..ch1MaxLevel = this.ad..ch1MaxLevel - 1;
+        this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
         this.validateParam(item);
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..ch1MaxLevel ])
-    } else if(item == 'burnduration' && (this.ad..burnInDuration > 1 && this.ad..burnInDuration <= 250)){
-      this.ad..burnInDuration = this.ad..burnInDuration - 1;
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
+    } else if(item == 'burnduration' && (this.ad.burnInDuration > 1 && this.ad.burnInDuration <= 250)){
+      this.ad.burnInDuration = this.ad.burnInDuration - 1;
       this.validateParam(item);
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..burnInDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 1;
         this.validateParam(item);
@@ -257,17 +257,17 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.validateParam(item);
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
-        this.ad..ch1MinLevel = this.ad..ch1MinLevel + 1;
+        this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
       this.validateParam(item);
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..ch1MinLevel ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
     } else if(item == 'maxload') {
-        this.ad..ch1MaxLevel = this.ad..ch1MaxLevel + 1;
+        this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
         this.validateParam(item);
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..ch1MaxLevel ])
-    } else if(item == 'burnduration' && (this.ad..burnInDuration >= 1 && this.ad..burnInDuration < 250)){
-      this.ad..burnInDuration = this.ad..burnInDuration + 1;
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
+    } else if(item == 'burnduration' && (this.ad.burnInDuration >= 1 && this.ad.burnInDuration < 250)){
+      this.ad.burnInDuration = this.ad.burnInDuration + 1;
       this.validateParam(item);
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad..burnInDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 1;
         this.validateParam(item);

@@ -102,18 +102,18 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setEDevParamsState(1);
   }
   togglecsb() {
-    this.ad..constantLightControlEnable = !this.ad..constantLightControlEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
+    this.ad.constantLightControlEnable = !this.ad.constantLightControlEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglerrb() {
     this.ad.constantLightControlConsiderSlaveBrightnessEnable = !this.ad.constantLightControlConsiderSlaveBrightnessEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglemsd() {
     this.ad.slaveModeEnable = !this.ad.slaveModeEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..constantLightControlEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglestp(){

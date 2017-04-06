@@ -56,30 +56,30 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
   }
   toggleBr(){
-   this.ad..brightnessCorrectionEnable = !this.ad..brightnessCorrectionEnable;
-   this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..brightnessCorrectionEnable?1:0])
+   this.ad.brightnessCorrectionEnable = !this.ad.brightnessCorrectionEnable;
+   this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.brightnessCorrectionEnable?1:0])
   }
   gotoSensitivity() {
     this.router.navigate(['sensitivity'],{relativeTo: this.route})
   }
   reduceBrightness(item) {
-    this.ad..brightnessCorrectionValue = this.ad..brightnessCorrectionValue - 1;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad..brightnessCorrectionValue])
+    this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue - 1;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }
 
   increaseBrightness(item) {
-    this.ad..brightnessCorrectionValue = this.ad..brightnessCorrectionValue + 1;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad..brightnessCorrectionValue])
+    this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue + 1;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }
 
   toggledsd(){
-    this.ad..DynamicSwitchOffDelayEnable = !this.ad..DynamicSwitchOffDelayEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad..DynamicSwitchOffDelayEnable?1:0])
+    this.ad.DynamicSwitchOffDelayEnable = !this.ad.DynamicSwitchOffDelayEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.DynamicSwitchOffDelayEnable?1:0])
   }
   onBLEdata() {
     this.loadingDataDone = true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad..brightnessCorrectionEnable = this.ad..brightnessCorrectionEnable ;
+        this.ad.brightnessCorrectionEnable = this.ad.brightnessCorrectionEnable ;
       });
   }
 }
