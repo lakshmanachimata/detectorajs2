@@ -672,16 +672,16 @@ export class DataService {
                 this.setBLEValuetoItem(this.deviceData.brightnessThresholdMax, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
-                this.setBLEValuetoItem(this.deviceData.constantLightControlEnable, attrValue);
+                this.setBLEValuetoItem(this.deviceData.considerSlaveBrightnessEnable, attrValue);
             break; 
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE                           : 
-                this.setBLEValuetoItem(this.deviceData.sensor_settings.constant_light_regulation, attrValue);
+                this.setBLEValuetoItem(this.deviceData.constantLightControlEnable, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 
                 this.setBLEValuetoItem(this.deviceData.constantLightBrightnessSetPoint, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 : 
-                this.setBLEValuetoItem(this.deviceData.sensor_settings.setpoint_min, attrValue);
+                this.setBLEValuetoItem(this.deviceData.constantLightBrightnessSetPointMin, attrValue);
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 : 
                 this.setBLEValuetoItem(this.deviceData.constantLightBrightnessSetPointMax, attrValue);
