@@ -11,6 +11,8 @@ export class WriteData{
     constructor(public attrType: number, public attrValue: number[]) { }
 }
 
+
+
  export class  SCCP_DATATYPES  { 
     static SCCP_TYPE_BOOL     = 0x01;
     static SCCP_TYPE_STRING   = 0x02;
@@ -207,6 +209,7 @@ declare var readAttr;
 
 @Injectable()
 export class DataService {
+
 
     scanneddata:any;
     uiParams:UIParams   =  new UIParams();
@@ -562,7 +565,7 @@ export class DataService {
     loadDeviceData(item,installed) {
         if(item.deviceType == 'relay1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/relay1c.json').subscribe(response => {
+            this.http.get('assets/params.json').subscribe(response => {
                     resolve(response.json());
                     
                 });
@@ -570,13 +573,13 @@ export class DataService {
             
         }else if(item.deviceType == 'mosfet1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/mosfet1c.json').subscribe(response => {
+            this.http.get('assets/params.json').subscribe(response => {
                     resolve(response.json());
                 });
             });
         }else if(item.deviceType == 'daliMaster1c') {
             return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/daliMaster1c.json').subscribe(response => {
+            this.http.get('assets/params.json').subscribe(response => {
                     resolve(response.json());
                 });
             });

@@ -3,6 +3,20 @@ import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 
+export class DetectorInfo {
+        public hashCode;
+        public btDeviceName;
+        public modelNumber;
+        public manufacturerName;
+        public deviceType;
+        public firmwareVersion;
+        public softwareVersion;
+        public btAddress;
+        public contactName;
+        public buildingName;
+        public date;
+    }
+
 declare var connectDevice;
 @Component({
   selector: 'electrician-root',
@@ -39,9 +53,12 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnInit () {
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
-    this.detectors = this.data.getDevices();
-    this.scannedData = this.data.getScannedData();
-    this.setScannedDataToFirst();
+    if(this.data.DeviceBuild == 0)
+      this.detectors = this.data.getDevices();
+    else {
+      this.scannedData = this.data.getScannedData();
+      this.setScannedDataToFirst();
+    }
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
@@ -51,15 +68,21 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   setScannedDataToFirst(){
+    this.detectors= [];
     if(this.scannedData != undefined) {
       for(let i =0; i < this.scannedData.length; i++)
       {
-        this.detectors[2-i].btDeviceName = this.scannedData[i].btDeviceName;
-        this.detectors[2-i].firmwareVersion = this.scannedData[i].firmwareRevision;
-        this.detectors[2-i].articleNumber = this.scannedData[i].modelNumber;
-        this.detectors[2-i].btDeviceAddress = this.scannedData[i].btAddress;
-        this.detectors[2-i].deviceType = this.scannedData[i].deviceType;
-        this.detectors[2-i].contactName = this.scannedData[i].manufacturerName;
+        let detectorInfo =  new DetectorInfo()
+        detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
+        detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
+        detectorInfo.modelNumber = this.scannedData[i].modelNumber;
+        detectorInfo.btAddress = this.scannedData[i].btAddress;
+        detectorInfo.deviceType = this.scannedData[i].deviceType;
+        detectorInfo.contactName ="ABB";
+        detectorInfo.buildingName ="ABB";
+        detectorInfo.date="07.07.2017",
+        detectorInfo.contactName = this.scannedData[i].manufacturerName;
+        this.detectors.push(detectorInfo);
       }
     }
   }
