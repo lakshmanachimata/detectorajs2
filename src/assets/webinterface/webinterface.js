@@ -100,7 +100,7 @@ function prepareAttributeArray(indata) {
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             var key,value; 
-            console.log("the lastbyte parsed " + lastParseByteIndex);
+            //console.log("the lastbyte parsed " + lastParseByteIndex);
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));

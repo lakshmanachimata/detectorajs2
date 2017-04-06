@@ -95,9 +95,9 @@
         <div id="bj-config-operating-div">
             <label class="bj-config-lbl operating-div">Operating mode</label>
 
-            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="adoperationMode" [checked]="adoperationMode === 0"  name="operationMode" [value]="0"/></div>
-            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   (ngModelChange)="operationChanged()"[(ngModel)]="adoperationMode" [checked]="adoperationMode === 1" name="operationMode" [value]="1"/></div>
-            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="adoperationMode" [checked]="adoperationMode === 2"  name="operationMode" [value]="2"/></div>
+            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 0"  name="operation_Mode" [value]="0"/></div>
+            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   (ngModelChange)="operationChanged()"[(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 1" name="operation_Mode" [value]="1"/></div>
+            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 2"  name="operation_Mode" [value]="2"/></div>
       </div>
       <div id="bj-actuator-settings-div">
             <label class="bj-config-lbl actuator-div">Actuator settings</label>
@@ -123,7 +123,7 @@
                      </div>
                  </div>
             </div>
-            <div class="bj-config-setting-div service-div" (click)="gotoActuator1()">
+            <div class="bj-config-setting-div service-div" (click)="gotoActuator1()" *ngIf="ad.ch1OnOffState==true">
                 <label class="bj-config-setting actuator1-block">Actuator 1</label>
                 <next-nav></next-nav>
             </div>

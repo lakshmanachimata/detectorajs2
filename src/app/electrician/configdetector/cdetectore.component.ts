@@ -151,7 +151,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setEDevParamsState(1);
   }
   operationChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
+    this.data.addToSendData([SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.operationMode])
     this.data.setEDevParamsState(1);
   }
   reduceBrightness(item) {
