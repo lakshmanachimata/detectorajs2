@@ -86,7 +86,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price - 1;
+      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price - 1;
     }
 
   }
@@ -98,7 +98,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
+      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price + 1;
     }
   }
   onBLEdata() {

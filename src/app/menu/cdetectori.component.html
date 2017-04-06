@@ -17,8 +17,8 @@
     
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Constant light regulation</label>
-			<span *ngIf="ad.sensor_settings.constant_light_regulation == true">on</span>
-			<span *ngIf="ad.sensor_settings.constant_light_regulation == false">off</span>
+			<span *ngIf="ad.constantLightControlEnable == true">on</span>
+			<span *ngIf="ad.constantLightControlEnable == false">off</span>
 		</div>
 		
 		<div>

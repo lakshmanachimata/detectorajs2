@@ -23,7 +23,7 @@
         <label class="energy-monitor-reference-price-lbl user">Electricity price</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-price-function user">
             <div class="adjust-minus" (click)="reduceVal('eprice')"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust"type="text" [(ngModel)]="ad.service.energy_monitor.electricity_price"   [ngStyle]="{'color': eCurrency ==true ? 'red' : '#26394f'}">
+            <input class="adjust"type="text" [(ngModel)]="ad.energy_monitor.electricity_price"   [ngStyle]="{'color': eCurrency ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">ct/kWh</div>
             <div class="adjust-plus" (click)="increaseVal('eprice')"><span class="glyphicon glyphicon-plus"></span></div>
         </div>

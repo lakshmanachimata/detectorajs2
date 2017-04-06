@@ -121,5 +121,90 @@
 "ch2OnOffState":"",
 "ch2CurrentLevel":"",
 "testModeActive":"",
-"accessLevel":""
+"accessLevel":"",
+ "energy_monitor": {
+      "electricity_price": 10,
+      "currency": 0,
+      "energy_monitor_select_period": 0,
+      "energy_monitor_lighting_duration_year":"240",
+      "energy_monitor_lighting_duration_month":"60",
+      "energy_monitor_year":"2017",
+      "energy_monitor_month":"JUNE",
+      "energy_monitor_year_data":[
+        {
+          "month":"JAN",
+          "data":15
+        },
+        {
+          "month":"FEB",
+          "data":75
+
+        },
+        {
+          "month":"MARCH",
+          "data":135
+        },
+        {
+          "month":"APRIL",
+          "data":195
+        },
+        {
+          "month":"MAY",
+          "data":35
+        },
+        {
+          "month":"JUNE",
+          "data":95
+
+        },
+        {
+          "month":"JULY",
+          "data":155
+        },
+        {
+          "month":"AUG",
+          "data":215
+        },
+        {
+          "month":"SEPT",
+          "data":55
+        },
+        {
+          "month":"OCT",
+          "data":115
+        },
+        {
+          "month":"NOV",
+          "data":175
+        },
+        {
+          "month":"DEC",
+          "data":235
+        }
+      ],
+      "energy_monitor_month_data":[
+        {
+          "week":"CW1",
+          "data":43
+        },
+        {
+          "week":"CW2",
+          "data":13
+        },
+        {
+          "week":"CW3",
+          "data":55
+        },
+        {
+          "week":"CW4",
+          "data":33
+        }
+      ]
+    },
+    "commissioning": {
+        "pins": {
+            "electrician": "1234",
+            "standard_user": "1234"
+        }
+    }
 }

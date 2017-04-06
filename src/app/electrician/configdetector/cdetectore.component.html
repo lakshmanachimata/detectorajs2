@@ -14,13 +14,13 @@
                     <div><label class="bj-config-setting">Blocked</label><input type="radio" class="operating-radio" [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 1" name="potentiometer_mode" [value]="1"/></div>
                     <div><label class="bj-config-setting">Limit access after power cycle</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 2" name="potentiometer_mode" [value]="2"/></div>
         </div>
-            <div class="bj-config-setting-div constant-light-div" *ngIf="ad.sensor_settings.constant_light_regulation !== undefined && activeDevice.deviceType == 'daliMaster1c'" >
+            <div class="bj-config-setting-div constant-light-div" *ngIf="ad.constantLightControlEnable !== undefined && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="toggleclr()" [(ngModel)]="ad.sensor_settings.constant_light_regulation" [ngStyle]="{'border-color': ad.sensor_settings.constant_light_regulation == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                             <label class="switch-onlabel" *ngIf="ad.sensor_settings.constant_light_regulation == true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="ad.sensor_settings.constant_light_regulation == false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':ad.sensor_settings.constant_light_regulation == true,'switch-off':ad.sensor_settings.constant_light_regulation == false}" [ngStyle]="{'background-color':ad.sensor_settings.constant_light_regulation== true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"  (click)="toggleclr()" [(ngModel)]="ad.constantLightControlEnable" [ngStyle]="{'border-color': ad.constantLightControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="ad.constantLightControlEnable == true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="ad.constantLightControlEnable == false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':ad.constantLightControlEnable == true,'switch-off':ad.constantLightControlEnable == false}" [ngStyle]="{'background-color':ad.constantLightControlEnable== true ? '#26394f':'#ccc'}"></div>
                          </div>
                     </span>
             </div>
@@ -33,7 +33,7 @@
                   <div class="adjust-plus" (click)="increaseBrightness('threshold')" ><span class="glyphicon glyphicon-plus"></span>
                   </div>
               </div>
-              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.sensor_settings.setpoint_min}} - {{ad.constantLightBrightnessSetPointMax}} lx)</label>
+              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.constantLightBrightnessSetPointMin}} - {{ad.constantLightBrightnessSetPointMax}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" (click)="reduceBrightness('setpoint')"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number"  [(ngModel)]="ad.constantLightBrightnessSetPoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
@@ -46,7 +46,7 @@
               </div>
             </div>
 
-           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == false && activeDevice.deviceType == 'daliMaster1c'" >
+           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.constantLightControlEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad..constantLightControlEnable" [ngStyle]="{'border-color': ad..constantLightControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -56,7 +56,7 @@
                          </div>
                     </span>
             </div>
-            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.sensor_settings.constant_light_regulation == true && activeDevice.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.constantLightControlEnable == true && activeDevice.deviceType == 'daliMaster1c'">
                  <label class="bj-config-setting reference-brightness-function">Smallest brightness value as reference</label>
                       <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="togglerrb()" [(ngModel)]="ad.constantLightControlConsiderSlaveBrightnessEnable" [ngStyle]="{'border-color': ad.constantLightControlConsiderSlaveBrightnessEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -105,10 +105,10 @@
                  <div class="bj-actuator-brightness" *ngIf="ad.ch1OnOffState==true">
                      <div class="bj-actuator-bulb actuator1">
                         <label class="actuator-name">Actuator 1</label>
-                         <img class="bulb-off" *ngIf="!ad.actuator1.ch1_on_off_state" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
-                         <div class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state">
-                            <img class="bulb-glow" *ngIf="ad.actuator1.ch1_on_off_state" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on" *ngIf="ad.actuator1.ch1_on_off_state" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+                         <img class="bulb-off" *ngIf="!ad.ch1OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                         <div class="bulb-glow" *ngIf="ad.ch1OnOffState">
+                            <img class="bulb-glow" *ngIf="ad.ch1OnOffState" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
+                            <img class="bulb-on" *ngIf="ad.ch1OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
@@ -131,9 +131,9 @@
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
-                          <img class="bulb-off" *ngIf="!ad.actuator1.ch2_onOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
-                          <div class="bulb-glow" *ngIf="ad.actuator1.ch2_onOffState">
-                            <img class="bulb-on" *ngIf="ad.actuator1.ch2_onOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+                          <img class="bulb-off" *ngIf="!ad.ch2OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                          <div class="bulb-glow" *ngIf="ad.ch2OnOffState">
+                            <img class="bulb-on" *ngIf="ad.ch2OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>

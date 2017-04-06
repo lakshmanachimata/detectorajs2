@@ -97,8 +97,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   toggleclr() {
-    this.ad.sensor_settings.constant_light_regulation = !this.ad.sensor_settings.constant_light_regulation;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.sensor_settings.constant_light_regulation?1:0])
+    this.ad.constantLightControlEnable = !this.ad.constantLightControlEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
     this.data.setEDevParamsState(1);
   }
   togglecsb() {

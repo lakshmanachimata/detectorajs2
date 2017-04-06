@@ -49,7 +49,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration -1;
     }else if(item == 'eprice') {
-      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price -1;
+      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price -1;
     }
   }
   increaseVal(item) {
@@ -58,7 +58,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
     }else if(item == 'eprice') {
-      this.ad.service.energy_monitor.electricity_price = this.ad.service.energy_monitor.electricity_price + 1;
+      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price + 1;
     }
   }
   

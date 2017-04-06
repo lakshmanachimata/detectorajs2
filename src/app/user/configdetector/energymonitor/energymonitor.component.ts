@@ -42,8 +42,8 @@ TotalSavingsYearValue = 759;
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.maxMonth = Math.max.apply(Math,this.ad.service.energy_monitor.energy_monitor_month_data.map(function(o){return o.data;}));
-    this.maxYear = Math.max.apply(Math,this.ad.service.energy_monitor.energy_monitor_year_data.map(function(o){return o.data;}));
+    this.maxMonth = Math.max.apply(Math,this.ad.energy_monitor.energy_monitor_month_data.map(function(o){return o.data;}));
+    this.maxYear = Math.max.apply(Math,this.ad.energy_monitor.energy_monitor_year_data.map(function(o){return o.data;}));
     this.maxMonth = (Math.round(this.maxMonth/10)*10) + 10;
     this.maxYear = (Math.round(this.maxYear/10)*10) + 10;
   }
