@@ -128,11 +128,7 @@ span.bj-actuator-bulb{
 	position:relative;
 }
 
-img.bulb-on,img.bulb-off {
-	height: 74px;
-    border-radius: 38px;
-    background:transparent;
-}
+
 
 img.bulb-off{
     margin-left: 126px;
@@ -145,6 +141,9 @@ img.bulb-glow{
 }
 
 img.bulb-on{
+    height: 74px;
+    border-radius: 38px;
+    background:transparent;
 	margin-top: -148px;
     margin-left: 80px !Important;
 }

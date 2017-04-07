@@ -108,7 +108,7 @@
                          <img class="bulb-off" *ngIf="!ad.ch1OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                          <div class="bulb-glow" *ngIf="ad.ch1OnOffState">
                             <img class="bulb-glow" *ngIf="ad.ch1OnOffState" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on" *ngIf="ad.ch1OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-on light1" *ngIf="ad.ch1OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
@@ -133,7 +133,7 @@
                           <label class="actuator-name">Actuator 2</label>
                           <img class="bulb-off" *ngIf="!ad.ch2OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                           <div class="bulb-glow" *ngIf="ad.ch2OnOffState">
-                            <img class="bulb-on" *ngIf="ad.ch2OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-on light2" *ngIf="ad.ch2OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>

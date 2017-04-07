@@ -128,12 +128,6 @@ span.bj-actuator-bulb{
 	position:relative;
 }
 
-img.bulb-on,img.bulb-off {
-	height: 74px;
-    border-radius: 38px;
-    background:transparent;
-}
-
 img.bulb-off{
     margin-left: 126px;
 }
@@ -144,11 +138,20 @@ img.bulb-glow{
     opacity:0.5;
 }
 
-img.bulb-on{
-	margin-top: -148px;
+img.bulb-on.light1{
+	margin-top: -165px;
     margin-left: 80px !Important;
+    height: 74px;
+    border-radius: 38px;
+    background:transparent;
 }
-
+img.bulb-on.light2{
+	margin-top: -10px;
+    margin-left: 80px !Important;
+    height: 74px;
+    border-radius: 38px;
+    background:transparent;
+}
 .bulb-glow {
     border-radius: 45px;
     width: 74px;
@@ -1019,11 +1022,7 @@ label.light-name {
     float:left;
 }
 
-img.bulb-on.light1 {
-    margin-top: -190px;
-    margin-left: 50px !Important;
-    height: 90px;
-}
+
 
 .slide-next.light1 {
     float: right;
@@ -1058,12 +1057,6 @@ img.bulb-on.light1 {
     margin-top: 0px;
     border-top: 1px solid #2b3b4f;
     width: 100%;
-}
-
-
-img.bulb-on.light2 {
-    margin-left: 94px !Important;
-    margin-top: -176px;
 }
 
 .bulb-glow.light2 {
