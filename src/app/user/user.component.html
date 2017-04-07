@@ -1,8 +1,8 @@
 <div class="bj-user-container">
     <div id="bj-user-empty-list" *ngIf="detectors"></div>
     <ul (click)="configureDetectorUser(detector)" *ngFor="let detector of detectors" class="bj-user-detectors-list">
-        <div id="bj-user-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
         <li class="bj-user-detector-name">
+            <div id="bj-user-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
             <span id="bj-user-detector-name-val">{{ detector.btDeviceName }}</span>
             <span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
             <span id="bj-user-detector-icon-signal" class="glyphicon glyphicon-signal"></span>

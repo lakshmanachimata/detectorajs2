@@ -38,17 +38,7 @@ div.bj-user-container ul.bj-user-detectors-list{
 	width:60px;
 	height:100%;
 }
-ul.bj-user-detectors-list #bj-user-detector-icon{
-	padding-top: 30px;
-    padding-bottom: 18px;
-    float: left;
-    font-size: 30px;
-    border-right: solid 1px #202e3f;
-    text-align: center;
-    width: 90px;
-    color: #94b3d7;
-    height: 100%;
-}
+
 div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	width:100%;
 	position:relative;
@@ -58,7 +48,6 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
     font-weight:400;
     text-align:left;
 	color:#94b3d7;
-	padding-left:110px;
 }
 .installed-detector-icon span.glyphicon.glyphicon-modal-window{
 	font-size:30px;
@@ -81,8 +70,19 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	padding-right:40px;
 }
 
+.bj-user-detector-name #bj-user-detector-icon{
+	padding-top: 30px;
+    padding-bottom: 18px;
+    float: left;
+    font-size: 30px;
+    border-right: solid 1px #202e3f;
+    text-align: center;
+    width: 90px;
+    color: #94b3d7;
+    height: 100%;
+}
 .bj-user-detector-name #bj-user-detector-name-val{
-	width: 100%;
+	width: 70%;
 	height: 100%;
 	padding-top:5%;
     font-size: 18px;
@@ -93,7 +93,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 }
 
 .bj-user-detector-name #bj-user-detector-article-num{
-	width:100%;
+	width:70%;
 	height: 100%;
 	position: absolute;
 	font-size:16px;
@@ -104,7 +104,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 
 .bj-user-detector-name #bj-user-detector-icon-signal{
 	width:20px;
-	height: 100%;
+	height: 70%;
 	font-size:24px;
 	position: absolute;
 	color:#94b3d7;

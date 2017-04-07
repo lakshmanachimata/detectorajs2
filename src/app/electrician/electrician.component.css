@@ -20,6 +20,7 @@ div#bj-empty-list{
 	bottom:0;
 }
 
+
 div.bj-electrician-container ul.bj-detectors-list{
 	right:0;
 	width:100%;
@@ -30,16 +31,7 @@ div.bj-electrician-container ul.bj-detectors-list{
 	border-bottom : solid 1px #b5c4cd;
 	list-style-type:none;
 }
-ul.bj-detectors-list #bj-detector-icon{
-	padding-top:30px;
-	padding-bottom:18px;
-	float:left;
-	font-size:30px;
-	border-right: solid 1px #b5c4cd;
-	text-align:center;
-	width:90px;
-	height:100%;
-}
+
 
 div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 	width:100%;
@@ -50,11 +42,21 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
     font-weight:400;
     text-align:left;
 	color:#00395c;
-	padding-left:110px;
+}
+
+.bj-detector-name #bj-detector-icon{
+	padding-top:30px;
+	padding-bottom:18px;
+	float:left;
+	font-size:30px;
+	border-right: solid 1px #b5c4cd;
+	text-align:center;
+	width:90px;
+	height:100%;
 }
 
 .bj-detector-name #bj-detector-firmware-update{
-	width:100%;
+	width:70%;
 	height: 100%;
 	position: absolute;
 	padding-left:2%;
@@ -64,7 +66,7 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 }
 
 .bj-detector-name #bj-detector-name-val{
-	width: 100%;
+	width: 70%;
 	height: 100%;
 	padding-top:7%;
     font-size: 18px;
@@ -75,7 +77,7 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 }
 
 .bj-detector-name #bj-detector-article-num{
-	width:100%;
+	width:70%;
 	height: 100%;
 	position: absolute;
 	font-size:16px;
