@@ -40,7 +40,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.connectDeviceObj = new connectDevice(item.btAddress);
   }
 
- setScannedDataToFirst(){
+ setScannedData(){
     this.detectors= [];
     if(this.scannedData != undefined) {
       for(let i =0; i < this.scannedData.length; i++)
@@ -76,11 +76,16 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   ngOnInit () {
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
         this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
-    if(this.data.DeviceBuild == 0)
-      this.detectors = this.data.getDevices();
-    else{
+    if(this.data.DeviceBuild == 1){
       this.scannedData = this.data.getScannedData();
-      this.setScannedDataToFirst();
+      this.setScannedData();
+    }
+    else{
+      this.detectors = this.data.getDevices();
+    }
+    if(this.detectors != undefined &&  this.detectors.length == 0){
+      this.detectors = this.data.getDevices();
+      this.data.DeviceBuild = 0;
     }
     this.data.setMainTitle('Detecors');
     this.data.setHeader(true);

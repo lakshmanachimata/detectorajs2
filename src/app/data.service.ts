@@ -222,7 +222,7 @@ export class DataService {
     readAttrObj:any;
     configureAttrObj:any;
     iDeviceData:any;
-    public DeviceBuild = 0;
+    public DeviceBuild = 1;
     activeComponent:any;
     headerComponent:any;
     readArray=[];
