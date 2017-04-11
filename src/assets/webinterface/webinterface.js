@@ -18,11 +18,18 @@ function BJ_updateScanList() {
 }
 
 function connectDevice(deviceAddress){
-    BJE.connectDevice(deviceAddress)
+    if(BJE != undefined)
+        BJE.connectDevice(deviceAddress)
+    else {
+        var message = {"connect":deviceAddress}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
 }
 
 function disConnectDevice(deviceAddress) {
-    BJE.disConnectDevice(deviceAddress)
+    if(BJE != undefined)
+        BJE.disConnectDevice(deviceAddress)
 }
 
 function onDeviceConnected(deviceAddress){
@@ -37,36 +44,37 @@ function onDeviceDisconnected(deviceAddress){
 function updateScanList(scanned) {
     scannedDevices = scanned
     var deviceData =  JSON.stringify(scannedDevices);
+    console.log("devices data is " + deviceData)
     appDataService.setScannedData(scanned);
 }
 
 function reset() {
     var data = getRequestFrame(SCCP_COMMAND.RESET);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.writeAttr(data);
+    if(BJE != undefined)
+        BJE.writeAttr(data);
 
-   // window.webkit.messageHandlers.api.postMessage(args);
 }
 
 function readAttr(readData) {
     var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    //window.webkit.messageHandlers.api.postMessage(args);
-    BJE.readAttr(data);
+    if(BJE != undefined)
+        BJE.readAttr(data);
 }
 
 function writeAttr(writeData) {
     var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.writeAttr(data);
-    //window.webkit.messageHandlers.api.postMessage(args);
+    if(BJE != undefined)
+        BJE.writeAttr(data);
 }
 
 function configureAttr(notifyData) {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
-    BJE.configureAttr(data);
-    //window.webkit.messageHandlers.api.postMessage(args);    
+    if(BJE != undefined)
+        BJE.configureAttr(data);
 }
 
 
@@ -100,7 +108,7 @@ function prepareAttributeArray(indata) {
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             var key,value; 
-            //console.log("the lastbyte parsed " + lastParseByteIndex);
+            console.log("the lastbyte parsed " + lastParseByteIndex);
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));
