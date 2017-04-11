@@ -80,8 +80,8 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         
         super.viewDidLoad()
-//        bleHelper = BLEHelper(webView: webView)
-//        bleHelper?.setup();
+        bleHelper = BLEHelper(webView: webView)
+        bleHelper?.setup();
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,19 +89,29 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         // Dispose of any resources that can be recreated.
     }
     
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+
+    
     func userContentController(_ userContentController: WKUserContentController,
                                didReceive message: WKScriptMessage){
         print("Message received: \(message.name) with body: \(message.body)");
-        let command = message.body as! String
-        switch command {
-        case "scan":
-            bleHelper?.scan()
+        let webMessageData = message.body as! String
+        let dict = convertToDictionary(text: webMessageData)
+        let firstKey = Array(dict!.keys)[0]
+        let firstValue = Array(dict!.values)[0] as? String
+        switch firstKey {
         case "connect":
             bleHelper?.connect()
-        case "services":
-            bleHelper?.getServices()
-        case "devices":
-            bleHelper?.getScannedDevices()
+            break;
         default:
             print("Unknown command")
         }

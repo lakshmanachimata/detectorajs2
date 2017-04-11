@@ -12,6 +12,17 @@ import WebKit
 /// BLE Helper class
 class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
+    
+    struct  DetectorInfo {
+        var hashCode:String = "";
+        var btDeviceName:String = "";
+        var modelNumber:String = "";
+        var manufacturerName:String = "";
+        var deviceType:String = "";
+        var firmwareVersion:String = "";
+        var softwareVersion:String = "";
+        var btAddress:String = "";
+    }
     var manager :CBCentralManager? = nil
     var peripheral:CBPeripheral!
     var peripherals:[CBPeripheral] = []
@@ -28,6 +39,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     let softwareRevision = "2A28"
     //let systemID = "2A23"
     //let pnpID = "2A50"
+    
+    var scannedDevices: NSArray = []
     
     var rxBufferLength = 0;
     
@@ -49,50 +62,51 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func scan() {
         manager?.scanForPeripherals(withServices: nil, options: nil);
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             print("stop scanning")
             self.manager?.stopScan()
+            self.getScannedDevices()
         }
     }
-
-    func connect()  {
+    
+    func connect(device: String)  {
         peripheral = peripherals[0];
         peripheralInfo = [:]
         peripheralInfo["name"] = peripheral.name;
         print("connecting")
         manager?.connect(peripheral, options: nil)
     }
-
-    func disConnect()  {
+    
+    func disConnect(device: String)  {
         peripheral = peripherals[0];
         print("disconnecting")
         manager?.cancelPeripheralConnection(peripheral)
     }
-
-    func getServices()  {
+    
+    func getServices(device: String)  {
         let services:[CBUUID] = [CBUUID.init(string: deviceInformationService), CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue)]
         peripheral.discoverServices(services)
     }
     
     func writeWithoutResponse()  {
-         //let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, data: [0x61, 0x62, 0x63])
-         let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, data: [0x31, 0x03, 0x0A])
-         peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
-                               type: CBCharacteristicWriteType.withoutResponse);
+        //let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, data: [0x61, 0x62, 0x63])
+        let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, data: [0x31, 0x03, 0x0A])
+        peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
+                              type: CBCharacteristicWriteType.withoutResponse);
     }
     
     func getScannedDevices() {
         
         DispatchQueue.global(qos: .background).async {
-            var data = Dictionary<String, String>()
-            data["name"] = self.peripherals[0].name!
-            data["modelNumber"] = self.modelNumber
-            data["firmwareRevision"] = self.firmwareRevision
-            data["softwareRevision"] = self.softwareRevision
-            let jData = Utilities.jsonStringify(data: data as AnyObject)
-            let script: String = "updateScanList(\(jData))"
+            
+            
+            
+            let jsData = Utilities.jsonStringify(data: self.scannedDevices as NSArray)
+            
+            
+            let script: String = "updateScanList(\(jsData))"
             DispatchQueue.main.async {
-             //Run UI Updates
+                //Run UI Updates
                 self.webView?.evaluateJavaScript(script);
             }
         }
@@ -113,25 +127,86 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         let services = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
         
-        if (services?.contains(CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue))) != nil {
-            if (peripherals.count == 0) {
-                print("adding " + peripheral.identifier.uuidString);
-                peripherals.append(peripheral);
-                connect();
-            }
-            let index = peripherals.index(of: peripheral)
-            if (index == nil) {
-                print("adding " + peripheral.identifier.uuidString);
-                peripherals.append(peripheral);
+        
+        if(services != nil) {
+            
+            let cbuuid = CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue);
+            let isServiceExists = services!.contains(cbuuid)
+            let manufactorData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
+            
+            if ( isServiceExists == true && manufactorData != nil) {
+                
+                var firmwareVersion = [UInt8](repeating:0, count:3)
+                var modelNumber = [UInt8](repeating:0, count:3)
+                
+                manufactorData?.getBytes(&firmwareVersion, range: NSRange(location: 4, length: 3))
+                var firmwareStr="";
+                var modelNumberStr="";
+                for value in firmwareVersion {
+                    firmwareStr.append(String(format:"%02X", value));
+                    firmwareStr.append(".");
+                }
+                manufactorData?.getBytes(&modelNumber, range: NSRange(location: 8, length: 3))
+                
+                modelNumberStr.append(String(format:"%02X", modelNumber[0]));
+                modelNumberStr.append(String(format:"%02X", modelNumber[2]));
+                modelNumberStr.append("/");
+                modelNumberStr.append(String(format:"%02X", modelNumber[1]));
+                
+                
+                
+                if (peripherals.count == 0) {
+                    print("adding " + peripheral.identifier.uuidString);
+                    let nameofDevice =  advertisementData[CBAdvertisementDataLocalNameKey] as? String
+                    var detectorInfo:Dictionary<String,String> = [:]
+                    detectorInfo["btDeviceName"] = nameofDevice!;
+                    detectorInfo["btAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["firmwareVersion"] = firmwareStr;
+                    detectorInfo["modelNumber"] = modelNumberStr;
+                    detectorInfo["hashCode"] = String(peripheral.hash);
+                    if(modelNumberStr.contains("05")){
+                        detectorInfo["deviceType"] = "daliMaster1c";
+                    }
+                    if(modelNumberStr.contains("03")){
+                        detectorInfo["deviceType"] = "mosfet1c";
+                    }
+                    if(modelNumberStr.contains("01")){
+                        detectorInfo["deviceType"] = "relay1c";
+                    }
+                    scannedDevices = scannedDevices.adding(detectorInfo) as NSArray;
+                    peripherals.append(peripheral);
+                    
+                }
+                let index = peripherals.index(of: peripheral)
+                if (index == nil) {
+                    print("adding " + peripheral.identifier.uuidString);
+                    let nameofDevice =  advertisementData[CBAdvertisementDataLocalNameKey] as? String
+                    var detectorInfo:Dictionary<String,String> = [:]
+                    detectorInfo["btDeviceName"] = nameofDevice!;
+                    detectorInfo["btAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["firmwareVersion"] = firmwareStr;
+                    detectorInfo["modelNumber"] = modelNumberStr;
+                    if(modelNumberStr.contains("05")){
+                        detectorInfo["deviceType"] = "daliMaster1c";
+                    }
+                    if(modelNumberStr.contains("03")){
+                        detectorInfo["deviceType"] = "mosfet1c";
+                    }
+                    if(modelNumberStr.contains("01")){
+                        detectorInfo["deviceType"] = "relay1c";
+                    }
+                    detectorInfo["hashCode"] = String(peripheral.hash);
+                    scannedDevices = scannedDevices.adding(detectorInfo) as NSArray;
+                    peripherals.append(peripheral);
+                    
+                }
             }
         }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        
         print("connected " + peripheral.identifier.uuidString)
         self.peripheral.delegate = self
-         getServices()
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -184,7 +259,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         print("didUpdateNotificationState");
     }
-
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
         if (characteristic.uuid.uuidString.hasPrefix("2A")) {
@@ -204,7 +279,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
             writeWithoutResponse();
         }
-
+        
         let recvData = [UInt8](characteristic.value!);
         
         if (recvData[0] == 0x7e) {
@@ -216,14 +291,14 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             } else {
                 //End of packet
                 self.rxBuffer.append(contentsOf: recvData)
-
+                
                 //Run in seperate queue
                 DispatchQueue.global(qos: .background).async {
                     var data = ""
                     self.rxBuffer.forEach({ (d) in
                         data = data + String(format: "%02X ", d)
                     })
-                        
+                    
                     // Background Thread
                     print(data)
                     
@@ -241,18 +316,15 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                         print("crc mismatch")
                     }
                     
-                    //DispatchQueue.main.async {
-                        // Run UI Updates
-                    //}
                 }
-
+                
             }
         } else {
             //Bytes in between
             self.rxBuffer.append(contentsOf: recvData)
             self.rxBufferLength = self.rxBufferLength - recvData.count
         }
-
+        
         
     }
     
