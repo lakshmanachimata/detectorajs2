@@ -103,17 +103,51 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController,
                                didReceive message: WKScriptMessage){
-        print("Message received: \(message.name) with body: \(message.body)");
-        let webMessageData = message.body as! String
-        let dict = convertToDictionary(text: webMessageData)
-        let firstKey = Array(dict!.keys)[0]
-        let firstValue = Array(dict!.values)[0] as? String
-        switch firstKey {
-        case "connect":
-            bleHelper?.connect(device: firstValue!)
-            break;
-        default:
-            print("Unknown command")
+        
+        DispatchQueue.global(qos: .background).async {
+            DispatchQueue.main.async {
+                print("Message received: \(message.name) with body: \(message.body)");
+                let webMessageData = message.body as! String
+                let dict = self.convertToDictionary(text: webMessageData)
+                let firstKey = Array(dict!.keys)[0]
+        
+                switch firstKey {
+                case "connect":
+                    let firstValue = Array(dict!.values)[0] as? String
+                    self.bleHelper?.connect(device: firstValue!)
+                    break;
+                case "send":
+                    let firstValue = Array(dict!.values)[0] as? [UInt8]
+                    var isEscapeExists:Bool =  false;
+                    var newBleData: [UInt8] = []
+                    for (index, element) in (firstValue?.enumerated())!{
+                        newBleData.append(element)
+                        if(element == 125 || element == 126 )
+                        {
+                            if(index != 0 && index != ((firstValue?.count)!-1)) {
+                                isEscapeExists = true;
+                                newBleData.append(125)
+                                newBleData.append(element)
+                            }
+                        }
+                    }
+                    
+                    if(isEscapeExists ==  true) {
+                        let bleData = Data.init(bytes: newBleData) as? Data
+                        self.bleHelper?.writeWithoutResponse(frame: bleData!)
+                    }else {
+                        let bleData = Data.init(bytes: firstValue!) as? Data
+                        self.bleHelper?.writeWithoutResponse(frame: bleData!)
+                    }
+                    break;
+                case "disconnect":
+                    let firstValue = Array(dict!.values)[0] as? String
+                    self.bleHelper?.disConnect(device: firstValue!)
+                    break;
+                default:
+                    print("Unknown command")
+                }
+            }
         }
     }
     

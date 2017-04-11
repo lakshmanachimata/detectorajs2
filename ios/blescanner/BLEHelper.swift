@@ -92,9 +92,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         peripheral.discoverServices(services)
     }
     
-    func writeWithoutResponse()  {
-        //let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, data: [0x61, 0x62, 0x63])
-        let frame = SCCPHelper.getRequestFrame(command: SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, data: [0x31, 0x03, 0x0A])
+    func writeWithoutResponse(frame:  Data)  {
+        
         peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
                               type: CBCharacteristicWriteType.withoutResponse);
     }
@@ -103,7 +102,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         DispatchQueue.global(qos: .background).async {
             
-            let jsData = Utilities.jsonStringify(data: self.scannedDevices as NSArray)
+            let jsData = Utilities.jsonStringify(data: self.scannedDevices as AnyObject)
             
             let script: String = "updateScanList(\(jsData))"
             DispatchQueue.main.async {
@@ -215,7 +214,13 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("Disconnected from " + peripheral.identifier.uuidString)
+         DispatchQueue.global(qos: .background).async {
+            let script: String = "onDeviceDisconnected(\(peripheral.identifier.uuidString))"
+            DispatchQueue.main.async {
+                //Run UI Updates
+                self.webView?.evaluateJavaScript(script);
+            }
+        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -223,10 +228,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             let thisService = service as CBService
             peripheral.discoverCharacteristics(nil, for: thisService)
         }
+
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverIncludedServicesFor service: CBService, error: Error?) {
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -237,7 +242,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 let deviceInformationAttributes = [manufacturerName, modelNumber,firmwareRevision,softwareRevision];
                 
                 if (deviceInformationAttributes.index(of: characteristic.uuid.uuidString) != nil) {
-                    peripheral.readValue(for: characteristic);
+                    
                 }
             }
         } else {
@@ -250,18 +255,22 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 if (characteristic.properties.contains(CBCharacteristicProperties.writeWithoutResponse)) {
                     if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_RX_DATA.rawValue) {
                         writeWithoutResponseCharacteristic = characteristic
+                                DispatchQueue.global(qos: .background).async {
+                        
+                                    var deviceAddr:Dictionary<String,String> = [:]
+                                    deviceAddr["deviceaddress"] = peripheral.identifier.uuidString;
+                                    let jsData = Utilities.jsonStringify(data: deviceAddr as AnyObject)
+                                    let script: String = "onDeviceConnected(\(jsData))"
+                                    print("Device  connected",peripheral.identifier.uuidString)
+                                    DispatchQueue.main.async {
+                                        //Run UI Updates
+                                        self.webView?.evaluateJavaScript(script);
+                                    }
+                                }
                     }
                 }
             }
         }
-        
-        let script: String = "onDeviceConnected(\(peripheral.identifier.uuidString))"
-        DispatchQueue.main.async {
-            //Run UI Updates
-            self.webView?.evaluateJavaScript(script);
-        }
-
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
@@ -285,7 +294,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             default:
                 print("Unknown device information")
             }
-            writeWithoutResponse();
+//            writeWithoutResponse();
         }
         
         let recvData = [UInt8](characteristic.value!);

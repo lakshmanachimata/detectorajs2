@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 struct Utilities {
 
-    static func jsonStringify(data: NSArray) -> String {
+    static func jsonStringify(data: AnyObject) -> String {
         let valid: Bool = JSONSerialization.isValidJSONObject(data)
         if valid {
             if let data = try? JSONSerialization.data(withJSONObject: data, options: []) {
@@ -21,6 +21,8 @@ struct Utilities {
         }
         return "";
     }
+    
+
 
     static func jsonParseDictionary(jsonString: String) -> [String: AnyObject] {
         if let data = jsonString.data(using: String.Encoding.utf8) {
