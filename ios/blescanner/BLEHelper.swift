@@ -13,16 +13,6 @@ import WebKit
 class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     
-    struct  DetectorInfo {
-        var hashCode:String = "";
-        var btDeviceName:String = "";
-        var modelNumber:String = "";
-        var manufacturerName:String = "";
-        var deviceType:String = "";
-        var firmwareVersion:String = "";
-        var softwareVersion:String = "";
-        var btAddress:String = "";
-    }
     var manager :CBCentralManager? = nil
     var peripheral:CBPeripheral!
     var peripherals:[CBPeripheral] = []
@@ -32,11 +22,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var rxBuffer:[UInt8] = [];
     var writeWithoutResponseCharacteristic: CBCharacteristic? = nil
     
-    let deviceInformationService = "180A"
-    let manufacturerName = "2A29"
-    let modelNumber = "2A24"
-    let firmwareRevision = "2A26"
-    let softwareRevision = "2A28"
+    var blePacketStart:Bool = false;
     //let systemID = "2A23"
     //let pnpID = "2A50"
     
@@ -46,8 +32,11 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var webView:WKWebView? = nil
     
-    init(webView: WKWebView) {
+    var mainView:ViewController? = nil
+    
+    init(webView: WKWebView, topView: ViewController) {
         self.webView = webView;
+        self.mainView = topView;
     }
     
     deinit {
@@ -88,7 +77,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func getServices(device: String)  {
-        let services:[CBUUID] = [CBUUID.init(string: deviceInformationService), CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue)]
+        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue)]
         peripheral.discoverServices(services)
     }
     
@@ -110,8 +99,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 self.webView?.evaluateJavaScript(script);
             }
         }
-        
+        self.mainView?.showToast(message: "GO TO ELECTRICIAN")
     }
+    
     
     ///  Delegate functions
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -236,16 +226,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
-        if (service.uuid.uuidString == deviceInformationService) {
-            for characteristic in service.characteristics! {
-                
-                let deviceInformationAttributes = [manufacturerName, modelNumber,firmwareRevision,softwareRevision];
-                
-                if (deviceInformationAttributes.index(of: characteristic.uuid.uuidString) != nil) {
-                    
-                }
-            }
-        } else {
             for characteristic in service.characteristics! {
                 if (characteristic.properties.contains(CBCharacteristicProperties.notify)) {
                     if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_TX_DATA.rawValue) {
@@ -270,7 +250,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     }
                 }
             }
-        }
+
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
@@ -279,69 +259,66 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
-        if (characteristic.uuid.uuidString.hasPrefix("2A")) {
-            //print(String(data: characteristic.value!, encoding: String.Encoding.utf8)!)
-            let val = String(data: characteristic.value!, encoding: String.Encoding.utf8);
-            switch characteristic.uuid.uuidString {
-            case self.manufacturerName:
-                self.peripheralInfo["manufacturerName"] = val
-            case self.modelNumber:
-                self.peripheralInfo["modelNumber"] = val
-            case self.firmwareRevision:
-                self.peripheralInfo["firmwareRevision"] = val
-            case self.softwareRevision:
-                self.peripheralInfo["softwareRevision"] = val
-            default:
-                print("Unknown device information")
-            }
-//            writeWithoutResponse();
-        }
         
         let recvData = [UInt8](characteristic.value!);
-        
+    
         if (recvData[0] == 0x7e) {
-            if (recvData.count == 2) {
-                //Start of the packet
-                self.rxBuffer = []
-                self.rxBuffer.append(contentsOf: recvData)
-                self.rxBufferLength = Int(recvData[1])
-            } else {
+            blePacketStart = true;
+            if(recvData[recvData.count-1] == 0x7e)
+            {
                 //End of packet
-                self.rxBuffer.append(contentsOf: recvData)
                 
-                //Run in seperate queue
-                DispatchQueue.global(qos: .background).async {
-                    var data = ""
-                    self.rxBuffer.forEach({ (d) in
-                        data = data + String(format: "%02X ", d)
-                    })
-                    
-                    // Background Thread
-                    print(data)
-                    
-                    self.rxBufferLength = self.rxBufferLength - recvData.count
-                    if (self.rxBufferLength == 0) {
-                        print("Length Matched")
-                    } else {
-                        print("Length mis-matched")
+                var newBleData: [UInt8] = []
+                var isEscapeExists:Bool =  false;
+                newBleData.append(contentsOf: recvData)
+                
+                for (index, element) in (recvData.enumerated()){
+                    if((recvData[index] == 125 && recvData[index+1]  == 125) || (recvData[index] == 125 && recvData[index+1]  == 126) )
+                    {
+                        if(index != 0 && index < ((recvData.count)-2)) {
+                            isEscapeExists = true;
+                            newBleData.remove(at:index)
+                        }
                     }
-                    
-                    let message =  Data.init(bytes: self.rxBuffer[1...self.rxBuffer.count-2])
-                    if (message.crcCCITT == 0) {
-                        print("crc matched")
-                    } else {
-                        print("crc mismatch")
-                    }
-                    
                 }
                 
+                DispatchQueue.global(qos: .background).async
+                {
+                    if(isEscapeExists == true){
+                    
+                        if (newBleData[1] == (UInt8)(newBleData.count - 2)) {
+                            print("Length Matched")
+                        } else {
+                            print("Length mis-matched")
+                        }
+                    
+                        let message =  Data.init(bytes: newBleData[1...newBleData.count-2])
+                        if (message.crcCCITT == 0) {
+                            print("crc matched")
+                            self.mainView?.sendBleDataToApp(indata:newBleData)
+                        } else {
+                            print("crc mismatch")
+                        }
+                    }
+                    else {
+                        if (recvData[1] == (UInt8)(recvData.count - 2)) {
+                            print("Length Matched")
+                        } else {
+                            print("Length mis-matched")
+                        }
+                        
+                        let message =  Data.init(bytes: recvData[1...recvData.count-2])
+                        if (message.crcCCITT == 0) {
+                            print("crc matched")
+                            self.mainView?.sendBleDataToApp(indata:recvData)
+                        } else {
+                            print("crc mismatch")
+                        }
+
+                    }
+                }
             }
-        } else {
-            //Bytes in between
-            self.rxBuffer.append(contentsOf: recvData)
-            self.rxBufferLength = self.rxBufferLength - recvData.count
         }
-        
         
     }
     

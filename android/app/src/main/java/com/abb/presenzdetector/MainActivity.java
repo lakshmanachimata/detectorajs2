@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
-    // Stops scanning after 10 seconds.
+    // Stops scanning after 5 seconds.
     private static final long SCAN_PERIOD = 5000;
 
 
@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
     BluetoothGatt mBleGatt;
 
     int bleDataLengthReceived = 0;
-    LinkedHashMap<String, String> deviceInfo = new LinkedHashMap<>();
-
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,25 +374,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    void connectNextDevice() {
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (deviceIndex < scannedDevices.size()) {
-//                            mBluetoothLeService.connect(scannedDevices.get(deviceIndex).btAddress);
-//                        }
-//                        else {
-//                            sendDeviceInfo();
-//                        }
-//                    }
-//                });
-//            }
-//        },10);
-//    }
 
     void notifyAppAboutConnection(final boolean isConnection){
         runOnUiThread(new Runnable() {
@@ -470,87 +449,37 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 byte[] data = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
                 String charecterstic = intent.getStringExtra(BluetoothLeService.EXTRA_CHARECTERSTIC);
-//
-//                if (charecterstic.contains("00805f9b34fb")) {
-//
-//                    if (charecterstic.contains("2a29")) {
-//                        deviceInfo.put("manufacturerName", new String(data));
-//                    }
-//                    if (charecterstic.contains("2a24")) {
-//                        deviceInfo.put("modelNumber", new String(data));
-//                    }
-//                    if (charecterstic.contains("2a26")) {
-//                        deviceInfo.put("firmwareVersion", new String(data));
-//                    }
-//                    if (charecterstic.contains("2a28")) {
-//                        deviceInfo.put("softwareVersion", new String(data));
-//                    }
-//                    if (deviceInfo.size() == 4 && deviceIndex < scannedDevices.size()) {
-//                        scannedDevices.get(deviceIndex).manufacturerName = deviceInfo.get("manufacturerName");
-//                        scannedDevices.get(deviceIndex).modelNumber = deviceInfo.get("modelNumber");
-//                        scannedDevices.get(deviceIndex).firmwareVersion = deviceInfo.get("firmwareVersion");
-//                        scannedDevices.get(deviceIndex).softwareVersion = deviceInfo.get("softwareVersion");
-//
-//                        mBluetoothLeService.disconnect();
-//                        deviceInfo.clear();
-//                        deviceIndex = deviceIndex + 1;
-//                    }
-//                }
-//                else
+
                 if (charecterstic.equalsIgnoreCase(SCCPEnumerations.SERVER_TX_DATA)) {
 
                     byte[] rawdata = data;
 
-                    rawdata = removeEscapeChars(rawdata);
-                    if (blePacketStart == true) {
-                        for(int i = 0; i < rawdata.length; i++){
-                            bleRecvBuffer.put(bleDataLengthReceived - 1,rawdata[i]);
-                            bleDataLengthReceived = bleDataLengthReceived + 1;
-                        }
-                        if(rawdata[rawdata.length -1] == (byte) 126) {
-                            blePacketEnd = true;
-                            if(rawdata.length - 2 == rawdata[1]) {
-                                Log.d("BJE", "LENGTH MATCH");
-                                byte[] dataArray = bleRecvBuffer.array();
-                                byte [] subArray = Arrays.copyOfRange(dataArray, 1,rawdata[1] + 1);
-                                char recvCRC = SCCPEnumerations.computeCRC(subArray);
-                                if (recvCRC == 0) {
-                                    byte[] recvData = bleRecvBuffer.array();
-                                    Log.d("BJE", "CRC MATCH");
-                                    sendBLEDataToApp(bleRecvBuffer.array());
-                                }
-                                else {
-                                    Log.d("BJE", "CRC MIS MATCH");
-                                }
-                            }
-                            else {
-                                Log.d("BJE", "LENGTH MISMATCH");
-                            }
-                        }
-                    }
                     if (rawdata[0] == (byte) 126) {
-                        Log.d("lakshmana","lakshmana recv frame" + rawdata);
+                        rawdata = removeEscapeChars(rawdata);
+                        Log.d("lakshmana", "lakshmana recv frame" + rawdata);
                         blePacketStart = true;
                         bleDataLengthReceived = 0;
                         try {
-                            if(rawdata[rawdata.length -1] == (byte) 126){
+                            if (rawdata[rawdata.length - 1] == (byte) 126) {
                                 bleRecvBuffer = ByteBuffer.allocate(rawdata.length);
                                 bleRecvBuffer.put(rawdata);
-                            }else {
+                            }
+                            else {
                                 bleRecvBuffer = ByteBuffer.allocate(rawdata[1] + 2);
                                 bleRecvBuffer.put(rawdata);
                             }
-                        }catch (Exception e) {
+                        }
+                        catch (Exception e) {
                             e.printStackTrace();
                         }
-                        bleDataLengthReceived =  rawdata.length;
-                        if(rawdata[rawdata.length -1] == (byte) 126) {
+                        bleDataLengthReceived = rawdata.length;
+                        if (rawdata[rawdata.length - 1] == (byte) 126) {
                             blePacketEnd = true;
 
-                            if(rawdata.length - 2 == rawdata[1]) {
+                            if (rawdata.length - 2 == rawdata[1]) {
                                 Log.d("BJE", "LENGTH MATCH");
                                 byte[] dataArray = bleRecvBuffer.array();
-                                byte [] subArray = Arrays.copyOfRange(dataArray, 1,rawdata[1] + 1);
+                                byte[] subArray = Arrays.copyOfRange(dataArray, 1, rawdata[1] + 1);
                                 char recvCRC = SCCPEnumerations.computeCRC(subArray);
                                 if (recvCRC == 0) {
                                     byte[] recvData = bleRecvBuffer.array();
@@ -566,13 +495,6 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
-                    }
-                    else {
-                        for (int i = 0; i < rawdata.length; i++) {
-                            bleRecvBuffer.put(rawdata[i]);
-                        }
-
-                        blePacketCounter = (byte) (blePacketCounter + (byte) rawdata.length);
                     }
                 }
             }
@@ -643,21 +565,22 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if (writeCharecteristic != null) {
+                    writeCharecteristic.setValue(data);
+                    writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                    blePacketStart = false;
 
-                for(int i =0; i < mGattServices.size(); i++) {
-                    if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
-                        final List<BluetoothGattCharacteristic> gattCharacteristics =
-                                mGattServices.get(i).getCharacteristics();
-                        if (writeCharecteristic != null) {
-                            writeCharecteristic.setValue(data);
-                            writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                            blePacketStart = false;
-                            if(bleRecvBuffer != null)
-                                bleRecvBuffer.clear();
-                            mBluetoothLeService.writeCharacteristic(writeCharecteristic);
-                            return;
-                        }
-                        else {
+                    if (bleRecvBuffer != null)
+                        bleRecvBuffer.clear();
+
+                    mBluetoothLeService.writeCharacteristic(writeCharecteristic);
+                    return;
+                }
+                else {
+                    for (int i = 0; i < mGattServices.size(); i++) {
+                        if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
+                            final List<BluetoothGattCharacteristic> gattCharacteristics =
+                                    mGattServices.get(i).getCharacteristics();
                             for (int j = 0; j < gattCharacteristics.size(); j++) {
                                 if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.SERVER_RX_DATA)) {
                                     BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
@@ -684,7 +607,7 @@ public class MainActivity extends AppCompatActivity {
                     String devicesdata =  "updateScanList(";
                     devicesdata = devicesdata + myCustomArray.toString();
                     devicesdata = devicesdata + ")";
-                    Toast.makeText(getApplicationContext(),"DEVICE CONNECTED ,GO TO ELECTRICIAN",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"GO TO ELECTRICIAN",Toast.LENGTH_LONG).show();
                     webview.evaluateJavascript(devicesdata,null);
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -696,31 +619,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void getDeviceInfo() {
         for(int i =0; i < mGattServices.size(); i++) {
-//            if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.INFO_SERVICE)){
-//                final List<BluetoothGattCharacteristic> gattCharacteristics =
-//                        mGattServices.get(i).getCharacteristics();
-//
-//                final Handler handler = new Handler();
-//                infocharcount = 0;
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(gattCharacteristics.size() > 0 && (gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a24")
-//                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a26")
-//                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a28")
-//                                || gattCharacteristics.get(infocharcount).getUuid().toString().contains("2a29"))
-//                                ){
-//                            mBluetoothLeService.readCharacteristic(gattCharacteristics.get(infocharcount));
-//                            infocharcount++;
-//                            handler.postDelayed(this,200);
-//                        }else {
-//                            handler.removeCallbacks(this);
-//                        }
-//
-//                    }
-//                }, 200);
-//            }
-//            else
             if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(SCCPEnumerations.DSPS_SERVICE)) {
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
                             mGattServices.get(i).getCharacteristics();
@@ -733,7 +631,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
         }
     }
 
@@ -816,7 +713,7 @@ public class MainActivity extends AppCompatActivity {
                                     if( deviceInfo.modelNumber.contains("03"))
                                         deviceInfo.deviceType = "mosfet1c";
                                     if(deviceInfo.modelNumber.contains("01"))
-                                        deviceInfo.deviceType = "relay1c";
+                                            deviceInfo.deviceType = "relay1c";
                                     scannedDevices.add(deviceInfo);
                                 }
                             }

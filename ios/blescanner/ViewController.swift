@@ -80,7 +80,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         
         super.viewDidLoad()
-        bleHelper = BLEHelper(webView: webView)
+        bleHelper = BLEHelper(webView: webView, topView: self)
         bleHelper?.setup();
     }
     
@@ -100,6 +100,32 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         return nil
     }
 
+    func sendBleDataToApp(indata : [UInt8]) {
+        
+        
+        
+        var bleSendData:Dictionary<String,String> = [:]
+        
+        var charDataArray:[UInt16] = []
+        var bleDataStr:String = ""
+    
+        indata.forEach { (bytedata) in
+            var charVal:UInt16 =  (UInt16(0x00FF & bytedata))
+            charDataArray.append(charVal)
+        }
+        bleDataStr = String(utf16CodeUnits: charDataArray, count: charDataArray.count)
+        bleSendData["data"] = bleDataStr;
+        
+        let jsData = Utilities.jsonStringify(data: bleSendData as AnyObject)
+    
+        let script: String = "setBLEDataToService(\(jsData))"
+        DispatchQueue.main.async {
+            //Run UI Updates
+            self.webView?.evaluateJavaScript(script);
+        }
+
+    
+    }
     
     func userContentController(_ userContentController: WKUserContentController,
                                didReceive message: WKScriptMessage){
@@ -121,14 +147,18 @@ class ViewController: UIViewController, WKScriptMessageHandler {
                     var isEscapeExists:Bool =  false;
                     var newBleData: [UInt8] = []
                     for (index, element) in (firstValue?.enumerated())!{
-                        newBleData.append(element)
                         if(element == 125 || element == 126 )
                         {
                             if(index != 0 && index != ((firstValue?.count)!-1)) {
                                 isEscapeExists = true;
                                 newBleData.append(125)
                                 newBleData.append(element)
+                            }else {
+                                newBleData.append(element)
                             }
+                        }
+                        else {
+                            newBleData.append(element)
                         }
                     }
                     
@@ -150,6 +180,26 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             }
         }
     }
+    
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 8.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+
     
 }
 
