@@ -110,7 +110,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         let firstValue = Array(dict!.values)[0] as? String
         switch firstKey {
         case "connect":
-            bleHelper?.connect()
+            bleHelper?.connect(device: firstValue!)
             break;
         default:
             print("Unknown command")

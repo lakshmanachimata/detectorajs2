@@ -52,7 +52,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     deinit {
         // perform the deinitialization
-        disConnect()
+        //disConnect()
     }
     
     /// interface functions
@@ -70,16 +70,20 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func connect(device: String)  {
-        peripheral = peripherals[0];
-        peripheralInfo = [:]
-        peripheralInfo["name"] = peripheral.name;
-        print("connecting")
+        peripherals.forEach { (iperipheral) in
+            if(iperipheral.identifier.uuidString == device){
+                peripheral = iperipheral;
+            }
+        }
         manager?.connect(peripheral, options: nil)
     }
     
     func disConnect(device: String)  {
-        peripheral = peripherals[0];
-        print("disconnecting")
+        peripherals.forEach { (iperipheral) in
+            if(iperipheral.identifier.uuidString == device){
+                peripheral = iperipheral;
+            }
+        }
         manager?.cancelPeripheralConnection(peripheral)
     }
     
@@ -99,10 +103,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         DispatchQueue.global(qos: .background).async {
             
-            
-            
             let jsData = Utilities.jsonStringify(data: self.scannedDevices as NSArray)
-            
             
             let script: String = "updateScanList(\(jsData))"
             DispatchQueue.main.async {
@@ -205,8 +206,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("connected " + peripheral.identifier.uuidString)
         self.peripheral.delegate = self
+        getServices(device: peripheral.identifier.uuidString)
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -220,7 +221,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in peripheral.services! {
             let thisService = service as CBService
-            //print(service.uuid.uuidString)
             peripheral.discoverCharacteristics(nil, for: thisService)
         }
     }
@@ -254,6 +254,14 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 }
             }
         }
+        
+        let script: String = "onDeviceConnected(\(peripheral.identifier.uuidString))"
+        DispatchQueue.main.async {
+            //Run UI Updates
+            self.webView?.evaluateJavaScript(script);
+        }
+
+        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
