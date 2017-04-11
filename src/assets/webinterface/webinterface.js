@@ -44,37 +44,51 @@ function onDeviceDisconnected(deviceAddress){
 function updateScanList(scanned) {
     scannedDevices = scanned
     var deviceData =  JSON.stringify(scannedDevices);
-    console.log("devices data is " + deviceData)
     appDataService.setScannedData(scanned);
 }
 
 function reset() {
     var data = getRequestFrame(SCCP_COMMAND.RESET);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     if(BJE != undefined)
         BJE.writeAttr(data);
-
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
 }
 
 function readAttr(readData) {
     var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     if(BJE != undefined)
         BJE.readAttr(data);
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
 }
 
 function writeAttr(writeData) {
     var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     if(BJE != undefined)
         BJE.writeAttr(data);
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
 }
 
 function configureAttr(notifyData) {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
-    var args = '{ "command" : "sccp", "data" : { "bytes" : [' + data + '] } }';
     if(BJE != undefined)
         BJE.configureAttr(data);
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
 }
 
 
@@ -88,7 +102,7 @@ function setBLEDataToService(indata){
         charCode = bytedata.charCodeAt(i);
         databytes.push(charCode);
     }
-    console.log("just check data here " +  JSON.stringify(databytes));
+    // console.log("just check data here " +  JSON.stringify(databytes));
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
@@ -108,7 +122,7 @@ function prepareAttributeArray(indata) {
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             var key,value; 
-            console.log("the lastbyte parsed " + lastParseByteIndex);
+            // console.log("the lastbyte parsed " + lastParseByteIndex);
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));
