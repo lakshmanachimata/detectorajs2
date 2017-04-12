@@ -110,7 +110,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         var bleDataStr:String = ""
     
         indata.forEach { (bytedata) in
-            var charVal:UInt16 =  (UInt16(0x00FF & bytedata))
+            let charVal:UInt16 =  (UInt16(0x00FF & bytedata))
             charDataArray.append(charVal)
         }
         bleDataStr = String(utf16CodeUnits: charDataArray, count: charDataArray.count)
@@ -163,11 +163,11 @@ class ViewController: UIViewController, WKScriptMessageHandler {
                     }
                     
                     if(isEscapeExists ==  true) {
-                        let bleData = Data.init(bytes: newBleData) as? Data
-                        self.bleHelper?.writeWithoutResponse(frame: bleData!)
+                        let bleData = Data.init(bytes: newBleData)
+                        self.bleHelper?.writeWithoutResponse(frame: bleData)
                     }else {
-                        let bleData = Data.init(bytes: firstValue!) as? Data
-                        self.bleHelper?.writeWithoutResponse(frame: bleData!)
+                        let bleData = Data.init(bytes: firstValue!)
+                        self.bleHelper?.writeWithoutResponse(frame: bleData)
                     }
                     break;
                 case "disconnect":

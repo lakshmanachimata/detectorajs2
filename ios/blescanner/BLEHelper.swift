@@ -272,7 +272,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 var isEscapeExists:Bool =  false;
                 newBleData.append(contentsOf: recvData)
                 
-                for (index, element) in (recvData.enumerated()){
+                for (index, _) in (recvData.enumerated()){
                     if((recvData[index] == 125 && recvData[index+1]  == 125) || (recvData[index] == 125 && recvData[index+1]  == 126) )
                     {
                         if(index != 0 && index < ((recvData.count)-2)) {
