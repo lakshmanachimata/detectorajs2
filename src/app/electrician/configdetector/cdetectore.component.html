@@ -27,10 +27,10 @@
             <div class="bj-config-setting-block-br-div brightness-div" >
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
-                  <div class="adjust-minus" long-press (click)="reduceBrightness('threshold')" (onLongPressEnd)="longPressingEnd('threshold')" (onLongPressing)="longPressingDec('threshold')"><span class="glyphicon glyphicon-minus"></span></div>
+                  <div class="adjust-minus" long-press (click)="reduceBrightness('threshold',true)" (onLongPressEnd)="longPressingEnd('threshold')" (onLongPressing)="reduceBrightness('threshold',false)"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number"  [(ngModel)]="ad.brightnessThreshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
-                  <div class="adjust-plus" long-press (click)="increaseBrightness('threshold')" (onLongPressEnd)="longPressingEnd('threshold')" (onLongPressing)="longPressingInc('threshold')"><span class="glyphicon glyphicon-plus"></span>
+                  <div class="adjust-plus" long-press (click)="increaseBrightness('threshold',true)" (onLongPressEnd)="longPressingEnd('threshold')" (onLongPressing)="increaseBrightness('threshold',false)"><span class="glyphicon glyphicon-plus"></span>
                   </div>
               </div>
               <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.constantLightBrightnessSetPointMin}} - {{ad.constantLightBrightnessSetPointMax}} lx)</label>

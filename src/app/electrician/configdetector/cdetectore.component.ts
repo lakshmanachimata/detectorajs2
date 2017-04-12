@@ -140,22 +140,16 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowModal(true);
   }
 
-  longPressingDec(item) {
-     if(item == 'threshold') {
-      this.ad.brightnessThreshold = this.ad.brightnessThreshold - 1;
-     }
-  }
-
-  longPressingInc(item){
-    if(item == 'threshold') {
-      this.ad.brightnessThreshold = this.ad.brightnessThreshold + 1;
-     }
-  }
-
   longPressingEnd(item){
     if(item == 'threshold') {
       this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
       this.data.setEDevParamsState(1);
+    }else if(item == 'setpoint') {
+        this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+        this.data.setEDevParamsState(1);
+    }else if(item == 'sdelay') {
+       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+        this.data.setEDevParamsState(1);
     }
   }
 
@@ -171,19 +165,27 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.OPERATION_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.operationMode])
     this.data.setEDevParamsState(1);
   }
-  reduceBrightness(item) {
-    this.data.setEDevParamsState(1);
+  reduceBrightness(item, isClick) {
     if(item == 'threshold') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+      if(isClick){
+        this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+        this.data.setEDevParamsState(1);
+      }
     }
     else if(item == 'setpoint'){
       this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPoint - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+      if(isClick) {
+        this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+        this.data.setEDevParamsState(1);
+      }
     }
     else if(item == 'sdelay') {
       this.ad.switchOffDelay = this.ad.switchOffDelay - 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+      if(isClick) {
+        this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+        this.data.setEDevParamsState(1);
+      }
     }
     this.validatebrparams(item)
   }
@@ -192,19 +194,27 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1CurrentLevel])
     this.data.setEDevParamsState(1);
   }
-  increaseBrightness(item) {
-    this.data.setEDevParamsState(1);
+  increaseBrightness(item,isClick) {
     if(item == 'threshold') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold + 1;
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+      if(isClick){
+        this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+         this.data.setEDevParamsState(1);
+      }
     }
     else if(item == 'setpoint') {
           this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPoint + 1;
-          this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+          if(isClick){
+            this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+             this.data.setEDevParamsState(1);
+      }
     }
     else if(item == 'sdelay'){
           this.ad.switchOffDelay = this.ad.switchOffDelay + 1;
-          this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+          if(isClick){
+            this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+             this.data.setEDevParamsState(1);
+      }
     }
     this.validatebrparams(item) 
   }
