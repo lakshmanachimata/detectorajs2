@@ -8,12 +8,15 @@ import { NextComponent} from './next.component';
 import { UpComponent} from './up.component';
 import { DownComponent} from './down.component';
 import { SwitchComponent} from './switch.component';
+import { LongPress } from './LongPress';
+
 @NgModule({
   declarations: [
   NextComponent,
   UpComponent,
   DownComponent,
   SwitchComponent,
+  LongPress,
   ],
   imports: [
     CommonModule,
@@ -25,6 +28,7 @@ import { SwitchComponent} from './switch.component';
       UpComponent,
       DownComponent,
       SwitchComponent,
+      LongPress,
       CommonModule,
       FormsModule,
       HttpModule,

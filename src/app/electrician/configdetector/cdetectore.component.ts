@@ -5,8 +5,6 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 import {SCCP_DATATYPES} from'../../data.service';
 import {SCCP_ATTRIBUTES} from'../../data.service';
 
-
-
 @Component({
   selector: 'cdetectore-root',
   templateUrl: './cdetectore.component.html',
@@ -140,6 +138,25 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
     this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );
     this.data.setShowModal(true);
+  }
+
+  longPressingDec(item) {
+     if(item == 'threshold') {
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold - 1;
+     }
+  }
+
+  longPressingInc(item){
+    if(item == 'threshold') {
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold + 1;
+     }
+  }
+
+  longPressingEnd(item){
+    if(item == 'threshold') {
+      this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
+      this.data.setEDevParamsState(1);
+    }
   }
 
   gotoaddParams(){
