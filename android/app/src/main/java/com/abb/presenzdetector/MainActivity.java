@@ -37,6 +37,7 @@ import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -188,6 +189,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                webview.loadUrl("javascript:document.dispatchEvent(new CustomEvent('longpress'))");
+                return true;
+            }
+        });
+
         webview.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -220,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
                     loaded = true;
                 }
             }
+
         });
 
         webview.loadUrl("file:///android_asset/index.html");

@@ -88,7 +88,7 @@ export class LongPress {
       this.timeout = setTimeout(() => {
         this.onLongPressing.emit(event);
         this.loop(event);
-      }, 75);
+      }, 100);
     }
   }
 

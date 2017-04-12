@@ -37,6 +37,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         //webView.configuration.userContentController.addUserScript(userScript);
         webView.configuration.userContentController.add(self, name: "webapi");
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
+        webView.allowsLinkPreview = false;
         
         view.addSubview(webView)
         
