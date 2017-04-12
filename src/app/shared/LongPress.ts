@@ -10,7 +10,7 @@ import {
 @Directive({ selector: '[long-press]' })
 export class LongPress {
 
-  @Input() duration: number = 500;
+  @Input() duration: number = 300;
 
   @Output() onLongPress: EventEmitter<any> = new EventEmitter();
   @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
@@ -30,13 +30,11 @@ export class LongPress {
   @HostBinding('class.longpress')
   get longPress() { return this.longPressing; }
 
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event) {
+  @HostListener('touchstart', ['$event'])
+  onTouchDown(event) {
+      console.log('touchstart came')
     // don't do right/middle clicks
-    if(event.which !== 1) return;
-
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
+    //if(event.which !== 1) return;
 
     this.pressing = true;
     this.longPressing = false;
@@ -50,23 +48,47 @@ export class LongPress {
     this.loop(event);
   }
 
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event) {
-    if(this.pressing && !this.longPressing) {
-      const xThres = (event.clientX - this.mouseX) > 10;
-      const yThres = (event.clientY - this.mouseY) > 10;
-      if(xThres || yThres) {
-        this.endPress();
-      }
+  @HostListener('touchend')
+  onTouchUp() { 
+      console.log('touchend came')
+      this.endPress(); 
     }
+
+
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event) {
+    // don't do right/middle clicks
+    if(event.which !== 1) return;
+
+    this.pressing = true;
+    this.longPressing = false;
+
+    this.timeout = setTimeout(() => {
+      this.longPressing = true;
+      this.onLongPress.emit(event);
+      this.loop(event);
+    }, this.duration);
+
+    this.loop(event);
   }
+
+//   @HostListener('mousemove', ['$event'])
+//   onMouseMove(event) {
+//     if(this.pressing && !this.longPressing) {
+//       const xThres = (event.clientX - this.mouseX) > 10;
+//       const yThres = (event.clientY - this.mouseY) > 10;
+//       if(xThres || yThres) {
+//         this.endPress();
+//       }
+//     }
+//   }
 
   loop(event) {
     if(this.longPressing) {
       this.timeout = setTimeout(() => {
         this.onLongPressing.emit(event);
         this.loop(event);
-      }, 100);
+      }, 75);
     }
   }
 
