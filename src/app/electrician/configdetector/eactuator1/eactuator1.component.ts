@@ -183,7 +183,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
      this.ad.stepwiseSwitchOffDelayEnable = !this.ad.stepwiseSwitchOffDelayEnable
      this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.stepwiseSwitchOffDelayEnable?1:0])
    }
-  reduceCount(item) {
+  reduceCount(item,isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration - 1;
       this.validateParam(item);
@@ -238,8 +238,11 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.stepwiseSwitchOffLevel ])
     }
   }
+  longPressEnd(item){
+    
+  }
 
-  increaseCount(item) {
+  increaseCount(item, isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;
       this.validateParam(item);

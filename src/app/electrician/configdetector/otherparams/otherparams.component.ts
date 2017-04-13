@@ -78,7 +78,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   getOtherParam() {
     return this.data.getOtherParam();
   }
-  reduceCount(item) {
+  reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad - 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
@@ -90,7 +90,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }
 
   }
-  increaseCount(item) {
+    longPressEnd(item){
+    
+  }
+
+
+  increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])

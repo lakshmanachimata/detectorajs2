@@ -55,7 +55,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
-  reduceCount(item){
+  reduceCount(item,isClick){
     if(item == 'sondelay') {
       this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay -1;
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
@@ -65,7 +65,11 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }
 
   }
-  increaseCount(item) {
+    longPressEnd(item){
+    
+  }
+
+  increaseCount(item,isClick) {
  if(item == 'sondelay') {
       this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay + 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])

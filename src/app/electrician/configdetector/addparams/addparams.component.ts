@@ -62,12 +62,16 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   gotoSensitivity() {
     this.router.navigate(['sensitivity'],{relativeTo: this.route})
   }
-  reduceBrightness(item) {
+  reduceCount(item,click) {
     this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue - 1;
     this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }
 
-  increaseBrightness(item) {
+  longPressEnd(item){
+    
+  }
+
+  increaseCount(item,click) {
     this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue + 1;
     this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }

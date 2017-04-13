@@ -72,7 +72,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnDestroy() {
   }
-  reduceVal(item) {
+  reduceCount(item,isClick) {
     if(item == 'brightness') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold- 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
@@ -96,7 +96,11 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }
   }
-  increaseVal(item) {
+    longPressEnd(item){
+    
+  }
+
+  increaseCount(item,isClick) {
     if(item == 'brightness') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold+ 1;
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])

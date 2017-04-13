@@ -43,7 +43,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnDestroy() {
   }
-  reduceVal(item) {
+  reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad -1;
     }else if(item == 'lduration') {
@@ -52,7 +52,11 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price -1;
     }
   }
-  increaseVal(item) {
+    longPressEnd(item){
+    
+  }
+
+  increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
     }else if(item == 'lduration') {
