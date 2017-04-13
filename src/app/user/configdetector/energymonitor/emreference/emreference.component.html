@@ -4,28 +4,28 @@
     <div class="bj-config-setting inner-setting energy-monitor-reference-load user">
         <label class="energy-monitor-reference-load-lbl user">Connected Load</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-load-function user">
-            <div class="adjust-minus" long-press (click)="reduceCount('cload,true)" (onLongPressEnd)="longPressEnd('cload')" (onLongPressing)="reduceCount('cload',false)"><span class="glyphicon glyphicon-minus"></span></div> 
+            <div class="adjust-minus" long-press (click)="reduceCount('cload,true)" (onLongPressEnd)="reduceCount('cload,true)" (onLongPressing)="reduceCount('cload',false)"><span class="glyphicon glyphicon-minus"></span></div> 
             <input class="adjust"type="text" [(ngModel)]="ad.energyMonitorConnectedLoad"   [ngStyle]="{'color': cLoad ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">W</div>
-            <div class="adjust-plus" long-press (click)="increaseCount('cload',true)" (onLongPressEnd)="longPressEnd('cload')" (onLongPressing)="increaseCount('cload',false)"><span class="glyphicon glyphicon-plus"></span></div>
+            <div class="adjust-plus" long-press (click)="increaseCount('cload',true)" (onLongPressEnd)="increaseCount('cload',true)" (onLongPressing)="increaseCount('cload',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
     </div>
     <div class="bj-config-setting inner-setting energy-monitor-lighting-reference user">
         <label class="energy-monitor-reference-lighting-lbl user">Lighting duration per week</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-lighting-function user">
-            <div class="adjust-minus" long-press (click)="reduceCount('lduration,true)" (onLongPressEnd)="longPressEnd('lduration')" (onLongPressing)="reduceCount('lduration',false)"><span class="glyphicon glyphicon-minus"></span></div> 
+            <div class="adjust-minus" long-press (click)="reduceCount('lduration,true)" (onLongPressEnd)="reduceCount('lduration,true)" (onLongPressing)="reduceCount('lduration',false)"><span class="glyphicon glyphicon-minus"></span></div> 
             <input class="adjust"type="text" [(ngModel)]="ad.energyMonitorLightingDuration"   [ngStyle]="{'color': lDuration ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">h</div>
-            <div class="adjust-plus" long-press (click)="increaseCount('lduration',true)" (onLongPressEnd)="longPressEnd('lduration')" (onLongPressing)="increaseCount('lduration',false)"><span class="glyphicon glyphicon-plus"></span></div>
+            <div class="adjust-plus" long-press (click)="increaseCount('lduration',true)" (onLongPressEnd)="increaseCount('lduration',true)" (onLongPressing)="increaseCount('lduration',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
     </div>
     <div class="bj-config-setting inner-setting energy-monitor-price-reference user">
         <label class="energy-monitor-reference-price-lbl user">Electricity price</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-price-function user">
-            <div class="adjust-minus" long-press (click)="reduceCount('eprice,true)" (onLongPressEnd)="longPressEnd('eprice')" (onLongPressing)="reduceCount('eprice',false)"><span class="glyphicon glyphicon-minus"></span></div> 
+            <div class="adjust-minus" long-press (click)="reduceCount('eprice,true)" (onLongPressEnd)="reduceCount('eprice,true)" (onLongPressing)="reduceCount('eprice',false)"><span class="glyphicon glyphicon-minus"></span></div> 
             <input class="adjust"type="text" [(ngModel)]="ad.energy_monitor.electricity_price"   [ngStyle]="{'color': eCurrency ==true ? 'red' : '#26394f'}">
             <div class="static-unit-text user">ct/kWh</div>
-            <div class="adjust-plus" long-press (click)="increaseCount('eprice',true)" (onLongPressEnd)="longPressEnd('eprice')" (onLongPressing)="increaseCount('eprice',false)"><span class="glyphicon glyphicon-plus"></span></div>
+            <div class="adjust-plus" long-press (click)="increaseCount('eprice',true)" (onLongPressEnd)="increaseCount('eprice',true)" (onLongPressing)="increaseCount('eprice',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
     </div>
 </div>

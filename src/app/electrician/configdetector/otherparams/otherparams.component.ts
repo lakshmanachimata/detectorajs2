@@ -81,26 +81,27 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad - 1;
+      if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
+      if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price - 1;
     }
 
   }
-    longPressEnd(item){
-    
-  }
 
 
   increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
+      if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
+      if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price + 1;

@@ -135,16 +135,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowModal(true);
   }
 
-  longPressEnd(item){
-    if(item == 'threshold') {
-      this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
-    }else if(item == 'setpoint') {
-        this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
-    }else if(item == 'sdelay') {
-       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
-    }
-  }
-
   gotoaddParams(){
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }

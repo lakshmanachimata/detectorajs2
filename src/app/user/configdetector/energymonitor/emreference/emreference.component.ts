@@ -52,9 +52,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price -1;
     }
   }
-    longPressEnd(item){
-    
-  }
+
 
   increaseCount(item,isClick) {
     if(item == 'cload') {
