@@ -19,7 +19,7 @@
 "switchOffDelayMin":0,
 "switchOffDelayMax":1800,
 "operationMode":0,
-"slaveModeEnable":false,
+"slaveModeEnable":0,
 "outdoorApplicationEnable":false,
 "pirSensitivity0":25,
 "pirSensitivity1":50,

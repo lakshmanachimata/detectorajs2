@@ -107,7 +107,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
   }
   togglemsd() {
-    this.ad.slaveModeEnable = !this.ad.slaveModeEnable;
+    if(this.ad.slaveModeEnable ==0 )
+      this.ad.slaveModeEnable = 1;
+    else
+      this.ad.slaveModeEnable = 0;
     this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
   }
   togglestp(){

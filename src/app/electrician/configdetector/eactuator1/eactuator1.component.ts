@@ -363,6 +363,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
        }
      }
   }
+  togglemsd() {
+    if(this.ad.slaveModeEnable ==0 )
+      this.ad.slaveModeEnable = 1;
+    else
+      this.ad.slaveModeEnable = 0;
+    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
+  }
   resetDali() {
     this.data.setDialogTitle("Reset DALI");
     this.data.setDialogText("Reset all DALI control gear to factory settings");

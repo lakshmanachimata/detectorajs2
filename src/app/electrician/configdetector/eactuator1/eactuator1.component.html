@@ -191,10 +191,10 @@
             <div class="bj-config-setting inner-setting actuator1 master-slave-function">
                 <label class="actuator-master-slave-lbl">Use master in slave operation</label>
                  <span class="bj-config-toggle-switch actuator1">
-                         <div class="track"   (click)="ad.slaveModeEnable = !ad.slaveModeEnable"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.slaveModeEnable  == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.slaveModeEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.slaveModeEnable  == true,'switch-off':ad.slaveModeEnable  == false }" [ngStyle]="{'background-color':ad.slaveModeEnable  == true ? '#26394f':'#ccc'}">
+                         <div class="track"   (click)="togglemsd()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                        <label class="switch-onlabel" *ngIf="ad.slaveModeEnable  == 1">{{onLabel}}</label>
+                        <label class="switch-offlabel" *ngIf="ad.slaveModeEnable  == 0">{{offLabel}}</label>
+                        <div class="switch" [ngClass]="{'switch-on':ad.slaveModeEnable  == 1,'switch-off':ad.slaveModeEnable  == 0 }" [ngStyle]="{'background-color':ad.slaveModeEnable  == 1 ? '#26394f':'#ccc'}">
                         </div>
                         </div>
                  </span>
