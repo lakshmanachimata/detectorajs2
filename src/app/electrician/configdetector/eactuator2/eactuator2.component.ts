@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
@@ -32,7 +32,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX,                                
                 ]
 
-  constructor(private logger: LoggerService,private data: DataService, private router:Router) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -80,7 +80,9 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
   onBLEdata() {
-    
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay;
+    });
   }
   circuitModeChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.ch2CircuitLogic])

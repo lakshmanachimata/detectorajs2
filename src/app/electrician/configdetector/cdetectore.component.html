@@ -185,10 +185,10 @@
              <div class="bj-config-setting-div commissioning-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                   <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="togglemsd()" (ngModelChange)="paramsChanged()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                             <label class="switch-onlabel" *ngIf="ad.slaveModeEnable == 1">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="ad.slaveModeEnable== 0">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':ad.slaveModeEnable == 1,'switch-off':ad.slaveModeEnable == 0}" [ngStyle]="{'background-color': ad.slaveModeEnable == 1 ? '#26394f':'#ccc'}"></div>
+                         <div class="track"  (click)="togglemsd()" (ngModelChange)="paramsChanged()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 0 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="ad.slaveModeEnable == 0">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="ad.slaveModeEnable== 1">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':ad.slaveModeEnable == 0,'switch-off':ad.slaveModeEnable == 1}" [ngStyle]="{'background-color': ad.slaveModeEnable == 0 ? '#26394f':'#ccc'}"></div>
                          </div>
                     </span>
              </div>

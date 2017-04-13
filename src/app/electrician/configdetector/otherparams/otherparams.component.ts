@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -51,7 +51,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                   SCCP_ATTRIBUTES.ACCESS_LEVEL,
                 ]
 
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -108,7 +108,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }
   }
   onBLEdata() {
-    
+    this.loadingDataDone = true;
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+      });
   }
   toggleDP(){
     this.ad.testModeDeactivateOutputsEnable = !this.ad.testModeDeactivateOutputsEnable;

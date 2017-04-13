@@ -1,4 +1,4 @@
-import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy } from '@angular/core';
+import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy ,NgZone} from '@angular/core';
 import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
@@ -29,7 +29,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     subMenuState = 'none';
     activeDevice:any;
     ad:any;
-    constructor(private logger: LoggerService,private data: DataService,private router:Router) {
+    constructor(private logger: LoggerService,private data: DataService,private router:Router,private zone:NgZone) {
         this.subMenuState = 'none';
     }
 
@@ -70,7 +70,9 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
 
     onBLEdata() {
-    
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+      });
     }
 
 }

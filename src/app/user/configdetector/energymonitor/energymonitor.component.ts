@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -19,14 +19,14 @@ currentDurationYearValue = 3130;
 TotalSavingsMonthValue = 23;
 TotalSavingsYearValue = 759;
 
-
+  loadingDataDone = false;
   activeTab = 1;
   activeDevice:any;
   ad:any;
   maxYear = 0;
   maxMonth = 0;
   showData:any;
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
+  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -91,6 +91,9 @@ TotalSavingsYearValue = 759;
     }
   }
   onBLEdata() {
-    
+        this.loadingDataDone =  true;
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad ;
+      });
   }
 }
