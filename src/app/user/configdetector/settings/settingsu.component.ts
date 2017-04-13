@@ -139,4 +139,8 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
       });
   }
+    setLoadingDataDone(value){
+    this.loadingDataDone = value;
+  }
+
 }

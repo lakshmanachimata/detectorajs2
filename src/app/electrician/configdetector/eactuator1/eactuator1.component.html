@@ -27,7 +27,7 @@
             <div class="bj-config-setting inner-setting actuator1">
                 <label class="actuator-durable-switching-lbl">Permanent ON for... ({{ad.ch1PermanentOnDurationMin}} min - {{ad.ch1PermanentOnDurationMax}} h)</label>
                 <div class="bj-config-setting-adjust durable-switching-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('peron,true)" (onLongPressEnd)="reduceCount('peron,true)" (onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('peron',true)" (onLongPressEnd)="reduceCount('peron',true)" (onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" *ngIf="ad.ch1PermanentOnDuration <= 60" > min </div>
                     <div class="static-unit-text" *ngIf="ad.ch1PermanentOnDuration > 60" > h </div>
@@ -37,7 +37,7 @@
                 <div class="bj-config-setting inner-setting actuator1">
                     <label class="actuator-durable-switching-lbl">Permanent OFF for... ({{ad.ch1PermanentOffDurationMin}} min - {{ad.ch1PermanentOffDurationMax}} h)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('peroff,true)" (onLongPressEnd)="reduceCount('peroff,true)"(onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" *ngIf="ad.ch1PermanentOffDuration <= 60" > min </div>
                         <div class="static-unit-text" *ngIf="ad.ch1PermanentOffDuration > 60" > h </div>
@@ -66,7 +66,7 @@
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.softOnEnable && activeDevice.deviceType == 'daliMaster1c'" >
-                <div class="adjust-minus" long-press (click)="reduceCount('softon,true)" (onLongPressEnd)="reduceCount('softon,true)" (onLongPressing)="reduceCount('softon',false)"><span class="glyphicon glyphicon-minus"></span></div>
+                <div class="adjust-minus" long-press (click)="reduceCount('softon',true)" (onLongPressEnd)="reduceCount('softon',true)" (onLongPressing)="reduceCount('softon',false)"><span class="glyphicon glyphicon-minus"></span></div>
                 <input class="adjust" type="number" [(ngModel)]="ad.softOnDuration" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > s </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('softon',true)" (onLongPressEnd)="increaseCount('softon',true)" (onLongPressing)="increaseCount('softon',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -83,7 +83,7 @@
                    </div>
                 </span>
             <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.softOffEnable && activeDevice.deviceType == 'daliMaster1c'">
-                <div class="adjust-minus" long-press (click)="reduceCount('softoff,true)" (onLongPressEnd)="reduceCount('softoff,true)" (onLongPressing)="reduceCount('softoff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                <div class="adjust-minus" long-press (click)="reduceCount('softoff',true)" (onLongPressEnd)="reduceCount('softoff',true)" (onLongPressing)="reduceCount('softoff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                 <input class="adjust" type="number" [(ngModel)]="ad.softOffDuration" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > s </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('softoff',true)" (onLongPressEnd)="increaseCount('softoff',true)" (onLongPressing)="increaseCount('softoff',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -151,7 +151,7 @@
                         </div>
                 </span>
                 <div class="bj-config-setting-adjust min-load-function" *ngIf="ad.ch1MinLevelEnable && activeDevice.deviceType == 'daliMaster1c'">
-                    <div class="adjust-minus" long-press (click)="reduceCount('minload,true)" (onLongPressEnd)="reduceCount('minload,true)" (onLongPressing)="reduceCount('minload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('minload',true)" (onLongPressEnd)="reduceCount('minload',true)" (onLongPressing)="reduceCount('minload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.ch1MinLevel" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > s </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('minload',true)" (onLongPressEnd)="increaseCount('minload',true)" (onLongPressing)="increaseCount('minload',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -169,7 +169,7 @@
                         </div>
                 </span>
                 <div class="bj-config-setting-adjust max-load-function" *ngIf="ad.ch1MaxLevelEnable && activeDevice.deviceType == 'daliMaster1c'">
-                    <div class="adjust-minus" long-press (click)="reduceCount('maxload,true)" (onLongPressEnd)="reduceCount('maxload,true)" (onLongPressing)="reduceCount('maxload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('maxload',true)" (onLongPressEnd)="reduceCount('maxload',true)" (onLongPressing)="reduceCount('maxload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.ch1MaxLevel" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > s </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('maxload',true)" (onLongPressEnd)="increaseCount('maxload',true)" (onLongPressing)="increaseCount('maxload',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -236,7 +236,7 @@
                 <div class="bj-config-setting inner-setting actuator1 burnInTime" >
                     <label class="actuator-burinin-switching-lbl">Duration for burn in({{ad.burnInDurationMin}} h - {{ad.burnInDurationMax}} h)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('burnduration,true)" (onLongPressEnd)="reduceCount('burnduration,true)" (onLongPressing)="reduceCount('burnduration',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('burnduration',true)" (onLongPressEnd)="reduceCount('burnduration',true)" (onLongPressing)="reduceCount('burnduration',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.burnInDuration" [ngStyle]="{'color':burnHours ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > s </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('burnduration',true)" (onLongPressEnd)="increaseCount('burnduration',true)" (onLongPressing)="increaseCount('burnduration',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -279,7 +279,7 @@
             <div class="bj-config-setting inner-setting actuator1"  *ngIf=" ad.basicBrightnessMode == 1">
                 <label class="actuator-illumination-start-time-lbl">Start time</label>
                 <div class="bj-config-setting-adjust illumination-start-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('brightstart,true)" (onLongPressEnd)="reduceCount('brightstart,true)" (onLongPressing)="reduceCount('brightstart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('brightstart',true)" (onLongPressEnd)="reduceCount('brightstart',true)" (onLongPressing)="reduceCount('brightstart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.basicBrightnessStartTime" [ngStyle]="{'color':brightStart ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > h </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('brightstart',true)" (onLongPressEnd)="increaseCount('brightstart',true)" (onLongPressing)="increaseCount('brightstart',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -287,7 +287,7 @@
                 </div>
                 <label class="actuator-illumination-end-time-lbl">End time</label>
                 <div class="bj-config-setting-adjust illumination-end-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('brightend,true)" (onLongPressEnd)="reduceCount('brightend,true)" (onLongPressing)="reduceCount('brightend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('brightend',true)" (onLongPressEnd)="reduceCount('brightend',true)" (onLongPressing)="reduceCount('brightend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.basicBrightnessEndTime" [ngStyle]="{'color':brightEnd ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > h </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('brightend',true)" (onLongPressEnd)="increaseCount('brightend',true)" (onLongPressing)="increaseCount('brightend',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -297,7 +297,7 @@
             <div class="bj-config-setting inner-setting actuator1 astro-function" *ngIf=" ad.basicBrightnessMode == 1" >
                 <label class="astro-function-lbl">Astro function</label>
                  <span class="bj-config-toggle-switch actuator1">
-                          <div class="track"   (click)="toogleAs()"  [(ngModel)]="ad.basicBrightnessStartTimeAstroFunctionEnable" [ngStyle]="{'border-color': ad.basicBrightnessStartTimeAstroFunctionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                          <div class="track"   (click)="toggleAs()"  [(ngModel)]="ad.basicBrightnessStartTimeAstroFunctionEnable" [ngStyle]="{'border-color': ad.basicBrightnessStartTimeAstroFunctionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.basicBrightnessStartTimeAstroFunctionEnable  == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':ad.basicBrightnessStartTimeAstroFunctionEnable  == true,'switch-off':ad.basicBrightnessStartTimeAstroFunctionEnable  == false }" [ngStyle]="{'background-color':ad.basicBrightnessStartTimeAstroFunctionEnable  == true ? '#26394f':'#ccc'}">
@@ -332,7 +332,7 @@
                 <div class="anti-glare-start-end-time-div">
                     <label class="actuator-anti-glare-start-time-lbl">Start time</label>
                     <div class="bj-config-setting-adjust anti-glare-start-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('glarestart,true)" (onLongPressEnd)="reduceCount('glarestart,true)" (onLongPressing)="reduceCount('glarestart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.nightLightStartTime" [ngStyle]="{'color':glareStart ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span>
@@ -340,7 +340,7 @@
                     </div>
                     <label class="actuator-anti-glare-end-time-lbl">End time</label>
                     <div class="bj-config-setting-adjust anti-glare-end-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('glareend,true)" (onLongPressEnd)="reduceCount('glareend,true)" (onLongPressing)="reduceCount('glareend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.nightLightEndTime" [ngStyle]="{'color':glareEnd ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -381,7 +381,7 @@
             <div class="time-shift-settings-div" *ngIf="ad.stepwiseSwitchOffDelayEnable" >
                 <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}} s- {{ad.stepwiseSwitchOffDelayMax}}  min)</label>
                 <div class="bj-config-setting-adjust time-shift-switchoff-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('sstime,true)" (onLongPressEnd)="reduceCount('sstime,true)" (onLongPressing)="reduceCount('sstime',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('sstime',true)" (onLongPressEnd)="reduceCount('sstime',true)" (onLongPressing)="reduceCount('sstime',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('sstime',true)" (onLongPressEnd)="increaseCount('sstime',true)" (onLongPressing)="increaseCount('sstime',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -389,7 +389,7 @@
                 </div>
                 <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate state</label>
                 <div class="bj-config-setting-adjust time-shift-brightness-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('ssinter,true)" (onLongPressEnd)="reduceCount('ssinter,true)" (onLongPressing)="reduceCount('ssinter',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('ssinter',true)" (onLongPressEnd)="reduceCount('ssinter',true)" (onLongPressing)="reduceCount('ssinter',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.stepwiseSwitchOffLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > % </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('ssinter',true)" (onLongPressEnd)="increaseCount('ssinter',true)" (onLongPressing)="increaseCount('ssinter',false)" ><span class="glyphicon glyphicon-plus"></span>

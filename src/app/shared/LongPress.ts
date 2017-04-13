@@ -32,9 +32,6 @@ export class LongPress {
 
   @HostListener('touchstart', ['$event'])
   onTouchDown(event) {
-      console.log('touchstart came')
-    // don't do right/middle clicks
-    //if(event.which !== 1) return;
 
     this.pressing = true;
     this.longPressing = false;
@@ -50,7 +47,6 @@ export class LongPress {
 
   @HostListener('touchend')
   onTouchUp() { 
-      console.log('touchend came')
       this.endPress(); 
     }
 

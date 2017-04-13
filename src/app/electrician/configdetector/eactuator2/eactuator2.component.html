@@ -43,7 +43,7 @@
             <div class="bj-config-setting inner-setting actuator2 switch-on-delay-div" >
                 <label class="switch-on-delay-actuator2-lbl">Switch-on delay</label>
                 <div class="bj-config-setting-adjust switch-on-delay-actuator2">
-                        <div class="adjust-minus" long-press (click)="reduceCount('sondelay,true)" (onLongPressEnd)="reduceCount('sondelay,true)" (onLongPressing)="reduceCount('sondelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('sondelay',true)" (onLongPressEnd)="reduceCount('sondelay',true)" (onLongPressing)="reduceCount('sondelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.hvacSwitchOnDelay" [ngStyle]="{'color': '#26394f'}">
                         <div class="static-unit-text" > s </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('sondelay',true)" (onLongPressEnd)="increaseCount('sondelay',true)" (onLongPressing)="increaseCount('sondelay',false)" ><span class="glyphicon glyphicon-plus"></span>
@@ -51,7 +51,7 @@
                 </div>
                 <label class="switch-off-delay-actuator2-lbl">Switch-off delay</label>
                 <div class="bj-config-setting-adjust switch-off-delay-actuator2">
-                    <div class="adjust-minus" long-press (click)="reduceCount('soffdelay,true)" (onLongPressEnd)="reduceCount('soffdelay,true)" (onLongPressing)="reduceCount('soffdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus" long-press (click)="reduceCount('soffdelay',true)" (onLongPressEnd)="reduceCount('soffdelay',true)" (onLongPressing)="reduceCount('soffdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.hvacSwitchOffDelay" [ngStyle]="{'color': '#26394f'}">
                         <div class="static-unit-text" > s </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('soffdelay',true)" (onLongPressEnd)="increaseCount('soffdelay',true)" (onLongPressing)="increaseCount('soffdelay',false)" ><span class="glyphicon glyphicon-plus"></span>

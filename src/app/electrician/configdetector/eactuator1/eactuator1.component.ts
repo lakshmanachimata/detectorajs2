@@ -379,4 +379,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.softOnEnable = this.ad.softOnEnable;
     });
   }
+  setLoadingDataDone(value){
+    this.loadingDataDone = value;
+  }
 }

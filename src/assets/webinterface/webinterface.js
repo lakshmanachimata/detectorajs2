@@ -102,7 +102,6 @@ function setBLEDataToService(indata){
         charCode = bytedata.charCodeAt(i);
         databytes.push(charCode);
     }
-    // console.log("just check data here " +  JSON.stringify(databytes));
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
@@ -122,7 +121,6 @@ function prepareAttributeArray(indata) {
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             var key,value; 
-            // console.log("the lastbyte parsed " + lastParseByteIndex);
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));

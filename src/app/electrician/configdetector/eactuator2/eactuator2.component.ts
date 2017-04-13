@@ -16,7 +16,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ad:any;
   onLabel = 'on';
   offLabel = 'off';
-
+  loadingDataDone = false;
    readAttrs =[ SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
@@ -93,4 +93,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.hvacDynamicalControlEnable?1:0])
   }
 
+  setLoadingDataDone(value){
+    this.loadingDataDone = value;
+  }
 }

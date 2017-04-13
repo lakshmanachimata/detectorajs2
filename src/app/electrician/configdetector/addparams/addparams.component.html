@@ -12,10 +12,10 @@
     </div> 
     <label class="bj-config-setting inner-setting sensor-params-function" *ngIf ="ad.brightnessCorrectionEnable == true">Brightness setpoint</label>
     <div class="bj-config-setting-adjust sensor-params-block" *ngIf ="ad.brightnessCorrectionEnable == true" >
-        <div class="adjust-minus" long-press (click)="reduceCount('setpoint,true)" (longPressEnd)="reduceCount('setpoint,true)" (onLongPressing)="reduceCount('setpoint',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+        <div class="adjust-minus" long-press (click)="reduceCount('setpoint',true)" (longPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="reduceCount('setpoint',false)" ><span class="glyphicon glyphicon-minus"></span></div>
         <input class="adjust" type="number" [(ngModel)]="ad.brightnessCorrectionValue">
         <div class="static-unit-text">lx</div>
-        <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (longPressEnd)="reduceCount('setpoint,true)" (onLongPressing)="increaseCount('setpoint',false)" ><span class="glyphicon glyphicon-plus"></span>
+        <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (longPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="increaseCount('setpoint',false)" ><span class="glyphicon glyphicon-plus"></span>
         </div>
     </div>
     <div class = "bj-current-val">

@@ -21,7 +21,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   A1LoadIdentify = false;
   A2LoadIdentify = false;
   masterQuad = 'q1';
-  
+  loadingDataDone = false;
       readAttrs =[
                   SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,                            
@@ -147,5 +147,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   togglech2ID(){
     this.ad.ch2IdentifyingLoad = this.ad.ch2IdentifyingLoad;
     this.data.addToSendData([SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch2IdentifyingLoad ])
+  }
+    setLoadingDataDone(value){
+    this.loadingDataDone = value;
   }
 }

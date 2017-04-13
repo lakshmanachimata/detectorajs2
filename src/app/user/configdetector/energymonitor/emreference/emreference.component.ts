@@ -17,6 +17,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   lDuration = false;
   activeDevice:any;
   ad:any;
+  loadingDataDone = false;
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
@@ -67,5 +68,10 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   onBLEdata() {
     
   }
+
+    setLoadingDataDone(value){
+    this.loadingDataDone = value;
+  }
+
 
 }

@@ -85,4 +85,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.brightnessCorrectionEnable = this.ad.brightnessCorrectionEnable ;
       });
   }
+    setLoadingDataDone(value){
+    this.loadingDataDone = value;
+  }
 }
