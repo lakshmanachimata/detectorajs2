@@ -21,6 +21,13 @@
 	padding-top: 14px;
 	padding-left: 18px;
 }
+.bj-config-setting.inner-setting-user{
+	color: #9eabbb;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+	padding-left: 18px;
+}
 
 .bj-service-setting-div{
 	width:100%;
@@ -79,7 +86,7 @@
     background-color: #f9fafc;
     color: #9eabbb;
     border-bottom: solid 1px #9eabbb;
-    padding: 2px 20px;
+    padding: 2px;
 }
 
 .bj-config-lbl{
@@ -87,13 +94,14 @@
     left: 0;
     right: 0;
     height: 26px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
-    background-color: #f9fafc;
-    color: #9eabbb;
+    background-color: #cccccc;
+    color: #5B5B5B;
     border-bottom: solid 1px #9eabbb;
     padding: 2px 20px;
 }
+
 #bj-config-settings-container{
 	top: 52px;
 	left:0;
@@ -1082,14 +1090,7 @@ img.bulb-on.light2 {
 .bulb-glow.light2 {
     margin-left: 60px;
 }
-/*preethi*/
-/*label.bj-config-lbl.service-div {
-    color: #56677d;
-    background-color: #18222d;
-    border-top: 2px solid #111821;
-    border-bottom: 2px solid #111821;
-    margin-top: 20px;
-}*/
+
 
 .bj-config-setting-div.other-settings-div {
     color: #86a2c3;
@@ -1134,13 +1135,7 @@ label.bj-config-lbl.other-settings-div {
     margin-top: 20px;
 }
 
-label.bj-config-lbl.presence-simulation-div,label.bj-config-lbl.user-sensor-div,
- label.bj-config-lbl.user-basic-illumination-div,label.bj-config-lbl.user-anti-glare-div{
-    background-color: #18222d;
-    color: #63778f;
-    border-bottom: 2px solid #131b25;
-    border-top: 2px solid #131b25;
-}
+
 
 div#bj-user-sensor-div {
     padding-bottom: 20px;
@@ -1212,7 +1207,6 @@ div#bj-user-sensor-div {
     border-bottom: 2px solid #39414a;
     border-top: 2px solid #39414a;
     margin-top: -5px;
-    color: #63778f;
 }
 
 .bj-config-setting-adjust{
@@ -1223,7 +1217,7 @@ div#bj-user-sensor-div {
 }
 
 label.bj-config-setting.presence-simulation-block {
-    color: #63778f;
+    color: #9eabbb;
 }
 .bj-config-setting-block-br-div{
 	width:100%;
@@ -1249,14 +1243,14 @@ label.bj-config-setting.presence-simulation-block {
 }
 .bj-config-setting-block-lbl{
 	color: #9eabbb;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 600;
 	padding-top: 8px;
 	padding-left: 18px;
 }
 
 label.bj-config-setting-block-lbl.brightness-user-function{
-    color: #63778f;
+    color: #9eabbb;
     font-size: 16px;
     margin-top: 12px;
 }
@@ -1272,12 +1266,18 @@ label.bj-config-setting-block-lbl.brightness-user-function{
     margin-top: 12px;
 }
 
+
 label.bj-config-setting.brightness-user-function,
-label.bj-config-setting-block-lbl.short-time-pulse-user-function {
+label.bj-config-setting-block-lbl.short-time-pulse-user-function
+label.bj-config-setting-block-lbl.actuator-illumination-start-time-lbl
+label.bj-config-setting-block-lbl.actuator-illumination-end-time-lbl
+label.bj-config-setting-block-lbl.actuator-anti-glare-start-time-lbl
+label.bj-config-setting-block-lbl.actuator-anti-glare-end-time-lbl {
     margin-top: 20px;
     font-size: 16px;
-    color: #63778f;
+    color: #9eabbb;
 }
+
 
 div#bj-user-basic-illumination-div {
     margin-top: -22px;
@@ -1412,7 +1412,7 @@ input.adjust-value.brightness-user-function{
 }
 
 label.anti-glare-function-lbl {
-    color: #63778f;
+    color: #9eabbb;
 }
 
 div#bj-send-to-device-user {
@@ -1772,7 +1772,6 @@ label.bj-config-setting-block-lbl.short-time-pulse-function {
 }
 
 label.bj-config-lbl.energy-monitor-reference-div.user {
-    background-color: #1b2635;
     border-bottom: solid 1px #111821;
     color: #697d96;
 }

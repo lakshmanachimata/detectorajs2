@@ -1237,6 +1237,12 @@ label.bj-config-setting.presence-simulation-block {
     border-top: 2px solid #39414a;
     border-bottom: 2px solid #131b25;
 }
+
+.bj-config-setting-block-div.inner-setting-user
+.bj-config-setting-block-div.inner-setting-actuator1 {
+    border-top: 2px solid #39414a;
+    border-bottom: 2px solid #131b25;
+}
 .bj-config-setting-block-lbl{
 	color: #9eabbb;
 	font-size: 14px;
@@ -1263,7 +1269,11 @@ label.bj-config-setting-block-lbl.brightness-user-function{
 }
 
 label.bj-config-setting.brightness-user-function,
-label.bj-config-setting-block-lbl.short-time-pulse-user-function {
+label.bj-config-setting-block-lbl.short-time-pulse-user-function
+label.bj-config-setting-block-lbl.actuator-illumination-start-time-lbl
+label.bj-config-setting-block-lbl.actuator-illumination-end-time-lbl
+label.bj-config-setting-block-lbl.actuator-anti-glare-start-time-lbl
+label.bj-config-setting-block-lbl.actuator-anti-glare-end-time-lbl {
     margin-top: 20px;
     font-size: 16px;
     color: #63778f;

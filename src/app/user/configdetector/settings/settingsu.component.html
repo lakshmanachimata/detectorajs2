@@ -24,7 +24,7 @@
             <div class="adjust-plus user" long-press (click)="increaseCount('brightness',true)" (onLongPressEnd)="increaseCount('brightness',true)" (onLongPressing)="increaseCount('brightness',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
         <div class = "bj-current-val">
-            <label class="bj-config-setting brightness-user-function">Take over current brightness</label>
+            <label class="bj-config-setting-block-lbl brightness-user-function">Take over current brightness</label>
             <input class="adjust-value brightness-user-function" type="text" disabled [(ngModel)]="currentBrightness">
         </div>
     </div>
@@ -41,32 +41,32 @@
 <div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-basic-illumination-div">Basic brightness</label>
     <div>
-        <div class="bj-config-setting inner-setting user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
-        <div class="bj-config-setting inner-setting user"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 1"  name="illuminiation-mode" [value]="1"/></div>
-        <div class="bj-config-setting inner-setting user" style="border-bottom: 2px solid #131b25;"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 2"  name="illuminiation-mode" [value]="2"/></div>
-        <div class="bj-config-setting inner-setting user" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2">
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 1"  name="illuminiation-mode" [value]="1"/></div>
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 2"  name="illuminiation-mode" [value]="2"/></div>
+        <div class="bj-config-setting inner-setting-user" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2">
             <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
             <div class="bj-actuator1-slider">
                 <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.basicBrightnessLevel">
                 <div class="illumination-value-disp">{{ad.basicBrightnessLevel}}%</div>
             </div>
         </div>
-        <div class="bj-config-setting inner-setting user" *ngIf="ad.basicBrightnessMode == 2">
+        <div class="bj-config-setting-block-div inner-setting-user" *ngIf="ad.basicBrightnessMode == 2">
             <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
             <div class="bj-actuator1-slider">
                 <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold">
                 <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}}lx</div>
             </div>
         </div>
-        <div class="bj-config-setting inner-setting actuator1" *ngIf="ad.basicBrightnessMode == 1">
-            <label class="actuator-illumination-start-time-lbl">Start time</label>
+        <div class="bj-config-setting-block-div inner-setting-actuator1" *ngIf="ad.basicBrightnessMode == 1">
+            <label class="bj-config-setting-block-lbl actuator-illumination-start-time-lbl">Start time</label>
                 <div class="bj-config-setting-adjust short-time-pulse-user-function">
                     <div class="adjust-minus user" long-press (click)="reduceCount('illuminationstart',true)" (onLongPressEnd)="reduceCount('illuminationstart',true)" (onLongPressing)="reduceCount('illuminationstart',false)"><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust user"type="text" [(ngModel)]="ad.basicBrightnessStartTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text user">h</div>
                     <div class="adjust-plus user" long-press (click)="increaseCount('illuminationstart',true)" (onLongPressEnd)="increaseCount('illuminationstart',true)" (onLongPressing)="increaseCount('illuminationstart',false)"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
-            <label class="actuator-illumination-end-time-lbl">End time</label>
+            <label class="bj-config-setting-block-lbl actuator-illumination-end-time-lbl">End time</label>
                 <div class="bj-config-setting-adjust short-time-pulse-user-function">
                     <div class="adjust-minus user" long-press (click)="reduceCount('illuminationend',true)" (onLongPressEnd)="reduceCount('illuminationend',true)" (onLongPressing)="reduceCount('illuminationend',false)"><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust user"type="text" [(ngModel)]="ad.basicBrightnessEndTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
@@ -90,19 +90,19 @@
                  </span>
         </div>
         <div class="anti-glare-start-end-time-div" *ngIf="(ad.nightLightFunctionEnable==true)">
-            <label class="actuator-anti-glare-start-time-lbl">Start time</label>
+            <label class="bj-config-setting-block-lbl actuator-anti-glare-start-time-lbl">Start time</label>
             <div class="bj-config-setting-adjust anti-glare-start-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust"type="text" [(ngModel)]="ad.nightLightStartTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#26394f'}">
+                    <input class="adjust user"type="text" [(ngModel)]="ad.nightLightStartTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text  user">s</div>
                     <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
-            <label class="actuator-anti-glare-end-time-lbl">End time</label>
+            <label class="bj-config-setting-block-lbl actuator-anti-glare-end-time-lbl">End time</label>
             <div class="bj-config-setting-adjust anti-glare-end-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)"><span class="glyphicon glyphicon-minus"></span></div> 
-                    <input class="adjust"type="text" [(ngModel)]="ad.nightLightEndTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#26394f'}">
+                    <div class="adjust-minus user" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)"><span class="glyphicon glyphicon-minus"></span></div> 
+                    <input class="adjust user"type="text" [(ngModel)]="ad.nightLightEndTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text user">s</div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-plus user" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
         </div>
         <div class="anti-glare-level-div" *ngIf="ad.nightLightFunctionEnable == true">
