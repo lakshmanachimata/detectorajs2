@@ -76,7 +76,7 @@
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" placeholder="Search" /><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control"  (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search" /><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
     <div class="bj-config-setting-div predefined-profiles-div" style="border-bottom:none;">
@@ -88,20 +88,10 @@
             </div>
         </div>
         <div *ngIf="showPredefinedProfiles">
-            <div class="bj-config-setting inner-setting pre-profiles classroom-lbl">
-                <label class="pre-profile-lbl" >Classroom</label>
-            </div>
-            <div class="bj-config-setting inner-setting pre-profiles toilet-lbl">
-                <label class="pre-profile-lbl" >Toilet</label>
-            </div>
-            <div class="bj-config-setting inner-setting pre-profiles kitchen-lbl">
-                <label class="pre-profile-lbl" >Kitchen</label>
-            </div>
-            <div class="bj-config-setting inner-setting pre-profiles bath-lbl">
-                <label class="pre-profile-lbl" >Bath</label>
-            </div>
-            <div class="bj-config-setting inner-setting pre-profiles floor-lbl">
-                <label class="pre-profile-lbl" >Floor</label>
+            <div *ngFor="let item of sortedMapValues()">
+                <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" >
+                    <label class="pre-profile-lbl" >{{ item }}</label>
+                </div>
             </div>
         </div>
     </div>

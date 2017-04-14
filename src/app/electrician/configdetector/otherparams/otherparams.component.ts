@@ -20,6 +20,16 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
+  preDefined_Profiles =[
+    "Living room",
+    "Toilet",
+    "Kitchen",
+    "Bath",
+    "Floor",
+    "Out door"
+  ]
+  preDefined_Searches=[];
+  searchText = '';
   masterQuad = 'q1';
   loadingDataDone = false;
       readAttrs =[
@@ -58,6 +68,32 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.data.setActiveComponent(this);
       this.data.readData(this.readAttrs);
   }
+      searchDetectors(items) {
+        if(this.searchText.length > 0)
+        {
+            let result = [];
+            var searchString = new RegExp(this.searchText.toLowerCase());
+            for(var j =0; j < items.length; j++) {
+                let profile = items[j];
+                if(profile === undefined) {
+                    result.push(profile);
+                }else {
+                    if( profile.toLowerCase().indexOf(this.searchText) >= 0){
+                        result.push(profile);
+                    }
+                }
+            }
+            this.preDefined_Searches = result;
+            return this.preDefined_Searches;
+        }else {
+          return this.preDefined_Profiles;
+        }
+    }
+    
+   sortedMapValues(){
+        return this.searchDetectors(this.preDefined_Profiles);
+    }
+
   ngOnChanges() { 
   }
   ngDoCheck() { 

@@ -185,6 +185,16 @@
 	font-size:20px;
 }
 
+.bj-footer #load-detector-profile{
+	width:100%;
+	height:100%;
+	padding-top: 10px;
+	text-align:center;
+	background-color:#0171af;;
+	color:#ffffff;
+	font-size:20px;
+}
+
 .bj-footer.bj-user-view {
 	position: absolute;
 	height: 50px;

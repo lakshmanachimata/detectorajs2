@@ -14,6 +14,16 @@
 	border-bottom: solid 1px #9eabbb;
 }
 
+.bj-config-setting-load-detector-profiles{
+	color: #0c4264;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+    padding-bottom: 14px;
+    border: 1px solid #212e40;
+	padding-left: 18px;
+}
+
 .bj-config-setting{
 	color: #0c4264;
 	font-size: 16px;
@@ -1286,6 +1296,43 @@ div#bj-user-basic-illumination-div {
 .switch{
   	height: 100%;
     width:17px;
+}
+
+.bj-search-tab{
+	width:100%;
+	height:76px;
+	left:0;
+	right:0;
+	background-color:#e1eaea;
+	border: solid 1px #b4cbcb;
+}
+
+.bj-search-tab-wrap{
+	width:100%;
+	padding-left:20px;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-right:20px;
+    min-height:50px;
+    position:relative;
+}
+
+.bj-search-tab-wrap input[type="text"]{
+	width:100%;
+	height:44px;
+	font-size:18px;
+	padding-left:10px;
+	border-radius: 5px;
+	border: 1px solid #b4cbcb;
+}
+
+.bj-search-tab-wrap .glyphicon{
+  position: absolute;
+  padding: 26px 40px;
+  pointer-events: none;
+  color:#001a33;
+  right:0px;
+  font-size:20px;
 }
 
 .switch-onlabel{
