@@ -91,6 +91,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         DispatchQueue.global(qos: .background).async {
             
+            
             let jsData = Utilities.jsonStringify(data: self.scannedDevices as AnyObject)
             
             let script: String = "updateScanList(\(jsData))"
@@ -99,7 +100,14 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 self.webView?.evaluateJavaScript(script);
             }
         }
-        self.mainView?.showToast(message: "GO TO ELECTRICIAN")
+        if(self.scannedDevices.count > 0)
+        {
+            self.mainView?.showToast(message: "Devices Discovered")
+        }
+        else {
+            self.mainView?.showToast(message: "DEMO MODE")
+        }
+        
     }
     
     

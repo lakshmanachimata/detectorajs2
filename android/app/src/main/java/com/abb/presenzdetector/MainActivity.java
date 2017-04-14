@@ -617,7 +617,10 @@ public class MainActivity extends AppCompatActivity {
                     String devicesdata =  "updateScanList(";
                     devicesdata = devicesdata + myCustomArray.toString();
                     devicesdata = devicesdata + ")";
-                    Toast.makeText(getApplicationContext(),"GO TO ELECTRICIAN",Toast.LENGTH_LONG).show();
+                    if(scannedDevices.size() > 0)
+                        Toast.makeText(getApplicationContext(),"Devices Discovered",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(),"DEMO MODE",Toast.LENGTH_LONG).show();
                     webview.evaluateJavascript(devicesdata,null);
                 }catch (Exception e) {
                     e.printStackTrace();
