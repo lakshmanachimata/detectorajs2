@@ -64,7 +64,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.detectors = this.data.getDevices();
       this.data.DeviceBuild = 0;
     }
-    this.data.setMainTitle('Detecors');
+    this.data.setMainTitle('Detectors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('electrician');

@@ -2,7 +2,8 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../../../../logger.service';
 import { DataService } from '../../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
-
+import { SCCP_ATTRIBUTES} from '../../../../data.service';
+import {SCCP_DATATYPES} from '../../../../data.service';
 
 @Component({
   selector: 'emreference-root',
@@ -47,8 +48,12 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad -1;
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration -1;
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price -1;
     }
@@ -58,8 +63,12 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price + 1;
     }

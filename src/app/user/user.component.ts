@@ -87,7 +87,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.detectors = this.data.getDevices();
       this.data.DeviceBuild = 0;
     }
-    this.data.setMainTitle('Detecors');
+    this.data.setMainTitle('Detectors');
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('user');

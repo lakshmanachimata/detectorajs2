@@ -51,7 +51,7 @@
                 <div class="illumination-value-disp">{{ad.basicBrightnessLevel}}%</div>
             </div>
         </div>
-        <div class="bj-config-setting-block-div inner-setting-user" *ngIf="ad.basicBrightnessMode == 2">
+        <div class="bj-config-setting inner-setting-user" *ngIf="ad.basicBrightnessMode == 2">
             <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
             <div class="bj-actuator1-slider">
                 <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold">
