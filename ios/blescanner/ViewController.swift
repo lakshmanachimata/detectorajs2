@@ -87,20 +87,15 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.navigationType == .linkActivated  {
-            
              let newURL = navigationAction.request.url;
                 if (newURL?.absoluteString.contains("busch-jaeger.de"))!
                 {
-                print(newURL)
                 UIApplication.shared.openURL(newURL!)
-                print("Redirected to browser. No need to open it locally")
                 decisionHandler(.cancel)
             } else {
-                print("Open it locally")
                 decisionHandler(.allow)
             }
         } else {
-            print("not a user click")
             decisionHandler(.allow)
         }
     }
