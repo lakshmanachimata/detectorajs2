@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKScriptMessageHandler {
+class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate {
     
     var webView: WKWebView!;
     var bleHelper:BLEHelper? = nil
@@ -32,7 +32,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         webView.translatesAutoresizingMaskIntoConstraints = false;
         
         webView.scrollView.bounces = false;
-        
+        webView.navigationDelegate = self
         webView.configuration.websiteDataStore = WKWebsiteDataStore.default();
         //webView.configuration.userContentController.addUserScript(userScript);
         webView.configuration.userContentController.add(self, name: "webapi");
@@ -84,6 +84,27 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         bleHelper = BLEHelper(webView: webView, topView: self)
         bleHelper?.setup();
     }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated  {
+            
+             let newURL = navigationAction.request.url;
+                if (newURL?.absoluteString.contains("busch-jaeger.de"))!
+                {
+                print(newURL)
+                UIApplication.shared.openURL(newURL!)
+                print("Redirected to browser. No need to open it locally")
+                decisionHandler(.cancel)
+            } else {
+                print("Open it locally")
+                decisionHandler(.allow)
+            }
+        } else {
+            print("not a user click")
+            decisionHandler(.allow)
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
