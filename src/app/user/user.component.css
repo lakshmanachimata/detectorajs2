@@ -84,7 +84,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 .bj-user-detector-name #bj-user-detector-name-val{
 	width: 70%;
 	height: 100%;
-	padding-top:5%;
+	padding-top:25px;
     font-size: 18px;
 	position: absolute;
     font-weight:400;
@@ -98,7 +98,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	position: absolute;
 	font-size:16px;
 	padding-left:2%;
-	padding-top:12%;
+	padding-top:55px;
 	color:#8797ab;
 }
 
@@ -109,7 +109,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	position: absolute;
 	color:#94b3d7;
 	padding-left:57%;
-	padding-top:7%;
+	padding-top:40px;
 }
 
 .bj-user-detector-name #nav-right {
@@ -119,5 +119,5 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	position: absolute;
 	color:#94b3d7;
 	padding-left:66%;
-	padding-top:8%;
+	padding-top:42px;
 }

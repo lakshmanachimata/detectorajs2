@@ -792,16 +792,22 @@ export class DataService {
                 this.deviceData.ch1MaxLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.LEVEL_MIN                                               : 
+                this.deviceData.
             break;
-            case SCCP_ATTRIBUTES.LEVEL_MAX                                               : 
+            case SCCP_ATTRIBUTES.LEVEL_MAX                                               :
+                this.deviceData. 
             break;
-            case SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL                                     : 
+            case SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL                                     :
+                this.deviceData. 
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE                                       : 
+                this.deviceData.
             break;
-            case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN                                   : 
+            case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN                                   :
+                this.deviceData. 
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX                                   : 
+                this.deviceData.
             break;
             case SCCP_ATTRIBUTES.BURN_IN_ENABLE                                          : 
                 this.deviceData.burnInEnable= attrValue;
@@ -869,85 +875,118 @@ export class DataService {
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                               : 
                 this.deviceData.stepwiseSwitchOffLevel= attrValue;
             break;
-            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              : 
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              :
+                this.deviceData.presenceSimulationEnable = attrValue
             break;
-            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME                          : 
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME                          :
+                this.deviceData.presenceSimulationStartTime = attrValue
             break;
-            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME                            : 
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME                            :
+                this.deviceData.presenceSimulationEndTime = attrValue 
             break;
-            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               : 
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               :
             break;
-            case SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC                                       : 
+            case SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC                                       :
+                this.deviceData.ch2CircuitLogic = attrValue
             break;
-            case SCCP_ATTRIBUTES.CH2_MODE                                                : 
+            case SCCP_ATTRIBUTES.CH2_MODE                                                :
+                this.deviceData.ch2Mode = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE                           : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY                                    :
+                this.deviceData.hvacSwitchOnDelay = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY                                    : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MIN                                :
+                this.deviceData.hvacSwitchOnDelayMin = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MIN                                : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX                                :
+                this.deviceData.hvacSwitchOnDelayMax = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX                                : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY                                   :
+                this.deviceData.hvacSwitchOffDelay = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY                                   : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN                               :
+                this.deviceData.hvacSwitchOffDelayMin = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN                               : 
+            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX                               :
+                this.deviceData.hvacSwitchOffDelayMax = attrValue 
             break;
-            case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX                               : 
+            case SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE                     :
+                this.deviceData.testModeDeactivateOutputsEnable = attrValue 
             break;
-            case SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE                     : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD                           :
+                this.deviceData.energyMonitorConnectedLoad = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD                           : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN                       :
+                this.deviceData.energyMonitorConnectedLoadMin = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN                       : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX                       :
+                this.deviceData.energyMonitorConnectedLoadMax = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX                       : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION                        :
+                this.deviceData.energyMonitorLightingDuration = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION                        : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN                    :
+                this.deviceData.energyMonitorLightingDurationMin = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN                    : 
-            break;
-            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX                    : 
+            case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX                    :
+                this.deviceData.energyMonitorLightingDurationMax = attrValue 
             break;
             case SCCP_ATTRIBUTES.CONTACT                                                 : 
+                this.deviceData.contact = attrValue;
             break;
             case SCCP_ATTRIBUTES.BUILDING                                                : 
+                this.deviceData.building = attrValue;
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    :
+                this.deviceData.enableUserSetBrightnessThreshold = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY                        : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY                        :
+                this.deviceData.enableUserSetSwitchOffDelay = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR                              : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR                              :
+                this.deviceData.enableUserEnergyMonitor = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS                            : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS                            :
+                this.deviceData.enableUserBasicBrightness = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION                        : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION                        :
+                this.deviceData.enableUserNightLightFunction = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            : 
+            case SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            :
+                this.deviceData.enableUserColorTemperatureControlEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS                                      : 
                 this.deviceData.currentBrightness= attrValue;
             break;
             case SCCP_ATTRIBUTES.IDENTIFYING_DEVICE                                      : 
+                this.deviceData.identifyingDevice = attrValue
             break;
-            case SCCP_ATTRIBUTES.MOVEMENT                                                : 
+            case SCCP_ATTRIBUTES.MOVEMENT                                                :
+                this.deviceData.movement = attrValue 
             break;
-            case SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD                                    : 
+            case SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD                                    :
+                this.deviceData.ch1IdentifyingLoad = attrValue 
             break;
-            case SCCP_ATTRIBUTES.CH1_ON_OFF_STATE                                        : 
+            case SCCP_ATTRIBUTES.CH1_ON_OFF_STATE                                        :
+                this.deviceData.ch1OnOffState = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL                                       : 
-                this.deviceData.ch1CurrentLevel= attrValue;
+                this.deviceData.ch1CurrentLevel = attrValue;
             break;
-            case SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD                                    : 
+            case SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD                                    :
+                this.deviceData.ch2IdentifyingLoad = attrValue 
             break;
-            case SCCP_ATTRIBUTES.CH2_ON_OFF_STATE                                        : 
+            case SCCP_ATTRIBUTES.CH2_ON_OFF_STATE                                        :
+                this.deviceData.ch2OnOffState = attrValue 
             break;
-            case SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL                                       : 
+            case SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL                                       :
+                this.deviceData.ch2CurrentLevel = attrValue 
             break;
-            case SCCP_ATTRIBUTES.TEST_MODE_ACTIVE                                        : 
+            case SCCP_ATTRIBUTES.TEST_MODE_ACTIVE                                        :
+                this.deviceData.testModeActive = attrValue 
             break;
-            case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            : 
+            case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
+                this.deviceData.accessLevel = attrValue  
             break;
             default:
             break;

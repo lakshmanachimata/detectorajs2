@@ -33,15 +33,14 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   masterQuad = 'q1';
   loadingDataDone = false;
       readAttrs =[
+                  SCCP_ATTRIBUTES.CONTACT,
                   SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,                            
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,                        
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,                        
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,                         
                   SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN,                     
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,                     
-                  //SCCP_ATTRIBUTES.CONTACT,                                                  
-                  //SCCP_ATTRIBUTES.BUILDING,                                                 
+                  SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,                                                                                                                        
                   SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
                   SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
                   SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
@@ -59,6 +58,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                   SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL,                                        
                   SCCP_ATTRIBUTES.TEST_MODE_ACTIVE,                                         
                   SCCP_ATTRIBUTES.ACCESS_LEVEL,
+                  SCCP_ATTRIBUTES.BUILDING,
                 ]
 
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute,private zone:NgZone) {
@@ -154,10 +154,24 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.testModeDeactivateOutputsEnable])
   }
   CNameChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,this.activeDevice.contactName])
+    var bytes = []; // char codes
+    for (var i = 0; i < this.ad.contact.length; ++i) {
+      var code = this.ad.contact.charCodeAt(i);
+      bytes = bytes.concat([code]);
+    }
+    bytes.concat[0];
+    this.logger.log("contact is " + bytes.join(','))
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,bytes])
   }
   BuildingChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,this.activeDevice.buildingName])
+    var bytes = []; // char codes
+    for (var i = 0; i < this.ad.building.length; ++i) {
+      var code = this.ad.contact.charCodeAt(i);
+      bytes = bytes.concat([code]);
+    }
+    bytes.concat[0];
+    this.logger.log("building is " + bytes.join(','))
+    this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,this.ad.building])
   }
   togglepbr(){
     this.ad.enableUserSetBrightnessThreshold = !this.ad.enableUserSetBrightnessThreshold

@@ -132,6 +132,23 @@ function prepareAttributeArray(indata) {
                     lastParseByteIndex = lastParseByteIndex + 5;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_STRING:
+                    key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));
+                    var strByteArray = [];
+                    var i = 5;
+                    while(indata[lastParseByteIndex + i] != 0){
+                        strByteArray.push(indata[lastParseByteIndex + i])
+                        i = i +1;
+                    }
+                    //strByteArray.push(indata[0])
+                    var result = "";
+                    for (var j = 0; j < strByteArray.length; j++) {
+                        result += String.fromCharCode(strByteArray[j]);
+                    }
+                    var data = {
+                    "attrType": key,
+                    "attrValue": result
+                    }
+                    lastParseByteIndex = lastParseByteIndex + 5 + strByteArray.length;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
