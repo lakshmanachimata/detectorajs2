@@ -159,6 +159,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     var detectorInfo:Dictionary<String,String> = [:]
                     detectorInfo["btDeviceName"] = nameofDevice!;
                     detectorInfo["btAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["modelNumber"] = modelNumberStr;
                     detectorInfo["hashCode"] = String(peripheral.hash);
@@ -183,6 +184,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     detectorInfo["btDeviceName"] = nameofDevice!;
                     detectorInfo["btAddress"] = peripheral.identifier.uuidString;
                     detectorInfo["firmwareVersion"] = firmwareStr;
+                    detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["modelNumber"] = modelNumberStr;
                     if(modelNumberStr.contains("05")){
                         detectorInfo["deviceType"] = "daliMaster1c";

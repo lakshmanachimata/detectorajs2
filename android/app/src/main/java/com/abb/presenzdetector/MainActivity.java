@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         String modelNumber;
         String manufacturerName;
         String deviceType;
+        String rssi;
         String firmwareVersion;
         String softwareVersion;
         String btAddress;
@@ -708,6 +709,7 @@ public class MainActivity extends AppCompatActivity {
                                     deviceInfo.hashCode = Integer.toString(device.hashCode());
                                     deviceInfo.btAddress = device.getAddress();
                                     deviceInfo.btDeviceName = device.getName();
+                                    deviceInfo.rssi = Integer.toString(result.getRssi());
 
                                     byte[] manufactureDataBytes = manufacturerSpecificData.valueAt(0);
                                     StringBuilder firmwareVersionStr = new StringBuilder();

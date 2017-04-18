@@ -10,7 +10,8 @@
     "date":"08.07.2016",
     "fwupdate":"true",
     "modelType":"Sensor",
-    "firmwareVersion":"1.0"
+    "firmwareVersion":"1.0",
+    "rssi":""
   },
   {
     "btDeviceName": "BT_MOSFET" ,
@@ -22,7 +23,8 @@
     "date":"04.05.2016",
     "modelType":"Sensor",
     "fwupdate":"false",
-    "firmwareVersion":"1.0"
+    "firmwareVersion":"1.0",
+    "rssi":""
   },
   {
     "btDeviceName":"BT_DALI_Master",
@@ -34,7 +36,8 @@
     "date":"05.05.2016",
     "modelType":"Corridor DALI",
     "fwupdate":"false",
-    "firmwareVersion":"1.0"
+    "firmwareVersion":"1.0",
+    "rssi":""
   }
 ]
 }
