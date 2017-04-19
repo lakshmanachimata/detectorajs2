@@ -1,7 +1,7 @@
 <div class="bj-config-container">
       <div class="bj-config-detector-name-wrap">
          <div id="bj-config-detector-name">
-                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName"  (ngModelChange)="paramsChanged()">
+                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName">
          </div>
       </div>
       <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
@@ -46,13 +46,13 @@
               </div>
             </div>
 
-           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.constantLightControlEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
+           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.considerSlaveBrightnessEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad.constantLightControlEnable" [ngStyle]="{'border-color': ad.constantLightControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                             <label class="switch-onlabel" *ngIf="ad.constantLightControlEnable == true">{{onLabel}}</label>
-                             <label class="switch-offlabel" *ngIf="ad.constantLightControlEnable == false">{{offLabel}}</label>
-                             <div class="switch" [ngClass]="{'switch-on':ad.constantLightControlEnable == true,'switch-off':ad.constantLightControlEnable == false}" [ngStyle]="{'background-color': ad.constantLightControlEnable == true ? '#26394f':'#ccc'}"></div>
+                         <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad.considerSlaveBrightnessEnable" [ngStyle]="{'border-color': ad.considerSlaveBrightnessEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                             <label class="switch-onlabel" *ngIf="ad.considerSlaveBrightnessEnable == true">{{onLabel}}</label>
+                             <label class="switch-offlabel" *ngIf="ad.considerSlaveBrightnessEnable == false">{{offLabel}}</label>
+                             <div class="switch" [ngClass]="{'switch-on':ad.considerSlaveBrightnessEnable == true,'switch-off':ad.considerSlaveBrightnessEnable == false}" [ngStyle]="{'background-color': ad.considerSlaveBrightnessEnable == true ? '#26394f':'#ccc'}"></div>
                          </div>
                     </span>
             </div>
@@ -80,7 +80,7 @@
                     {{ad.switchOffDelayMin }} s - {{ad.switchOffDelayMin/60}} min)</label>
                 <div class="bj-config-setting-adjust short-time-pulse-function " *ngIf = "ad.shortTimePulseEnable == false" >
                       <div class="adjust-minus" long-press (click)="reduceCount('sdelay',true)" (onLongPressEnd)="reduceCount('sdelay',true)" (onLongPressing)="reduceCount('sdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" (ngModelChange)="paramsChanged()" [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
+                        <input class="adjust" type="number"  [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
                         <div class="static-unit-text">s</div>
                         <div class="adjust-plus" long-press (click)="increaseCount('sdelay',true)" (onLongPressEnd)="increaseCount('sdelay',true)" (onLongPressing)="increaseCount('sdelay',false)"><span class="glyphicon glyphicon-plus"></span>
                         </div>
@@ -185,7 +185,7 @@
              <div class="bj-config-setting-div commissioning-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                   <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
                     <span class="bj-config-toggle-switch">
-                         <div class="track"  (click)="togglemsd()" (ngModelChange)="paramsChanged()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"  (click)="togglemsd()"   [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.slaveModeEnable == 1">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.slaveModeEnable== 0">{{offLabel}}</label>
                              <div class="switch" [ngClass]="{'switch-on':ad.slaveModeEnable == 1,'switch-off':ad.slaveModeEnable == 0}" [ngStyle]="{'background-color': ad.slaveModeEnable == 1 ? '#26394f':'#ccc'}"></div>

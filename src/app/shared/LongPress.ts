@@ -10,7 +10,7 @@ import {
 @Directive({ selector: '[long-press]' })
 export class LongPress {
 
-  @Input() duration: number = 300;
+  @Input() duration: number = 1000;
 
   @Output() onLongPress: EventEmitter<any> = new EventEmitter();
   @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
@@ -90,9 +90,10 @@ export class LongPress {
 
   endPress() {
     clearTimeout(this.timeout);
+    if(this.longPressing)
+      this.onLongPressEnd.emit(true);
     this.longPressing = false;
     this.pressing = false;
-    this.onLongPressEnd.emit(true);
   }
 
   @HostListener('mouseup')

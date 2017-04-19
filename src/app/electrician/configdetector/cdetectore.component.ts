@@ -100,7 +100,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   togglecsb() {
     this.ad.constantLightControlEnable = !this.ad.constantLightControlEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.considerSlaveBrightnessEnable?1:0])
   }
   togglerrb() {
     this.ad.constantLightControlConsiderSlaveBrightnessEnable = !this.ad.constantLightControlConsiderSlaveBrightnessEnable;
@@ -111,7 +111,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad.slaveModeEnable = 1;
     else
       this.ad.slaveModeEnable = 0;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
   }
   togglestp(){
     this.ad.shortTimePulseEnable= !this.ad.shortTimePulseEnable;
@@ -280,9 +280,6 @@ slideBackground (value) {
   }
 
   ngOnDestroy() {
-  }
-  paramsChanged() {
-    this.data.setEDevParamsState(1);
   }
   gotoActuator1(){
     this.router.navigate(['eactuator1'],{relativeTo: this.route});
