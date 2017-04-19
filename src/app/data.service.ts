@@ -504,7 +504,6 @@ export class DataService {
                     this.sendChangedParams();
                 }else {
                     this.notifyActiveComponentWithBLEdata()
-                    this.setEDevParamsState(0);
                 }
             break;
             default:

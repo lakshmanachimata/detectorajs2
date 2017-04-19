@@ -81,6 +81,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessCorrectionEnable = this.ad.brightnessCorrectionEnable ;
+        this.data.setEDevParamsState(0);
       });
   }
     setLoadingDataDone(value){

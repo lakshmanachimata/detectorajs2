@@ -82,6 +82,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   onBLEdata() {
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay;
+        this.data.setEDevParamsState(0);
     });
   }
   circuitModeChange() {

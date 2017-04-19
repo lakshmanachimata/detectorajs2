@@ -87,6 +87,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
+        this.data.setEDevParamsState(0);
       });
   }
 
