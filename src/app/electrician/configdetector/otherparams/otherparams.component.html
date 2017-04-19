@@ -99,8 +99,15 @@
         <div class="bj-config-setting inner-setting profiles heading">
             <label class="userdefined-profiles-lbl">User profiles</label>
             <div class="bj-actuator-toggle" (click)="showUserdefinedProfiles = !showUserdefinedProfiles">
-                <down-nav *ngIf="!showUserdefinedProfiles"></down-nav>
-                <up-nav *ngIf="showUserdefinedProfiles"></up-nav>
+                <down-nav *ngIf="!showUserdefinedProfiles && userProfiles.length > 0"></down-nav>
+                <up-nav *ngIf="showUserdefinedProfiles && userProfiles.length > 0"></up-nav>
+            </div>
+        </div>
+        <div *ngIf="showUserdefinedProfiles">
+            <div *ngFor="let item of getOtherProfiles()">
+                <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" >
+                    <label class="pre-profile-lbl" >{{ item }}</label>
+                </div>
             </div>
         </div>
     </div>
@@ -216,7 +223,7 @@
                  <div class="track"  (click)="showUserPin=!showUserPin"  [ngStyle]="{'border-color': showUserPin ==true ? '#26394f':'#c0c1c3'}">
                        <label class="switch-onlabel" *ngIf="showUserPin == true">{{onLabel}}</label>
                        <label class="switch-offlabel" *ngIf="!showUserPin == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':showUserPin == true,'switch-off':showUserPin == false}" [ngStyle]="{'background-color':showFitterPin == true ? '#26394f':'#ccc'}"></div>
+                        <div class="switch" [ngClass]="{'switch-on':showUserPin == true,'switch-off':showUserPin == false}" [ngStyle]="{'background-color':showUserPin == true ? '#26394f':'#ccc'}"></div>
                  </div>
             </span>
     </div>

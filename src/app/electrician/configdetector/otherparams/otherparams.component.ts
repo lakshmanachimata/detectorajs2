@@ -20,6 +20,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
+  userProfiles = [];
   preDefined_Profiles =[
     "Living room",
     "Toilet",
@@ -68,6 +69,9 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.data.setActiveComponent(this);
       this.data.readData(this.readAttrs);
   }
+    getOtherProfiles(){
+      return this.userProfiles;
+    }
       searchDetectors(items) {
         if(this.searchText.length > 0)
         {

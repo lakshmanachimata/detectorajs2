@@ -456,7 +456,7 @@ label.actuator-anti-glare-level-lbl{
 .bj-actuator1-slider{
 	height: 44px;
     width: 273px;
-    margin-left: 4px;
+    margin-left: 5px;
     border-bottom-left-radius: 32px;
     border-top-left-radius: 32px;
     border: 1px solid #8d8d8d;
@@ -1173,7 +1173,7 @@ div#bj-user-sensor-div {
     margin-top: 10px;
     border: solid 1px #9eabbb;
     background: #e6e8ed;
-	margin-right:5px;
+	margin-right:10px;
 }
 .bj-current-val{
 	/*display:inline-flex;*/
