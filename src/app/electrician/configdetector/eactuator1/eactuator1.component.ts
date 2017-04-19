@@ -186,66 +186,53 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   reduceCount(item,isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration - 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
     } else if(item == 'peroff') {
       this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration - 1;
-      this.validateParam(item);
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
     } else if(item == 'softon' && (this.ad.softOnDuration > 1 && this.ad.softOnDuration <= 60)){
       this.ad.softOnDuration = this.ad.softOnDuration - 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
     } else if(item == 'softoff' && (this.ad.softOffDuration > 1 && this.ad.softOffDuration <= 60)){
       this.ad.softOffDuration = this.ad.softOffDuration - 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
     } else if(item == 'burnduration' && (this.ad.burnInDuration > 1 && this.ad.burnInDuration <= 250)){
       this.ad.burnInDuration = this.ad.burnInDuration - 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     } else if(item == 'brightend') {
         this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }else if(item == 'glarestart') {
         this.ad.nightLightStartTime = this.ad.nightLightStartTime - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     } else if(item == 'glareend') {
         this.ad.nightLightEndTime = this.ad.nightLightEndTime - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }else if(item == 'sstime') {
         this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel - 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.stepwiseSwitchOffLevel ])
     }
@@ -255,114 +242,59 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   increaseCount(item, isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
     }  else if(item == 'peroff') {
       this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
     } else if(item == 'softon' && (this.ad.softOnDuration >= 1 && this.ad.softOnDuration < 60)) {
       this.ad.softOnDuration = this.ad.softOnDuration + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
     } else if(item == 'softoff' && (this.ad.softOffDuration >= 1 && this.ad.softOffDuration < 60)){
       this.ad.softOffDuration = this.ad.softOffDuration + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
     } else if(item == 'burnduration' && (this.ad.burnInDuration >= 1 && this.ad.burnInDuration < 250)){
       this.ad.burnInDuration = this.ad.burnInDuration + 1;
-      this.validateParam(item);
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     } else if(item == 'brightend') {
         this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }else if(item == 'glarestart') {
         this.ad.nightLightStartTime = this.ad.nightLightStartTime +  1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     } else if(item == 'glareend') {
         this.ad.nightLightEndTime = this.ad.nightLightEndTime + 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }else if(item == 'sstime') {
         this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay +  1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel + 1;
-        this.validateParam(item);
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.stepwiseSwitchOffLevel ])
     }
   }
-  validateParam(item) {
-     if(item == 'peron') {
-       if(this.ad.ch1PermanentOnDuration < 30 || this.ad.ch1PermanentOnDuration > 2400) {
-         this.perOn = true;
-       }else {
-         this.perOn = false;
-       }
-     } else  if(item == 'peroff') {
-       if(this.ad.ch1PermanentOffDuration < 30 || this.ad.ch1PermanentOffDuration > 2400) {
-         this.perOff = true;
-       }else {
-         this.perOff = false;
-       }
-     } else  if(item == 'softon') {
-       if(this.ad.softOnDuration < 1 || this.ad.softOnDuration > 60) {
-         this.softOn = true;
-       }else {
-         this.softOn = false;
-       }
-     } else  if(item == 'softoff') {
-       if(this.ad.softOffDuration < 1 || this.ad.softOffDuration > 60) {
-         this.softOff = true;
-       }else {
-         this.softOff = false;
-       }
-     } else  if(item == 'minload') {
-       
-     }else  if(item == 'maxload') {
-       
-     } else if(item == 'burnduration') {
-       if(this.ad.softOffDuration < 1 || this.ad.softOffDuration > 250) {
-         this.burnHours = true;
-       }else {
-         this.burnHours = false;
-       }
-     }else if(item == 'sstime') {
-       if(this.ad.stepwiseSwitchOffDelay < 30 || this.ad.stepwiseSwitchOffDelay> 3060) {
-         this.ssOffTime = true;
-       }else {
-         this.ssOffTime = false;
-       }
-     }
-  }
+
   togglemsd() {
     if(this.ad.slaveModeEnable ==0 )
       this.ad.slaveModeEnable = 1;

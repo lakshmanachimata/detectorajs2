@@ -166,7 +166,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
       }
     }
-    this.validatebrparams(item)
   }
 
 
@@ -192,7 +191,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
             this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
       }
     }
-    this.validatebrparams(item) 
   }
 
   
@@ -227,29 +225,7 @@ getMystyle(item) {
     
   }
   
-  validatebrparams(item) {
-    if(item == 'threshold') {
-      if(this.ad.brightnessThreshold < 10 || 
-      this.ad.brightnessThreshold >2000) {
-        this.brthresholderror =  true;
-      }else {
-        this.brthresholderror =  false;
-      }
-    }else if(item == 'setpoint') {
-      if(this.ad.constantLightBrightnessSetPoint < 10 || 
-      this.ad.constantLightBrightnessSetPoint >2000) {
-        this.brsetpointerror =  true;
-      }else {
-        this.brsetpointerror =  false;
-      }
-    }else  if(item == 'sdelay') {
-      if(this.ad.switchOffDelay < 10 && this.ad.switchOffDelay > 1800) {
-        this.sdelayerror = true;
-      }else {
-        this.sdelayerror = false;
-      }
-    }
-  }
+ 
   slideBrightnessIn() {
     this.aslider = 'in';
   }
