@@ -1242,6 +1242,7 @@ label.bj-config-setting.presence-simulation-block {
 .bj-config-setting-block-div.short-time-pulse-user-div {
     border-top: 2px solid #39414a;
     border-bottom: 2px solid #131b25;
+    padding-bottom: 22px;
 }
 .bj-config-setting-block-lbl{
 	color: #9eabbb;
@@ -1283,6 +1284,7 @@ label.bj-config-setting-block-lbl.actuator-anti-glare-end-time-lbl {
 
 div#bj-user-basic-illumination-div {
     margin-top: -22px;
+    padding-bottom: 22px;
 }
 
 .switch{

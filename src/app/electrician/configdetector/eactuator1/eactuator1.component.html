@@ -238,7 +238,7 @@
                     <div class="bj-config-setting-adjust durable-switching-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('burnduration',true)" (onLongPressEnd)="reduceCount('burnduration',true)" (onLongPressing)="reduceCount('burnduration',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.burnInDuration" [ngStyle]="{'color':burnHours ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > s </div>
+                        <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('burnduration',true)" (onLongPressEnd)="increaseCount('burnduration',true)" (onLongPressing)="increaseCount('burnduration',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
                     </div>
@@ -379,7 +379,7 @@
                  </span>
             </div>
             <div class="time-shift-settings-div" *ngIf="ad.stepwiseSwitchOffDelayEnable" >
-                <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}} s- {{ad.stepwiseSwitchOffDelayMax}}  min)</label>
+                <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}} s- {{ad.stepwiseSwitchOffDelayMax}}  s)</label>
                 <div class="bj-config-setting-adjust time-shift-switchoff-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('sstime',true)" (onLongPressEnd)="reduceCount('sstime',true)" (onLongPressing)="reduceCount('sstime',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
