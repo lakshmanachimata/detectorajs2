@@ -94,6 +94,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         return this.searchDetectors(this.preDefined_Profiles);
     }
 
+onFitterPinChanged(){
+    this.data.setEDevParamsState(1);
+}
+onUserPinChanged(){
+    this.data.setEDevParamsState(1);
+}
   ngOnChanges() { 
   }
   ngDoCheck() { 

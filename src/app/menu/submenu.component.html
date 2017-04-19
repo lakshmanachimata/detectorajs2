@@ -32,7 +32,7 @@
     <div class="bj-customised-detectors" *ngIf="detectors">
             <ul class="bj-detectors-list" *ngFor="let detector of detectors">
                 <li class="bj-detector-name">{{detector.btDeviceName}}
-                    <div class="bj-detector-article-num">{{detector.articleNumber}}</div>
+                    <div class="bj-detector-article-num">{{detector.modelNumber}}</div>
                 </li>
             </ul>
     </div>
@@ -59,7 +59,7 @@
             <ul class="bj-detectors-list" *ngIf="getIfName(item) === true" (click)="InstallerItemClick(item)">
                 <div class="installed-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
                 <li class="bj-detector-name">{{ item.btDeviceName}}<span id="nav-right-sorted" class="glyphicon glyphicon-menu-right"></span>
-                    <div class="bj-detector-article-num">{{item.articleNumber}}</div>
+                    <div class="bj-detector-article-num">{{item.modelNumber}}</div>
                 </li>
             </ul>
         </div>

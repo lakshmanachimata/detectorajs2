@@ -40,7 +40,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
             ]
 
   brightnessError = false;
-  currentBrightness = '450 lx';
   constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
@@ -55,7 +54,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnInit() {
     this.data.setMainTitle('Settings');
-    this.currentBrightness = this.data.getCurrentBrightness();
+
     this.data.setOtherParam('','');
     if(this.data.DeviceBuild == 1){
       this.data.readData(this.readAttrs);

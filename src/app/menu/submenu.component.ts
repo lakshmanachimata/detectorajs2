@@ -203,7 +203,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             case (this.sortUITypes[4]):
                this.sortedMap =[];
                for (var i=0; i<this.detectors.length; i++) {
-                    var key = this.detectors[i].articleNumber;
+                    var key = this.detectors[i].modelNumber;
                     let isKeyIn = this.sortedMap.indexOf(key);
                     if (isKeyIn < 0){
                         this.sortedMap.push(key,this.detectors[i]);
@@ -212,7 +212,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
                     }       
                 }
                 var sorted = this.detectors.sort(function (a, b) {
-                    var x = a.modelType.localeCompare(b.articleNumber);
+                    var x = a.modelType.localeCompare(b.modelNumber);
                     if(x==0){
                       return a.btDeviceName.localeCompare(b.btDeviceName);
                      }
@@ -238,7 +238,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
         return this.sortedMap;
     }
     getIfName(item) {
-        if(item.btDeviceName !==  undefined) {
+        if(item !== undefined && item.btDeviceName !==  undefined) {
             return true;
         }
         else {

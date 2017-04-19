@@ -16,7 +16,6 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     ad:any;
     onLabel = 'on';
     offLabel = 'off';
-    currentBrightness = '450 lx';
     brrangeerror = false;
     loadingDataDone = false;
     readAttrs =[
@@ -43,7 +42,6 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle('Additional sensor paramters');
-    this.currentBrightness = this.data.getCurrentBrightness();
   }
   ngAfterContentInit() { 
   }

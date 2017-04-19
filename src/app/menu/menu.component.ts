@@ -41,8 +41,6 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     animationDone($event) {
         if(this.menuState  == 'topout')
             this.data.setMenuArrow(0);
-        else if(this.menuState == 'rightout')
-            this.data.setMenuArrow(1)
     }
 
     menuArrowStateChange (arrowState){

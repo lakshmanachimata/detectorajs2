@@ -48,7 +48,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     brsetpointerror = false;
     sdelayerror = false;
     aslider = 'none';
-    currentBrightness = '450 lx';
     showSlider = false;
     brSubScribed = false;
     loadingDataDone = false;
@@ -64,7 +63,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,                  
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,  
                 SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,                                  
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,                                        
+                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
+                SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,                                        
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,                                     
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,                                     
                 SCCP_ATTRIBUTES.OPERATION_MODE,                                           
@@ -119,7 +119,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle('Config detector');
-    this.currentBrightness = this.data.getCurrentBrightness();
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
   }

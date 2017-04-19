@@ -190,7 +190,7 @@ export class DeviceParams {
         public deviceName = '';
         public deviceType= '';
         public deviceAddress = '';
-        public articleNumber= '';
+        public modelNumber= '';
         public contactName= '';
         public buildingName= '';
         public date= '';
@@ -261,10 +261,6 @@ export class DataService {
         this.loadDevices().then((devs) => {
              this.uiParams.devices = devs;
         });
-    }
-
-    getCurrentBrightness() {
-        return this.deviceData.currentBrightness;
     }
    
     loadDevices() {
@@ -465,6 +461,7 @@ export class DataService {
     notifyActiveComponentWithBLEdata() {
         if(this.activeComponent != undefined) {
             this.activeComponent.onBLEdata();
+             this.setEDevParamsState(0)
         }
     }
 
