@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 soft-on" *ngIf="showSoftSwitchingSettings">
-            <label class="actuator-soft-switching-lbl">Soft ON</label><label class="dali-soft-switching-unit" >(1 s - 1 min)</label>
+            <label class="actuator-soft-switching-lbl">Soft ON</label><label class="dali-soft-switching-unit" >({{ad.softOnDurationMin}} s - {{ad.softOnDurationMax}} s)</label>
                 <span class="bj-config-toggle-switch actuator1">
                    <div class="track"   (click)="togglesn()"  [(ngModel)]="ad.softOnEnable" [ngStyle]="{'border-color': ad.softOnEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.softOnEnable == true">{{onLabel}}</label>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="bj-config-setting inner-setting actuator1 soft-off" *ngIf="showSoftSwitchingSettings">
-            <label class="actuator-soft-switching-lbl">Soft OFF</label><label class="dali-soft-switching-unit">(1 s - 1 min)</label>
+            <label class="actuator-soft-switching-lbl">Soft OFF</label><label class="dali-soft-switching-unit">({{ad.softOffDurationMin}} s - {{ad.softOffDurationMax}} s)</label>
                 <span class="bj-config-toggle-switch actuator1">
                    <div class="track"   (click)="togglesf()"  [(ngModel)]="ad.softOffEnable" [ngStyle]="{'border-color': ad.softOffEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.softOffEnable == true">{{onLabel}}</label>

@@ -1236,6 +1236,9 @@ label.bj-config-setting.presence-simulation-block {
    	min-height:50px;
    	border-bottom: solid 1px #9eabbb;
 }
+.bj-config-setting-block-sp-div.bj-config-setting-block-sp-div{
+    padding-bottom: 10px;
+}
 .bj-config-setting-block-div.brightness-user-div{
     border-bottom: 2px solid #131b25;
     border-top: 2px solid #39414a;

@@ -186,17 +186,29 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   reduceCount(item,isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration - 1;
+      if(this.ad.ch1PermanentOnDuration <= this.ad.ch1PermanentOnDurationMin){
+        this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
     } else if(item == 'peroff') {
       this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration - 1;
+      if(this.ad.ch1PermanentOffDuration <= this.ad.ch1PermanentOffDurationMin){
+        this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMin;
+      }
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
-    } else if(item == 'softon' && (this.ad.softOnDuration > 1 && this.ad.softOnDuration <= 60)){
+    } else if(item == 'softon'){
       this.ad.softOnDuration = this.ad.softOnDuration - 1;
+      if(this.ad.softOnDuration <= this.ad.softOnDurationMin){
+        this.ad.softOnDuration = this.ad.softOnDurationMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
-    } else if(item == 'softoff' && (this.ad.softOffDuration > 1 && this.ad.softOffDuration <= 60)){
+    } else if(item == 'softoff'){
       this.ad.softOffDuration = this.ad.softOffDuration - 1;
+      if(this.ad.softOffDuration <= this.ad.softOffDurationMin){
+        this.ad.softOffDuration = this.ad.softOffDurationMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
@@ -207,8 +219,11 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
-    } else if(item == 'burnduration' && (this.ad.burnInDuration > 1 && this.ad.burnInDuration <= 250)){
+    } else if(item == 'burnduration'){
       this.ad.burnInDuration = this.ad.burnInDuration - 1;
+      if(this.ad.burnInDuration <= this.ad.burnInDurationMin){
+        this.ad.burnInDuration = this.ad.burnInDurationMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
@@ -229,6 +244,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }else if(item == 'sstime') {
         this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay - 1;
+        if(this.ad.stepwiseSwitchOffDelay <= this.ad.stepwiseSwitchOffDelayMin){
+          this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMin;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {
@@ -242,18 +260,30 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   increaseCount(item, isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;
+      if(this.ad.ch1PermanentOnDuration >= this.ad.ch1PermanentOnDurationMax){
+        this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
     }  else if(item == 'peroff') {
       this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration + 1;
+      if(this.ad.ch1PermanentOffDuration >= this.ad.ch1PermanentOffDurationMax){
+        this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
     } else if(item == 'softon' && (this.ad.softOnDuration >= 1 && this.ad.softOnDuration < 60)) {
       this.ad.softOnDuration = this.ad.softOnDuration + 1;
+      if(this.ad.softOnDuration >= this.ad.softOnDurationMax){
+        this.ad.softOnDuration = this.ad.softOnDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
     } else if(item == 'softoff' && (this.ad.softOffDuration >= 1 && this.ad.softOffDuration < 60)){
       this.ad.softOffDuration = this.ad.softOffDuration + 1;
+       if(this.ad.softOffDuration >= this.ad.softOffDurationMax){
+        this.ad.softOffDuration = this.ad.softOffDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
     } else if(item == 'minload') {
@@ -266,6 +296,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
     } else if(item == 'burnduration' && (this.ad.burnInDuration >= 1 && this.ad.burnInDuration < 250)){
       this.ad.burnInDuration = this.ad.burnInDuration + 1;
+      if(this.ad.burnInDuration >= this.ad.burnInDurationMax){
+        this.ad.burnInDuration = this.ad.burnInDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
     }else if(item == 'brightstart') {
@@ -286,6 +319,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }else if(item == 'sstime') {
         this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay +  1;
+      if(this.ad.stepwiseSwitchOffDelay >= this.ad.stepwiseSwitchOffDelayMax){
+        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMax;
+      }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {

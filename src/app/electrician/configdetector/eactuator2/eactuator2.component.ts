@@ -58,10 +58,16 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   reduceCount(item,isClick){
     if(item == 'sondelay') {
       this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay -1;
+      if(this.ad.hvacSwitchOnDelay <= this.ad.hvacSwitchOnDelayMin){
+          this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelayMin;
+        }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
     }else if(item == 'soffdelay') {
       this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelay -1;
+       if(this.ad.hvacSwitchOffDelay <= this.ad.hvacSwitchOffDelayMin){
+          this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelayMin;
+        }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
     }
@@ -71,10 +77,16 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   increaseCount(item,isClick) {
  if(item == 'sondelay') {
       this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay + 1;
+      if(this.ad.hvacSwitchOnDelay >= this.ad.hvacSwitchOnDelayMax){
+        this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelayMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
     }else if(item == 'soffdelay') {
       this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelay + 1;
+      if(this.ad.hvacSwitchOffDelay >= this.ad.hvacSwitchOffDelayMax){
+        this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelayMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
     }

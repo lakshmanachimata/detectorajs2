@@ -127,9 +127,15 @@ onUserPinChanged(){
   reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad - 1;
+      if(this.ad.energyMonitorConnectedLoad <= this.ad.energyMonitorConnectedLoadMin){
+          this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMin;
+        }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
+      if(this.ad.energyMonitorLightingDuration <= this.ad.energyMonitorLightingDurationMin){
+          this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDurationMin;
+        }
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
@@ -143,10 +149,16 @@ onUserPinChanged(){
   increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
+      if(this.ad.energyMonitorConnectedLoad >= this.ad.energyMonitorConnectedLoadMax){
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
+       if(this.ad.energyMonitorLightingDuration >= this.ad.energyMonitorLightingDurationMax){
+        this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDurationMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {

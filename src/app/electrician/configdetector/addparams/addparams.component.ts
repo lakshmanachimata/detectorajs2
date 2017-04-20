@@ -62,6 +62,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   reduceCount(item,isClick) {
     this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue - 1;
+
     if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }
