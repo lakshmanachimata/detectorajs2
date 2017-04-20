@@ -112,6 +112,7 @@ export class SCCP_ATTRIBUTES  {
     static PRESENCE_SIMULATION_START_TIME                          = 0x009E;
     static PRESENCE_SIMULATION_END_TIME                            = 0x009F;
     static PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               = 0x00A0;
+    static PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID                = 0x00A5;
     static CH2_CIRCUIT_LOGIC                                       = 0x0100;
     static CH2_MODE                                                = 0x0101;
     static HVAC_DYNAMICAL_CONTROL_ENABLE                           = 0x0102;
@@ -885,6 +886,9 @@ export class DataService {
                 this.deviceData.presenceSimulationEndTime = attrValue 
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               :
+            break;
+            case SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID                :
+                this.deviceData.permanentLightByPushButtonEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC                                       :
                 this.deviceData.ch2CircuitLogic = attrValue

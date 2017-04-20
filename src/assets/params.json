@@ -71,6 +71,7 @@
 "basicBrightnessEndTime":600,
 "basicBrightnessStartTimeAstroFunctionEnable":false,
 "basicBrightnessEndTimeAstroFunctionEnable":false,
+"permanentLightByPushButtonEnable":false,
 "nightLightFunctionEnable":false,
 "nightLightStartTime":0,
 "nightLightEndTime":600,
