@@ -70,7 +70,7 @@ import java.util.UUID;
 /*
     Main Activity
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private WebView webview;
     View splashScreen;
