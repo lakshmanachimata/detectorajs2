@@ -14,7 +14,7 @@
 "constantLightBrightnessSetPointMin":10,
 "constantLightBrightnessSetPointMax":2000,
 "constantLightControlConsiderSlaveBrightnessEnable":true,
-"shortTimePulseEnable":true,
+"shortTimePulseEnable":false,
 "switchOffDelay":10,
 "switchOffDelayMin":0,
 "switchOffDelayMax":1800,

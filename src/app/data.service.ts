@@ -483,11 +483,11 @@ export class DataService {
                 else {
                     this.readArray = [];
                 }  
-                this.logger.log("read data remain is " + this.readArray.length);
+                //this.logger.log("read data remain is " + this.readArray.length);
                 if(this.readArray.length > 0){
                     this.readData(this.readArray);
                 }else {
-                    this.logger.log("notify Active Component");
+                    //this.logger.log("notify Active Component");
                     this.notifyActiveComponentWithBLEdata()
                 }
             break;
@@ -632,7 +632,8 @@ export class DataService {
                     }
                 }
             }
-            this.logger.log("write data is " + dataBytes);
+            //this.logger.log("write data is " + dataBytes);
+            this.logger.log("write array  " + dataBytes.join(','))
             this.writeAttrObj =  new writeAttr(dataBytes);
         }else {
             this.setEDevParamsState(0)
@@ -791,22 +792,22 @@ export class DataService {
                 this.deviceData.ch1MaxLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.LEVEL_MIN                                               : 
-                this.deviceData.
+                this.deviceData.levelMin =  attrValue;
             break;
             case SCCP_ATTRIBUTES.LEVEL_MAX                                               :
-                this.deviceData. 
+                this.deviceData.levelMax = attrValue;
             break;
             case SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL                                     :
-                this.deviceData. 
+                this.deviceData.daliPowerOnLevel = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE                                       : 
-                this.deviceData.
+                this.deviceData.colorTemperature = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN                                   :
-                this.deviceData. 
+                this.deviceData.colorTemperatureMin = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX                                   : 
-                this.deviceData.
+                this.deviceData.colorTemperatureMax = attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_ENABLE                                          : 
                 this.deviceData.burnInEnable= attrValue;

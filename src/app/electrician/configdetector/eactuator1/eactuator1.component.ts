@@ -125,6 +125,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   nightLightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
   }
+  powerOnChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.powerOnChange]);
+  }
   ambientBrChange(){
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.basicBrightnessAmbientBrightnessThreshold]);
   }

@@ -66,9 +66,9 @@
                          </div>
                     </span>
             </div>
-            <div class="bj-config-setting-block-sp-div short-time-pulse-div" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
-                  <label class="bj-config-setting short-time-pulse-function">Short-time pulse</label>
-                    <span class="bj-config-toggle-switch">
+            <div class="bj-config-setting-block-sp-div short-time-pulse-div" >
+                  <label class="bj-config-setting short-time-pulse-function" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">Short-time pulse</label>
+                    <span class="bj-config-toggle-switch" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
                          <div class="track"  (click)="togglestp()"  [(ngModel)]="ad.shortTimePulseEnable" [ngStyle]="{'border-color': ad.shortTimePulseEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.shortTimePulseEnable == true">{{onLabel}}</label>
                              <label class="switch-offlabel" *ngIf="ad.shortTimePulseEnable == false">{{offLabel}}</label>
@@ -76,15 +76,15 @@
                          </div>
                     </span>
                     <div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
-                <label class="bj-config-setting-block-lbl short-time-pulse-function" *ngIf = "ad.shortTimePulseEnable == false" >Switch-off delay 
-                    ( {{ad.switchOffDelayMin }} s - {{ad.switchOffDelayMax/60}} min )</label>
-                <div class="bj-config-setting-adjust short-time-pulse-function " *ngIf = "ad.shortTimePulseEnable == false" >
-                      <div class="adjust-minus" long-press (click)="reduceCount('sdelay',true)" (onLongPressEnd)="reduceCount('sdelay',true)" (onLongPressing)="reduceCount('sdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number"  [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
-                        <div class="static-unit-text">s</div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('sdelay',true)" (onLongPressEnd)="increaseCount('sdelay',true)" (onLongPressing)="increaseCount('sdelay',false)"><span class="glyphicon glyphicon-plus"></span>
+                        <label class="bj-config-setting-block-lbl short-time-pulse-function"  >Switch-off delay 
+                            ( {{ad.switchOffDelayMin }} s - {{ad.switchOffDelayMax/60}} min )</label>
+                        <div class="bj-config-setting-adjust short-time-pulse-function "  >
+                            <div class="adjust-minus" long-press (click)="reduceCount('sdelay',true)" (onLongPressEnd)="reduceCount('sdelay',true)" (onLongPressing)="reduceCount('sdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                                <input class="adjust" type="number"  [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
+                                <div class="static-unit-text">s</div>
+                                <div class="adjust-plus" long-press (click)="increaseCount('sdelay',true)" (onLongPressEnd)="increaseCount('sdelay',true)" (onLongPressing)="increaseCount('sdelay',false)"><span class="glyphicon glyphicon-plus"></span>
+                                </div>
                         </div>
-                </div>
                     </div>
             </div>
             <div class="bj-config-setting-div additional-sensor-div" (click)="gotoaddParams()">
@@ -94,10 +94,9 @@
         </div>
         <div id="bj-config-operating-div">
             <label class="bj-config-lbl operating-div">Operating mode</label>
-
-            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 0"  name="operation_Mode" [value]="0"/></div>
-            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   (ngModelChange)="operationChanged()"[(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 1" name="operation_Mode" [value]="1"/></div>
-            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" (ngModelChange)="operationChanged()" [(ngModel)]="ad.operationMode" [checked]="ad.operationMode === 2"  name="operation_Mode" [value]="2"/></div>
+            <div><label class="bj-config-setting operating-auto-lbl">Automatic</label><input type="radio" class="operating-radio" [(ngModel)]="ad.operationMode" (ngModelChange)="operationChanged()"  [checked]="ad.operationMode === 0"  name="operation_Mode" [value]="0"/></div>
+            <div><label class="bj-config-setting operating-semi-lbl">Semiautomatic</label><input type="radio" class="operating-radio"   [(ngModel)]="ad.operationMode" (ngModelChange)="operationChanged()" [checked]="ad.operationMode === 1" name="operation_Mode" [value]="1"/></div>
+            <div><label class="bj-config-setting operating-comfort-lbl">Semiautomatic, comfort</label><input type="radio" class="operating-radio" [(ngModel)]="ad.operationMode" (ngModelChange)="operationChanged()"  [checked]="ad.operationMode === 2"  name="operation_Mode" [value]="2"/></div>
       </div>
       <div id="bj-actuator-settings-div">
             <label class="bj-config-lbl actuator-div">Actuator settings</label>

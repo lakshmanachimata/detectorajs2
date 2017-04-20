@@ -60,8 +60,9 @@ function reset() {
 
 function readAttr(readData) {
     var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
-    if(BJE != undefined)
+    if(BJE != undefined) {
         BJE.readAttr(data);
+    }
     else {
         var message = {"send":data}
         var sendMessage =  JSON.stringify(message)
@@ -71,8 +72,9 @@ function readAttr(readData) {
 
 function writeAttr(writeData) {
     var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
-    if(BJE != undefined)
+    if(BJE != undefined){
         BJE.writeAttr(data);
+    }
      else {
         var message = {"send":data}
         var sendMessage =  JSON.stringify(message)
@@ -82,8 +84,9 @@ function writeAttr(writeData) {
 
 function configureAttr(notifyData) {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
-    if(BJE != undefined)
+    if(BJE != undefined) {
         BJE.configureAttr(data);
+    }
      else {
         var message = {"send":data}
         var sendMessage =  JSON.stringify(message)
@@ -224,6 +227,7 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
+            console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
