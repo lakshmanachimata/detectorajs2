@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         PackageInfo pInfo = null;
-        String buildDate= "2016-12-15\n18:59:12";
+        String buildDate= "2017-04-20\n15:30:00";
         mHandler = new Handler();
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

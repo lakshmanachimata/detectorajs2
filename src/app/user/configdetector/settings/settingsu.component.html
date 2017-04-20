@@ -47,14 +47,14 @@
         <div class="bj-config-setting inner-setting-user" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2">
             <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
             <div class="bj-actuator1-slider">
-                <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.basicBrightnessLevel">
+                <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.basicBrightnessLevel" (ngModelChange)="basicBrightnessLevelChange()">
                 <div class="illumination-value-disp">{{ad.basicBrightnessLevel}}%</div>
             </div>
         </div>
         <div class="bj-config-setting inner-setting-user" *ngIf="ad.basicBrightnessMode == 2">
             <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
             <div class="bj-actuator1-slider">
-                <input class = "ambient-brightness-range" type="range" name="points" min="0" max="500" step="1" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold">
+                <input class = "ambient-brightness-range" type="range" name="points" min="ad.basicBrightnessAmbientBrightnessThresholdMax" max="ad.basicBrightnessAmbientBrightnessThresholdMin" step="1" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold"  (ngModelChange)="basicBrightnessAmbientBrightnessThresholdChange()">
                 <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}}lx</div>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="anti-glare-level-div" *ngIf="ad.nightLightFunctionEnable == true">
             <label class="actuator-anti-glare-level-lbl">Illumination level</label>
             <div class="bj-actuator1-slider">
-                 <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="nightLevelChange()" >
+                 <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="ambientBrChange()" >
                 <div class="anti-glare-level-value-disp">{{ad.nightLightLevel}}%</div>
             </div>
         </div>

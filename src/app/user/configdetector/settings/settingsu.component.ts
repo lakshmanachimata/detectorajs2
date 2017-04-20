@@ -36,7 +36,11 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
             SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,
             SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
             SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,
+            SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
+            SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,
             SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,
+            SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,
+            SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME
             ]
 
   brightnessError = false;
@@ -63,6 +67,12 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   nightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)])
+  }
+  basicBrightnessLevelChange() {
+
+  }
+  basicBrightnessAmbientBrightnessThresholdChange() {
+
   }
   ngAfterContentInit() { 
   }
