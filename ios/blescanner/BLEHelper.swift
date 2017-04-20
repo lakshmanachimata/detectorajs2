@@ -297,14 +297,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     if(isEscapeExists == true){
                     
                         if (newBleData[1] == (UInt8)(newBleData.count - 2)) {
-                            print("Length Matched")
                         } else {
                             print("Length mis-matched")
                         }
                     
                         let message =  Data.init(bytes: newBleData[1...newBleData.count-2])
                         if (message.crcCCITT == 0) {
-                            print("crc matched")
                             self.mainView?.sendBleDataToApp(indata:newBleData)
                         } else {
                             print("crc mismatch")
@@ -312,14 +310,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     }
                     else {
                         if (recvData[1] == (UInt8)(recvData.count - 2)) {
-                            print("Length Matched")
                         } else {
                             print("Length mis-matched")
                         }
                         
                         let message =  Data.init(bytes: recvData[1...recvData.count-2])
                         if (message.crcCCITT == 0) {
-                            print("crc matched")
                             self.mainView?.sendBleDataToApp(indata:recvData)
                         } else {
                             print("crc mismatch")

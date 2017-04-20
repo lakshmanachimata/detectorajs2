@@ -125,11 +125,17 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         
         var charDataArray:[UInt16] = []
         var bleDataStr:String = ""
-    
+        
+        
+        print("RECV");
+        
         indata.forEach { (bytedata) in
+            print(bytedata,terminator:"");
+            print(",",terminator:"");
             let charVal:UInt16 =  (UInt16(0x00FF & bytedata))
             charDataArray.append(charVal)
         }
+        print("");
         bleDataStr = String(utf16CodeUnits: charDataArray, count: charDataArray.count)
         bleSendData["data"] = bleDataStr;
         
@@ -149,7 +155,10 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         
         DispatchQueue.global(qos: .background).async {
             DispatchQueue.main.async {
-                print("Message received: \(message.name) with body: \(message.body)");
+                    print("");
+                    print("SEND");
+                    print("\(message.body)");
+                    print("");
                 let webMessageData = message.body as! String
                 let dict = self.convertToDictionary(text: webMessageData)
                 let firstKey = Array(dict!.keys)[0]
