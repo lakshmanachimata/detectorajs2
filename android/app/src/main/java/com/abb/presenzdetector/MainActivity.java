@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         PackageInfo pInfo = null;
-        String buildDate= "2017-04-20\n15:30:00";
+        String buildDate= "2017-04-20\n16:30:00";
         mHandler = new Handler();
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -473,7 +473,6 @@ public class MainActivity extends Activity {
 
                     if (rawdata[0] == (byte) 126) {
                         rawdata = removeEscapeChars(rawdata);
-                        Log.d("lakshmana", "lakshmana recv frame" + rawdata);
                         blePacketStart = true;
                         bleDataLengthReceived = 0;
                         try {
@@ -494,13 +493,11 @@ public class MainActivity extends Activity {
                             blePacketEnd = true;
 
                             if (rawdata.length - 2 == rawdata[1]) {
-                                Log.d("BJE", "LENGTH MATCH");
                                 byte[] dataArray = bleRecvBuffer.array();
                                 byte[] subArray = Arrays.copyOfRange(dataArray, 1, rawdata[1] + 1);
                                 char recvCRC = SCCPEnumerations.computeCRC(subArray);
                                 if (recvCRC == 0) {
                                     byte[] recvData = bleRecvBuffer.array();
-                                    Log.d("BJE", "CRC MATCH");
                                     sendBLEDataToApp(bleRecvBuffer.array());
                                 }
                                 else {
@@ -566,10 +563,8 @@ public class MainActivity extends Activity {
                obytes[k] = indata.get(k);
            }
            sendBLEFrame(obytes);
-           Log.d("lakshmana","lakshmana sent frame" + obytes);
        }else {
            sendBLEFrame(data);
-           Log.d("lakshmana","lakshmana sent frame" + data);
        }
 
 
