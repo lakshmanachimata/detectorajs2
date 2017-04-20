@@ -61,19 +61,19 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     switch(this.selectedQuadrant) {
       case 'q1' :
         this.ad.pirSensitivity0 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(value)]);
       break;
       case 'q2' :
         this.ad.pirSensitivity1 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(value)]);
       break;
       case 'q3' :
         this.ad.pirSensitivity2 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(value)]);
       break;
       case 'q4' :
         this.ad.pirSensitivity3 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(value)]);
       break;
     }
     this.setStyleAttr(this.selectedQuadrantValue);

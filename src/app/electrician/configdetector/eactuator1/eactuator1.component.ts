@@ -123,13 +123,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
   }
   nightLightLevelChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.nightLightLevel]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
   }
   ambientBrChange(){
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.basicBrightnessAmbientBrightnessThreshold]);
   }
   basicBrLevelChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.basicBrightnessLevel]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.basicBrightnessLevel)]);
   }
   basicBrModeChange(){
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode]);
@@ -203,29 +203,29 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.ad.softOnDuration = this.ad.softOnDurationMin;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
     } else if(item == 'softoff'){
       this.ad.softOffDuration = this.ad.softOffDuration - 1;
       if(this.ad.softOffDuration <= this.ad.softOffDurationMin){
         this.ad.softOffDuration = this.ad.softOffDurationMin;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
         if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel)])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
         if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel)])
     } else if(item == 'burnduration'){
       this.ad.burnInDuration = this.ad.burnInDuration - 1;
       if(this.ad.burnInDuration <= this.ad.burnInDurationMin){
         this.ad.burnInDuration = this.ad.burnInDurationMin;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration)])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 1;
         if(isClick)
@@ -252,7 +252,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel - 1;
         if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.stepwiseSwitchOffLevel ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
     }
   }
 
@@ -272,35 +272,35 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
-    } else if(item == 'softon' && (this.ad.softOnDuration >= 1 && this.ad.softOnDuration < 60)) {
+    } else if(item == 'softon') {
       this.ad.softOnDuration = this.ad.softOnDuration + 1;
       if(this.ad.softOnDuration >= this.ad.softOnDurationMax){
         this.ad.softOnDuration = this.ad.softOnDurationMax;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOnDuration ])
-    } else if(item == 'softoff' && (this.ad.softOffDuration >= 1 && this.ad.softOffDuration < 60)){
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration)])
+    } else if(item == 'softoff'){
       this.ad.softOffDuration = this.ad.softOffDuration + 1;
        if(this.ad.softOffDuration >= this.ad.softOffDurationMax){
         this.ad.softOffDuration = this.ad.softOffDurationMax;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.softOffDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOffDuration) ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MinLevel ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel) ])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
         if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1MaxLevel ])
-    } else if(item == 'burnduration' && (this.ad.burnInDuration >= 1 && this.ad.burnInDuration < 250)){
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel) ])
+    } else if(item == 'burnduration'){
       this.ad.burnInDuration = this.ad.burnInDuration + 1;
       if(this.ad.burnInDuration >= this.ad.burnInDurationMax){
         this.ad.burnInDuration = this.ad.burnInDurationMax;
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.burnInDuration ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration) ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 1;
         if(isClick)
@@ -327,7 +327,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel + 1;
         if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.stepwiseSwitchOffLevel ])
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel) ])
     }
   }
 

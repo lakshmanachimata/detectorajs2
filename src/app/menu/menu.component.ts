@@ -34,7 +34,7 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.menuItems = [];
     }
 
-    animationStarted($event) {
+    animationStarted($event) {  
         this.data.setMainTitle('Menu');
     }
 

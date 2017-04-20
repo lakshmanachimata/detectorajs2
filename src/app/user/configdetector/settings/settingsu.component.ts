@@ -61,6 +61,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.loadingDataDone = false;
     }
   }
+  nightLevelChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)])
+  }
   ngAfterContentInit() { 
   }
   ngAfterContentChecked() { 

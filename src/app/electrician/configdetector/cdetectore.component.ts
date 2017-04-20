@@ -180,7 +180,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
 
   brightnessChanged() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.ad.ch1CurrentLevel])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1CurrentLevel)])
   }
   increaseCount(item,isClick) {
     if(item == 'threshold') {
