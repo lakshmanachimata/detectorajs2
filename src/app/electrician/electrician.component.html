@@ -6,7 +6,32 @@
             <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">firware update available</span>
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
-            <span id="bj-detector-icon-signal" class="glyphicon glyphicon-signal"></span>
+            <span id="bj-detector-icon-signal" >
+                <div class="signal-bars four-bars" *ngIf="true">
+                    <div class="first-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="third-bar bar"></div>
+                    <div class="fourth-bar bar"></div>
+                </div>
+                <div class="signal-bars  three-bars" *ngIf="false">
+                    <div class="first-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="third-bar bar"></div>
+                    <div class="fourth-bar bar"></div>
+                </div>
+                <div class="signal-bars two-bars"*ngIf="false">
+                    <div class="first-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="third-bar bar"></div>
+                    <div class="fourth-bar bar"></div>
+                </div>
+                <div class="signal-bars  one-bar"*ngIf="false">
+                    <div class="first-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="third-bar bar"></div>
+                    <div class="fourth-bar bar"></div>
+                </div>
+            </span>
             <span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
         </li>
     </ul>

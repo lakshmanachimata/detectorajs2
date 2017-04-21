@@ -108,7 +108,7 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	font-size:24px;
 	position: absolute;
 	color:#94b3d7;
-	padding-left:57%;
+	padding-left:60%;
 	padding-top:40px;
 }
 
@@ -118,6 +118,33 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 	font-size:18px;
 	position: absolute;
 	color:#94b3d7;
-	padding-left:66%;
+	padding-left:70%;
 	padding-top:42px;
+}
+
+ .signal-bars {
+  display: block;
+  height: 32px;
+  width: 40px;
+}
+
+.signal-bars .bar {
+  width: 5px;
+  min-height: 25%;
+  margin: -2px;
+  display: inline-block;
+}
+.signal-bars .bar.first-bar  { height: 25%; }
+.signal-bars .bar.second-bar { height: 50%; }
+.signal-bars .bar.third-bar  { height: 75%; }
+.signal-bars .bar.fourth-bar { height: 100%; }
+
+.bar {
+  background-color: #94b3d7;
+}
+
+.three-bars .bar.fourth-bar,
+.one-bar .bar:not(.first-bar),
+.two-bars .bar:not(.first-bar):not(.second-bar) {      
+  background-color: #fafafa;
 }
