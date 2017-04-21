@@ -146,7 +146,7 @@ export class SCCP_ATTRIBUTES  {
     static CH2_IDENTIFYING_LOAD                                    = 0x10A0;
     static CH2_ON_OFF_STATE                                        = 0x10A1;
     static CH2_CURRENT_LEVEL                                       = 0x10A2;
-    static TEST_MODE_ACTIVE                                        = 0x10B0;
+    static TEST_MODE_ENABLE                                       = 0x10B0;
     static ACCESS_LEVEL                                            = 0x10E0;
     static TEST_BOOL                                               = 0x8001;
     static TEST_STRING                                             = 0x8002;
@@ -986,8 +986,8 @@ export class DataService {
             case SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL                                       :
                 this.deviceData.ch2CurrentLevel = attrValue 
             break;
-            case SCCP_ATTRIBUTES.TEST_MODE_ACTIVE                                        :
-                this.deviceData.testModeActive = attrValue 
+            case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
+                this.deviceData.testModeEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
                 this.deviceData.accessLevel = attrValue  

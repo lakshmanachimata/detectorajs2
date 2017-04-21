@@ -3,6 +3,9 @@ import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common'
+import {SCCP_ATTRIBUTES} from '../data.service';
+import {SCCP_DATATYPES} from '../data.service';
+
 @Component({
   selector: 'footer-root',
   templateUrl: './footer.component.html',
@@ -36,7 +39,10 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   public getFooter() {
     return this.data.getFooter();
   }
-  
+  deActivateTestMode() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,0])
+    this.location.back();
+  }
   getProfile() {
     return this.data.getProfile();
   }
