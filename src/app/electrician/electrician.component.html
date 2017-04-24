@@ -7,25 +7,25 @@
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
             <span id="bj-detector-icon-signal" >
-                <div class="signal-bars four-bars" *ngIf="true">
+                <div class="signal-bars four-bars" *ngIf="getSignalRange(detector) > 3">
                     <div class="first-bar bar"></div>
                     <div class="second-bar bar"></div>
                     <div class="third-bar bar"></div>
                     <div class="fourth-bar bar"></div>
                 </div>
-                <div class="signal-bars  three-bars" *ngIf="false">
+                <div class="signal-bars  three-bars" *ngIf="getSignalRange(detector) == 3">
                     <div class="first-bar bar"></div>
                     <div class="second-bar bar"></div>
                     <div class="third-bar bar"></div>
                     <div class="fourth-bar bar"></div>
                 </div>
-                <div class="signal-bars two-bars"*ngIf="false">
+                <div class="signal-bars two-bars" *ngIf="getSignalRange(detector) == 2">
                     <div class="first-bar bar"></div>
                     <div class="second-bar bar"></div>
                     <div class="third-bar bar"></div>
                     <div class="fourth-bar bar"></div>
                 </div>
-                <div class="signal-bars  one-bar"*ngIf="false">
+                <div class="signal-bars  one-bar" *ngIf="getSignalRange(detector) <= 1">
                     <div class="first-bar bar"></div>
                     <div class="second-bar bar"></div>
                     <div class="third-bar bar"></div>

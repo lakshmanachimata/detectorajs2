@@ -14,6 +14,7 @@ export class DetectorInfo {
         public firmwareVersion;
         public softwareVersion;
         public btAddress;
+        public rssi;
         public contactName;
         public buildingName;
         public date;
@@ -51,13 +52,22 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.modelNumber = this.scannedData[i].modelNumber;
         detectorInfo.btAddress = this.scannedData[i].btAddress;
         detectorInfo.deviceType = this.scannedData[i].deviceType;
-        detectorInfo.contactName ="ABB";
-        detectorInfo.buildingName ="ABB";
+        detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.date="07.07.2017",
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
     }
+  }
+
+   getSignalRange(item){
+    let range = (parseInt(item.rssi) + 90) / 3.5;
+    if(range != 0){
+      this.logger.log("detector Range is  " + item.rssi + " and  signals " + range);
+      return Math.round(range);
+    }
+    this.logger.log("detector Range is   -4");
+    return -4;
   }
 
   ngOnChanges() { 
