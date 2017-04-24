@@ -62,14 +62,14 @@
             <label class="bj-config-setting-block-lbl actuator-illumination-start-time-lbl">Start time</label>
                 <div class="bj-config-setting-adjust short-time-pulse-user-function">
                     <div class="adjust-minus user" long-press (click)="reduceCount('illuminationstart',true)" (onLongPressEnd)="reduceCount('illuminationstart',true)" (onLongPressing)="reduceCount('illuminationstart',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust user"type="text" [(ngModel)]="ad.basicBrightnessStartTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
+                    <input class="adjust user"type="text" [(ngModel)]="BRStartTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text user">h</div>
                     <div class="adjust-plus user" long-press (click)="increaseCount('illuminationstart',true)" (onLongPressEnd)="increaseCount('illuminationstart',true)" (onLongPressing)="increaseCount('illuminationstart',false)"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             <label class="bj-config-setting-block-lbl actuator-illumination-end-time-lbl">End time</label>
                 <div class="bj-config-setting-adjust short-time-pulse-user-function">
                     <div class="adjust-minus user" long-press (click)="reduceCount('illuminationend',true)" (onLongPressEnd)="reduceCount('illuminationend',true)" (onLongPressing)="reduceCount('illuminationend',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust user"type="text" [(ngModel)]="ad.basicBrightnessEndTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
+                    <input class="adjust user"type="text" [(ngModel)]="BREndTime"  [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text user">h</div>
                     <div class="adjust-plus user" long-press (click)="increaseCount('illuminationend',true)" (onLongPressEnd)="increaseCount('illuminationend',true)" (onLongPressing)="increaseCount('illuminationend',false)"><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
@@ -93,14 +93,14 @@
             <label class="bj-config-setting-block-lbl actuator-anti-glare-start-time-lbl">Start time</label>
             <div class="bj-config-setting-adjust anti-glare-start-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust user"type="text" [(ngModel)]="ad.nightLightStartTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
+                    <input class="adjust user"type="text" [(ngModel)]="NLStartTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text  user">s</div>
                     <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
             <label class="bj-config-setting-block-lbl actuator-anti-glare-end-time-lbl">End time</label>
             <div class="bj-config-setting-adjust anti-glare-end-function">
                     <div class="adjust-minus user" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)"><span class="glyphicon glyphicon-minus"></span></div> 
-                    <input class="adjust user"type="text" [(ngModel)]="ad.nightLightEndTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
+                    <input class="adjust user"type="text" [(ngModel)]="NLEndTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text user">s</div>
                     <div class="adjust-plus user" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>

@@ -634,7 +634,7 @@ export class DataService {
                 }
             }
             //this.logger.log("write data is " + dataBytes);
-            this.logger.log("write array  " + dataBytes.join(','))
+            //this.logger.log("write array  " + dataBytes.join(','))
             this.writeAttrObj =  new writeAttr(dataBytes);
         }else {
             this.setEDevParamsState(0)

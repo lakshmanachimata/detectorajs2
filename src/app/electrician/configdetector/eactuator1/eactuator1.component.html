@@ -291,7 +291,7 @@
                 <label class="actuator-illumination-start-time-lbl">Start time</label>
                 <div class="bj-config-setting-adjust illumination-start-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('brightstart',true)" (onLongPressEnd)="reduceCount('brightstart',true)" (onLongPressing)="reduceCount('brightstart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" [(ngModel)]="ad.basicBrightnessStartTime" [ngStyle]="{'color':brightStart ==true ? 'red' : '#26394f'}">
+                    <input class="adjust" type="number" [(ngModel)]="BRStartTime" [ngStyle]="{'color':brightStart ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > h </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('brightstart',true)" (onLongPressEnd)="increaseCount('brightstart',true)" (onLongPressing)="increaseCount('brightstart',false)" ><span class="glyphicon glyphicon-plus"></span>
                     </div>
@@ -299,7 +299,7 @@
                 <label class="actuator-illumination-end-time-lbl">End time</label>
                 <div class="bj-config-setting-adjust illumination-end-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('brightend',true)" (onLongPressEnd)="reduceCount('brightend',true)" (onLongPressing)="reduceCount('brightend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" [(ngModel)]="ad.basicBrightnessEndTime" [ngStyle]="{'color':brightEnd ==true ? 'red' : '#26394f'}">
+                    <input class="adjust" type="number" [(ngModel)]="BREndTime" [ngStyle]="{'color':brightEnd ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > h </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('brightend',true)" (onLongPressEnd)="increaseCount('brightend',true)" (onLongPressing)="increaseCount('brightend',false)" ><span class="glyphicon glyphicon-plus"></span>
                     </div>
@@ -344,7 +344,7 @@
                     <label class="actuator-anti-glare-start-time-lbl">Start time</label>
                     <div class="bj-config-setting-adjust anti-glare-start-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.nightLightStartTime" [ngStyle]="{'color':glareStart ==true ? 'red' : '#26394f'}">
+                        <input  class="adjust" type="text" [(ngModel)]="NLStartTime"  [ngStyle]="{'color':glareStart ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span>
                         </div>
@@ -352,7 +352,7 @@
                     <label class="actuator-anti-glare-end-time-lbl">End time</label>
                     <div class="bj-config-setting-adjust anti-glare-end-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.nightLightEndTime" [ngStyle]="{'color':glareEnd ==true ? 'red' : '#26394f'}">
+                        <input class="adjust" type="text" [(ngModel)]="NLEndTime" [ngStyle]="{'color':glareEnd ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > h </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
