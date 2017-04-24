@@ -95,10 +95,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   getSignalRange(item){
     let range = (parseInt(item.rssi) + 90) / 3.5;
     if(range != 0){
-      this.logger.log("detector Range is  " + item.rssi + " and  signals " + range);
       return Math.round(range);
     }
-    this.logger.log("detector Range is   -4");
     return -4;
   }
 

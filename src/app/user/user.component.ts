@@ -63,10 +63,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
    getSignalRange(item){
     let range = (parseInt(item.rssi) + 90) / 3.5;
     if(range != 0){
-      this.logger.log("detector Range is  " + item.rssi + " and  signals " + range);
       return Math.round(range);
     }
-    this.logger.log("detector Range is   -4");
     return -4;
   }
 
