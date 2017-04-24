@@ -162,7 +162,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
 
   
- secondsToString (sec_num,itemAttr) {
+secondsToString (sec_num,itemAttr) {
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -174,10 +174,21 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     if (minutes < 10) {sminutes = "0"+sminutes;}
     if (seconds < 10) {sseconds = "0"+sseconds;}
 
-    itemAttr =  shours+' : '+sminutes;
-    this.logger.log("sec_time is  " + sec_num + " and time is " + itemAttr);
-}
-
+    switch(itemAttr){
+      case 'illuminationstart':
+        this.BRStartTime =  shours+' : '+sminutes;
+      break;
+      case 'illuminationend':
+        this.BREndTime =  shours+' : '+sminutes;
+      break;
+      case 'glarestart':
+        this.NLStartTime =  shours+' : '+sminutes;
+      break;
+      case 'glareend':
+        this.NLEndTime =  shours+' : '+sminutes;
+      break;
+    }
+  }
 
 
 
@@ -187,6 +198,10 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
         this.data.setEDevParamsState(0);
+        this.secondsToString(this.ad.basicBrightnessStartTime,'illuminationstart')
+        this.secondsToString(this.ad.basicBrightnessEndTime,'illuminationend')
+        this.secondsToString(this.ad.nightLightStartTime,'glarestart')
+        this.secondsToString(this.ad.nightLightEndTime,'glareend')
       });
   }
     setLoadingDataDone(value){

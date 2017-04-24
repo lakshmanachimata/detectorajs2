@@ -40,10 +40,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     showFluorescentSettings = false;
     loadingDataDone = false;
 
-    NLStartTime = "";
-    NLEndTime = "";
-    BRStartTime = "";
-    BREndTime = "";
+    NLStartTime : string = "";
+    NLEndTime : string = "";
+    BRStartTime : string = "";
+    BREndTime : string = "";
 
      readAttrs =[
                 SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 
@@ -243,22 +243,22 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration)])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
-        this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
+        this.secondsToString(this.ad.basicBrightnessStartTime,item)
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     } else if(item == 'brightend') {
         this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 60;
-        this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
+        this.secondsToString(this.ad.basicBrightnessEndTime,item)
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }else if(item == 'glarestart') {
         this.ad.nightLightStartTime = this.ad.nightLightStartTime - 60;
-        this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
+        this.secondsToString(this.ad.nightLightStartTime,item)
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     } else if(item == 'glareend') {
         this.ad.nightLightEndTime = this.ad.nightLightEndTime - 60;
-        this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+        this.secondsToString(this.ad.nightLightEndTime,item)
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }else if(item == 'sstime') {
@@ -287,9 +287,21 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     if (minutes < 10) {sminutes = "0"+sminutes;}
     if (seconds < 10) {sseconds = "0"+sseconds;}
 
-    itemAttr =  shours+' : '+sminutes;
-    this.logger.log("sec_time is  " + sec_num + " and time is " + itemAttr);
-}
+    switch(itemAttr){
+      case 'brightstart':
+        this.BRStartTime =  shours+' : '+sminutes;
+      break;
+      case 'brightend':
+        this.BREndTime =  shours+' : '+sminutes;
+      break;
+      case 'glarestart':
+        this.NLStartTime =  shours+' : '+sminutes;
+      break;
+      case 'glareend':
+        this.NLEndTime =  shours+' : '+sminutes;
+      break;
+    }
+  }
 
 
   increaseCount(item, isClick) {
@@ -392,8 +404,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.softOnEnable = this.ad.softOnEnable;
         this.data.setEDevParamsState(0);
-        this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
-        this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+        this.secondsToString(this.ad.basicBrightnessStartTime,'brightstart')
+        this.secondsToString(this.ad.basicBrightnessEndTime,'brightend')
+        this.secondsToString(this.ad.nightLightStartTime,'glarestart')
+        this.secondsToString(this.ad.nightLightEndTime,'glareend')
     });
   }
   setLoadingDataDone(value){
