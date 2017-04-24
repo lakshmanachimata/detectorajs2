@@ -58,6 +58,7 @@ import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.sql.Array;
@@ -65,7 +66,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+
+import de.buschjaeger.freeathomedemo.FreeathomeJNI;
+import de.buschjaeger.freeathomedemo.Util;
 
 /*
     Main Activity
@@ -122,6 +127,44 @@ public class MainActivity extends Activity {
 
     int bleDataLengthReceived = 0;
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
+
+    public static final String LOG_TAG = "P@D";
+    private static MainActivity mInstance;
+
+    /**
+     * Custom Handler class that accepts messages from any threads and handles them on the main
+     * thread.
+     **/
+    private static class MyHandler extends Handler {
+        final static int MSG_EMIT_NEXT_EVENT = 1;
+        private final WeakReference<MainActivity> mActivity;
+        MyHandler(MainActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
+        // NOTE: Called on the main thread.
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            MainActivity activity = mActivity.get();
+            if (activity == null) {
+                return;
+            }
+            switch (msg.what) {
+                case MSG_EMIT_NEXT_EVENT:
+                    FreeathomeJNI.EmitNextEvent(activity.mFreeathomeContext);
+                    break;
+            }
+        }
+    }
+    private final MyHandler fhHandler = new MyHandler(this);
+    private long mFreeathomeContext = 0;
+
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -247,6 +290,18 @@ public class MainActivity extends Activity {
         out.setDuration(2000);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+        mInstance = this;
+
+        Log.d(LOG_TAG, "Creating new free@home context");
+        initFreeathomeContext();
+
+        String hostName = "my-staging.busch-jaeger.de";
+        String userName = "lakshmana";
+        String password = "Abb@123456";
+        Log.d(LOG_TAG, "Starting to connect to " + hostName);
+        FreeathomeJNI.Connect(mFreeathomeContext, Util.stringToByteArrayUtf8(hostName), Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password));
+
     }
 
 
@@ -666,6 +721,24 @@ public class MainActivity extends Activity {
         }
         super.onDestroy();
         unbindService(mServiceConnection);
+        mFreeathomeContext = 0;
+        mInstance = null;
+    }
+
+    private void initFreeathomeContext() {
+        final byte[] lang = Util.stringToByteArrayUtf8(Locale.getDefault().getLanguage());
+        final byte[] writableDir = Util.stringToByteArrayUtf8(getFilesDir().getAbsolutePath());
+        final boolean useStaging = true;
+        final boolean debugVerbose = false;
+        mFreeathomeContext = FreeathomeJNI.CreateContext(lang, writableDir, useStaging, debugVerbose);
+    }
+
+    public static MainActivity getInstance() {
+        return mInstance;
+    }
+
+    public void emitNextEventOnMainThread() {
+        mHandler.sendEmptyMessage(MyHandler.MSG_EMIT_NEXT_EVENT);
     }
 
 

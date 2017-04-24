@@ -103,7 +103,8 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 	position: absolute;
 	color:#00395c;
 	padding-left:70%;
-	padding-top:45px;
+	font-weight: 600;
+	padding-top:42px;
 }
 
 .installed-detector-icon span.glyphicon.glyphicon-modal-window{
