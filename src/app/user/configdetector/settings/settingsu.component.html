@@ -1,13 +1,13 @@
 <div class="bj-config-container-user">
 <div id="bj-presence-simulation-div">
     <label class="bj-config-lbl presence-simulation-div">Presence simulation</label>
-    <div class="bj-config-setting-div presence-simulation-div" *ngIf="presenceSimulationEnable !== undefined">
+    <div class="bj-config-setting-div presence-simulation-div" >
         <label class="bj-config-setting presence-simulation-block">Presence simulation</label>
         <span class="bj-config-toggle-switch">
-            <div class="track user"  (click)="presenceSimulationEnable=!presenceSimulationEnable" [ngStyle]="{'border-color':'#7a7f85'}">
-                <label class="switch-onlabel user" *ngIf="presenceSimulationEnable == true">{{onLabel}}</label>
-                <label class="switch-offlabel user" *ngIf="presenceSimulationEnable  == false">{{offLabel}}</label>
-                <div class="switch user" [ngClass]="{'switch-on':presenceSimulationEnable == true,'switch-off':presenceSimulationEnable == false}" [ngStyle]="{'background-color':'#ccc'}">
+            <div class="track user"  (click)="togglePE()" [ngStyle]="{'border-color':'#7a7f85'}">
+                <label class="switch-onlabel user" *ngIf="this.ad.presenceSimulationEnable == true">{{onLabel}}</label>
+                <label class="switch-offlabel user" *ngIf="this.ad.presenceSimulationEnable  == false">{{offLabel}}</label>
+                <div class="switch user" [ngClass]="{'switch-on':this.ad.presenceSimulationEnable == true,'switch-off':this.ad.presenceSimulationEnable == false}" [ngStyle]="{'background-color':'#ccc'}">
                 </div>
             </div>
         </span>
@@ -41,9 +41,9 @@
 <div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-basic-illumination-div">Basic brightness</label>
     <div>
-        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
-        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 1"  name="illuminiation-mode" [value]="1"/></div>
-        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" [checked]="ad.basicBrightnessMode === 2"  name="illuminiation-mode" [value]="2"/></div>
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-off">OFF</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChanged()" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-time">Determined by time</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChanged()" [checked]="ad.basicBrightnessMode === 1"  name="illuminiation-mode" [value]="1"/></div>
+        <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-brigtness">Determined by brightness</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChanged()" [checked]="ad.basicBrightnessMode === 2"  name="illuminiation-mode" [value]="2"/></div>
         <div class="bj-config-setting inner-setting-user" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2">
             <label class="actuator-basic-illumniation-lbl">Basic illumination level</label>
             <div class="bj-actuator1-slider">
@@ -82,7 +82,7 @@
         <div class="anti-glare-function-div">
             <label class="anti-glare-function-lbl">Night-time anti-glare function</label>
                  <span class="bj-config-toggle-switch actuator1">
-                         <div class="track user"  (click)="ad.nightLightFunctionEnable=!ad.nightLightFunctionEnable" [ngStyle]="{'border-color':'#7a7f85'}">
+                         <div class="track user"  (click)="toggleNL()" [ngStyle]="{'border-color':'#7a7f85'}">
                             <label class="switch-onlabel user" *ngIf="ad.nightLightFunctionEnable">{{onLabel}}</label>
                             <label class="switch-offlabel user" *ngIf="!ad.nightLightFunctionEnable">{{offLabel}}</label>
                             <div class="switch user" [ngClass]="{'switch-on':ad.nightLightFunctionEnable,'switch-off':!ad.nightLightFunctionEnable}" [ngStyle]="{'background-color':'#ccc'}"></div>
@@ -108,7 +108,7 @@
         <div class="anti-glare-level-div" *ngIf="ad.nightLightFunctionEnable == true">
             <label class="actuator-anti-glare-level-lbl">Illumination level</label>
             <div class="bj-actuator1-slider">
-                 <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="ambientBrChange()" >
+                 <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="nightLevelChange()" >
                 <div class="anti-glare-level-value-disp">{{ad.nightLightLevel}}%</div>
             </div>
         </div>

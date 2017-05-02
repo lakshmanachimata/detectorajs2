@@ -28,7 +28,7 @@
               <label class="bj-config-setting brightnessthreshold-function">Brightness threshold ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" long-press (click)="reduceCount('threshold',true)" (onLongPressEnd)="reduceCount('threshold',true)" (onLongPressing)="reduceCount('threshold',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust" type="number"  [(ngModel)]="ad.brightnessThreshold"   [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
+                  <input class="adjust" type="number"  [(ngModel)]="ad.brightnessThreshold"  (ngModelChange)="brThresholdChange(this)" min="ad.brightnessThresholdMin"  max="ad.brightnessThresholdMax"  [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
                   <div class="adjust-plus" long-press (click)="increaseCount('threshold',true)" (onLongPressEnd)="increaseCount('threshold',true)" (onLongPressing)="increaseCount('threshold',false)"><span class="glyphicon glyphicon-plus"></span>
                   </div>
@@ -36,7 +36,7 @@
               <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.constantLightBrightnessSetPointMin}} - {{ad.constantLightBrightnessSetPointMax}} lx)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" long-press  (click)="reduceCount('setpoint',true)" (onLongPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="reduceCount('setpoint',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                  <input class="adjust" type="number"  [(ngModel)]="ad.constantLightBrightnessSetPoint"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
+                  <input class="adjust" type="number"  [(ngModel)]="ad.constantLightBrightnessSetPoint" min="ad.constantLightBrightnessSetPointMin"   max="ad.constantLightBrightnessSetPointMax"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
                   <div class="static-unit-text">lx</div>
                   <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (onLongPressEnd)="increaseCount('setpoint',true)" (onLongPressing)="increaseCount('setpoint',false)"><span class="glyphicon glyphicon-plus"></span></div>
               </div>

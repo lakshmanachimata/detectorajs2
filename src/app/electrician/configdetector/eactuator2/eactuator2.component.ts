@@ -17,7 +17,8 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   onLabel = 'on';
   offLabel = 'off';
   loadingDataDone = false;
-   readAttrs =[ SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
+   readAttrs =[ 
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,

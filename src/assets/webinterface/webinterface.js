@@ -151,6 +151,7 @@ function prepareAttributeArray(indata) {
                     "attrType": key,
                     "attrValue": result
                     }
+                    value = result;
                     lastParseByteIndex = lastParseByteIndex + 5 + strByteArray.length;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
@@ -227,7 +228,7 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
-            // console.log("attrType  " + key + "   attrValue  " + value);
+             console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;

@@ -641,6 +641,13 @@ export class DataService {
         }
     }
 
+    resetReadArray(){
+        this.readArray = [];
+    }
+
+    resetWriteArray(){
+        this.writeArray = [];
+    }
 
 
     setBLEdataOnDeviceData(attrType,attrValue){

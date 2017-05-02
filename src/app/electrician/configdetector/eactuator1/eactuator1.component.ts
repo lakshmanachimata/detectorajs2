@@ -401,6 +401,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   onBLEdata() {
+    this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.softOnEnable = this.ad.softOnEnable;
         this.data.setEDevParamsState(0);

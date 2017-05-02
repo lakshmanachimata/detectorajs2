@@ -60,12 +60,17 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
   }
 
-   getSignalRange(item){
-    let range = (parseInt(item.rssi) + 90) / 3.5;
-    if(range != 0){
-      return Math.round(range);
+    getSignalRange(item){
+    if(this.data.DeviceBuild == 1){
+      let range = (parseInt(item.rssi) + 90) / 3.5;
+      if(range != 0){
+        return Math.round(range);
+      }
+      return -4;
     }
-    return -4;
+    else {
+      return 4;
+    }
   }
 
   ngOnChanges() { 

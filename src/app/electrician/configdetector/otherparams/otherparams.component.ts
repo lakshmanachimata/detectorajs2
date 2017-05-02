@@ -27,7 +27,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     "Kitchen",
     "Bath",
     "Floor",
-    "Out door"
+    "Outdoor"
   ]
   preDefined_Searches=[];
   searchText = '';

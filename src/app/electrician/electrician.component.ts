@@ -93,11 +93,16 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   getSignalRange(item){
-    let range = (parseInt(item.rssi) + 90) / 3.5;
-    if(range != 0){
-      return Math.round(range);
+    if(this.data.DeviceBuild == 1){
+      let range = (parseInt(item.rssi) + 90) / 3.5;
+      if(range != 0){
+        return Math.round(range);
+      }
+      return -4;
     }
-    return -4;
+    else {
+      return 4;
+    }
   }
 
   jsonOnLoad(component) {

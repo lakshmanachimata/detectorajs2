@@ -131,6 +131,24 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
 
+  brThresholdChange(element){
+    if(this.ad.brightnessThreshold <=this.ad.brightnessThresholdMin){
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+        element.value = this.ad.brightnessThreshold;
+         this.zone.run( () => { // Change the property within the zone, CD will run after
+            this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        });
+      }
+    if(this.ad.brightnessThreshold >= this.ad.brightnessThresholdMax){
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+        element.value = this.ad.brightnessThreshold;
+          this.zone.run( () => { // Change the property within the zone, CD will run after
+            this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        });
+      }
+
+  }
+
   showResetDialog() {
     this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
     this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );

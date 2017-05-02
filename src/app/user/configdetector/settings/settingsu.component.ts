@@ -72,14 +72,26 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.loadingDataDone = false;
     }
   }
+  basicBrModeChanged(){
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode])
+  }
   nightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)])
   }
   basicBrightnessLevelChange() {
-
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.basicBrightnessLevel)])
   }
   basicBrightnessAmbientBrightnessThresholdChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.basicBrightnessAmbientBrightnessThreshold)])
+  }
 
+  togglePE(){
+    this.ad.presenceSimulationEnable=!this.ad.presenceSimulationEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.presenceSimulationEnable])
+  }
+  toggleNL(){
+    this.ad.nightLightFunctionEnable=!this.ad.nightLightFunctionEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.nightLightFunctionEnable])
   }
   ngAfterContentInit() { 
   }

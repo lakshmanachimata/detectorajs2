@@ -1,4 +1,5 @@
-<div class="bj-config-container">
+<img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
+<div class="bj-config-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
 <div id="bj-testmode-div" *ngIf="getOtherParam()=='testmode'">
     <label class="bj-config-lbl testmode-master-lbl">Master</label>
     <div class="testmode-master-div">
