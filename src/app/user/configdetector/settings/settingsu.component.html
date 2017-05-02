@@ -78,7 +78,7 @@
 </div>
 <div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
-    <div class="bj-config-setting inner-setting actuator1 anti-glare-function">
+    <div class="bj-config-setting-block-div inner-setting actuator1 anti-glare-function">
         <div class="anti-glare-function-div">
             <label class="anti-glare-function-lbl">Night-time anti-glare function</label>
                  <span class="bj-config-toggle-switch actuator1">
@@ -92,10 +92,10 @@
         <div class="anti-glare-start-end-time-div" *ngIf="(ad.nightLightFunctionEnable==true)">
             <label class="bj-config-setting-block-lbl actuator-anti-glare-start-time-lbl">Start time</label>
             <div class="bj-config-setting-adjust anti-glare-start-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus user" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)"><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust user"type="text" [(ngModel)]="NLStartTime"   [ngStyle]="{'color': glareStart ==true ? 'red' : '#0173b2'}">
                     <div class="static-unit-text  user">s</div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div class="adjust-plus user" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
             <label class="bj-config-setting-block-lbl actuator-anti-glare-end-time-lbl">End time</label>
             <div class="bj-config-setting-adjust anti-glare-end-function">

@@ -122,7 +122,7 @@
                 <div class="bj-config-setting inner-setting actuator1 memory-function">
                     <label class="actuator-memory-function-lbl">Switch-off pre-warning</label>
                      <span class="bj-config-toggle-switch actuator1">
-                         <div class="track"   (click)="ad.ch1SwitchOffPreWarning = !ad.ch1SwitchOffPreWarning"  [(ngModel)]="ad.ch1SwitchOffPreWarning" [ngStyle]="{'border-color': ad.ch1SwitchOffPreWarning== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                         <div class="track"   (click)="togglePW()"  [(ngModel)]="ad.ch1SwitchOffPreWarning" [ngStyle]="{'border-color': ad.ch1SwitchOffPreWarning== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                          <label class="switch-onlabel" *ngIf="ad.ch1SwitchOffPreWarning == true">{{onLabel}}</label>
                          <label class="switch-offlabel" *ngIf="!ad.ch1SwitchOffPreWarning == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':ad.ch1SwitchOffPreWarning == true,'switch-off':ad.ch1SwitchOffPreWarning == false }" [ngStyle]="{'background-color':ad.ch1SwitchOffPreWarning == true ? '#26394f':'#ccc'}"></div>

@@ -87,11 +87,11 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
 
   togglePE(){
     this.ad.presenceSimulationEnable=!this.ad.presenceSimulationEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.presenceSimulationEnable])
+    this.data.addToSendData([SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.presenceSimulationEnable?1:0])
   }
   toggleNL(){
     this.ad.nightLightFunctionEnable=!this.ad.nightLightFunctionEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.nightLightFunctionEnable])
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.nightLightFunctionEnable?1:0])
   }
   ngAfterContentInit() { 
   }

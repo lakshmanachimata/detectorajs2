@@ -423,6 +423,8 @@ label.bj-config-setting.reset-inner-block {
 label.actuator-basic-illumniation-lbl,label.actuator-ambient-brightness-lbl,
 label.actuator-anti-glare-level-lbl{
 	padding-bottom: 22px;
+    color: #9eabbb;
+    margin-left: 18px;
 }
 
 .anti-glare-level-div {
@@ -432,7 +434,7 @@ label.actuator-anti-glare-level-lbl{
 .bj-actuator1-slider{
 	height: 44px;
     width: 273px;
-    margin-left: 5px;
+    margin-left: 10px;
     border-bottom-left-radius: 32px;
     border-top-left-radius: 32px;
     border: 1px solid #8d8d8d;
@@ -1154,7 +1156,7 @@ div#bj-user-sensor-div {
     font-size: 30px;
     font-weight: 400;
     border: solid 1px #9eabbb;
-    margin-left: 5px;
+    margin-left: 10px;
 	background: #e6e8ed;
 }
 .adjust-plus{
@@ -1257,18 +1259,6 @@ label.bj-config-setting-block-lbl.brightness-user-function{
     font-size: 16px;
     margin-top: 12px;
 }
-
-.bj-config-setting-adjust.brightness-user-function {
-    margin-left: 26px;
-    margin-top: 12px;
-}
-
-.bj-config-setting-adjust.brightness-user-function,
-.bj-config-setting-adjust.short-time-pulse-user-function{
-    margin-left: 26px;
-    margin-top: 12px;
-}
-
 
 label.bj-config-setting.brightness-user-function,
 label.bj-config-setting-block-lbl.short-time-pulse-user-function
@@ -1379,7 +1369,7 @@ label.switch-offlabel.user{
 .static-unit-text{
     font-size: 17px;
     height: 40px;
-    width: 50px;
+    width: 80px;
     text-align: center;
     margin-top: 10px;
     color: #26394f;
@@ -1391,6 +1381,7 @@ label.switch-offlabel.user{
 
 .static-unit-text.user {
     color: #0173b2;
+    padding-right: 5px;
 }
 
 input.adjust.user{
@@ -1417,6 +1408,7 @@ input.adjust-value.brightness-user-function{
 
 label.anti-glare-function-lbl {
     color: #9eabbb;
+    margin-left: 18px;
 }
 
 div#bj-send-to-device-user {

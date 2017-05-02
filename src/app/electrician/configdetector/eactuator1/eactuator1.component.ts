@@ -174,6 +174,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
      this.ad.delimitLightingLevelEnable = !this.ad.delimitLightingLevelEnable
     this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.delimitLightingLevelEnable?1:0])
    }
+   togglePW(){
+     this.ad.ch1SwitchOffPreWarning = !this.ad.ch1SwitchOffPreWarning
+     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1SwitchOffPreWarning?1:0])
+   }
    toggleminl() {
      this.ad.ch1MinLevelEnable = !this.ad.ch1MinLevelEnable
      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MinLevelEnable?1:0])
