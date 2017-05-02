@@ -506,7 +506,6 @@ export class DataService {
                     this.sendChangedParams();
                 }else {
                     this.notifyActiveComponentWithBLEdata()
-
                 }
             break;
             default:
@@ -634,7 +633,7 @@ export class DataService {
                     }
                 }
             }
-            //this.logger.log("write data is " + dataBytes);
+            this.logger.log("write data is " + dataBytes);
             //this.logger.log("write array  " + dataBytes.join(','))
             this.writeAttrObj =  new writeAttr(dataBytes);
         }else {
@@ -903,6 +902,9 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.CH2_MODE                                                :
                 this.deviceData.ch2Mode = attrValue 
+            break;
+            case SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE                                           :
+                this.deviceData.hvacDynamicalControlEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY                                    :
                 this.deviceData.hvacSwitchOnDelay = attrValue 

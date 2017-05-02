@@ -22,7 +22,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,
-                SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID,                
+                //SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID,                
                 SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,                                        
                 SCCP_ATTRIBUTES.CH2_MODE,                                                 
                 SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,                            
@@ -94,6 +94,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
   onBLEdata() {
+    this.loadingDataDone = true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay;
         this.data.setEDevParamsState(0);

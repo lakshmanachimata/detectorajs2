@@ -1,5 +1,5 @@
 <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
-<div class="bj-config-container" *ngIf="activeDevice.deviceType == 'daliMaster1c' && (loadingDataDone || this.data.DeviceBuild) == 0">
+<div class="bj-config-container" *ngIf="activeDevice.deviceType == 'daliMaster1c' && (loadingDataDone || this.data.DeviceBuild == 0) ">
 <div id="bj-actuator1-sub-settings-div" >
     <div class="bj-config-setting-div actuator2-circuit-logic-div" style="border-bottom:none;" *ngIf ="ad.ch2Mode != 0">
         <div class="bj-config-setting inner-setting actuator2 heading">
@@ -36,7 +36,7 @@
                         <div class="track"   (click)="togglehvacDC()"  [(ngModel)]="ad.hvacDynamicalControlEnable" [ngStyle]="{'border-color': ad.hvacDynamicalControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.hvacDynamicalControlEnable  == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.hvacDynamicalControlEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.hvacDynamicalControlEnable  == true,'switch-off':ad.hvacDynamicalControlEnable  == false }" [ngStyle]="{'background-color':ad.hvacDynamicalControlEnable  == true ? '#26394f':'#ccc'}">
+                        <div class="switch" [ngClass]="{'switch-on':ad.hvacDynamicalControlEnable  == true,'switch-off':!ad.hvacDynamicalControlEnable  == true }" [ngStyle]="{'background-color':ad.hvacDynamicalControlEnable  == true ? '#26394f':'#ccc'}">
                         </div>
                           </div>
                      </span>

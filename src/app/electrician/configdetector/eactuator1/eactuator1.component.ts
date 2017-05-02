@@ -138,7 +138,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
   }
   powerOnChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.powerOnChange]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.daliPowerOnLevel)]);
   }
   ambientBrChange(){
     this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.basicBrightnessAmbientBrightnessThreshold]);
@@ -232,10 +232,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
+        if(this.ad.ch1MinLevel <= this.ad.levelMin){
+          this.ad.ch1MinLevel = this.ad.levelMin;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel)])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
+        if(this.ad.ch1MaxLevel <= this.ad.levelMin){
+          this.ad.ch1MaxLevel = this.ad.levelMin;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel)])
     } else if(item == 'burnduration'){
@@ -339,10 +345,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOffDuration) ])
     } else if(item == 'minload') {
         this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
+        if(this.ad.ch1MinLevel >= this.ad.levelMax){
+          this.ad.ch1MinLevel = this.ad.levelMax;
+        }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel) ])
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel) ])
     } else if(item == 'maxload') {
         this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
+        if(this.ad.ch1MaxLevel >= this.ad.levelMax){
+          this.ad.ch1MaxLevel = this.ad.levelMax;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel) ])
     } else if(item == 'burnduration'){
