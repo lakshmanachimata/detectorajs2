@@ -499,6 +499,7 @@ export class DataService {
                 }
                 else {
                     this.writeArray = [];
+                    this.sendData = [];
                 }  
                 
                 if(this.writeArray.length > 0){
