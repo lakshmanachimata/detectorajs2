@@ -226,40 +226,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       }
     }
   }
-
-  
-
-
-getMystyle(item) {
-    let styleValue;
-    if(item == false){
-      styleValue = "float: right; \
-      font-size: 12px;\
-    margin-right: 5px;\
-    margin-top: 10px;\
-    color: #212e40;\
-    padding: 3px;\
-    border-radius: 2px;\
-    border: 1px solid #212e40;"
-    }else {
-      styleValue = "float: right; \
-      font-size: 12px;\
-      margin-right: 5px;\
-      margin-top: 10px;\
-      color: #ffffff;\
-      padding: 3px;\
-      border-radius: 2px;\
-      background-color: #212e40;\
-      border: 1px solid #212e40;"
-    }
-    let mystyles =  {
-      styleValue
-    }
-    return mystyles;
-    
-  }
-  
- 
+   
   slideBrightnessIn() {
     this.aslider = 'in';
   }

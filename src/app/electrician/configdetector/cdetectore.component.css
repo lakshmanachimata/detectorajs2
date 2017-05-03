@@ -435,6 +435,7 @@ label.bj-config-setting.burn-in-mode {
 label.bj-config-setting.reset-inner-block {
 	padding-left: 0 !Important;
 	padding-top: 10px;
+    color: #9eabbb;
 }
 
 .bj-config-setting.actuator1.reset {
@@ -1458,9 +1459,9 @@ input.adjust-value.brightness-user-function{
     padding-bottom: 12px;
 }
 
-label.anti-glare-function-lbl {
+/*label.anti-glare-function-lbl {
     color: #63778f;
-}
+}*/
 
 div#bj-send-to-device-user {
     float: right;

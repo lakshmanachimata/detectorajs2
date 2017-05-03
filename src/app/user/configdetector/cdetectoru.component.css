@@ -28,7 +28,17 @@
 	font-size: 16px;
 	font-weight: 600;
 	padding-top: 14px;
-	padding-left: 18px;
+	padding-left: 10px;
+}
+
+.bj-config-setting.inner-setting.energy-monitor-reference-load.user,
+.bj-config-setting.inner-setting.energy-monitor-lighting-reference.user,
+.bj-config-setting.inner-setting.energy-monitor-price-reference.user{
+	color: #9eabbb;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+	padding-left: 0px;
 }
 
 .bj-service-setting-div{
@@ -424,7 +434,6 @@ label.actuator-basic-illumniation-lbl,label.actuator-ambient-brightness-lbl,
 label.actuator-anti-glare-level-lbl{
 	padding-bottom: 22px;
     color: #9eabbb;
-    margin-left: 18px;
 }
 
 .anti-glare-level-div {
@@ -434,7 +443,6 @@ label.actuator-anti-glare-level-lbl{
 .bj-actuator1-slider{
 	height: 44px;
     width: 273px;
-    margin-left: 10px;
     border-bottom-left-radius: 32px;
     border-top-left-radius: 32px;
     border: 1px solid #8d8d8d;
@@ -1251,7 +1259,7 @@ label.bj-config-setting.presence-simulation-block {
 	font-size: 16px;
 	font-weight: 600;
 	padding-top: 8px;
-	padding-left: 18px;
+	padding-left: 10px;
 }
 
 label.bj-config-setting-block-lbl.brightness-user-function{

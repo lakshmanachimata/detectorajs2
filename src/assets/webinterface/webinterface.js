@@ -3,7 +3,7 @@ var welcomecomponent;
 var appDataService;
 var scannedDevices;
 var BJE;
-
+var debugLogs = true;
 if(BJE == undefined) {
     //BJE = window.webkit.messageHandlers.webapi;
 }
@@ -59,9 +59,12 @@ function reset() {
 }
 
 function readAttr(readData) {
-    var data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
+    var data = []
+     data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
     if(BJE != undefined) {
         BJE.readAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE READ Frame   ' + data.join(','))
     }
     else {
         var message = {"send":data}
@@ -71,9 +74,12 @@ function readAttr(readData) {
 }
 
 function writeAttr(writeData) {
-    var data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
+    var data = []
+    data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
     if(BJE != undefined){
         BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -106,7 +112,6 @@ function setBLEDataToService(indata){
         databytes.push(charCode);
     }
     var data  = prepareAttributeArray(databytes);
-    console.log("data bytes are   " + databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
 
@@ -119,12 +124,17 @@ function prepareAttributeArray(indata) {
     
     switch(indata[4]){
         case 128: // standard response
+        if(debugLogs ==  true)
+            console.log("standard response     " + indata);
         break;
         case 131: // read attr resonse
+        if(debugLogs ==  true)
+            console.log("read attr response     " + indata);
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
-            console.log("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+            // if(debugLogs ==  true)
+            //     console.log("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
@@ -230,13 +240,18 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
-             console.log("attrType  " + key + "   attrValue  " + value);
+            // if(debugLogs == true)
+            //  console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
         case 132: // write attr response
+        if(debugLogs ==  true)
+            console.log("write attr response     " + indata);
         break;
         case 133: // configure attr response
+        if(debugLogs ==  true)
+            console.log("configure attr response     " + indata);
          var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
@@ -288,6 +303,8 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
+            // if(debugLogs == true)
+            //  console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;

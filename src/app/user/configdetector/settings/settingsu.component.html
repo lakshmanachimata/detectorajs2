@@ -105,7 +105,7 @@
                     <div class="adjust-plus user" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </div>
         </div>
-        <div class="anti-glare-level-div" *ngIf="ad.nightLightFunctionEnable == true">
+        <div class="bj-config-setting inner-setting-user" *ngIf="ad.nightLightFunctionEnable == true">
             <label class="actuator-anti-glare-level-lbl">Illumination level</label>
             <div class="bj-actuator1-slider">
                  <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="nightLevelChange()" >

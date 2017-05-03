@@ -61,19 +61,19 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     switch(this.selectedQuadrant) {
       case 'q1' :
         this.ad.pirSensitivity0 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.getDecToHexMode(value)]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q2' :
         this.ad.pirSensitivity1 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.getDecToHexMode(value)]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q3' :
         this.ad.pirSensitivity2 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.getDecToHexMode(value)]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
       case 'q4' :
         this.ad.pirSensitivity3 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.getDecToHexMode(value)]);
+        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
       break;
     }
     this.setStyleAttr(this.selectedQuadrantValue);
@@ -142,11 +142,24 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         this.setStyleAttr(this.ad.pirSensitivity3);
       break;
     }
-    let mystyles =  {
-      'background': this.styleValue
-    }
-    return mystyles;
-    
+     if(item == this.selectedQuadrant) {
+       let mystyles =  {
+        'background': this.styleValue ,
+        'border-style': 'solid',
+        'border-width': '2px',
+        'border-color': '#4682b4',
+        'color':'#EEEEEE'
+        // 'border': '5px 5px 5px #888888'
+      }
+      return mystyles;
+      }
+      else
+      {
+        let mystyles =  {
+          'background': this.styleValue ,
+        }
+        return mystyles;
+      } 
   }
 
   setLoadingDataDone(){
