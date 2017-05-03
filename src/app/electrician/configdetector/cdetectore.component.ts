@@ -257,6 +257,7 @@ slideBackground (value) {
   }
 
   ngOnDestroy() {
+    this.data.resetSendData();
   }
   gotoActuator1(){
     this.router.navigate(['eactuator1'],{relativeTo: this.route});

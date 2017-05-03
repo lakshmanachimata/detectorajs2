@@ -92,6 +92,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     if(this.data.DeviceBuild == 1){
       this.scannedData = this.data.getScannedData();
       this.setScannedData();
+      this.data.resetSendData();
     }
     else{
       this.detectors = this.data.getDevices();
@@ -113,5 +114,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
   }
   ngOnDestroy() {
+    this.data.resetSendData();
   }
 }

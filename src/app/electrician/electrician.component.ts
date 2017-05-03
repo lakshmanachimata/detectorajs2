@@ -57,6 +57,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     if(this.data.DeviceBuild == 1){
       this.scannedData = this.data.getScannedData();
       this.setScannedData();
+      this.data.resetSendData();
     }
     else{
       this.detectors = this.data.getDevices();
@@ -110,5 +111,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
   ngOnDestroy() {
+    this.data.resetSendData();
   }
 }

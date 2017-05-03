@@ -81,6 +81,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
+    this.data.resetSendData();
   }
     
   onBLEdata() {

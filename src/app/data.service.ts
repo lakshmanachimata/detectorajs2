@@ -589,6 +589,9 @@ export class DataService {
         this.deviceParams.iJsonLoadEmitter.emit(0);
     }
 
+    resetSendData() {
+        this.sendData = [];
+    }
     addToSendData(paramBytes) {
         this.setEDevParamsState(1)
         this.addData = [];
@@ -633,7 +636,7 @@ export class DataService {
                     }
                 }
             }
-            //this.logger.log("write data is " + dataBytes);
+            this.logger.log("write data is " + dataBytes);
             //this.logger.log("write array  " + dataBytes.join(','))
             this.writeAttrObj =  new writeAttr(dataBytes);
         }else {

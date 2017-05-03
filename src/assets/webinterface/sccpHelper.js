@@ -56,21 +56,35 @@
             frame.push(0x08); // CONTROL DEVICE
             frame.push(0x00); // SEQUENCE
             frame.push(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST); // command
-            
+            console.log("data length is " + data.length)
             for (var i=0; i < data.length; i+=1) {
                 var val = data[i];
                 frame.push(val & 0x00ff); // ADDR LOW
                 frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-                i = i + 1; val = data[i];
+                i = i + 1; 
+                val = data[i];
                 frame.push(val); // DATA TYPE
-                i = i + 1; val = data[i];
-                frame.push((val & 0x00ff)); // VAL LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
-                counter += 5;
+                if(val == 5){
+                    frame.push(data[i+1]) 
+                    frame.push(data[i+2]) 
+                    frame.push(data[i+3]) 
+                    frame.push(data[i+4]) 
+                    counter += 7;
+                    i = i + 4;
+                }else {
+                    i = i + 1; 
+                    val = data[i];
+                    if(val > 0xFF){
+                        frame.push((val & 0x00ff)); // VAL LOW
+                        frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
+                        counter += 5;
+                    }else {
+                        frame.push((val & 0x00ff)); // VAL LOW
+                        counter += 4;
+                    }
+                }
             }
-            
-            frame.unshift(6 + counter); // LENGTH
-            
+            frame.unshift(6 + counter); // LENGTH            
             crc = crcCCITT(frame)
             frame.push(crc >> 8); // CRC LOWER
             frame.push(crc & 0x00ff); // CRC UPPER

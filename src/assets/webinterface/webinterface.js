@@ -186,7 +186,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_TIME:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = ((indata[lastParseByteIndex+6] * 3600) + (indata[lastParseByteIndex +7] * 60) + indata[lastParseByteIndex +8]);
+                    value = ((indata[lastParseByteIndex+7] * 3600) + (indata[lastParseByteIndex +6] * 60) + indata[lastParseByteIndex +5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -240,8 +240,8 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
-            // if(debugLogs == true)
-            //  console.log("attrType  " + key + "   attrValue  " + value);
+            if(debugLogs == true)
+             console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
@@ -303,8 +303,8 @@ function prepareAttributeArray(indata) {
                 default:
                 break;
             }
-            // if(debugLogs == true)
-            //  console.log("attrType  " + key + "   attrValue  " + value);
+            if(debugLogs == true)
+             console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
