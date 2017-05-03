@@ -25,7 +25,7 @@
         </div>
         <div class = "bj-current-val">
             <label class="bj-config-setting-block-lbl brightness-user-function">Take over current brightness</label>
-            <input class="adjust-value brightness-user-function" type="text" disabled [(ngModel)]="ad.currentBrightness">
+            <input class="adjust-value brightness-user-function" type="number" (keyup)="setCurrentBr($event)"   [(ngModel)]="ad.currentBrightness">
         </div>
     </div>
     <div class="bj-config-setting-block-div short-time-pulse-user-div">

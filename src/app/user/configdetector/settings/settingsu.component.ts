@@ -210,6 +210,10 @@ secondsToString (sec_num,itemAttr) {
     }
   }
 
+  setCurrentBr(event: any) { // without type info
+    this.ad.currentBrightness = event.target.value;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
+  }
 
 
 
