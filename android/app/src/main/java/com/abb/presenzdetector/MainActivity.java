@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         PackageInfo pInfo = null;
-        String buildDate= "2017-04-20\n16:30:00";
+        String buildDate= "2017-05-04\n16:30:00";
         mHandler = new Handler();
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -627,6 +627,10 @@ public class MainActivity extends Activity {
 
 
     void sendBLEFrame(final byte[] data) {
+//        Log.d("bjdetector","ble frame" );
+//        for(int i =0; i < data.length; i++){
+//            Log.d("",""+data[i]);
+//        }
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
