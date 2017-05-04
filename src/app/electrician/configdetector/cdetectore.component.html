@@ -46,7 +46,7 @@
               </div>
             </div>
 
-           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.considerSlaveBrightnessEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
+           <div class="bj-config-setting-div slave-brightness-div" *ngIf ="ad.constantLightControlEnable == false && activeDevice.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting slave-brightness-function" >Consider slave brightness</label>
             <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="togglecsb()"   [(ngModel)]="ad.considerSlaveBrightnessEnable" [ngStyle]="{'border-color': ad.considerSlaveBrightnessEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
