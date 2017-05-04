@@ -29,6 +29,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     subMenuState = 'none';
     activeDevice:any;
     ad:any;
+    isParam = false;
     constructor(private logger: LoggerService,private data: DataService,private router:Router,private zone:NgZone) {
         this.subMenuState = 'none';
     }
@@ -54,19 +55,23 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     ngAfterViewChecked() { 
     }
     ngOnInit() { 
+        this.isParam =  false;
         this.activeDevice = this.data.getSelectedDevice(true);
         this.ad = this.data.getDevicedata(true);
         if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }
-        this.data.setMainTitle(this.activeDevice.btDeviceName);
+        this.data.setSMMainTitle(this.activeDevice.btDeviceName);
         this.data.setActiveComponent(this);
     }
     ngOnDestroy() {
+        if(this.isParam == false)
+            this.data.setSMMainTitle('Installed devices');
     }
     gotoInstalledParams(item,itemtitle) {
         this.data.setIParam(item,itemtitle);
         this.data.setShowCDI(this.data.getShowCDI() + 1);
+        this.isParam  = true;
     }
 
     onBLEdata() {

@@ -173,6 +173,7 @@ export class UIParams {
       public subMenuVal= 'none';
       public profile = 'none';
       public mainTitle = 'BJ DETECTOR';
+      public smMainTitle = "";
       public otherparamTitle = '';
       arrowStateChange: EventEmitter<any> = new EventEmitter();
       public otherparam = '';
@@ -252,6 +253,14 @@ export class DataService {
     getScannedData() {
         return this.scanneddata;
     }
+
+    setSMMainTitle(title) {
+        this.uiParams.smMainTitle = title;
+    }
+    getSMMainTitle() {
+        return this.uiParams.smMainTitle;
+    }
+
     setMainTitle(title) {
         this.uiParams.mainTitle = title;
     }

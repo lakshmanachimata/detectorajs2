@@ -253,6 +253,29 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             setTimeout(() => this.subMenuState = "rightin")
         }
     }
+
+    setSubMenuTitle() {
+         switch(this.data.getSubMenuVal()){
+            case 'help':
+            this.data.setSMMainTitle('Help')
+            break;
+            case 'about':
+            this.data.setSMMainTitle('About Busch-Jaeger')
+            break;
+            case 'switch_mode':
+            this.data.setSMMainTitle('Switch mode')
+            break;
+            case 'user_profiles':
+            this.data.setSMMainTitle('User profiles')
+            break;
+            case 'installed_devices':
+            this.data.setSMMainTitle('Installed devices')
+            break;
+            case 'sync':
+            this.data.setSMMainTitle('Sync with myBUSCH-JAEGER')
+            break;
+        }
+    }
     ngOnDestroy() {
         this.arrowStateObserve.unsubscribe();
     }

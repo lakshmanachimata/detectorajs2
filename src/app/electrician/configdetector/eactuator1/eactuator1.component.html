@@ -285,7 +285,7 @@
                 <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
                 <div class="bj-actuator1-slider">
                     <input class = "ambient-brightness-range" type="range" name="points" min="ad.basicBrightnessAmbientBrightnessThresholdMin" max="ad.basicBrightnessAmbientBrightnessThresholdMax" step="1" (ngModelChange)="ambientBrChange()" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold">
-                    <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}}lx</div>
+                    <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}} lux</div>
                 </div>
             </div>
             <div class="bj-config-setting inner-setting actuator1"  *ngIf=" ad.basicBrightnessMode == 1">

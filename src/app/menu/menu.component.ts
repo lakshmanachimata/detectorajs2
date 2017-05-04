@@ -35,12 +35,14 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
 
     animationStarted($event) {  
-        this.data.setMainTitle('Menu');
+        this.data.setSMMainTitle('Menu');
     }
 
     animationDone($event) {
-        if(this.menuState  == 'topout')
+        if(this.menuState  == 'topout'){
             this.data.setMenuArrow(0);
+            this.data.setSMMainTitle('');
+        }
     }
 
     menuArrowStateChange (arrowState){
@@ -76,7 +78,7 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
     menuItemClick(item) {
         this.data.setMenuArrow(2);
-        this.data.setMainTitle(item.name);
+        this.data.setSMMainTitle(item.name);
         this.data.setSubMenuVal(item.navigation);
     }
     getProfile() {

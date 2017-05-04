@@ -36,6 +36,9 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   }
 
   getTitle() {
+    if(this.data.getSMMainTitle().length > 0){
+      return this.data.getSMMainTitle();
+    }
     return this.data.getMainTitle();
   }
   public getHeader() {

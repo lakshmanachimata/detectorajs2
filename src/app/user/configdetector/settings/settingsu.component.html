@@ -16,11 +16,11 @@
 <div id="bj-user-sensor-div">
     <label class="bj-config-lbl user-sensor-div">Sensor settings</label>
     <div class="bj-config-setting-block-div brightness-user-div">
-        <label class="bj-config-setting-block-lbl brightness-user-function">Brightness threshold ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} lx)</label>
+        <label class="bj-config-setting-block-lbl brightness-user-function">Brightness threshold ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} lux)</label>
         <div class="bj-config-setting-adjust brightness-user-function">
             <div class="adjust-minus user" long-press (click)="reduceCount('brightness',true)" (onLongPressEnd)="reduceCount('brightness',true)" (onLongPressing)="reduceCount('brightness',false)"><span class="glyphicon glyphicon-minus"></span></div>
             <input class="adjust user"type="text" [(ngModel)]="ad.brightnessThreshold"   [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
-            <div class="static-unit-text user">lx</div>
+            <div class="static-unit-text user">lux</div>
             <div class="adjust-plus user" long-press (click)="increaseCount('brightness',true)" (onLongPressEnd)="increaseCount('brightness',true)" (onLongPressing)="increaseCount('brightness',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
         <div class = "bj-current-val">
@@ -55,7 +55,7 @@
             <label class="actuator-ambient-brightness-lbl">Ambient brightness threshold</label>
             <div class="bj-actuator1-slider">
                 <input class = "ambient-brightness-range" type="range" name="points" min="ad.basicBrightnessAmbientBrightnessThresholdMax" max="ad.basicBrightnessAmbientBrightnessThresholdMin" step="1" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold"  (ngModelChange)="basicBrightnessAmbientBrightnessThresholdChange()">
-                <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}}lx</div>
+                <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}} lux</div>
             </div>
         </div>
         <div class="bj-config-setting-block-div inner-setting-actuator1" *ngIf="ad.basicBrightnessMode == 1">

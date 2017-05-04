@@ -193,6 +193,43 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
 
+  setBrTr(event: any){
+    if(event.target.value < this.ad.brightnessThresholdMin ){
+      this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+      event.target.value = this.ad.brightnessThresholdMin;
+    }
+    if(event.target.value > this.ad.brightnessThresholdMax) {
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+        event.target.value = this.ad.brightnessThresholdMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+  }
+
+  setBrSp(event: any){
+    if(event.target.value < this.ad.constantLightBrightnessSetPointMin ){
+      this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPointMin;
+      event.target.value = this.ad.constantLightBrightnessSetPointMin;
+    }
+    if(event.target.value > this.ad.constantLightBrightnessSetPointMax) {
+        this.ad.constantLightBrightnessSetPoint = this.ad.constantLightBrightnessSetPointMax;
+        event.target.value = this.ad.constantLightBrightnessSetPointMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.constantLightBrightnessSetPoint)])
+  }
+
+  setSoffDelay(event: any){
+    if(event.target.value < this.ad.switchOffDelayMin ){
+      this.ad.switchOffDelay = this.ad.switchOffDelayMin;
+      event.target.value = this.ad.switchOffDelayMin;
+    }
+    if(event.target.value > this.ad.switchOffDelayMax) {
+        this.ad.switchOffDelay = this.ad.switchOffDelayMax;
+        event.target.value = this.ad.switchOffDelayMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+  }
+
+
   setCurrentBr(event: any) { // without type info
     this.ad.currentBrightness = event.target.value;
     this.data.addToSendData([SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
