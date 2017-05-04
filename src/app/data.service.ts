@@ -377,7 +377,7 @@ export class DataService {
     }
      setIParam(item,itemTitle) {
          this.uiParams.iparam = item;
-         this.setMainTitle(itemTitle);
+         this.setSMMainTitle(itemTitle);
     }
 
     getIParam(){

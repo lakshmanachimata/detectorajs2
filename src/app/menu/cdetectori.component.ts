@@ -55,7 +55,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     ngAfterViewChecked() { 
     }
     ngOnInit() { 
-        this.isParam =  false;
+        this.isParam = false;
         this.activeDevice = this.data.getSelectedDevice(true);
         this.ad = this.data.getDevicedata(true);
         if (this.subMenuState == 'none') {
