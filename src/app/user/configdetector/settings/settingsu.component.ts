@@ -114,6 +114,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {
       this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
+      if(this.ad.basicBrightnessStartTime <= 0 ){
+          this.ad.basicBrightnessStartTime = 86400;
+        }
       this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
       this.onBLEdata()
       if(isClick)
@@ -121,6 +124,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'illuminationend') {
       this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 60;
+      if(this.ad.basicBrightnessEndTime <= 0 ){
+          this.ad.basicBrightnessEndTime = 86400;
+        }
       this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
       this.onBLEdata()
       if(isClick)
@@ -128,6 +134,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'glarestart') {
       this.ad.nightLightStartTime = this.ad.nightLightStartTime - 60;
+      if(this.ad.nightLightStartTime <= 0 ){
+          this.ad.nightLightStartTime = 86400;
+        }
       this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
       this.onBLEdata()
       if(isClick)
@@ -135,6 +144,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'glareend') {
       this.ad.nightLightEndTime = this.ad.nightLightEndTime - 60;
+       if(this.ad.nightLightEndTime <= 0 ){
+          this.ad.nightLightEndTime = 86400;
+        }
       this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
       this.onBLEdata()
       if(isClick)
@@ -153,6 +165,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {
       this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime +60;
+      if(this.ad.basicBrightnessStartTime >= 86400 ){
+          this.ad.basicBrightnessStartTime = 0;
+        }
       this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
       this.onBLEdata()
       if(isClick)
@@ -160,6 +175,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'illuminationend') {
       this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 60;
+      if(this.ad.basicBrightnessEndTime >= 86400 ){
+          this.ad.basicBrightnessEndTime = 0;
+        }
       this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
       this.onBLEdata()
       if(isClick)
@@ -167,6 +185,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'glarestart') {
       this.ad.nightLightStartTime = this.ad.nightLightStartTime + 60;
+      if(this.ad.nightLightStartTime >= 86400 ){
+          this.ad.nightLightStartTime = 0;
+        }
       this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
       this.onBLEdata()
       if(isClick)
@@ -174,6 +195,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
     else if(item == 'glareend') {
       this.ad.nightLightEndTime = this.ad.nightLightEndTime + 60;
+      if(this.ad.nightLightEndTime >= 86400 ){
+          this.ad.nightLightEndTime = 0;
+        }
       this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
       this.onBLEdata()
       if(isClick)

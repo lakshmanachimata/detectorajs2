@@ -132,7 +132,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   togglepb() {
     this.ad.permanentLightByPushButtonEnable = !this.ad.permanentLightByPushButtonEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])
   }
   nightLightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
@@ -253,6 +253,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration)])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
+        if(this.ad.basicBrightnessStartTime <= 0){
+          this.ad.basicBrightnessStartTime = 86400;
+        }
         this.secondsToString(this.ad.basicBrightnessStartTime,item)
         this.onBLEdata();
         if(isClick){
@@ -262,6 +265,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     } else if(item == 'brightend') {
         this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 60;
+        if(this.ad.basicBrightnessEndTime <= 0){
+          this.ad.basicBrightnessEndTime = 86400;
+        }
         this.secondsToString(this.ad.basicBrightnessEndTime,item)
         this.onBLEdata();
         if(isClick){
@@ -271,6 +277,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     }else if(item == 'glarestart') {
         this.ad.nightLightStartTime = this.ad.nightLightStartTime - 60;
+        if(this.ad.nightLightStartTime <= 0){
+          this.ad.nightLightStartTime = 86400;
+        }
         this.secondsToString(this.ad.nightLightStartTime,item)
         this.onBLEdata();
         if(isClick){
@@ -280,6 +289,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     } else if(item == 'glareend') {
         this.ad.nightLightEndTime = this.ad.nightLightEndTime - 60;
+        if(this.ad.nightLightEndTime <= 0){
+          this.ad.nightLightEndTime = 86400;
+        }
         this.secondsToString(this.ad.nightLightEndTime,item)
         this.onBLEdata();
         if(isClick){
@@ -296,6 +308,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel - 1;
+        if(this.ad.stepwiseSwitchOffLevel <= 0){
+          this.ad.stepwiseSwitchOffLevel = 0;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
     }
@@ -396,6 +411,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration) ])
     }else if(item == 'brightstart') {
         this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 60;
+        if(this.ad.basicBrightnessStartTime >= 86400 ){
+          this.ad.basicBrightnessStartTime = 0;
+        }
         this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
         this.onBLEdata();
         if(isClick){
@@ -405,6 +423,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     } else if(item == 'brightend') {
         this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 60;
+         if(this.ad.basicBrightnessEndTime >= 86400 ){
+          this.ad.basicBrightnessEndTime = 0;
+        }
         this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
         this.onBLEdata();
         if(isClick){
@@ -414,6 +435,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     }else if(item == 'glarestart') {
         this.ad.nightLightStartTime = this.ad.nightLightStartTime +  60;
+        if(this.ad.nightLightStartTime >= 86400 ){
+          this.ad.nightLightStartTime = 0;
+        }
         this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
         this.onBLEdata();
         if(isClick){
@@ -423,6 +447,9 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
     } else if(item == 'glareend') {
         this.ad.nightLightEndTime = this.ad.nightLightEndTime + 60;
+        if(this.ad.nightLightEndTime >= 86400 ){
+          this.ad.nightLightEndTime = 0;
+        }
         this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
         this.onBLEdata();
         if(isClick){
@@ -439,17 +466,17 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
     } else if(item == 'ssinter') {
         this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel + 1;
+        if(this.ad.stepwiseSwitchOffLevel >= 100){
+          this.ad.stepwiseSwitchOffLevel = 100;
+        }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel) ])
     }
   }
 
   togglemsd() {
-    if(this.ad.slaveModeEnable ==0 )
-      this.ad.slaveModeEnable = 1;
-    else
-      this.ad.slaveModeEnable = 0;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
+    this.ad.slaveModeEnable = !this.ad.slaveModeEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
   }
   resetDali() {
     this.data.setDialogTitle("Reset DALI");

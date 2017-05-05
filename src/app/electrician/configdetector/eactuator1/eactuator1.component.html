@@ -41,8 +41,7 @@
                 <div class="bj-config-setting-adjust durable-switching-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('peron',true)" (onLongPressEnd)="reduceCount('peron',true)" (onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                     <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text" *ngIf="ad.ch1PermanentOnDuration <= 60" > min </div>
-                    <div class="static-unit-text" *ngIf="ad.ch1PermanentOnDuration > 60" > h </div>
+                    <div class="static-unit-text"> min </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('peron',true)" (onLongPressEnd)="increaseCount('peron',true)" (onLongPressing)="increaseCount('peron',false)" ><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
             </div>
@@ -51,8 +50,7 @@
                     <div class="bj-config-setting-adjust durable-switching-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" *ngIf="ad.ch1PermanentOffDuration <= 60" > min </div>
-                        <div class="static-unit-text" *ngIf="ad.ch1PermanentOffDuration > 60" > h </div>
+                        <div class="static-unit-text" > min </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('peroff',true)" (onLongPressEnd)="increaseCount('peroff',true)" (onLongPressing)="increaseCount('peroff',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
                     </div>

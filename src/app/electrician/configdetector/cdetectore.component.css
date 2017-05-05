@@ -492,7 +492,7 @@ label.actuator-anti-glare-level-lbl{
 .illumination-value-disp,.ambient-brightness-value-disp,
 .anti-glare-level-value-disp{
 	background: #e2e2e2;
-	width: 66px;
+	width: 70px;
 	height: 44px;
 	border: 1px solid #8d8d8d;
 	border-left: none;
