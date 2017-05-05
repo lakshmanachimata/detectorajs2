@@ -16,28 +16,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
     activeDevice:any;
     ad:any;
-    perOn = false;
-    perOff = false;
-    softOn = false;
-    softOff = false;
-    minLoad = false;
-    maxLoad = false;
-    burnHours = false;
-    brightStart = false;
-    brightEnd = false;
-    glareStart = false;
-    glareEnd = false;
-    ssOffTime = false;
-    ssInter = false;
-    
-    showCircuitSettings = false;
-    showDurableSwitchingSettings = false;
-    showMiscSettings = false;
-    showNightAntiGlareSettings = false;
-    showBasicIlluminationSettings = false;
-    showDaliSettings = false;
-    showTimeShiftedSwitchOffSettings = false;
-    showFluorescentSettings = false;
     loadingDataDone = false;
 
     NLStartTime : string = "";

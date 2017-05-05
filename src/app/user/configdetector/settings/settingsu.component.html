@@ -2,7 +2,7 @@
 <div id="bj-presence-simulation-div">
     <label class="bj-config-lbl presence-simulation-div">Presence simulation</label>
     <div class="bj-config-setting-div presence-simulation-div" >
-        <label class="bj-config-setting presence-simulation-block">Presence simulation</label>
+        <label class="bj-config-setting-block-lbl presence-simulation-block">Presence simulation</label>
         <span class="bj-config-toggle-switch">
             <div class="track user"  (click)="togglePE()" [ngStyle]="{'border-color':'#7a7f85'}">
                 <label class="switch-onlabel user" *ngIf="this.ad.presenceSimulationEnable == true">{{onLabel}}</label>
@@ -78,10 +78,9 @@
 </div>
 <div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
-    <div class="bj-config-setting-block-div inner-setting actuator1 anti-glare-function">
-        <div class="anti-glare-function-div">
-            <label class="anti-glare-function-lbl">Night-time anti-glare function</label>
-                 <span class="bj-config-toggle-switch actuator1">
+        <div class="bj-config-setting-div anti-glare-function-div">
+            <label class="bj-config-setting-block-lbl anti-glare-function-lbl">Night-time anti-glare function</label>
+                 <span class="bj-config-toggle-switch">
                          <div class="track user"  (click)="toggleNL()" [ngStyle]="{'border-color':'#7a7f85'}">
                             <label class="switch-onlabel user" *ngIf="ad.nightLightFunctionEnable">{{onLabel}}</label>
                             <label class="switch-offlabel user" *ngIf="!ad.nightLightFunctionEnable">{{offLabel}}</label>
@@ -111,7 +110,6 @@
                  <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" [(ngModel)]="ad.nightLightLevel" (ngModelChange)="nightLevelChange()" >
                 <div class="anti-glare-level-value-disp">{{ad.nightLightLevel}}%</div>
             </div>
-        </div>
         </div>
     </div>
 </div>
