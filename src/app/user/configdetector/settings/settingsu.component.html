@@ -1,7 +1,7 @@
 <div class="bj-config-container-user">
 <div id="bj-presence-simulation-div">
     <label class="bj-config-lbl presence-simulation-div">Presence simulation</label>
-    <div class="bj-config-setting-div presence-simulation-div" >
+    <div class="bj-config-setting-div-settings presence-simulation-div" >
         <label class="bj-config-setting-block-lbl presence-simulation-block">Presence simulation</label>
         <span class="bj-config-toggle-switch">
             <div class="track user"  (click)="togglePE()" [ngStyle]="{'border-color':'#7a7f85'}">
@@ -78,7 +78,7 @@
 </div>
 <div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
-        <div class="bj-config-setting-div anti-glare-function-div">
+        <div class="bj-config-setting-div-settings anti-glare-function-div">
             <label class="bj-config-setting-block-lbl anti-glare-function-lbl">Night-time anti-glare function</label>
                  <span class="bj-config-toggle-switch">
                          <div class="track user"  (click)="toggleNL()" [ngStyle]="{'border-color':'#7a7f85'}">

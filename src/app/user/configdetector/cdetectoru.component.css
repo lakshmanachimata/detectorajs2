@@ -13,7 +13,10 @@
 	min-height:50px;
 	border-bottom: solid 1px #9eabbb;
 }
-
+.bj-config-setting-div-settings{
+  	width:100%;
+	min-height:50px;  
+}
 
 
 .bj-config-setting{
@@ -1338,7 +1341,7 @@ label.switch-onlabel.user {
 }
 .bj-config-toggle-switch{
 	float: right;
-    padding-top: 12px;
+    padding-top: 7px;
     padding-right: 10px;
 }
 .bj-config-toggle-switch.actuator1,.bj-config-toggle-switch.actuator2{

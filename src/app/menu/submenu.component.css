@@ -764,11 +764,7 @@ div#detection-outdoor-inner-icon {
 label.switch-onlabel.user {
     color: #000000;
 }
-.bj-config-toggle-switch{
-	float: right;
-    padding-top: 12px;
-    padding-right: 10px;
-}
+
 .bj-config-toggle-switch.actuator1,.bj-config-toggle-switch.actuator2{
 	margin-top:-12px;
 }
