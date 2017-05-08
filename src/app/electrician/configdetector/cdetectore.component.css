@@ -1828,3 +1828,6 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
     border-bottom: 1px solid #334253;
     padding-bottom: 20px;
 }
+#bj-config-operating-div{
+    border-bottom: solid 1px #9eabbb;
+}
