@@ -101,7 +101,7 @@
 "energyMonitorConnectedLoadMax":100,
 "energyMonitorLightingDuration":10,
 "energyMonitorLightingDurationMin":0,
-"energyMonitorLightingDurationMax":100,
+"energyMonitorLightingDurationMax":168,
 "contact":"ABB",
 "building":"ABB",
 "enableUserSetBrightnessThreshold":false,

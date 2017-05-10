@@ -142,6 +142,9 @@ onUserPinChanged(){
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
       this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price - 1;
+      if(this.ad.energy_monitor.electricity_price  <= 0){
+        this.ad.energy_monitor.electricity_price  = 0;
+      }
     }
 
   }

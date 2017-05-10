@@ -48,7 +48,7 @@
                 <div class="bj-config-setting inner-setting actuator1">
                     <label class="actuator-durable-switching-lbl">Permanent OFF for... ({{ad.ch1PermanentOffDurationMin}} min - {{ad.ch1PermanentOffDurationMax}} min)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peroff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > min </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('peroff',true)" (onLongPressEnd)="increaseCount('peroff',true)" (onLongPressing)="increaseCount('peroff',false)" ><span class="glyphicon glyphicon-plus"></span>

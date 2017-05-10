@@ -42,7 +42,7 @@
         <select class="dropdown-sortby" name="sorttype" 
                 [(ngModel)]="selectedSortType"
                 (ngModelChange)="sortDetectors()">
-            <option *ngFor="let sortType of sortUITypes" [ngValue]="sortType" [disabled]="sortType =='sort by'">{{sortType}}</option>
+                <option *ngFor="let sortType of sortUITypes" [ngValue]="sortType" [disabled]="sortType =='sort by'">{{sortType}}</option>
         </select>
     </div>
     <div class="bj-search-tab">
