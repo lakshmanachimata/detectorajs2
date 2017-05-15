@@ -1,4 +1,5 @@
 {
+  "count":3,
   "detectors":[
   {
     "btDeviceName": "BT_Relais",
@@ -11,7 +12,8 @@
     "fwupdate":"true",
     "modelType":"Sensor",
     "firmwareVersion":"1.0",
-    "rssi":""
+    "rssi":"",
+    "last_updated":0
   },
   {
     "btDeviceName": "BT_MOSFET" ,
@@ -24,7 +26,8 @@
     "modelType":"Sensor",
     "fwupdate":"false",
     "firmwareVersion":"1.0",
-    "rssi":""
+    "rssi":"",
+    "last_updated":0
   },
   {
     "btDeviceName":"BT_DALI_Master",
@@ -37,7 +40,8 @@
     "modelType":"Corridor DALI",
     "fwupdate":"false",
     "firmwareVersion":"1.0",
-    "rssi":""
+    "rssi":"",
+    "last_updated":0
   }
 ]
 }

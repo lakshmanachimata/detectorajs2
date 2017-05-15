@@ -505,6 +505,7 @@ export class DataService {
                 if(this.writeArray.length > this.writeCount){
                     this.writeArray = this.writeArray.slice(this.writeCount,this.writeArray.length);
                     this.sendData = this.sendData.slice(this.writeCount,this.sendData.length);
+                    this.selectedDevice.last_updated=(new Date).getTime();
                 }
                 else {
                     this.writeArray = [];
