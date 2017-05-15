@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common'
 import {HeaderComponent} from '../header/header.component'
+
 @Component({
   selector: 'submenu-root',
   templateUrl: './submenu.component.html',
@@ -38,6 +39,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     jsonLoadObserve: any;
     sortedMap;
     profile_name;
+    username = '';
+    password = '';
     header:HeaderComponent;
     searchText = '';
     constructor(private logger: LoggerService,private data: DataService,
@@ -288,7 +291,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    }
    
    loginme(){
-       
+       this.data.syncDataFromCloud(this.username, this.password);
    }
 }
 

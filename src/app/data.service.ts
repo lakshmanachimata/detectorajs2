@@ -1,7 +1,8 @@
 import {Injectable,EventEmitter} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http,Headers,RequestOptions,RequestOptionsArgs,Response} from '@angular/http';
 import {LoggerService} from './logger.service';
-
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -204,6 +205,23 @@ export class DeviceParams {
         deviceConnected = false;
 }
 
+export class NetworkParams {
+    constructor(){}
+    public username = 'harsha'
+    public password = 'P@$$w0rd123#'
+    public namespace = 'presence-detector-backup'
+    public detectorHostName = 'https://api.my-staging.busch-jaeger.de';
+    public baseUrl = this.detectorHostName + '/api/user/key-value/'+ this.namespace; 
+    public devicesUrl = this.baseUrl+ '/devices';
+    public deviceDataUrl =  this.baseUrl + 'device-';
+    public detectorPort = 443;
+    public customHeaders = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + new Buffer(this.username + ':' + this.password).toString('base64')
+            }
+    public options = {};
+}
+
 declare var setDataServiceCallBack;
 declare var configureAttr;
 declare var writeAttr;
@@ -216,6 +234,7 @@ export class DataService {
     scanneddata:any;
     uiParams:UIParams   =  new UIParams();
     deviceParams:DeviceParams   =  new DeviceParams();
+    networkParams:NetworkParams =  new NetworkParams();
     deviceData:any;
     private selectedDevice:any;
     private iSelectedDevice:any;
@@ -247,9 +266,6 @@ export class DataService {
     setScannedData(scanned){
         this.scanneddata = scanned;
     }
-
-    
-
     getScannedData() {
         return this.scanneddata;
     }
@@ -661,7 +677,76 @@ export class DataService {
     resetWriteArray(){
         this.writeArray = [];
     }
+    handleResponse(header){
+    }
 
+    syncDataFromCloud(uname, pwd){
+        if(uname.length > 0)
+            this.networkParams.username = uname;
+        if(pwd.length > 0)
+            this.networkParams.password = pwd;
+        this.getDevicesFromCloud();
+    }
+
+    getDevicesFromCloud() {
+         let headers      = new Headers({ 'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
+                        }); 
+                        
+        let options       = new RequestOptions({ headers: headers });
+        let getUrl = this.networkParams.devicesUrl;
+        let getData =  this.http.get(getUrl, options) 
+                         .map((res:Response) => res.json()) 
+                          .subscribe(
+                            (data) => {
+                                let responseStat = this.handleResponse(data)
+                            },
+                        );
+    }
+
+    putDevicesToCloud(){
+         let bodyString = JSON.stringify(this.uiParams.devices);
+         let headers      = new Headers({ 'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
+                        }); 
+                        
+        let options       = new RequestOptions({ headers: headers });
+        let getUrl = this.networkParams.devicesUrl;
+        let putData = this.http.put(getUrl,bodyString, options) 
+                         .map((res:Response) => res.json()) 
+                         .subscribe(
+                            (data) => {
+                                let responseStat = this.handleResponse(data)
+                            },
+                        );
+    }
+
+    getParamsFromCloudForDevice() {
+        let headers      = new Headers({ 'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
+                        }); 
+                        
+        let options       = new RequestOptions({ headers: headers });
+        let getUrl = this.networkParams.deviceDataUrl + this.selectedDevice.btAddress;
+        let getData =  this.http.get(getUrl, options) 
+                         .map((res:Response) => res.json()) 
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        this.logger.log(getData);
+    }
+
+    setParamsTOCloudForDevice() {
+        let bodyString = JSON.stringify(this.deviceData);
+         let headers      = new Headers({ 'Content-Type': 'application/json',
+                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
+                        }); 
+                        
+        let options       = new RequestOptions({ headers: headers });
+        let getUrl = this.networkParams.devicesUrl + this.selectedDevice.btAddress;
+        let putData = this.http.put(getUrl,bodyString, options) 
+                         .map((res:Response) => res.json()) 
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        this.logger.log(putData);
+    }
 
     setBLEdataOnDeviceData(attrType,attrValue){
         //this.logger.log("attrType   " + attrType  + "  is   " + attrValue );
