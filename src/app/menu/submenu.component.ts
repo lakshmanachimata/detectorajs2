@@ -287,6 +287,9 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     return  this.data.getMenuArrow();
    }
    
+   loginme(){
+       
+   }
 }
 
 
