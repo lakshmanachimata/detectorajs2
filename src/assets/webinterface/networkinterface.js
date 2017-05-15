@@ -9,101 +9,82 @@ var keyPath = path.join(__dirname, 'client.private');
 var obj = JSON.parse(fs.readFileSync('params.json', 'utf8'));
 var bodyStr = JSON.stringify(obj);
 
+
 var username = 'harsha'
 var password = 'P@$$w0rd123#'
-
-var baseUrl = '/api/user/key-value/presence-detector-backup'
+var namespace = 'presence-detector-backup'
+var baseUrl = '/api/user/key-value/'+ presence-detector-backup; 
 var devicesUrl = baseUrl+ '/devices';
 var deviceDataUrl =  devicesUrl + 'device-';
-
-function getDevices(){
-
-    var options = {
-    hostname: 'api.my-staging.busch-jaeger.de',
-    port: 443,
-    path: devicesUrl,
-    method: 'GET',
-    headers: {
+var detectorHostName = 'api.my-staging.busch-jaeger.de';
+var detectorPort = 443;
+var customHeaders = {
             'Content-Type': 'application/json',
             'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
         }
-    };
-    var req = https.request(options, function(res) {
-        res.on('data', function(data) {
-            process.stdout.write(data);
-        });
-    });
-    req.end();
-    req.on('error', function(e) {
-            console.error(e);
-    });
+var options = {};
 
+
+function initOptions(){
+    options = {
+        hostname: detectorHostName,
+        port: detectorPort,
+        path: devicesUrl,
+        method: 'GET',
+        headers: customHeaders,
+    };
+}
+function setCreds(user, pwd){
+    username = user;
+    password = pwd;
+}
+
+function onError(error){
+    console.log(error);
+}
+
+function onData(jsonData){
+    console.log(jsonData);
 }
 
 function updateDevices(devices){
-    var options = {
-    hostname: 'api.my-staging.busch-jaeger.de',
-    port: 443,
-    path: devicesUrl,
-    method: 'PUT',
-    headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
-        }
-    };
-    var req = https.request(options, function(res) {
-        res.on('data', function(data) {
-            process.stdout.write(data);
-        });
-    });
-    req.end(devices);
-    req.on('error', function(e) {
-            console.error(e);
-    });
+    initOptions();
+    options.method = 'PUT';
+    options.path = devicesUrl;
+    makeRequest(options,devices)
 }
 
 function updateParamsJsonForDevice(btAddress,jsonObj){
-    var options = {
-    hostname: 'api.my-staging.busch-jaeger.de',
-    port: 443,
-    path: deviceDataUrl+'/'+btAddress,
-    method: 'PUT',
-    headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
-        }
-    };
-    var req = https.request(options, function(res) {
-        res.on('data', function(data) {
-            process.stdout.write(data);
-        });
-    });
-    req.end(jsonObj);
-    req.on('error', function(e) {
-            console.error(e);
-    });
+    initOptions();
+    options.method = 'PUT';
+    options.path = deviceDataUrl+'/'+btAddress;
+    makeRequest(options,jsonObj)
+}
+
+function getDevices(){
+    initOptions();
+    makeRequest(options,'')
 }
 
 function getParamsJSONForDevice(btAddress){
-    var options = {
-    hostname: 'api.my-staging.busch-jaeger.de',
-    port: 443,
-    path: devicesUrl,
-    method: 'GET',
-    headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
-        }
-    };
-    var req = https.request(options, function(res) {
-        res.on('data', function(data) {
-            process.stdout.write(data);
-        });
-    });
-    req.end();
-    req.on('error', function(e) {
-            console.error(e);
-    });
+    initOptions();
+    options.path = deviceDataUrl+'/'+btAddress;
+    makeRequest(options,'')
 }
 
+function makeRequest(options,body)
+{
+     var req = https.request(options, function(res) {
+        res.on('data', function(data) {
+            onData(data);
+        });
+    });
+    if(body.length > 0)
+        req.end(body);
+    else
+        req.end();
+    req.on('error', function(e) {
+            onError(e);
+    });
+}
 
