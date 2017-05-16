@@ -1,4 +1,4 @@
-import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy ,Pipe,PipeTransform} from '@angular/core';
+import { Component , Injectable, trigger, state, animate, transition, style,OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy ,Pipe,PipeTransform,NgZone} from '@angular/core';
 import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -48,7 +48,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     searchText = '';
     lastSynced = '';
     constructor(private logger: LoggerService,private data: DataService,
-                private router:Router,private route:ActivatedRoute) {
+                private router:Router,private route:ActivatedRoute,private zone:NgZone) {
         this.subMenuState = 'none';
         this.detectors = data.getDevices();
         this.selectedSortType = this.sortUITypes[0];
@@ -308,10 +308,13 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
 
    }
    onSucessfullSync(timeSynced){
-        this.lastSynced = timeSynced;
+        
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+            this.lastSynced = timeSynced;
+      });
    }
    syncNow(){
-
+    this.data.syncDataNow();
    }
    toggleAS(){
        this.autoSync = !this.autoSync;

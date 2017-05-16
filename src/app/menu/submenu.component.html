@@ -89,8 +89,8 @@
     <div class="bj-user-info">
         <label class="userInfo"> {{username}} </label> 
     </div>
-    <div class="bj-config-setting  logout" >
-        <label class="bj-config-setting logout-inner-block" (click)="logmeOut()">Log out</label><span class="glyphicon glyphicon-stop"></span>
+    <div class="bj-config-setting  logout" (click)="logmeOut()" >
+        <label class="bj-config-setting logout-inner-block" >Log out</label><span class="glyphicon glyphicon-stop"></span>
     </div>
     <div class="bj-config-setting  syncstatus" >
         <label class="bj-config-setting syncstatus-inner-block" >Synchronization</label>
@@ -112,8 +112,8 @@
                 </div>
         </span>
     </div>
-    <div class="bj-config-setting  sync" >
-        <label class="bj-config-setting sync-inner-block" (click)="syncNow()">Sync now</label><span class="glyphicon glyphicon-stop"></span>
+    <div class="bj-config-setting  sync" (click)="syncNow()">
+        <label class="bj-config-setting sync-inner-block" >Sync now</label><span class="glyphicon glyphicon-stop"></span>
     </div>
   </div>
 </div>

@@ -713,6 +713,9 @@ export class DataService {
         this.uiParams.subMenuComponent = component;
         this.getDevicesFromCloud();
     }
+    syncDataNow(){
+        this.getDevicesFromCloud();
+    }
 
     makeHeaders(){
         let headers      = new Headers({ 'Content-Type': 'application/json',
