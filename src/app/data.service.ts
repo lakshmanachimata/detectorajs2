@@ -12,7 +12,23 @@ export class WriteData{
     constructor(public attrType: number, public attrValue: number[]) { }
 }
 
+export class HTTPCODES {
+    static SUCCESS_START = 200;
+    static SUCCESS_END = 299;
+    static NOT_FOUND = 404;
+    static NO_AUTH = 401;
+    static FORBIDDN = 403;
+    static BAD_REQUEST = 400;
+    static METHOD_NOT_ALLOWED = 405;
+    static PAYLAOD_HUGE = 413;
+    static TOO_MANY_REQUESTS = 429;
+    static SERVER_ERR_START = 500;
+}
 
+export class DEVICESOBJ {
+    constructor() {}
+    devicesArray:Array<any>;
+}
 
  export class  SCCP_DATATYPES  { 
     static SCCP_TYPE_BOOL     = 0x01;
@@ -169,7 +185,7 @@ export class UIParams {
       public showHeader = false;
       public showFooter = false;
       public arrowState = -1;
-      public devices:Array<any>;
+      public devicesObj =  new DEVICESOBJ();
       public profileSwitch = true;
       public subMenuVal= 'none';
       public profile = 'none';
@@ -289,7 +305,7 @@ export class DataService {
     }
     public initDevices() {
         this.loadDevices().then((devs) => {
-             this.uiParams.devices = devs;
+             this.uiParams.devicesObj.devicesArray = devs;
         });
     }
    
@@ -308,21 +324,22 @@ export class DataService {
         this.uiParams.eDevParamsChanged = paramsChanged;
     }
     getDevice(i) {
-        return this.uiParams.devices[i];
+        return this.uiParams.devicesObj.devicesArray[i];
     }
     setDevice(device) {
-        this.uiParams.devices.concat(device);
+        this.uiParams.devicesObj.devicesArray.concat(device);
     }
     setDevices(devices) {
         this.clearDevices();
-        this.uiParams.devices = devices;
+        this.logger.log(JSON.stringify(devices))
+        this.uiParams.devicesObj.devicesArray = devices;
     }
     clearDevices() {
-        this.uiParams.devices.splice(0,this.uiParams.devices.length);
+        this.uiParams.devicesObj.devicesArray.splice(0,this.uiParams.devicesObj.devicesArray.length);
     }
     getDevices(){
-        if(this.uiParams.devices && (this.uiParams.devices.length > 0)) {
-            return this.uiParams.devices;
+        if(this.uiParams.devicesObj.devicesArray && (this.uiParams.devicesObj.devicesArray.length > 0)) {
+            return this.uiParams.devicesObj.devicesArray;
         }
     }
     setMenuArrow(menuState) {
@@ -536,6 +553,7 @@ export class DataService {
                     this.sendChangedParams();
                 }else {
                     this.notifyActiveComponentWithBLEdata()
+                    this.setParamsToCloudForDevice();
                 }
             break;
             default:
@@ -681,11 +699,16 @@ export class DataService {
     resetWriteArray(){
         this.writeArray = [];
     }
-    handleResponseData(data){
-        this.uiParams.userLoggedIn = true;
+    getDateFormat(){
         var date = new Date();
-        this.uiParams.lastSynced = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
-        this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+    }
+    handleResponseData(data){
+        this.logger.log(JSON.stringify(data));
+        this.uiParams.userLoggedIn = true;
+        this.uiParams.lastSynced = this.getDateFormat();
+        if(this.uiParams.subMenuComponent != undefined)
+            this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
     }
     getLastSyncedTime(){
         return this.uiParams.lastSynced;
@@ -694,7 +717,9 @@ export class DataService {
         return this.uiParams.userLoggedIn;
     }
     handleResponseError(err){
-        this.uiParams.subMenuComponent.onErrorMessage(err.status)
+        this.logger.log('HTTP ERROR CODE ' + err.status)
+        if(this.uiParams.subMenuComponent != undefined)
+            this.uiParams.subMenuComponent.onErrorMessage(err.status)
     }
 
     setAutoSync(val){
@@ -704,6 +729,9 @@ export class DataService {
         return this.uiParams.autoSync;
     }
 
+    setSubMenuComponent(component){
+        this.uiParams.subMenuComponent = component;
+    }
     syncDataFromCloud(uname, pwd,component){
         if(uname.length > 0)
             this.networkParams.username = uname;
@@ -729,7 +757,7 @@ export class DataService {
     getData(getUrl){
         let getData =  this.http.get(getUrl, this.makeHeaders()) 
             .map(res => {
-                if(res.status < 200 || res.status >= 300) {
+                if(res.status < HTTPCODES.SUCCESS_START || res.status > HTTPCODES.SUCCESS_END) {
                     return res.status;
                 } 
                 else {
@@ -749,7 +777,7 @@ export class DataService {
     putData(putUrl,body){
         let putData = this.http.put(putUrl,body, this.makeHeaders()) 
             .map(res => {
-                if(res.status < 200 || res.status >= 300) {
+                if(res.status < HTTPCODES.SUCCESS_START || res.status > HTTPCODES.SUCCESS_END) {
                     return res.status;
                 } 
                 else {
@@ -772,7 +800,7 @@ export class DataService {
     }
 
     putDevicesToCloud(){
-        let bodyString = JSON.stringify(this.uiParams.devices);
+        let bodyString = JSON.stringify(this.uiParams.devicesObj.devicesArray);
         let url = this.networkParams.devicesUrl;
         this.putData(url,bodyString);
     }
@@ -782,7 +810,7 @@ export class DataService {
         this.getData(url);
     }
 
-    setParamsTOCloudForDevice() {
+    setParamsToCloudForDevice() {
         let bodyString = JSON.stringify(this.deviceData);
         let url = this.networkParams.devicesUrl + this.selectedDevice.btAddress;
         this.putData(url,bodyString);

@@ -18,6 +18,7 @@ export class DetectorInfo {
         public contactName;
         public buildingName;
         public date;
+        public last_updated;
     }
 
 @Component({
@@ -54,9 +55,11 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.date="07.07.2017",
+        detectorInfo.last_updated = this.data.getDateFormat();
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
+      this.data.setDevices(this.detectors);
     }
   }
 

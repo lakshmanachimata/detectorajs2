@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common'
 import {HeaderComponent} from '../header/header.component'
+import {HTTPCODES} from '../data.service'
 
 @Component({
   selector: 'submenu-root',
@@ -29,8 +30,8 @@ import {HeaderComponent} from '../header/header.component'
 export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     subMenuState = 'none';
     arrowStateObserve: any;
-    public username = 'harsha'
-    public password = 'P@$$w0rd123#'
+    public username = 'lakshmana'
+    public password = 'Abb@123456'
     detectors:Array<any>;
     selectedSortType = 'modelType';
     heloText = "Download Manuals";
@@ -287,6 +288,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
     ngOnDestroy() {
         this.arrowStateObserve.unsubscribe();
+        this.data.setSubMenuComponent(undefined);
     }
 
     getProfile() {
@@ -305,8 +307,20 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
        return this.data.isUserLoggedIn();
    }
    onErrorMessage(errorCode){
-    this.showErrorDialog()
+        if(errorCode == HTTPCODES.NO_AUTH)
+            this.showErrorDialog()
+        else if(errorCode == HTTPCODES.NOT_FOUND)
+            this.data.putDevicesToCloud();
+        else if(errorCode >= HTTPCODES.SERVER_ERR_START)
+            this.showTryDialog();
    }
+
+    showTryDialog() {
+        this.data.setDialogTitle("Please try After some time");
+        this.data.setDialogText("Server is not available now please try after some time");
+        this.data.setShowModal(true);
+    }
+
     showErrorDialog() {
         this.data.setDialogTitle("Access details incorrect");
         this.data.setDialogText("Please enter the correct username and password");
@@ -314,7 +328,6 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
 
    onSucessfullSync(timeSynced){
-        
     this.zone.run( () => { // Change the property within the zone, CD will run after
             this.lastSynced = timeSynced;
       });

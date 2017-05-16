@@ -16,6 +16,7 @@ export class DetectorInfo {
         public contactName;
         public buildingName;
         public date;
+        public last_updated;
     }
 
 declare var connectDevice;
@@ -29,7 +30,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     private detectors:Array<any>;
     scannedData:Array<any>;
     jsonLoadObserve: any;
-    connectDeviceObj:any;
+    connectDeviceObj:any; 
     private snap:RouterStateSnapshot;
     constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
     }
@@ -87,9 +88,11 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.date="07.07.2017",
+        detectorInfo.last_updated = this.data.getDateFormat();
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
+        this.data.setDevices(this.detectors);
     }
   }
 
