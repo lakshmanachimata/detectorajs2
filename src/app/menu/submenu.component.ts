@@ -29,6 +29,8 @@ import {HeaderComponent} from '../header/header.component'
 export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     subMenuState = 'none';
     arrowStateObserve: any;
+    public username = 'harsha'
+    public password = 'P@$$w0rd123#'
     detectors:Array<any>;
     selectedSortType = 'modelType';
     heloText = "Download Manuals";
@@ -39,10 +41,12 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     jsonLoadObserve: any;
     sortedMap;
     profile_name;
-    username = '';
-    password = '';
+    onLabel = 'on';
+    offLabel = 'off';
+    autoSync = true;
     header:HeaderComponent;
     searchText = '';
+    lastSynced = '';
     constructor(private logger: LoggerService,private data: DataService,
                 private router:Router,private route:ActivatedRoute) {
         this.subMenuState = 'none';
@@ -255,6 +259,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
          if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }
+        this.lastSynced = this.data.getLastSyncedTime();
+        this.autoSync =  this.data.getAutoSync();
     }
 
     setSubMenuTitle() {
@@ -290,8 +296,26 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     return  this.data.getMenuArrow();
    }
    
-   loginme(){
-       this.data.syncDataFromCloud(this.username, this.password);
+   logmeIn(){
+       this.data.syncDataFromCloud(this.username, this.password,this);
+   }
+   logmeOut(){
+   }
+   isUserLoggedIn(){
+       return this.data.isUserLoggedIn();
+   }
+   onErrorMessage(errorCode){
+
+   }
+   onSucessfullSync(timeSynced){
+        this.lastSynced = timeSynced;
+   }
+   syncNow(){
+
+   }
+   toggleAS(){
+       this.autoSync = !this.autoSync;
+       this.data.setAutoSync(this.autoSync);
    }
 }
 

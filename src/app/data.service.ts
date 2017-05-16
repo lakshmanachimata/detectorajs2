@@ -185,7 +185,10 @@ export class UIParams {
       showModal = false;
       showCDI = -1;
       eDevParamsChanged = 0;
-
+      userLoggedIn =  false;
+      lastSynced = '';
+      subMenuComponent = undefined;
+      autoSync = true;
 }
 
 export class DeviceParams {
@@ -207,8 +210,8 @@ export class DeviceParams {
 
 export class NetworkParams {
     constructor(){}
-    public username = 'harsha'
-    public password = 'P@$$w0rd123#'
+    public username = ''
+    public password = ''
     public namespace = 'presence-detector-backup'
     public detectorHostName = 'https://api.my-staging.busch-jaeger.de';
     public baseUrl = this.detectorHostName + '/api/user/key-value/'+ this.namespace; 
@@ -256,7 +259,7 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
-    userLoggedIn =  false;
+    
     constructor(private http:Http,private logger: LoggerService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
@@ -679,18 +682,35 @@ export class DataService {
         this.writeArray = [];
     }
     handleResponseData(data){
-        this.logger.log(JSON.stringify(data))
+        this.uiParams.userLoggedIn = true;
+        var date = new Date();
+        this.uiParams.lastSynced = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+        this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+    }
+    getLastSyncedTime(){
+        return this.uiParams.lastSynced;
+    }
+    isUserLoggedIn(){
+        return this.uiParams.userLoggedIn;
     }
     handleResponseError(err){
-        this.logger.log('ERROR CODE IS ' + err.status)
+        this.uiParams.subMenuComponent.onErrorMessage(err.status)
     }
 
+    setAutoSync(val){
+        this.uiParams.autoSync = val;
+    }
+    getAutoSync(){
+        return this.uiParams.autoSync;
+    }
 
-    syncDataFromCloud(uname, pwd){
+    syncDataFromCloud(uname, pwd,component){
         if(uname.length > 0)
             this.networkParams.username = uname;
         if(pwd.length > 0)
             this.networkParams.password = pwd;
+        
+        this.uiParams.subMenuComponent = component;
         this.getDevicesFromCloud();
     }
 
@@ -703,8 +723,6 @@ export class DataService {
         return options;
     }
 
-    mydata;
-    myerror;
     getData(getUrl){
         let getData =  this.http.get(getUrl, this.makeHeaders()) 
             .map(res => {
