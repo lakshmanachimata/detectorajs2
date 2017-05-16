@@ -305,8 +305,14 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
        return this.data.isUserLoggedIn();
    }
    onErrorMessage(errorCode){
-
+    this.showErrorDialog()
    }
+    showErrorDialog() {
+        this.data.setDialogTitle("Access details incorrect");
+        this.data.setDialogText("Please enter the correct username and password");
+        this.data.setShowModal(true);
+    }
+
    onSucessfullSync(timeSynced){
         
     this.zone.run( () => { // Change the property within the zone, CD will run after

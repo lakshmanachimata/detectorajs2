@@ -45,6 +45,16 @@ export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContent
   doStuff() {
       this.data.setShowModal(false);
   }
+  getIfShowCancel(){
+  }
+  getOptionsCount(){
+  }
+  getOptionsText(){
+  }
+  getDialiogTitleColor(){
+  }
+  getDialogOptionColor(){
+  }
   getProfile() {
     return this.data.getProfile();
   }
