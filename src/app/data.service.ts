@@ -256,6 +256,7 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
+    userLoggedIn =  false;
     constructor(private http:Http,private logger: LoggerService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
@@ -678,6 +679,23 @@ export class DataService {
         this.writeArray = [];
     }
     handleResponse(header){
+        if(header.status >= 200 && header.status < 300){
+            let responseHeaders = header.headers;
+            let responseData =  header.json();
+            
+        }else{
+            switch(header.status){
+                case 401:
+                break;
+                case 404:
+                break;
+                case 403:
+                break;
+                default:
+                    this.logger.log("HTTP STAUS CODE IS   " + header.status)
+                break;
+            }
+        }
     }
 
     syncDataFromCloud(uname, pwd){
@@ -696,10 +714,9 @@ export class DataService {
         let options       = new RequestOptions({ headers: headers });
         let getUrl = this.networkParams.devicesUrl;
         let getData =  this.http.get(getUrl, options) 
-                         .map((res:Response) => res.json()) 
-                          .subscribe(
-                            (data) => {
-                                let responseStat = this.handleResponse(data)
+                         .subscribe(
+                            (res) => {
+                                this.handleResponse(res)
                             },
                         );
     }
@@ -713,10 +730,9 @@ export class DataService {
         let options       = new RequestOptions({ headers: headers });
         let getUrl = this.networkParams.devicesUrl;
         let putData = this.http.put(getUrl,bodyString, options) 
-                         .map((res:Response) => res.json()) 
                          .subscribe(
-                            (data) => {
-                                let responseStat = this.handleResponse(data)
+                            (res) => {
+                                this.handleResponse(res)
                             },
                         );
     }
@@ -729,9 +745,11 @@ export class DataService {
         let options       = new RequestOptions({ headers: headers });
         let getUrl = this.networkParams.deviceDataUrl + this.selectedDevice.btAddress;
         let getData =  this.http.get(getUrl, options) 
-                         .map((res:Response) => res.json()) 
-                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-        this.logger.log(getData);
+                        .subscribe(
+                            (res) => {
+                                this.handleResponse(res)
+                            },
+                        );
     }
 
     setParamsTOCloudForDevice() {
@@ -743,9 +761,11 @@ export class DataService {
         let options       = new RequestOptions({ headers: headers });
         let getUrl = this.networkParams.devicesUrl + this.selectedDevice.btAddress;
         let putData = this.http.put(getUrl,bodyString, options) 
-                         .map((res:Response) => res.json()) 
-                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-        this.logger.log(putData);
+                           .subscribe(
+                            (res) => {
+                                this.handleResponse(res)
+                            },
+                        );
     }
 
     setBLEdataOnDeviceData(attrType,attrValue){
