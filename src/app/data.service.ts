@@ -1,5 +1,5 @@
 import {Injectable,EventEmitter} from '@angular/core';
-import {Http,Headers,RequestOptions,RequestOptionsArgs,Response} from '@angular/http';
+import {Http,Headers,RequestOptions,RequestOptionsArgs,Response,RequestMethod} from '@angular/http';
 import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -678,25 +678,13 @@ export class DataService {
     resetWriteArray(){
         this.writeArray = [];
     }
-    handleResponse(header){
-        if(header.status >= 200 && header.status < 300){
-            let responseHeaders = header.headers;
-            let responseData =  header.json();
-            
-        }else{
-            switch(header.status){
-                case 401:
-                break;
-                case 404:
-                break;
-                case 403:
-                break;
-                default:
-                    this.logger.log("HTTP STAUS CODE IS   " + header.status)
-                break;
-            }
-        }
+    handleResponseData(data){
+        this.logger.log(JSON.stringify(data))
     }
+    handleResponseError(err){
+        this.logger.log('ERROR CODE IS ' + err.status)
+    }
+
 
     syncDataFromCloud(uname, pwd){
         if(uname.length > 0)
@@ -706,66 +694,77 @@ export class DataService {
         this.getDevicesFromCloud();
     }
 
-    getDevicesFromCloud() {
-         let headers      = new Headers({ 'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
-                        }); 
-                        
+    makeHeaders(){
+        let headers      = new Headers({ 'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
+            }); 
+            
         let options       = new RequestOptions({ headers: headers });
-        let getUrl = this.networkParams.devicesUrl;
-        let getData =  this.http.get(getUrl, options) 
-                         .subscribe(
-                            (res) => {
-                                this.handleResponse(res)
-                            },
-                        );
+        return options;
+    }
+
+    mydata;
+    myerror;
+    getData(getUrl){
+        let getData =  this.http.get(getUrl, this.makeHeaders()) 
+            .map(res => {
+                if(res.status < 200 || res.status >= 300) {
+                    return res.status;
+                } 
+                else {
+                    return res.json();
+                }
+            })
+            .subscribe(
+                (data) => {
+                    this.handleResponseData(data);
+                }, 
+                (err) => {
+                    this.handleResponseError(err)
+                }
+            ); 
+    }
+
+    putData(putUrl,body){
+        let putData = this.http.put(putUrl,body, this.makeHeaders()) 
+            .map(res => {
+                if(res.status < 200 || res.status >= 300) {
+                    return res.status;
+                } 
+                else {
+                    return res.json();
+                }
+            })
+            .subscribe(
+                (data) => {
+                    this.handleResponseData(data);
+                }, 
+                (err) => {
+                    this.handleResponseError(err)
+                }
+            ); 
+    }
+
+    getDevicesFromCloud() {
+        let url = this.networkParams.devicesUrl;
+        this.getData(url);
     }
 
     putDevicesToCloud(){
-         let bodyString = JSON.stringify(this.uiParams.devices);
-         let headers      = new Headers({ 'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
-                        }); 
-                        
-        let options       = new RequestOptions({ headers: headers });
-        let getUrl = this.networkParams.devicesUrl;
-        let putData = this.http.put(getUrl,bodyString, options) 
-                         .subscribe(
-                            (res) => {
-                                this.handleResponse(res)
-                            },
-                        );
+        let bodyString = JSON.stringify(this.uiParams.devices);
+        let url = this.networkParams.devicesUrl;
+        this.putData(url,bodyString);
     }
 
     getParamsFromCloudForDevice() {
-        let headers      = new Headers({ 'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
-                        }); 
-                        
-        let options       = new RequestOptions({ headers: headers });
-        let getUrl = this.networkParams.deviceDataUrl + this.selectedDevice.btAddress;
-        let getData =  this.http.get(getUrl, options) 
-                        .subscribe(
-                            (res) => {
-                                this.handleResponse(res)
-                            },
-                        );
+        let url = this.networkParams.deviceDataUrl + this.selectedDevice.btAddress;
+        this.getData(url);
     }
 
     setParamsTOCloudForDevice() {
         let bodyString = JSON.stringify(this.deviceData);
-         let headers      = new Headers({ 'Content-Type': 'application/json',
-                            'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')
-                        }); 
-                        
-        let options       = new RequestOptions({ headers: headers });
-        let getUrl = this.networkParams.devicesUrl + this.selectedDevice.btAddress;
-        let putData = this.http.put(getUrl,bodyString, options) 
-                           .subscribe(
-                            (res) => {
-                                this.handleResponse(res)
-                            },
-                        );
+        let url = this.networkParams.devicesUrl + this.selectedDevice.btAddress;
+        this.putData(url,bodyString);
     }
 
     setBLEdataOnDeviceData(attrType,attrValue){
