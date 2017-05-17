@@ -88,7 +88,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.date="07.07.2017",
-        detectorInfo.last_updated = this.data.getDateFormat();
+        detectorInfo.last_updated = this.data.getUTCDateFormat();
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }

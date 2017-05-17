@@ -307,8 +307,10 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
        return this.data.isUserLoggedIn();
    }
    onErrorMessage(errorCode){
-        if(errorCode == HTTPCODES.NO_AUTH)
+        if(errorCode == HTTPCODES.NO_AUTH){
             this.showErrorDialog()
+            this.data.uiParams.userLoggedIn = false;
+        }
         else if(errorCode == HTTPCODES.NOT_FOUND)
             this.data.putDevicesToCloud();
         else if(errorCode >= HTTPCODES.SERVER_ERR_START)
@@ -333,7 +335,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
       });
    }
    syncNow(){
-    this.data.syncDataNow();
+    this.data.syncDataNow(true);
    }
    toggleAS(){
        this.autoSync = !this.autoSync;

@@ -249,7 +249,6 @@ declare var readAttr;
 @Injectable()
 export class DataService {
 
-
     scanneddata:any;
     uiParams:UIParams   =  new UIParams();
     deviceParams:DeviceParams   =  new DeviceParams();
@@ -701,12 +700,29 @@ export class DataService {
     }
     getDateFormat(){
         var date = new Date();
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()+"+0000"
     }
-    handleResponseData(data){
-        this.logger.log(JSON.stringify(data));
+    getUTCDateFormat(){
+        var date = new Date();
+        let utcstr =  date.toISOString().split('.')[0];
+        return date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate() + "T" +  date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds()+"+0000"
+    }
+    handleGetResponseData(data){
+        let strFormat =  JSON.stringify(data);
+        let objCount = (strFormat.match(/\":{/g)|| []).length;
+        this.logger.log(strFormat);
         this.uiParams.userLoggedIn = true;
-        this.uiParams.lastSynced = this.getDateFormat();
+        this.uiParams.lastSynced = data._updated_at.split('+')[0];
+        if(this.uiParams.subMenuComponent != undefined)
+            this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+    }
+    handlePutResponseData(data){
+        let strFormat =  JSON.stringify(data);
+        let objCount = (strFormat.match(/\":{/g)|| []).length;
+        this.logger.log(strFormat);
+        this.uiParams.userLoggedIn = true;
+        this.uiParams.lastSynced = this.getUTCDateFormat();
+        this.uiParams.lastSynced = data._updated_at.split('+')[0];
         if(this.uiParams.subMenuComponent != undefined)
             this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
     }
@@ -741,8 +757,11 @@ export class DataService {
         this.uiParams.subMenuComponent = component;
         this.getDevicesFromCloud();
     }
-    syncDataNow(){
-        this.getDevicesFromCloud();
+    syncDataNow(local){
+        if(local)
+            this.putDevicesToCloud();
+        else
+            this.getDevicesFromCloud();
     }
 
     makeHeaders(){
@@ -766,7 +785,7 @@ export class DataService {
             })
             .subscribe(
                 (data) => {
-                    this.handleResponseData(data);
+                    this.handleGetResponseData(data);
                 }, 
                 (err) => {
                     this.handleResponseError(err)
@@ -786,7 +805,7 @@ export class DataService {
             })
             .subscribe(
                 (data) => {
-                    this.handleResponseData(data);
+                    this.handlePutResponseData(data);
                 }, 
                 (err) => {
                     this.handleResponseError(err)
