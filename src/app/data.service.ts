@@ -27,6 +27,8 @@ export class HTTPCODES {
 
 export class DEVICESOBJ {
     constructor() {}
+    detectorsObj:{};
+    IdetectorsObj:{};
     devicesArray:Array<any>;
     IdevicesArray:Array<any>;
     selectedDevice:any;
@@ -239,6 +241,7 @@ export class NetworkParams {
     public devicesPath = 'devices';
     public devicesUrl = this.baseUrl+ '/'+ this.devicesPath;
     public deviceprefix = 'device-'
+    public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
     public customHeaders = {
@@ -736,11 +739,8 @@ export class DataService {
     }
     handleGetResponseData(data){
         let strFormat =  JSON.stringify(data);
-        let objCount = (strFormat.match(/\":{/g)|| []).length;
-        let keyValue:String = data._key;
-        let paramsIndex = -1;
-        paramsIndex = keyValue.indexOf(this.networkParams.deviceprefix)
-        if(paramsIndex >= 0){
+        let Detectors = data.detectors;
+        if(Detectors != undefined ){
             this.logger.log(strFormat);
             this.uiParams.userLoggedIn = true;
             this.uiParams.lastSynced = data._updated_at.split('+')[0];
@@ -754,7 +754,6 @@ export class DataService {
             if(this.uiParams.subMenuComponent != undefined)
                 this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }else {
-            let objCount = (strFormat.match(/\":{/g)|| []).length;
             this.logger.log(strFormat);
             this.uiParams.userLoggedIn = true;
             this.uiParams.lastSynced = data._updated_at.split('+')[0];
@@ -771,11 +770,8 @@ export class DataService {
     }
     handlePutResponseData(data){
         let strFormat =  JSON.stringify(data);
-        let objCount = (strFormat.match(/\":{/g)|| []).length;
-        let keyValue:String = data._key;
-        let paramsIndex = -1;
-        paramsIndex = keyValue.indexOf(this.networkParams.deviceprefix)
-        if(paramsIndex >= 0){
+        let Detectors = data.detectors;
+        if(Detectors != undefined ){
             this.logger.log(strFormat);
             this.uiParams.userLoggedIn = true;
             this.uiParams.lastSynced = data._updated_at.split('+')[0];
@@ -789,7 +785,6 @@ export class DataService {
             if(this.uiParams.subMenuComponent != undefined)
                 this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }else {
-            let objCount = (strFormat.match(/\":{/g)|| []).length;
             this.logger.log(strFormat);
             this.uiParams.userLoggedIn = true;
             this.uiParams.lastSynced = data._updated_at.split('+')[0];
@@ -847,10 +842,12 @@ export class DataService {
         this.getDevicesFromCloud();
     }
     syncDataNow(local){
-        if(local)
+        if(local){
             this.putDevicesToCloud();
-        else
+        }
+        else{
             this.getDevicesFromCloud();
+        }
     }
 
     makeHeaders(){
@@ -908,7 +905,11 @@ export class DataService {
     }
 
     putDevicesToCloud(){
-        let bodyString = JSON.stringify(this.uiParams.devicesObj.devicesArray);
+        this.uiParams.devicesObj.detectorsObj = {
+            'detectors':this.uiParams.devicesObj.devicesArray
+        }
+        let bodyString = JSON.stringify(this.uiParams.devicesObj.detectorsObj);
+        this.logger.log(bodyString)
         let url = this.networkParams.devicesUrl;
         this.putData(url,bodyString);
     }
