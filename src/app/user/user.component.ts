@@ -59,7 +59,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
-      this.data.setDevices(this.detectors);
+      this.data.setDevices(this.detectors,false);
     }
   }
 
@@ -98,10 +98,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.data.resetSendData();
     }
     else{
-      this.detectors = this.data.getDevices();
+      this.detectors = this.data.getDevices(false);
     }
     if(this.detectors != undefined &&  this.detectors.length == 0){
-      this.detectors = this.data.getDevices();
+      this.detectors = this.data.getDevices(false);
       this.data.DeviceBuild = 0;
     }
     this.data.setMainTitle('Detectors');

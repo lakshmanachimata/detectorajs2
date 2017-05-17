@@ -51,7 +51,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     constructor(private logger: LoggerService,private data: DataService,
                 private router:Router,private route:ActivatedRoute,private zone:NgZone) {
         this.subMenuState = 'none';
-        this.detectors = data.getDevices();
+        this.detectors = data.getDevices(true);
         this.selectedSortType = this.sortUITypes[0];
         this.sortedMap = [];
         for (var i=0; i<this.detectors.length; i++) {
