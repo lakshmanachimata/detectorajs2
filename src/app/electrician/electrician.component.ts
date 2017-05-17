@@ -37,8 +37,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   configureDetector(item){
       this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
-      if(this.data.DeviceBuild == 1)
+      if(this.data.DeviceBuild == 1) {
         this.connectDeviceObj = new connectDevice(item.btAddress);
+        this.data.checkAndAddDeviceToInstalledDevices();
+      }
   }
   ngOnChanges() { 
   }
