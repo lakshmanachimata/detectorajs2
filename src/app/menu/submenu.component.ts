@@ -106,8 +106,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
 
     InstallerItemClick(item) {
-        this.data.initDeviceData(item,true);
         this.data.setSelectedDevice(item,true);
+        this.data.getParamsFromCloudForDevice(true)
         this.loadingInstalleDeviceData =  true;
     }
     searchDetectors(items) {
@@ -257,6 +257,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
 
     }
     ngOnInit() { 
+        this.data.setSubMenuComponent(this);
         this.jsonLoadObserve = this.data.subscribeIJsonLoad(this, this.jsonOnLoad);
         this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
          if (this.subMenuState == 'none') {

@@ -27,14 +27,14 @@ export class HTTPCODES {
 
 export class DEVICESOBJ {
     constructor() {}
-    detectorsObj:{};
+    DetectorsObj:{};
     IdetectorsObj:{};
-    devicesArray:Array<any>;
+    DevicesArray:Array<any>;
     IdevicesArray:Array<any>;
-    selectedDevice:any;
+    SelectedDevice:any;
     ISelectedDevice:any;
-    deviceData:any;
-    iDeviceData:any;
+    DeviceData:any;
+    IDeviceData:any;
 }
 
  export class  SCCP_DATATYPES  { 
@@ -310,7 +310,7 @@ export class DataService {
     }
     public initDevices() {
         this.loadDevices().then((devs) => {
-             this.uiParams.devicesObj.devicesArray = devs;
+             this.uiParams.devicesObj.DevicesArray = devs;
         });
     }
    
@@ -332,7 +332,7 @@ export class DataService {
         if(installed){
             return this.uiParams.devicesObj.IdevicesArray[i];
         }else {
-            return this.uiParams.devicesObj.devicesArray[i];
+            return this.uiParams.devicesObj.DevicesArray[i];
         }
     }
     addDevice(device,installed) {
@@ -341,7 +341,7 @@ export class DataService {
             this.uiParams.devicesObj.IdevicesArray.push(device)
             this.logger.log('Idevice Array Len  AFTER ' + this.uiParams.devicesObj.IdevicesArray.length)
         }else {
-            this.uiParams.devicesObj.devicesArray.push(device);
+            this.uiParams.devicesObj.DevicesArray.push(device);
         }
     }
     setDevices(devices,installed) {
@@ -350,16 +350,16 @@ export class DataService {
             this.uiParams.devicesObj.IdevicesArray = devices;
         }else {
             this.clearDevices(installed);
-            this.uiParams.devicesObj.devicesArray = devices;
+            this.uiParams.devicesObj.DevicesArray = devices;
         }
     }
     clearDevices(installed) {
         if(installed ){
             if(this.uiParams.devicesObj.IdevicesArray != undefined)
-                this.uiParams.devicesObj.IdevicesArray.splice(0,this.uiParams.devicesObj.devicesArray.length);
+                this.uiParams.devicesObj.IdevicesArray.splice(0,this.uiParams.devicesObj.DevicesArray.length);
         }else {
-            if(this.uiParams.devicesObj.devicesArray != undefined){
-                this.uiParams.devicesObj.devicesArray.splice(0,this.uiParams.devicesObj.devicesArray.length);
+            if(this.uiParams.devicesObj.DevicesArray != undefined){
+                this.uiParams.devicesObj.DevicesArray.splice(0,this.uiParams.devicesObj.DevicesArray.length);
             }
         }
     }
@@ -372,8 +372,8 @@ export class DataService {
                 return [];
             }
         }else {
-            if(this.uiParams.devicesObj.devicesArray && (this.uiParams.devicesObj.devicesArray.length > 0)) {
-                return this.uiParams.devicesObj.devicesArray;
+            if(this.uiParams.devicesObj.DevicesArray && (this.uiParams.devicesObj.DevicesArray.length > 0)) {
+                return this.uiParams.devicesObj.DevicesArray;
             }
             else {
                 return [];
@@ -503,14 +503,14 @@ export class DataService {
         if(installed) {
             this.uiParams.devicesObj.ISelectedDevice = device;
         } else {
-            this.uiParams.devicesObj.selectedDevice =  device;
+            this.uiParams.devicesObj.SelectedDevice =  device;
         }
     }
     public getSelectedDevice(installed) {
         if(installed) {
             return this.uiParams.devicesObj.ISelectedDevice;
         }else {
-            return this.uiParams.devicesObj.selectedDevice;
+            return this.uiParams.devicesObj.SelectedDevice;
         }
     }
     subscribeJsonLoad(component, callback) {
@@ -519,10 +519,10 @@ export class DataService {
     public initDeviceData(item,installed){
     this.loadDeviceData(item,installed).then((data) => {
             if(installed) {
-                this.uiParams.devicesObj.iDeviceData = data;
+                this.uiParams.devicesObj.IDeviceData = data;
                 this.iJsonLoadEmit();
             }else {
-             this.uiParams.devicesObj.deviceData = data;
+             this.uiParams.devicesObj.DeviceData = data;
              this.jsonLoadEmit();
             }
         });
@@ -573,6 +573,7 @@ export class DataService {
                     this.readData(this.readArray);
                 }else {
                     //this.logger.log("notify Active Component");
+                    this.setParamsToCloudForDevice(false);
                     this.notifyActiveComponentWithBLEdata()
                 }
             break;
@@ -580,7 +581,7 @@ export class DataService {
                 if(this.writeArray.length > this.writeCount){
                     this.writeArray = this.writeArray.slice(this.writeCount,this.writeArray.length);
                     this.sendData = this.sendData.slice(this.writeCount,this.sendData.length);
-                    this.uiParams.devicesObj.selectedDevice.last_updated=(new Date).getTime();
+                    this.uiParams.devicesObj.SelectedDevice.last_updated=(new Date).getTime();
                 }
                 else {
                     this.writeArray = [];
@@ -591,7 +592,7 @@ export class DataService {
                     this.sendChangedParams();
                 }else {
                     this.notifyActiveComponentWithBLEdata()
-                    this.setParamsToCloudForDevice();
+                    this.setParamsToCloudForDevice(false);
                 }
             break;
             default:
@@ -639,14 +640,14 @@ export class DataService {
     }
     public getDevicedata(installed) {
         if(installed) {
-            return this.uiParams.devicesObj.iDeviceData;
+            return this.uiParams.devicesObj.IDeviceData;
         }else {
-            return this.uiParams.devicesObj.deviceData;
+            return this.uiParams.devicesObj.DeviceData;
         }
     }
     loadDeviceData(item,installed) {
         if(installed){
-            this.loadInstalledDeviceInfo(item)
+            this.getParamsFromCloudForDevice(installed)
         }else {
             if(item.deviceType == 'relay1c') {
                 return new Promise<Array<any>>(resolve => {
@@ -745,6 +746,27 @@ export class DataService {
         var date = new Date();
         return date.toISOString().split('.')[0];
     }
+
+    handleGetIResponseData(data){
+        let strFormat =  JSON.stringify(data);
+        let Detectors = data.detectors;
+        this.logger.log(strFormat);
+        this.uiParams.userLoggedIn = true;
+        this.uiParams.lastSynced = data._updated_at.split('+')[0];
+        let localDate = this.getUTCDateFormat();
+        let syncdate1 = new Date(localDate)
+        let syncdate2 = new Date(this.uiParams.lastSynced)
+        if(syncdate1 > syncdate2){
+        }else if (syncdate1 < syncdate2){
+        }else {
+        }
+        this.uiParams.devicesObj.IDeviceData = data;
+        if(this.uiParams.subMenuComponent != undefined){
+            this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+            this.iJsonLoadEmit();
+        }
+    }
+
     handleGetResponseData(data){
         let strFormat =  JSON.stringify(data);
         let Detectors = data.detectors;
@@ -772,7 +794,7 @@ export class DataService {
             }else if (syncdate1 < syncdate2){
             }else {
             }
-            this.uiParams.devicesObj.iDeviceData = data;
+            this.uiParams.devicesObj.IDeviceData = data;
             if(this.uiParams.subMenuComponent != undefined)
                 this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }
@@ -833,6 +855,11 @@ export class DataService {
         if(this.uiParams.subMenuComponent != undefined)
             this.uiParams.subMenuComponent.onErrorMessage(err.status)
     }
+    handleIResponseError(err){
+        this.logger.log('HTTP ERROR CODE ' + err.status)
+        if(this.uiParams.subMenuComponent != undefined)
+            this.uiParams.subMenuComponent.onErrorMessage(err.status)  
+    }
 
     setAutoSync(val){
         this.uiParams.autoSync = val;
@@ -870,6 +897,27 @@ export class DataService {
         let options       = new RequestOptions({ headers: headers });
         return options;
     }
+
+    getIData(getUrl){
+        let getData =  this.http.get(getUrl, this.makeHeaders()) 
+            .map(res => {
+                if(res.status < HTTPCODES.SUCCESS_START || res.status > HTTPCODES.SUCCESS_END) {
+                    return res.status;
+                } 
+                else {
+                    return res.json();
+                }
+            })
+            .subscribe(
+                (data) => {
+                    this.handleGetIResponseData(data);
+                }, 
+                (err) => {
+                    this.handleIResponseError(err)
+                }
+            ); 
+    }
+
 
     getData(getUrl){
         let getData =  this.http.get(getUrl, this.makeHeaders()) 
@@ -954,16 +1002,16 @@ export class DataService {
             }else {
             }
             this.setDevices(Detectors,true);
-            if(this.uiParams.devicesObj.selectedDevice != undefined){
+            if(this.uiParams.devicesObj.SelectedDevice != undefined){
                 let isExists = false;
                 for(let  i= 0; i < Detectors.length; i++ ){
-                    if(Detectors[i].btAddress == this.uiParams.devicesObj.selectedDevice.btAddress){
+                    if(Detectors[i].btAddress == this.uiParams.devicesObj.SelectedDevice.btAddress){
                         isExists =  true;
                     }
                 }
-                this.logger.log('is DEVICE EXISTS in installed ' + isExists + '  with address ' + this.uiParams.devicesObj.selectedDevice.btAddress);
+                this.logger.log('is DEVICE EXISTS in installed ' + isExists + '  with address ' + this.uiParams.devicesObj.SelectedDevice.btAddress);
                 if(isExists == false){
-                    this.addDevice(this.uiParams.devicesObj.selectedDevice,true);
+                    this.addDevice(this.uiParams.devicesObj.SelectedDevice,true);
                     this.updateInstalledDevicesToCloud()
                 }
             }
@@ -972,19 +1020,19 @@ export class DataService {
         }
     }
     updateInstalledDevicesToCloud(){
-        this.uiParams.devicesObj.detectorsObj = {
+        this.uiParams.devicesObj.DetectorsObj = {
             'detectors':this.uiParams.devicesObj.IdevicesArray
         }
-        let bodyString = JSON.stringify(this.uiParams.devicesObj.detectorsObj);
+        let bodyString = JSON.stringify(this.uiParams.devicesObj.DetectorsObj);
         this.logger.log(bodyString)
         let url = this.networkParams.devicesUrl;
         this.putData(url,bodyString);
     }
     putDevicesToCloud(){
-        this.uiParams.devicesObj.detectorsObj = {
-            'detectors':this.uiParams.devicesObj.devicesArray
+        this.uiParams.devicesObj.DetectorsObj = {
+            'detectors':this.uiParams.devicesObj.DevicesArray
         }
-        let bodyString = JSON.stringify(this.uiParams.devicesObj.detectorsObj);
+        let bodyString = JSON.stringify(this.uiParams.devicesObj.DetectorsObj);
         this.logger.log(bodyString)
         let url = this.networkParams.devicesUrl;
         this.putData(url,bodyString);
@@ -994,20 +1042,26 @@ export class DataService {
         if(this.uiParams.userLoggedIn ==  true) {
             if(installed){
                 let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.ISelectedDevice.btAddress;
-                this.getData(url);
+                this.getIData(url);
             }else {
-                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.selectedDevice.btAddress;
+                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.SelectedDevice.btAddress;
                 this.getData(url);
             }
             
         }
     }
 
-    setParamsToCloudForDevice() {
+    setParamsToCloudForDevice(installed) {
         if(this.uiParams.userLoggedIn ==  true) {
-            let bodyString = JSON.stringify(this.uiParams.devicesObj.deviceData);
-            let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.selectedDevice.btAddress;
-            this.putData(url,bodyString);
+            if(installed){
+                let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
+                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                this.putData(url,bodyString);
+            }else{
+                let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
+                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                this.putData(url,bodyString);
+            }
         }
     }
 
@@ -1023,345 +1077,345 @@ export class DataService {
             case SCCP_ATTRIBUTES.DEVICE_TYPE                                             : 
             break;
             case SCCP_ATTRIBUTES.POTENTIOMETER_MODE                                      : 
-                this.uiParams.devicesObj.deviceData.potentiometerMode = attrValue;
+                this.uiParams.devicesObj.DeviceData.potentiometerMode = attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD                                    : 
-                this.uiParams.devicesObj.deviceData.brightnessThreshold= attrValue;
+                this.uiParams.devicesObj.DeviceData.brightnessThreshold= attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN                                : 
-                this.uiParams.devicesObj.deviceData.brightnessThresholdMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.brightnessThresholdMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX                                : 
-                this.uiParams.devicesObj.deviceData.brightnessThresholdMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.brightnessThresholdMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSIDER_SLAVE_BRIGHTNESS_ENABLE                        :
-                this.uiParams.devicesObj.deviceData.considerSlaveBrightnessEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.considerSlaveBrightnessEnable= attrValue;
             break; 
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE                           : 
-                this.uiParams.devicesObj.deviceData.constantLightControlEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.constantLightControlEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT                     : 
-                this.uiParams.devicesObj.deviceData.constantLightBrightnessSetPoint= attrValue;
+                this.uiParams.devicesObj.DeviceData.constantLightBrightnessSetPoint= attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN                 : 
-                this.uiParams.devicesObj.deviceData.constantLightBrightnessSetPointMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.constantLightBrightnessSetPointMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX                 : 
-                this.uiParams.devicesObj.deviceData.constantLightBrightnessSetPointMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.constantLightBrightnessSetPointMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE : 
-                this.uiParams.devicesObj.deviceData.constantLightControlConsiderSlaveBrightnessEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.constantLightControlConsiderSlaveBrightnessEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE                                 : 
-                this.uiParams.devicesObj.deviceData.shortTimePulseEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.shortTimePulseEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY                                        :
-                this.uiParams.devicesObj.deviceData.switchOffDelay= attrValue;
+                this.uiParams.devicesObj.DeviceData.switchOffDelay= attrValue;
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN                                    : 
-                this.uiParams.devicesObj.deviceData.switchOffDelayMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.switchOffDelayMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX                                    : 
-                this.uiParams.devicesObj.deviceData.switchOffDelayMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.switchOffDelayMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.OPERATION_MODE                                          : 
-                this.uiParams.devicesObj.deviceData.operationMode= attrValue;
+                this.uiParams.devicesObj.DeviceData.operationMode= attrValue;
             break;
             case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
-                this.uiParams.devicesObj.deviceData.slaveModeEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.slaveModeEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
-                this.uiParams.devicesObj.deviceData.outdoorApplicationEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.outdoorApplicationEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY0                                        : 
-                this.uiParams.devicesObj.deviceData.pirSensitivity0= attrValue;
+                this.uiParams.devicesObj.DeviceData.pirSensitivity0= attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY1                                        : 
-                this.uiParams.devicesObj.deviceData.pirSensitivity1= attrValue;
+                this.uiParams.devicesObj.DeviceData.pirSensitivity1= attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
-                this.uiParams.devicesObj.deviceData.pirSensitivity2= attrValue;
+                this.uiParams.devicesObj.DeviceData.pirSensitivity2= attrValue;
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
-                this.uiParams.devicesObj.deviceData.pirSensitivity3= attrValue;
+                this.uiParams.devicesObj.DeviceData.pirSensitivity3= attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
-                this.uiParams.devicesObj.deviceData.brightnessCorrectionEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.brightnessCorrectionEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE                             : 
-                this.uiParams.devicesObj.deviceData.brightnessCorrectionValue= attrValue;
+                this.uiParams.devicesObj.DeviceData.brightnessCorrectionValue= attrValue;
             break;
             case SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         : 
-                this.uiParams.devicesObj.deviceData.DynamicSwitchOffDelayEnable = attrValue;
+                this.uiParams.devicesObj.DeviceData.DynamicSwitchOffDelayEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC                                       : 
-                this.uiParams.devicesObj.deviceData.ch1CircuitLogic= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1CircuitLogic= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION                               : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOnDuration= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOnDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN                           : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOnDurationMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOnDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX                           : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOnDurationMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOnDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION                              : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOffDuration= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOffDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN                          : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOffDurationMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX                          : 
-                this.uiParams.devicesObj.deviceData.ch1PermanentOffDurationMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_ENABLE                                          : 
-                this.uiParams.devicesObj.deviceData.softOnEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOnEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION                                        :
-                this.uiParams.devicesObj.deviceData.softOnDuration= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOnDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION_MIN                                    :
-                this.uiParams.devicesObj.deviceData.softOnDurationMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOnDurationMin= attrValue;
             break; 
             case SCCP_ATTRIBUTES.SOFT_ON_DURATION_MAX                                    : 
-                this.uiParams.devicesObj.deviceData.softOnDurationMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOnDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_ENABLE                                         : 
-                this.uiParams.devicesObj.deviceData.softOffEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOffEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION                                       : 
-                this.uiParams.devicesObj.deviceData.softOffDuration= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOffDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN                                   : 
-                this.uiParams.devicesObj.deviceData.softOffDurationMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOffDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MAX                                   : 
-                this.uiParams.devicesObj.deviceData.softOffDurationMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.softOffDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.PHASE_CUT_MODE                                          : 
-                this.uiParams.devicesObj.deviceData.phaseCutMode= attrValue;
+                this.uiParams.devicesObj.DeviceData.phaseCutMode= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE                              : 
-                this.uiParams.devicesObj.deviceData.ch1MemoryFunctionEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1MemoryFunctionEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE                           : 
-                this.uiParams.devicesObj.deviceData.delimitLightingLevelEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.delimitLightingLevelEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE                                    : 
-                this.uiParams.devicesObj.deviceData.ch1MinLevelEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1MinLevelEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_MIN_LEVEL                                           : 
-                this.uiParams.devicesObj.deviceData.ch1MinLevel= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1MinLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE                                    : 
-                this.uiParams.devicesObj.deviceData.ch1MaxLevelEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1MaxLevelEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_MAX_LEVEL                                           : 
-                this.uiParams.devicesObj.deviceData.ch1MaxLevel= attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1MaxLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.LEVEL_MIN                                               : 
-                this.uiParams.devicesObj.deviceData.levelMin =  attrValue;
+                this.uiParams.devicesObj.DeviceData.levelMin =  attrValue;
             break;
             case SCCP_ATTRIBUTES.LEVEL_MAX                                               :
-                this.uiParams.devicesObj.deviceData.levelMax = attrValue;
+                this.uiParams.devicesObj.DeviceData.levelMax = attrValue;
             break;
             case SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL                                     :
-                this.uiParams.devicesObj.deviceData.daliPowerOnLevel = attrValue;
+                this.uiParams.devicesObj.DeviceData.daliPowerOnLevel = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE                                       : 
-                this.uiParams.devicesObj.deviceData.colorTemperature = attrValue;
+                this.uiParams.devicesObj.DeviceData.colorTemperature = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN                                   :
-                this.uiParams.devicesObj.deviceData.colorTemperatureMin = attrValue;
+                this.uiParams.devicesObj.DeviceData.colorTemperatureMin = attrValue;
             break;
             case SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX                                   : 
-                this.uiParams.devicesObj.deviceData.colorTemperatureMax = attrValue;
+                this.uiParams.devicesObj.DeviceData.colorTemperatureMax = attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_ENABLE                                          : 
-                this.uiParams.devicesObj.deviceData.burnInEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_MODE                                            : 
-                this.uiParams.devicesObj.deviceData.burnInMode= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInMode= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION                                        : 
-                this.uiParams.devicesObj.deviceData.burnInDuration= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN                                    : 
-                this.uiParams.devicesObj.deviceData.burnInDuration_min= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInDuration_min= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX                                    : 
-                this.uiParams.devicesObj.deviceData.burnInDuration_max= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInDuration_max= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE                                   : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessMode= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessMode= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL                                  : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessLevel= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD           : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessAmbientBrightnessThreshold= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessAmbientBrightnessThreshold= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN       : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessAmbientBrightnessThresholdMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessAmbientBrightnessThresholdMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX       : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessAmbientBrightnessThresholdMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessAmbientBrightnessThresholdMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME                             : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessStartTime= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessStartTime= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME                               : 
-                this.uiParams.devicesObj.deviceData.basicBrightnessEndTime= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessEndTime= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  :
-                this.uiParams.devicesObj.deviceData.basicBrightnessStartTimeAstroFunctionEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.basicBrightnessStartTimeAstroFunctionEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE                             : 
-                this.uiParams.devicesObj.deviceData.nightLightFunctionEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.nightLightFunctionEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME                                  : 
-                this.uiParams.devicesObj.deviceData.nightLightStartTime= attrValue;
+                this.uiParams.devicesObj.DeviceData.nightLightStartTime= attrValue;
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME                                    : 
-                this.uiParams.devicesObj.deviceData.nightLightEndTime= attrValue;
+                this.uiParams.devicesObj.DeviceData.nightLightEndTime= attrValue;
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL                                       : 
-                this.uiParams.devicesObj.deviceData.nightLightLevel= attrValue;
+                this.uiParams.devicesObj.DeviceData.nightLightLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE                        : 
-                this.uiParams.devicesObj.deviceData.stepwiseSwitchOffDelayEnable= attrValue;
+                this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY                               : 
-                this.uiParams.devicesObj.deviceData.stepwiseSwitchOffDelay= attrValue;
+                this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelay= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN                           : 
-                this.uiParams.devicesObj.deviceData.stepwiseSwitchOffDelayMin= attrValue;
+                this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX                           : 
-                this.uiParams.devicesObj.deviceData.stepwiseSwitchOffDelayMax= attrValue;
+                this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                               : 
-                this.uiParams.devicesObj.deviceData.stepwiseSwitchOffLevel= attrValue;
+                this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              :
-                this.uiParams.devicesObj.deviceData.presenceSimulationEnable = attrValue
+                this.uiParams.devicesObj.DeviceData.presenceSimulationEnable = attrValue
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME                          :
-                this.uiParams.devicesObj.deviceData.presenceSimulationStartTime = attrValue
+                this.uiParams.devicesObj.DeviceData.presenceSimulationStartTime = attrValue
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME                            :
-                this.uiParams.devicesObj.deviceData.presenceSimulationEndTime = attrValue 
+                this.uiParams.devicesObj.DeviceData.presenceSimulationEndTime = attrValue 
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               :
             break;
             case SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID                :
-                this.uiParams.devicesObj.deviceData.permanentLightByPushButtonEnable = attrValue;
+                this.uiParams.devicesObj.DeviceData.permanentLightByPushButtonEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC                                       :
-                this.uiParams.devicesObj.deviceData.ch2CircuitLogic = attrValue
+                this.uiParams.devicesObj.DeviceData.ch2CircuitLogic = attrValue
             break;
             case SCCP_ATTRIBUTES.CH2_MODE                                                :
-                this.uiParams.devicesObj.deviceData.ch2Mode = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch2Mode = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE                                           :
-                this.uiParams.devicesObj.deviceData.hvacDynamicalControlEnable = attrValue;
+                this.uiParams.devicesObj.DeviceData.hvacDynamicalControlEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY                                    :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOnDelay = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOnDelay = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MIN                                :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOnDelayMin = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOnDelayMin = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX                                :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOnDelayMax = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOnDelayMax = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY                                   :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOffDelay = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOffDelay = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN                               :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOffDelayMin = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOffDelayMin = attrValue 
             break;
             case SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX                               :
-                this.uiParams.devicesObj.deviceData.hvacSwitchOffDelayMax = attrValue 
+                this.uiParams.devicesObj.DeviceData.hvacSwitchOffDelayMax = attrValue 
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE                     :
-                this.uiParams.devicesObj.deviceData.testModeDeactivateOutputsEnable = attrValue 
+                this.uiParams.devicesObj.DeviceData.testModeDeactivateOutputsEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD                           :
-                this.uiParams.devicesObj.deviceData.energyMonitorConnectedLoad = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorConnectedLoad = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN                       :
-                this.uiParams.devicesObj.deviceData.energyMonitorConnectedLoadMin = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorConnectedLoadMin = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX                       :
-                this.uiParams.devicesObj.deviceData.energyMonitorConnectedLoadMax = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorConnectedLoadMax = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION                        :
-                this.uiParams.devicesObj.deviceData.energyMonitorLightingDuration = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorLightingDuration = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN                    :
-                this.uiParams.devicesObj.deviceData.energyMonitorLightingDurationMin = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorLightingDurationMin = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX                    :
-                this.uiParams.devicesObj.deviceData.energyMonitorLightingDurationMax = attrValue 
+                this.uiParams.devicesObj.DeviceData.energyMonitorLightingDurationMax = attrValue 
             break;
             case SCCP_ATTRIBUTES.CONTACT                                                 : 
-                this.uiParams.devicesObj.deviceData.contact = attrValue;
+                this.uiParams.devicesObj.DeviceData.contact = attrValue;
             break;
             case SCCP_ATTRIBUTES.BUILDING                                                : 
-                this.uiParams.devicesObj.deviceData.building = attrValue;
+                this.uiParams.devicesObj.DeviceData.building = attrValue;
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    :
-                this.uiParams.devicesObj.deviceData.enableUserSetBrightnessThreshold = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserSetBrightnessThreshold = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY                        :
-                this.uiParams.devicesObj.deviceData.enableUserSetSwitchOffDelay = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserSetSwitchOffDelay = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR                              :
-                this.uiParams.devicesObj.deviceData.enableUserEnergyMonitor = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserEnergyMonitor = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS                            :
-                this.uiParams.devicesObj.deviceData.enableUserBasicBrightness = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserBasicBrightness = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION                        :
-                this.uiParams.devicesObj.deviceData.enableUserNightLightFunction = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserNightLightFunction = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            :
-                this.uiParams.devicesObj.deviceData.enableUserColorTemperatureControlEnable = attrValue 
+                this.uiParams.devicesObj.DeviceData.enableUserColorTemperatureControlEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS                                      : 
-                this.uiParams.devicesObj.deviceData.currentBrightness= attrValue;
+                this.uiParams.devicesObj.DeviceData.currentBrightness= attrValue;
             break;
             case SCCP_ATTRIBUTES.IDENTIFYING_DEVICE                                      : 
-                this.uiParams.devicesObj.deviceData.identifyingDevice = attrValue
+                this.uiParams.devicesObj.DeviceData.identifyingDevice = attrValue
             break;
             case SCCP_ATTRIBUTES.MOVEMENT                                                :
-                this.uiParams.devicesObj.deviceData.movement = attrValue 
+                this.uiParams.devicesObj.DeviceData.movement = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD                                    :
-                this.uiParams.devicesObj.deviceData.ch1IdentifyingLoad = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch1IdentifyingLoad = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH1_ON_OFF_STATE                                        :
-                this.uiParams.devicesObj.deviceData.ch1OnOffState = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch1OnOffState = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL                                       : 
-                this.uiParams.devicesObj.deviceData.ch1CurrentLevel = attrValue;
+                this.uiParams.devicesObj.DeviceData.ch1CurrentLevel = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD                                    :
-                this.uiParams.devicesObj.deviceData.ch2IdentifyingLoad = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch2IdentifyingLoad = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH2_ON_OFF_STATE                                        :
-                this.uiParams.devicesObj.deviceData.ch2OnOffState = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch2OnOffState = attrValue 
             break;
             case SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL                                       :
-                this.uiParams.devicesObj.deviceData.ch2CurrentLevel = attrValue 
+                this.uiParams.devicesObj.DeviceData.ch2CurrentLevel = attrValue 
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
-                this.uiParams.devicesObj.deviceData.testModeEnable = attrValue 
+                this.uiParams.devicesObj.DeviceData.testModeEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
-                this.uiParams.devicesObj.deviceData.accessLevel = attrValue  
+                this.uiParams.devicesObj.DeviceData.accessLevel = attrValue  
             break;
             default:
             break;
