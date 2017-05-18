@@ -32,7 +32,7 @@ export class DEVICESOBJ {
     devicesArray:Array<any>;
     IdevicesArray:Array<any>;
     selectedDevice:any;
-    iSelectedDevice:any;
+    ISelectedDevice:any;
     deviceData:any;
     iDeviceData:any;
 }
@@ -501,14 +501,14 @@ export class DataService {
 
     public setSelectedDevice(device,installed) {
         if(installed) {
-            this.uiParams.devicesObj.iSelectedDevice = device;
+            this.uiParams.devicesObj.ISelectedDevice = device;
         } else {
             this.uiParams.devicesObj.selectedDevice =  device;
         }
     }
     public getSelectedDevice(installed) {
         if(installed) {
-            return this.uiParams.devicesObj.iSelectedDevice;
+            return this.uiParams.devicesObj.ISelectedDevice;
         }else {
             return this.uiParams.devicesObj.selectedDevice;
         }
@@ -645,26 +645,29 @@ export class DataService {
         }
     }
     loadDeviceData(item,installed) {
-        if(item.deviceType == 'relay1c') {
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/params.json').subscribe(response => {
-                    resolve(response.json());
-                    
+        if(installed){
+            this.loadInstalledDeviceInfo(item)
+        }else {
+            if(item.deviceType == 'relay1c') {
+                return new Promise<Array<any>>(resolve => {
+                this.http.get('assets/params.json').subscribe(response => {
+                        resolve(response.json());
+                    });
                 });
-            });
-            
-        }else if(item.deviceType == 'mosfet1c') {
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/params.json').subscribe(response => {
-                    resolve(response.json());
+                
+            }else if(item.deviceType == 'mosfet1c') {
+                return new Promise<Array<any>>(resolve => {
+                this.http.get('assets/params.json').subscribe(response => {
+                        resolve(response.json());
+                    });
                 });
-            });
-        }else if(item.deviceType == 'daliMaster1c') {
-            return new Promise<Array<any>>(resolve => {
-            this.http.get('assets/params.json').subscribe(response => {
-                    resolve(response.json());
+            }else if(item.deviceType == 'daliMaster1c') {
+                return new Promise<Array<any>>(resolve => {
+                this.http.get('assets/params.json').subscribe(response => {
+                        resolve(response.json());
+                    });
                 });
-            });
+            }
         }
     }
 
@@ -769,6 +772,7 @@ export class DataService {
             }else if (syncdate1 < syncdate2){
             }else {
             }
+            this.uiParams.devicesObj.iDeviceData = data;
             if(this.uiParams.subMenuComponent != undefined)
                 this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }
@@ -805,6 +809,9 @@ export class DataService {
         }
     }
 
+    loadInstalledDeviceInfo(item){
+
+    }
 
     checkIfDeviceExistsinCloud(btAddress){
 
@@ -983,10 +990,16 @@ export class DataService {
         this.putData(url,bodyString);
     }
 
-    getParamsFromCloudForDevice() {
+    getParamsFromCloudForDevice(installed) {
         if(this.uiParams.userLoggedIn ==  true) {
-            let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.selectedDevice.btAddress;
-            this.getData(url);
+            if(installed){
+                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                this.getData(url);
+            }else {
+                let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.selectedDevice.btAddress;
+                this.getData(url);
+            }
+            
         }
     }
 

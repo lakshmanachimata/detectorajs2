@@ -45,6 +45,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     onLabel = 'on';
     offLabel = 'off';
     autoSync = true;
+    loadingInstalleDeviceData =  false;
     header:HeaderComponent;
     searchText = '';
     lastSynced = '';
@@ -107,6 +108,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     InstallerItemClick(item) {
         this.data.initDeviceData(item,true);
         this.data.setSelectedDevice(item,true);
+        this.loadingInstalleDeviceData =  true;
     }
     searchDetectors(items) {
         if(this.searchText)
@@ -330,6 +332,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
 
    onSucessfullSync(timeSynced){
+    this.loadingInstalleDeviceData =  false;
     this.zone.run( () => { // Change the property within the zone, CD will run after
             this.lastSynced = timeSynced;
       });
