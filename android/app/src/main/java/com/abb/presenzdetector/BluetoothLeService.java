@@ -113,7 +113,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
-            Log.d("bjdtector","bjdetector BLE stack replied READ2");
+            //Log.d("bjdtector","bjdetector BLE stack replied READ2");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
     };
@@ -302,10 +302,10 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
-            Log.d("bjdetector","bjdetector BLE stack replied COOL");
+            //Log.d("bjdetector","bjdetector BLE stack replied COOL");
         }
         else {
-            Log.d("bjdetector","bjdetector BLE stack replied BUSY");
+            //Log.d("bjdetector","bjdetector BLE stack replied BUSY");
         }
     }
 
