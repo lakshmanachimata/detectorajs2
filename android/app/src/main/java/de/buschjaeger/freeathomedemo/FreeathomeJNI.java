@@ -13,6 +13,10 @@ public class FreeathomeJNI {
     public native static void FinishContext(long context); // barely tested and possibly not working. normally not needed.
     public native static void Connect(long context, byte[] hostNameUtf8, byte[] userNameUtf8, byte[] passwordUtf8);
     public native static void EmitNextEvent(long context);
+    public native static void CreateCert(long context, byte[] cloudUserUtf8, byte[] cloudPasswordUtf8, byte[] deviceNameUtf8, byte[] deviceUIDUtf8);
+    public native static void RenewCert(long context);
+    public native static void RevokeCert(long context);
+
 
     /**
      * Generate a UUID string. Used by freeathome JNI code.

@@ -27,8 +27,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.ParcelUuid;
@@ -58,9 +60,22 @@ import com.google.gson.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +83,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 import de.buschjaeger.freeathomedemo.FreeathomeJNI;
 import de.buschjaeger.freeathomedemo.Util;
@@ -131,10 +154,6 @@ public class MainActivity extends Activity {
     public static final String LOG_TAG = "P@D";
     private static MainActivity mInstance;
 
-    /**
-     * Custom Handler class that accepts messages from any threads and handles them on the main
-     * thread.
-     **/
     private static class MyHandler extends Handler {
         final static int MSG_EMIT_NEXT_EVENT = 1;
         private final WeakReference<MainActivity> mActivity;
@@ -156,7 +175,7 @@ public class MainActivity extends Activity {
             }
         }
     }
-    private final MyHandler fhHandler = new MyHandler(this);
+    private final MyHandler FHHandler = new MyHandler(this);
     private long mFreeathomeContext = 0;
 
     // Used to load the 'native-lib' library on application startup.
@@ -170,7 +189,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         PackageInfo pInfo = null;
-        String buildDate= "2017-05-04\n16:30:00";
+        String buildDate= "2017-05-08\n17:30:00";
         mHandler = new Handler();
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -217,6 +236,7 @@ public class MainActivity extends Activity {
         webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setUseWideViewPort(true);
 
+
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -232,15 +252,6 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webview.setWebContentsDebuggingEnabled(true);
         }
-
-
-        webview.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                webview.loadUrl("javascript:document.dispatchEvent(new CustomEvent('longpress'))");
-                return true;
-            }
-        });
 
         webview.setWebViewClient(new WebViewClient() {
 
@@ -297,17 +308,157 @@ public class MainActivity extends Activity {
         initFreeathomeContext();
 
         String hostName = "my-staging.busch-jaeger.de";
-        String userName = "lakshmana";
-        String password = "Abb@123456";
+        String userName = "harsha";
+        String password = "P@$$w0rd123#";
         Log.d(LOG_TAG, "Starting to connect to " + hostName);
-        FreeathomeJNI.Connect(mFreeathomeContext, Util.stringToByteArrayUtf8(hostName), Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password));
+        File files[] = getFilesDir().listFiles();
+        FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
+        checkForFilesAgain();
+    }
+        void checkForFilesAgain(){
 
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    File files[] = getFilesDir().listFiles();
+                    int a = 1;
+                    int b = 2;
+                    int c = a + b;
+                }
+            },5000);
+        }
+
+    SSLContext sslContext;
+    void addDevice(String btAddress,String filename){
+
+        try {
+            // Load CAs from an InputStream
+// (could be from a resource or ByteArrayInputStream or ...)
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+// From https://www.washington.edu/itconnect/security/ca/load-der.crt
+            InputStream caInput = new BufferedInputStream(new FileInputStream(filename));
+            Certificate ca;
+            try {
+                ca = cf.generateCertificate(caInput);
+                System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
+            } finally {
+                caInput.close();
+            }
+
+// Create a KeyStore containing our trusted CAs
+            String keyStoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+
+
+
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            tmf.init(keyStore);
+
+            TrustManager[] trustManagers = tmf.getTrustManagers();
+            final X509TrustManager origTrustmanager = (X509TrustManager)trustManagers[0];
+
+
+            TrustManager[] wrappedTrustManagers = new TrustManager[]{
+                    new X509TrustManager() {
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return origTrustmanager.getAcceptedIssuers();
+                        }
+
+                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                            try {
+                                origTrustmanager.checkClientTrusted(certs, authType);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                            try {
+                                origTrustmanager.checkServerTrusted(certs, authType);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+            };
+
+
+// Create a TrustManager that trusts the CAs in our KeyStore
+
+
+// Create an SSLContext that uses our TrustManager
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, wrappedTrustManagers, null);
+            new URLTask().execute("https://api.my-staging.busch-jaeger.de/api/user/device/controltouch-unit-enduser/" + btAddress);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
 
-    void setUpBluetooth() {
 
+    private class URLTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+            HttpsURLConnection urlConnection = null;
+
+            try {
+                URL requestedUrl = new URL(params[0]);
+                urlConnection = (HttpsURLConnection) requestedUrl.openConnection();
+                if(urlConnection instanceof HttpsURLConnection) {
+                    ((HttpsURLConnection)urlConnection)
+                            .setSSLSocketFactory(sslContext.getSocketFactory());
+                }
+                JSONObject newObjet =  new JSONObject();
+                newObjet.put("name","test");
+                newObjet.put("software_version","0.1");
+                newObjet.put("description","testing");
+                urlConnection.setRequestMethod("PUT");
+                urlConnection.setConnectTimeout(1500);
+                urlConnection.setReadTimeout(1500);
+                urlConnection.setRequestProperty("Content-Type","application/json");
+                OutputStreamWriter osw = new OutputStreamWriter(urlConnection.getOutputStream());
+                osw.write(newObjet.toString());
+                osw.flush();
+                osw.close();
+                int lastResponseCode = urlConnection.getResponseCode();
+                String lastContentType = urlConnection.getContentType();
+                InputStreamReader in = new InputStreamReader((InputStream) urlConnection.getContent());
+                BufferedReader buff = new BufferedReader(in);
+                String line;
+                do {
+                    line = buff.readLine();
+                    result = result + (line + "\n");
+                } while (line != null);
+                return  result;
+            } catch(Exception ex) {
+                result = ex.toString();
+            } finally {
+                if(urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+    void setUpBluetooth() {
 
         bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -474,7 +625,47 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
+                File files[] = getFilesDir().listFiles();
+                String myFile = "";
+                try {
+                    for (int i = 0; i < files.length; i++) {
+                        if (files[i].toString().contains("client.cert")) {
+                            myFile = files[i].toString();
+                            File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/client.cert");
+                            FileInputStream var2 = new FileInputStream(files[i]);
+                            FileOutputStream var3 = new FileOutputStream(dst);
+                            byte[] var4 = new byte[1024];
 
+                            int var5;
+                            while((var5 = var2.read(var4)) > 0) {
+                                var3.write(var4, 0, var5);
+                            }
+
+                            var2.close();
+                            var3.close();
+                        }
+                        if (files[i].toString().contains("client.private")) {
+                            myFile = files[i].toString();
+                            File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/client.private");
+                            FileInputStream var2 = new FileInputStream(files[i]);
+                            FileOutputStream var3 = new FileOutputStream(dst);
+                            byte[] var4 = new byte[1024];
+
+                            int var5;
+                            while((var5 = var2.read(var4)) > 0) {
+                                var3.write(var4, 0, var5);
+                            }
+
+                            var2.close();
+                            var3.close();
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+                //addDevice(mBluetoothLeService.getGatt().getDevice().getAddress(),myFile);
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
@@ -627,11 +818,6 @@ public class MainActivity extends Activity {
 
 
     void sendBLEFrame(final byte[] data) {
-//        Log.d("bjdetector","ble frame" );
-//        for(int i =0; i < data.length; i++){
-//            Log.d("",""+data[i]);
-//        }
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -665,7 +851,7 @@ public class MainActivity extends Activity {
                     }
                 }
             }
-        }, 1000);
+        }, 10);
     }
 
     public void sendDeviceInfo() {
@@ -729,6 +915,7 @@ public class MainActivity extends Activity {
         mInstance = null;
     }
 
+
     private void initFreeathomeContext() {
         final byte[] lang = Util.stringToByteArrayUtf8(Locale.getDefault().getLanguage());
         final byte[] writableDir = Util.stringToByteArrayUtf8(getFilesDir().getAbsolutePath());
@@ -737,16 +924,13 @@ public class MainActivity extends Activity {
         mFreeathomeContext = FreeathomeJNI.CreateContext(lang, writableDir, useStaging, debugVerbose);
     }
 
-    public static MainActivity getInstance() {
+    static public MainActivity getInstance() {
         return mInstance;
     }
 
     public void emitNextEventOnMainThread() {
-        mHandler.sendEmptyMessage(MyHandler.MSG_EMIT_NEXT_EVENT);
+        FHHandler.sendEmptyMessage(MyHandler.MSG_EMIT_NEXT_EVENT);
     }
-
-
-
 
     ScanCallback bleCallback =  new ScanCallback() {
         @Override

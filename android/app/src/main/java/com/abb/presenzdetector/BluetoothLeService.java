@@ -104,6 +104,7 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicRead(BluetoothGatt gatt,
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
+//            Log.d("bjdtector","bjdetector BLE stack replied READ1");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
@@ -112,6 +113,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
+            Log.d("bjdtector","bjdetector BLE stack replied READ2");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
     };
@@ -299,7 +301,12 @@ public class BluetoothLeService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
-        mBluetoothGatt.writeCharacteristic(characteristic);
+        if(mBluetoothGatt.writeCharacteristic(characteristic)) {
+            Log.d("bjdetector","bjdetector BLE stack replied COOL");
+        }
+        else {
+            Log.d("bjdetector","bjdetector BLE stack replied BUSY");
+        }
     }
 
     /**
