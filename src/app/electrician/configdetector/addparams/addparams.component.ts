@@ -29,10 +29,11 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      if(this.data.getDeviceConnectionState() == true){
-        this.data.readData(this.readAttrs);
-      }
-      else {
+      // if(this.data.getDeviceConnectionState() == true){
+      //   this.data.readData(this.readAttrs);
+      // }
+      // else 
+      {
         this.loadingDataDone = true;
       }
   }

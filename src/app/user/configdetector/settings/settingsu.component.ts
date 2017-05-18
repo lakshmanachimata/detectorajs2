@@ -67,10 +67,13 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.data.setMainTitle('Settings');
 
     this.data.setOtherParam('','');
-    if(this.data.DeviceBuild == 1){
-      this.data.readData(this.readAttrs);
-      this.loadingDataDone = false;
-    }
+      // if(this.data.getDeviceConnectionState() == true){
+      //   this.data.readData(this.readAttrs);
+      // }
+      // else 
+      {
+        this.loadingDataDone = true;
+      }
   }
   basicBrModeChanged(){
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode])

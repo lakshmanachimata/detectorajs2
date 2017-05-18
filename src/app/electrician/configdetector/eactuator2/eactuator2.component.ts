@@ -38,7 +38,13 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      this.data.readData(this.readAttrs);
+      // if(this.data.getDeviceConnectionState() == true){
+      //   this.data.readData(this.readAttrs);
+      // }
+      // else 
+      {
+        this.loadingDataDone = true;
+      }
   }
   ngOnChanges() { 
   }

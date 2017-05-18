@@ -67,7 +67,13 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
       this.data.setActiveComponent(this);
-      this.data.readData(this.readAttrs);
+      // if(this.data.getDeviceConnectionState() == true){
+      //   this.data.readData(this.readAttrs);
+      // }
+      // else 
+      {
+        this.loadingDataDone = true;
+      }
   }
     getOtherProfiles(){
       return this.userProfiles;
