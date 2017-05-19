@@ -302,7 +302,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    }
    
    logmeIn(){
-       this.data.syncDataFromCloud(this.username, this.password,this);
+       this.data.syncDevicesFromCloud(this.username, this.password,this);
    }
    logmeOut(){
    }

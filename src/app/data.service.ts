@@ -253,8 +253,8 @@ export class NetworkParams {
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certDeviceDataPath = this.certBasePath+'/'+this.deviceprefix;
-    public certData;
-    public keyData;
+    public certData:ArrayBuffer;
+    public keyData:ArrayBuffer;
 }
 
 declare var setDataServiceCallBack;
@@ -296,10 +296,36 @@ export class DataService {
     }
 
     initCAdata(){
-        let keyPath =  path.join(__dirname, '../..','client.private')
-        let certPath = path.join(__dirname,'../..' ,'client.cert')
-        this.networkParams.keyData = fs.readFileSync(keyPath);
-        this.networkParams.certData = fs.readFileSync(certPath);
+        this.intiCertFile();
+        this.intiKeyFile();
+    }
+
+
+    public intiCertFile() {
+            this.loadCertFile().then((certData) => {
+                this.networkParams.certData = certData;
+            });
+        }
+    
+    loadCertFile() {
+        return new Promise<ArrayBuffer>(resolve => {
+        this.http.get('/assets/client.cert').subscribe(response => {
+                resolve(response.arrayBuffer());
+            });
+        });
+    }
+    public intiKeyFile() {
+            this.loadCertFile().then((certData) => {
+                this.networkParams.keyData = certData;
+            });
+        }
+    
+    loadKeyFile() {
+        return new Promise<ArrayBuffer>(resolve => {
+        this.http.get('/assets/client.private').subscribe(response => {
+                resolve(response.arrayBuffer());
+            });
+        });
     }
 
     setScannedData(scanned){
@@ -846,18 +872,35 @@ export class DataService {
     }
 
     loadInstalledDeviceInfo(item){
-
     }
 
     checkIfDeviceExistsinCloud(btAddress){
-
     }
 
     checkAndAddDeviceToInstalledDevices(){
         this.getDevicesFromCloudAndAdd()
     }
+ 
 
-    
+    loadProfilesData(){
+        if(this.networkParams.useCertAuth){
+
+        }else {
+            if(this.uiParams.userLoggedIn){
+
+            }
+        }
+    }
+
+    pushProfilesData(){
+        if(this.networkParams.useCertAuth){
+
+        }else {
+            if(this.uiParams.userLoggedIn){
+                
+            }
+        }
+    }
     getLastSyncedTime(){
         return this.uiParams.lastSynced;
     }
@@ -885,7 +928,7 @@ export class DataService {
     setSubMenuComponent(component){
         this.uiParams.subMenuComponent = component;
     }
-    syncDataFromCloud(uname, pwd,component){
+    syncDevicesFromCloud(uname, pwd,component){
         if(uname.length > 0)
             this.networkParams.username = uname;
         if(pwd.length > 0)
@@ -924,23 +967,50 @@ export class DataService {
         return options;
     }
 
-    getIDataWithCert(httpMethod,httpPath){
+    getIDataWithCert(httpPath){
         let httpOptions = this.makeCertHeaders();
-        httpOptions.method = httpMethod;
         httpOptions.path = httpPath;
+        httpOptions.method = 'GET';
+        var req = https.request(httpOptions, function(res) {
+            res.on('data', function(data) {
+                this.handleGetIResponseData(data);
+            });
+        });
+        req.end();
+        req.on('error', function(e) {
+                this.handleIResponseError(e)
+        });
     }
 
 
-    getDataWithCert(httpMethod,httpPath){
+    getDataWithCert(httpPath){
         let httpOptions = this.makeCertHeaders();
-        httpOptions.method = httpMethod;
         httpOptions.path = httpPath;
+        httpOptions.method = 'GET';
+        var req = https.request(httpOptions, function(res) {
+            res.on('data', function(data) {
+                this.handleGetResponseData(data);
+            });
+        });
+        req.end();
+        req.on('error', function(e) {
+                this.handleResponseError(e)
+        });
     }
 
-    putDataWithCert(httpMethod,httpPath){
+    putDataWithCert(httpPath,bodyData){
         let httpOptions = this.makeCertHeaders();
-        httpOptions.method = httpMethod;
         httpOptions.path = httpPath;
+        httpOptions.method = 'PUT';
+        var req = https.request(httpOptions, function(res) {
+            res.on('data', function(data) {
+                this.handlePutResponseData(data);
+            });
+        });
+        req.end();
+        req.on('error', function(e) {
+                this.handleResponseError(e)
+        });
     }
 
 
@@ -1006,12 +1076,39 @@ export class DataService {
     }
 
     getDevicesFromCloud() {
-        let url = this.networkParams.devicesUrl;
-        this.getData(url);
+        if(this.networkParams.useCertAuth){
+            let path =  this.networkParams.certDevicesPath;
+            this.getDataWithCert(path);
+        }else{
+            let url = this.networkParams.devicesUrl;
+            this.getData(url);
+        }
     }
     getDevicesFromCloudAndAdd() {
-        let url = this.networkParams.devicesUrl;
-        this.getDataAndAddDeviceIfneeded(url);
+        if(this.networkParams.useCertAuth){
+             let path =  this.networkParams.certDevicesPath;
+            this.getDataAndAddDeviceIfneededWithCert(path);
+        }else {
+            if(this.uiParams.userLoggedIn){
+            let url = this.networkParams.devicesUrl;
+            this.getDataAndAddDeviceIfneeded(url);
+            }
+        }
+    }
+
+    getDataAndAddDeviceIfneededWithCert(httpPath){
+        let httpOptions = this.makeCertHeaders();
+        httpOptions.path = httpPath;
+        httpOptions.method = 'GET';
+        var req = https.request(httpOptions, function(res) {
+            res.on('data', function(data) {
+                this.handleGetDataAndAddDeviceWithCert(data);
+            });
+        });
+        req.end();
+        req.on('error', function(e) {
+                this.handleResponseError(e)
+        });
     }
 
     getDataAndAddDeviceIfneeded(getUrl){
@@ -1033,6 +1130,41 @@ export class DataService {
                 }
             ); 
     }
+
+    
+    handleGetDataAndAddDeviceWithCert(data){
+        let strFormat =  JSON.stringify(data);
+        let Detectors = data.detectors;
+        if(Detectors != undefined ){
+            this.logger.log(strFormat);
+            this.uiParams.userLoggedIn = true;
+            this.uiParams.lastSynced = data._updated_at.split('+')[0];
+            let localDate = this.getUTCDateFormat();
+            let syncdate1 = new Date(localDate)
+            let syncdate2 = new Date(this.uiParams.lastSynced)
+            if(syncdate1 > syncdate2){
+            }else if (syncdate1 < syncdate2){
+            }else {
+            }
+            this.setDevices(Detectors,true);
+            if(this.uiParams.devicesObj.SelectedDevice != undefined){
+                let isExists = false;
+                for(let  i= 0; i < Detectors.length; i++ ){
+                    if(Detectors[i].btAddress == this.uiParams.devicesObj.SelectedDevice.btAddress){
+                        isExists =  true;
+                    }
+                }
+                this.logger.log('is DEVICE EXISTS in installed ' + isExists + '  with address ' + this.uiParams.devicesObj.SelectedDevice.btAddress);
+                if(isExists == false){
+                    this.addDevice(this.uiParams.devicesObj.SelectedDevice,true);
+                    this.updateInstalledDevicesToCloud()
+                }
+            }
+            if(this.uiParams.subMenuComponent != undefined)
+                this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+        }
+    }
+
     handleGetDataAndAddDevice(data){
         let strFormat =  JSON.stringify(data);
         let Detectors = data.detectors;
@@ -1068,7 +1200,12 @@ export class DataService {
     updateInstalledDevicesToCloud(){
 
         if(this.networkParams.useCertAuth){
-
+            this.uiParams.devicesObj.DetectorsObj = {
+                'detectors':this.uiParams.devicesObj.IdevicesArray
+            }
+            let bodyString = JSON.stringify(this.uiParams.devicesObj.DetectorsObj);
+            let path = this.networkParams.certDevicesPath;
+            this.putDataWithCert(this.networkParams.certDevicesPath,bodyString)
         }else {
             if(this.uiParams.userLoggedIn){
                 this.uiParams.devicesObj.DetectorsObj = {
@@ -1083,7 +1220,13 @@ export class DataService {
     }
     putDevicesToCloud(){
         if(this.networkParams.useCertAuth){
-
+            this.uiParams.devicesObj.DetectorsObj = {
+                    'detectors':this.uiParams.devicesObj.DevicesArray
+                }
+                let bodyString = JSON.stringify(this.uiParams.devicesObj.DetectorsObj);
+                this.logger.log(bodyString)
+                let path = this.networkParams.certDevicesPath;
+                this.putData(path,bodyString);
         }else{
             if(this.uiParams.userLoggedIn){
                 this.uiParams.devicesObj.DetectorsObj = {
@@ -1099,7 +1242,13 @@ export class DataService {
 
     getParamsFromCloudForDevice(installed) {
         if(this.networkParams.useCertAuth){
-
+            if(installed){
+                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                this.getIDataWithCert(path);
+            }else {
+                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                this.getDataWithCert(path);
+            }
         }else {
             if(this.uiParams.userLoggedIn ==  true) {
                 if(installed){
@@ -1115,7 +1264,15 @@ export class DataService {
 
     setParamsToCloudForDevice(installed) {
         if(this.networkParams.useCertAuth){
-            
+            if(installed){
+                    let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
+                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                    this.putDataWithCert(url,bodyString);
+                }else{
+                    let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
+                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                    this.putDataWithCert(url,bodyString);
+                }
         }else {
             if(this.uiParams.userLoggedIn ==  true) {
                 if(installed){
