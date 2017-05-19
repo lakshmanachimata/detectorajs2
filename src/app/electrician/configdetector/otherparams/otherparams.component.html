@@ -1,14 +1,14 @@
-<img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
+<img id="mySpinner" src="/assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
 <div class="bj-config-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
 <div id="bj-testmode-div" *ngIf="getOtherParam()=='testmode'">
     <label class="bj-config-lbl testmode-master-lbl">Master</label>
     <div class="testmode-master-div">
         <div class="testmode-top-quadrants">
             <div class="testmode-quadrant q1" [ngStyle]="{'background':masterQuad=='q1' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q1-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q1')">
+                <img class="user-active q1-icon" src="/assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q1')">
             </div>
             <div class="testmode-quadrant q2" [ngStyle]="{'background':masterQuad=='q2' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q2-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q2')">
+                <img class="user-active q2-icon" src="/assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q2')">
             </div>
         </div>
         <div id="testmode-master-inner-ring">
@@ -19,16 +19,16 @@
         </div>
         <div class="testmode-bottom-quadrants">
             <div class="testmode-quadrant q3" [ngStyle]="{'background':masterQuad=='q3' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q3-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q3')">
+                <img class="user-active q3-icon" src="/assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q3')">
             </div>
             <div class="testmode-quadrant q4" [ngStyle]="{'background':masterQuad=='q4' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q4-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q4')">
+                <img class="user-active q4-icon" src="/assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q4')">
             </div>
         </div>
     </div>
     <div class="bj-config-setting-div testmode-slave-div">
         <label class="bj-config-setting testmode-slave-block">Slaves</label>
-        <img class="slave-dis" src="assets/icons/14_004_user_dis.svg" alt="slave_disabled">
+        <img class="slave-dis" src="/assets/icons/14_004_user_dis.svg" alt="slave_disabled">
     </div>
     <div id="testmode-settings-block">
         <label class="bj-config-lbl testmode-settings-test-lbl">Testmode settings</label>
@@ -128,7 +128,7 @@
     </div>
     <div class="add-profile">
         <label id="add-profile-lbl">Add profile</label>
-        <span><img class="add-new-profile" src="assets/icons/03_008_timer_add_def.svg"  alt="add_new_profile"></span>
+        <span><img class="add-new-profile" src="/assets/icons/03_008_timer_add_def.svg"  alt="add_new_profile"></span>
     </div>
     <li id="profile-list">
         <div class="saved-profile" >Garage</div>
