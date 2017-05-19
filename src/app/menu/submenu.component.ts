@@ -30,8 +30,8 @@ import {HTTPCODES} from '../data.service'
 export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     subMenuState = 'none';
     arrowStateObserve: any;
-    public username = 'lakshmana'
-    public password = 'Abb@123456'
+    public username = ''
+    public password = ''
     detectors:Array<any>;
     selectedSortType = 'modelType';
     heloText = "Download Manuals";

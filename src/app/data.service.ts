@@ -4,6 +4,13 @@ import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
+import * as path from 'path';
+import * as fs from 'fs';
+import * as https from 'https';
+
+var certPath = path.join(__dirname,'../..' ,'client.cert');
+var keyPath = path.join(__dirname, '../','client.private');
+
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
 }
