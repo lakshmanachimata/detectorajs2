@@ -13,6 +13,7 @@ function BJ_updateScanList() {
     welcomecomponent.onDevices(devData);
 }
 
+
 function connectDevice(deviceAddress){
     if(BJE != undefined)
         BJE.connectDevice(deviceAddress)
@@ -36,7 +37,13 @@ function onDeviceDisconnected(deviceAddress){
     appDataService.onDeviceDisconnected(deviceAddress);
 }
 
+function setCertData(certData){
+    appDataService.setCertData(certData.data)
+}
 
+function setKeyData(keyData){
+        appDataService.setKeyData(keyData.data)
+}
 function updateScanList(scanned) {
     scannedDevices = scanned
     var deviceData =  JSON.stringify(scannedDevices);

@@ -189,7 +189,7 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         PackageInfo pInfo = null;
-        String buildDate= "2017-05-08\n17:30:00";
+        String buildDate= "2017-05-18\n17:30:00";
         mHandler = new Handler();
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -275,7 +275,8 @@ public class MainActivity extends Activity {
             public void onPageFinished(WebView view, String url) {
                 // do your stuff here
                 if (url.equals("file:///android_asset/") ||
-                        url.equals("file:///android_asset/welcome")) {
+                        url.equals("file:///android_asset/welcome") ||
+                        url.equals("file:///android_asset/index.html") ) {
                     if (splashScreen.getVisibility() == View.VISIBLE) {
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
@@ -316,14 +317,55 @@ public class MainActivity extends Activity {
         checkForFilesAgain();
     }
         void checkForFilesAgain(){
-
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     File files[] = getFilesDir().listFiles();
-                    int a = 1;
-                    int b = 2;
-                    int c = a + b;
+                    try {
+                        for (int i = 0; i < files.length; i++) {
+                            if (files[i].toString().contains("client.cert")) {
+                                FileInputStream var2 = new FileInputStream(files[i]);
+                                int lengthF =  (int)files[i].length();
+                                byte data[] =  new byte[lengthF];
+                                var2.read(data,0,lengthF);
+                                char sendData[] = new char[data.length];
+                                for(int j = 0; j < data.length; j++) {
+                                    sendData[j] = (char)(0x00FF & data[j]);
+                                }
+                                JSONObject certiData = new JSONObject();
+                                String text = String.copyValueOf(sendData);
+                                certiData.put("data",text);
+                                String certData = "";
+                                certData = certData + "setCertData(";
+                                certData =  certData + certiData.toString()+ ")";
+                                webview.evaluateJavascript(certData,null);
+                                var2.close();
+                            }
+                            if (files[i].toString().contains("client.private")) {
+                                FileInputStream var2 = new FileInputStream(files[i]);
+                                int lengthF =  (int)files[i].length();
+                                byte data[] =  new byte[lengthF];
+                                var2.read(data,0,lengthF);
+                                char sendData[] = new char[data.length];
+                                for(int j = 0; j < data.length; j++) {
+                                    sendData[j] = (char)(0x00FF & data[j]);
+                                }
+
+                                JSONObject keyiData = new JSONObject();
+                                String text = String.copyValueOf(sendData);
+                                keyiData.put("data",text);
+
+                                String keyData = "";
+                                keyData =  keyData + "setKeyData(";
+                                keyData =  keyData + keyiData.toString()+ ")";
+
+                                webview.evaluateJavascript(keyData,null);
+                                var2.close();
+                            }
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             },5000);
         }
@@ -625,46 +667,6 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
-                File files[] = getFilesDir().listFiles();
-                String myFile = "";
-                try {
-                    for (int i = 0; i < files.length; i++) {
-                        if (files[i].toString().contains("client.cert")) {
-                            myFile = files[i].toString();
-                            File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/client.cert");
-                            FileInputStream var2 = new FileInputStream(files[i]);
-                            FileOutputStream var3 = new FileOutputStream(dst);
-                            byte[] var4 = new byte[1024];
-
-                            int var5;
-                            while((var5 = var2.read(var4)) > 0) {
-                                var3.write(var4, 0, var5);
-                            }
-
-                            var2.close();
-                            var3.close();
-                        }
-                        if (files[i].toString().contains("client.private")) {
-                            myFile = files[i].toString();
-                            File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/client.private");
-                            FileInputStream var2 = new FileInputStream(files[i]);
-                            FileOutputStream var3 = new FileOutputStream(dst);
-                            byte[] var4 = new byte[1024];
-
-                            int var5;
-                            while((var5 = var2.read(var4)) > 0) {
-                                var3.write(var4, 0, var5);
-                            }
-
-                            var2.close();
-                            var3.close();
-                        }
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
                 //addDevice(mBluetoothLeService.getGatt().getDevice().getAddress(),myFile);
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
@@ -1044,7 +1046,8 @@ public class MainActivity extends Activity {
                 public void run() {
                     if(scanner != null) {
                         scanner.stopScan(bleCallback);
-                        sendDeviceInfo();
+                        if(scannedDevices.size() >0)
+                            sendDeviceInfo();
                     }
 
                 }

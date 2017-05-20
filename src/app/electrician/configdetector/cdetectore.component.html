@@ -4,7 +4,7 @@
                 <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName">
          </div>
       </div>
-      <img id="mySpinner" src="/assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
+      <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
       <div id="bj-config-settings-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
         <div id="bj-config-sensor-div">
              <label class="bj-config-lbl sensor-div">Sensor settings</label>
@@ -104,10 +104,10 @@
                  <div class="bj-actuator-brightness">
                      <div class="bj-actuator-bulb actuator1">
                         <label class="actuator-name">Actuator 1</label>
-                         <img class="bulb-off" *ngIf="!ad.ch1OnOffState" src="/assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                         <img class="bulb-off" *ngIf="!ad.ch1OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                          <div class="bulb-glow" *ngIf="ad.ch1OnOffState">
-                            <img class="bulb-glow" *ngIf="ad.ch1OnOffState" src="/assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on light1" *ngIf="ad.ch1OnOffState" src="/assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-glow" *ngIf="ad.ch1OnOffState" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
+                            <img class="bulb-on light1" *ngIf="ad.ch1OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                          </div>
                      </div>
                      <div class="bj-actuator-slider">
@@ -130,9 +130,9 @@
                   <div class="bj-actuator-brightness">
                       <div class="bj-actuator-bulb actuator2">
                           <label class="actuator-name">Actuator 2</label>
-                          <img class="bulb-off" *ngIf="!ad.ch2OnOffState" src="/assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
+                          <img class="bulb-off" *ngIf="!ad.ch2OnOffState" src="assets/icons/08_001_light_deact.svg" alt="bulb_inactive">
                           <div class="bulb-glow" *ngIf="ad.ch2OnOffState">
-                            <img class="bulb-on light2" *ngIf="ad.ch2OnOffState" src="/assets/icons/08_001_light_act.svg" alt="bulb_active">
+                            <img class="bulb-on light2" *ngIf="ad.ch2OnOffState" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
                           </div>
                       </div>
                   </div>

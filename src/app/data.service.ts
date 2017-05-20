@@ -4,8 +4,6 @@ import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import * as path from 'path';
-import * as fs from 'fs';
 import * as https from 'https';
 
 export class SubMenuItem {
@@ -240,7 +238,7 @@ export class NetworkParams {
     public username = ''
     public password = ''
     public namespace = 'presence-detector-backup'
-    public detectorHostName = 'https://api.my-staging.busch-jaeger.de';
+    public detectorHostName = 'api.my-staging.busch-jaeger.de';
     public baseUrl = this.detectorHostName + '/api/user/key-value/'+ this.namespace;   
     public devicesPath = 'devices';
     public devicesUrl = this.baseUrl+ '/'+ this.devicesPath;
@@ -248,13 +246,13 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = false; 
+    public useCertAuth = true; 
 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certDeviceDataPath = this.certBasePath+'/'+this.deviceprefix;
-    public certData:ArrayBuffer;
-    public keyData:ArrayBuffer;
+    public certData:any;
+    public keyData:any;
 }
 
 declare var setDataServiceCallBack;
@@ -292,40 +290,24 @@ export class DataService {
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
-        //this.initCAdata();
     }
 
-    initCAdata(){
-        this.intiCertFile();
-        this.intiKeyFile();
+    setCertData(data){
+        this.networkParams.certData = Buffer.from(data, "binary");
+        console.log(this.networkParams.certData)
+    }
+    setKeyData(data){
+        this.networkParams.keyData = Buffer.from(data, "binary");
+         console.log(this.networkParams.keyData)
     }
 
-
-    public intiCertFile() {
-            this.loadCertFile().then((certData) => {
-                this.networkParams.certData = certData;
-            });
+     str2ab(str) {
+        var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+        var bufView = new Uint16Array(buf);
+        for (var i=0, strLen=str.length; i<strLen; i++) {
+            bufView[i] = str.charCodeAt(i);
         }
-    
-    loadCertFile() {
-        return new Promise<ArrayBuffer>(resolve => {
-        this.http.get('/assets/client.cert').subscribe(response => {
-                resolve(response.arrayBuffer());
-            });
-        });
-    }
-    public intiKeyFile() {
-            this.loadCertFile().then((certData) => {
-                this.networkParams.keyData = certData;
-            });
-        }
-    
-    loadKeyFile() {
-        return new Promise<ArrayBuffer>(resolve => {
-        this.http.get('/assets/client.private').subscribe(response => {
-                resolve(response.arrayBuffer());
-            });
-        });
+        return buf;
     }
 
     setScannedData(scanned){
@@ -356,7 +338,7 @@ export class DataService {
    
     loadDevices() {
         return new Promise<Array<any>>(resolve => {
-        this.http.get('/assets/detectorslist.json').subscribe(response => {
+        this.http.get('assets/detectorslist.json').subscribe(response => {
                 resolve(response.json().detectors);
             });
         });
@@ -691,20 +673,20 @@ export class DataService {
         }else {
             if(item.deviceType == 'relay1c') {
                 return new Promise<Array<any>>(resolve => {
-                this.http.get('/assets/params.json').subscribe(response => {
+                this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });
                 
             }else if(item.deviceType == 'mosfet1c') {
                 return new Promise<Array<any>>(resolve => {
-                this.http.get('/assets/params.json').subscribe(response => {
+                this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });
             }else if(item.deviceType == 'daliMaster1c') {
                 return new Promise<Array<any>>(resolve => {
-                this.http.get('/assets/params.json').subscribe(response => {
+                this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });
@@ -960,7 +942,7 @@ export class DataService {
             hostname: this.networkParams.detectorHostName,
             port: this.networkParams.detectorPort,
             key : this.networkParams.keyData,
-            cert:this.networkParams.certData,
+            cert: this.networkParams.certData,
             method:'',
             path:'',
         }
@@ -973,12 +955,12 @@ export class DataService {
         httpOptions.method = 'GET';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handleGetIResponseData(data);
+                 console.log(data);
             });
         });
         req.end();
         req.on('error', function(e) {
-                this.handleIResponseError(e)
+                 console.log(e);
         });
     }
 
@@ -989,12 +971,12 @@ export class DataService {
         httpOptions.method = 'GET';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handleGetResponseData(data);
+                console.log(data);
             });
         });
         req.end();
         req.on('error', function(e) {
-                this.handleResponseError(e)
+                console.log(e);
         });
     }
 
@@ -1004,12 +986,12 @@ export class DataService {
         httpOptions.method = 'PUT';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handlePutResponseData(data);
+                console.log(data);
             });
         });
-        req.end();
+        req.end(bodyData);
         req.on('error', function(e) {
-                this.handleResponseError(e)
+                 console.log(e);
         });
     }
 

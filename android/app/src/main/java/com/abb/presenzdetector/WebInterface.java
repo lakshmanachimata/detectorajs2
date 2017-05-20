@@ -57,17 +57,17 @@ public class WebInterface {
 
     @JavascriptInterface
     public boolean readAttr(byte[] data){
-        mainActivity.sendBLEAppFrame(data);
+        //mainActivity.sendBLEAppFrame(data);
         return true;
     }
     @JavascriptInterface
     public boolean writeAttr(byte[] data){
-        mainActivity.sendBLEAppFrame(data);
+       // mainActivity.sendBLEAppFrame(data);
         return true;
     }
     @JavascriptInterface
     public boolean configureAttr(byte[] data){
-        mainActivity.sendBLEAppFrame(data);
+        //mainActivity.sendBLEAppFrame(data);
         return true;
     }
 }
