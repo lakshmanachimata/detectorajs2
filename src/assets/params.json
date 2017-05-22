@@ -1,9 +1,11 @@
 {
 "firmwareVersion":"",
 "btDeviceName":"",
+"btAddress":"",
 "modelNumber":"",
 "deviceType":"",
 "isFactoryNew":"",
+"profileName":"",
 "potentiometerMode":0,
 "brightnessThreshold":200,
 "brightnessThresholdMin":10,

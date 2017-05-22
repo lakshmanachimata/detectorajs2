@@ -47,7 +47,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     light1state = 0;
     loadingDataDone = false;
-    constructor(private logger: LoggerService,private data: DataService, 
+    constructor(public logger: LoggerService,public data: DataService, 
     private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
@@ -86,7 +86,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowOnlyCancel(false);
   }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

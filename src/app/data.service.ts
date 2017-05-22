@@ -238,7 +238,8 @@ export class NetworkParams {
     public username = ''
     public password = ''
     public namespace = 'presence-detector-backup'
-    public detectorHostName = 'api.my-staging.busch-jaeger.de';
+    public certDetectorHostName = 'api.my-staging.busch-jaeger.de';
+    public detectorHostName = 'https://api.my-staging.busch-jaeger.de';
     public baseUrl = this.detectorHostName + '/api/user/key-value/'+ this.namespace;   
     public devicesPath = 'devices';
     public devicesUrl = this.baseUrl+ '/'+ this.devicesPath;
@@ -246,7 +247,7 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = true; 
+    public useCertAuth = false; 
 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
@@ -285,11 +286,19 @@ export class DataService {
     screenWidth;
     screenHeight;
     
-    constructor(private http:Http,private logger: LoggerService) {
+    constructor(private http:Http,public logger: LoggerService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
+    }
+
+    saveToLocalStorage(key,value){
+        localStorage.setItem(key,value);
+    }
+
+    readFromLocalStorage(key){
+        return localStorage.getItem(key);
     }
 
     setCertData(data){

@@ -27,12 +27,12 @@ declare var connectDevice;
 })
 export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-    private detectors:Array<any>;
+    detectors:Array<any>;
     scannedData:Array<any>;
     jsonLoadObserve: any;
     connectDeviceObj:any; 
-    private snap:RouterStateSnapshot;
-    constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
+    snap:RouterStateSnapshot;
+    constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetector(item){
       this.data.initDeviceData(item,false);
@@ -42,7 +42,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.data.checkAndAddDeviceToInstalledDevices();
       }
   }
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

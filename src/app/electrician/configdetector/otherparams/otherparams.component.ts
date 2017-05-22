@@ -62,7 +62,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                   SCCP_ATTRIBUTES.BUILDING,
                 ]
 
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -111,7 +111,7 @@ onUserPinChanged(){
     this.data.setEDevParamsState(1);
 }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

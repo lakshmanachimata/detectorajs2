@@ -16,10 +16,10 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
  private snap:RouterStateSnapshot;
 
 
-  constructor(private logger: LoggerService,private router:Router,private data:DataService,private route:ActivatedRoute,private location:Location) {
+  constructor(public logger: LoggerService,private router:Router,public data:DataService,private route:ActivatedRoute,private location:Location) {
   }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngOnInit() { 
   }

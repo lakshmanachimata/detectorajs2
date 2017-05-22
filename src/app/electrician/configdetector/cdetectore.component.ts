@@ -169,7 +169,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ACCESS_LEVEL,
                 SCCP_ATTRIBUTES.BUILDING,
                 ]
-    constructor(private logger: LoggerService,private data: DataService, 
+    constructor(public logger: LoggerService,public data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
                 private zone:NgZone) {
@@ -188,7 +188,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       // }
     }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

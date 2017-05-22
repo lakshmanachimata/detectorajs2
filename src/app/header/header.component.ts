@@ -13,10 +13,10 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
  private snap:RouterStateSnapshot;
 
 
-  constructor(private logger: LoggerService,private router:Router,private data:DataService) {
+  constructor(public logger: LoggerService,private router:Router,public data:DataService) {
   }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
     ngOnInit() { 
       this.data.setHeaderComponent(this);

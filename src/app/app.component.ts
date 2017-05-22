@@ -13,7 +13,7 @@ import { Location }  from '@angular/common';
 })
 
 export class AppComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
-  constructor(private logger: LoggerService,private router:Router,private data:DataService,private location:Location) {
+  constructor(public logger: LoggerService,private router:Router,public data:DataService,private location:Location) {
     this.data.setHeader(false);
     if (this.data.getProfile() == 'none') {
             this.location.replaceState('/'); // clears browser history so they can't navigate with back button
@@ -29,7 +29,7 @@ export class AppComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentIni
     this.data.setProfile(item);
     this.router.navigateByUrl(item);
   }
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngOnInit() { 
   }

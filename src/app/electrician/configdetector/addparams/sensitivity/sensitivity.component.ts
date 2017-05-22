@@ -28,7 +28,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       SCCP_ATTRIBUTES.PIR_SENSITIVITY3,
       SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE
     ]
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -39,7 +39,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         this.loadingDataDone = true;
       }
   }
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

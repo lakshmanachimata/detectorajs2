@@ -8,9 +8,9 @@ import { DataService } from '../data.service';
 })
 
 export class NextComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
-  constructor(private logger: LoggerService,private router:Router,private data:DataService) {
+  constructor(public logger: LoggerService,private router:Router,public data:DataService) {
   }
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngOnInit() { 
   }

@@ -26,7 +26,7 @@ TotalSavingsYearValue = 759;
   maxYear = 0;
   maxMonth = 0;
   showData:any;
-  constructor(private logger: LoggerService,private data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -37,7 +37,7 @@ TotalSavingsYearValue = 759;
     this.activeTab = tab;
   }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

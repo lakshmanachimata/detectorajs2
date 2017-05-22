@@ -28,12 +28,12 @@ export class DetectorInfo {
 })
 export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy {
 
-    private detectors:Array<any>;
+    detectors:Array<any>;
     jsonLoadObserve: any;
     scannedData:Array<any>;
     connectDeviceObj:any;
-    private snap:RouterStateSnapshot;
-    constructor(private logger: LoggerService,private data: DataService, private router:Router,private route: ActivatedRoute) {
+    snap:RouterStateSnapshot;
+    constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetectorUser(item){
       this.data.initDeviceData(item,false);
@@ -76,7 +76,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
   }
 
-  ngOnChanges() { 
+  ngOnChanges(changes) { 
   }
   ngDoCheck() { 
   }

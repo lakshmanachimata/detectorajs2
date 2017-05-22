@@ -30,7 +30,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     isParam = false;
-    constructor(private logger: LoggerService,private data: DataService,private router:Router,private zone:NgZone) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router,private zone:NgZone) {
         this.subMenuState = 'none';
     }
 
@@ -41,7 +41,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     animationDone($event) {
     }
 
-    ngOnChanges() { 
+    ngOnChanges(changes) { 
     }
 
     ngDoCheck() { 

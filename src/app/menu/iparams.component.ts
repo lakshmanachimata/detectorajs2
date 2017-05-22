@@ -43,7 +43,7 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     showTimeShiftedSwitchOffSettings = false;
     showFluorescentSettings = false;
 
-    constructor(private logger: LoggerService,private data: DataService,private router:Router) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router) {
         this.subMenuState = 'none';
     }
 
@@ -53,7 +53,7 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     animationDone($event) {
     }
 
-    ngOnChanges() { 
+    ngOnChanges(changes) { 
     }
 
     ngDoCheck() { 

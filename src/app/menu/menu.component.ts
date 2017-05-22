@@ -30,7 +30,7 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     arrowStateObserve: any;
      private snap:RouterStateSnapshot;
 
-    constructor(private logger: LoggerService,private data: DataService,private router:Router) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router) {
         this.menuItems = [];
     }
 
@@ -48,7 +48,7 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     menuArrowStateChange (arrowState){
        arrowState.menuState = "topout";
     }
-    ngOnChanges() { 
+    ngOnChanges(changes) { 
     }
 
     ngDoCheck() { 

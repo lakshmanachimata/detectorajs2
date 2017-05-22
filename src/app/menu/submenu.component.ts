@@ -49,7 +49,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     header:HeaderComponent;
     searchText = '';
     lastSynced = '';
-    constructor(private logger: LoggerService,private data: DataService,
+    constructor(public logger: LoggerService,public data: DataService,
                 private router:Router,private route:ActivatedRoute,private zone:NgZone) {
         this.subMenuState = 'none';
         this.detectors = data.getDevices(true);
@@ -66,7 +66,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     subMenuVal() {
         return this.data.getSubMenuVal();
     }
-    ngOnChanges() { 
+    ngOnChanges(changes) { 
     }
 
     ngDoCheck() { 

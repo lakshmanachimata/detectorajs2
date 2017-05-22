@@ -14,7 +14,7 @@ declare var scan:any;
 export class WelcomeComponent implements OnInit {
     scanobj: any;
     timer;
-  constructor(private logger:LoggerService, private data:DataService,private router:Router,private location:Location) {
+  constructor(public logger:LoggerService, public data:DataService,private router:Router,private location:Location) {
       }
   ngOnInit() {
   }

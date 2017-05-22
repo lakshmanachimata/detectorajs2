@@ -42,8 +42,8 @@ import {SharedModule} from './shared/shared.module';
 })
 
 export class AppModule {
-    constructor(private logger: LoggerService,
-    private data: DataService) {
+    constructor(public logger: LoggerService,
+    public data: DataService) {
       data.initDevices();
      }
  }
