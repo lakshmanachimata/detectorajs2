@@ -853,7 +853,7 @@ public class MainActivity extends Activity {
                     }
                 }
             }
-        }, 10);
+        }, 1);
     }
 
     public void sendDeviceInfo() {
