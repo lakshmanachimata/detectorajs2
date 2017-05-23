@@ -9,12 +9,13 @@ import { DataService } from '../data.service';
 })
 
 export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
-  
-  constructor(public logger: LoggerService,private router:Router,public data:DataService) {
+    profilename = '';
+  constructor(public logger: LoggerService,private router:Router,public data:DataService) {     
   }
   ngOnChanges(changes) { 
   }
   ngOnInit() { 
+       this.profilename = this.data.getProfileName();
   }
   ngDoCheck() { 
   }
@@ -23,8 +24,10 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   ngAfterContentChecked() { 
   }
   ngAfterViewInit() { 
+      this.profilename = this.data.getProfileName();
   }
   ngAfterViewChecked() { 
+      this.profilename = this.data.getProfileName();
   }
   ngOnDestroy() { 
   }
@@ -45,6 +48,7 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   doStuff() {
       this.data.setShowEModal(false);
   }
+  
   getIfShowCancel(){
   }
   getOptionsCount(){

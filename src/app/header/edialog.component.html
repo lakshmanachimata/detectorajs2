@@ -2,7 +2,7 @@
     <div class="edit-dialog" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
         <div class="edit-dialog-header"><label class="dialog-heading"> {{getDialogTitle()}} </label></div>
         <div class="edit-dialog-body">
-            <input class="edialog-text" type="text" placeholder="Name of new profile"/>
+            <input class="edialog-text" type="text" [(ngModel)]="profilename" placeholder="Name of new profile"/>
         </div>
         <div class="edit-dialog-footer">
             <div class="edialog-cancel-btn" (click)="cancelStuff()"><img class="edit-cancel" src="assets/icons/05_017_button_delete_prs.svg" alt="cancel_btn"></div>

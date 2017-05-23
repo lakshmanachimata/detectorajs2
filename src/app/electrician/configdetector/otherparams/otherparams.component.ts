@@ -20,7 +20,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
-  userProfiles = [];
+  userProfiles = [
+    'Garage',
+    'Entry of cellar'
+  ];
   preDefined_Profiles =[
     "Living room",
     "Toilet",
@@ -29,6 +32,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     "Floor",
     "Outdoor"
   ]
+
   preDefined_Searches=[];
   searchText = '';
   masterQuad = 'q1';
@@ -109,6 +113,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   onUserPinChanged(){
       this.data.setEDevParamsState(1);
+  }
+
+  showOverWriteEModal(item){
+    this.data.setProfileName(item);
+    this.data.setDialogTitle('Overwrtie existing profile')
+    this.data.setShowEModal(true);
   }
 
   showAddUserProfie(){

@@ -209,6 +209,7 @@ export class UIParams {
       dialogText = '';
       showModal = false;
       showEModal = false;
+      profileName ='';
       showCDI = -1;
       eDevParamsChanged = 0;
       userLoggedIn =  false;
@@ -513,6 +514,14 @@ export class DataService {
     }
     setShowEModal(item) {
         this.uiParams.showEModal = item;
+    }
+
+    setProfileName(profilename){
+        this.uiParams.profileName = profilename;
+    }
+
+    getProfileName(){
+        return this.uiParams.profileName;
     }
 
     getSubMenuItems() {

@@ -90,7 +90,7 @@
         </div>
         <div *ngIf="showPredefinedProfiles">
             <div *ngFor="let item of sortedMapValues()">
-                <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" >
+                <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles">
                     <label class="pre-profile-lbl" >{{ item }}</label>
                 </div>
             </div>
@@ -130,10 +130,11 @@
         <label id="add-profile-lbl">Add profile</label>
         <span><img class="add-new-profile" src="assets/icons/03_008_timer_add_def.svg"  alt="add_new_profile" (click)="showAddUserProfie()"></span>
     </div>
-    <li id="profile-list">
-        <div class="saved-profile" >Garage</div>
-        <div class="saved-profile" >Entry of cellar</div>
-    </li>
+    <div *ngFor="let item of getOtherProfiles()">
+        <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" (click)="showOverWriteEModal(item)" >
+            <label class="pre-profile-lbl" >{{ item }}</label>
+        </div>
+    </div>
 </div>
 <div id="bj-update-firmware-div-top" *ngIf="getOtherParam()=='updatefirmware'">
     <div id="bj-update-firmware-div" >
