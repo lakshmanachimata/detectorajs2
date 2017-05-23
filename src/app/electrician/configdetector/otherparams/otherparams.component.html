@@ -77,7 +77,7 @@
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control"  (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search" /><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control"  (ngModelChange)="searchAllProfiles()" [(ngModel)]='searchText' placeholder="Search" /><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
     <div class="bj-config-setting-div predefined-profiles-div" style="border-bottom:none;">
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div *ngIf="showPredefinedProfiles">
-            <div *ngFor="let item of sortedMapValues()">
+            <div *ngFor="let item of searchPredefinedProfiles()">
                 <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles">
                     <label class="pre-profile-lbl" >{{ item }}</label>
                 </div>
@@ -105,7 +105,7 @@
             </div>
         </div>
         <div *ngIf="showUserdefinedProfiles">
-            <div *ngFor="let item of getOtherProfiles()">
+            <div *ngFor="let item of searchUserDefinedProfiles()">
                 <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" >
                     <label class="pre-profile-lbl" >{{ item }}</label>
                 </div>
@@ -123,14 +123,14 @@
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" placeholder="Search"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control"  (ngModelChange)="searchAllProfiles()" [(ngModel)]='searchText' placeholder="Search"/><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
     <div class="add-profile">
         <label id="add-profile-lbl">Add profile</label>
         <span><img class="add-new-profile" src="assets/icons/03_008_timer_add_def.svg"  alt="add_new_profile" (click)="showAddUserProfie()"></span>
     </div>
-    <div *ngFor="let item of getOtherProfiles()">
+    <div *ngFor="let item of searchUserDefinedProfiles()">
         <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles" (click)="showOverWriteEModal(item)" >
             <label class="pre-profile-lbl" >{{ item }}</label>
         </div>

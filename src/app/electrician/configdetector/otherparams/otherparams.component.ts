@@ -82,30 +82,43 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     getOtherProfiles(){
       return this.userProfiles;
     }
-      searchDetectors(items) {
-        if(this.searchText.length > 0)
-        {
-            let result = [];
-            var searchString = new RegExp(this.searchText.toLowerCase());
-            for(var j =0; j < items.length; j++) {
-                let profile = items[j];
-                if(profile === undefined) {
-                    result.push(profile);
-                }else {
-                    if( profile.toLowerCase().indexOf(this.searchText) >= 0){
-                        result.push(profile);
-                    }
-                }
-            }
-            this.preDefined_Searches = result;
-            return this.preDefined_Searches;
+    searchProfiles(items,userDefined) {
+      if(this.searchText.length > 0)
+      {
+          let result = [];
+          var searchString = new RegExp(this.searchText.toLowerCase());
+          for(var j =0; j < items.length; j++) {
+              let profile = items[j];
+              if(profile === undefined) {
+                  result.push(profile);
+              }else {
+                  if( profile.toLowerCase().indexOf(this.searchText) >= 0){
+                      result.push(profile);
+                  }
+              }
+          }
+          this.preDefined_Searches = result;
+          return this.preDefined_Searches;
+      }else {
+        if(userDefined){
+          return this.userProfiles;
         }else {
           return this.preDefined_Profiles;
         }
+      }
+    }
+
+    searchAllProfiles(){
+      this.searchPredefinedProfiles();
+      this.searchUserDefinedProfiles();
+    }
+
+    searchUserDefinedProfiles(){
+      return this.searchProfiles(this.userProfiles,true);
     }
     
-   sortedMapValues(){
-        return this.searchDetectors(this.preDefined_Profiles);
+   searchPredefinedProfiles(){
+        return this.searchProfiles(this.preDefined_Profiles,false);
     }
 
   onFitterPinChanged(){
