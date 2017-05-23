@@ -40,10 +40,10 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
       return this.data.getDialogText();
   }
   cancelStuff() {
-      this.data.setShowModal(false);
+      this.data.setShowEModal(false);
   }
   doStuff() {
-      this.data.setShowModal(false);
+      this.data.setShowEModal(false);
   }
   getIfShowCancel(){
   }
