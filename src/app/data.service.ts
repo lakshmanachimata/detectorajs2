@@ -208,6 +208,7 @@ export class UIParams {
       dialogTitle = '';
       dialogText = '';
       showModal = false;
+      showEModal = false;
       showCDI = -1;
       eDevParamsChanged = 0;
       userLoggedIn =  false;
@@ -506,6 +507,12 @@ export class DataService {
     }
     setShowModal(item) {
         this.uiParams.showModal = item;
+    }
+    getShowEModal() {
+        return this.uiParams.showEModal;
+    }
+    setShowEModal(item) {
+        this.uiParams.showEModal = item;
     }
 
     getSubMenuItems() {
