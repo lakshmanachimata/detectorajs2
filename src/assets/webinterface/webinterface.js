@@ -15,7 +15,6 @@ function BJ_updateScanList() {
 
 function setWebLanguage(data){
     var lang = data.language;
-    console.log("the language is " + lang);
 }
 
 function connectDevice(deviceAddress){

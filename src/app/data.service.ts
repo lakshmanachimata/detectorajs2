@@ -370,9 +370,7 @@ export class DataService {
     }
     addDevice(device,installed) {
         if(installed){
-            this.logger.log('Idevice Array Len  BEFORE  ' + this.uiParams.devicesObj.IdevicesArray.length)
             this.uiParams.devicesObj.IdevicesArray.push(device)
-            this.logger.log('Idevice Array Len  AFTER ' + this.uiParams.devicesObj.IdevicesArray.length)
         }else {
             this.uiParams.devicesObj.DevicesArray.push(device);
         }
@@ -563,8 +561,8 @@ export class DataService {
     subscribeJsonLoad(component, callback) {
         return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));
     }
-    public initDeviceData(item,installed){
-    this.loadDeviceData(item,installed).then((data) => {
+    public initDeviceData(installed){
+    this.loadDeviceData(installed).then((data) => {
             if(installed) {
                 this.uiParams.devicesObj.IDeviceData = data;
                 this.iJsonLoadEmit();
@@ -628,7 +626,7 @@ export class DataService {
                 if(this.writeArray.length > this.writeCount){
                     this.writeArray = this.writeArray.slice(this.writeCount,this.writeArray.length);
                     this.sendData = this.sendData.slice(this.writeCount,this.sendData.length);
-                    this.uiParams.devicesObj.SelectedDevice.last_updated=(new Date).getTime();
+                    this.uiParams.devicesObj.DeviceData.last_updated=(new Date).getTime();
                 }
                 else {
                     this.writeArray = [];
@@ -692,30 +690,15 @@ export class DataService {
             return this.uiParams.devicesObj.DeviceData;
         }
     }
-    loadDeviceData(item,installed) {
+    loadDeviceData(installed) {
         if(installed){
             this.getParamsFromCloudForDevice(installed)
         }else {
-            if(item.deviceType == 'relay1c') {
-                return new Promise<Array<any>>(resolve => {
+             return new Promise<Array<any>>(resolve => {
                 this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });
-                
-            }else if(item.deviceType == 'mosfet1c') {
-                return new Promise<Array<any>>(resolve => {
-                this.http.get('assets/params.json').subscribe(response => {
-                        resolve(response.json());
-                    });
-                });
-            }else if(item.deviceType == 'daliMaster1c') {
-                return new Promise<Array<any>>(resolve => {
-                this.http.get('assets/params.json').subscribe(response => {
-                        resolve(response.json());
-                    });
-                });
-            }
         }
     }
 
@@ -1161,16 +1144,15 @@ export class DataService {
             }else {
             }
             this.setDevices(Detectors,true);
-            if(this.uiParams.devicesObj.SelectedDevice != undefined){
+            if(this.uiParams.devicesObj.DeviceData != undefined){
                 let isExists = false;
                 for(let  i= 0; i < Detectors.length; i++ ){
-                    if(Detectors[i].btAddress == this.uiParams.devicesObj.SelectedDevice.btAddress){
+                    if(Detectors[i].btAddress == this.uiParams.devicesObj.DeviceData.btAddress){
                         isExists =  true;
                     }
                 }
-                this.logger.log('is DEVICE EXISTS in installed ' + isExists + '  with address ' + this.uiParams.devicesObj.SelectedDevice.btAddress);
                 if(isExists == false){
-                    this.addDevice(this.uiParams.devicesObj.SelectedDevice,true);
+                    this.addDevice(this.uiParams.devicesObj.DeviceData,true);
                     this.updateInstalledDevicesToCloud()
                 }
             }
@@ -1194,16 +1176,15 @@ export class DataService {
             }else {
             }
             this.setDevices(Detectors,true);
-            if(this.uiParams.devicesObj.SelectedDevice != undefined){
+            if(this.uiParams.devicesObj.DeviceData != undefined){
                 let isExists = false;
                 for(let  i= 0; i < Detectors.length; i++ ){
-                    if(Detectors[i].btAddress == this.uiParams.devicesObj.SelectedDevice.btAddress){
+                    if(Detectors[i].btAddress == this.uiParams.devicesObj.DeviceData.btAddress){
                         isExists =  true;
                     }
                 }
-                this.logger.log('is DEVICE EXISTS in installed ' + isExists + '  with address ' + this.uiParams.devicesObj.SelectedDevice.btAddress);
                 if(isExists == false){
-                    this.addDevice(this.uiParams.devicesObj.SelectedDevice,true);
+                    this.addDevice(this.uiParams.devicesObj.DeviceData,true);
                     this.updateInstalledDevicesToCloud()
                 }
             }
@@ -1212,7 +1193,6 @@ export class DataService {
         }
     }
     updateInstalledDevicesToCloud(){
-
         if(this.networkParams.useCertAuth){
             this.uiParams.devicesObj.DetectorsObj = {
                 'detectors':this.uiParams.devicesObj.IdevicesArray
@@ -1257,19 +1237,19 @@ export class DataService {
     getParamsFromCloudForDevice(installed) {
         if(this.networkParams.useCertAuth){
             if(installed){
-                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.IDeviceData.btAddress;
                 this.getIDataWithCert(path);
             }else {
-                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                let path = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.DeviceData.btAddress;
                 this.getDataWithCert(path);
             }
         }else {
             if(this.uiParams.userLoggedIn ==  true) {
                 if(installed){
-                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.IDeviceData.btAddress;
                     this.getIData(url);
                 }else {
-                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.DeviceData.btAddress;
                     this.getData(url);
                 }
             }
@@ -1280,22 +1260,22 @@ export class DataService {
         if(this.networkParams.useCertAuth){
             if(installed){
                     let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
-                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.IDeviceData.btAddress;
                     this.putDataWithCert(url,bodyString);
                 }else{
                     let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
-                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                    let url = this.networkParams.certDeviceDataPath + this.uiParams.devicesObj.DeviceData.btAddress;
                     this.putDataWithCert(url,bodyString);
                 }
         }else {
             if(this.uiParams.userLoggedIn ==  true) {
                 if(installed){
                     let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
-                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.ISelectedDevice.btAddress;
+                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.IDeviceData.btAddress;
                     this.putData(url,bodyString);
                 }else{
                     let bodyString = JSON.stringify(this.uiParams.devicesObj.DeviceData);
-                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.SelectedDevice.btAddress;
+                    let url = this.networkParams.deviceDataUrl + this.uiParams.devicesObj.DeviceData.btAddress;
                     this.putData(url,bodyString);
                 }
             }

@@ -32,10 +32,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     jsonLoadObserve: any;
     connectDeviceObj:any; 
     snap:RouterStateSnapshot;
+    isDeviceConnected =  false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetector(item){
-      this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         this.connectDeviceObj = new connectDevice(item.btAddress);
@@ -112,13 +112,17 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
+    if(this.isDeviceConnected == true){
       component.data.setProfileSwitch(false);
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
+    }
   }
+
   ngOnDestroy() {
     this.data.resetSendData();
   }
   onDeviceConnected(address){
-    this.jsonOnLoad(this);
+    this.isDeviceConnected = true;
+    this.data.initDeviceData(false);
   }
 }

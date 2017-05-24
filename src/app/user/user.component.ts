@@ -33,10 +33,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     scannedData:Array<any>;
     connectDeviceObj:any;
     snap:RouterStateSnapshot;
+    isDeviceConnected = false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute) {
     }
   configureDetectorUser(item){
-      this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         this.connectDeviceObj = new connectDevice(item.btAddress);
@@ -93,7 +93,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   ngOnInit () {
     this.data.setActiveComponent(this);
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
-        this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     if(this.data.DeviceBuild == 1){
       this.scannedData = this.data.getScannedData();
       this.setScannedData();
@@ -115,15 +114,18 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
 
   jsonOnLoad(component) {
+     if(this.isDeviceConnected == true){
       component.data.setProfileSwitch(false);
       component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
+     }
   }
   ngOnDestroy() {
     this.data.resetSendData();
   }
 
   onDeviceConnected(address){
-    this.jsonOnLoad(this);
+     this.isDeviceConnected = true
+     this.data.initDeviceData(false);
   }
 
 }

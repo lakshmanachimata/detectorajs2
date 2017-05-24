@@ -108,6 +108,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     
   onBLEdata() {
     this.loadingDataDone =  true;
+    this.setDeviceInfo();
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
         this.data.setEDevParamsState(0);
@@ -118,9 +119,21 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = value;
   }
 
-
-  onDeviceConnected(deviceAddress){
-    this.loadingDataDone = false;
-    this.data.readData(this.readAttrs);
+  setDeviceInfo(){
+    let data = this.data.getSelectedDevice(false);
+    this.ad.btDeviceName = data.btDeviceName;
+    this.ad.btAddress = data.btAddress;
+    this.ad.modelNumber = data.modelNumber;
+    this.ad.deviceType = data.deviceType;
+    this.ad.contactName = data.contactName;
+    this.ad.buildingName = data.buildingName;
+    this.ad.createdDate = data.createdDate;
+    this.ad.fwupdate = data.fwupdate;
+    this.ad.modelType = data.modelType;
+    this.ad.firmwareVersion = data.firmwareVersion;
+    this.ad.rssi = data.rssi;
+    this.ad.updatedDate = data.updatedDate;
+    this.ad.profileName = data.profileName;
+    this.ad.btDeviceName = data.btDeviceName;
   }
 }
