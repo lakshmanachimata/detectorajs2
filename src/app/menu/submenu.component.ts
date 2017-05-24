@@ -30,8 +30,8 @@ import {HTTPCODES} from '../data.service'
 export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     subMenuState = 'none';
     arrowStateObserve: any;
-    public username = ''
-    public password = ''
+    public username = 'lakshmana'
+    public password = 'Abb@123456'
     detectors:Array<any>;
     selectedSortType = 'modelType';
     heloText = "Download Manuals";
@@ -107,7 +107,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
 
     InstallerItemClick(item) {
         this.data.setSelectedDevice(item,true);
-        this.data.getParamsFromCloudForDevice(true)
+        //this.data.getParamsFromCloudForDevice(true)
         this.loadingInstalleDeviceData =  true;
     }
     searchDetectors(items) {
@@ -314,8 +314,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             this.showErrorDialog()
             this.data.uiParams.userLoggedIn = false;
         }
-        else if(errorCode == HTTPCODES.NOT_FOUND)
-            this.data.putDevicesToCloud();
+        // else if(errorCode == HTTPCODES.NOT_FOUND)
+        //     this.data.putDevicesToCloud();
         else if(errorCode >= HTTPCODES.SERVER_ERR_START)
             this.showTryDialog();
    }
@@ -339,7 +339,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
       });
    }
    syncNow(){
-    //this.data.syncDataNow(true);
+    this.data.syncDataNow(true);
    }
    toggleAS(){
        this.autoSync = !this.autoSync;

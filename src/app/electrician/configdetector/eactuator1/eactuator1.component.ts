@@ -305,8 +305,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     byteData.push(hours);
     byteData.push(minutes);
     byteData.push(seconds);
-    this.logger.log(" getBytesFromTime are " + byteData.join(","))
-
     return byteData;
   }
 

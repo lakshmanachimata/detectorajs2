@@ -94,7 +94,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
-        this.data.setDevices(this.detectors,false);
+        //this.data.setDevices(this.detectors,false);
     }
   }
 
@@ -112,7 +112,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
-    if(this.isDeviceConnected == true){
+    if(component.isDeviceConnected == true){
       component.data.setProfileSwitch(false);
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
     }

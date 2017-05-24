@@ -218,7 +218,6 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       bytes = bytes.concat([code]);
     }
     bytes.concat[0];
-    this.logger.log("contact is " + bytes.join(','))
     this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,bytes])
   }
   BuildingChanged() {
@@ -228,7 +227,6 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       bytes = bytes.concat([code]);
     }
     bytes.concat[0];
-    this.logger.log("building is " + bytes.join(','))
     this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,this.ad.building])
   }
   togglepbr(){

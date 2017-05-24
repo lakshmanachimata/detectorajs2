@@ -3,7 +3,7 @@ var welcomecomponent;
 var appDataService;
 var scannedDevices;
 var BJE;
-var debugLogs = true;
+var debugLogs = false;
 
 function setDevicesCallBack(component) {
     welcomecomponent = component;
@@ -139,8 +139,8 @@ function prepareAttributeArray(indata) {
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
-            // if(debugLogs ==  true)
-            //     console.log("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+            if(debugLogs ==  true)
+                console.log("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
@@ -378,7 +378,8 @@ function setDataServiceCallBack(dataService) {
             frame.push(0x08); // CONTROL DEVICE
             frame.push(0x00); // SEQUENCE
             frame.push(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST); // command
-            console.log("data length is " + data.length)
+            if(debugLogs == true)
+                console.log("data length is " + data.length)
             for (var i=0; i < data.length; i+=1) {
                 var val = data[i];
                 frame.push(val & 0x00ff); // ADDR LOW
