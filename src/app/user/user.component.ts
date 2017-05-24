@@ -17,8 +17,8 @@ export class DetectorInfo {
         public rssi;
         public contactName;
         public buildingName;
-        public date;
-        public last_updated;
+        public createdDate;
+        public updatedDate;
     }
 
 @Component({
@@ -38,8 +38,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   configureDetectorUser(item){
       this.data.initDeviceData(item,false);
       this.data.setSelectedDevice(item,false);
-      if(this.data.DeviceBuild == 1)
+      if(this.data.DeviceBuild == 1) {
         this.connectDeviceObj = new connectDevice(item.btAddress);
+      }
   }
 
  setScannedData(){
@@ -54,8 +55,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.btAddress = this.scannedData[i].btAddress;
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
-        detectorInfo.date="07.07.2017",
-        detectorInfo.last_updated = this.data.getUTCDateFormat();
+        detectorInfo.createdDate=this.data.getFormattedDate();
+        detectorInfo.updatedDate = this.data.getUTCDateFormat();
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
@@ -90,6 +91,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     this.snap = this.router.routerState.snapshot;
   }
   ngOnInit () {
+    this.data.setActiveComponent(this);
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
         this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     if(this.data.DeviceBuild == 1){
@@ -119,4 +121,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   ngOnDestroy() {
     this.data.resetSendData();
   }
+
+  onDeviceConnected(address){
+    this.jsonOnLoad(this);
+  }
+
 }

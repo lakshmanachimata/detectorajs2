@@ -13,6 +13,9 @@ function BJ_updateScanList() {
     welcomecomponent.onDevices(devData);
 }
 
+function setWebLanguage(data){
+    var lang = data.language;
+}
 
 function connectDevice(deviceAddress){
     if(BJE != undefined)

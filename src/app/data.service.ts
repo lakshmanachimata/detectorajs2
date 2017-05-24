@@ -814,6 +814,13 @@ export class DataService {
         }
     }
 
+
+   getFormattedDate() {
+        var date = new Date();
+        var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        return str;
+    }
+
     handleGetResponseData(data){
         let strFormat =  JSON.stringify(data);
         let Detectors = data.detectors;

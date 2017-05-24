@@ -419,6 +419,7 @@ slideBackground (value) {
 
   setLoadingDataDone(value){
     this.loadingDataDone = value;
+    this.data.checkAndAddDeviceToInstalledDevices();
   }
 
   onDeviceConnected(deviceAddress){

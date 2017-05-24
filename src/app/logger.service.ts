@@ -9,20 +9,21 @@ export class LoggerService {
 
   log(msg: any)   { 
     if(this.logData == true)
-      console.log(msg + '     ' + this.getFormattedDate());
+      console.log(msg + '     ' + this.getFormattedDateTime());
    }
   error(msg: any) { 
     if(this.logWarn == true)
-      console.error(msg+ '     ' + this.getFormattedDate()); 
+      console.error(msg+ '     ' + this.getFormattedDateTime()); 
   }
   warn(msg: any)  { 
     if(this.logErr == true)
-    console.warn(msg+ '     ' + this.getFormattedDate()); 
+    console.warn(msg+ '     ' + this.getFormattedDateTime()); 
   }
   
-   getFormattedDate() {
+   getFormattedDateTime() {
     var date = new Date();
     var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();
     return str;
   }
+
 }

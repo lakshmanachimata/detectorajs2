@@ -15,8 +15,8 @@ export class DetectorInfo {
         public rssi;
         public contactName;
         public buildingName;
-        public date;
-        public last_updated;
+        public createdDate;
+        public updatedDate;
     }
 
 declare var connectDevice;
@@ -39,7 +39,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         this.connectDeviceObj = new connectDevice(item.btAddress);
-        this.data.checkAndAddDeviceToInstalledDevices();
       }
   }
   ngOnChanges(changes) { 
@@ -56,6 +55,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.snap = this.router.routerState.snapshot;
   }
   ngOnInit () {
+    this.data.setActiveComponent(this);
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     if(this.data.DeviceBuild == 1){
       this.scannedData = this.data.getScannedData();
@@ -89,8 +89,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.btAddress = this.scannedData[i].btAddress;
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
-        detectorInfo.date="07.07.2017",
-        detectorInfo.last_updated = this.data.getUTCDateFormat();
+        detectorInfo.createdDate=this.data.getFormattedDate();
+        detectorInfo.updatedDate = this.data.getUTCDateFormat();
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
@@ -117,5 +117,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnDestroy() {
     this.data.resetSendData();
+  }
+  onDeviceConnected(address){
+    this.jsonOnLoad(this);
   }
 }
