@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter;
     private Handler mHandler;
     Animation out;
-
+    Locale currentLocale;
     ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
     BluetoothGattCharacteristic writeCharecteristic;
 
@@ -191,12 +191,44 @@ public class MainActivity extends Activity {
         PackageInfo pInfo = null;
         String buildDate= "2017-05-18\n17:30:00";
         mHandler = new Handler();
+        currentLocale = getResources().getConfiguration().locale;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();//zf.close here
         }
+
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+
+
+        mainScreen = View.inflate(activity, R.layout.activity_main, null);
+        addContentView(mainScreen, lp);
+        mainScreen.setVisibility(View.INVISIBLE);
+        in = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
+        in.setDuration(2500);//TODO: instead of static duration value,animate as soon as webview is loaded
+
+
+        splashScreen = View.inflate(activity,R.layout.activity_splash,null);
+        addContentView(splashScreen, lp);
+
+        webview = (WebView) findViewById(R.id.webViewMain);
+
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setDomStorageEnabled(true);
+        webview.getSettings().setUseWideViewPort(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
+            webview.getSettings().setAllowFileAccessFromFileURLs(true);
+            webview.clearCache(true);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webview.setWebContentsDebuggingEnabled(true);
+        }
+
+        webInterface = new WebInterface(MainActivity.this);
+        webview.addJavascriptInterface(webInterface,"BJE");
+
 
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             verifyStoragePermissions(MainActivity.this);
@@ -210,10 +242,8 @@ public class MainActivity extends Activity {
 
         // Checks if Bluetooth is supported on the device.
 
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-        splashScreen = View.inflate(activity,R.layout.activity_splash,null);
-        addContentView(splashScreen, lp);
-        webInterface = new WebInterface(MainActivity.this);
+
+
 
         TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
         String logoText = "BJE\n presence\n detector";
@@ -224,18 +254,6 @@ public class MainActivity extends Activity {
         String versionText = "Version "+version+"\n"+ buildDate;
         tvVersion.setText(versionText);
 
-        mainScreen = View.inflate(activity, R.layout.activity_main, null);
-        addContentView(mainScreen, lp);
-        mainScreen.setVisibility(View.INVISIBLE);
-        in = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
-        in.setDuration(2500);//TODO: instead of static duration value,animate as soon as webview is loaded
-        webview = (WebView) findViewById(R.id.webViewMain);
-        webview.addJavascriptInterface(webInterface,"BJE");
-
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setDomStorageEnabled(true);
-        webview.getSettings().setUseWideViewPort(true);
-
 
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -244,14 +262,9 @@ public class MainActivity extends Activity {
             window.setStatusBarColor(activity.getResources().getColor(android.R.color.black));
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
-            webview.getSettings().setAllowFileAccessFromFileURLs(true);
-            webview.clearCache(true);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webview.setWebContentsDebuggingEnabled(true);
-        }
+
+
+
 
         webview.setWebViewClient(new WebViewClient() {
 
@@ -268,7 +281,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view,url,favicon);
+                setLanguageToWeb(currentLocale);
             }
 
             @Override
@@ -370,6 +383,19 @@ public class MainActivity extends Activity {
             },5000);
         }
 
+
+    void setLanguageToWeb(Locale locale){
+        try {
+            JSONObject jsonObject =  new JSONObject();
+            jsonObject.put("language",locale.toString());
+            String deviceData = "";
+                deviceData = deviceData + "setWebLanguage(";
+            deviceData = deviceData + jsonObject.toString() + ")";
+            webview.evaluateJavascript(deviceData, null);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     SSLContext sslContext;
     void addDevice(String btAddress,String filename){
 
