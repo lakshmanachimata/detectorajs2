@@ -72,7 +72,7 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
         if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
         }
-        this.data.setActiveComponent(this);
+        this.data.setIActiveComponent(this);
     }
     ngOnDestroy() {
     }

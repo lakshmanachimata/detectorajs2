@@ -39,7 +39,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   configureDetectorUser(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.connectDeviceObj = new connectDevice(item.btAddress);
+        this.data.connectDevice(item.btAddress);
       }
   }
 
@@ -60,7 +60,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
-      //this.data.setDevices(this.detectors,false);
     }
   }
 

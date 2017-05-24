@@ -107,7 +107,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
 
     InstallerItemClick(item) {
         this.data.setSelectedDevice(item,true);
-        //this.data.getParamsFromCloudForDevice(true)
+        this.data.getIDevicesFromCloud();
         this.loadingInstalleDeviceData =  true;
     }
     searchDetectors(items) {

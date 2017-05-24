@@ -397,6 +397,7 @@ slideBackground (value) {
 
   ngOnDestroy() {
     this.data.resetSendData();
+    this.data.disConnectDevice(this.ad.btAddress);
   }
   gotoActuator1(){
     this.router.navigate(['eactuator1'],{relativeTo: this.route});
@@ -412,6 +413,8 @@ slideBackground (value) {
   onBLEdata() {
     this.loadingDataDone =  true;
     this.setDeviceInfo();
+    this.data.addDevice(this.ad,false);
+    this.data.checkAndAddDeviceToInstalledDevices();
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
         this.data.setEDevParamsState(0);
@@ -433,5 +436,8 @@ slideBackground (value) {
     this.ad.updatedDate = data.updatedDate;
     this.ad.profileName = data.profileName;
     this.ad.btDeviceName = data.btDeviceName;
+  }
+  setLoadingDataDone(value){
+    this.loadingDataDone = value;
   }
 }

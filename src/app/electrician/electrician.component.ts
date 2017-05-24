@@ -19,7 +19,7 @@ export class DetectorInfo {
         public updatedDate;
     }
 
-declare var connectDevice;
+
 @Component({
   selector: 'electrician-root',
   templateUrl: './electrician.component.html',
@@ -38,7 +38,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   configureDetector(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.connectDeviceObj = new connectDevice(item.btAddress);
+        this.data.connectDevice(item.btAddress);
       }
   }
   ngOnChanges(changes) { 
@@ -94,7 +94,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.contactName = this.scannedData[i].manufacturerName;
         this.detectors.push(detectorInfo);
       }
-        //this.data.setDevices(this.detectors,false);
     }
   }
 
