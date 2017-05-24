@@ -325,6 +325,7 @@ export class DataService {
 
     setScannedData(scanned){
         this.scanneddata = scanned;
+        this.activeComponent.setScannedData();
     }
     getScannedData() {
         return this.scanneddata;
@@ -371,10 +372,27 @@ export class DataService {
         }
     }
     addDevice(device,installed) {
+        let foundDevice = false;
         if(installed){
-            this.uiParams.devicesObj.IDevicesArray.push(device)
+            for(let i = 0; i< this.uiParams.devicesObj.IDevicesArray.length; i++){
+                if(device.btAddress == this.uiParams.devicesObj.IDevicesArray[i].btAddress){
+                    this.uiParams.devicesObj.IDevicesArray[i] = device;
+                    foundDevice = true;
+                    break;
+                }
+            }
+            if(foundDevice == false)
+                this.uiParams.devicesObj.IDevicesArray.push(device)
         }else {
-            this.uiParams.devicesObj.DevicesArray.push(device);
+             for(let i = 0; i< this.uiParams.devicesObj.DevicesArray.length; i++){
+                if(device.btAddress == this.uiParams.devicesObj.DevicesArray[i].btAddress){
+                    this.uiParams.devicesObj.DevicesArray[i] = device;
+                    foundDevice = true;
+                    break;
+                }
+            }
+            if(foundDevice == false)
+                this.uiParams.devicesObj.DevicesArray.push(device);
         }
     }
     setDevices(devices,installed) {
@@ -1239,12 +1257,16 @@ export class DataService {
                 this.putData(path,bodyString);
         }else{
             if(this.uiParams.userLoggedIn){
+                this.logger.log("BEFORE LENGTH " + this.uiParams.devicesObj.IDevicesArray.length);
                 for(let i = 0; i < this.uiParams.devicesObj.IDevicesArray.length; i++){
                     if(this.uiParams.devicesObj.DeviceData.btAddress == this.uiParams.devicesObj.IDevicesArray[i].btAddress){
+                        this.logger.log("BEFORE CHANGE" + JSON.stringify(this.uiParams.devicesObj.IDevicesArray))
                         this.uiParams.devicesObj.IDevicesArray[i] = this.uiParams.devicesObj.DeviceData;
+                        this.logger.log("BEFORE CHANGE" + JSON.stringify(this.uiParams.devicesObj.IDevicesArray))
                         break;
                     }
                 }
+                this.logger.log("AFTER LENGTH " + this.uiParams.devicesObj.IDevicesArray.length);
                 this.uiParams.devicesObj.DetectorsObj = {
                     'detectors':this.uiParams.devicesObj.IDevicesArray
                 }
