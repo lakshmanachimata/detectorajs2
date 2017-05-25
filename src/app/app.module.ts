@@ -46,8 +46,10 @@ import {SharedModule} from './shared/shared.module';
 export class AppModule {
     constructor(public logger: LoggerService,
     public data: DataService) {
-      if(navigator.platform.toLowerCase().indexOf('linux') >  0 ||
-        navigator.platform.toLowerCase().indexOf('iphone') > 0){
+      let aindex =  navigator.platform.toLowerCase().indexOf('linux');
+      let iindex = navigator.platform.toLowerCase().indexOf('iphone');
+      if( aindex >=  0 ||
+         iindex >= 0){
           this.data.DeviceBuild = 1;
         }else {
           this.data.DeviceBuild = 0;

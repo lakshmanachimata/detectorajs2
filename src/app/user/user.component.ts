@@ -40,7 +40,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   configureDetectorUser(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.data.connectDevice(item.btAddress);
+        this.data.setEOptionText('OK');
+        this.data.setShowEModal(true);
+        //this.data.connectDevice(item.btAddress);
       }
       else {
         this.isDeviceConnected = true;
