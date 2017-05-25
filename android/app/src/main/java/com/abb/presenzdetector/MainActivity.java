@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 5 seconds.
-    private static final long SCAN_PERIOD = 5000;
+    private static final long SCAN_PERIOD = 15 * 60 * 1000;
 
 
     boolean getDeviceInfo =  false;
@@ -281,7 +281,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                setLanguageToWeb(currentLocale);
+                super.onPageStarted(view, url, favicon);
             }
 
             @Override
@@ -694,9 +694,13 @@ public class MainActivity extends Activity {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 //addDevice(mBluetoothLeService.getGatt().getDevice().getAddress(),myFile);
+                if(scanner != null)
+                    scanner.stopScan(bleCallback);
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
+                if(scanner != null)
+                    scanner.startScan(bleCallback);
             }
             else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -892,11 +896,16 @@ public class MainActivity extends Activity {
                     String devicesdata =  "updateScanList(";
                     devicesdata = devicesdata + myCustomArray.toString();
                     devicesdata = devicesdata + ")";
-                    if(scannedDevices.size() > 0)
-                        Toast.makeText(getApplicationContext(),"Devices Discovered",Toast.LENGTH_LONG).show();
+//                    if(scannedDevices.size() > 0)
+//                        Toast.makeText(getApplicationContext(),"Devices Discovered",Toast.LENGTH_LONG).show();
+//                    else
+//                        Toast.makeText(getApplicationContext(),"DEMO MODE",Toast.LENGTH_LONG).show();
+                    if(scannedDevices.size() > 0) {
+                        webview.evaluateJavascript(devicesdata, null);
+                        Log.d("BJDETECTOR ", "devices are " + devicesdata);
+                    }
                     else
-                        Toast.makeText(getApplicationContext(),"DEMO MODE",Toast.LENGTH_LONG).show();
-                    webview.evaluateJavascript(devicesdata,null);
+                        Toast.makeText(getApplicationContext(),"NO DEVICES FOUND",Toast.LENGTH_LONG).show();
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1020,6 +1029,8 @@ public class MainActivity extends Activity {
                                     if(deviceInfo.modelNumber.contains("01"))
                                             deviceInfo.deviceType = "relay1c";
                                     scannedDevices.add(deviceInfo);
+                                    if(scannedDevices.size() >0)
+                                        sendDeviceInfo();
                                 }
                             }
                         }
@@ -1072,10 +1083,7 @@ public class MainActivity extends Activity {
                 public void run() {
                     if(scanner != null) {
                         scanner.stopScan(bleCallback);
-                        if(scannedDevices.size() >0)
-                            sendDeviceInfo();
                     }
-
                 }
             }, SCAN_PERIOD);
 

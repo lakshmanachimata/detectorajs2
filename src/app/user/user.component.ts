@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
@@ -34,7 +34,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     connectDeviceObj:any;
     snap:RouterStateSnapshot;
     isDeviceConnected = false;
-    constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute) {
+    constructor(public logger: LoggerService,public data: DataService, private router:Router,
+    private route: ActivatedRoute,private zone:NgZone) {
     }
   configureDetectorUser(item){
       this.data.setSelectedDevice(item,false);
@@ -45,6 +46,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
  setScannedData(){
     this.detectors= [];
+    this.scannedData = this.data.getScannedData();
     if(this.scannedData != undefined) {
       for(let i =0; i < this.scannedData.length; i++)
       {
@@ -61,6 +63,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.detectors.push(detectorInfo);
       }
     }
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.data.setMainTitle('Detectors');
+         this.data.setEDevParamsState(0);
+      });
   }
 
     getSignalRange(item){
@@ -93,7 +99,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     this.data.setActiveComponent(this);
     this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     if(this.data.DeviceBuild == 1){
-      this.scannedData = this.data.getScannedData();
       this.setScannedData();
       this.data.resetSendData();
     }
