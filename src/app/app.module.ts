@@ -46,6 +46,8 @@ import {SharedModule} from './shared/shared.module';
 export class AppModule {
     constructor(public logger: LoggerService,
     public data: DataService) {
+      this.logger.log('USER AGENT IS '+ navigator.userAgent);
+      this.logger.log('PLATFORM IS '+ navigator.platform);
       data.initDevices();
      }
  }
