@@ -217,6 +217,7 @@ export class UIParams {
       lastSynced = '';
       subMenuComponent = undefined;
       autoSync = true;
+      inputHint ='';
 }
 
 export class DeviceParams {
@@ -557,6 +558,13 @@ export class DataService {
         this.uiParams.showEModal = item;
     }
 
+    getEDialogInputHint(){
+        return this.uiParams.inputHint;
+    }
+
+    setEDialogInputHint(hint){
+        this.uiParams.inputHint = hint;
+    }
     setProfileName(profilename){
         this.uiParams.profileName = profilename;
     }

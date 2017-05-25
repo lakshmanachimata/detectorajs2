@@ -9,13 +9,13 @@ import { DataService } from '../data.service';
 })
 
 export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
-    profilename = '';
+    inputtext = '';
   constructor(public logger: LoggerService,private router:Router,public data:DataService) {     
   }
   ngOnChanges(changes) { 
   }
   ngOnInit() { 
-       this.profilename = this.data.getProfileName();
+       this.inputtext = this.data.getProfileName();
   }
   ngDoCheck() { 
   }
@@ -24,14 +24,14 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   ngAfterContentChecked() { 
   }
   ngAfterViewInit() { 
-      this.profilename = this.data.getProfileName();
   }
   ngAfterViewChecked() { 
-      this.profilename = this.data.getProfileName();
   }
   ngOnDestroy() { 
   }
-
+  getInputHint(){
+    return this.data.getEDialogInputHint();
+  }
   getArrowType() {
   }
   public getHeader() {
@@ -56,7 +56,7 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   getOptionsCount(){
   }
   getOptionText(){
-      this.data.getEOptionText();
+      return this.data.getEOptionText();
   }
   getDialiogTitleColor(){
   }

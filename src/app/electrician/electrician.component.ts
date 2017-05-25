@@ -40,6 +40,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         this.data.setEOptionText('OK');
+        this.data.setDialogTitle('Enter password for detector')
         this.data.setShowEModal(true);
         //this.data.connectDevice(item.btAddress);
       }

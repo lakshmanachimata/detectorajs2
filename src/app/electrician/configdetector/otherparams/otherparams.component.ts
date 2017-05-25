@@ -136,7 +136,9 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
 
   showAddUserProfie(){
+    this.data.setProfileName('');
     this.data.setDialogTitle('Name of new profile')
+    this.data.setEDialogInputHint('Name of new profile')
     this.data.setShowEModal(true);
   }
 
