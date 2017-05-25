@@ -49,12 +49,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         manager = CBCentralManager(delegate: self, queue: nil)
     }
     
-    func scan() {
-        manager?.scanForPeripherals(withServices: nil, options: nil);
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            print("stop scanning")
-            self.manager?.stopScan()
-            self.getScannedDevices()
+    func startscan() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.manager?.scanForPeripherals(withServices: nil, options: nil);
         }
     }
     
@@ -100,13 +97,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 self.webView?.evaluateJavaScript(script);
             }
         }
-        if(self.scannedDevices.count > 0)
-        {
-            self.mainView?.showToast(message: "Devices Discovered")
-        }
-        else {
-            self.mainView?.showToast(message: "DEMO MODE")
-        }
         
     }
     
@@ -115,7 +105,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
             print("Bluetooth available.")
-            scan();
+            startscan();
         } else {
             print("Bluetooth not available.")
         }
@@ -200,6 +190,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     peripherals.append(peripheral);
                     
                 }
+                self.getScannedDevices();
             }
         }
     }
