@@ -1,10 +1,10 @@
 <div class="bj-installed-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
 	
 	<div class="bj-sensor-setting">
-		<label class="section">Sensor settings</label>
+		<label class="section" i18n>Sensor settings</label>
 		<div>
 			<label>Block potentiometer setting</label>
-			<span *ngIf="ad.potentiometerMode == 0">Enabled</span>
+			<span *ngIf="ad.potentiometerMode == 0" i18n>Enabled</span>
 			<span *ngIf="ad.potentiometerMode == 1">Disabled</span>
 			<span *ngIf="ad.potentiometerMode == 2">Limited</span>
 		</div>
@@ -27,7 +27,7 @@
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
-		<label>Consider slave brightness</label>
+		<label i18n>Consider slave brightness</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
 			<span *ngIf="ad.constantLightControlEnable == false">off</span>
 		</div>
@@ -45,7 +45,7 @@
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
-		<label>Short-time pulse</label>
+		<label i18n>Short-time pulse</label>
 			<span *ngIf="ad.shortTimePulseEnable == true">ON</span>
 			<span *ngIf="ad.shortTimePulseEnable == false">OFF</span>
 		</div>
@@ -56,22 +56,22 @@
 		</div>
 		
 		<div (click)="gotoInstalledParams('additional','Additional sensor parameters')">
-		<label>Additional sensor parameters</label>
+		<label i18n>Additional sensor parameters</label>
 		<next-nav></next-nav>
 		</div>
 
   
-	  	<label class="section">Operating mode</label>
+	  	<label class="section" i18n>Operating mode</label>
 	  	<div>
-	  	<label>Operating mode</label>
-	  		<span *ngIf="ad.operationMode == 0">Automatic</span>
-			<span *ngIf="ad.operationMode == 1">Semiautomatic</span>
-			<span *ngIf="ad.operationMode == 2">Semiautomatic comfort</span>
+	  	<label i18n>Operating mode</label>
+	  		<span *ngIf="ad.operationMode == 0" i18n>Automatic</span>
+			<span *ngIf="ad.operationMode == 1" i18n>Semiautomatic</span>
+			<span *ngIf="ad.operationMode == 2" i18n>Semiautomatic, comfort</span>
 	  	</div>
   
   
  
-	  <label class="section">Actuator settings</label>
+	  <label class="section" i18n>Actuator settings</label>
 	  
 	 <div (click)="gotoInstalledParams('actuator1','Settings of actuator1')">
 	  <label>Setttings of actuator 1</label>
@@ -97,7 +97,7 @@
 	   </div>
 	   
 	    <div (click)="gotoInstalledParams('emonitor','Energy monitor')">
-	   <label>Energy Monitor</label>
+	   <label i18n>Energy Monitor</label>
 	   	<next-nav></next-nav>
 	   </div>
 

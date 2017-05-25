@@ -264,7 +264,7 @@
            </span>
     </div>
     <div class="bj-config-setting-div energy-monitor-div" >
-        <label class="bj-config-setting energy-monitor-block">Energy monitor</label>
+        <label class="bj-config-setting energy-monitor-block" i18n>Energy monitor</label>
            <span class="bj-config-toggle-switch">
                <div class="track"  (click)="toggleem()"  [(ngModel)]="ad.enableUserEnergyMonitor" [ngStyle]="{'border-color': ad.enableUserEnergyMonitor == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.enableUserEnergyMonitor == true">{{onLabel}}</label>

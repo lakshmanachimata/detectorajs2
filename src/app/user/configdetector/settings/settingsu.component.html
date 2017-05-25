@@ -14,7 +14,7 @@
     </div>
 </div>
 <div id="bj-user-sensor-div">
-    <label class="bj-config-lbl user-sensor-div">Sensor settings</label>
+    <label class="bj-config-lbl user-sensor-div" i18n>Sensor settings</label>
     <div class="bj-config-setting-block-div brightness-user-div">
         <label class="bj-config-setting-block-lbl brightness-user-function">Brightness threshold ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} lux)</label>
         <div class="bj-config-setting-adjust brightness-user-function">
@@ -24,7 +24,7 @@
             <div class="adjust-plus user" long-press (click)="increaseCount('brightness',true)" (onLongPressEnd)="increaseCount('brightness',true)" (onLongPressing)="increaseCount('brightness',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
         <div class = "bj-current-val">
-            <label class="bj-config-setting-block-lbl brightness-user-function">Take over current brightness</label>
+            <label class="bj-config-setting-block-lbl brightness-user-function" i18n>Take over current brightness</label>
             <input class="adjust-value brightness-user-function" type="number" (keyup)="setCurrentBr($event)"   [(ngModel)]="ad.currentBrightness">
         </div>
     </div>

@@ -6,6 +6,110 @@
         <source>Welcome</source>
         <target/>
       </trans-unit>
+      <trans-unit id="7d039e1807900f81c758bc1906a67ceb027eebb8" datatype="html">
+        <source>Please select your user type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ae32135acfc24ce97ff81cc4388f9ab41fb360ca" datatype="html">
+        <source>Standard User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d36e31a5b7bf16e6b29bedbe3a1d8637ba427c1a" datatype="html">
+        <source>Installer</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="95ace2884c9ce05aaa685bfa3f3236020cb6d557" datatype="html">
+        <source>Standard user</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
+        <source>Sensor settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="f50a33d3c339f8f4a465141f8caa5d2d8c005251" datatype="html">
+        <source>Enabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
+        <source>Consider slave brightness</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8de07d06cee8306340a068988a14bc076dad2a1d" datatype="html">
+        <source>Short-time pulse</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
+        <source>Additional sensor parameters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7da76c2bc6532563e2ab6c62b5f6dd2bcc972431" datatype="html">
+        <source>Operating mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61fe3182398294e32542590867e87cb4432f1537" datatype="html">
+        <source>Automatic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41f81fefc1f6addc7cb35e3e1f0e674ff0b2e02d" datatype="html">
+        <source>Semiautomatic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c44989f9463a5d2cda6d1e85db35ee834a6db56d" datatype="html">
+        <source>Semiautomatic, comfort</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4ce29d022d7307462954c14c64acabf6112dee77" datatype="html">
+        <source>Actuator settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="479e9bb35acae729910a6cd91a42418af3149eb9" datatype="html">
+        <source>Energy Monitor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8758c473c8b2e9ccbc687c463a8198ba5368c2a8" datatype="html">
+        <source>Potentiometers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1d3781d7296d4b4e04e7f023aec1052fb2955c4d" datatype="html">
+        <source>Blocked</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
+        <source>Limit access after power cycle</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
+        <source>Take over current brightness</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7edf4afd03833a4ee61e527c9a5d79b1a6e96ee5" datatype="html">
+        <source>Smallest brightness value as reference</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23b7924ad701ddff75c82c41403c22f4ff83badb" datatype="html">
+        <source>Actuator 1</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ba5cfb0eaa7bc16b549541ef935a35e2d30899fa" datatype="html">
+        <source>Actuator 2</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6b31a7d1b8dec59bca4b7a48fb173b860f2ab288" datatype="html">
+        <source>Service functions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fe593469864af22709d7e3dd8a7fb2fc9ebb8d0b" datatype="html">
+        <source>Test mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fa5913839f46f88864a6479662fd4390087621e0" datatype="html">
+        <source>Energy monitor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6d0e8de0d36a9f5ae128fa4e3d13d8a958e17476" datatype="html">
+        <source>Enabled by push button</source>
+        <target/>
+      </trans-unit>
     </body>
   </file>
 </xliff>

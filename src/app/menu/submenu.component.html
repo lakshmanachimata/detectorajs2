@@ -18,8 +18,8 @@
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState">
     <div id="bj-switch-mode-div">
         <label class="bj-lbl">Selected user profile</label>
-        <div><label class="bj-config-setting ">Installer</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
-        <div><label class="bj-config-setting">Standard user</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
+        <div><label class="bj-config-setting " i18n>Installer</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
+        <div><label class="bj-config-setting" i18n>Standard user</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
     </div>
 </div>
 
