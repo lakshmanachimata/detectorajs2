@@ -43,6 +43,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.data.setShowEModal(true);
         //this.data.connectDevice(item.btAddress);
       }
+      else {
+        this.isDeviceConnected = true;
+        this.data.initDeviceData(false);
+      }
   }
   ngOnChanges(changes) { 
   }

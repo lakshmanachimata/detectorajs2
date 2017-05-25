@@ -42,6 +42,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       if(this.data.DeviceBuild == 1) {
         this.data.connectDevice(item.btAddress);
       }
+      else {
+        this.isDeviceConnected = true;
+        this.data.initDeviceData(false);
+      }
   }
 
  setScannedData(){
