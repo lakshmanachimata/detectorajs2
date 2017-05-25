@@ -1,27 +1,28 @@
 import './polyfills.ts';
-
+import { enableProdMode,TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID,Provider,PlatformRef ,Injectable} from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-//import { enableProdMode } from '@angular/core';
-import { enableProdMode,TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID } from '@angular/core';
 import { environment } from './environments/environment';
+import { i18n_Lang_Defs } from  './app/i18n-data';
 import { AppModule } from './app/app.module';
 
-import { i18n_Lang_Defs } from  './app/i18n-data';
 
 
 if (environment.production) {
   enableProdMode();
 }
- 
-let langs:i18n_Lang_Defs = new i18n_Lang_Defs(navigator.language);
- 
-platformBrowserDynamic().bootstrapModule(
+let langs:i18n_Lang_Defs = new i18n_Lang_Defs();
+
+let appRef:PlatformRef =platformBrowserDynamic();
+appRef.bootstrapModule(
          AppModule,
-         {providers: [
-           {provide: TRANSLATIONS, useValue: langs.getTranslations()},
-           {provide:TRANSLATIONS_FORMAT, useValue:'xlf'},
-           {provide:LOCALE_ID, useValue:langs.userLanguageCode}
-         ]}
+         {
+            providers: 
+            [
+              {provide: TRANSLATIONS, useValue: langs.getTranslations()},
+              {provide:TRANSLATIONS_FORMAT, useValue:'xlf'},
+              {provide:LOCALE_ID, useValue:langs.userLanguageCode}
+            ],
+        }
          );
 
 // lang.getTranslations(languageSel).then

@@ -44,16 +44,19 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   }
   cancelStuff() {
       this.data.setShowEModal(false);
+      this.data.setEOptionText('save');
   }
   doStuff() {
       this.data.setShowEModal(false);
+      this.data.setEOptionText('save');
   }
   
   getIfShowCancel(){
   }
   getOptionsCount(){
   }
-  getOptionsText(){
+  getOptionText(){
+      this.data.getEOptionText();
   }
   getDialiogTitleColor(){
   }

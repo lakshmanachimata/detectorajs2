@@ -2,17 +2,20 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class i18n_Lang_Defs
-        {
-            userLanguageCode:string = 'en';
-    langTranslations:any = []
-    constructor(_selLangString)
+{
+    public userLanguageCode:string = 'en';
+    public langTranslations:any = []
+    constructor()
             {
-                this.userLanguageCode = this.getUserLanguage(_selLangString);
+                this.userLanguageCode = this.getUserLanguage(navigator.language);
                 this.loadStaticData();
             }
     getUserLanguage(_langStr)
             {
-                return 'en';
+                switch(_langStr){
+                  default:
+                  return 'en';
+                }
             }
     getTranslations()
             {
@@ -2092,5 +2095,4 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
 </xliff>`;
                 
             }
-
-        }
+}

@@ -211,6 +211,7 @@ export class UIParams {
       showEModal = false;
       profileName ='';
       showCDI = -1;
+      eOptionText = 'save';
       eDevParamsChanged = 0;
       userLoggedIn =  false;
       lastSynced = '';
@@ -323,6 +324,13 @@ export class DataService {
         return buf;
     }
 
+    getEOptionText(){
+        return this.uiParams.eOptionText;
+    }
+
+     setEOptionText(text){
+        this.uiParams.eOptionText = text;
+    }
     setScannedData(scanned){
         this.scanneddata = scanned;
         this.activeComponent.setScannedData();
@@ -346,7 +354,10 @@ export class DataService {
     }
     public initDevices() {
         this.loadDevices().then((devs) => {
-             this.uiParams.devicesObj.DevicesArray = [];
+            if(this.DeviceBuild == 1)
+                this.uiParams.devicesObj.DevicesArray = [];
+             else 
+                this.uiParams.devicesObj.DevicesArray = devs;
         });
     }
    
