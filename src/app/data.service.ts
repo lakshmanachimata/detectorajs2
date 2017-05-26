@@ -5,6 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import * as https from 'https';
+import * as http from 'http';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -251,7 +254,7 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = false; 
+    public useCertAuth = true; 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certDeviceDataPath = this.certBasePath+'/'+this.deviceprefix;
@@ -292,13 +295,16 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
-    
+    static dataService:DataService;
     debugLogs =  false;
     constructor(private http:Http,public logger: LoggerService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
+        DataService.dataService = this;
+        this.setCertData('');
+        this.setKeyData('')
     }
 
     saveToLocalStorage(key,value){
@@ -310,10 +316,20 @@ export class DataService {
     }
 
     setCertData(data){
-        this.networkParams.certData = Buffer.from(data, "binary");
+        if(this.DeviceBuild == 1)
+            this.networkParams.certData = Buffer.from(data, "binary");
+        else{
+            var certPath = path.join(__dirname,'assets', 'client.cert');
+            this.networkParams.certData = fs.readFileSync(certPath);
+        }
     }
     setKeyData(data){
-        this.networkParams.keyData = Buffer.from(data, "binary");
+        if(this.DeviceBuild ==1 )
+            this.networkParams.keyData = Buffer.from(data, "binary");
+        else{
+            var keyPath = path.join(__dirname,'assets', 'client.private');
+            this.networkParams.keyData = fs.readFileSync(keyPath);
+        }
     }
 
      str2ab(str) {
@@ -836,21 +852,23 @@ export class DataService {
     }
 
     handleGetIResponseData(data){
-        let strFormat =  JSON.stringify(data);
-        let Detectors = data.detectors;
-        this.uiParams.userLoggedIn = true;
-        this.uiParams.lastSynced = data._updated_at.split('+')[0];
-        let localDate = this.getUTCDateFormat();
-        let syncdate1 = new Date(localDate)
-        let syncdate2 = new Date(this.uiParams.lastSynced)
-        if(syncdate1 > syncdate2){
-        }else if (syncdate1 < syncdate2){
-        }else {
-        }
-        this.setDevices(Detectors,true);
-        if(this.uiParams.subMenuComponent != undefined){
-            this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
-            this.iJsonLoadEmit();
+        if(data != undefined){
+            let strFormat =  JSON.stringify(data);
+            let Detectors = data.detectors;
+            this.uiParams.userLoggedIn = true;
+            this.uiParams.lastSynced = data._updated_at.split('+')[0];
+            let localDate = this.getUTCDateFormat();
+            let syncdate1 = new Date(localDate)
+            let syncdate2 = new Date(this.uiParams.lastSynced)
+            if(syncdate1 > syncdate2){
+            }else if (syncdate1 < syncdate2){
+            }else {
+            }
+            this.setDevices(Detectors,true);
+            if(this.uiParams.subMenuComponent != undefined){
+                this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
+                this.iJsonLoadEmit();
+            }
         }
     }
 
@@ -862,51 +880,55 @@ export class DataService {
     }
 
     handleGetResponseData(data){
-        let strFormat =  JSON.stringify(data);
-        let Detectors = data.detectors;
-        if(Detectors != undefined ){
-            this.uiParams.userLoggedIn = true;
-            this.uiParams.lastSynced = data._updated_at.split('+')[0];
-            let localDate = this.getUTCDateFormat();
-            let syncdate1 = new Date(localDate)
-            let syncdate2 = new Date(this.uiParams.lastSynced)
-            if(syncdate1 > syncdate2){
-            }else if (syncdate1 < syncdate2){
-            }else {
+        if(data != undefined){
+            let strFormat =  JSON.stringify(data);
+            let Detectors = data.detectors;
+            if(Detectors != undefined ){
+                this.uiParams.userLoggedIn = true;
+                this.uiParams.lastSynced = data._updated_at.split('+')[0];
+                let localDate = this.getUTCDateFormat();
+                let syncdate1 = new Date(localDate)
+                let syncdate2 = new Date(this.uiParams.lastSynced)
+                if(syncdate1 > syncdate2){
+                }else if (syncdate1 < syncdate2){
+                }else {
+                }
+                this.setDevices(Detectors,true);
+                if(this.uiParams.subMenuComponent != undefined)
+                    this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
             }
-            this.setDevices(Detectors,true);
-            if(this.uiParams.subMenuComponent != undefined)
-                this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }
     }
     handlePutResponseData(data){
+        if(data != undefined){
         let strFormat =  JSON.stringify(data);
         let Detectors = data.detectors;
-        if(Detectors != undefined ){
-            this.uiParams.userLoggedIn = true;
-            this.uiParams.lastSynced = data._updated_at.split('+')[0];
-            let localDate = this.getUTCDateFormat();
-            let syncdate1 = new Date(localDate)
-            let syncdate2 = new Date(this.uiParams.lastSynced)
-            if(syncdate1 > syncdate2){
-            }else if (syncdate1 < syncdate2){
+            if(Detectors != undefined ){
+                this.uiParams.userLoggedIn = true;
+                this.uiParams.lastSynced = data._updated_at.split('+')[0];
+                let localDate = this.getUTCDateFormat();
+                let syncdate1 = new Date(localDate)
+                let syncdate2 = new Date(this.uiParams.lastSynced)
+                if(syncdate1 > syncdate2){
+                }else if (syncdate1 < syncdate2){
+                }else {
+                }
+                this.setDevices(Detectors,true);
+                if(this.uiParams.subMenuComponent != undefined)
+                    this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
             }else {
+                this.uiParams.userLoggedIn = true;
+                this.uiParams.lastSynced = data._updated_at.split('+')[0];
+                let localDate = this.getUTCDateFormat();
+                let syncdate1 = new Date(localDate)
+                let syncdate2 = new Date(this.uiParams.lastSynced)
+                if(syncdate1 > syncdate2){
+                }else if (syncdate1 < syncdate2){
+                }else {
+                }
+                if(this.uiParams.subMenuComponent != undefined)
+                    this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
             }
-            this.setDevices(Detectors,true);
-            if(this.uiParams.subMenuComponent != undefined)
-                this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
-        }else {
-            this.uiParams.userLoggedIn = true;
-            this.uiParams.lastSynced = data._updated_at.split('+')[0];
-            let localDate = this.getUTCDateFormat();
-            let syncdate1 = new Date(localDate)
-            let syncdate2 = new Date(this.uiParams.lastSynced)
-            if(syncdate1 > syncdate2){
-            }else if (syncdate1 < syncdate2){
-            }else {
-            }
-            if(this.uiParams.subMenuComponent != undefined)
-                this.uiParams.subMenuComponent.onSucessfullSync(this.uiParams.lastSynced);
         }
     }
 
@@ -994,7 +1016,7 @@ export class DataService {
 
     makeCertHeaders(){
         let options = {
-            hostname: this.networkParams.detectorHostName,
+            hostname: this.networkParams.certDetectorHostName,
             port: this.networkParams.detectorPort,
             key : this.networkParams.keyData,
             cert: this.networkParams.certData,
@@ -1003,19 +1025,34 @@ export class DataService {
         }
         return options;
     }
-
+    
+    static getDataService(){
+       return DataService.dataService;
+    }
     getIDataWithCert(httpPath){
         let httpOptions = this.makeCertHeaders();
         httpOptions.path = httpPath;
         httpOptions.method = 'GET';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handleGetIResponseData(data);
+                DataService.getDataService().handleGetIResponseData(data);
+            });
+            res.on('error',function(data){
+                DataService.getDataService().handleGetIResponseData(data);
+            });
+            res.on('finish',function(data){
+                DataService.getDataService().handleGetIResponseData(data);
+            });
+            res.on('end',function(data){
+                DataService.getDataService().handleGetIResponseData(data);
             });
         });
         req.end();
         req.on('error', function(e) {
-            this.handleIResponseError(e)
+            DataService.getDataService().handleIResponseError(e)
+        });
+        req.on('finish',function(e){
+            DataService.getDataService().handleIResponseError(e);
         });
     }
 
@@ -1026,12 +1063,48 @@ export class DataService {
         httpOptions.method = 'GET';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handleGetResponseData(data);
+                DataService.getDataService().handleGetResponseData(data);
+            });
+            res.on('error',function(data){
+                DataService.getDataService().handleGetResponseData(data);
+            });
+            res.on('finish',function(data){
+                DataService.getDataService().handleGetResponseData(data);
+            });
+             res.on('end',function(data){
+                DataService.getDataService().handleGetResponseData(data);
+            });
+            res.emit('data', function(data) {
+                DataService.getDataService().handleGetResponseData(data);
+            });
+            res.emit('error',function(data){
+                DataService.getDataService().handleGetResponseData(data);
+            });
+            res.emit('finish',function(data){
+                DataService.getDataService().handleGetResponseData(data);
+            });
+             res.emit('end',function(data){
+                DataService.getDataService().handleGetResponseData(data);
             });
         });
         req.end();
         req.on('error', function(e) {
-            this.handleResponseError(e)
+            DataService.getDataService().handleResponseError(e)
+        });
+        req.on('finish',function(e){
+            DataService.getDataService().handleResponseError(e);
+        });
+        req.on('end',function(e){
+            DataService.getDataService().handleResponseError(e);
+        });
+        req.emit('error', function(e) {
+            DataService.getDataService().handleResponseError(e)
+        });
+        req.emit('finish',function(e){
+            DataService.getDataService().handleResponseError(e);
+        });
+        req.emit('end',function(e){
+            DataService.getDataService().handleResponseError(e);
         });
     }
 
@@ -1041,12 +1114,24 @@ export class DataService {
         httpOptions.method = 'PUT';
         var req = https.request(httpOptions, function(res) {
             res.on('data', function(data) {
-                this.handlePutResponseData(data);
+                DataService.getDataService().handlePutResponseData(data);
+            });
+            res.on('error',function(data){
+                DataService.getDataService().handlePutResponseData(data);
+            });
+            res.on('finish',function(data){
+                DataService.getDataService().handlePutResponseData(data);
+            });
+             res.on('end',function(data){
+                DataService.getDataService().handlePutResponseData(data);
             });
         });
         req.end(bodyData);
         req.on('error', function(e) {
-            this.handleResponseError(e)
+            DataService.getDataService().handleResponseError(e)
+        });
+        req.on('finish', function(e) {
+            DataService.getDataService().handleResponseError(e)
         });
     }
 

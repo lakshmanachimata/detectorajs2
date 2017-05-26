@@ -414,7 +414,7 @@ edit-dialog-overlay{
 	top:0;
 	left:0;
 	width:80%;
-	height:50%;
+	height:40%;
     background-color: rgba(0,0,0,0.8);
 }
 .edit-dialog {
