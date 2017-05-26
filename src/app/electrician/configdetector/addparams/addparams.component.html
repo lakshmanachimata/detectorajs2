@@ -2,7 +2,7 @@
 <div class="bj-config-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0"> 
 <div id="bj-sensor-params-settings-div">
     <div class="bj-sensor-toggle brighteness-correction">
-       <label class="bj-config-setting inner-setting sensor-params-function">Brightness correction</label>
+       <label class="bj-config-setting inner-setting sensor-params-function" i18n>Brightness correction</label>
             <span class="bj-config-toggle-switch">
             <div class="track"  (click)="toggleBr()"  [(ngModel)]="ad.brightnessCorrectionEnable" [ngStyle]="{'border-color': ad.brightnessCorrectionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.brightnessCorrectionEnable == true">{{onLabel}}</label>
@@ -24,7 +24,7 @@
         <input class="adjust-value brightness-function" type="text" disabled [(ngModel)]="ad.currentBrightness">
     </div>
     <div class="bj-sensor-toggle dynamic-delay">
-    <label class="bj-config-setting inner-setting sensor-params-function">Dynamic switch-off delay</label>
+    <label class="bj-config-setting inner-setting sensor-params-function" i18n>Dynamic switch-off delay</label>
             <span class="bj-config-toggle-switch">
             <div class="track"  (click)="toggledsd()"  [(ngModel)]="ad.DynamicSwitchOffDelayEnable" [ngStyle]="{'border-color': ad.DynamicSwitchOffDelayEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.DynamicSwitchOffDelayEnable == true">{{onLabel}}</label>
@@ -34,7 +34,7 @@
         </span>
     </div>
     <div class="bj-config-setting-div sensor-params-div" (click)="gotoSensitivity()" >
-        <label class="bj-config-setting inner-setting sensor-params-lbl" >Set sensitivity</label>
+        <label class="bj-config-setting inner-setting sensor-params-lbl" i18n>Set sensitivity</label>
         <next-nav></next-nav>
     </div>
 </div>

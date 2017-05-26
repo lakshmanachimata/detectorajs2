@@ -10,32 +10,88 @@
         <source>Please select your user type</source>
         <target/>
       </trans-unit>
-      <trans-unit id="ae32135acfc24ce97ff81cc4388f9ab41fb360ca" datatype="html">
-        <source>Standard User</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="d36e31a5b7bf16e6b29bedbe3a1d8637ba427c1a" datatype="html">
         <source>Installer</source>
         <target/>
       </trans-unit>
-      <trans-unit id="95ace2884c9ce05aaa685bfa3f3236020cb6d557" datatype="html">
-        <source>Standard user</source>
+      <trans-unit id="ae32135acfc24ce97ff81cc4388f9ab41fb360ca" datatype="html">
+        <source>Standard User</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3a1a2f9c25115e7db9a09990023236e1ee95b753" datatype="html">
+        <source>Selected user profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
+        <source>Username</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+        <source>Password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fe985c5cbd7d97db55b5330c4ca939432f9ae7c6" datatype="html">
+        <source>You are now logged in</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
+        <source>Logout</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="a2d81ebd3b9c4496dc9d2cb964e9c080be9555dc" datatype="html">
+        <source>Sync now</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
+        <source>Deactivate test mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
+        <source>Load</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
         <target/>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
         <target/>
       </trans-unit>
+      <trans-unit id="7fb1d97b43b51bc13ea56678777b4be69ae771cc" datatype="html">
+        <source>Block potentiometer setting</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="f50a33d3c339f8f4a465141f8caa5d2d8c005251" datatype="html">
         <source>Enabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="f39256070bfc0714020dfee08895421fc1527014" datatype="html">
+        <source>Disabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="df4fd82a4f58c987a19eb6624dd3c98d14cd53db" datatype="html">
+        <source>OFF</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
+        <source>brightness threshold</source>
         <target/>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
         <target/>
       </trans-unit>
+      <trans-unit id="daaa3a29ff14089f7b09bfb91153e7c413e5340d" datatype="html">
+        <source>Smallest value as reference</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="8de07d06cee8306340a068988a14bc076dad2a1d" datatype="html">
         <source>Short-time pulse</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
+        <source>Switch-off delay</source>
         <target/>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
@@ -62,8 +118,212 @@
         <source>Actuator settings</source>
         <target/>
       </trans-unit>
-      <trans-unit id="479e9bb35acae729910a6cd91a42418af3149eb9" datatype="html">
-        <source>Energy Monitor</source>
+      <trans-unit id="20c04785904da3dfce30823658ddf9e60e527556" datatype="html">
+        <source>Settings of actuator 1</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d473e0f684a60db45d6f31e993f693f74290e056" datatype="html">
+        <source>Service</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ec04af208ca152a81c402399feadb837dd09e4ba" datatype="html">
+        <source>Saved profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fa5913839f46f88864a6479662fd4390087621e0" datatype="html">
+        <source>Energy monitor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45ee2f27d86fc2d0767ebb7a12179b9ab6dd98fe" datatype="html">
+        <source>Building allocation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8e15185abad9bb5744f8fd7dcc9bf668cb0a8307" datatype="html">
+        <source>Enable settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b22a70288383df8cf0bebaafbe18d002a607f3b4" datatype="html">
+        <source>Dynamic switch-off delay</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2f783fb109eb6ae3f3b7ef89568b94b5ac9c994f" datatype="html">
+        <source>Outdoor application</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54e0f18a5793daca11c9103733b42ca1caac0472" datatype="html">
+        <source>Circuit logic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37e01ff2912886481d31b49e92e6e5d7dd7b1d15" datatype="html">
+        <source>NC contact </source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ece8539e5780137a95ce797fb87d851419a8ffa8" datatype="html">
+        <source>NO contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
+        <source>Soft ON</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
+        <source>Soft OFF</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8acfb9e606132532768df280178c97d9cf175c80" datatype="html">
+        <source>Dimming mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1475af1c8fd72aae0912d7da80e7d6fca630979f" datatype="html">
+        <source>Leading edge</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="05b65867b200dca75c737545d6f026e15e75d4e4" datatype="html">
+        <source>Trailing edge</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="db5386a6b4c2ed4fd2842d7edf3e66c298a46326" datatype="html">
+        <source>Additional Settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ccc9adadd0184221bdc984bf146323de6d9885e5" datatype="html">
+        <source>Memory function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fd5b0870a1c7b6b57730a9690896f4d78583428c" datatype="html">
+        <source>Limit room brightness</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
+        <source>Minimum load</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
+        <source>Maximum load</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
+        <source>DALI settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e112a61fcc06bf4a35e3a943aae0e0e2e95e57ad" datatype="html">
+        <source>Power ON level</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1d530182a11808d36e12c068c8c00e2498c53e30" datatype="html">
+        <source>Memo</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29c1391c0b127646bee4306cfdba2053c83dd436" datatype="html">
+        <source>100%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63ff80519b754dae9fad2e5c593b84416353f54f" datatype="html">
+        <source>Fluorescent lamps</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9b03b311a63146d7b5a9022c4355b26b42f90f7f" datatype="html">
+        <source>Burn in function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5dc4339f375dc51fca30d40aeea7a59651c049fd" datatype="html">
+        <source>Steady</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="09cb086dd3c4a4237e43cd2c58815f039e93bfca" datatype="html">
+        <source>Accumulated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1ea395e897ed1c078df18cbdfc3f8bd562a54904" datatype="html">
+        <source>Operating hours</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4a41751c325af4f274cb64aa7fbd8d4a5a70c091" datatype="html">
+        <source>Basic brightness</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
+        <source>Basic illumination level</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
+        <source>Start time</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2f4e35e36f4d3c62e2c17df41730b6dee4afc4b9" datatype="html">
+        <source>End time</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b74804267a09da681f1e237c390ae0072bd4c55e" datatype="html">
+        <source>Astro function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48818f4252a67e7ffe02475757e8b1cfcd3b31fd" datatype="html">
+        <source>Switch-off time</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="01285838a98dd26208390fbd479e9bc692a8fd49" datatype="html">
+        <source>Switching function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11bf2f3044da84950642788e3aa0a704f25e8fac" datatype="html">
+        <source>Brightness independent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
+        <source>Switch off DALI control gear voltage</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
+        <source>Synchronous operation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9fc17cda63eac4eeab52f91c802ef09d304c658d" datatype="html">
+        <source>Blackboard lightening</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9d0ac9c23563b10fafabeedbf739e933b054d1c8" datatype="html">
+        <source>Manual</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81ff266913c9a01706a1e38187d74b4007cd00c3" datatype="html">
+        <source>HVAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="377a3e82927b3fa752ec7e6901e276e5c9e43acb" datatype="html">
+        <source>Dynamic control</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c9f455999ecc0004ee12e67544a42db00bb60487" datatype="html">
+        <source>Switch-on delay</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="cc67e5b1c66c11362b971fa44a6374999fca73bd" datatype="html">
+        <source>Connected load</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="215f57ba9f54b9585ea0c013f639149cea3f4e38" datatype="html">
+        <source>Electricity price</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32072c7fb0469aaf82d256a59b3e0d6ecce973b9" datatype="html">
+        <source>Currency</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e0e8b3214de0ffe8bc186c42773b425e366ed646" datatype="html">
+        <source>Contact Name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
+        <source>Building</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
+        <source>Brightness correction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
+        <source>Set sensitivity</source>
         <target/>
       </trans-unit>
       <trans-unit id="8758c473c8b2e9ccbc687c463a8198ba5368c2a8" datatype="html">
@@ -102,12 +362,144 @@
         <source>Test mode</source>
         <target/>
       </trans-unit>
-      <trans-unit id="fa5913839f46f88864a6479662fd4390087621e0" datatype="html">
-        <source>Energy monitor</source>
+      <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
+        <source>Load detector profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
+        <source>Save as user profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="00f29bc8f272fef4adb87a16c6c3bd5fabc975a6" datatype="html">
+        <source>Update Firmware</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3e1b27e504199ab194c3ec5c204054e5d868b4a2" datatype="html">
+        <source>Reset to factory settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5ef2499eac8943120c53e36b3fcb5ce2ca4050f6" datatype="html">
+        <source>Release to user</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="564c3fe059cb5abecb34cf4fa6dd7a9a64fa28bf" datatype="html">
+        <source>Use master in slave mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1d574eaf5333b24c23f97a9ca5e3fea4c7acd377" datatype="html">
+        <source>NC contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2c3dfd18c563d59633522a68ffcc7550f40d4b34" datatype="html">
+        <source>Permanent light ON/OFF</source>
         <target/>
       </trans-unit>
       <trans-unit id="6d0e8de0d36a9f5ae128fa4e3d13d8a958e17476" datatype="html">
         <source>Enabled by push button</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9ab60e8d787485121d78110a1a64bb3aee668ad0" datatype="html">
+        <source>Reset control gear</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e8bb8257da195ad0bc948342518d951405d31193" datatype="html">
+        <source>Burn in mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34de71d6c35fbbae740dec811e4cbc476022d96d" datatype="html">
+        <source>Reset operating hours</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ea7599a23cbc8ea01d9a925e94e705763f331e14" datatype="html">
+        <source>Determined by time</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="db8f39b6bab45536dc949ff70194787b9b545e59" datatype="html">
+        <source>Determined by brightness</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ec932dca5a9af2787160227c587b282310036e3e" datatype="html">
+        <source>Ambient brightness threshold</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
+        <source>Night light </source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
+        <source>Stepwise switch-off</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
+        <source>Master</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="cd7ead9c32d8ed20d1de4cafa0534d57c368c7cf" datatype="html">
+        <source>Slaves</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
+        <source>Identify load on actuator 1</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b405eec86eb9597dadb684595a66ead00d43c205" datatype="html">
+        <source>Identify load on actuator 2</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="069fac057c10be0dd7d70695e7b69d73d3464323" datatype="html">
+        <source>No Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75635ef0a19bf850834256ce34e286ef239aa5d0" datatype="html">
+        <source>Predefined profiles</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b7a9adbfb82a70b1ccc2b7028aef9c6d520328d1" datatype="html">
+        <source>User profiles</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c55060954448e171f709493f38f3ec9645fd9b50" datatype="html">
+        <source>Add profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
+        <source>Lighting duration per week</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
+        <source>All</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
+        <source>Show password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7d0eeeaa2d6344026205f2990aa2e12e2cf399f9" datatype="html">
+        <source>Standard User password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
+        <source>Light 1</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9d533115c77a62060c500534eaca5c6b971bd494" datatype="html">
+        <source>Light 2</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
+        <source>Reset data</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="a7d80da17458263c923bbdf193ebd3d5e7c2d3a0" datatype="html">
+        <source>Presence simulation</source>
         <target/>
       </trans-unit>
     </body>

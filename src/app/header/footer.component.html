@@ -1,10 +1,10 @@
 <div class="bj-footer"  *ngIf="getProfile() == 'electrician'">
     <div class="bj-back"  *ngIf="getOtherParam()!='testmode'" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
     <div id="bj-send-to-device"   (click)= "sendChangedParams()"[ngStyle]="{'color': getEDevParamsState() === 1 ? '#FFFFFF':'#A9A9A9'}" *ngIf="!(getOtherParam()=='testmode' || getOtherParam()=='loaddetectorprofile')">Send</div>
-    <div id="deactivate-testmode" (click)="deActivateTestMode()" *ngIf="getOtherParam()=='testmode'">Deactivate test mode</div>
-    <div id="load-detector-profile" *ngIf="getOtherParam()=='loaddetectorprofile'">Load</div>
+    <div id="deactivate-testmode" (click)="deActivateTestMode()" *ngIf="getOtherParam()=='testmode'" i18n>Deactivate test mode</div>
+    <div id="load-detector-profile" *ngIf="getOtherParam()=='loaddetectorprofile'" i18n>Load</div>
 </div>
 <div class="bj-footer-user" *ngIf="getProfile() == 'user'">
     <div class="bj-back"  [ngClass]="{'bj-cancel-only': showOnlyCancel() == true }" (click)="bjGoBack()"><span class="glyphicon glyphicon-remove"></span></div>
-    <div id="bj-send-to-device"  (click)= "sendChangedParams()" [ngStyle]="{'color': getEDevParamsState() === 1 ? '#000000':'#FFFFFF'}"*ngIf="showOnlyCancel() == false">Send</div>
+    <div id="bj-send-to-device"  (click)= "sendChangedParams()" [ngStyle]="{'color': getEDevParamsState() === 1 ? '#000000':'#FFFFFF'}"*ngIf="showOnlyCancel() == false" i18n>Send</div>
 </div>

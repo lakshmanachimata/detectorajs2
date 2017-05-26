@@ -3,35 +3,35 @@
 <div id="bj-actuator1-sub-settings-div" >
     <div class="bj-config-setting-div actuator2-circuit-logic-div" style="border-bottom:none;" *ngIf ="ad.ch2Mode != 0">
         <div class="bj-config-setting inner-setting actuator2 heading">
-            <label class="actuator-circuit-logic-lbl">Circuit logic</label>
+            <label class="actuator-circuit-logic-lbl" i18n>Circuit logic</label>
             <div class="bj-actuator-toggle" (click)="showCircuitSettings = !showCircuitSettings">
                 <down-nav *ngIf="!showCircuitSettings"></down-nav>
                 <up-nav *ngIf="showCircuitSettings"></up-nav>
             </div>
         </div>
         <div *ngIf="showCircuitSettings">
-            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl">NC contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2CircuitLogic" (ngModelChange)="circuitModeChange()"   [checked]="ad.ch2CircuitLogic === 0" name="circuit_logic" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl">NO contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2CircuitLogic" (ngModelChange)="circuitModeChange()"   [checked]="ad.ch2CircuitLogic === 1"  name="circuit_logic" [value]="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NC-lbl" i18n>NC contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2CircuitLogic" (ngModelChange)="circuitModeChange()"   [checked]="ad.ch2CircuitLogic === 0" name="circuit_logic" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="circuit-logic-NO-lbl" i18n>NO contact</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2CircuitLogic" (ngModelChange)="circuitModeChange()"   [checked]="ad.ch2CircuitLogic === 1"  name="circuit_logic" [value]="1"/></div>
         </div>
     </div>
     <div class="bj-config-setting-div actuator2-switching-function-div" style="border-bottom:none;">
         <div class="bj-config-setting inner-setting actuator2 heading">
-            <label class="actuator-switching-function-lbl">Switching function</label>
+            <label class="actuator-switching-function-lbl" i18n>Switching function</label>
             <div class="bj-actuator-toggle" (click)="showSoftSwitchingSettings = !showSoftSwitchingSettings">
                 <down-nav *ngIf="!showSoftSwitchingSettings"></down-nav>
                 <up-nav *ngIf="showSoftSwitchingSettings"></up-nav>
             </div>
         </div>
         <div *ngIf="showSoftSwitchingSettings">
-            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl">Disabled</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 0" name="circuit_mode" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl">Brightness independent</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 1"name="circuit_mode" [value]="1"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl">Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 2" name="circuit_mode" [value]="2"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl">Synchronous operation</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 3" name="circuit_mode" [value]="3"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl">Blackboard lightening</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 4" name="circuit_mode" [value]="4"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl">Manual</label><input type="radio" class="circuit-radio" name="circuit_mode" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 5" [value]="5"/></div>
-            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl">HVAC</label><input type="radio" class="circuit-radio"  name="circuit_mode" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 6" [value]="6"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="disabled-lbl" i18n>Disabled</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 0" name="circuit_mode" [value]="0"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="brightness-lbl" i18n>Brightness independent</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 1"name="circuit_mode" [value]="1"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="gear-volt-lbl" i18n>Switch off DALI control gear voltage</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 2" name="circuit_mode" [value]="2"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="sync-operation-lbl" i18n>Synchronous operation</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 3" name="circuit_mode" [value]="3"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="blackboard-light-lbl" i18n>Blackboard lightening</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 4" name="circuit_mode" [value]="4"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="manual-lbl" i18n>Manual</label><input type="radio" class="circuit-radio" name="circuit_mode" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 5" [value]="5"/></div>
+            <div class="bj-config-setting inner-setting actuator2"><label id="hvac-lbl" i18n>HVAC</label><input type="radio" class="circuit-radio"  name="circuit_mode" [(ngModel)]="ad.ch2Mode" (ngModelChange)="ch2ModeChange()"  [checked]="ad.ch2Mode === 6" [value]="6"/></div>
             <div class="bj-config-setting inner-setting actuator2 dynamic-control" >
-                <label class="actuator-dynamic-control-lbl">Dynamic control</label>
+                <label class="actuator-dynamic-control-lbl" i18n>Dynamic control</label>
                      <span class="bj-config-toggle-switch actuator2">
                         <div class="track"   (click)="togglehvacDC()"  [(ngModel)]="ad.hvacDynamicalControlEnable" [ngStyle]="{'border-color': ad.hvacDynamicalControlEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.hvacDynamicalControlEnable  == true">{{onLabel}}</label>
@@ -42,7 +42,7 @@
                      </span>
             </div>
             <div class="bj-config-setting inner-setting actuator2 switch-on-delay-div" >
-                <label class="switch-on-delay-actuator2-lbl">Switch-on delay</label>
+                <label class="switch-on-delay-actuator2-lbl" i18n>Switch-on delay</label>
                 <div class="bj-config-setting-adjust switch-on-delay-actuator2">
                         <div class="adjust-minus" long-press (click)="reduceCount('sondelay',true)" (onLongPressEnd)="reduceCount('sondelay',true)" (onLongPressing)="reduceCount('sondelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.hvacSwitchOnDelay" [ngStyle]="{'color': '#26394f'}">
@@ -50,7 +50,7 @@
                         <div class="adjust-plus" long-press (click)="increaseCount('sondelay',true)" (onLongPressEnd)="increaseCount('sondelay',true)" (onLongPressing)="increaseCount('sondelay',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
                 </div>
-                <label class="switch-off-delay-actuator2-lbl">Switch-off delay</label>
+                <label class="switch-off-delay-actuator2-lbl" i18n>Switch-off delay</label>
                 <div class="bj-config-setting-adjust switch-off-delay-actuator2">
                     <div class="adjust-minus" long-press (click)="reduceCount('soffdelay',true)" (onLongPressEnd)="reduceCount('soffdelay',true)" (onLongPressing)="reduceCount('soffdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                         <input class="adjust" type="number" [(ngModel)]="ad.hvacSwitchOffDelay" [ngStyle]="{'color': '#26394f'}">

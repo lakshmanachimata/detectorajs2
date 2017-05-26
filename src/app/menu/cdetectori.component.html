@@ -3,9 +3,9 @@
 	<div class="bj-sensor-setting">
 		<label class="section" i18n>Sensor settings</label>
 		<div>
-			<label>Block potentiometer setting</label>
+			<label i18n>Block potentiometer setting</label>
 			<span *ngIf="ad.potentiometerMode == 0" i18n>Enabled</span>
-			<span *ngIf="ad.potentiometerMode == 1">Disabled</span>
+			<span *ngIf="ad.potentiometerMode == 1" i18n>Disabled</span>
 			<span *ngIf="ad.potentiometerMode == 2">Limited</span>
 		</div>
 		
@@ -18,40 +18,40 @@
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Constant light regulation</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
-			<span *ngIf="ad.constantLightControlEnable == false">off</span>
+			<span *ngIf="ad.constantLightControlEnable == false" i18n>OFF</span>
 		</div>
 		
 		<div>
-		<label>brightness threshold</label>
+		<label i18n>brightness threshold</label>
 		<span>{{ad.brightnessThreshold}} lux</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label i18n>Consider slave brightness</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
-			<span *ngIf="ad.constantLightControlEnable == false">off</span>
+			<span *ngIf="ad.constantLightControlEnable == false" i18n>OFF</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
 			<span *ngIf="ad.delimitLightingLevelEnable == true">ON</span>
-			<span *ngIf="ad.delimitLightingLevelEnable == false">OFF</span>
+			<span *ngIf="ad.delimitLightingLevelEnable == false" i18n>OFF</span>
 		</div>
 		
 		<div>
-		<label>Smallest value as reference</label>
+		<label i18n>Smallest value as reference</label>
 			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == true">ON</span>
-			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false">OFF</span>
+			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false" i18n>OFF</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
 		<label i18n>Short-time pulse</label>
 			<span *ngIf="ad.shortTimePulseEnable == true">ON</span>
-			<span *ngIf="ad.shortTimePulseEnable == false">OFF</span>
+			<span *ngIf="ad.shortTimePulseEnable == false" i18n>OFF</span>
 		</div>
 		
 		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
-		<label>Switch-off delay</label>
+		<label i18n>Switch-off delay</label>
 			<span>{{ad.switchOffDelay}} min</span>
 		</div>
 		
@@ -74,20 +74,20 @@
 	  <label class="section" i18n>Actuator settings</label>
 	  
 	 <div (click)="gotoInstalledParams('actuator1','Settings of actuator1')">
-	  <label>Setttings of actuator 1</label>
+	  <label i18n>Settings of actuator 1</label>
 	  	<next-nav></next-nav>
 	  </div>
 	   
 	  <div (click)="gotoInstalledParams('actuator2','Settings of actuator2')">
-	  <label>Setttings of actuator 2</label>
+	  <label>Settings of actuator 2</label>
 	  	<next-nav></next-nav>
 	  </div>
 
 
-	  <label class="section">Service</label>
+	  <label class="section" i18n>Service</label>
 	   
 	   <div>
-	   <label>Saved profile</label>
+	   <label i18n>Saved profile</label>
 	   <span>Garage</span>
 	   </div>
 	   
@@ -97,7 +97,7 @@
 	   </div>
 	   
 	    <div (click)="gotoInstalledParams('emonitor','Energy monitor')">
-	   <label i18n>Energy Monitor</label>
+	   <label i18n>Energy monitor</label>
 	   	<next-nav></next-nav>
 	   </div>
 
@@ -108,12 +108,12 @@
 	   </div>
 	   
 	   <div (click)="gotoInstalledParams('buildingallocation','Building allocation')">
-	  <label>Building allocation</label>
+	  <label i18n>Building allocation</label>
 		<next-nav></next-nav>
 	  </div>
 	  
 	  <div (click)="gotoInstalledParams('enablesettings','Enable user settings')">
-	  <label>Enable settings</label>
+	  <label i18n>Enable settings</label>
 		<next-nav></next-nav>
 	  </div>
 

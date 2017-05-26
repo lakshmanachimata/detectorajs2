@@ -151,15 +151,15 @@
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('loaddetectorprofile','Load detector profile')">
-              <label class="bj-config-setting load-detector-block">Load detector profile</label>
+              <label class="bj-config-setting load-detector-block" i18n>Load detector profile</label>
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('saveasuserprofile','Save as user profile')">
-              <label class="bj-config-setting save-user-profile-block">Save as user profile</label>
+              <label class="bj-config-setting save-user-profile-block" i18n>Save as user profile</label>
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('updatefirmware','Update firmware')">
-              <label class="bj-config-setting update-firmware-block">Update firmware</label>
+              <label class="bj-config-setting update-firmware-block" i18n>Update Firmware</label>
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" *ngIf="ad.slaveModeEnable == 0" (click)="gotoOtherParams('energymonitor','Energy monitor')">
@@ -167,22 +167,22 @@
               <next-nav></next-nav>
             </div>
             <div class="bj-config-setting-div service-div" (click)="showResetDialog()" >
-              <label class="bj-config-setting reset-block">Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
+              <label class="bj-config-setting reset-block" i18n>Reset to factory settings</label><span class="glyphicon glyphicon-stop"></span>
             </div>
              <div class="bj-config-setting-div commissioning-div" (click)="gotoOtherParams('setpins','Set passwords')">
                   <label class="bj-config-setting pin-block">Set PINs</label>
                   <next-nav></next-nav>
              </div>
              <div class="bj-config-setting-div commissioning-div" *ngIf="ad.slaveModeEnable == 0" (click)="gotoOtherParams('buildingallocation','Building Allocation')">
-                  <label class="bj-config-setting building-allocation-block">Building allocation</label>
+                  <label class="bj-config-setting building-allocation-block" i18n>Building allocation</label>
                   <next-nav></next-nav>
              </div>
              <div class="bj-config-setting-div commissioning-div" *ngIf="ad.slaveModeEnable == 0" (click)="gotoOtherParams('releasetouser','Release to user')">
-                  <label class="bj-config-setting building-allocation-block">Release to user</label>
+                  <label class="bj-config-setting building-allocation-block" i18n>Release to user</label>
                   <next-nav></next-nav>
              </div>
              <div class="bj-config-setting-div commissioning-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
-                  <label class="bj-config-setting master-in-slave-block">Use master in slave mode</label>
+                  <label class="bj-config-setting master-in-slave-block" i18n>Use master in slave mode</label>
                     <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="togglemsd()"   [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.slaveModeEnable == 1">{{onLabel}}</label>
