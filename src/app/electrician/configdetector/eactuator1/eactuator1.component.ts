@@ -4,7 +4,7 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import {SCCP_DATATYPES} from'../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../data.service';
-
+import { i18nService } from '../../../i18n.service';
 
 @Component({
   selector: 'eactuator1-root',
@@ -77,9 +77,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                                
                 ]
 
-  onLabel = 'on';
-  offLabel = 'off';
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private zone:NgZone) {
+  onLabel = this.translater.translate('on');
+  offLabel = this.translater.translate('off');
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,
+              private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -96,7 +97,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.data.setMainTitle('Settings of actuator1');
+    this.data.setMainTitle(this.translater.translate('Settings of actuator1'));
     this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
     this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
   }
@@ -457,13 +458,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
   }
   resetDali() {
-    this.data.setDialogTitle("Reset DALI");
-    this.data.setDialogText("Reset all DALI control gear to factory settings");
+    this.data.setDialogTitle(this.translater.translate("Reset DALI"));
+    this.data.setDialogText(this.translater.translate("Reset all DALI control gear to factory settings"));
     this.data.setShowModal(true);
   }
   resetHours() {
-    this.data.setDialogTitle("Reset");
-    this.data.setDialogText("Reset operating hours");
+    this.data.setDialogTitle(this.translater.translate("Reset"));
+    this.data.setDialogText(this.translater.translate("Reset operating hours"));
     this.data.setShowModal(true);
   }
 

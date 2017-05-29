@@ -4,6 +4,7 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import {SCCP_DATATYPES} from'../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../data.service';
+import { i18nService } from '../../../i18n.service';
 
 @Component({
   selector: 'eactuator2-root',
@@ -14,8 +15,8 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
   activeDevice:any;
   ad:any;
-  onLabel = 'on';
-  offLabel = 'off';
+  onLabel = this.translater.translate('on');
+  offLabel = this.translater.translate('off');
   loadingDataDone = false;
    readAttrs =[ 
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
@@ -34,7 +35,8 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX,                                
                 ]
 
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,
+              private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -51,7 +53,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-      this.data.setMainTitle('Settings of actuator2');
+      this.data.setMainTitle(this.translater.translate('Settings of actuator2'));
   }
   ngAfterContentInit() { 
   }

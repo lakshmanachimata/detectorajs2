@@ -5,6 +5,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 import { DatePipe } from '@angular/common'
 import {HeaderComponent} from '../header/header.component'
 import {HTTPCODES} from '../data.service'
+import { i18nService } from '../i18n.service';
 
 @Component({
   selector: 'submenu-root',
@@ -34,23 +35,24 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     public password = 'Abb@123456'
     detectors:Array<any>;
     selectedSortType = 'modelType';
-    heloText = "Download Manuals";
+    heloText = this.translater.translate("Download manuals");
     sortUITypes = ["sort by","Contact name","Building","Date of change","Article Number"];
     helpLink ="https://www.busch-jaeger.de/en/service-int/downloads/downloads-data-sheets/";
-    aboutText = "More information available on";
+    aboutText = this.translater.translate("More information available on");
     aboutLink="https://www.busch-jaeger.de/en/";
     jsonLoadObserve: any;
     sortedMap;
     profile_name;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = this.translater.translate('on');
+    offLabel = this.translater.translate('off');
     autoSync = true;
     loadingInstalleDeviceData =  false;
     header:HeaderComponent;
     searchText = '';
     lastSynced = '';
     constructor(public logger: LoggerService,public data: DataService,
-                private router:Router,private route:ActivatedRoute,private zone:NgZone) {
+                private router:Router,private route:ActivatedRoute,private zone:NgZone,
+                private translater:i18nService) {
         this.subMenuState = 'none';
         this.detectors = data.getDevices(true);
         this.selectedSortType = this.sortUITypes[0];
@@ -270,22 +272,22 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     setSubMenuTitle() {
          switch(this.data.getSubMenuVal()){
             case 'help':
-            this.data.setSMMainTitle('Help')
+            this.data.setSMMainTitle(this.translater.translate('Help'))
             break;
             case 'about':
-            this.data.setSMMainTitle('About Busch-Jaeger')
+            this.data.setSMMainTitle(this.translater.translate('About Busch-Jaeger'))
             break;
             case 'switch_mode':
-            this.data.setSMMainTitle('Switch mode')
+            this.data.setSMMainTitle(this.translater.translate('Switch mode'))
             break;
             case 'user_profiles':
-            this.data.setSMMainTitle('User profiles')
+            this.data.setSMMainTitle(this.translater.translate('User profiles'))
             break;
             case 'installed_devices':
-            this.data.setSMMainTitle('Installed devices')
+            this.data.setSMMainTitle(this.translater.translate('Installed devices'))
             break;
             case 'sync':
-            this.data.setSMMainTitle('Sync with myBUSCH-JAEGER')
+            this.data.setSMMainTitle(this.translater.translate('Sync with myBUSCH-JAEGER'))
             break;
         }
     }
@@ -321,14 +323,14 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
    }
 
     showTryDialog() {
-        this.data.setDialogTitle("Please try After some time");
-        this.data.setDialogText("Server is not available now please try after some time");
+        this.data.setDialogTitle(this.translater.translate("Please try After some time"));
+        this.data.setDialogText(this.translater.translate("Server is not available now please try after some time"));
         this.data.setShowModal(true);
     }
 
     showErrorDialog() {
-        this.data.setDialogTitle("Access details incorrect");
-        this.data.setDialogText("Please enter the correct username and password");
+        this.data.setDialogTitle(this.translater.translate("Access details incorrect"));
+        this.data.setDialogText(this.translater.translate("Please enter the correct username and password"));
         this.data.setShowModal(true);
     }
 

@@ -3,6 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import { SubMenuItem} from '../data.service';
+import { i18nService } from '../i18n.service';
 @Component({
   selector: 'iparams-root',
   templateUrl: './iparams.component.html',
@@ -29,8 +30,8 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     subMenuState = 'none';
     activeDevice:any;
     ad:any;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = this.translater.translate('on');
+    offLabel = this.translater.translate('off');
     styleValue = '#ffffff';
     showUserPin = false;
     showFitterPin = false;
@@ -43,7 +44,7 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     showTimeShiftedSwitchOffSettings = false;
     showFluorescentSettings = false;
 
-    constructor(public logger: LoggerService,public data: DataService,private router:Router) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router,private translater:i18nService) {
         this.subMenuState = 'none';
     }
 

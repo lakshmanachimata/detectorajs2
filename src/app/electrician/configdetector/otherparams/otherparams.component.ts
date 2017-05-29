@@ -4,6 +4,7 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import {SCCP_DATATYPES} from'../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../data.service';
+import { i18nService } from '../../../i18n.service';
 
 @Component({
   selector: 'other-root',
@@ -14,23 +15,23 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
 
   activeDevice:any;
   ad:any;
-  onLabel = 'on';
-  offLabel = 'off';
+  onLabel = this.translater.translate('on');
+  offLabel = this.translater.translate('off');
   showFitterPin = false;
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
   userProfiles = [
-    'Garage',
-    'Entry of cellar'
+    this.translater.translate('Garage'),
+    this.translater.translate('Entry of cellar')
   ];
   preDefined_Profiles =[
-    "Living room",
-    "Toilet",
-    "Kitchen",
-    "Bath",
-    "Floor",
-    "Outdoor"
+    this.translater.translate("Living room"),
+    this.translater.translate("Toilet"),
+    this.translater.translate("Kitchen"),
+    this.translater.translate("Bath"),
+    this.translater.translate("Floor"),
+    this.translater.translate("Outdoor")
   ]
 
   preDefined_Searches=[];
@@ -66,7 +67,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                   SCCP_ATTRIBUTES.BUILDING,
                 ]
 
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute,
+              private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -130,15 +132,15 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
 
   showOverWriteEModal(item){
     this.data.setProfileName(item);
-    this.data.setDialogTitle('Overwrtie existing profile')
-    this.data.setEOptionText('OK');
+    this.data.setDialogTitle(this.translater.translate('Overwrtie existing profile'))
+    this.data.setEOptionText(this.translater.translate('OK'));
     this.data.setShowEModal(true);
   }
 
   showAddUserProfie(){
     this.data.setProfileName('');
-    this.data.setDialogTitle('Name of new profile')
-    this.data.setEDialogInputHint('Name of new profile')
+    this.data.setDialogTitle(this.translater.translate('Name of new profile'))
+    this.data.setEDialogInputHint(this.translater.translate('Name of new profile'))
     this.data.setShowEModal(true);
   }
 

@@ -2,6 +2,8 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../logger.service';
 import { RouterModule, Routes ,Router} from '@angular/router';
 import { DataService } from '../data.service';
+import { i18nService } from '../i18n.service';
+
 @Component({
   selector: 'edialog-root',
   templateUrl: './edialog.component.html',
@@ -10,7 +12,7 @@ import { DataService } from '../data.service';
 
 export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     inputtext = '';
-  constructor(public logger: LoggerService,private router:Router,public data:DataService) {     
+  constructor(public logger: LoggerService,private router:Router,public data:DataService,private translater:i18nService) {     
   }
   ngOnChanges(changes) { 
   }
@@ -44,11 +46,11 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   }
   cancelStuff() {
       this.data.setShowEModal(false);
-      this.data.setEOptionText('save');
+      this.data.setEOptionText(this.translater.translate('save'));
   }
   doStuff() {
       this.data.setShowEModal(false);
-      this.data.setEOptionText('save');
+      this.data.setEOptionText(this.translater.translate('save'));
   }
   
   getIfShowCancel(){

@@ -16,6 +16,9 @@ import {EDialogComponent} from './header/edialog.component';
 import {CDetectorIComponent} from './menu/cdetectori.component';
 import {IParamsComponent} from './menu/iparams.component';
 import {SharedModule} from './shared/shared.module';
+import { i18nService } from './i18n.service'
+import { i18n_Lang_Defs } from './i18n-data';
+import { DummyComponentComponent } from './dummy-component/dummy-component.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +31,7 @@ import {SharedModule} from './shared/shared.module';
     EDialogComponent,
     CDetectorIComponent,
     IParamsComponent,
+    DummyComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,8 @@ import {SharedModule} from './shared/shared.module';
   providers: [
     DataService,
     LoggerService,
+    i18nService,
+    i18n_Lang_Defs
   ],
   bootstrap: [AppComponent]
 })

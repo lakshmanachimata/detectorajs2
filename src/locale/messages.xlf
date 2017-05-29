@@ -318,6 +318,26 @@
         <source>Building</source>
         <target/>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target/>

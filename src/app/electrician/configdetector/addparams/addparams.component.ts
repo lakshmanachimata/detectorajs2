@@ -4,7 +4,7 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import {SCCP_DATATYPES} from'../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../data.service';
-
+import { i18nService } from '../../../i18n.service';
 @Component({
   selector: 'addparams-root',
   templateUrl: './addparams.component.html',
@@ -14,8 +14,8 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     activeDevice:any;
     ad:any;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = this.translater.translate('on');
+    offLabel = this.translater.translate('off');
     brrangeerror = false;
     loadingDataDone = false;
     readAttrs =[
@@ -25,7 +25,8 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           ]
 
 
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute, private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,
+              private route: ActivatedRoute, private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -42,7 +43,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.data.setMainTitle('Additional sensor paramters');
+    this.data.setMainTitle(this.translater.translate('Additional sensor parameters'));
   }
   ngAfterContentInit() { 
   }

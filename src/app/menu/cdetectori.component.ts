@@ -3,6 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import { SubMenuItem} from '../data.service';
+import { i18nService } from '../i18n.service';
 @Component({
   selector: 'cdetectori-root',
   templateUrl: './cdetectori.component.html',
@@ -30,7 +31,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     isParam = false;
-    constructor(public logger: LoggerService,public data: DataService,private router:Router,private zone:NgZone) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router,private zone:NgZone,private translater:i18nService) {
         this.subMenuState = 'none';
     }
 
@@ -66,7 +67,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
     ngOnDestroy() {
         if(this.isParam == false)
-            this.data.setSMMainTitle('Installed devices');
+            this.data.setSMMainTitle(this.translater.translate('Installed devices'));
     }
     gotoInstalledParams(item,itemtitle) {
         this.data.setIParam(item,itemtitle);

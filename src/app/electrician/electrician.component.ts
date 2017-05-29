@@ -2,7 +2,7 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
-
+import { i18nService } from '../i18n.service';
 export class DetectorInfo {
         public hashCode;
         public btDeviceName;
@@ -34,14 +34,14 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     snap:RouterStateSnapshot;
     isDeviceConnected =  false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
-    private route: ActivatedRoute,private zone:NgZone) {
+    private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
     }
   configureDetector(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.data.setEOptionText('OK');
-        this.data.setEDialogInputHint('Enter password')
-        this.data.setDialogTitle('Enter password for detector')
+        this.data.setEOptionText(this.translater.translate('OK'));
+        this.data.setEDialogInputHint(this.translater.translate('Enter password'));
+        this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
         this.data.setShowEModal(true);
         //this.data.connectDevice(item.btAddress);
       }
@@ -77,7 +77,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.detectors = this.data.getDevices(false);
       this.data.DeviceBuild = 0;
     }
-    this.data.setMainTitle('Detectors');
+    this.data.setMainTitle(this.translater.translate('Detectors'));
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('electrician');
@@ -106,7 +106,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
 
       this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.data.setMainTitle('Detectors');
+        this.data.setMainTitle(this.translater.translate('Detectors'));
          this.data.setEDevParamsState(0);
       });
   }

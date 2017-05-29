@@ -4,7 +4,7 @@ import { DataService } from '../../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import {SCCP_DATATYPES} from'../../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../../data.service';
-
+import { i18nService } from '../../../../i18n.service';
 @Component({
   selector: 'sensitivity-root',
   templateUrl: './sensitivity.component.html',
@@ -14,8 +14,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
 
    activeDevice:any;
     ad:any;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = this.translater.translate('on');
+    offLabel = this.translater.translate('off');
     selectedQuadrant = '';
     selectedQuadrantValue = 0;
     styleValue = '#ffffff';
@@ -28,7 +28,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       SCCP_ATTRIBUTES.PIR_SENSITIVITY3,
       SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE
     ]
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,
+              private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
@@ -44,7 +45,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.data.setMainTitle('Sensitivity of sensors');
+    this.data.setMainTitle(this.translater.translate('Sensitivity of sensors'));
   }
   ngAfterContentInit() { 
   }

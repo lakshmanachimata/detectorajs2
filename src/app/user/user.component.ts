@@ -2,7 +2,7 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
-
+import { i18nService } from '../i18n.service';
 declare var connectDevice;
 
 export class DetectorInfo {
@@ -35,12 +35,12 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     snap:RouterStateSnapshot;
     isDeviceConnected = false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
-    private route: ActivatedRoute,private zone:NgZone) {
+    private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
     }
   configureDetectorUser(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.data.setEOptionText('OK');
+        this.data.setEOptionText(this.translater.translate('OK'));
         this.data.setShowEModal(true);
         //this.data.connectDevice(item.btAddress);
       }
@@ -70,7 +70,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       }
     }
       this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.data.setMainTitle('Detectors');
+        this.data.setMainTitle(this.translater.translate('Detectors'));
          this.data.setEDevParamsState(0);
       });
   }
@@ -115,7 +115,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.detectors = this.data.getDevices(false);
       this.data.DeviceBuild = 0;
     }
-    this.data.setMainTitle('Detectors');
+    this.data.setMainTitle(this.translater.translate('Detectors'));
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('user');

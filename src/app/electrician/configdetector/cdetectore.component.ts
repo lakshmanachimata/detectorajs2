@@ -4,6 +4,7 @@ import { DataService } from '../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import {SCCP_DATATYPES} from'../../data.service';
 import {SCCP_ATTRIBUTES} from'../../data.service';
+import { i18nService } from '../../i18n.service';
 
 @Component({
   selector: 'cdetectore-root',
@@ -42,8 +43,8 @@ import {SCCP_ATTRIBUTES} from'../../data.service';
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     activeDevice:any;
     ad:any;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = this.translater.translate('on');
+    offLabel = this.translater.translate('off');
     brthresholderror = false;
     brsetpointerror = false;
     sdelayerror = false;
@@ -172,7 +173,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     constructor(public logger: LoggerService,public data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
-                private zone:NgZone) {
+                private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -213,7 +214,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.shortTimePulseEnable?1:0])
   }
   ngOnInit() {
-    this.data.setMainTitle('Config detector');
+    this.data.setMainTitle(this.translater.translate('Config detector'));
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
   }
@@ -245,8 +246,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   showResetDialog() {
-    this.data.setDialogTitle("Reset "+ this.activeDevice.btDeviceName);
-    this.data.setDialogText("Are you sure to set the " +'"'+this.activeDevice.btDeviceName+'"' +" to factory adjustment?" );
+    this.data.setDialogTitle(this.translater.translate("Reset ")+ this.activeDevice.btDeviceName);
+    this.data.setDialogText(this.translater.translate("Are you sure to set the ") +'"'+this.activeDevice.btDeviceName+'"' +this.translater.translate(" to factory adjustment?"));
     this.data.setShowModal(true);
   }
 

@@ -352,6 +352,26 @@ export class i18n_Lang_Defs
         <source>Building</source>
         <target>Building</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>About Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Help</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Switch mode</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Installed devices</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Sync with myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Brightness correction</target>
@@ -859,6 +879,26 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Gebäude</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Über Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Hilfe</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Ansicht wechseln</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Installierte Geräte</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Mit myBUSCH-JAEGER synchronisieren</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -1369,6 +1409,26 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Gebouw</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Over Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Help</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Weergave wisselen</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Geïnstalleerde apparaten</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Met myBUSCH-JAEGER synchroniseren</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Helderheidscorrectie</target>
@@ -1877,6 +1937,26 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Bâtiment</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>A propos de Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Aide</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Changer d'affichage</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Appareils installés</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synchroniser avec myBUSCH-JAEGER</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -2387,6 +2467,26 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Edificio</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Informazioni su Über Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Help</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Cambia vista</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Apparecchi installati</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Sincronizza con myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Correzione della luminosità</target>
@@ -2895,6 +2995,26 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Здание</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Через Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Справка</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Сменить вид</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Установленные устройства</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Синхронизация с myBUSCH-JAEGER</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -3405,6 +3525,26 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Budynek</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Informacje o Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Pomoc</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Zmień widok</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Zainstalowane urządzenia</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Zsynchronizuj z myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Korekta jasności</target>
@@ -3913,6 +4053,26 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Byggnad</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Via Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Hjälp</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Växla vy</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Installerade enheter</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synkronisera med myBusch-Jaeger</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -4423,6 +4583,26 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Bygning</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Om Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Hjelp</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Bytte visning</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Installerte apparater</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synkronisere med myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Lysstyrkekorrigering</target>
@@ -4931,6 +5111,26 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Rakennus</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Busch-Jaegeriä koskevia tietoja</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Aputoiminto</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Vaihda näkymää</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Asennetut laitteet</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synkronisoi myBUSCH-JAEGERin kanssa</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -5441,6 +5641,26 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Edificio</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Acerca de Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Ayuda</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Cambiar vista</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Aparatos instalados</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Sincronizar con myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Corrección de luminosidad</target>
@@ -5949,6 +6169,26 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>建筑</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>关于 Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>帮助</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>切换视图</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>安装的设备</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>与 myBUSCH-JAEGER 同步</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -6459,6 +6699,26 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Bygning</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Om Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Hjælp</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Skift visning</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Installerede enheder</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synkroniser med myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Lysstyrkekorrektion</target>
@@ -6967,6 +7227,26 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Bina</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Busch-Jaeger hakkında</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Yardım</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Görünümü değiştir</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Yüklenen cihazlar</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>myBUSCH-JAEGER ile eşitle</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -7477,6 +7757,26 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Prédio</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Sobre Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Ajuda</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Trocar a vista</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Aparelhos instalados</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Sincronizar com myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Correção de luminos.</target>
@@ -7985,6 +8285,26 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Κτίριο</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>Πληροφορίες για την Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Βοήθεια</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Αλλαγή προβολής</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Εγκατεστημένες συσκευές</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Συγχρονισμός με το myBUSCH-JAEGER</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
@@ -8495,6 +8815,26 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Building</source>
         <target>Budova</target>
       </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>O Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Pomoc</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Zmeniť náhľad</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Nainštalované prístroje</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synchronizovať s myBUSCH-JAEGER</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Korekcia jasu</target>
@@ -9003,6 +9343,26 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="6e8be3c170a661414dbcf0e4be5ce2ba65f62615" datatype="html">
         <source>Building</source>
         <target>Budova</target>
+      </trans-unit>
+      <trans-unit id="3c849443f6473176a53e672368d30aed1419dd09" datatype="html">
+        <source>About Busch-Jaeger</source>
+        <target>O společnosti Busch-Jaeger</target>
+      </trans-unit>
+      <trans-unit id="85b79c9064aed1ead31ace985f31aa1363f6bdaf" datatype="html">
+        <source>Help</source>
+        <target>Nápověda</target>
+      </trans-unit>
+      <trans-unit id="1d5a4b6af36ed3f27caae89bc0f26fac0a92f81e" datatype="html">
+        <source>Switch mode</source>
+        <target>Změnit zobrazení</target>
+      </trans-unit>
+      <trans-unit id="82861fc525fd8384f2e94d9fb5551c75ab35da57" datatype="html">
+        <source>Installed devices</source>
+        <target>Instalovaná zařízení</target>
+      </trans-unit>
+      <trans-unit id="d0a069fa2c00b3c86a6a7fbd460ab8fdfedff0ad" datatype="html">
+        <source>Sync with myBUSCH-JAEGER</source>
+        <target>Synchronizovat s myBUSCH-JAEGER</target>
       </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>

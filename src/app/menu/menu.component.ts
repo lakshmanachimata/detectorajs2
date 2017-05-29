@@ -3,7 +3,7 @@ import {LoggerService} from '../logger.service';
 import { DataService } from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
 import { SubMenuItem} from '../data.service';
-
+import { i18nService } from '../i18n.service';
 @Component({
   selector: 'menu-root',
   templateUrl: './menu.component.html',
@@ -30,12 +30,13 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     arrowStateObserve: any;
      private snap:RouterStateSnapshot;
 
-    constructor(public logger: LoggerService,public data: DataService,private router:Router) {
+    constructor(public logger: LoggerService,public data: DataService,private router:Router,
+                private translater:i18nService) {
         this.menuItems = [];
     }
 
     animationStarted($event) {  
-        this.data.setSMMainTitle('Menu');
+        this.data.setSMMainTitle(this.translater.translate('Menu'));
     }
 
     animationDone($event) {
