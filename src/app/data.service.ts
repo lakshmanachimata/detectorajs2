@@ -28,12 +28,14 @@ export class HTTPCODES {
     static SERVER_ERR_START = 500;
 }
 
-export class DEVICESOBJ {
+export class CloudObj {
     constructor() {}
     DetectorsObj:{};
     IdetectorsObj:{};
+    ProfilesObj:{};
     DevicesArray:Array<any>;
     IDevicesArray:Array<any>;
+    ProfilesArray:Array<any>;
     SelectedDevice:any;
     ISelectedDevice:any;
     DeviceData:any;
@@ -195,7 +197,7 @@ export class UIParams {
       public showHeader = false;
       public showFooter = false;
       public arrowState = -1;
-      public devicesObj =  new DEVICESOBJ();
+      public devicesObj =  new CloudObj();
       public profileSwitch = true;
       public subMenuVal= 'none';
       public profile = 'none';
@@ -247,7 +249,9 @@ export class NetworkParams {
     public detectorHostName = 'https://api.my-staging.busch-jaeger.de';
     public baseUrl = this.detectorHostName + '/api/user/key-value/'+ this.namespace;   
     public devicesPath = 'devices';
+    public profilesPath = 'profiles';
     public devicesUrl = this.baseUrl+ '/'+ this.devicesPath;
+    public profilesUrl = this.baseUrl+ '/'+ this.profilesPath;
     public deviceprefix = 'device-'
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
@@ -255,6 +259,7 @@ export class NetworkParams {
     public useCertAuth = true; 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
+    public certProfilesPath = this.certBasePath+'/'+this.devicesPath ;
     public certDeviceDataPath = this.certBasePath+'/'+this.deviceprefix;
     public certData:any;
     public keyData:any;
@@ -330,6 +335,7 @@ declare var disConnectDevice;
 export class DataService {
 
     scanneddata:any;
+    profilesKey = 'profiles';
     uiParams:UIParams   =  new UIParams();
     deviceParams:DeviceParams   =  new DeviceParams();
     networkParams:NetworkParams =  new NetworkParams();
@@ -1029,6 +1035,21 @@ export class DataService {
             }
         }
     }
+
+    syncProfiles(){
+        this.getProfilesAndAddIfNeeded()
+    }
+    getProfilesAndAddIfNeeded(){
+        if(this.networkParams.useCertAuth){
+             let path =  this.networkParams.certProfilesPath;
+            this.getDataAndAddProfileIfneededWithCert(path);
+        }else {
+            if(this.uiParams.userLoggedIn){
+            let url = this.networkParams.profilesUrl;
+            this.getDataAndAddProfileIfneeded(url);
+            }
+        }
+    }
     getLastSyncedTime(){
         return this.uiParams.lastSynced;
     }
@@ -1071,7 +1092,97 @@ export class DataService {
             this.getDevicesFromCloud();
         }
     }
+     getDataAndAddProfileIfneededWithCert(httpPath){
+        let httpOptions = this.makeCertHeaders();
+        httpOptions.path = httpPath;
+        httpOptions.method = 'GET';
+        var req = https.request(httpOptions, function(res) {
+            res.on('data', function(data) {
+                this.handleGetDataAndAddDeviceWithCert(data);
+            });
+        });
+        req.end();
+        req.on('error', function(e) {
+                this.handleResponseError(e)
+        });
+    }
 
+    getDataAndAddProfileIfneeded(getUrl){
+        let getData =  this.http.get(getUrl, this.makeHeaders()) 
+            .map(res => {
+                if(res.status < HTTPCODES.SUCCESS_START || res.status > HTTPCODES.SUCCESS_END) {
+                    return res.status;
+                } 
+                else {
+                    return res.json();
+                }
+            })
+            .subscribe(
+                (data) => {
+                    this.handleGetDataAndAddProfile(data);
+                }, 
+                (err) => {
+                    this.handleResponseError(err)
+                }
+            ); 
+    }
+
+    
+    handleGetDataAndAddProfileWithCert(data){
+        let strFormat =  JSON.stringify(data);
+        let profiles = data.profiles;
+        if(profiles != undefined ){
+            this.uiParams.userLoggedIn = true;
+            this.uiParams.lastSynced = data._updated_at.split('+')[0];
+            let localDate = JSON.parse(this.readFromLocalStorage(this.profilesKey))._updated_at.split('+')[0];
+            let syncdate1 = new Date(localDate)
+            let syncdate2 = new Date(this.uiParams.lastSynced)
+            if(syncdate1 > syncdate2){
+                this.updateProfilesToCloud();
+            }else if (syncdate1 < syncdate2){
+                this.saveToLocalStorage(this.profilesKey,strFormat);
+            }else {
+            }
+        }
+    }
+
+    handleGetDataAndAddProfile(data){
+        let strFormat =  JSON.stringify(data);
+        let profiles = data.profiles;
+        if(profiles != undefined ){
+            this.uiParams.userLoggedIn = true;
+            this.uiParams.lastSynced = data._updated_at.split('+')[0];
+            let localDate = JSON.parse(this.readFromLocalStorage(this.profilesKey))._updated_at.split('+')[0];
+            let syncdate1 = new Date(localDate)
+            let syncdate2 = new Date(this.uiParams.lastSynced)
+            if(syncdate1 > syncdate2){
+                this.updateProfilesToCloud();
+            }else if (syncdate1 < syncdate2){
+                 this.saveToLocalStorage(this.profilesKey,strFormat);
+            }else {
+            }
+        }
+    }
+
+    updateProfilesToCloud(){
+        if(this.networkParams.useCertAuth){
+            this.uiParams.devicesObj.ProfilesObj = {
+                'profiles':this.uiParams.devicesObj.ProfilesArray
+            }
+            let bodyString = JSON.stringify(this.uiParams.devicesObj.ProfilesObj);
+            let path = this.networkParams.certProfilesPath;
+            this.putDataWithCert(this.networkParams.certProfilesPath,bodyString)
+        }else {
+            if(this.uiParams.userLoggedIn){
+                this.uiParams.devicesObj.ProfilesObj = {
+                    'profiles':this.uiParams.devicesObj.ProfilesArray
+                }
+                let bodyString = JSON.stringify(this.uiParams.devicesObj.ProfilesObj);
+                let url = this.networkParams.profilesUrl;
+                this.putData(url,bodyString);
+            }
+        }
+    }
     makeHeaders(){
         let headers      = new Headers({ 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + new Buffer(this.networkParams.username + ':' + this.networkParams.password).toString('base64')

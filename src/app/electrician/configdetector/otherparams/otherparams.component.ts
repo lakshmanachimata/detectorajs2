@@ -144,6 +144,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.setShowEModal(true);
   }
 
+  syncProfiles(){
+    this.data.syncProfiles()
+  }
+
   ngOnChanges(changes) { 
   }
   ngDoCheck() { 
