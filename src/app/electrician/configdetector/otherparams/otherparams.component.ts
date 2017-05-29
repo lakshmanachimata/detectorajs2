@@ -144,6 +144,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.setShowEModal(true);
   }
 
+  addProfile(){
+    this.data.addProfile(this.ad);
+  }
+  updateProfile(){
+    this.data.updateProfile(this.ad);
+  }
   syncProfiles(){
     this.data.syncProfiles()
   }

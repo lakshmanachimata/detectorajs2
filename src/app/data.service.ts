@@ -1164,6 +1164,30 @@ export class DataService {
         }
     }
 
+    addProfile(data){
+        let profilesData = JSON.parse(this.readFromLocalStorage(this.profilesKey));
+        let localDate = this.getUTCDateFormat();
+        this.uiParams.devicesObj.ProfilesArray = profilesData.profiles;
+        this.uiParams.devicesObj.ProfilesArray.push(data);
+        profilesData._updated_at = localDate;
+        profilesData.profiles = this.uiParams.devicesObj.ProfilesArray;
+        this.saveToLocalStorage(this.profilesKey,profilesData);
+    }
+
+    updateProfile(data){
+        let profilesData = JSON.parse(this.readFromLocalStorage(this.profilesKey));
+        let localDate = this.getUTCDateFormat();
+        this.uiParams.devicesObj.ProfilesArray = profilesData.profiles;
+        this.uiParams.devicesObj.ProfilesArray.push(data);
+        profilesData._updated_at = localDate; 
+        for(let i =0; i < this.uiParams.devicesObj.ProfilesArray.length; i++){
+            if(this.uiParams.devicesObj.ProfilesArray[i].profileName == data.profileName){
+                this.uiParams.devicesObj.ProfilesArray[i] = data;
+            }
+        }
+        profilesData.profiles = this.uiParams.devicesObj.ProfilesArray;
+        this.saveToLocalStorage(this.profilesKey,profilesData);
+    }
     updateProfilesToCloud(){
         if(this.networkParams.useCertAuth){
             this.uiParams.devicesObj.ProfilesObj = {
