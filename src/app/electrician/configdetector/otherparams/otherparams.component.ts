@@ -133,6 +133,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showOverWriteEModal(item){
     this.data.setProfileName(item);
     this.data.setDialogTitle(this.translater.translate('Overwrtie existing profile'))
+    this.data.setEDialogInputHint(this.translater.translate(''))
     this.data.setEOptionText(this.translater.translate('OK'));
     this.data.setShowEModal(true);
   }

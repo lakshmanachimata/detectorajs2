@@ -1164,25 +1164,25 @@ export class DataService {
         }
     }
 
-    addProfile(data){
+    addProfile(){
         let profilesData = JSON.parse(this.readFromLocalStorage(this.profilesKey));
         let localDate = this.getUTCDateFormat();
         this.uiParams.devicesObj.ProfilesArray = profilesData.profiles;
-        this.uiParams.devicesObj.ProfilesArray.push(data);
+        this.uiParams.devicesObj.ProfilesArray.push(this.uiParams.devicesObj.DeviceData);
         profilesData._updated_at = localDate;
         profilesData.profiles = this.uiParams.devicesObj.ProfilesArray;
         this.saveToLocalStorage(this.profilesKey,profilesData);
     }
 
-    updateProfile(data){
+    updateProfile(){
         let profilesData = JSON.parse(this.readFromLocalStorage(this.profilesKey));
         let localDate = this.getUTCDateFormat();
         this.uiParams.devicesObj.ProfilesArray = profilesData.profiles;
-        this.uiParams.devicesObj.ProfilesArray.push(data);
+        this.uiParams.devicesObj.ProfilesArray.push(this.uiParams.devicesObj.DeviceData);
         profilesData._updated_at = localDate; 
         for(let i =0; i < this.uiParams.devicesObj.ProfilesArray.length; i++){
-            if(this.uiParams.devicesObj.ProfilesArray[i].profileName == data.profileName){
-                this.uiParams.devicesObj.ProfilesArray[i] = data;
+            if(this.uiParams.devicesObj.ProfilesArray[i].profileName == this.uiParams.devicesObj.DeviceData.profileName){
+                this.uiParams.devicesObj.ProfilesArray[i] = this.uiParams.devicesObj.DeviceData;
             }
         }
         profilesData.profiles = this.uiParams.devicesObj.ProfilesArray;
