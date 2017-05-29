@@ -49,17 +49,11 @@ import { DummyComponentComponent } from './dummy-component/dummy-component.compo
   bootstrap: [AppComponent]
 })
 
+
+
 export class AppModule {
     constructor(public logger: LoggerService,
     public data: DataService) {
-      let aindex =  navigator.platform.toLowerCase().indexOf('linux');
-      let iindex = navigator.platform.toLowerCase().indexOf('iphone');
-      if( aindex >=  0 ||
-         iindex >= 0){
-          this.data.DeviceBuild = 1;
-        }else {
-          this.data.DeviceBuild = 0;
-        }
       data.initDevices();
      }
  }

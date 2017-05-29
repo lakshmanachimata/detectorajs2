@@ -6,8 +6,6 @@ import 'rxjs/Rx';
 
 import * as https from 'https';
 import * as http from 'http';
-import * as fs from 'fs';
-import * as path from 'path';
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -262,6 +260,66 @@ export class NetworkParams {
     public keyData:any;
 }
 
+var bjCert ='-----BEGIN CERTIFICATE-----\
+MIIEyDCCA7KgAwIBAgIIWBtzVrg9BD0wCwYJKoZIhvcNAQEFMIH7MQswCQYDVQQG\
+EwJERTEcMBoGA1UECBMTTm9yZHJoZWluLVdlc3RmYWxlbjEdMBsGA1UEBxMUTXVl\
+bGhlaW0gYW4gZGVyIFJ1aHIxJzAlBgNVBAoTHlE6bWFya2V0aW5nIEFrdGllbmdl\
+c2VsbHNjaGFmdDEYMBYGA1UECxMPRGF0YWRldmVsb3BtZW50MUMwQQYDVQQDEzpB\
+QkIvQnVzY2gtSmFlZ2VyIEVsZWt0cm8gSW50ZXJuZXQgU2VydmljZSBQbGF0Zm9y\
+bSBSb290IENBMScwJQYJKoZIhvcNAQkBFhhhZG1pbkBkYXRhZGV2ZWxvcG1lbnQu\
+ZGUwIhgPMjAxNzA1MTIwNTU2NTRaGA8yMDE5MDUxMjA1NTY1NFowMTELMAkGA1UE\
+BhMCREUxIjAgBgNVBAMMGUJ1c2NoLUphZWdlciBFbGVrdHJvIEdtYkgwggEgMAsG\
+CSqGSIb3DQEBAQOCAQ8AMIIBCgKCAQEA35A23Rc4cyR74ChxWWZkXNlx7bivJ3/G\
+VgA9Iuy5bHQm3CCWN1ygtWMY1yTACeipvXDyIGF7IK7xVe7V5ygfAek9/x8gbxlS\
+IAncTcZyOJiKpc3pHx6ufATlBVWuoqio1taHsz2OmMXdA2Gz7dFu9/v9d9hinyHe\
+obcLPlNZxRunRkfT6ZZlWY+I7cIprxPKXUNscwcZHY3nzQPhAAwQhLVg7ihoSBls\
+cT/ByzwETRWCNEL8PsYiVgZfgswuGyj5IUjqOsv4ByMwnwK6IfyJR/MaiMAKGoBf\
+sWZjuoxWWf70nuYIqaTb5kNpYl8zsPh5GLVnPTEWZHBUo+LvLo1j+QIDAQABo4IB\
+GTCCARUwCQYDVR0TBAIwADCB5gYDVR0RBIHeMIHbhlJodHRwczovL215LXN0YWdp\
+bmcuYnVzY2gtamFlZ2VyLmRlL2FwaS9jbGllbnQvZjRmYWJiMDktZGMxYi00ZDFl\
+LWExZDUtOTNjMzgwYmY1M2Q4oDEGBysSAAIEhg+gJhMkZjRmYWJiMDktZGMxYi00\
+ZDFlLWExZDUtOTNjMzgwYmY1M2Q4oFIGCCsGAQUFBwgFoEYTRGY0ZmFiYjA5LWRj\
+MWItNGQxZS1hMWQ1LTkzYzM4MGJmNTNkOEB4bXBwLm15LXN0YWdpbmcuYnVzY2gt\
+amFlZ2VyLmRlMB8GA1UdIwQYMBaAFLmObDD6U5xzsml9CGOUbJneFYHFMAsGCSqG\
+SIb3DQEBBQOCAQEAjcmUeHqVWCngMjiMEBvowRg3PikWbtvAhYBcvfMT47EW1M+Q\
+KFiPfQMPGBKdRnk2cDNai2stf1ODuMG3iuIQbXoHV1hK4LqRwXPqUkcdmub1lQoA\
+8+NFFmh4QBhl74LVMbtht6LA3P5NWTbV3oxV+e2eq2zKOQpt45Xly0kr4J0Kg5UR\
+uZmUE6IiI6104ZabUPxBKW8XKtICq71a0T4zyLyvnfOzAWlW56rD6wEBVggJTOuq\
+XaQd4seXnKkxgVaGgTCnX2Yo8NvdhTiUhn0FKbSTxmQXo0gdb3McdhkP5EbqwYM8\
+OykaSStsjE5xlJOtDnM3jiofu5wp7f1e44s2fQ==\
+-----END CERTIFICATE-----';
+
+var bjKey ='-----BEGIN PRIVATE KEY-----\
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDfkDbdFzhzJHvg\
+KHFZZmRc2XHtuK8nf8ZWAD0i7LlsdCbcIJY3XKC1YxjXJMAJ6Km9cPIgYXsgrvFV\
+7tXnKB8B6T3/HyBvGVIgCdxNxnI4mIqlzekfHq58BOUFVa6iqKjW1oezPY6Yxd0D\
+YbPt0W73+/132GKfId6htws+U1nFG6dGR9PplmVZj4jtwimvE8pdQ2xzBxkdjefN\
+A+EADBCEtWDuKGhIGWxxP8HLPARNFYI0Qvw+xiJWBl+CzC4bKPkhSOo6y/gHIzCf\
+Aroh/IlH8xqIwAoagF+xZmO6jFZZ/vSe5gippNvmQ2liXzOw+HkYtWc9MRZkcFSj\
+4u8ujWP5AgMBAAECggEBALSld2+XP8nqhR5QD6dJkXdlTSXlwcKNANqlPsFlvz7f\
+bDcbLcZ2VnW7KWtPCs327pFhHoUDv9ZdBi2F29n5FXUZ3zqzECY1s6Kn1RgTbmBF\
+AmOPyvuWcy9LVTPGVGKjHirbFrPC3eKcn0YIQLe+L4i6WcnpU2d6msbZfYBTIYqe\
+lw//J82pKnLtNSSJLMgT/doSDSz8G2vE+AeiINOoELf0WX31i2qM3Oc5LIPelSBv\
+txmtg6ZMcg4UAnw1RLTGEHWK8e7xOpX8QjYha8Z25jH0ZQU3ltz4+de9pG1jnA2s\
+CClynXSK2rxer+TXUshcpi8lJm5yntcP8jBFJfUiYbECgYEA86vaMIvhFPUAzuHT\
+APzHh6l58vgOXzQohV14Oblz9GWxpdv9FMqMYlez38JAFxDYRRxBmIAitaYUMFfV\
+VZwaFkTqW/J4WtX+9VrTpZC0BTyYHRbCIWQ4yv3OcuNyoVU8p9wc0t7w5eKYwBnD\
+5VMj2Z0XYt4fnT9cQfEF7zNewR8CgYEA6t/p/n8ZJkHoWj5fbA9S02PAnzYMi2NQ\
+DpaiVVFXVGkWtmZO8BlJyeazLTYow5G5Ib6qmYB9SmkHKXZhBQnYKDRazpZumc/T\
+MKOOCMDWwREzs9xmOxCVUhA9GHxBg74BVDe9q93OZdy3Js0WQFlO+VeOrOTCAxXi\
+sztYfkwpv+cCgYEA4AVzB4bSXE4TfCApuZKsbpDlSPe9XtG5H0ObsJZLgLmt5Wqm\
+9mJxRkiTWnhgK9SUwJUFyYqkXpRdo0RdIePuJ+McA4ScGgb7696hDmpG1zmqL7Qo\
+rkJR5G4LS5zIWoLezQSUi1nj57W38YS+kSsqnnrKcV79ebgyvX01k4CK8MkCgYAO\
+H7rtf+0ePNZhHuEUGXPMnHIH4PMuKqG0zuAiK0sKG2uvOkXC8HJcftAFhv06jXfJ\
+jLKrmmtuXxR8LM82w1nJSSSwyaELBNFZWmx/IEGJyKQIS9el86BXF/zkjQxPhMyF\
+qPhx7lusCnLFFY4h/nzeR6KfyP3Vu6ovRwFSTvgvvwKBgH6ucYddeLS87ScSWH6M\
+QhIauG/dDQCNte+6XPiEdN7ezcisqd+ElGOZYJj+lrACnrJsxPFEcQiUiuHohxvz\
+D6hKP1sH08HE73fFJiraQt6mCh0hCYyIaew+i9iau02P4bmWDQ1qexU3QQivoXBH\
+zTMmwS9ucX4JlYyqZqSzms69\
+-----END PRIVATE KEY-----';
+
+
+
 declare var setDataServiceCallBack;
 declare var configureAttr;
 declare var writeAttr;
@@ -303,10 +361,21 @@ export class DataService {
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
         DataService.dataService = this;
+        this.checkDeviceMode();
         this.setCertData('');
         this.setKeyData('')
     }
 
+    checkDeviceMode(){
+        let aindex =  navigator.platform.toLowerCase().indexOf('linux');
+        let iindex = navigator.platform.toLowerCase().indexOf('iphone');
+        if( aindex >=  0 ||
+        iindex >= 0){
+            this.DeviceBuild = 1;
+        }else {
+            this.DeviceBuild = 0;
+        }
+    }
     saveToLocalStorage(key,value){
         localStorage.setItem(key,value);
     }
@@ -319,16 +388,14 @@ export class DataService {
         if(this.DeviceBuild == 1)
             this.networkParams.certData = Buffer.from(data, "binary");
         else{
-            var certPath = path.join(__dirname,'assets', 'client.cert');
-            this.networkParams.certData = fs.readFileSync(certPath);
+             this.networkParams.certData = Buffer.from(bjCert, "binary");
         }
     }
     setKeyData(data){
         if(this.DeviceBuild ==1 )
             this.networkParams.keyData = Buffer.from(data, "binary");
         else{
-            var keyPath = path.join(__dirname,'assets', 'client.private');
-            this.networkParams.keyData = fs.readFileSync(keyPath);
+            this.networkParams.keyData = Buffer.from(bjKey, "binary");
         }
     }
 
