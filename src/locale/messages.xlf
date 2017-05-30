@@ -22,6 +22,11 @@
         <source>Selected user profile</source>
         <target/>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target/>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target/>
@@ -42,16 +47,16 @@
         <source>Sync now</source>
         <target/>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target/>
       </trans-unit>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
         <target/>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
@@ -74,8 +79,12 @@
         <source>OFF</source>
         <target/>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
         <target/>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
@@ -92,6 +101,10 @@
       </trans-unit>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
         <target/>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
@@ -162,8 +175,20 @@
         <source>NO contact</source>
         <target/>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
         <target/>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
@@ -338,8 +363,100 @@
         <source>Sync with myBUSCH-JAEGER</source>
         <target/>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
         <target/>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
@@ -356,6 +473,10 @@
       </trans-unit>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
         <target/>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
@@ -458,6 +579,10 @@
         <source>Slaves</source>
         <target/>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target/>
@@ -482,12 +607,20 @@
         <source>Add profile</source>
         <target/>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target/>
       </trans-unit>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
         <target/>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
@@ -498,6 +631,14 @@
         <source>Standard User password</source>
         <target/>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target/>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target/>
@@ -506,12 +647,13 @@
         <source>Light 2</source>
         <target/>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
         <target/>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
         <target/>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">

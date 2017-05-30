@@ -3,6 +3,7 @@ import {Http,Headers,RequestOptions,RequestOptionsArgs,Response,RequestMethod} f
 import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
+import { i18nService } from './i18n.service';
 
 import * as https from 'https';
 import * as http from 'http';
@@ -214,7 +215,7 @@ export class UIParams {
       showEModal = false;
       profileName ='';
       showCDI = -1;
-      eOptionText = 'save';
+      eOptionText = '';// 'Save'; //commented to solve issue with localization
       eDevParamsChanged = 0;
       userLoggedIn =  false;
       lastSynced = '';
@@ -361,7 +362,7 @@ export class DataService {
     screenHeight;
     static dataService:DataService;
     debugLogs =  false;
-    constructor(private http:Http,public logger: LoggerService) {
+    constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
@@ -415,6 +416,9 @@ export class DataService {
     }
 
     getEOptionText(){
+        if(this.uiParams.eOptionText == ''){//added to resolve issue with localization
+            this.uiParams.eOptionText = this.translater.translate('Save');
+        }
         return this.uiParams.eOptionText;
     }
 
@@ -665,19 +669,19 @@ export class DataService {
     getSubMenuItems() {
         if(this.uiParams.profile == 'user') {
             let menuItems: Array<SubMenuItem> = [ 
-                new SubMenuItem('Help','help'),
-                new SubMenuItem('About Busch-Jaeger','about'), 
-                new SubMenuItem('Switch mode','switch_mode'), 
+                new SubMenuItem(this.translater.translate('Help'),'help'),
+                new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'), 
+                new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
             ];
             return menuItems;
         }else {
             let menuItems: Array<SubMenuItem> = [ 
-                new SubMenuItem('Installed devices','installed_devices'),
-                new SubMenuItem('User profiles','user_profiles'), 
-                new SubMenuItem('Switch mode','switch_mode'), 
-                new SubMenuItem('Help','help'),
-                new SubMenuItem('Sync with myBUSCH-JAEGER','sync'),
-                new SubMenuItem('About Busch-Jaeger','about'),
+                new SubMenuItem(this.translater.translate('Installed devices'),'installed_devices'),
+                new SubMenuItem(this.translater.translate('User profiles'),'user_profiles'), 
+                new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
+                new SubMenuItem(this.translater.translate('Help'),'help'),
+                new SubMenuItem(this.translater.translate('Sync with myBUSCH-JAEGER'),'sync'),
+                new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'),
             ];
             return menuItems;
         }

@@ -3,6 +3,7 @@ import { i18n_Lang_Defs } from './i18n-data'
 @Injectable()
 export class i18nService {
     private wordDefs=[];
+    private notFoundDefs=[];
     constructor(private _ldefs:i18n_Lang_Defs){
         this.loadLangTranlations();
     }
@@ -44,7 +45,13 @@ export class i18nService {
         {
             return this.wordDefs[_srcString]
         }
-        console.log('trans not found : '+_srcString)
+        if(true){//trans not found while testing
+            if(!this.notFoundDefs[_srcString])
+            {
+                this.notFoundDefs[_srcString] = "1";
+                console.log('trans not found : '+_srcString)
+            }
+        }
         return _srcString;
     }
 

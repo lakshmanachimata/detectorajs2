@@ -36,7 +36,11 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     detectors:Array<any>;
     selectedSortType = 'modelType';
     heloText = this.translater.translate("Download manuals");
-    sortUITypes = ["sort by","Contact name","Building","Date of change","Article Number"];
+    sortUITypes = [ this.translater.translate("Sort by"),
+                    this.translater.translate("Contact name"),
+                    this.translater.translate("Building"),
+                    this.translater.translate("Date of change"),
+                    this.translater.translate("Article Number")];
     helpLink ="https://www.busch-jaeger.de/en/service-int/downloads/downloads-data-sheets/";
     aboutText = this.translater.translate("More information available on");
     aboutLink="https://www.busch-jaeger.de/en/";
@@ -272,22 +276,22 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     setSubMenuTitle() {
          switch(this.data.getSubMenuVal()){
             case 'help':
-            this.data.setSMMainTitle(this.translater.translate('Help'))
+            this.data.setSMMainTitle('Help')
             break;
             case 'about':
-            this.data.setSMMainTitle(this.translater.translate('About Busch-Jaeger'))
+            this.data.setSMMainTitle('About Busch-Jaeger')
             break;
             case 'switch_mode':
-            this.data.setSMMainTitle(this.translater.translate('Switch mode'))
+            this.data.setSMMainTitle('Switch mode')
             break;
             case 'user_profiles':
-            this.data.setSMMainTitle(this.translater.translate('User profiles'))
+            this.data.setSMMainTitle('User profiles')
             break;
             case 'installed_devices':
-            this.data.setSMMainTitle(this.translater.translate('Installed devices'))
+            this.data.setSMMainTitle('Installed devices')
             break;
             case 'sync':
-            this.data.setSMMainTitle(this.translater.translate('Sync with myBUSCH-JAEGER'))
+            this.data.setSMMainTitle('Sync with myBUSCH-JAEGER')
             break;
         }
     }

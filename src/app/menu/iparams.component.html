@@ -4,7 +4,7 @@
 		
 		<div >
 		<label>Brightness correction value</label>
-		<span>{{ad.brightnessCorrectionValue}} lux</span>
+		<span>{{ad.brightnessCorrectionValue}} <ng-container i18n>lx</ng-container></span>
 		</div>
 		
 		<div>
@@ -69,12 +69,12 @@
 				
 				
 				<div  *ngIf="showDurableSwitchingSettings" >
-				<label>Permanent ON for ...</label>
+				<label i18n>Permanent ON for…</label>
 				<span>{{ad.ch1PermanentOnDuration}}</span>
 				</div>
 
 				<div  *ngIf="showDurableSwitchingSettings" >
-				<label>Permanent OFF for ...</label>
+				<label i18n>Permanent OFF for…</label>
 				<span>{{ad.ch1PermanentOffDuration}}</span>
 				</div>
 				</div>
@@ -94,7 +94,7 @@
 
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label i18n>Soft ON</label>
-				<span>{{ad.softOnDuration}} s</span>
+				<span>{{ad.softOnDuration}} <ng-container i18n>s</ng-container></span>
 				</div>
 				
 				<div  *ngIf="showSoftSwitchingSettings" >
@@ -105,7 +105,7 @@
 				
 				<div  *ngIf="showSoftSwitchingSettings" >
 				<label i18n>Soft OFF</label>
-				<span>{{ad.softOffDuration}} s</span>
+				<span>{{ad.softOffDuration}} <ng-container i18n>s</ng-container></span>
 				</div>
 				
 
@@ -328,12 +328,12 @@
 				
 				<div  *ngIf="showSwitching" >
 				<label i18n>Switch-on delay</label>
-				<span>{{ad.hvacSwitchOnDelay}} s</span>
+				<span>{{ad.hvacSwitchOnDelay}} <ng-container i18n>s</ng-container></span>
 				</div>
 
 				<div  *ngIf="showSwitching" >
 				<label i18n>Switch-off delay</label>
-				<span>{{ad.hvacSwitchOffDelay}} s</span>
+				<span>{{ad.hvacSwitchOffDelay}} <ng-container i18n>s</ng-container></span>
 				</div>
 			</div>
 		</div>

@@ -97,7 +97,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.data.setMainTitle(this.translater.translate('Settings of actuator1'));
+    this.data.setMainTitle(this.translater.translate('Settings of actuator 1'));
     this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
     this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
   }

@@ -25,19 +25,19 @@
                     </span>
             </div>
             <div class="bj-config-setting-block-br-div brightness-div" >
-              <label class="bj-config-setting brightnessthreshold-function">Brightness threshold ({{ad.brightnessThresholdMin}} lux - {{ad.brightnessThresholdMax}} lux)</label>
+              <label class="bj-config-setting brightnessthreshold-function"><ng-container i18n>Brightness threshold</ng-container> ({{ad.brightnessThresholdMin}} <ng-container i18n>lx</ng-container> - {{ad.brightnessThresholdMax}} <ng-container i18n>lx</ng-container>)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" long-press (click)="reduceCount('threshold',true)" (onLongPressEnd)="reduceCount('threshold',true)" (onLongPressing)="reduceCount('threshold',false)"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number"  (keyup)="setBrTr($event)" [(ngModel)]="ad.brightnessThreshold"  (ngModelChange)="brThresholdChange(this)" min="ad.brightnessThresholdMin"  max="ad.brightnessThresholdMax"  [ngStyle]="{'color': brthresholderror == true?'red' : '#26394f'}">
-                  <div class="static-unit-text">lux</div>
+                  <div class="static-unit-text" i18n>lx</div>
                   <div class="adjust-plus" long-press (click)="increaseCount('threshold',true)" (onLongPressEnd)="increaseCount('threshold',true)" (onLongPressing)="increaseCount('threshold',false)"><span class="glyphicon glyphicon-plus"></span>
                   </div>
               </div>
-              <label class="bj-config-setting brightnesssetpoint-function">Brightness set point ({{ad.constantLightBrightnessSetPointMin}} lux - {{ad.constantLightBrightnessSetPointMax}} lux)</label>
+              <label class="bj-config-setting brightnesssetpoint-function"><ng-container i18n>Brightness set point</ng-container> ({{ad.constantLightBrightnessSetPointMin}} <ng-container i18n>lx</ng-container> - {{ad.constantLightBrightnessSetPointMax}} <ng-container i18n>lx</ng-container>)</label>
               <div class="bj-config-setting-adjust brightness-function">
                   <div class="adjust-minus" long-press  (click)="reduceCount('setpoint',true)" (onLongPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="reduceCount('setpoint',false)"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number" (keyup)="setBrSp($event)"  [(ngModel)]="ad.constantLightBrightnessSetPoint" min="ad.constantLightBrightnessSetPointMin"   max="ad.constantLightBrightnessSetPointMax"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
-                  <div class="static-unit-text">lux</div>
+                  <div class="static-unit-text" i18n>lx</div>
                   <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (onLongPressEnd)="increaseCount('setpoint',true)" (onLongPressing)="increaseCount('setpoint',false)"><span class="glyphicon glyphicon-plus"></span></div>
               </div>
               <div class = "bj-current-val">
@@ -76,12 +76,12 @@
                          </div>
                     </span>
                     <div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
-                        <label class="bj-config-setting-block-lbl short-time-pulse-function"  >Switch-off delay 
-                            ( {{ad.switchOffDelayMin }} s - {{ad.switchOffDelayMax/60}} min )</label>
+                        <label class="bj-config-setting-block-lbl short-time-pulse-function"  ><ng-container i18n>Switch-off delay</ng-container> 
+                            ( {{ad.switchOffDelayMin }} <ng-container i18n>s</ng-container> - {{ad.switchOffDelayMax/60}} <ng-container i18n>min</ng-container> )</label>
                         <div class="bj-config-setting-adjust short-time-pulse-function "  >
                             <div class="adjust-minus" long-press (click)="reduceCount('sdelay',true)" (onLongPressEnd)="reduceCount('sdelay',true)" (onLongPressing)="reduceCount('sdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                                 <input class="adjust" type="number" (keyup)="setSoffDelay($event)" [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
-                                <div class="static-unit-text">s</div>
+                                <div class="static-unit-text" i18n>s</div>
                                 <div class="adjust-plus" long-press (click)="increaseCount('sdelay',true)" (onLongPressEnd)="increaseCount('sdelay',true)" (onLongPressing)="increaseCount('sdelay',false)"><span class="glyphicon glyphicon-plus"></span>
                                 </div>
                         </div>
@@ -158,7 +158,7 @@
               <label class="bj-config-setting save-user-profile-block" i18n>Save as user profile</label>
               <next-nav></next-nav>
             </div>
-            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('updatefirmware','Update firmware')">
+            <div class="bj-config-setting-div service-div" (click)="gotoOtherParams('updatefirmware','Update Firmware')">
               <label class="bj-config-setting update-firmware-block" i18n>Update Firmware</label>
               <next-nav></next-nav>
             </div>

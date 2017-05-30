@@ -53,7 +53,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
-      this.data.setMainTitle(this.translater.translate('Settings of actuator2'));
+      this.data.setMainTitle(this.translater.translate('Settings of actuator 2'));
   }
   ngAfterContentInit() { 
   }

@@ -56,6 +56,11 @@ export class i18n_Lang_Defs
         <source>Selected user profile</source>
         <target>Selected user profile</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Search</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Username</target>
@@ -76,6 +81,10 @@ export class i18n_Lang_Defs
         <source>Sync now</source>
         <target>Sync now</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Deactivate test mode</target>
@@ -83,10 +92,6 @@ export class i18n_Lang_Defs
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Load</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Send</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -108,9 +113,13 @@ export class i18n_Lang_Defs
         <source>OFF</source>
         <target>OFF</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
-        <target>brightness threshold</target>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
+        <target>Brightness threshold</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -127,6 +136,10 @@ export class i18n_Lang_Defs
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Switch-off delay</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -196,9 +209,21 @@ export class i18n_Lang_Defs
         <source>NO contact</source>
         <target>NO contact</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Permanent ON for…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Permanent OFF for…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft ON</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -372,9 +397,101 @@ export class i18n_Lang_Defs
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Sync with myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Download manuals</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Configure detector</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Settings of actuator 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sort by</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Name of new profile</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Total savings</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Current duration of Yearly light</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>January</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>February</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>March</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>May</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>June</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>July</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>October</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>December</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Brightness correction</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Current brightness</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -391,6 +508,10 @@ export class i18n_Lang_Defs
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Limit access after power cycle</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Brightness set point</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -492,6 +613,10 @@ export class i18n_Lang_Defs
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Test mode settings</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identify load on actuator 1</target>
@@ -516,6 +641,10 @@ export class i18n_Lang_Defs
         <source>Add profile</source>
         <target>Add profile</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Reference details</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Lighting duration per week</target>
@@ -523,6 +652,10 @@ export class i18n_Lang_Defs
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>All</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>With this password you gain access to all settings of the device</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -532,6 +665,14 @@ export class i18n_Lang_Defs
         <source>Standard User password</source>
         <target>Standard User password</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>With this password you gain access to light settings</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Settings</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Light 1</target>
@@ -540,13 +681,14 @@ export class i18n_Lang_Defs
         <source>Light 2</source>
         <target>Light 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Settings</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Month Overview</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Reference details</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Year Overview</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -583,6 +725,11 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Ausgewähltes Benutzerprofil</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Suchen</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Benutzername</target>
@@ -603,6 +750,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Jetzt synchronisieren</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Senden</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Testbetrieb beenden</target>
@@ -610,10 +761,6 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Laden</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Senden</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -635,9 +782,13 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Aus</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Helligkeitsschaltschwelle</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -654,6 +805,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Nachlaufzeit</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>Min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -723,9 +878,21 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Schließer</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Dauerhaft EIN für…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Dauerhaft AUS für…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft EIN</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>Sek.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -833,8 +1000,7 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -900,9 +1066,101 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Mit myBUSCH-JAEGER synchronisieren</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menü</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Benutzerinformationen herunterladen</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Präsenzmelder konfigurieren</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Einstellungen Aktor 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sortieren nach</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profilname</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Speichern</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Einsparungen</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Jährliche Einschaltdauer</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Januar</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Februar</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>März</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mai</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juni</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juli</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Oktober</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Dezember</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Helligkeitskorrektur</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktuelle Helligkeit</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -919,6 +1177,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Eingeschränkter Zugang nach Spannungsausfall</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Helligkeitssollwert</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -946,8 +1208,7 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -1021,6 +1282,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Einstellungen Testbetrieb</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Aktor 1 identifizieren</target>
@@ -1045,6 +1310,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Profil hinzufügen</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referenzangaben</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Leuchtdauer je Woche</target>
@@ -1052,6 +1321,10 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Alle</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Mit diesem Passwort lassen sich alle Geräteeinstellungen bearbeiten</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -1061,6 +1334,14 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Benutzer Passwort</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Mit diesem Passwort lassen sich nur Beleuchtungseinstellungen ändern</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Einstellungen</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampe 1</target>
@@ -1069,13 +1350,14 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampe 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Einstellungen</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Monatsübersicht</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referenzangaben</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Jahresübersicht</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -1112,6 +1394,11 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Geselecteerd gebruikersprofiel</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Zoeken</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Gebruikersnaam</target>
@@ -1132,6 +1419,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Nu synchroniseren</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Verzenden</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Testbedrijf beëindigen</target>
@@ -1139,10 +1430,6 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Laden</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Verzenden</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -1164,9 +1451,13 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Uit</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Helderheidsschakeldrempel</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -1183,6 +1474,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Nalooptijd</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -1252,9 +1547,21 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Maakcontact (NO)</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Continu AAN voor ...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Continu UIT voor ...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft AAN</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>sec</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -1362,8 +1669,7 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -1429,9 +1735,101 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Met myBUSCH-JAEGER synchroniseren</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Gebruikersinformatie downloaden</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Aanwezigheidsmelder configureren</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Instellingen aktor 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sorteren op</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profielnaam</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Opslaan</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Resetten</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Besparingen</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Inschakelduur jaar</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Januari</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Februari</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Maart</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mei</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juni</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juli</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Augustus</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Oktober</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>December</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Helderheidscorrectie</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Actuele helderheid</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -1448,6 +1846,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Beperkte toegang na spanningsuitval</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Gewenste helderheidswaarde</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -1475,8 +1877,7 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -1550,6 +1951,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Instellingen testbedrijf</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Aktor 1 identificeren</target>
@@ -1574,6 +1979,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Profiel toevoegen</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referentiegegevens</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Lichtduur per week</target>
@@ -1581,6 +1990,10 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Alle</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Met dit wachtwoord kunnen alle apparaatinstellingen worden bewerkt</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -1590,6 +2003,14 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Wachtwoord gebruiker</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Met dit wachtwoord kunnen alleen verlichtingsinstellingen worden gewijzigd</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Instellingen</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lamp 1</target>
@@ -1598,13 +2019,14 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lamp 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Instellingen</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Maandoverzicht</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referentiegegevens</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Jaaroverzicht</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -1641,6 +2063,11 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Profil utilisateur sélectionné</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Rechercher</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Nom d'utilisateur</target>
@@ -1661,6 +2088,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synchronisser maintenant</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Quitter le mode test</target>
@@ -1668,10 +2099,6 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Charger</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Envoyer</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -1693,9 +2120,13 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Arrêt</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Seuil de commutation en fonction de la luminosité</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -1712,6 +2143,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Temporisation d'arrêt</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -1781,9 +2216,21 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Contact à fermeture</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>MARCHE en continu pour…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>ARRET en continu pour…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Marche en douceur</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -1891,8 +2338,7 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -1958,9 +2404,101 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synchroniser avec myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Télécharger les informations utilisateur</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Configurer un détecteur de présence</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Réglages d'actionneur 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Trier par</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Nom de profil</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Enregistrer</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Réinitialiser</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Economies</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Durée de marche annuelle</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Janvier</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Février</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Mars</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Avril</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mai</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juin</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juillet</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Août</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Septembre</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Octobre</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Novembre</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Décembre</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Correction de luminosité</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Luminosité actuelle</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -1977,6 +2515,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Accès limité à l'issue d'une coupure secteur</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Valeur de consigne de luminosité</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -2004,8 +2546,7 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -2079,6 +2620,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Esclaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Réglages de mode test</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifier l'actionneur 1</target>
@@ -2103,6 +2648,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Ajouter un profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Indications de référence</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Durée d'éclairage par semaine</target>
@@ -2110,6 +2659,10 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Tous</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Ce mot de passe permet d'éditer tous les réglages de l'appareil</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -2119,6 +2672,14 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Mot de passe utilisateur</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Ce mot de passe permet uniquement de modifier des réglages d'éclairage</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Réglages</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampe 1</target>
@@ -2127,13 +2688,14 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampe 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Réglages</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Récapitulatif mensuel</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Indications de référence</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Récapitulatif annuel</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -2170,6 +2732,11 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Profilo utente selezionato</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Trova</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Nome utente</target>
@@ -2190,6 +2757,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Sincronizza ora</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Invia</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Esci dal funzionamento di prova</target>
@@ -2197,10 +2768,6 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Carica</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Invia</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -2222,9 +2789,13 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>OFF</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Soglia della luminosità di intervento</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -2241,6 +2812,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Tempo di disinserimento ritardato</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -2310,9 +2885,21 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Contatto NA</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Permanente ON per…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Permanente OFF per…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft ON</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -2420,8 +3007,7 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -2487,9 +3073,101 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Sincronizza con myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Scarica informazioni utente</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Configura rilevatore di presenza</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Impostazioni attuatore 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Ordina per</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Nome del profilo</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Salva</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Resetta</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Risparmio</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Durata di accensione annuale</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Gennaio</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Febbraio</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Marzo</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Aprile</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Maggio</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Giugno</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Luglio</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Agosto</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Settembre</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Ottobre</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Novembre</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Dicembre</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Correzione della luminosità</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Luminosità corrente</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -2506,6 +3184,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Accesso limitato in seguito a caduta di tensione</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Valore di riferimento della luminosità</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -2533,8 +3215,7 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -2608,6 +3289,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Impostazioni funzionamento di prova</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifica attuatore 1</target>
@@ -2632,6 +3317,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Aggiungi profilo</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Dati di riferimento</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Durata di accensione per settimana</target>
@@ -2639,6 +3328,10 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Tutti</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Questa password consente di modificare tutte le impostazioni dell'apparecchio</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -2648,6 +3341,14 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Password utente</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Questa password consente di modificare solo le impostazioni relative all'illuminazione</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Impostazioni</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampadina 1</target>
@@ -2656,13 +3357,14 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampadina 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Impostazioni</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Prospetto mensile</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Dati di riferimento</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Prospetto annuale</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -2699,6 +3401,11 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Выбранный профиль пользователя</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Поиск</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Имя пользователя</target>
@@ -2719,6 +3426,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Синхронизировать сейчас</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Передать</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Выход из тестового режима</target>
@@ -2726,10 +3437,6 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Загрузка</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Передать</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -2751,9 +3458,13 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Выкл</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Порог освещенности</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>лк</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -2770,6 +3481,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Время ожидания</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>мин</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -2839,9 +3554,21 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Нормально-разомкнутый</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Постоянно ВКЛ в течение...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Постоянно ВЫКЛ в течение...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Плавное включение</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>с</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -2949,8 +3676,7 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -3016,9 +3742,101 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Синхронизация с myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Меню</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Загрузить информацию о пользователе</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Настройка датчика присутствия</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Настройки активатора 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Сортировать по</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Имя профиля</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Сохранить</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target> Сброс</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Экономия</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Время работы освщения за год</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Январь</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Февраль</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Март</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Апрель</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Май</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Июнь</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Июль</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Август</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Сентябрь</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Октябрь</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Ноябрь</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Декабрь</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Коррекция освещенности</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Текущая освещенность</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -3035,6 +3853,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Ограниченный доступ после отказа напряжения</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Заданный порог освещенности</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -3062,8 +3884,7 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -3137,6 +3958,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Ведомые</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Настройки тестового режима</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Идентификация активатора 1</target>
@@ -3161,6 +3986,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Добавить профиль</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Эталонные данные</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Продолжительность свечения за неделю</target>
@@ -3168,6 +3997,10 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Все</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Этот пароль позволяет изменять настройки устройства</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -3177,6 +4010,14 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Пароль пользователя</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Этот пароль позволяет изменять только настройки освещения</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Настройки</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Лампа 1</target>
@@ -3185,13 +4026,14 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Лампа 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Настройки</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Обзор за месяц</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Эталонные данные</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Обзор за год</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -3228,6 +4070,11 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Wybrany profil użytkownika</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Szukaj</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Nazwa użytkownika</target>
@@ -3248,6 +4095,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synchronizuj teraz</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Wyślij</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Zakończ tryb testowy</target>
@@ -3255,10 +4106,6 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Ładuj</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Wyślij</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -3280,9 +4127,13 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Wył.</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Próg jasności przełączania</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -3299,6 +4150,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Czas opóźnienia</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -3368,9 +4223,21 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Zwierny</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Stale WŁ. dla...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Stale WYŁ. dla...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Płynne WŁ.</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -3478,8 +4345,7 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -3545,9 +4411,101 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Zsynchronizuj z myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Pobierz informacje dla użytkowników</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Skonfiguruj czujnik obecności</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Ustawienia aktuatora 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sortuj według</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Nazwa profilu</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Zapisz</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Resetuj</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Oszczędności</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Roczny czas trwania włączenia</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Styczeń</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Luty</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Marzec</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Kwiecień</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Maj</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Czerwiec</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Lipiec</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Sierpień</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Wrzesień</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Październik</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Listopad</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Grudzień</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Korekta jasności</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktualna jasność</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -3564,6 +4522,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Ograniczony dostęp po po awarii zasilania</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Wartość zadana jasności</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -3591,8 +4553,7 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -3666,6 +4627,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Urządzenia slave</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Ustawienia trybu testowego</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Zidentyfikuj aktuator 1</target>
@@ -3690,6 +4655,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Dodaj profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Dane referencyjne</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Czas trwania świecenia na tydzień</target>
@@ -3697,6 +4666,10 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Wszystkie</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Z tym hasłem można zmieniać wszystkie ustawienia urządzenia</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -3706,6 +4679,14 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Hasło użytkownika</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Z tym hasłem można zmieniać jedynie ustawienia oświetlenia</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Ustawienia</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampa 1</target>
@@ -3714,13 +4695,14 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampa 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Ustawienia</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Zestawienie miesięczne</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Dane referencyjne</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Zestawienie roczne</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -3757,6 +4739,11 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Vald användarprofil</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Sök</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Användarnamn</target>
@@ -3777,6 +4764,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synkronisera nu</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Skicka</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Avsluta testdrift</target>
@@ -3784,10 +4775,6 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Ladda</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Skicka</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -3809,9 +4796,13 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Av</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Ljuskopplingströskel</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -3828,6 +4819,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Efterlöptid</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -3897,9 +4892,21 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Slutare</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Kontinuerligt PÅ för ...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Kontinuerligt AV för ...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft PÅ</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -4007,8 +5014,7 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -4074,9 +5080,101 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synkronisera med myBusch-Jaeger</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Meny</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Hämta användarinformation</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfigurera närvarovakten</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Inställningar ställdon 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sortera efter</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profilnamn</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Spara</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Återställning</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Besparingar</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Inkopplingstid per år</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Januari</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Februari</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Mars</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Maj</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juni</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juli</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Augusti</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Oktober</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>December</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Korrigering av ljusstyrka</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktuell ljusstyrka</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -4093,6 +5191,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Begränsad åtkomst efter strömavbrott</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Börvärde för ljusstyrka</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -4120,8 +5222,7 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -4195,6 +5296,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Inställningar testdrift</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifiera ställdon 1</target>
@@ -4219,6 +5324,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Lägg till profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referensuppgifter</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Belysningstid per vecka</target>
@@ -4226,6 +5335,10 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Alla</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Med det här lösenordet kan alla enhetsinställningar bearbetas</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -4235,6 +5348,14 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Användarens lösenord</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Med det här lösenordet kan bara belysningsinställningar bearbetas</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Inställningar</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampa 1</target>
@@ -4243,13 +5364,14 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampa 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Inställningar</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Månadsöversikt</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referensuppgifter</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Årsöversikt</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -4286,6 +5408,11 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Valg brukerprofil</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Søk</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Brukernavn</target>
@@ -4306,6 +5433,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synkroniser nå</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Sende</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Avslutte testdrift</target>
@@ -4313,10 +5444,6 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Last</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Sende</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -4338,9 +5465,13 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Av</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Reaksjonsterskel</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -4357,6 +5488,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Etterløpstid</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -4426,9 +5561,21 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Lukker</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Kontinuerlig PÅ i…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Kontinuerlig AV i…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft PÅ</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>sek</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -4536,8 +5683,7 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -4603,9 +5749,101 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synkronisere med myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Meny</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Laste ned brukerinformasjon</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfigurere tilstedeværelsesdetektor</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Innstillinger aktuator 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sorter etter</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profilnavn</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Lagre</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Tilbakestill</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Innsparinger</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Årlig innkoblingsvarighet</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Januar</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Februar</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Mars</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mai</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juni</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juli</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Oktober</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Desember</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Lysstyrkekorrigering</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Gjeldende lysstyrke</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -4622,6 +5860,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Begrenset tilgang etter spenningsutfall</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Nominell verdi for lysstyrke</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -4649,8 +5891,7 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -4724,6 +5965,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaver</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Innstillinger testdrift</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifisere aktuator 1</target>
@@ -4748,6 +5993,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Legg til profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referanseangivelser</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Lysvarighet per uke</target>
@@ -4755,6 +6004,10 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Alle</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Med dette passordet kan alle innstillingene på apparatet endres</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -4764,6 +6017,14 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Brukerpassord</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Med dette passordet kan bare belysningsinnstillingene endres</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Innstillinger</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampe 1</target>
@@ -4772,13 +6033,14 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampe 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Innstillinger</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Månedsoversikt</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referanseangivelser</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Årsoversikt</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -4815,6 +6077,11 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Valittu käyttäjäprofiili</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Haku</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Käyttäjänimi</target>
@@ -4835,6 +6102,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synkronisoi nyt</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Lähetä</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Lopeta testikäyttö</target>
@@ -4842,10 +6113,6 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Lataa</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Lähetä</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -4867,9 +6134,13 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Pois</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Valokytkentäkynnys</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -4886,6 +6157,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Jälkikäyntiaika</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -4955,9 +6230,21 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Sulkeva kosketin</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Jatkuvasti PÄÄLLÄ...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Jatkuvasti POIS...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Pehmeä PÄÄLLÄ</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>sek.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -5065,8 +6352,7 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -5132,9 +6418,101 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synkronisoi myBUSCH-JAEGERin kanssa</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Valikko</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Lataa käyttäjätiedot</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfiguroi läsnäoloilmaisin</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Asetukset, toimilaite 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Lajittele seuraavin perustein</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profiilinimi</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Tallenna</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Palauta</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Säästöt</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Vuosittainen päällekytkentäaika</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Tammikuu</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Helmikuu</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Maaliskuu</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Huhtikuu</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Toukokuu</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Kesäkuu</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Heinäkuu</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Elokuu</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Syyskuu</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Lokakuu</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Marraskuu</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Joulukuu</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Valovoimakkuuden korjaus</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Sen hetkinen valovoimakkuus</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -5151,6 +6529,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Rajoitettu pääsy jännitekatkoksen jälkeen</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Valovoimakkuuden ohjearvo</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -5178,8 +6560,7 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -5253,6 +6634,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slave-laitteet</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Asetukset, testikäyttö</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Tunnista toimilaite 1</target>
@@ -5277,6 +6662,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Lisää profiili</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referenssitiedot</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Palamisen kesto viikkoa kohden</target>
@@ -5284,6 +6673,10 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Kaikki</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Tällä salasanalla voi muokata kaikkia laiteasetuksia</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -5293,6 +6686,14 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Käyttäjän salasana</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Tällä salasanalla voi muuttaa vain valaistusasetuksia</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Asetukset</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lamppu 1</target>
@@ -5301,13 +6702,14 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lamppu 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Asetukset</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Kuukauden yhteenveto</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referenssitiedot</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Vuoden yhteenveto</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -5344,6 +6746,11 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Perfil de usuario seleccionado</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Buscar</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Nombre de usuario</target>
@@ -5364,6 +6771,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Sincronizar ahora</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Enviar</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Finalizar modo test</target>
@@ -5371,10 +6782,6 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Cargar</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Enviar</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -5396,9 +6803,13 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Desconectado</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Umbral de conmutación por luminosidad</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -5415,6 +6826,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Tiempo de seguimiento</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -5484,9 +6899,21 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Contacto de cierre</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Permanentemente CON para ...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Permanentemente DESC para ...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft SÍ</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -5594,8 +7021,7 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -5661,9 +7087,101 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Sincronizar con myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menú</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Descargar información de usuario</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Configurar detector de presencia</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Ajustes actuador 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Ordenar por</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Nombre del perfil</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Restablecer</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Ahorro</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Duración de conexión anual</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Enero</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Febrero</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Marzo</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Abril</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mayo</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Junio</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Julio</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Agosto</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Septiembre</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Octubre</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Noviembre</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Diciembre</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Corrección de luminosidad</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Luminosidad actual</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -5680,6 +7198,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Acceso limitado tras caída de tensión</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Valor de consigna luminosidad</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -5707,8 +7229,7 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -5782,6 +7303,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Esclavos</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Ajustes del modo test</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identificar actuador 1</target>
@@ -5806,6 +7331,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Añadir perfil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Datos de referencia</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Duración de luz por semana</target>
@@ -5813,6 +7342,10 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Todas</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Con esta contraseña se pueden editar todos los ajustes de aparatos</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -5822,6 +7355,14 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Contraseña de usuario</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Con esta contraseña solo se pueden modificar los ajustes de iluminación</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Ajustes</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lámpara 1</target>
@@ -5830,13 +7371,14 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lámpara 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Ajustes</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Resumen mensual</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Datos de referencia</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Resumen anual</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -5873,6 +7415,11 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>选择的用户配置文件</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>检查</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>用户名</target>
@@ -5893,6 +7440,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>现在同步</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>发送</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>结束试运行</target>
@@ -5900,10 +7451,6 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>加载</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>发送</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -5925,9 +7472,13 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>关闭</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>亮度开关阈</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -5944,6 +7495,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>空转时间</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>分钟</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -6013,9 +7568,21 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>常开触点</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>持续打开时间</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>持续关闭时间</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>渐开</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>秒</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -6123,8 +7690,7 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -6190,9 +7756,101 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>与 myBUSCH-JAEGER 同步</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>菜单</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>下载用户信息</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>配置现场检测器</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>执行器 2 设置</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>排序方式</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>配置文件名称</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>保存</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>重置</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>节省</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>每年打开时间</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>一月</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>二月</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>三月</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>四月</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>五月</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>六月</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>七月</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>八月</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>九月</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>十月</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>十一月</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>十二月</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>亮度校正</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>当前亮度</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -6209,6 +7867,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>重启后访问受限</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>亮度额定值</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -6236,8 +7898,7 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -6311,6 +7972,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>从站</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>试运行设置</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>识别执行器 1</target>
@@ -6335,6 +8000,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>添加配置文件</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>参考数据</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>每周照明时间</target>
@@ -6342,6 +8011,10 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>所有</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>利用该密码可编辑所有设备设置</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -6351,6 +8024,14 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>用户密码</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>利用该密码仅可更改照明设置</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>设置</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>灯 1</target>
@@ -6359,13 +8040,14 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>灯 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>设置</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>月度概况</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>参考数据</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>年度概况</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -6402,6 +8084,11 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Udvalgt brugerprofil</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Søg</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Brugernavn</target>
@@ -6422,6 +8109,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synkroniser nu</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Send</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Afslut testdrift</target>
@@ -6429,10 +8120,6 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Indlæs</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Send</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -6454,9 +8141,13 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>FRA</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Lysstyrkeomskiftningstærskel</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -6473,6 +8164,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Efterløbstid</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -6542,9 +8237,21 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Slutter</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Permanent TIL for...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Permanent FRA for...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft TIL</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>sek.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -6652,8 +8359,7 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -6719,9 +8425,101 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synkroniser med myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Download brugerinformationer</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfigurer tilstedeværelsessensor</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Indstillinger aktuator 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sortér efter</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profilnavn</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Gem</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Besparelser</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Årlig tilkoblingsvarighed</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Januar</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Februar</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Marts</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>April</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Maj</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Juni</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Juli</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Oktober</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>December</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Lysstyrkekorrektion</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktuel lysstyrke</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -6738,6 +8536,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Begrænset adgang efter strømsvigt</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Nominel lysstyrkeværdi</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -6765,8 +8567,7 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -6840,6 +8641,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Indstillinger testdrift</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identificer aktuator 1</target>
@@ -6864,6 +8669,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Tilføj profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referenceangivelser</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Lysvarighed pr. uge</target>
@@ -6871,6 +8680,10 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Alle</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Med dette password kan alle enhedsindstillinger redigeres</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -6880,6 +8693,14 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Bruger password</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Med dette password kan kun belysningsindstillinger ændres</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Indstillinger</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lampe 1</target>
@@ -6888,13 +8709,14 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lampe 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Indstillinger</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Månedsoversigt</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referenceangivelser</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Årsoversigt</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -6931,6 +8753,11 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Seçilen kullanıcı profili</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Ara</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Kullanıcı adı</target>
@@ -6951,6 +8778,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Şimdi eşitle</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Gönder</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Test işletimini bitir</target>
@@ -6958,10 +8789,6 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Yükle</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Gönder</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -6983,9 +8810,13 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Kapat</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Parlaklık devreye girme eşiği</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -7002,6 +8833,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Ek çalışma süresi</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>dk.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -7071,9 +8906,21 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Kapatma kontağı</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Şunun için sürekli AÇIK…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Şunun için sürekli KAPALI…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Yumuşak AÇIK</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>sn.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -7181,8 +9028,7 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -7248,9 +9094,101 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>myBUSCH-JAEGER ile eşitle</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>MENÜ</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Kullanıcı bilgilerini indir</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Varlık dedektörünü yapılandır</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Aktuatör 2 ayarları</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Sıralama ölçütü</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Profil adı</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Kaydet</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Sıfırla</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Tasarruflar</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Yıllık açma süresi</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Ocak</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Şubat</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Mart</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Nisan</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Mayıs</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Haziran</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Temmuz</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Ağustos</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Eylül</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Ekim</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Kasım</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Aralık</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Parlaklık düzeltmesi</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Güncel parlaklık</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -7267,6 +9205,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Elektrik kesintisi sonrası sınırlı erişim</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Parlaklık hedef değeri</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -7294,8 +9236,7 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -7369,6 +9310,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slave'ler</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Test işletimi ayarları</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Aktuatör 1 tanımla</target>
@@ -7393,6 +9338,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Profil ekle</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referans bilgileri</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Hafta başına yanma süresi</target>
@@ -7400,6 +9349,10 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Tümü</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Bu parola ile tüm cihaz ayarları yapılabilir</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -7409,6 +9362,14 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Kullanıcı parolası</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Bu parola ile sadece aydınlatma ayarları değiştirilebilir</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Ayarlar</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lamba 1</target>
@@ -7417,13 +9378,14 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lamba 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Ayarlar</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Aylık görünüm</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referans bilgileri</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Yıllık görünüm</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -7460,6 +9422,11 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Perfil de utilizador selecionado</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Buscar</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Nome de utilizador</target>
@@ -7480,6 +9447,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Sincronizar agora</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Enviar</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Terminar oper. teste</target>
@@ -7487,10 +9458,6 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Carregar</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Enviar</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -7512,9 +9479,13 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>OFF</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Limite comut. luminosidade</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -7531,6 +9502,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Período de retardamento</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -7600,9 +9575,21 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Fechador</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Permanentemente LIG para…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Permanentemente DESL para…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>LIG Soft</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>seg.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -7710,8 +9697,7 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -7777,9 +9763,101 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Sincronizar com myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>MENU</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Descarregar as informações do utilizador</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Configurar o sensor de pres.</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Definições atuador 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Classificar por</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Nome do perfil</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Repor</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Economias</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Duração de ligação anual</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Janeiro</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Fevereiro</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Março</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Abril</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Maio</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Junho</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Julho</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Agosto</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Setembro</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Outubro</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Novembro</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Dezembro</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Correção de luminos.</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Luminosidade atual</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -7796,6 +9874,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Acesso limitado após queda de tensão</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Valor nominal luminosidade</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -7823,8 +9905,7 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -7898,6 +9979,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Definições oper. teste</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identificar atuador 1</target>
@@ -7922,6 +10007,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Adicionar perfil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Inform. de referência</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Duração da luz por semana</target>
@@ -7929,6 +10018,10 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Todos</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Com esta palavra-passe, podem ser editadas todas as definições do aparelho</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -7938,6 +10031,14 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Palavra-passe do utilizador</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Com esta palavra-passe, podem ser modificadas apenas definições da iluminação</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Definições</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Lâmpada 1</target>
@@ -7946,13 +10047,14 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Lâmpada 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Definições</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Vista geral do mês</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Inform. de referência</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Vista geral do ano</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -7989,6 +10091,11 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Επιλεγμένο προφίλ χρήστη</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Αναζήτηση</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Όνομα χρήστη</target>
@@ -8009,6 +10116,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Συγχρονισμός τώρα</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Αποστολή</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Τερματισμός δοκιμαστικής λειτουργίας</target>
@@ -8016,10 +10127,6 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Φόρτωση</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Αποστολή</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -8041,9 +10148,13 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Off</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Κατώφλι μεταγωγής φωτεινότητας</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -8060,6 +10171,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Χρόνος μετέπειτα λειτουργίας</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>λεπτά</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -8129,9 +10244,21 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Κανονικά ανοιχτή επαφή</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Διαρκώς ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ για…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Διαρκώς ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ για…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>δευτ.</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -8239,8 +10366,7 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -8306,9 +10432,101 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Συγχρονισμός με το myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>ΜΕΝΟΥ</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Λήψη πληροφοριών χρήστη</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Ρύθμιση παραμέτρων ανιχνευτή παρουσίας</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Ρυθμίσεις ενεργοποιητή 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Ταξινόμηση κατά</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Όνομα προφίλ</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Αποθήκευση</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Επαναφορά</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Εξοικονομήσεις</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Ετήσια διάρκεια ενεργοποίησης</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Ιανουάριος</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Φεβρουάριος</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Μάρτιος</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Απρίλιος</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Μάιος</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Ιούνιος</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Ιούλιος</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Αύγουστος</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Σεπτέμβριος</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Οκτώβριος</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Νοέμβριος</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Δεκέμβριος</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Διόρθωση φωτεινότητας</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Τρέχουσα φωτεινότητα</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -8325,6 +10543,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Περιορισμένη πρόσβαση μετά από διακοπή ρεύματος</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Ονομαστική τιμή φωτεινότητας</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -8352,8 +10574,7 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -8427,6 +10648,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slaves</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Ρυθμίσεις δοκιμαστικής λειτουργίας</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Αναγνώριση ενεργοποιητή 1</target>
@@ -8451,6 +10676,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Προσθήκη προφίλ</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Στοιχεία αναφοράς</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Διάρκεια φωτισμού ανά βδομάδα</target>
@@ -8458,6 +10687,10 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Όλα</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Με αυτόν τον κωδικό πρόσβασης είναι δυνατή η επεξεργασία όλων των ρυθμίσεων συσκευής</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -8467,6 +10700,14 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Κωδικός πρόσβασης χρήστη</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Με αυτόν τον κωδικό πρόσβασης είναι δυνατή μόνο η τροποποίηση ρυθμίσεων φωτισμού</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Ρυθμίσεις</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Λάμπα 1</target>
@@ -8475,13 +10716,14 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Λάμπα 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Ρυθμίσεις</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Μηνιαία σύνοψη</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Στοιχεία αναφοράς</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Ετήσια σύνοψη</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -8518,6 +10760,11 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Zvolený užívateľský profil</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Vyhľadať</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Užívateľské meno</target>
@@ -8538,6 +10785,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synchronizovať teraz</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Poslať</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Ukončiť testovaciu prevádzku</target>
@@ -8545,10 +10796,6 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Načítať</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Poslať</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -8570,9 +10817,13 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Vypnuté</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Spínací prah jasu</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -8589,6 +10840,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Čas dobehu</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min.</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -8658,9 +10913,21 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Pracovný kontakt</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Trvale ZAP pre…</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Trvale VYP pre…</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Tlmene ZAP</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -8768,8 +11035,7 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -8835,9 +11101,101 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synchronizovať s myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>MENU</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Stiahnuť informácie o užívateľovi</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfigurácia hlásiča prítomnosti</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Nastavenia akčného člena 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Triedenie podľa</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Názov profilu</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Uložiť</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Resetovať</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Úspory</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Ročná doba zapnutia</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Január</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Február</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Marec</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Apríl</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Máj</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Jún</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Júl</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>August</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>September</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Október</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>November</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>December</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Korekcia jasu</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktuálny jas</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -8854,6 +11212,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Obmedzený prístup po výpadku napätia</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Požadovaná hodnota jasu</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -8881,8 +11243,7 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -8956,6 +11317,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Slave</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Nastavenia testovacej prevádzky</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifikovať akčný člen 1</target>
@@ -8980,6 +11345,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Pridať profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referenčné údaje</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Doba svietenia za týždeň</target>
@@ -8987,6 +11356,10 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Všetky</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>Pomocou tohto hesla sa dajú upraviť všetky nastavenia prístrojov</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -8996,6 +11369,14 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Heslo užívateľa</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>Pomocou tohto hesla sa dajú zmeniť iba nastavenia osvetlenia</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Nastavenia</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Svietidlo 1</target>
@@ -9004,13 +11385,14 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Svietidlo 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Nastavenia</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Mesačný prehľad</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referenčné údaje</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Ročný prehľad</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>
@@ -9047,6 +11429,11 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Selected user profile</source>
         <target>Vybraný profil uživatele</target>
       </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <target>Hledat</target>
+        <note priority="1" from="description">Search Placeholder</note>
+      </trans-unit>
       <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
         <source>Username</source>
         <target>Uživatelské jméno</target>
@@ -9067,6 +11454,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync now</source>
         <target>Synchronizovat nyní</target>
       </trans-unit>
+      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
+        <source>Send</source>
+        <target>Odeslat</target>
+      </trans-unit>
       <trans-unit id="2c26bd9af7f9e65d5358933d492dcb63ea22c475" datatype="html">
         <source>Deactivate test mode</source>
         <target>Ukončit testovací provoz</target>
@@ -9074,10 +11465,6 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="8d7fb36ea2bff6fd8a53c1676d45e63ab624ad16" datatype="html">
         <source>Load</source>
         <target>Načíst</target>
-      </trans-unit>
-      <trans-unit id="2c5ff8fa9c9aaec93f97e37c9a0edcd797194573" datatype="html">
-        <source>Send</source>
-        <target>Odeslat</target>
       </trans-unit>
       <trans-unit id="e6ca70fa71a27ad5afdb155a05795596016c66eb" datatype="html">
         <source>Sensor settings</source>
@@ -9099,9 +11486,13 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>OFF</source>
         <target>Vyp</target>
       </trans-unit>
-      <trans-unit id="99d9f6153e37aa499da09b92f881bc441af5c25e" datatype="html">
-        <source>brightness threshold</source>
+      <trans-unit id="6a973bb1a20dd47f0ad84b6d09d2da5e975c015c" datatype="html">
+        <source>Brightness threshold</source>
         <target>Spínací práh jasu</target>
+      </trans-unit>
+      <trans-unit id="5fab99012f7cea1c4134dfeccd4296ead85df790" datatype="html">
+        <source>lx</source>
+        <target>lx</target>
       </trans-unit>
       <trans-unit id="cf2f27f3aacfd3c9a683f04a07890e8073426c0a" datatype="html">
         <source>Consider slave brightness</source>
@@ -9118,6 +11509,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="c9987d27799c92d689546abe476e47650af9b2ab" datatype="html">
         <source>Switch-off delay</source>
         <target>Doba doběhu</target>
+      </trans-unit>
+      <trans-unit id="7b4524d65d87a53c32b788d68b49e9b83e3b42b2" datatype="html">
+        <source>min</source>
+        <target>min</target>
       </trans-unit>
       <trans-unit id="e67e5e24800be5a1f611c1779a28171a4afc41b6" datatype="html">
         <source>Additional sensor parameters</source>
@@ -9187,9 +11582,21 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>NO contact</source>
         <target>Zavírací kontakt</target>
       </trans-unit>
+      <trans-unit id="99bab6e16c7483c49e854ad5a83e163f4c210e56" datatype="html">
+        <source>Permanent ON for…</source>
+        <target>Trvale ZAP pro...</target>
+      </trans-unit>
+      <trans-unit id="879347aeed56eb881e7d9fddb1412e54205efc97" datatype="html">
+        <source>Permanent OFF for…</source>
+        <target>Trvale VYP pro...</target>
+      </trans-unit>
       <trans-unit id="564047b9f59a79429d339a3d5b9309867f562077" datatype="html">
         <source>Soft ON</source>
         <target>Soft ZAP</target>
+      </trans-unit>
+      <trans-unit id="89455c6f1e9af43e7aa2db861f29efa8bdf588cb" datatype="html">
+        <source>s</source>
+        <target>s</target>
       </trans-unit>
       <trans-unit id="edc8986f83021c10d3bf82636fec6eb7a99d6c24" datatype="html">
         <source>Soft OFF</source>
@@ -9297,8 +11704,7 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="c92690010797b007e26d4ba4b2add68a1dba0715" datatype="html">
         <source>Switch off DALI control gear voltage</source>
-        <target>
-        </target>
+        <target>Switch off DALI control gear voltage</target>
       </trans-unit>
       <trans-unit id="cee94c2ab5d6f2777d9a9e292493977606a27723" datatype="html">
         <source>Synchronous operation</source>
@@ -9364,9 +11770,101 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Sync with myBUSCH-JAEGER</source>
         <target>Synchronizovat s myBUSCH-JAEGER</target>
       </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Nabídka</target>
+      </trans-unit>
+      <trans-unit id="0c5af1787f555e66c37a27a753208971908452ed" datatype="html">
+        <source>Download manuals</source>
+        <target>Stáhnout informace o uživateli</target>
+      </trans-unit>
+      <trans-unit id="3d6a0247faabb79d6e466d30ef5643695eadf692" datatype="html">
+        <source>Configure detector</source>
+        <target>Konfigurovat hlásič přítomnosti</target>
+      </trans-unit>
+      <trans-unit id="b31003442037ee1aaf3e014ef87ec79ead98a42b" datatype="html">
+        <source>Settings of actuator 2</source>
+        <target>Nastavení ovladače 2</target>
+      </trans-unit>
+      <trans-unit id="ec97f67072a83aaa972536b18d83179f6e4bbec9" datatype="html">
+        <source>Sort by</source>
+        <target>Řadit podle</target>
+      </trans-unit>
+      <trans-unit id="d30d1808a9e25bacc9598057c0487bca00a3aa96" datatype="html">
+        <source>Name of new profile</source>
+        <target>Název profilu</target>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <target>Uložit</target>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target>Obnovit</target>
+      </trans-unit>
+      <trans-unit id="c80cc764aa485707029919cba884cfb90a46ced0" datatype="html">
+        <source>Total savings</source>
+        <target>Úspory</target>
+      </trans-unit>
+      <trans-unit id="057bf3d609a17f5fef7ab703562a2824e62055ef" datatype="html">
+        <source>Current duration of Yearly light</source>
+        <target>Roční délka zapnutí</target>
+      </trans-unit>
+      <trans-unit id="e7815f1c4a6d3cc157a16407a48865023cc35ec0" datatype="html">
+        <source>January</source>
+        <target>Leden</target>
+      </trans-unit>
+      <trans-unit id="0393a96b58df82af39a2ec83deec624749e42036" datatype="html">
+        <source>February</source>
+        <target>Únor</target>
+      </trans-unit>
+      <trans-unit id="ea41ee3743ec5bdbbf863ab793bbdd6e6d9af96e" datatype="html">
+        <source>March</source>
+        <target>Březen</target>
+      </trans-unit>
+      <trans-unit id="b87ee784d9e93b5557aca9bdc9464dbd4328920a" datatype="html">
+        <source>April</source>
+        <target>Duben</target>
+      </trans-unit>
+      <trans-unit id="862da1034ac2707cc44123ed963b2f42109b6b3e" datatype="html">
+        <source>May</source>
+        <target>Květen</target>
+      </trans-unit>
+      <trans-unit id="2f234249d4c3c39e27c0f05d4a6b73a7959caeb2" datatype="html">
+        <source>June</source>
+        <target>Červen</target>
+      </trans-unit>
+      <trans-unit id="11447f95e83c8de675ab6c492150f88e4d9bd15e" datatype="html">
+        <source>July</source>
+        <target>Červenec</target>
+      </trans-unit>
+      <trans-unit id="ddd9a3d59a8db4e822e54e9473c05b571aca9829" datatype="html">
+        <source>August</source>
+        <target>Srpen</target>
+      </trans-unit>
+      <trans-unit id="e21dc41f9b3fdaf35ab6b2d9e2e5e8a926fb1938" datatype="html">
+        <source>September</source>
+        <target>Září</target>
+      </trans-unit>
+      <trans-unit id="71f49c502d13e22079a958a5532afa28dbe98b3b" datatype="html">
+        <source>October</source>
+        <target>Říjen</target>
+      </trans-unit>
+      <trans-unit id="64b5ce921faa5e3d277d6d528ddcfc8c2bfe9f52" datatype="html">
+        <source>November</source>
+        <target>Listopad</target>
+      </trans-unit>
+      <trans-unit id="2006e2aabb31714ebc684dc382539649f690ed5c" datatype="html">
+        <source>December</source>
+        <target>Prosinec</target>
+      </trans-unit>
       <trans-unit id="fe52d1549e9ab5ad0014f8e07ace851aa71ac385" datatype="html">
         <source>Brightness correction</source>
         <target>Oprava jasu</target>
+      </trans-unit>
+      <trans-unit id="91b74aacae6c6502680bcccd557659cff6ef97df" datatype="html">
+        <source>Current brightness</source>
+        <target>Aktuální jas</target>
       </trans-unit>
       <trans-unit id="9ce2e8afc35bd488283dbac4eef00e340b86be2f" datatype="html">
         <source>Set sensitivity</source>
@@ -9383,6 +11881,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="4869c2d4fbf66169a01962d812277baa0573fa62" datatype="html">
         <source>Limit access after power cycle</source>
         <target>Omezený přístup po výpadku napětí</target>
+      </trans-unit>
+      <trans-unit id="01e205cc63872ef616edc5b938a11eadb9341e4a" datatype="html">
+        <source>Brightness set point</source>
+        <target>Požadovaná hodnota jasu</target>
       </trans-unit>
       <trans-unit id="0abab05de8b6021498bce793b412bfa130748d4a" datatype="html">
         <source>Take over current brightness</source>
@@ -9410,8 +11912,7 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
         <source>Load detector profile</source>
-        <target>
-        </target>
+        <target>Load detector profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -9485,6 +11986,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Slaves</source>
         <target>Podřízená zařízení</target>
       </trans-unit>
+      <trans-unit id="fd6277096962bebdeb766803f83ebe473b7df5ee" datatype="html">
+        <source>Test mode settings</source>
+        <target>Nastavení testovacího provozu</target>
+      </trans-unit>
       <trans-unit id="32b6a1bf3980d8a7c99744060397b27ffa6fa090" datatype="html">
         <source>Identify load on actuator 1</source>
         <target>Identifikovat ovladač 1</target>
@@ -9509,6 +12014,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Add profile</source>
         <target>Vložit profil</target>
       </trans-unit>
+      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
+        <source>Reference details</source>
+        <target>Referenční údaje</target>
+      </trans-unit>
       <trans-unit id="0128107450d1e2cde9ecb5fd7678d4d2676c00f1" datatype="html">
         <source>Lighting duration per week</source>
         <target>Délka osvětlení za týden</target>
@@ -9516,6 +12025,10 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
       <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
         <source>All</source>
         <target>Vše</target>
+      </trans-unit>
+      <trans-unit id="2a2fbaf0153892ea40aa8b47feaba12f1e4c2d2d" datatype="html">
+        <source>With this password you gain access to all settings of the device</source>
+        <target>S tímto heslem lze upravovat všechna nastavení zařízení</target>
       </trans-unit>
       <trans-unit id="ee79f7ba39540c5849b2fe34b817f6d18d35f759" datatype="html">
         <source>Show password</source>
@@ -9525,6 +12038,14 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Standard User password</source>
         <target>Heslo uživatele</target>
       </trans-unit>
+      <trans-unit id="99cfb02045dc7c9f7b90e940c36a8695e86b77b6" datatype="html">
+        <source>With this password you gain access to light settings</source>
+        <target>S tímto heslem lze změnit pouze nastavení osvětlení</target>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <target>Nastavení</target>
+      </trans-unit>
       <trans-unit id="7bc8bcf8928972f72797f0fe08ba58700f29e67e" datatype="html">
         <source>Light 1</source>
         <target>Světlo 1</target>
@@ -9533,13 +12054,14 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <source>Light 2</source>
         <target>Světlo 2</target>
       </trans-unit>
-      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
-        <source>Settings</source>
-        <target>Nastavení</target>
+      <trans-unit id="82fe714a712afba17bbfccbbfb6f6ce225f1089b" datatype="html">
+        <source>Month Overview</source>
+        <target>Měsíční přehled</target>
       </trans-unit>
-      <trans-unit id="a97b4a967db245cd901f806f3fb889c042e7ab13" datatype="html">
-        <source>Reference details</source>
-        <target>Referenční údaje</target>
+      <trans-unit id="5f1517d9b122fbe00a95eed96f60254c149f033d" datatype="html">
+        <source>Year Overview
+</source>
+        <target>Roční přehled</target>
       </trans-unit>
       <trans-unit id="6b79e23bd61ea83f039ff6fb6a362de8b47f33d9" datatype="html">
         <source>Reset data</source>

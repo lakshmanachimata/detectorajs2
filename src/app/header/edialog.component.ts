@@ -46,12 +46,12 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   }
   cancelStuff() {
       this.data.setShowEModal(false);
-      this.data.setEOptionText(this.translater.translate('save'));
+      this.data.setEOptionText(this.translater.translate('Save'));
   }
   doStuff() {
       this.data.setShowEModal(false);
-      this.data.setEOptionText(this.translater.translate('save'));
-      if(this.data.getEDialogInputHint() == 'Name of new profile'){
+      this.data.setEOptionText(this.translater.translate('Save'));
+      if(this.data.getEDialogInputHint() == this.translater.translate('Name of new profile')){
           this.data.addProfile()
       }else {
           this.data.updateProfile();

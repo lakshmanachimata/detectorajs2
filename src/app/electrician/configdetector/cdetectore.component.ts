@@ -214,7 +214,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.shortTimePulseEnable?1:0])
   }
   ngOnInit() {
-    this.data.setMainTitle(this.translater.translate('Config detector'));
+    this.data.setMainTitle(this.translater.translate('Configure detector'));
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
   }
@@ -407,6 +407,7 @@ slideBackground (value) {
     this.router.navigate(['eactuator2'],{relativeTo: this.route});
   }
   gotoOtherParams(otherparam,otherParamTitle){
+    otherParamTitle = this.translater.translate(otherParamTitle);
     this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
   }

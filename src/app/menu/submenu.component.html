@@ -26,7 +26,7 @@
 <div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'user_profiles'" [@subMenuSlideIn]="subMenuState" >
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control" placeholder="Search" i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
     <div class="bj-customised-detectors" *ngIf="detectors">
@@ -47,7 +47,7 @@
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control" (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search" i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
 

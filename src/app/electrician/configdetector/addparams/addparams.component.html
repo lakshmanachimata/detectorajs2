@@ -15,12 +15,12 @@
     <div class="bj-config-setting-adjust sensor-params-block" *ngIf ="ad.brightnessCorrectionEnable == true" >
         <div class="adjust-minus" long-press (click)="reduceCount('setpoint',true)" (longPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="reduceCount('setpoint',false)" ><span class="glyphicon glyphicon-minus"></span></div>
         <input class="adjust" type="number" [(ngModel)]="ad.brightnessCorrectionValue">
-        <div class="static-unit-text">lux</div>
+        <div class="static-unit-text" i18n>lx</div>
         <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (longPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="increaseCount('setpoint',false)" ><span class="glyphicon glyphicon-plus"></span>
         </div>
     </div>
     <div class = "bj-current-val">
-        <label class="bj-config-setting brightness-function">Current brightness : </label>
+        <label class="bj-config-setting brightness-function"><ng-container i18n>Current brightness</ng-container> : </label>
         <input class="adjust-value brightness-function" type="text" disabled [(ngModel)]="ad.currentBrightness">
     </div>
     <div class="bj-sensor-toggle dynamic-delay">

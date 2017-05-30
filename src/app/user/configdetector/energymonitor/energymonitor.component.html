@@ -2,13 +2,14 @@
 <div id="bj-user-energymonitor-div">
     <div id="user-energymonitor-tabpanel">
         <ul class="nav nav-tabs">
-            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"(click)="setActiveTab(1)" >Month overview</li>
-            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}" (click)="setActiveTab(2)">Year overview</li>
+            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"(click)="setActiveTab(1)" i18n>Month Overview</li>
+            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}" (click)="setActiveTab(2)" i18n>Year Overview
+</li>
         </ul>
     </div>
     <div id="user-energymonitor-tab-content">
         <div class="tab-pane month" *ngIf="activeTab === 1">
-            <div id="user-energymonitor-currentMonth" >{{ad.energy_monitor.energy_monitor_month}}</div>
+            <div id="user-energymonitor-currentMonth">{{ getTranslated(ad.energy_monitor.energy_monitor_month) }}</div>
             <div class="monthBarGraph">
                 <div class="barGraphPanel month">
                     <div class="barGraphMonth" *ngFor="let data of ad.energy_monitor.energy_monitor_month_data">

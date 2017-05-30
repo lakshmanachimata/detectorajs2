@@ -2,7 +2,7 @@ import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChec
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
-
+import { i18nService } from '../../../i18n.service'
 
 @Component({
   selector: 'energymonitor-root',
@@ -11,9 +11,9 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 })
 export class EnergyMonitorComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
 
-TotalSavingsMonthText = "Total savings";
-currentDurationMonthText="Current duration of monthly light";
-currentDurationYearText="Current duration of yearly light";
+TotalSavingsMonthText = this.translater.translate("Total savings");
+currentDurationMonthText=this.translater.translate("Current duration of monthly light");
+currentDurationYearText=this.translater.translate("Current duration of Yearly light");
 currentDurationMonthValue = 213;
 currentDurationYearValue = 3130;
 TotalSavingsMonthValue = 23;
@@ -26,13 +26,17 @@ TotalSavingsYearValue = 759;
   maxYear = 0;
   maxMonth = 0;
   showData:any;
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
+  constructor(public logger: LoggerService,public data: DataService, private router:Router,private route:ActivatedRoute,
+              private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      this.data.setMainTitle('Energy monitor')
+      this.data.setMainTitle(this.translater.translate('Energy monitor'));
   }
 
+  getTranslated(_inpStr){
+    return this.translater.translate(_inpStr);
+  }
   setActiveTab(tab) {
     this.activeTab = tab;
   }
@@ -62,8 +66,8 @@ TotalSavingsYearValue = 759;
       this.data.setShowOnlyCancel(false);
   }
   resetEM() {
-    this.data.setDialogTitle("Reset ");
-    this.data.setDialogText("Reset energy monitor");
+    this.data.setDialogTitle(this.translater.translate("Reset "));
+    this.data.setDialogText(this.translater.translate("Reset energy monitor"));
     this.data.setShowModal(true);
   }
   getStyle (data, isYear) {

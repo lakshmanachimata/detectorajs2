@@ -53,7 +53,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
       this.data.setActiveComponent(this);
-      this.data.setMainTitle('Config detector')
+      this.data.setMainTitle('Configure detector')
       this.data.readData(this.readAttrs);
     }
 
