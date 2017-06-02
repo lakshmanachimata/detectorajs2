@@ -47,15 +47,21 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   cancelStuff() {
       this.data.setShowEModal(false);
       this.data.setEOptionText(this.translater.translate('Save'));
+		this.data.setEDialogInputHint('');
   }
   doStuff() {
       this.data.setShowEModal(false);
       this.data.setEOptionText(this.translater.translate('Save'));
-      if(this.data.getEDialogInputHint() == this.translater.translate('Name of new profile')){
-          this.data.addProfile()
+		if(this.data.getEDialogInputHint() == this.translater.translate('Enter password')){
+            this.data.authenticateDevice(this.inputtext);
       }else {
-          this.data.updateProfile();
-      }
+		  if(this.data.getEDialogInputHint() == this.translater.translate('Name of new profile')){
+		      this.data.addProfile()
+		  }else {
+		      this.data.updateProfile();
+		  }
+		}
+      	this.data.setEDialogInputHint('');
   }
   
   getIfShowCancel(){

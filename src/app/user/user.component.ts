@@ -40,16 +40,19 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   configureDetectorUser(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.data.setEOptionText(this.translater.translate('OK'));
-        this.data.setShowEModal(true);
-        //this.data.connectDevice(item.btAddress);
+        this.data.connectDevice(item.btAddress);
       }
       else {
         this.isDeviceConnected = true;
         this.data.initDeviceData(false);
       }
   }
-
+  showPWDDialog(){
+        this.data.setEOptionText(this.translater.translate('OK'));
+        this.data.setEDialogInputHint(this.translater.translate('Enter password'));
+        this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
+        this.data.setShowEModal(true);
+  }
  setScannedData(){
     this.detectors= [];
     this.scannedData = this.data.getScannedData();

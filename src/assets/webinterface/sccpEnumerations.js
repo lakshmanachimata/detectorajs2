@@ -20,7 +20,17 @@ var SCCP_COMMAND = {
     WRITE_ATTRIBUTE_RESPONSE        : 0x84,
     CONFIGURE_REPORTING_REQUEST     : 0x05,
     CONFIGURE_REPORTING_RESPONSE    : 0x85,
-    REPORT_ATTRIBUTE                : 0x06
+    REPORT_ATTRIBUTE                : 0x06,
+    IDENTIFY_DEVICE                 : 0x20,
+    IDENTIFY_LOAD                   : 0x30,
+    ON_OFF                          : 0x31,
+    SET_LEVEL                       : 0x32,
+    RESET_ENERGY_MONITOR            : 0x40,
+    RESET_DALI_CONTROL_GEAR         : 0x48,
+    AUTH_GEN_RANDOM_REQUEST         : 0x50,
+    AUTH_GEN_RANDOM_RESPONSE        : 0xD0,
+    AUTH_REQUST                     : 0x51,
+    AUTH_SET_PWD_REQUEST            : 0x52,
 }
 
 

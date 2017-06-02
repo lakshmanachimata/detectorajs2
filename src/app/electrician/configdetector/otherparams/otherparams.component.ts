@@ -146,10 +146,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
 
   addProfile(){
-    this.data.addProfile();//this.ad);//bypass compilation error
+    this.data.addProfile();
   }
   updateProfile(){
-    this.data.updateProfile();//this.ad);//bypass compilation error
+    this.data.updateProfile();
   }
   syncProfiles(){
     this.data.syncProfiles()
