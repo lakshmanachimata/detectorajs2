@@ -923,6 +923,40 @@ export class DataService {
         this.writeArray = [];
     }
 
+    authenticateDevice(devicePwd){
+        let asciival ='';
+         for(let i =0; i < devicePwd.length; i++){
+            asciival = asciival+ devicePwd.charCodeAt(i);
+        }
+        if(this.getProfile()=='electrician'){
+
+        }else {
+
+        }
+    }
+
+    setDevicePwd(setPWD){
+        let asciival ='';
+         for(let i =0; i < setPWD.length; i++){
+            asciival = asciival+ setPWD.charCodeAt(i);
+        }
+        if(this.getProfile()=='electrician'){
+
+        }else {
+
+        }
+    }
+
+    doAuthGenRequest(){
+        if(this.getProfile()=='electrician'){
+
+        }else {
+
+        }
+    }
+
+
+
     getUTCDateFormat(){
         var date = new Date();
         return date.toISOString().split('.')[0];
