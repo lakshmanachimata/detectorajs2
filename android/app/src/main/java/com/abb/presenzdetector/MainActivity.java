@@ -65,6 +65,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -336,14 +337,16 @@ public class MainActivity extends Activity {
                     File files[] = getFilesDir().listFiles();
                     try {
                         for (int i = 0; i < files.length; i++) {
-                            if (files[i].toString().contains("client.cert")) {
-                                FileInputStream var2 = new FileInputStream(files[i]);
-                                int lengthF =  (int)files[i].length();
-                                byte data[] =  new byte[lengthF];
-                                var2.read(data,0,lengthF);
-                                char sendData[] = new char[data.length];
-                                for(int j = 0; j < data.length; j++) {
-                                    sendData[j] = (char)(0x00FF & data[j]);
+                            if (files[i].toString().contains("client.cert") && files[i].exists()) {
+                                ArrayList<Integer> data = new ArrayList<Integer>();
+                                BufferedReader r=new BufferedReader(new FileReader(files[i]));
+                                int ch;
+                                while((ch=r.read())!=-1){
+                                    data.add(ch);
+                                }
+                                char sendData[] = new char[data.size()];
+                                for(int j = 0; j < data.size(); j++) {
+                                    sendData[j] = (char)(0x00FF & data.get(j));
                                 }
                                 JSONObject certiData = new JSONObject();
                                 String text = String.copyValueOf(sendData);
@@ -352,16 +355,18 @@ public class MainActivity extends Activity {
                                 certData = certData + "setCertData(";
                                 certData =  certData + certiData.toString()+ ")";
                                 webview.evaluateJavascript(certData,null);
-                                var2.close();
+                                r.close();
                             }
                             if (files[i].toString().contains("client.private")) {
-                                FileInputStream var2 = new FileInputStream(files[i]);
-                                int lengthF =  (int)files[i].length();
-                                byte data[] =  new byte[lengthF];
-                                var2.read(data,0,lengthF);
-                                char sendData[] = new char[data.length];
-                                for(int j = 0; j < data.length; j++) {
-                                    sendData[j] = (char)(0x00FF & data[j]);
+                                ArrayList<Integer> data = new ArrayList<Integer>();
+                                BufferedReader r=new BufferedReader(new FileReader(files[i]));
+                                int ch;
+                                while((ch=r.read())!=-1){
+                                    data.add(ch);
+                                }
+                                char sendData[] = new char[data.size()];
+                                for(int j = 0; j < data.size(); j++) {
+                                    sendData[j] = (char)(0x00FF & data.get(j));
                                 }
 
                                 JSONObject keyiData = new JSONObject();
@@ -371,9 +376,8 @@ public class MainActivity extends Activity {
                                 String keyData = "";
                                 keyData =  keyData + "setKeyData(";
                                 keyData =  keyData + keyiData.toString()+ ")";
-
                                 webview.evaluateJavascript(keyData,null);
-                                var2.close();
+                                r.close();
                             }
                         }
                     }catch (Exception e){

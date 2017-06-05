@@ -258,7 +258,7 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = false; 
+    public useCertAuth = true; 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certProfilesPath = this.certBasePath+'/'+this.devicesPath ;
@@ -377,8 +377,6 @@ export class DataService {
     }
 
     checkDeviceMode(){
-        this.setProfile('user');
-        this.authenticateDevice('');
         let aindex =  navigator.platform.toLowerCase().indexOf('linux');
         let iindex = navigator.platform.toLowerCase().indexOf('iphone');
         if( aindex >=  0 ||
@@ -397,15 +395,17 @@ export class DataService {
     }
 
     setCertData(data){
-        if(this.DeviceBuild == 1)
+        if(this.DeviceBuild == 1){
             this.networkParams.certData = new Buffer(data);
+        }
         else{
              this.networkParams.certData = new Buffer(bjCert);
         }
     }
     setKeyData(data){
-        if(this.DeviceBuild ==1 )
+        if(this.DeviceBuild ==1 ){
             this.networkParams.keyData = new Buffer(data);
+        }
         else{
             this.networkParams.keyData = new Buffer(bjKey);
         }
