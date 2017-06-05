@@ -733,7 +733,6 @@ public class MainActivity extends Activity {
                 }catch ( Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
@@ -775,7 +774,6 @@ public class MainActivity extends Activity {
                                 byte[] subArray = Arrays.copyOfRange(dataArray, 1, rawdata[1] + 1);
                                 char recvCRC = SCCPEnumerations.computeCRC(subArray);
                                 if (recvCRC == 0) {
-                                    byte[] recvData = bleRecvBuffer.array();
                                     sendBLEDataToApp(bleRecvBuffer.array());
                                 }
                                 else {

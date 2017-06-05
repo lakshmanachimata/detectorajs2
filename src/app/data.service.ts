@@ -4,9 +4,10 @@ import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
-
+import  * as crypto from 'crypto';
 import * as https from 'https';
 import * as http from 'http';
+import * as sha256 from "fast-sha256"
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -257,7 +258,7 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = true; 
+    public useCertAuth = false; 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certProfilesPath = this.certBasePath+'/'+this.devicesPath ;
@@ -332,6 +333,8 @@ declare var writeAttr;
 declare var readAttr;
 declare var connectDevice;
 declare var disConnectDevice;
+
+
 @Injectable()
 export class DataService {
 
@@ -374,6 +377,8 @@ export class DataService {
     }
 
     checkDeviceMode(){
+        this.setProfile('user');
+        this.authenticateDevice('');
         let aindex =  navigator.platform.toLowerCase().indexOf('linux');
         let iindex = navigator.platform.toLowerCase().indexOf('iphone');
         if( aindex >=  0 ||
@@ -393,16 +398,16 @@ export class DataService {
 
     setCertData(data){
         if(this.DeviceBuild == 1)
-            this.networkParams.certData = Buffer.from(data, "binary");
+            this.networkParams.certData = new Buffer(data);
         else{
-             this.networkParams.certData = Buffer.from(bjCert, "binary");
+             this.networkParams.certData = new Buffer(bjCert);
         }
     }
     setKeyData(data){
         if(this.DeviceBuild ==1 )
-            this.networkParams.keyData = Buffer.from(data, "binary");
+            this.networkParams.keyData = new Buffer(data);
         else{
-            this.networkParams.keyData = Buffer.from(bjKey, "binary");
+            this.networkParams.keyData = new Buffer(bjKey);
         }
     }
 
@@ -923,35 +928,195 @@ export class DataService {
         this.writeArray = [];
     }
 
+
+
     authenticateDevice(devicePwd){
-        let asciival ='';
-         for(let i =0; i < devicePwd.length; i++){
-            asciival = asciival+ devicePwd.charCodeAt(i);
-        }
         if(this.getProfile()=='electrician'){
-
-        }else {
-
+            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let addRLenght =  saltbufStart.length;
+            let saltBufByteStr = "";
+            let finalSalt ="";
+            let PBKDF2Hash;
+            for(let i =0; i < addRLenght; i++){
+            if(saltbufStart.charAt(i) != ':')
+                saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
+            }
+            let addBufByteStrLen = saltBufByteStr.length;
+            for(let  j =0; j < 64; j++){
+                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+            }
+            var saltt = ""
+            var saltbuf = new Buffer(finalSalt,'hex');
+            var byteArray1 = new Buffer(devicePwd.length);
+            for(var i=0; i < devicePwd.length; i++) {
+                byteArray1[i] = devicePwd.charCodeAt(i);
+            }
+            // First, create a PBKDF2 "key" containing the password
+            window.crypto.subtle.importKey(
+                "raw",
+                byteArray1,
+                {"name": "PBKDF2"},
+                false,
+                ["deriveKey"]).
+            then(function(baseKey){
+                // Derive a key from the password
+                console.log(baseKey);
+                var saltbuf = new Buffer(finalSalt,'hex');
+                return window.crypto.subtle.deriveKey(
+                    {
+                        "name": "PBKDF2",
+                        "salt": saltbuf,
+                        "iterations": 1000,
+                        "hash": 'SHA-1'
+                    },
+                    baseKey,
+                    {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
+                    true,                               // Extractable
+                    ["encrypt", "decrypt"]              // For new key
+                    );
+            }).then(function(aesKey) {
+                // Export it so we can display it
+                return window.crypto.subtle.exportKey("raw", aesKey);
+            }).then(function(keyBytes) {
+                var byteArray3 = new Buffer(keyBytes);
+                var byteString = byteArray3.toString('hex').toUpperCase();
+                if(byteString.length == 32){
+                    let result = [];
+                    for(let j =0; j < 32; j++){
+                        result.push(byteArray3[j] ^ saltbuf[j])
+                    }
+                }else {
+                    this.logger.log("PBKDF2 could not deliver stuff")
+                }
+            });
+            let fullStr = '';
+            for (var bytes = [], c = 0; c < fullStr.length; c += 2){
+                bytes.push(parseInt(fullStr.substr(c, 2), 16));
+            }
+            let ubuf =  new Uint8Array(bytes)
+            let data = sha256.hash(ubuf);
+            var byteArray3 = new Buffer(data);
+            var byteString = byteArray3.toString('hex');
+        }if(this.getProfile()=='user'){
+            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let addRLenght =  saltbufStart.length;
+            let saltBufByteStr = "";
+            let finalSalt ="";
+            for(let i =0; i < addRLenght; i++){
+            if(saltbufStart.charAt(i) != ':')
+                saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
+            }
+            let addBufByteStrLen = saltBufByteStr.length;
+            for(let  j =0; j < 64; j++){
+                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+            }
+            var byteArray1 = new Buffer(devicePwd.length);
+            for(var i=0; i < devicePwd.length; i++) {
+                byteArray1[i] = devicePwd.charCodeAt(i);
+            }
+            let fullStr = '';
+            for (var bytes = [], c = 0; c < fullStr.length; c += 2){
+                bytes.push(parseInt(fullStr.substr(c, 2), 16));
+            }
+            let ubuf =  new Uint8Array(bytes)
+            let data = sha256.hash(ubuf);
+            var byteArray3 = new Buffer(data);
+            var byteString = byteArray3.toString('hex');
         }
     }
 
     setDevicePwd(setPWD){
-        let asciival ='';
-         for(let i =0; i < setPWD.length; i++){
-            asciival = asciival+ setPWD.charCodeAt(i);
-        }
         if(this.getProfile()=='electrician'){
-
-        }else {
-
+            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let addRLenght =  saltbufStart.length;
+            let saltBufByteStr = "";
+            let finalSalt ="";
+            let PBKDF2Hash;
+            for(let i =0; i < addRLenght; i++){
+            if(saltbufStart.charAt(i) != ':')
+                saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
+            }
+            let addBufByteStrLen = saltBufByteStr.length;
+            for(let  j =0; j < 64; j++){
+                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+            }
+            var saltt = ""
+            var saltbuf = new Buffer(finalSalt,'hex');
+            var byteArray1 = new Buffer(setPWD.length);
+            for(var i=0; i < setPWD.length; i++) {
+                byteArray1[i] = setPWD.charCodeAt(i);
+            }
+            // First, create a PBKDF2 "key" containing the password
+            window.crypto.subtle.importKey(
+                "raw",
+                byteArray1,
+                {"name": "PBKDF2"},
+                false,
+                ["deriveKey"]).
+            then(function(baseKey){
+                // Derive a key from the password
+                console.log(baseKey);
+                var saltbuf = new Buffer(finalSalt,'hex');
+                return window.crypto.subtle.deriveKey(
+                    {
+                        "name": "PBKDF2",
+                        "salt": saltbuf,
+                        "iterations": 1000,
+                        "hash": 'SHA-1'
+                    },
+                    baseKey,
+                    {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
+                    true,                               // Extractable
+                    ["encrypt", "decrypt"]              // For new key
+                    );
+            }).then(function(aesKey) {
+                // Export it so we can display it
+                return window.crypto.subtle.exportKey("raw", aesKey);
+            }).then(function(keyBytes) {
+                var byteArray3 = new Buffer(keyBytes);
+                var byteString = byteArray3.toString('hex').toUpperCase();
+                if(byteString.length == 32){
+                    let result = [];
+                    for(let j =0; j < 32; j++){
+                        result.push(byteArray3[j] ^ saltbuf[j])
+                    }
+                }else {
+                    this.logger.log("PBKDF2 could not deliver stuff")
+                }
+            });
+        }if(this.getProfile()=='user'){
+            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let addRLenght =  saltbufStart.length;
+            let saltBufByteStr = "";
+            let finalSalt ="";
+            for(let i =0; i < addRLenght; i++){
+            if(saltbufStart.charAt(i) != ':')
+                saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
+            }
+            let addBufByteStrLen = saltBufByteStr.length;
+            for(let  j =0; j < 64; j++){
+                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+            }
+            let pwdBytes = [];
+            for(let k =0; k < setPWD.length; k++){
+                let charChode = setPWD.charCodeAt(k);
+                pwdBytes = pwdBytes + charChode.toString(16);
+            }
         }
     }
 
+    getPwdFromDevice(){
+        if(this.getProfile()=='electrician'){
+
+        }if(this.getProfile()=='user'){
+            
+        }
+    }
     doAuthGenRequest(){
         if(this.getProfile()=='electrician'){
 
-        }else {
-
+        }if(this.getProfile()=='user'){
+            
         }
     }
 
@@ -1296,56 +1461,24 @@ export class DataService {
         });
     }
 
+    checkMyError(error:Error){
+        this.logger.log(error.stack);
+    }
+    checkMyData(data:String){
+        this.logger.log(data);
+    }
 
     getDataWithCert(httpPath){
         let httpOptions = this.makeCertHeaders();
         httpOptions.path = httpPath;
         httpOptions.method = 'GET';
         var req = https.request(httpOptions, function(res) {
-            res.on('data', function(data) {
-                DataService.getDataService().handleGetResponseData(data);
-            });
-            res.on('error',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
-            res.on('finish',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
-             res.on('end',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
-            res.emit('data', function(data) {
-                DataService.getDataService().handleGetResponseData(data);
-            });
-            res.emit('error',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
-            res.emit('finish',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
-             res.emit('end',function(data){
-                DataService.getDataService().handleGetResponseData(data);
-            });
+            res.addListener('data',DataService.getDataService().checkMyData)
+            res.addListener('error',DataService.getDataService().checkMyError)
         });
         req.end();
-        req.on('error', function(e) {
-            DataService.getDataService().handleResponseError(e)
-        });
-        req.on('finish',function(e){
-            DataService.getDataService().handleResponseError(e);
-        });
-        req.on('end',function(e){
-            DataService.getDataService().handleResponseError(e);
-        });
-        req.emit('error', function(e) {
-            DataService.getDataService().handleResponseError(e)
-        });
-        req.emit('finish',function(e){
-            DataService.getDataService().handleResponseError(e);
-        });
-        req.emit('end',function(e){
-            DataService.getDataService().handleResponseError(e);
-        });
+        req.addListener('data',DataService.getDataService().checkMyData)
+        req.addListener('error',DataService.getDataService().checkMyError)
     }
 
     putDataWithCert(httpPath,bodyData){

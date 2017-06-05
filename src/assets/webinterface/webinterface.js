@@ -3,7 +3,7 @@ var welcomecomponent;
 var appDataService;
 var scannedDevices;
 var BJE;
-var debugLogs = false;
+var debugLogs = true;
 
 function setDevicesCallBack(component) {
     welcomecomponent = component;
