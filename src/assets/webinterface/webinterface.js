@@ -121,6 +121,20 @@ function setBLEDataToService(indata){
     appDataService.setBLEDataToService(data,databytes[4]);
 }
 
+function setDeviceAccessLevel(accessLevel){
+    var data = getRequestFrame(SCCP_COMMAND.SET_ACCESS_LEVEL, accessLevel);
+     if(BJE != undefined){
+        BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
 
 function prepareAttributeArray(indata) {
     var bledata = {};
@@ -130,6 +144,11 @@ function prepareAttributeArray(indata) {
     
     switch(indata[4]){
         case 128: // standard response
+        if(indata[5] == 0){
+            appDataService.onAccessLevelUpdate(0);
+        }else {
+            appDataService.onAccessLevelUpdate(-1);
+        }
         if(debugLogs ==  true)
             console.log("standard response     " + indata);
         break;
@@ -328,6 +347,18 @@ function setDataServiceCallBack(dataService) {
         var crc;
         
         switch (command) {
+        case SCCP_COMMAND.SET_ACCESS_LEVEL:
+            frame.push(0x07); // LENGTH AFTER THIS BYTE
+            frame.push(0x08); // CONTROL DEVICE
+            frame.push(0x0A); // SEQUENCE
+            frame.push(SCCP_COMMAND.SET_ACCESS_LEVEL); // command
+            frame.push(data);
+            crc=crcCCITT(frame);
+            frame.push(crc >> 8); // CRC LOWER
+            frame.push(crc & 0x00ff); // CRC UPPER
+            frame.unshift(0x7e) // START BYTE
+            frame.push(0x7e) // END BYTE
+        break;
         case SCCP_COMMAND.RESET:
             frame.push(0x06); // LENGTH AFTER THIS BYTE
             frame.push(0x08); // CONTROL DEVICE
@@ -336,7 +367,6 @@ function setDataServiceCallBack(dataService) {
             crc = crcCCITT(frame)
             frame.push(crc >> 8); // CRC LOWER
             frame.push(crc & 0x00ff); // CRC UPPER
-            
             frame.unshift(0x7e) // START BYTE
             frame.push(0x7e) // END BYTE
             break;
@@ -354,15 +384,18 @@ function setDataServiceCallBack(dataService) {
             break;
         case SCCP_COMMAND.READ_ATTRIBUTE_REQUEST:
             
-            frame.push(6 + (data.length * 2)); // LENGTH AFTER THIS BYTE
+            frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
             frame.push(0x08); // CONTROL DEVICE
             frame.push(0x00); // SEQUENCE
             frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
             
             for (var d in data) {
                 var val = data[d];
-                frame.push(val & 0x00ff); // ADDR LOW
+                frame.push(val & 0x00FF); // ADDR LOW
                 frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+                frame.push(0x01);
+                frame.push(0x00);
+                frame.push(0x00);
             }
             crc = crcCCITT(frame)
             frame.push(crc >> 8); // CRC LOWER
@@ -451,6 +484,9 @@ function setDataServiceCallBack(dataService) {
         
         return frame;
     }
+
+
+
 var crc_table = [
                  0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50a5,
                  0x60c6, 0x70e7, 0x8108, 0x9129, 0xa14a, 0xb16b,

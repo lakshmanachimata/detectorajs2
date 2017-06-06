@@ -31,6 +31,7 @@ var SCCP_COMMAND = {
     AUTH_GEN_RANDOM_RESPONSE        : 0xD0,
     AUTH_REQUST                     : 0x51,
     AUTH_SET_PWD_REQUEST            : 0x52,
+    SET_ACCESS_LEVEL                : 0x53,
 }
 
 

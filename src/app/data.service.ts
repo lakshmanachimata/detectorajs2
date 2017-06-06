@@ -177,7 +177,7 @@ export class SCCP_ATTRIBUTES  {
     static CH2_IDENTIFYING_LOAD                                    = 0x10A0;
     static CH2_ON_OFF_STATE                                        = 0x10A1;
     static CH2_CURRENT_LEVEL                                       = 0x10A2;
-    static TEST_MODE_ENABLE                                       = 0x10B0;
+    static TEST_MODE_ENABLE                                        = 0x10B0;
     static ACCESS_LEVEL                                            = 0x10E0;
     static TEST_BOOL                                               = 0x8001;
     static TEST_STRING                                             = 0x8002;
@@ -186,7 +186,7 @@ export class SCCP_ATTRIBUTES  {
     static TEST_TIME                                               = 0x8005;
     static TEST_UINT8                                              = 0x8008;
     static TEST_UINT16                                             = 0x8009;
-    static TEST_UINT32                                             = 0x800A;;
+    static TEST_UINT32                                             = 0x800A;
     static TEST_INT8                                               = 0x800C;
     static TEST_INT16                                              = 0x800D;
     static TEST_INT32                                              = 0x800E;
@@ -258,13 +258,13 @@ export class NetworkParams {
     public detectorsName = 'detectors'
     public deviceDataUrl =  this.baseUrl + '/'+ this.deviceprefix;
     public detectorPort = 443;
-    public useCertAuth = true; 
+    public useCertAuth = false; 
     public certBasePath = '/api/user/key-value/'+ this.namespace;
     public certDevicesPath = this.certBasePath+'/'+this.devicesPath ;
     public certProfilesPath = this.certBasePath+'/'+this.devicesPath ;
     public certDeviceDataPath = this.certBasePath+'/'+this.deviceprefix;
-    public certData:any;
-    public keyData:any;
+    public certData:Buffer;
+    public keyData:Buffer;
 }
 
 var bjCert ='-----BEGIN CERTIFICATE-----\
@@ -333,7 +333,7 @@ declare var writeAttr;
 declare var readAttr;
 declare var connectDevice;
 declare var disConnectDevice;
-
+declare var setDeviceAccessLevel;
 
 @Injectable()
 export class DataService {
@@ -349,6 +349,7 @@ export class DataService {
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
+    setDeviceAccessLevelObj:any;
     public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
@@ -397,6 +398,7 @@ export class DataService {
     setCertData(data){
         if(this.DeviceBuild == 1){
             this.networkParams.certData = new Buffer(data);
+            this.logger.log(this.networkParams.certData.toString('hex'));
         }
         else{
              this.networkParams.certData = new Buffer(bjCert);
@@ -405,6 +407,7 @@ export class DataService {
     setKeyData(data){
         if(this.DeviceBuild ==1 ){
             this.networkParams.keyData = new Buffer(data);
+            this.logger.log(this.networkParams.keyData.toString('hex'));
         }
         else{
             this.networkParams.keyData = new Buffer(bjKey);
@@ -803,11 +806,26 @@ export class DataService {
     disConnectDevice(btAddress){
         this.disConnectDeviceObj = new disConnectDevice(btAddress)
     }
+    setAccessLevel(){
+        if(this.getProfile()=='user'){
+            this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x01)
+        }else{
+            this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x02)
+        }
+    }
+    onAccessLevelUpdate(accessLevel){
+        if(this.deviceParams.deviceConnected == true){
+            if(this.activeComponent != undefined) {
+                this.activeComponent.onAccessLevelUpdate(accessLevel);
+            }
+        }
+    }
     onDeviceConnected(deviceAddress) {
         this.deviceParams.deviceConnected = true;
         if(this.activeComponent != undefined) {
             this.activeComponent.onDeviceConnected(deviceAddress);
         }
+        this.setAccessLevel();
     }
 
     onDeviceDisconnected(deviceAddress){

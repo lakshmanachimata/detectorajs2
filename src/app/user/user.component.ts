@@ -138,7 +138,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
   onDeviceConnected(address){
      this.isDeviceConnected = true
-     this.data.initDeviceData(false);
   }
-
+  onAccessLevelUpdate(accessLevel){
+    if(this.isDeviceConnected)
+      this.data.initDeviceData(false);
+  }
 }
