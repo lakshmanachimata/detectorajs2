@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
     int bleDataLengthReceived = 0;
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
 
-    public static final String LOG_TAG = "P@D";
+    public static final String LOG_TAG = "BJDETECTOR";
     private static MainActivity mInstance;
     static boolean certDebug = false;
     private static class MyHandler extends Handler {
@@ -816,11 +816,11 @@ public class MainActivity extends Activity {
                                     sendBLEDataToApp(bleRecvBuffer.array());
                                 }
                                 else {
-                                    Log.d("BJE", "CRC MIS MATCH");
+                                    Log.d(MainActivity.LOG_TAG, "CRC MIS MATCH");
                                 }
                             }
                             else {
-                                Log.d("BJE", "LENGTH MISMATCH");
+                                Log.d(MainActivity.LOG_TAG, "LENGTH MISMATCH");
                             }
 
                         }
@@ -939,7 +939,7 @@ public class MainActivity extends Activity {
 //                        Toast.makeText(getApplicationContext(),"DEMO MODE",Toast.LENGTH_LONG).show();
                     if(scannedDevices.size() > 0) {
                         webview.evaluateJavascript(devicesdata, null);
-                        Log.d("BJDETECTOR ", "devices are " + devicesdata);
+                        Log.d(MainActivity.LOG_TAG , "devices are " + devicesdata);
                     }
                     else
                         Toast.makeText(getApplicationContext(),"NO DEVICES FOUND",Toast.LENGTH_LONG).show();
