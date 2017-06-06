@@ -156,7 +156,7 @@ public class MainActivity extends Activity {
 
     public static final String LOG_TAG = "P@D";
     private static MainActivity mInstance;
-
+    static boolean certDebug = false;
     private static class MyHandler extends Handler {
         final static int MSG_EMIT_NEXT_EVENT = 1;
         private final WeakReference<MainActivity> mActivity;
@@ -334,20 +334,23 @@ public class MainActivity extends Activity {
     }
 
     void copyFile(File src, File dst)  {
-        try {
-            FileChannel inChannel = new FileInputStream(src).getChannel();
-            FileChannel outChannel = new FileOutputStream(dst).getChannel();
+        if(certDebug) {
             try {
-                inChannel.transferTo(0, inChannel.size(), outChannel);
+                FileChannel inChannel = new FileInputStream(src).getChannel();
+                FileChannel outChannel = new FileOutputStream(dst).getChannel();
+                try {
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                }
+                finally {
+                    if (inChannel != null)
+                        inChannel.close();
+                    if (outChannel != null)
+                        outChannel.close();
+                }
             }
-            finally {
-                if (inChannel != null)
-                    inChannel.close();
-                if (outChannel != null)
-                    outChannel.close();
+            catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 
@@ -359,9 +362,11 @@ public class MainActivity extends Activity {
                     try {
                         for (int i = 0; i < files.length; i++) {
                             if (files[i].toString().contains("client.cert") && files[i].exists()) {
-                                File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                                File dstFile =  new File(downloaDir+"/"+"client.cert");
-                                copyFile(files[i],dstFile);
+                                if(certDebug) {
+                                    File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                                    File dstFile = new File(downloaDir + "/" + "client.cert");
+                                    copyFile(files[i], dstFile);
+                                }
                                 ArrayList<Integer> data = new ArrayList<Integer>();
                                 BufferedReader r=new BufferedReader(new FileReader(files[i]));
                                 int ch;
@@ -382,9 +387,11 @@ public class MainActivity extends Activity {
                                 r.close();
                             }
                             if (files[i].toString().contains("client.private")) {
-                                File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                                File dstFile =  new File(downloaDir+"/"+"client.private");
-                                copyFile(files[i],dstFile);
+                                if(certDebug) {
+                                    File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                                    File dstFile = new File(downloaDir + "/" + "client.private");
+                                    copyFile(files[i], dstFile);
+                                }
 
                                 ArrayList<Integer> data = new ArrayList<Integer>();
                                 BufferedReader r=new BufferedReader(new FileReader(files[i]));
