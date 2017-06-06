@@ -68,11 +68,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -330,6 +332,25 @@ public class MainActivity extends Activity {
         FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
         checkForFilesAgain();
     }
+
+    void copyFile(File src, File dst)  {
+        try {
+            FileChannel inChannel = new FileInputStream(src).getChannel();
+            FileChannel outChannel = new FileOutputStream(dst).getChannel();
+            try {
+                inChannel.transferTo(0, inChannel.size(), outChannel);
+            }
+            finally {
+                if (inChannel != null)
+                    inChannel.close();
+                if (outChannel != null)
+                    outChannel.close();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
         void checkForFilesAgain(){
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -338,6 +359,9 @@ public class MainActivity extends Activity {
                     try {
                         for (int i = 0; i < files.length; i++) {
                             if (files[i].toString().contains("client.cert") && files[i].exists()) {
+                                File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                                File dstFile =  new File(downloaDir+"/"+"client.cert");
+                                copyFile(files[i],dstFile);
                                 ArrayList<Integer> data = new ArrayList<Integer>();
                                 BufferedReader r=new BufferedReader(new FileReader(files[i]));
                                 int ch;
@@ -358,6 +382,10 @@ public class MainActivity extends Activity {
                                 r.close();
                             }
                             if (files[i].toString().contains("client.private")) {
+                                File downloaDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                                File dstFile =  new File(downloaDir+"/"+"client.private");
+                                copyFile(files[i],dstFile);
+
                                 ArrayList<Integer> data = new ArrayList<Integer>();
                                 BufferedReader r=new BufferedReader(new FileReader(files[i]));
                                 int ch;
