@@ -135,6 +135,19 @@ function setDeviceAccessLevel(accessLevel){
     }
 }
 
+function setPwdToDevice(pwd,length,installer){
+    var data = [];
+    data = getRequestFrame(SCCP_COMMAND.AUTH_SET_PWD_REQUEST, pwd,length,installer);
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }}
 
 function prepareAttributeArray(indata) {
     var bledata = {};
@@ -342,7 +355,7 @@ function setDataServiceCallBack(dataService) {
 //  Created by Sriharsha Vardhan on 23/02/17.
 //  Copyright © 2017 ABB. All rights reserved.
 
-    function getRequestFrame(command, data) {
+    function getRequestFrame(command, data,len,installer) {
         var frame = [];
         var crc;
         
@@ -358,6 +371,25 @@ function setDataServiceCallBack(dataService) {
             frame.push(crc & 0x00ff); // CRC UPPER
             frame.unshift(0x7e) // START BYTE
             frame.push(0x7e) // END BYTE
+        break;
+        case SCCP_COMMAND.AUTH_SET_PWD_REQUEST:
+            frame.push(0x08); // CONTROL DEVICE
+            if(installer)
+                frame.push(0x0C); // SEQUENCE
+            else
+                frame.push(0x0D)
+            frame.push(SCCP_COMMAND.AUTH_SET_PWD_REQUEST); // command
+            frame.push(len);
+            for (var d in data) {
+                var val = data[d];
+                frame.push(val & 0x00FF); // ADDR LOW
+            }
+            crc=crcCCITT(frame);
+            frame.push(crc >> 8); // CRC LOWER
+            frame.push(crc & 0x00ff); // CRC UPPER
+            frame.unshift(0x07+len) // START BYTE
+            frame.unshift(0x7e) // START BYTE
+            frame.push(0x7e)
         break;
         case SCCP_COMMAND.RESET:
             frame.push(0x06); // LENGTH AFTER THIS BYTE

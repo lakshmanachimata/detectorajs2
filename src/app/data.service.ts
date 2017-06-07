@@ -225,6 +225,8 @@ export class UIParams {
       inputHint ='';
       installpwdChanged = false;
       userPwdChanged = false;
+      toBeSetInstallerPwd = "";
+      toBeSetUserPwd="";
 }
 
 export class DeviceParams {
@@ -338,6 +340,9 @@ declare var readAttr;
 declare var connectDevice;
 declare var disConnectDevice;
 declare var setDeviceAccessLevel;
+declare var setPwdToDevice;
+
+
 
 @Injectable()
 export class DataService {
@@ -354,6 +359,7 @@ export class DataService {
     readAttrObj:any;
     configureAttrObj:any;
     setDeviceAccessLevelObj:any;
+    setPwdToDeviceObj:any;
     public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
@@ -917,13 +923,21 @@ export class DataService {
             }
         }
     }
+    setTobeSetInstallerPwd(val){
+        this.uiParams.toBeSetInstallerPwd =  val;
+    }
+     setTobeSetUserPwd(val){
+        this.uiParams.toBeSetUserPwd =  val;
+    }
     sendChangedParams() {
         if(this.uiParams.installpwdChanged || this.uiParams.userPwdChanged){
+            this.resetWriteArray();
+            this.resetSendData();
             if(this.uiParams.installpwdChanged){
-
+                this.setDevicePwd(this.uiParams.toBeSetInstallerPwd,'electrician');
             }else {
                 if(this.uiParams.userPwdChanged){
-                    
+                    this.setDevicePwd(this.uiParams.toBeSetUserPwd,'user');
                 }
             }
         }else {
@@ -964,8 +978,6 @@ export class DataService {
     resetWriteArray(){
         this.writeArray = [];
     }
-
-
 
     authenticateDevice(devicePwd){
         if(this.getProfile()=='electrician'){
@@ -1062,8 +1074,9 @@ export class DataService {
         }
     }
 
-    setDevicePwd(setPWD){
-        if(this.getProfile()=='electrician'){
+    setDevicePwd(setPWD,profile){
+        if(profile=='electrician'){
+            // setPWD = 'ABCDEFGHIJKLMNOP';
             let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1092,7 +1105,7 @@ export class DataService {
                 ["deriveKey"]).
             then(function(baseKey){
                 // Derive a key from the password
-                console.log(baseKey);
+                //console.log(baseKey);
                 var saltbuf = new Buffer(finalSalt,'hex');
                 return window.crypto.subtle.deriveKey(
                     {
@@ -1112,33 +1125,46 @@ export class DataService {
             }).then(function(keyBytes) {
                 var byteArray3 = new Buffer(keyBytes);
                 var byteString = byteArray3.toString('hex').toUpperCase();
-                if(byteString.length == 32){
+                if(byteString.length == 64){
                     let result = [];
                     for(let j =0; j < 32; j++){
                         result.push(byteArray3[j] ^ saltbuf[j])
                     }
+                    DataService.getDataService().logger.log('result is '+ new Buffer(result).toString('hex').toUpperCase());
+                    DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
                 }else {
-                    this.logger.log("PBKDF2 could not deliver stuff")
+                    DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
                 }
             });
-        }if(this.getProfile()=='user'){
+        }if(profile=='user'){
+            // setPWD = '12345678901234567890123456789012';
             let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
-            let finalSalt ="";
+            let finalUserSalt ="";
             for(let i =0; i < addRLenght; i++){
             if(saltbufStart.charAt(i) != ':')
                 saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
             }
             let addBufByteStrLen = saltBufByteStr.length;
             for(let  j =0; j < 64; j++){
-                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+                finalUserSalt =  finalUserSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
             }
-            let pwdBytes = [];
+            let pwdBytes = "";
             for(let k =0; k < setPWD.length; k++){
                 let charChode = setPWD.charCodeAt(k);
                 pwdBytes = pwdBytes + charChode.toString(16);
             }
+             let mDataBuff = new Buffer(pwdBytes,'hex');
+             let pDataBuff = new Buffer(finalUserSalt,'hex');
+             let result  = [];
+            for(let k =0; k < 32; k++){
+                let a =  mDataBuff[k];
+                let b =  pDataBuff[k];
+                result.push(a ^ b)
+            }
+            DataService.getDataService().logger.log('result is '+ new Buffer(result).toString('hex').toUpperCase());
+            DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,false)
         }
     }
 

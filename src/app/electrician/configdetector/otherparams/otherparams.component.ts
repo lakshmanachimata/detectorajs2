@@ -135,16 +135,20 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       if(this.installer_pwd.length >= 16){
         this.installer_pwd =  this.installer_pwd.slice(0,15);
       }
-      if(this.data.deviceParams.installer_pwd != this.installer_pwd)
+      if(this.data.deviceParams.installer_pwd != this.installer_pwd){
         this.data.installerPasswordChanged(true)
+        this.data.setTobeSetInstallerPwd(this.installer_pwd)
+      }
       this.data.setEDevParamsState(1);
   }
   onUserPinChanged(){
       if(this.user_pwd.length >= 16){
         this.user_pwd =  this.user_pwd.slice(0,15);
       }
-      if(this.data.deviceParams.user_pwd != this.user_pwd)
+      if(this.data.deviceParams.user_pwd != this.user_pwd){
         this.data.userPasswordChanged(true)
+        this.data.setTobeSetUserPwd(this.user_pwd)
+      }
       this.data.setEDevParamsState(1);
   }
 
