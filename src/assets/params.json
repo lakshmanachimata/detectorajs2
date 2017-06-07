@@ -209,11 +209,5 @@
           "data":33
         }
       ]
-    },
-    "commissioning": {
-        "pins": {
-            "electrician": "1234",
-            "standard_user": "1234"
-        }
     }
 }

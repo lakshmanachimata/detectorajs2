@@ -223,6 +223,8 @@ export class UIParams {
       subMenuComponent = undefined;
       autoSync = true;
       inputHint ='';
+      installpwdChanged = false;
+      userPwdChanged = false;
 }
 
 export class DeviceParams {
@@ -240,6 +242,8 @@ export class DeviceParams {
         jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
         iJsonLoadEmitter: EventEmitter<any> = new EventEmitter();
         deviceConnected = false;
+        public installer_pwd="";
+        public user_pwd="";
 }
 
 export class NetworkParams {
@@ -630,7 +634,12 @@ export class DataService {
          this.uiParams.iparam = item;
          this.setSMMainTitle(itemTitle);
     }
-
+    installerPasswordChanged(val){
+        this.uiParams.installpwdChanged = val;
+    }
+    userPasswordChanged(val){
+        this.uiParams.userPwdChanged = val;
+    }
     getIParam(){
         return this.uiParams.iparam;
     }
@@ -909,32 +918,42 @@ export class DataService {
         }
     }
     sendChangedParams() {
-        if(this.writeArray.length > 0 && this.DeviceBuild == 1) {
-            if(this.activeComponent != undefined){
-                this.activeComponent.setLoadingDataDone(false);
-            }
-            let dataBytes = [];
-            if(this.writeArray.length > this.writeCount) {
-                for(let i = 0; i < this.writeCount; i++) {
-                    let idata = this.sendData[i];
-                    dataBytes.push(idata.attrType);
-                    for(let j =0; j<idata.attrValue.length; j++){
-                        dataBytes.push(idata.attrValue[j]);
-                    }
+        if(this.uiParams.installpwdChanged || this.uiParams.userPwdChanged){
+            if(this.uiParams.installpwdChanged){
+
+            }else {
+                if(this.uiParams.userPwdChanged){
+                    
                 }
             }
-            else {
-                for(let i = 0; i < this.writeArray.length; i++) {
-                    let idata = this.sendData[i];
-                    dataBytes.push(idata.attrType);
-                    for(let j =0; j<idata.attrValue.length; j++){
-                        dataBytes.push(idata.attrValue[j]);
-                    }
-                }
-            }
-            this.writeAttrObj =  new writeAttr(dataBytes);
         }else {
-            this.setEDevParamsState(0)
+            if(this.writeArray.length > 0 && this.DeviceBuild == 1) {
+                if(this.activeComponent != undefined){
+                    this.activeComponent.setLoadingDataDone(false);
+                }
+                let dataBytes = [];
+                if(this.writeArray.length > this.writeCount) {
+                    for(let i = 0; i < this.writeCount; i++) {
+                        let idata = this.sendData[i];
+                        dataBytes.push(idata.attrType);
+                        for(let j =0; j<idata.attrValue.length; j++){
+                            dataBytes.push(idata.attrValue[j]);
+                        }
+                    }
+                }
+                else {
+                    for(let i = 0; i < this.writeArray.length; i++) {
+                        let idata = this.sendData[i];
+                        dataBytes.push(idata.attrType);
+                        for(let j =0; j<idata.attrValue.length; j++){
+                            dataBytes.push(idata.attrValue[j]);
+                        }
+                    }
+                }
+                this.writeAttrObj =  new writeAttr(dataBytes);
+            }else {
+                this.setEDevParamsState(0)
+            }
         }
     }
 

@@ -21,6 +21,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
+  installer_pwd ="";
+  user_pwd ="";
   userProfiles = [
     this.translater.translate('Garage'),
     this.translater.translate('Entry of cellar')
@@ -123,10 +125,26 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         return this.searchProfiles(this.preDefined_Profiles,false);
     }
 
+    getInstallerPwd(){
+      this.installer_pwd = this.data.deviceParams.installer_pwd;
+    }
+    getUserPwd(){
+      this.user_pwd = this.data.deviceParams.user_pwd;
+    }
   onFitterPinChanged(){
+      if(this.installer_pwd.length >= 16){
+        this.installer_pwd =  this.installer_pwd.slice(0,15);
+      }
+      if(this.data.deviceParams.installer_pwd != this.installer_pwd)
+        this.data.installerPasswordChanged(true)
       this.data.setEDevParamsState(1);
   }
   onUserPinChanged(){
+      if(this.user_pwd.length >= 16){
+        this.user_pwd =  this.user_pwd.slice(0,15);
+      }
+      if(this.data.deviceParams.user_pwd != this.user_pwd)
+        this.data.userPasswordChanged(true)
       this.data.setEDevParamsState(1);
   }
 
@@ -161,6 +179,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   ngOnInit() {
       this.data.setMainTitle(this.data.getOtherParamTitle());
+      this.getInstallerPwd();
+      this.getUserPwd();
+      this.data.userPasswordChanged(false)
+      this.data.installerPasswordChanged(false)
   }
   ngAfterContentInit() { 
   }
