@@ -373,6 +373,7 @@ function setDataServiceCallBack(dataService) {
             frame.push(0x7e) // END BYTE
         break;
         case SCCP_COMMAND.AUTH_SET_PWD_REQUEST:
+            frame.push(0x07+len) // START BYTE
             frame.push(0x08); // CONTROL DEVICE
             if(installer)
                 frame.push(0x0C); // SEQUENCE
@@ -387,7 +388,6 @@ function setDataServiceCallBack(dataService) {
             crc=crcCCITT(frame);
             frame.push(crc >> 8); // CRC LOWER
             frame.push(crc & 0x00ff); // CRC UPPER
-            frame.unshift(0x07+len) // START BYTE
             frame.unshift(0x7e) // START BYTE
             frame.push(0x7e)
         break;
