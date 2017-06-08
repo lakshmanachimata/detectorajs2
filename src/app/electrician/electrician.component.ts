@@ -39,7 +39,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   configureDetector(item){
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        this.data.connectDevice(item.btAddress);
+        if(this.data.getDeviceConnectionState() == false)
+          this.data.connectDevice(item.btAddress);
+          else 
+          this.data.setAccessLevel();
       }
       else {
         this.isDeviceConnected = true;
@@ -52,6 +55,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.data.setEDialogInputHint(this.translater.translate('Enter password'));
         this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
         this.data.setShowEModal(true);
+        this.ngAfterViewChecked();
   }
   ngOnChanges(changes) { 
   }
@@ -141,7 +145,14 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.isDeviceConnected = true;
   }
   onAccessLevelUpdate(accessLevel){
-    if(this.isDeviceConnected)
-      this.data.initDeviceData(false);
+    if(accessLevel == -1){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.showPWDDialog();
+         this.data.setEDevParamsState(0);
+      });
+    }else {
+      if(this.isDeviceConnected)
+        this.data.initDeviceData(false);
+      }
   }
 }

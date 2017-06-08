@@ -43,6 +43,7 @@ import { i18nService } from '../../i18n.service';
 export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     activeDevice:any;
     ad:any;
+    doDisConnect = true;
     onLabel = this.translater.translate('on');
     offLabel = this.translater.translate('off');
     brthresholderror = false;
@@ -181,9 +182,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.showSlider = false;
       this.data.setActiveComponent(this);
       this.data.setEDevParamsState(0);
-      if(this.data.getDeviceConnectionState() == true){
-        this.data.readData(this.readAttrs);
-      }
+
       // else {
       //   this.loadingDataDone = true;
       // }
@@ -214,9 +213,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.shortTimePulseEnable?1:0])
   }
   ngOnInit() {
+    this.doDisConnect = true; 
     this.data.setMainTitle(this.translater.translate('Configure detector'));
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
+    if(this.data.getDeviceConnectionState() == true){
+        this.data.readData(this.readAttrs);
+    }
   }
   ngAfterContentInit() { 
   }
@@ -251,9 +254,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowModal(true);
   }
 
-  gotoaddParams(){
-    this.router.navigate(['addparams'],{relativeTo: this.route});
-  }
+
 
   potentioMeterChanged() {
     this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
@@ -398,20 +399,27 @@ slideBackground (value) {
 
   ngOnDestroy() {
     this.data.resetSendData();
-    this.data.disConnectDevice(this.ad.btAddress);
+    if(this.doDisConnect == true)
+      this.data.disConnectDevice(this.ad.btAddress);
   }
   gotoActuator1(){
+    this.doDisConnect = false;
     this.router.navigate(['eactuator1'],{relativeTo: this.route});
   }
   gotoActuator2(){
+    this.doDisConnect = false;
     this.router.navigate(['eactuator2'],{relativeTo: this.route});
   }
   gotoOtherParams(otherparam,otherParamTitle){
+    this.doDisConnect = false;
     otherParamTitle = this.translater.translate(otherParamTitle);
     this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
   }
-
+  gotoaddParams(){
+    this.doDisConnect = false;
+    this.router.navigate(['addparams'],{relativeTo: this.route});
+  }
   onBLEdata() {
     this.loadingDataDone =  true;
     this.setDeviceInfo();

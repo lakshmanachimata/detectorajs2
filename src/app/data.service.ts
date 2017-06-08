@@ -44,6 +44,31 @@ export class CloudObj {
     IDeviceData:any;
 }
 
+export class SCCP_COMMAND  {
+   static STANDARD_RESPONSE               = 0x80;
+   static RESET                           = 0x01;
+   static RESET_FN                        = 0x02;
+   static READ_ATTRIBUTE_REQUEST          = 0x03;
+   static READ_ATTRIBUTE_RESPONSE         = 0x83;
+   static WRITE_ATTRIBUTE_REQUEST         = 0x04;
+   static WRITE_ATTRIBUTE_RESPONSE        = 0x84;
+   static CONFIGURE_REPORTING_REQUEST     = 0x05;
+   static CONFIGURE_REPORTING_RESPONSE    = 0x85;
+   static REPORT_ATTRIBUTE                = 0x06;
+   static IDENTIFY_DEVICE                 = 0x20;
+   static IDENTIFY_LOAD                   = 0x30;
+   static ON_OFF                          = 0x31;
+   static SET_LEVEL                       = 0x32;
+   static RESET_ENERGY_MONITOR            = 0x40;
+   static RESET_DALI_CONTROL_GEAR         = 0x48;
+   static AUTH_GEN_RANDOM_REQUEST         = 0x50;
+   static AUTH_GEN_RANDOM_RESPONSE        = 0xD0;
+   static AUTH_REQUST                     = 0x51;
+   static AUTH_SET_PWD_REQUEST            = 0x52;
+   static SET_ACCESS_LEVEL                = 0x53;
+}
+
+
  export class  SCCP_DATATYPES  { 
     static SCCP_TYPE_BOOL     = 0x01;
     static SCCP_TYPE_STRING   = 0x02;
@@ -246,6 +271,7 @@ export class DeviceParams {
         deviceConnected = false;
         public installer_pwd="";
         public user_pwd="";
+        public auth_challenge="";
 }
 
 export class NetworkParams {
@@ -768,9 +794,11 @@ export class DataService {
     }
 
     setBLEDataToService(data,responseType) {
-        let indata = data.datas;
+        let indata;
+        if(data != undefined && data.datas != undefined)
+            indata = data.datas;
         switch (responseType){
-            case 131:
+            case SCCP_COMMAND.READ_ATTRIBUTE_RESPONSE:
                 let readDoneData = [];
                 for(let i =0 ; i < indata.length; i++) {
                     let atrType = indata[i].attrType;
@@ -792,7 +820,7 @@ export class DataService {
                     this.notifyActiveComponentWithBLEdata()
                 }
             break;
-            case 132:
+            case SCCP_COMMAND.WRITE_ATTRIBUTE_RESPONSE:
                 if(this.writeArray.length > this.writeCount){
                     this.writeArray = this.writeArray.slice(this.writeCount,this.writeArray.length);
                     this.sendData = this.sendData.slice(this.writeCount,this.sendData.length);
@@ -809,6 +837,12 @@ export class DataService {
                     this.notifyActiveComponentWithBLEdata()
                     this.putDevicesToCloud(false);
                 }
+            break;
+            case SCCP_COMMAND.STANDARD_RESPONSE:
+            break;
+            case SCCP_COMMAND.AUTH_GEN_RANDOM_RESPONSE:
+            break;
+            case SCCP_COMMAND.CONFIGURE_REPORTING_RESPONSE:
             break;
             default:
             break;
@@ -977,6 +1011,14 @@ export class DataService {
 
     resetWriteArray(){
         this.writeArray = [];
+    }
+
+    setAuthChallenge(val){
+        this.deviceParams.auth_challenge = val;
+    }
+
+    getAuthChallenge(){
+        return this.deviceParams.auth_challenge;
     }
 
     authenticateDevice(devicePwd){

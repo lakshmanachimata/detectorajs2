@@ -17,6 +17,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     
     activeDevice:any;
     ad:any;
+    doDisConnect = true;
     onLabel = 'on';
     offLabel = 'off';
     readAttrs =[
@@ -78,10 +79,12 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.light1state = this.light1state - 1;
   }
   gotoEnergySettings() {
+    this.doDisConnect =  false;
     this.router.navigate(['energymonitor'],{relativeTo: this.route});
     //this.data.setShowOnlyCancel(false);
   }
   gotoSettings() {
+    this.doDisConnect =  false;
     this.router.navigate(['settingsu'],{relativeTo: this.route});
     this.data.setShowOnlyCancel(false);
   }
@@ -91,6 +94,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
+     this.doDisConnect = true;
     this.data.setOtherParam('','');
     this.data.setShowOnlyCancel(true);
   }
@@ -104,7 +108,8 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
     this.data.resetSendData();
-    this.data.disConnectDevice(this.ad.btAddress);
+    if(this.doDisConnect == true)
+      this.data.disConnectDevice(this.ad.btAddress);
   }
     
   onBLEdata() {

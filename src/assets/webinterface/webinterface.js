@@ -135,6 +135,20 @@ function setDeviceAccessLevel(accessLevel){
     }
 }
 
+function getGeneratedAuth(){
+    var data = getRequestFrame(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
 function setPwdToDevice(pwd,length,installer){
     var data = [];
     data = getRequestFrame(SCCP_COMMAND.AUTH_SET_PWD_REQUEST, pwd,length,installer);
@@ -157,10 +171,29 @@ function prepareAttributeArray(indata) {
     
     switch(indata[4]){
         case 128: // standard response
-        if(indata[5] == 0){
-            appDataService.onAccessLevelUpdate(0);
-        }else {
-            appDataService.onAccessLevelUpdate(-1);
+        if(indata[3] == 0x0A){
+            if(indata[5] == 0){
+                appDataService.onAccessLevelUpdate(0);
+            }else {
+                appDataService.onAccessLevelUpdate(-1);
+                getGeneratedAuth();
+                return;
+            }
+        }
+        if(indata[3] == 0x0B){
+
+        }
+        if(indata[3] == 0x0C){
+
+        }
+        if(indata[3] == 0x0D){
+
+        }
+        if(indata[3] == 0x0E){
+
+        }
+        if(indata[3] == 0x0F){
+
         }
         if(debugLogs ==  true)
             console.log("standard response     " + indata);
@@ -372,8 +405,18 @@ function setDataServiceCallBack(dataService) {
             frame.unshift(0x7e) // START BYTE
             frame.push(0x7e) // END BYTE
         break;
+        case SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST:
+            frame.push(0x05);
+            frame.push(0x0E); // CONTROL DEVICE
+            frame.push(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
+            crc=crcCCITT(frame);
+            frame.push(crc >> 8); // CRC LOWER
+            frame.push(crc & 0x00ff); // CRC UPPER
+            frame.unshift(0x7e) // START BYTE
+            frame.push(0x7e) // END BYTE
+        break;
         case SCCP_COMMAND.AUTH_SET_PWD_REQUEST:
-            frame.push(0x07+len) // START BYTE
+            frame.push(0x07+len) // LENGTH AFTER THIS BYTE
             frame.push(0x08); // CONTROL DEVICE
             if(installer)
                 frame.push(0x0C); // SEQUENCE
@@ -387,9 +430,9 @@ function setDataServiceCallBack(dataService) {
             }
             crc=crcCCITT(frame);
             frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
+            frame.push(crc & 0x00FF); // CRC UPPER
             frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e)
+            frame.push(0x7e) // END BYTE
         break;
         case SCCP_COMMAND.RESET:
             frame.push(0x06); // LENGTH AFTER THIS BYTE
