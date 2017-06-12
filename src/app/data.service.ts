@@ -4,6 +4,7 @@ import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
+
 import  * as crypto from 'crypto';
 import * as https from 'https';
 import * as http from 'http';
@@ -411,6 +412,7 @@ export class DataService {
         this.checkDeviceMode();
         this.setCertData('');
         this.setKeyData('')
+        
     }
 
     checkDeviceMode(){

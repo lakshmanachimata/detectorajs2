@@ -10,7 +10,7 @@ import {
 @Directive({ selector: '[long-press]' })
 export class LongPress {
 
-  @Input() duration: number = 400;
+  @Input() duration: number = 300;
 
   @Output() onLongPress: EventEmitter<any> = new EventEmitter();
   @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
@@ -84,7 +84,7 @@ export class LongPress {
       this.timeout = setTimeout(() => {
         this.onLongPressing.emit(event);
         this.loop(event);
-      }, 100);
+      }, 60);
     }
   }
 

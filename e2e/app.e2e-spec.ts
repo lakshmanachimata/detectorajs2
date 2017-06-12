@@ -1,6 +1,6 @@
 import { BjdetectorPage } from './app.po';
 
-describe('bjdetector App', function() {
+describe('bjdetector App', () => {
   let page: BjdetectorPage;
 
   beforeEach(() => {
