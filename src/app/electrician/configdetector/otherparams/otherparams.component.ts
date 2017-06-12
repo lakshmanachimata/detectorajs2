@@ -83,6 +83,32 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         this.loadingDataDone = true;
       }
   }
+
+    onInstallerPwdSetSuccess(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+        this.data.setEDevParamsState(0);
+      });
+    }
+    onInstallerPwdSetFailed(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+        this.data.setEDevParamsState(0);
+      });
+    }
+    onUserPwdSetSuccess(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+        this.data.setEDevParamsState(0);
+      });
+    }
+    onUserPwdSetFailed(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
+        this.data.setEDevParamsState(0);
+      });
+    }
+
     getOtherProfiles(){
       return this.userProfiles;
     }

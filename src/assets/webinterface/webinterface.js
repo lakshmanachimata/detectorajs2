@@ -4,6 +4,7 @@ var appDataService;
 var scannedDevices;
 var BJE;
 var debugLogs = true;
+var authGenSent = false;
 
 function setDevicesCallBack(component) {
     welcomecomponent = component;
@@ -168,6 +169,11 @@ function prepareAttributeArray(indata) {
     var datas = [];
     bledata.datas = datas;
 
+    if(indata[3] == 0x0E && indata[5] == 0x10 && authGenSent == true){
+        appDataService.setAuthGenData(indata);
+        authGenSent = false;
+        return;
+    }
     
     switch(indata[4]){
         case 128: // standard response
@@ -184,12 +190,13 @@ function prepareAttributeArray(indata) {
 
         }
         if(indata[3] == 0x0C){
-
+             if(indata[5] == 0){
+                appDataService.onInstallerPwdSetSuccess()
+             }else{
+                 appDataService.onInstallerPwdSetFailed()
+             }
         }
         if(indata[3] == 0x0D){
-
-        }
-        if(indata[3] == 0x0E){
 
         }
         if(indata[3] == 0x0F){
@@ -406,9 +413,11 @@ function setDataServiceCallBack(dataService) {
             frame.push(0x7e) // END BYTE
         break;
         case SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST:
-            frame.push(0x05);
-            frame.push(0x0E); // CONTROL DEVICE
+            frame.push(0x06);
+            frame.push(0x08); // CONTROL DEVICE
+            frame.push(0x0E); // SEQUENCE
             frame.push(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
+            authGenSent = true;
             crc=crcCCITT(frame);
             frame.push(crc >> 8); // CRC LOWER
             frame.push(crc & 0x00ff); // CRC UPPER

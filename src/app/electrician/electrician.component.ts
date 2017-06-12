@@ -41,7 +41,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       if(this.data.DeviceBuild == 1) {
         if(this.data.getDeviceConnectionState() == false)
           this.data.connectDevice(item.btAddress);
-          else 
+        else 
           this.data.setAccessLevel();
       }
       else {
