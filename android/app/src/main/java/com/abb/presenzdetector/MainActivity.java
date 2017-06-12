@@ -292,7 +292,8 @@ public class MainActivity extends Activity {
                 // do your stuff here
                 if (url.equals("file:///android_asset/") ||
                         url.equals("file:///android_asset/welcome") ||
-                        url.equals("file:///android_asset/index.html") ) {
+                        url.equals("file:///android_asset/index.html") ||
+                        url.equals("file:///android_asset/index.html#/welcome")) {
                     if (splashScreen.getVisibility() == View.VISIBLE) {
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
