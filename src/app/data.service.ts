@@ -7,7 +7,6 @@ import { i18nService } from './i18n.service';
 import * as https from 'https';
 import * as http from 'http';
 import * as sha256 from "fast-sha256"
-import * as mysha256 from 'sha256'
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -368,7 +367,7 @@ declare var connectDevice;
 declare var disConnectDevice;
 declare var setDeviceAccessLevel;
 declare var setPwdToDevice;
-
+declare var authenticateDevice;
 
 
 @Injectable()
@@ -382,6 +381,7 @@ export class DataService {
     setDataServiceCallBackObj:any;
     connectDeviceObj:any;
     disConnectDeviceObj:any;
+    authenticateDeviceObj:any;
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
@@ -862,6 +862,18 @@ export class DataService {
     onUserPwdSetFailed(){
         this.activeComponent.onInstallerPwdSetFailed();
     }
+    onInstallerAccessSuccess(){
+        this.activeComponent.onInstallerAccessSuccess();
+    }
+    onInstallerAccessDenied(){
+        this.activeComponent.onInstallerAccessDenied();
+    }
+    onUserAccessSuccess(){
+        this.activeComponent.onUserAccessSuccess();
+    }
+    onUserAccessDenied(){
+        this.activeComponent.onUserAccessDenied();
+    }
     setAuthGenData(indata){
         let authData = [];
         for(let i = 6; i < 22; i++){
@@ -1058,7 +1070,6 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
-                this.logger.log('selected address ' + saltbufStart)
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
             }
@@ -1107,27 +1118,31 @@ export class DataService {
                 var byteArray3 = new Buffer(keyBytes);
                 var byteString = byteArray3.toString('hex').toUpperCase();
                 if(byteString.length == 64){
-                    DataService.getDataService().logger.log('install PBKDF2 ' + byteArray3.toString('hex').toUpperCase());
-                    DataService.getDataService().logger.log('install mac repeate ' + finalSalt.toUpperCase())
-                    var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                    DataService.getDataService().logger.log('install genauth ' + genArray.toString('hex').toUpperCase());
-                    let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
-  // We transform the string into an arraybuffer.
-                    var buffer = new Buffer(preHashStr);
-                    return crypto.subtle.digest("SHA-256", buffer).then(function (hash) {
-                        return hex(hash);
-                    });
-                    
-                    // var hash = crypto.createHash('sha256')
-                    // var postHash = hash.update(preHashStr,'utf8')
-                    // DataService.getDataService().logger.log('install result Hash ' + postHash);
+                    if(DataService.getDataService().getAuthChallenge().length > 0)
+                    {
+                        var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
+                        let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                        DataService.getDataService().logger.log('full string  buffer is is ' + preHashStr)
+                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+                        hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
+                        crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                            var hexCodes = [];
+                            var byteArray31 = new Buffer(hash);
+                            let result = [];
+                                for(let j =0; j < 32; j++){
+                                    result.push(byteArray31[j])
+                                }
 
-                }else {
-                    DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
+                            var byteString11 = byteArray31.toString('hex').toUpperCase();
+                            DataService.getDataService().logger.log('result is ' + byteString11.toUpperCase())
+                            if(DataService.getDataService().DeviceBuild == 1)
+                                DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
+                        });
+                    }else {
+                        DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
+                    }
                 }
             });
-
-
         }if(this.getProfile()=='user'){
             let saltbufStart;
             if(this.uiParams.devicesObj == undefined ||

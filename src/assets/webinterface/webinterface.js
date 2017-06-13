@@ -162,14 +162,30 @@ function setPwdToDevice(pwd,length,installer){
         var message = {"send":data}
         var sendMessage =  JSON.stringify(message)
         window.webkit.messageHandlers.webapi.postMessage(sendMessage);
-    }}
+    }
+}
+
+function authenticateDevice(pwdHash,length,installer){
+    var data = [];
+    data = getRequestFrame(SCCP_COMMAND.AUTH_REQUST, pwdHash,length,installer);
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
 
 function prepareAttributeArray(indata) {
     var bledata = {};
     var datas = [];
     bledata.datas = datas;
 
-    if(indata[3] == 0x0E && indata[5] == 0x10 && authGenSent == true){
+    if(indata[3] == 0x0F && indata[5] == 0x10 && authGenSent == true){
         appDataService.setAuthGenData(indata);
         authGenSent = false;
         return;
@@ -183,24 +199,40 @@ function prepareAttributeArray(indata) {
             }else {
                 appDataService.onAccessLevelUpdate(-1);
                 getGeneratedAuth();
-                return;
             }
+            return;
         }
         if(indata[3] == 0x0B){
-
-        }
-        if(indata[3] == 0x0C){
-             if(indata[5] == 0){
+            if(indata[5] == 0){
                 appDataService.onInstallerPwdSetSuccess()
              }else{
                  appDataService.onInstallerPwdSetFailed()
              }
+             return;
+        }
+        if(indata[3] == 0x0C){
+            if(indata[5] == 0){
+                appDataService.onUserPwdSetSuccess()
+             }else{
+                 appDataService.onUserPwdSetFailed()
+             }
+             return;
         }
         if(indata[3] == 0x0D){
-
+            if(indata[5] == 0){
+                appDataService.onInstallerAccessSuccess()
+             }else{
+                 appDataService.onInstallerAccessDenied()
+             }
+             return;
         }
-        if(indata[3] == 0x0F){
-
+        if(indata[3] == 0x0E){
+            if(indata[5] == 0){
+                appDataService.onUserAccessSuccess()
+             }else{
+                 appDataService.onUserAccessDenied()
+             }
+             return;
         }
         if(debugLogs ==  true)
             console.log("standard response     " + indata);
@@ -415,7 +447,7 @@ function setDataServiceCallBack(dataService) {
         case SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST:
             frame.push(0x06);
             frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x0E); // SEQUENCE
+            frame.push(0x0F); // SEQUENCE
             frame.push(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
             authGenSent = true;
             crc=crcCCITT(frame);
@@ -428,10 +460,33 @@ function setDataServiceCallBack(dataService) {
             frame.push(0x07+len) // LENGTH AFTER THIS BYTE
             frame.push(0x08); // CONTROL DEVICE
             if(installer)
-                frame.push(0x0C); // SEQUENCE
+                frame.push(0x0B); // SEQUENCE
             else
-                frame.push(0x0D)
+                frame.push(0x0C)
             frame.push(SCCP_COMMAND.AUTH_SET_PWD_REQUEST); // command
+            frame.push(len);
+            for (var d in data) {
+                var val = data[d];
+                frame.push(val & 0x00FF); // ADDR LOW
+            }
+            crc=crcCCITT(frame);
+            frame.push(crc >> 8); // CRC LOWER
+            frame.push(crc & 0x00FF); // CRC UPPER
+            frame.unshift(0x7e) // START BYTE
+            frame.push(0x7e) // END BYTE
+        break;
+        case SCCP_COMMAND.AUTH_REQUST:
+            frame.push(0x08+len) // LENGTH AFTER THIS BYTE
+            frame.push(0x08); // CONTROL DEVICE
+            if(installer)
+                frame.push(0x0D); // SEQUENCE
+            else
+                frame.push(0x0E)
+            frame.push(SCCP_COMMAND.AUTH_REQUST); // command
+          if(installer)
+                frame.push(0x02); // SEQUENCE
+            else
+                frame.push(0x01)
             frame.push(len);
             for (var d in data) {
                 var val = data[d];

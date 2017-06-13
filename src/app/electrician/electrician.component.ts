@@ -131,6 +131,17 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
   }
 
+  onInstallerAccessSuccess(){
+      if(this.isDeviceConnected)
+        this.data.initDeviceData(false);
+  }
+  onInstallerAccessDenied(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.showPWDDialog();
+         this.data.setEDevParamsState(0);
+      });
+  }
+
   jsonOnLoad(component) {
     if(component.isDeviceConnected == true){
       component.data.setProfileSwitch(false);

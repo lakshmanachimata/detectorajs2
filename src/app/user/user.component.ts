@@ -53,6 +53,12 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
         this.data.setShowEModal(true);
   }
+   onUserAccessSuccess(){
+    if(this.isDeviceConnected)
+      this.data.initDeviceData(false);
+  }
+  onUserAccessDenied(){
+  }
  setScannedData(){
     this.detectors= [];
     this.scannedData = this.data.getScannedData();
