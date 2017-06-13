@@ -165,5 +165,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       if(this.isDeviceConnected)
         this.data.initDeviceData(false);
       }
+      this.data.setAccessLevelRequsetedAddress('')
   }
 }

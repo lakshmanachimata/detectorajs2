@@ -72,9 +72,11 @@ export class HeaderComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
     if(this.data.getProfile() == 'electrician') {
       this.data.setProfile('user');
       this.gotoPage('user');
+      this.data.disConnectDevice()
     }else {
       this.data.setProfile('electrician');
       this.gotoPage('electrician');
+      this.data.disConnectDevice()
     }
   }
 

@@ -109,7 +109,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
     this.data.resetSendData();
     if(this.doDisConnect == true)
-      this.data.disConnectDevice(this.ad.btAddress);
+      this.data.disConnectDevice();
   }
     
   onBLEdata() {

@@ -44,6 +44,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       }
       else {
         this.isDeviceConnected = true;
+        this.data.authenticateDevice('')
         this.data.initDeviceData(false);
       }
   }
@@ -155,5 +156,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       if(this.isDeviceConnected)
         this.data.initDeviceData(false);
       }
+      this.data.setAccessLevelRequsetedAddress('')
   }
 }

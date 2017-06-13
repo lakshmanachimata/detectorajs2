@@ -6,7 +6,6 @@ import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
 import * as https from 'https';
 import * as http from 'http';
-import * as sha256 from "fast-sha256"
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -874,18 +873,23 @@ export class DataService {
     }
     setAuthGenData(indata){
         let authData = [];
-        for(let i = 6; i < 22; i++){
-            authData.push(indata[i]);
+        if(indata.length > 0){
+            for(let i = 6; i < 22; i++){
+                authData.push(indata[i]);
+            }
         }
+        this.logger.log('gendata is ' + authData.join(','))
         this.setAuthChallenge(authData);
     }
     connectDevice(btaddress){
         this.connectDeviceObj = new connectDevice(btaddress);
         this.setAccessLevelRequsetedAddress(btaddress)
     }
-    disConnectDevice(btAddress){
-        this.disConnectDeviceObj = new disConnectDevice(btAddress)
-        this.setAccessLevelRequsetedAddress('')
+    disConnectDevice(){
+        if(this.deviceParams.deviceConnected ==  true){
+            this.disConnectDeviceObj = new disConnectDevice()
+            this.setAccessLevelRequsetedAddress('')
+        }
     }
 
     setAccessLevelRequsetedAddress(address){
@@ -1120,17 +1124,15 @@ export class DataService {
                     {
                         var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
                         let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
-\                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
-                        hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
+                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+                            hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
                         crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
                             var hexCodes = [];
                             var byteArray31 = new Buffer(hash);
                             let result = [];
-                                for(let j =0; j < 32; j++){
-                                    result.push(byteArray31[j])
-                                }
-
-                            var byteString11 = byteArray31.toString('hex').toUpperCase();
+                            for(let j =0; j < 32; j++){
+                                result.push(byteArray31[j])
+                            }
                             if(DataService.getDataService().DeviceBuild == 1)
                                 DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
                         });
@@ -1145,6 +1147,8 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
+            }else {
+                saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1161,14 +1165,26 @@ export class DataService {
             for(var i=0; i < devicePwd.length; i++) {
                 byteArray1[i] = devicePwd.charCodeAt(i);
             }
-            let fullStr = '';
-            for (var bytes = [], c = 0; c < fullStr.length; c += 2){
-                bytes.push(parseInt(fullStr.substr(c, 2), 16));
-            }
-            let ubuf =  new Uint8Array(bytes)
-            let data = sha256.hash(ubuf);
-            var byteArray3 = new Buffer(data);
-            var byteString = byteArray3.toString('hex');
+             if(DataService.getDataService().getAuthChallenge().length > 0)
+             {
+                var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
+                let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray1.toString('hex').toUpperCase();
+
+                for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+                    hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
+                DataService.getDataService().logger.log('prehash str full ' + preHashStr)
+                crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                    var hexCodes = [];
+                    var byteArray31 = new Buffer(hash);
+                    let result = [];
+                    for(let j =0; j < 32; j++){
+                        result.push(byteArray31[j])
+                    }
+                    DataService.getDataService().logger.log('result str for user ' + byteArray31.toString('hex'))
+                    if(DataService.getDataService().DeviceBuild == 1)
+                        DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,false)
+                });
+             }
         }
     }
 

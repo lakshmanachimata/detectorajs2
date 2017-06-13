@@ -400,7 +400,7 @@ slideBackground (value) {
   ngOnDestroy() {
     this.data.resetSendData();
     if(this.doDisConnect == true)
-      this.data.disConnectDevice(this.ad.btAddress);
+      this.data.disConnectDevice();
   }
   gotoActuator1(){
     this.doDisConnect = false;

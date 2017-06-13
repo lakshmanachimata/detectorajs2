@@ -28,9 +28,9 @@ function connectDevice(deviceAddress){
     }
 }
 
-function disConnectDevice(deviceAddress) {
+function disConnectDevice() {
     if(BJE != undefined)
-        BJE.disConnectDevice(deviceAddress)
+        BJE.disConnectDevice()
 }
 
 function onDeviceConnected(deviceAddress){
@@ -198,6 +198,7 @@ function prepareAttributeArray(indata) {
                 appDataService.onAccessLevelUpdate(0);
             }else {
                 appDataService.onAccessLevelUpdate(-1);
+                appDataService.setAuthGenData([]);
                 getGeneratedAuth();
             }
             return;
