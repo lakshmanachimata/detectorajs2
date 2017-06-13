@@ -435,7 +435,6 @@ export class DataService {
     setCertData(data){
         if(this.DeviceBuild == 1){
             this.networkParams.certData = new Buffer(data);
-            this.logger.log(this.networkParams.certData.toString('hex'));
         }
         else{
              this.networkParams.certData = new Buffer(bjCert);
@@ -444,7 +443,6 @@ export class DataService {
     setKeyData(data){
         if(this.DeviceBuild ==1 ){
             this.networkParams.keyData = new Buffer(data);
-            this.logger.log(this.networkParams.keyData.toString('hex'));
         }
         else{
             this.networkParams.keyData = new Buffer(bjKey);
@@ -1122,8 +1120,7 @@ export class DataService {
                     {
                         var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
                         let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
-                        DataService.getDataService().logger.log('full string  buffer is is ' + preHashStr)
-                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+\                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                         hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
                         crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
                             var hexCodes = [];
@@ -1134,7 +1131,6 @@ export class DataService {
                                 }
 
                             var byteString11 = byteArray31.toString('hex').toUpperCase();
-                            DataService.getDataService().logger.log('result is ' + byteString11.toUpperCase())
                             if(DataService.getDataService().DeviceBuild == 1)
                                 DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
                         });
@@ -1232,8 +1228,6 @@ export class DataService {
                     }
                     if(DataService.getDataService().DeviceBuild == 1)
                         DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
-                    DataService.getDataService().logger.log('install PBKDF2 ' + byteArray3.toString('hex').toUpperCase());
-                    DataService.getDataService().logger.log('install mac repeate ' + finalSalt.toUpperCase())
                 }else {
                     DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
                 }
@@ -1266,9 +1260,6 @@ export class DataService {
             }
             if(DataService.getDataService().DeviceBuild == 1)
                 DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,false)
-            DataService.getDataService().logger.log('user pwd bytes ' + new Buffer(result).toString('hex').toUpperCase());
-            DataService.getDataService().logger.log('install mac repeate ' + new Buffer(finalUserSalt).toString('hex').toUpperCase())
-
         }
     }
 
@@ -1901,16 +1892,12 @@ export class DataService {
                 this.putData(path,bodyString);
         }else{
             if(this.uiParams.userLoggedIn){
-                this.logger.log("BEFORE LENGTH " + this.uiParams.devicesObj.IDevicesArray.length);
                 for(let i = 0; i < this.uiParams.devicesObj.IDevicesArray.length; i++){
                     if(this.uiParams.devicesObj.DeviceData.btAddress == this.uiParams.devicesObj.IDevicesArray[i].btAddress){
-                        this.logger.log("BEFORE CHANGE" + JSON.stringify(this.uiParams.devicesObj.IDevicesArray))
                         this.uiParams.devicesObj.IDevicesArray[i] = this.uiParams.devicesObj.DeviceData;
-                        this.logger.log("BEFORE CHANGE" + JSON.stringify(this.uiParams.devicesObj.IDevicesArray))
                         break;
                     }
                 }
-                this.logger.log("AFTER LENGTH " + this.uiParams.devicesObj.IDevicesArray.length);
                 this.uiParams.devicesObj.DetectorsObj = {
                     'detectors':this.uiParams.devicesObj.IDevicesArray
                 }

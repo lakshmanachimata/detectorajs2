@@ -146,7 +146,14 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
      this.isDeviceConnected = true
   }
   onAccessLevelUpdate(accessLevel){
-    if(this.isDeviceConnected)
-      this.data.initDeviceData(false);
+     if(accessLevel == -1){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.showPWDDialog();
+         this.data.setEDevParamsState(0);
+      });
+    }else {
+      if(this.isDeviceConnected)
+        this.data.initDeviceData(false);
+      }
   }
 }
