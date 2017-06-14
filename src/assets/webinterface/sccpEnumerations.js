@@ -205,7 +205,8 @@ var SCCP_DATATYPES = {
     SCCP_TYPE_INT8     : 0x0C,
     SCCP_TYPE_INT16    : 0x0D,
     SCCP_TYPE_INT32    : 0x0E,
-    SCCP_TYPE_INT64    : 0x0F
+    SCCP_TYPE_INT64    : 0x0F,
+    //SCCP_TYPE_UINT8    : 0x88,
 }
 
 

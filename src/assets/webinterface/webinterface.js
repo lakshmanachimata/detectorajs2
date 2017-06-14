@@ -56,8 +56,12 @@ function updateScanList(scanned) {
 
 function reset() {
     var data = getRequestFrame(SCCP_COMMAND.RESET);
-    if(BJE != undefined)
+    if(BJE != undefined){
         BJE.writeAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE WRITE Frame  ' + data.join(','))
+    }
+
     else {
         var message = {"send":data}
         var sendMessage =  JSON.stringify(message)
@@ -99,6 +103,8 @@ function configureAttr(notifyData) {
     var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     if(BJE != undefined) {
         BJE.configureAttr(data);
+        if(debugLogs == true)
+            console.log('sending BLE CONFIGURE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -152,7 +158,11 @@ function getGeneratedAuth(){
 
 function setPwdToDevice(pwd,length,installer){
     var data = [];
-    data = getRequestFrame(SCCP_COMMAND.AUTH_SET_PWD_REQUEST, pwd,length,installer);
+    if(installer)
+        data = getRequestFrame(SCCP_COMMAND.AUTH_SET_PWD_REQUEST, pwd,length,installer);
+    else{
+        data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, pwd,length,installer,true);
+    }
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
@@ -352,7 +362,7 @@ function prepareAttributeArray(indata) {
                 break;
             }
             if(debugLogs == true)
-             console.log("attrType  " + key + "   attrValue  " + value);
+                console.log("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
@@ -425,205 +435,227 @@ function prepareAttributeArray(indata) {
 function setDataServiceCallBack(dataService) {
     appDataService = dataService;
 }
-//  Created by Sriharsha Vardhan on 23/02/17.
-//  Copyright © 2017 ABB. All rights reserved.
-
-    function getRequestFrame(command, data,len,installer) {
-        var frame = [];
-        var crc;
+function getRequestFrame(command, data,len,installer,isuserpwd) {
+    var frame = [];
+    var crc;
+    if(isuserpwd == true){
+            var counter = 0;
         
-        switch (command) {
-        case SCCP_COMMAND.SET_ACCESS_LEVEL:
-            frame.push(0x07); // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x0A); // SEQUENCE
-            frame.push(SCCP_COMMAND.SET_ACCESS_LEVEL); // command
-            frame.push(data);
-            crc=crcCCITT(frame);
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-        break;
-        case SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST:
-            frame.push(0x06);
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x0F); // SEQUENCE
-            frame.push(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
-            authGenSent = true;
-            crc=crcCCITT(frame);
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-        break;
-        case SCCP_COMMAND.AUTH_SET_PWD_REQUEST:
-            frame.push(0x07+len) // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            if(installer)
-                frame.push(0x0B); // SEQUENCE
-            else
-                frame.push(0x0C)
-            frame.push(SCCP_COMMAND.AUTH_SET_PWD_REQUEST); // command
-            frame.push(len);
-            for (var d in data) {
-                var val = data[d];
-                frame.push(val & 0x00FF); // ADDR LOW
-            }
-            crc=crcCCITT(frame);
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00FF); // CRC UPPER
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-        break;
-        case SCCP_COMMAND.AUTH_REQUST:
-            frame.push(0x08+len) // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            if(installer)
-                frame.push(0x0D); // SEQUENCE
-            else
-                frame.push(0x0E)
-            frame.push(SCCP_COMMAND.AUTH_REQUST); // command
-          if(installer)
-                frame.push(0x02); // SEQUENCE
-            else
-                frame.push(0x01)
-            frame.push(len);
-            for (var d in data) {
-                var val = data[d];
-                frame.push(val & 0x00FF); // ADDR LOW
-            }
-            crc=crcCCITT(frame);
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00FF); // CRC UPPER
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-        break;
-        case SCCP_COMMAND.RESET:
-            frame.push(0x06); // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x00); // SEQUENCE
-            frame.push(SCCP_COMMAND.RESET); // command
-            crc = crcCCITT(frame)
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-            break;
-        case SCCP_COMMAND.RESET_FN:
-            frame.push(0x06); // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x00); // SEQUENCE
-            frame.push(SCCP_COMMAND.RESET_FN); // command
-            crc = crcCCITT(frame)
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-            break;
-        case SCCP_COMMAND.READ_ATTRIBUTE_REQUEST:
-            
-            frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x00); // SEQUENCE
-            frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
-            
-            for (var d in data) {
-                var val = data[d];
-                frame.push(val & 0x00FF); // ADDR LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-                frame.push(0x01);
-                frame.push(0x00);
-                frame.push(0x00);
-            }
-            crc = crcCCITT(frame)
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-            break;
-        case SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST:
-            
-            var counter = 0;
-            
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x00); // SEQUENCE
-            frame.push(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST); // command
-            if(debugLogs == true)
-                console.log("data length is " + data.length)
-            for (var i=0; i < data.length; i+=1) {
-                var val = data[i];
-                frame.push(val & 0x00ff); // ADDR LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-                i = i + 1; 
-                val = data[i];
-                frame.push(val); // DATA TYPE
-                if(val == 5){
-                    frame.push(data[i+1]) 
-                    frame.push(data[i+2]) 
-                    frame.push(data[i+3]) 
-                    frame.push(data[i+4]) 
-                    counter += 7;
-                    i = i + 4;
-                }else {
-                    i = i + 1; 
-                    val = data[i];
-                    if(val > 0xFF){
-                        frame.push((val & 0x00ff)); // VAL LOW
-                        frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
-                        counter += 5;
-                    }else {
-                        frame.push((val & 0x00ff)); // VAL LOW
-                        counter += 4;
-                    }
-                }
-            }
-            frame.unshift(6 + counter); // LENGTH            
-            crc = crcCCITT(frame)
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-            break;
-        case SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST :
-            
-            var counter = 0;
-            
-            frame.push(0x08); // CONTROL DEVICE
-            frame.push(0x00); // SEQUENCE
-            frame.push(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST); // command
-            
-            for (var i=0; i < data.length; i+=1) {
-                var val = data[i];
-                frame.push(val & 0x00ff); // ADDR LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-                i = i + 1; val = data[i];
-                frame.push((val & 0x00ff)); // MIN REPORTING INTERVAL LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // MIN REPORTING INTERVAL HIGH
-                i = i + 1; val = data[i];
-                frame.push((val & 0x00ff)); // MAX REPORTING INTERVAL LOW
-                frame.push(val > 0xFF ? (val >> 8) : 0x00); // MAX REPORTING INTERVAL HIGH
-                counter += 6;
-            }
-            
-            frame.unshift(6 + counter); // LENGTH
-            
-            crc = crcCCITT(frame)
-            frame.push(crc >> 8); // CRC LOWER
-            frame.push(crc & 0x00ff); // CRC UPPER
-            
-            frame.unshift(0x7e) // START BYTE
-            frame.push(0x7e) // END BYTE
-            break;
-        default:
-            print("Unknown Command")
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x0C); // SEQUENCE
+        frame.push(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST); // command
+        frame.push(0xE2); // ADDR LOW
+        frame.push(0x10); // ADDR HIGH
+        frame.push(0x08);
+        frame.push(0x01);
+        frame.push(0x00);
+        frame.push(0x00);
+        frame.push(len);
+        frame.push(0xE1); // ADDR LOW
+        frame.push(0x10); // ADDR HIGH
+        frame.push(0x88);
+        frame.push(len);
+        frame.push(0x00);
+        frame.push(0x00);
+        for(var i= 0; i < len;i++){
+            frame.push(data[i]);
         }
-        
+        frame.unshift(19 + len); // LENGTH            
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
         return frame;
     }
+
+    switch (command) {
+    case SCCP_COMMAND.SET_ACCESS_LEVEL:
+        frame.push(0x07); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x0A); // SEQUENCE
+        frame.push(SCCP_COMMAND.SET_ACCESS_LEVEL); // command
+        frame.push(data);
+        crc=crcCCITT(frame);
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+    break;
+    case SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST:
+        frame.push(0x06);
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x0F); // SEQUENCE
+        frame.push(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
+        authGenSent = true;
+        crc=crcCCITT(frame);
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+    break;
+    case SCCP_COMMAND.AUTH_SET_PWD_REQUEST:
+        frame.push(0x07+len) // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x0B); // SEQUENCE
+        frame.push(SCCP_COMMAND.AUTH_SET_PWD_REQUEST); // command
+        frame.push(len);
+        for (var d in data) {
+            var val = data[d];
+            frame.push(val & 0x00FF); // ADDR LOW
+        }
+        crc=crcCCITT(frame);
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00FF); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+    break;
+    case SCCP_COMMAND.AUTH_REQUST:
+        frame.push(0x08+len) // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        if(installer)
+            frame.push(0x0D); // SEQUENCE
+        else
+            frame.push(0x0E)
+        frame.push(SCCP_COMMAND.AUTH_REQUST); // command
+        if(installer)
+            frame.push(0x02); // SEQUENCE
+        else
+            frame.push(0x01)
+        frame.push(len);
+        for (var d in data) {
+            var val = data[d];
+            frame.push(val & 0x00FF); // ADDR LOW
+        }
+        crc=crcCCITT(frame);
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00FF); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+    break;
+    case SCCP_COMMAND.RESET:
+        frame.push(0x06); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(SCCP_COMMAND.RESET); // command
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        break;
+    case SCCP_COMMAND.RESET_FN:
+        frame.push(0x06); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(SCCP_COMMAND.RESET_FN); // command
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        break;
+    case SCCP_COMMAND.READ_ATTRIBUTE_REQUEST:
+        
+        frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+        
+        for (var d in data) {
+            var val = data[d];
+            frame.push(val & 0x00FF); // ADDR LOW
+            frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+            frame.push(0x01);
+            frame.push(0x00);
+            frame.push(0x00);
+        }
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        break;
+    case SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST:
+        
+        var counter = 0;
+        
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST); // command
+        for (var i=0; i < data.length; i+=1) {
+            var val = data[i];
+            frame.push(val & 0x00ff); // ADDR LOW
+            frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+            i = i + 1; 
+            val = data[i];
+            frame.push(val); // DATA TYPE
+            if(val == 5){
+                frame.push(data[i+1]) 
+                frame.push(data[i+2]) 
+                frame.push(data[i+3]) 
+                frame.push(data[i+4]) 
+                counter += 7;
+                i = i + 4;
+            }else {
+                i = i + 1; 
+                val = data[i];
+                if(val > 0xFF){
+                    frame.push((val & 0x00ff)); // VAL LOW
+                    frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
+                    counter += 5;
+                }else {
+                    frame.push((val & 0x00ff)); // VAL LOW
+                    counter += 4;
+                }
+            }
+        }
+        frame.unshift(6 + counter); // LENGTH            
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        break;
+    case SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST :
+        
+        var counter = 0;
+        
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST); // command
+        
+        for (var i=0; i < data.length; i+=1) {
+            var val = data[i];
+            frame.push(val & 0x00ff); // ADDR LOW
+            frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+            i = i + 1; val = data[i];
+            frame.push((val & 0x00ff)); // MIN REPORTING INTERVAL LOW
+            frame.push(val > 0xFF ? (val >> 8) : 0x00); // MIN REPORTING INTERVAL HIGH
+            i = i + 1; val = data[i];
+            frame.push((val & 0x00ff)); // MAX REPORTING INTERVAL LOW
+            frame.push(val > 0xFF ? (val >> 8) : 0x00); // MAX REPORTING INTERVAL HIGH
+            counter += 6;
+        }
+        
+        frame.unshift(6 + counter); // LENGTH
+        
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        break;
+    default:
+        print("Unknown Command")
+    }
+    
+    return frame;
+}
 
 
 

@@ -81,6 +81,7 @@ export class SCCP_COMMAND  {
     static SCCP_TYPE_INT16    = 0x0D;
     static SCCP_TYPE_INT32    = 0x0E;
     static SCCP_TYPE_INT64    = 0x0F;
+    //static SCCP_TYPE_AUINT8   = 0x88;
 }
 
 export class SCCP_ATTRIBUTES  {
