@@ -50,7 +50,7 @@ public class WebInterface {
     }
 
     @JavascriptInterface
-    public void disConnectDevice(String address) {
+    public void disConnectDevice() {
         mainActivity.disConnectDevice();
     }
 

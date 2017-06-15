@@ -50,6 +50,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,6 +98,7 @@ import javax.net.ssl.X509TrustManager;
 
 import de.buschjaeger.freeathomedemo.FreeathomeJNI;
 import de.buschjaeger.freeathomedemo.Util;
+
 
 /*
     Main Activity
@@ -1130,6 +1132,9 @@ public class MainActivity extends Activity {
             if(scanner != null)
                 scanner.stopScan(bleCallback);
         }
+    }
+    public void log(String message) {
+        Log.d(LOG_TAG,message);
     }
 
 }

@@ -447,9 +447,9 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
         frame.push(0xE2); // ADDR LOW
         frame.push(0x10); // ADDR HIGH
         frame.push(0x08);
-        frame.push(0x01);
-        frame.push(0x00);
-        frame.push(0x00);
+        // frame.push(0x01);
+        // frame.push(0x00);
+        // frame.push(0x00);
         frame.push(len);
         frame.push(0xE1); // ADDR LOW
         frame.push(0x10); // ADDR HIGH
@@ -460,7 +460,7 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
         for(var i= 0; i < len;i++){
             frame.push(data[i]);
         }
-        frame.unshift(19 + len); // LENGTH            
+        frame.unshift(16 + len); // LENGTH            
         crc = crcCCITT(frame)
         frame.push(crc >> 8); // CRC LOWER
         frame.push(crc & 0x00ff); // CRC UPPER
