@@ -745,8 +745,10 @@ public class MainActivity extends Activity {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 //addDevice(mBluetoothLeService.getGatt().getDevice().getAddress(),myFile);
-                if(scanner != null)
+                if(scanner != null) {
+                    notifyAppAboutConnection(true);
                     scanner.stopScan(bleCallback);
+                }
             }
             else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
@@ -756,8 +758,6 @@ public class MainActivity extends Activity {
             else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
                 getDeviceInfo();
-                if(getDeviceInfo == true)
-                    notifyAppAboutConnection(true);
             }
             else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
