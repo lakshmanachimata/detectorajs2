@@ -6,6 +6,15 @@ var BJE;
 var debugLogs = true;
 var authGenSent = false;
 
+ function  getFormattedDateTime() {
+    var date = new Date();
+    var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();
+    return str;
+  }
+
+function bjeLog(msg){
+    console.log(msg + '     ' + getFormattedDateTime());
+}
 function setDevicesCallBack(component) {
     welcomecomponent = component;
 }
@@ -59,7 +68,7 @@ function reset() {
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
 
     else {
@@ -75,7 +84,7 @@ function readAttr(readData) {
     if(BJE != undefined) {
         BJE.readAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE READ Frame   ' + data.join(','))
+            bjeLog('sending BLE READ Frame   ' + data.join(','))
     }
     else {
         var message = {"send":data}
@@ -90,7 +99,7 @@ function writeAttr(writeData) {
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -104,7 +113,7 @@ function configureAttr(notifyData) {
     if(BJE != undefined) {
         BJE.configureAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE CONFIGURE Frame  ' + data.join(','))
+            bjeLog('sending BLE CONFIGURE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -133,7 +142,7 @@ function setDeviceAccessLevel(accessLevel){
      if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -143,11 +152,12 @@ function setDeviceAccessLevel(accessLevel){
 }
 
 function getGeneratedAuth(){
+    appDataService.setAuthGenData([]);
     var data = getRequestFrame(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -166,7 +176,7 @@ function setPwdToDevice(pwd,length,installer){
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -181,7 +191,7 @@ function authenticateDevice(pwdHash,length,installer){
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            console.log('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -203,12 +213,13 @@ function prepareAttributeArray(indata) {
     
     switch(indata[4]){
         case 128: // standard response
+        if(debugLogs ==  true)
+            bjeLog("standard response     " + indata);
         if(indata[3] == 0x0A){
             if(indata[5] == 0){
                 appDataService.onAccessLevelUpdate(0);
             }else {
                 appDataService.onAccessLevelUpdate(-1);
-                appDataService.setAuthGenData([]);
                 getGeneratedAuth();
             }
             return;
@@ -233,7 +244,8 @@ function prepareAttributeArray(indata) {
             if(indata[5] == 0){
                 appDataService.onInstallerAccessSuccess()
              }else{
-                 appDataService.onInstallerAccessDenied()
+                appDataService.onInstallerAccessDenied()
+                getGeneratedAuth();
              }
              return;
         }
@@ -241,21 +253,21 @@ function prepareAttributeArray(indata) {
             if(indata[5] == 0){
                 appDataService.onUserAccessSuccess()
              }else{
-                 appDataService.onUserAccessDenied()
+                appDataService.onUserAccessDenied()
+                getGeneratedAuth();
              }
              return;
         }
-        if(debugLogs ==  true)
-            console.log("standard response     " + indata);
+
         break;
         case 131: // read attr resonse
         if(debugLogs ==  true)
-            console.log("read attr response     " + indata);
+            bjeLog("read attr response     " + indata);
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             if(debugLogs ==  true)
-                console.log("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+                bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
@@ -362,17 +374,17 @@ function prepareAttributeArray(indata) {
                 break;
             }
             if(debugLogs == true)
-                console.log("attrType  " + key + "   attrValue  " + value);
+                bjeLog("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
         case 132: // write attr response
         if(debugLogs ==  true)
-            console.log("write attr response     " + indata);
+            bjeLog("write attr response     " + indata);
         break;
         case 133: // configure attr response
         if(debugLogs ==  true)
-            console.log("configure attr response     " + indata);
+            bjeLog("configure attr response     " + indata);
          var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
@@ -425,7 +437,7 @@ function prepareAttributeArray(indata) {
                 break;
             }
             if(debugLogs == true)
-             console.log("attrType  " + key + "   attrValue  " + value);
+                bjeLog("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;

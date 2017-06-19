@@ -44,7 +44,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       }
       else {
         this.isDeviceConnected = true;
-        this.data.authenticateDevice('')
         this.data.initDeviceData(false);
       }
   }
@@ -59,6 +58,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.data.initDeviceData(false);
   }
   onUserAccessDenied(){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.showPWDDialog();
+         this.data.setEDevParamsState(0);
+      });
   }
  setScannedData(){
     this.detectors= [];
@@ -156,6 +159,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       if(this.isDeviceConnected)
         this.data.initDeviceData(false);
       }
-      this.data.setAccessLevelRequsetedAddress('')
+      //this.data.setAccessLevelRequsetedAddress('')
   }
 }

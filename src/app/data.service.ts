@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
 import * as https from 'https';
-import * as http from 'http';
+// import * as request from 'request'
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
@@ -372,7 +372,7 @@ declare var authenticateDevice;
 
 @Injectable()
 export class DataService {
-
+    debugLogs = true;
     scanneddata:any;
     profilesKey = 'profiles';
     uiParams:UIParams   =  new UIParams();
@@ -402,7 +402,6 @@ export class DataService {
     screenWidth;
     screenHeight;
     static dataService:DataService;
-    debugLogs =  false;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
@@ -879,8 +878,9 @@ export class DataService {
                 authData.push(indata[i]);
             }
         }
-        this.logger.log('gendata is ' + authData.join(','))
         this.setAuthChallenge(authData);
+        if(this.debugLogs ==  true)
+            this.logger.log('gendata is ' + new Buffer(authData).toString('hex').toUpperCase())
     }
     connectDevice(btaddress){
         this.connectDeviceObj = new connectDevice(btaddress);
@@ -894,6 +894,8 @@ export class DataService {
     }
 
     setAccessLevelRequsetedAddress(address){
+        if(this.debugLogs == true)
+            this.logger.log("btAddress Selecetd is " + address)
         this.deviceParams.accessLevelRequsetedAddress = address;
     }
     getAccessLevelRequsetedAddress(){
@@ -1069,16 +1071,21 @@ export class DataService {
     authenticateDevice(devicePwd){
         if(this.getProfile()=='electrician'){
             let saltbufStart;
+            let saltBufByteStr = "";
+            let addressSalt ="";
+
             if(this.uiParams.devicesObj == undefined ||
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
-            let saltBufByteStr = "";
-            let finalSalt ="";
             let PBKDF2Hash;
             for(let i =0; i < addRLenght; i++){
             if(saltbufStart.charAt(i) != ':')
@@ -1086,22 +1093,22 @@ export class DataService {
             }
             let addBufByteStrLen = saltBufByteStr.length;
             for(let  j =0; j < 64; j++){
-                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+                addressSalt =  addressSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
             }
-            var saltbuf = new Buffer(finalSalt,'hex');
-            var byteArray1 = new Buffer(devicePwd.length);
+            var saltbuf = new Buffer(addressSalt,'hex');
+            var bytearrayInstaller = new Buffer(devicePwd.length);
             for(var i=0; i < devicePwd.length; i++) {
-                byteArray1[i] = devicePwd.charCodeAt(i);
+                bytearrayInstaller[i] = devicePwd.charCodeAt(i);
             }
             // First, create a PBKDF2 "key" containing the password
             window.crypto.subtle.importKey(
                 "raw",
-                byteArray1,
+                bytearrayInstaller,
                 {"name": "PBKDF2"},
                 false,
                 ["deriveKey"]).
             then(function(baseKey){
-                var saltbuf = new Buffer(finalSalt,'hex');
+                var saltbuf = new Buffer(addressSalt,'hex');
                 return window.crypto.subtle.deriveKey(
                     {
                         "name": "PBKDF2",
@@ -1124,18 +1131,21 @@ export class DataService {
                     if(DataService.getDataService().getAuthChallenge().length > 0)
                     {
                         var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                        let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                        let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                        if(DataService.getDataService().debugLogs == true){
+                            DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
+                        } 
                         for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
-                            hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
+                            hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
                         crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
-                            var hexCodes = [];
-                            var byteArray31 = new Buffer(hash);
-                            let result = [];
-                            for(let j =0; j < 32; j++){
-                                result.push(byteArray31[j])
-                            }
-                            if(DataService.getDataService().DeviceBuild == 1)
-                                DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
+                        var hexCodes = [];
+                        var byteArray31 = new Buffer(hash);
+                        let result = [];
+                        for(let j =0; j < 32; j++){
+                            result.push(byteArray31[j])
+                        }
+                        if(DataService.getDataService().DeviceBuild == 1)
+                            DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
                         });
                     }else {
                         DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
@@ -1144,37 +1154,44 @@ export class DataService {
             });
         }if(this.getProfile()=='user'){
             let saltbufStart;
+            let saltBufUserByteStr = "";
+            let userAddressSalt ="";
             if(this.uiParams.devicesObj == undefined ||
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
-            let saltBufByteStr = "";
-            let finalSalt ="";
+
             for(let i =0; i < addRLenght; i++){
             if(saltbufStart.charAt(i) != ':')
-                saltBufByteStr =  saltBufByteStr + saltbufStart.charAt(i);
+                saltBufUserByteStr =  saltBufUserByteStr + saltbufStart.charAt(i);
             }
-            let addBufByteStrLen = saltBufByteStr.length;
+            let addBufByteStrLen = saltBufUserByteStr.length;
             for(let  j =0; j < 64; j++){
-                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+                userAddressSalt =  userAddressSalt + saltBufUserByteStr.charAt(j%saltBufUserByteStr.length);
             }
-            var byteArray1 = new Buffer(devicePwd.length);
+            var byteArrayuser = new Buffer(devicePwd.length);
             for(var i=0; i < devicePwd.length; i++) {
-                byteArray1[i] = devicePwd.charCodeAt(i);
+                byteArrayuser[i] = devicePwd.charCodeAt(i);
             }
+            if(DataService.getDataService().debugLogs ==  true){
+                 DataService.getDataService().logger.log('user pwd auth is ' + byteArrayuser.toString('hex'))
+             }
              if(DataService.getDataService().getAuthChallenge().length > 0)
              {
                 var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                let preHashStr = genArray.toString('hex').toUpperCase() + finalSalt.toUpperCase() + byteArray1.toString('hex').toUpperCase();
-
+                let preHashStr = genArray.toString('hex').toUpperCase() + userAddressSalt.toUpperCase() + byteArrayuser.toString('hex').toUpperCase();
                 for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                     hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
-                DataService.getDataService().logger.log('prehash str full ' + preHashStr)
-                crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                    DataService.getDataService().logger.log('user prehash str is ' + preHashStr)
+                    crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
                     var hexCodes = [];
                     var byteArray31 = new Buffer(hash);
                     let result = [];
@@ -1191,10 +1208,21 @@ export class DataService {
 
     setDevicePwd(setPWD,profile){
         if(profile=='electrician'){
-            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let saltbufStart;
+            if(this.uiParams.devicesObj == undefined ||
+                this.uiParams.devicesObj.DeviceData == undefined ||
+                this.uiParams.devicesObj.DeviceData.btAddress == undefined){
+                saltbufStart = this.getAccessLevelRequsetedAddress();
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 1111 ' + saltbufStart);
+            }else {
+                saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 2222 ' + saltbufStart);
+            }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
-            let finalSalt ="";
+            let setIAddressSalt ="";
             let PBKDF2Hash;
             for(let i =0; i < addRLenght; i++){
             if(saltbufStart.charAt(i) != ':')
@@ -1202,24 +1230,24 @@ export class DataService {
             }
             let addBufByteStrLen = saltBufByteStr.length;
             for(let  j =0; j < 64; j++){
-                finalSalt =  finalSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
+                setIAddressSalt =  setIAddressSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
             }
             var saltt = ""
-            var saltbuf = new Buffer(finalSalt,'hex');
-            var byteArray1 = new Buffer(setPWD.length);
+            var saltbuf = new Buffer(setIAddressSalt,'hex');
+            var byteArraySInstaller = new Buffer(setPWD.length);
             for(var i=0; i < setPWD.length; i++) {
-                byteArray1[i] = setPWD.charCodeAt(i);
+                byteArraySInstaller[i] = setPWD.charCodeAt(i);
             }
             // First, create a PBKDF2 "key" containing the password
             window.crypto.subtle.importKey(
                 "raw",
-                byteArray1,
+                byteArraySInstaller,
                 {"name": "PBKDF2"},
                 false,
                 ["deriveKey"]).
             then(function(baseKey){
                 // Derive a key from the password
-                var saltbuf = new Buffer(finalSalt,'hex');
+                var saltbuf = new Buffer(setIAddressSalt,'hex');
                 return window.crypto.subtle.deriveKey(
                     {
                         "name": "PBKDF2",
@@ -1250,7 +1278,18 @@ export class DataService {
                 }
             });
         }if(profile=='user'){
-            let saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+            let saltbufStart;
+            if(this.uiParams.devicesObj == undefined ||
+                this.uiParams.devicesObj.DeviceData == undefined ||
+                this.uiParams.devicesObj.DeviceData.btAddress == undefined){
+                saltbufStart = this.getAccessLevelRequsetedAddress();
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 1111 ' + saltbufStart);
+            }else {
+                saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                if(this.debugLogs == true)
+                    this.logger.log('seleced address 2222 ' + saltbufStart);
+            }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
             let finalUserSalt ="";
@@ -1269,6 +1308,9 @@ export class DataService {
             }
              let mDataBuff = new Buffer(pwdBytes,'hex');
              let pDataBuff = new Buffer(finalUserSalt,'hex');
+             if(DataService.getDataService().debugLogs ==  true){
+                 DataService.getDataService().logger.log('user pwd set is ' + mDataBuff.toString('hex'))
+             }
              let result  = [];
             for(let k =0; k < 32; k++){
                 let a =  mDataBuff[k];
