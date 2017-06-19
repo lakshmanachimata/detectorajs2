@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
 import * as https from 'https';
-// import * as request from 'request'
+import * as request from 'request'
 
 export class SubMenuItem {
   constructor(public name: string, public navigation: string) { }
