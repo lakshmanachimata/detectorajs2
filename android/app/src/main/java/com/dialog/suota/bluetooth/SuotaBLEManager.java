@@ -167,7 +167,7 @@ public abstract class SuotaBLEManager {
 		Log.d(TAG, "- enableNotifications");
 		//activity.log("- Enable notifications for SPOTA_SERV_STATUS characteristic");
 		// Get the service status UUID from the gatt and enable notifications
-		List<BluetoothGattService> services =activity.getBluetoothServices().getGatt().getServices();
+		List<BluetoothGattService> services =activity.getGatt().getServices();
 		for (BluetoothGattService service : services) {
 			//activity.log("  Found service: " + service.getUuid().toString());
 			List<BluetoothGattCharacteristic> characteristics = service.getCharacteristics();
@@ -175,11 +175,11 @@ public abstract class SuotaBLEManager {
 				//activity.log("  Found characteristic: " + characteristic.getUuid().toString());
 				if (characteristic.getUuid().equals(Statics.SPOTA_SERV_STATUS_UUID)) {
 					//activity.log("*** Found SUOTA service");
-					activity.getBluetoothServices().getGatt().setCharacteristicNotification(characteristic, true);
+					activity.getGatt().setCharacteristicNotification(characteristic, true);
 					BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
 							Statics.SPOTA_DESCRIPTOR_UUID);
 					descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-					activity.getBluetoothServices().getGatt().writeDescriptor(descriptor);
+					activity.getGatt().writeDescriptor(descriptor);
 				}
 			}
 		}
@@ -188,12 +188,12 @@ public abstract class SuotaBLEManager {
 	protected abstract int getSpotaMemDev();
 
 	public void setSpotaMemDev() {
-		BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
 
 		int memType = this.getSpotaMemDev();
 		characteristic.setValue(memType, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
-		activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+		activity.getGatt().writeCharacteristic(characteristic);
 		Log.d(TAG, "setSpotaMemDev: " + String.format("%#10x", memType));
 		//activity.log("Set SPOTA_MEM_DEV: " + String.format("%#10x", memType));
 	}
@@ -239,10 +239,10 @@ public abstract class SuotaBLEManager {
 		if (valid) {
 			Log.d(TAG, "setSpotaGpioMap: " + String.format("%#10x", memInfoData));
 			//activity.log("Set SPOTA_GPIO_MAP: " + String.format("%#10x", memInfoData));
-			BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+			BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 					.getCharacteristic(Statics.SPOTA_GPIO_MAP_UUID);
 			characteristic.setValue(memInfoData, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
-			activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+			activity.getGatt().writeCharacteristic(characteristic);
 		} else {
 			Log.e(TAG, "Memory type not set.");
 			//activity.log("Set SPOTA_GPIO_MAP: Memory type not set.");
@@ -258,10 +258,10 @@ public abstract class SuotaBLEManager {
 		}
 		Log.d(TAG, "setPatchLength: " + blocksize + " - " + String.format("%#4x", blocksize));
 		//activity.log("Set SPOTA_PATCH_LENGTH: " + blocksize);
-		BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 				.getCharacteristic(Statics.SPOTA_PATCH_LEN_UUID);
 		characteristic.setValue(blocksize, BluetoothGattCharacteristic.FORMAT_UINT16, 0);
-		activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+		activity.getGatt().writeCharacteristic(characteristic);
 	}
 
 	public float sendBlock() {
@@ -315,12 +315,12 @@ public abstract class SuotaBLEManager {
 
 
 
-            BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+            BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 					.getCharacteristic(Statics.SPOTA_PATCH_DATA_UUID);
 
 			characteristic.setValue(chunk);
 			characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-			boolean r = activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+			boolean r = activity.getGatt().writeCharacteristic(characteristic);
 			Log.d(TAG, "writeCharacteristic: " + r);
 
 			if (lastChunk) {
@@ -342,20 +342,20 @@ public abstract class SuotaBLEManager {
 	public void sendEndSignal() {
 		Log.d(TAG, "sendEndSignal");
 		//activity.log("send SUOTA END command");
-		BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
 		characteristic.setValue(END_SIGNAL, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
-        activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+        activity.getGatt().writeCharacteristic(characteristic);
 		endSignalSent = true;
 	}
 
 	public void sendRebootSignal() {
 		Log.d(TAG, "sendRebootSignal");
 		//activity.log("send SUOTA REBOOT command");
-		BluetoothGattCharacteristic characteristic = activity.getBluetoothServices().getGatt().getService(Statics.SPOTA_SERVICE_UUID)
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
 				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
 		characteristic.setValue(REBOOT_SIGNAL, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
-        activity.getBluetoothServices().getGatt().writeCharacteristic(characteristic);
+        activity.getGatt().writeCharacteristic(characteristic);
 		rebootsignalSent = true;
 		//activity.enableCloseButton();
 	}
@@ -363,7 +363,7 @@ public abstract class SuotaBLEManager {
 	public void readNextCharacteristic() {
 		if (characteristicsQueue.size() >= 1) {
 			BluetoothGattCharacteristic characteristic = (BluetoothGattCharacteristic) characteristicsQueue.poll();
-            activity.getBluetoothServices().getGatt().readCharacteristic(characteristic);
+            activity.getGatt().readCharacteristic(characteristic);
 			Log.d(TAG, "readNextCharacteristic");
 		}
 	}
@@ -375,11 +375,11 @@ public abstract class SuotaBLEManager {
 
 	public void disconnect() {
 		try {
-            activity.getBluetoothServices().getGatt().disconnect();
+            activity.getGatt().disconnect();
             // Refresh device cache if update was successful
             if (refreshPending)
-                refresh(activity.getBluetoothServices().getGatt());
-            activity.getBluetoothServices().getGatt().close();
+                refresh(activity.getGatt());
+            activity.getGatt().close();
 			//activity.log("Disconnect from device");
 		} catch (Exception e) {
 			e.printStackTrace();

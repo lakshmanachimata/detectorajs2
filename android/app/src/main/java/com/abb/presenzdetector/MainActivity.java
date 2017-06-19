@@ -54,6 +54,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dialog.suota.bluetooth.SuotaBLEManager;
+import com.dialog.suota.bluetooth.SuotaManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -150,6 +152,7 @@ public class MainActivity extends Activity {
         String softwareVersion;
         String btAddress;
     }
+    static public SuotaManager suotaManager;
     BluetoothLeScanner scanner;
     BluetoothGatt mBleGatt;
 
@@ -203,6 +206,8 @@ public class MainActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();//zf.close here
         }
+
+        suotaManager = new SuotaManager(getApplicationContext());
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 
@@ -333,6 +338,11 @@ public class MainActivity extends Activity {
         File files[] = getFilesDir().listFiles();
         FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
         checkForFilesAgain();
+    }
+
+    public BluetoothGatt getGatt(){
+        return mBluetoothLeService.getGatt();
+
     }
 
     void copyFile(File src, File dst)  {
