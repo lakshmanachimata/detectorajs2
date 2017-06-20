@@ -32,6 +32,10 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.dialog.suota.bluetooth.BJBLEManager;
+import com.dialog.suota.bluetooth.SuotaManager;
+import com.dialog.suota.data.Statics;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -50,6 +54,10 @@ public class BluetoothLeService extends Service {
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
     private static final int STATE_CONNECTED = 2;
+
+    private int checkRefreshAttempts;
+    private boolean refreshDone;
+    private int refreshAttempt;
 
     public final static String ACTION_GATT_CONNECTED =
             "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
@@ -92,6 +100,23 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+
+            if (status != BluetoothGatt.GATT_SUCCESS) {
+                Intent intent = new Intent();
+                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                MainActivity.getInstance().sendBroadcast(intent);
+                return;
+            }
+            // Refresh device cache. This is the safest place to initiate the procedure.
+            if (!refreshDone && ++refreshAttempt <= 10) {
+                refreshDone = BJBLEManager.refresh(gatt); // should not fail
+                if (refreshDone)
+                    Log.d(MainActivity.LOG_TAG, "restart discovery after refresh");
+                gatt.discoverServices();
+                return;
+            }
+
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             } else {
@@ -106,12 +131,160 @@ public class BluetoothLeService extends Service {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
+            super.onCharacteristicRead(gatt, characteristic, status);
         }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+        }
+        /**
+         * Callback indicating the result of a characteristic write operation.
+         *
+         * <p>If this callback is invoked while a reliable write transaction is
+         * in progress, the value of the characteristic represents the value
+         * reported by the remote device. An application should compare this
+         * value to the desired value to be written. If the values don't match,
+         * the application must abort the reliable write transaction.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#writeCharacteristic}
+         * @param characteristic Characteristic that was written to the associated
+         *                       remote device.
+         * @param status The result of the write operation
+         *               {@link BluetoothGatt#GATT_SUCCESS} if the operation succeeds.
+         */
+        public void onCharacteristicWrite(BluetoothGatt gatt,
+                                          BluetoothGattCharacteristic characteristic, int status) {
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+                Log.i(MainActivity.LOG_TAG, "write succeeded");
+                int step = -1;
+                // Step 2 callback: write SPOTA_MEM_DEV_UUID value
+                if (characteristic.getUuid().equals(Statics.SPOTA_MEM_DEV_UUID)) {
+                    int currStep = MainActivity.getInstance().suotaManager.step;
+                    if (currStep == 2 || currStep == 3)
+                        step = 3;
+                }
+                // Step 3 callback: write SPOTA_GPIO_MAP_UUID value
+                else if (characteristic.getUuid().equals(Statics.SPOTA_GPIO_MAP_UUID)) {
+                    step = 4;
+                }
+                // Step 4 callback: set the patch length, default 240
+                else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_LEN_UUID)) {
+                    step = MainActivity.getInstance().suotaManager.type == SuotaManager.TYPE ? 5 : 7;
+                }
+                else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_DATA_UUID)
+                        //&& DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE
+                        && MainActivity.getInstance().suotaManager.chunkCounter != -1
+                        ) {
+                    //step = DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE ? 5 : 7;
+                /*DeviceActivity.getInstance().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DeviceActivity.getInstance().bluetoothManager.sendBlock();
+                    }
+                });*/
+                    //Log.d(TAG, "Next block in chunk " + DeviceActivity.getInstance().bluetoothManager.chunkCounter);
+                    MainActivity.getInstance().suotaManager.sendBlock();
+                }
+
+                if (step > 0) {
+                    Intent intent = new Intent();
+                    intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                    intent.putExtra("step", step);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                }
+            } else {
+                Log.e(MainActivity.LOG_TAG, "write failed: " + status);
+                // Suota on remote device doesn't send write response before reboot
+                if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
+                    Intent intent = new Intent();
+                    intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                    intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                }
+            }
+            super.onCharacteristicWrite(gatt, characteristic, status);
+        }
+
+        /**
+         * Callback reporting the result of a descriptor read operation.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#readDescriptor}
+         * @param descriptor Descriptor that was read from the associated
+         *                   remote device.
+         * @param status {@link BluetoothGatt#GATT_SUCCESS} if the read operation
+         *               was completed successfully
+         */
+        public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor,
+                                     int status) {
+        }
+
+        /**
+         * Callback indicating the result of a descriptor write operation.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#writeDescriptor}
+         * @param descriptor Descriptor that was writte to the associated
+         *                   remote device.
+         * @param status The result of the write operation
+         *               {@link BluetoothGatt#GATT_SUCCESS} if the operation succeeds.
+         */
+        public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor,
+                                      int status) {
+            super.onDescriptorWrite(gatt, descriptor, status);
+            Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
+            if (status != BluetoothGatt.GATT_SUCCESS) {
+                Intent intent = new Intent();
+                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                MainActivity.getInstance().sendBroadcast(intent);
+                return;
+            }
+            if (descriptor.getCharacteristic().getUuid().equals(Statics.SPOTA_SERV_STATUS_UUID)) {
+                int step = 2;
+
+                Intent intent = new Intent();
+                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("step", step);
+                MainActivity.getInstance().sendBroadcast(intent);
+            }
+        }
+
+        /**
+         * Callback invoked when a reliable write transaction has been completed.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#executeReliableWrite}
+         * @param status {@link BluetoothGatt#GATT_SUCCESS} if the reliable write
+         *               transaction was executed successfully
+         */
+        public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
+        }
+
+        /**
+         * Callback reporting the RSSI for a remote device connection.
+         *
+         * This callback is triggered in response to the
+         * {@link BluetoothGatt#readRemoteRssi} function.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#readRemoteRssi}
+         * @param rssi The RSSI value for the remote device
+         * @param status {@link BluetoothGatt#GATT_SUCCESS} if the RSSI was read successfully
+         */
+        public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+        }
+
+        /**
+         * Callback indicating the MTU for a given device connection has changed.
+         *
+         * This callback is triggered in response to the
+         * {@link BluetoothGatt#requestMtu} function, or in response to a connection
+         * event.
+         *
+         * @param gatt GATT client invoked {@link BluetoothGatt#requestMtu}
+         * @param mtu The new MTU size
+         * @param status {@link BluetoothGatt#GATT_SUCCESS} if the MTU has been changed successfully
+         */
+        public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
         }
     };
 
@@ -147,7 +320,7 @@ public class BluetoothLeService extends Service {
 
                 intent.putExtra(EXTRA_DATA, data);
                 intent.putExtra(EXTRA_CHARECTERSTIC, new String(characteristic.getUuid().toString()));
-        }
+            }
         }
         sendBroadcast(intent);
     }

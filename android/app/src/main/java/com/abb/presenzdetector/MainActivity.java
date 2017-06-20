@@ -54,8 +54,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dialog.suota.bluetooth.SuotaBLEManager;
+import com.dialog.suota.bluetooth.BJBLEManager;
+import com.dialog.suota.bluetooth.SpotaManager;
 import com.dialog.suota.bluetooth.SuotaManager;
+import com.dialog.suota.data.Statics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -127,6 +129,11 @@ public class MainActivity extends Activity {
     ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
     BluetoothGattCharacteristic writeCharecteristic;
 
+    public  static boolean isUpdateFWStart =  false;
+    public  static boolean isUpdateFWGoing =  false;
+    public  static boolean isUpdateFWSuccess =  false;
+    public  static boolean isUpdateFWFailed =  false;
+
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
@@ -153,6 +160,7 @@ public class MainActivity extends Activity {
         String btAddress;
     }
     static public SuotaManager suotaManager;
+    static public SpotaManager spotaManager;
     BluetoothLeScanner scanner;
     BluetoothGatt mBleGatt;
 
@@ -160,6 +168,8 @@ public class MainActivity extends Activity {
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
 
     public static final String LOG_TAG = "BJDETECTOR";
+    private static BluetoothGattCharacteristic spotaMemInfoCharacteristic = null;
+
     private static MainActivity mInstance;
     static boolean certDebug = false;
     private static class MyHandler extends Handler {
@@ -207,8 +217,8 @@ public class MainActivity extends Activity {
             e.printStackTrace();//zf.close here
         }
 
-        suotaManager = new SuotaManager(getApplicationContext());
-
+        suotaManager = new SuotaManager(MainActivity.this);
+        spotaManager = new SpotaManager(MainActivity.this);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 
 
@@ -519,6 +529,13 @@ public class MainActivity extends Activity {
 
 
 
+    public static BluetoothGattCharacteristic getSpotaMemInfoCharacteristic() {
+        return spotaMemInfoCharacteristic;
+    }
+
+    public static void setSpotaMemInfoCharacteristic(BluetoothGattCharacteristic in_SpotaMemInfoCharacteristic) {
+        spotaMemInfoCharacteristic = in_SpotaMemInfoCharacteristic;
+    }
 
     private class URLTask extends AsyncTask<String, Void, String> {
         @Override
@@ -974,6 +991,8 @@ public class MainActivity extends Activity {
                         writeCharecteristic =  gattCharacteristics.get(j);
                     }else if(uuidstr.equalsIgnoreCase(SCCPEnumerations.SERVER_TX_DATA)) {
                         mBluetoothLeService.setCharacteristicNotification(gattCharacteristics.get(j),true);
+                    } else if (uuidstr.equals(Statics.SPOTA_MEM_INFO_UUID)) {
+                        setSpotaMemInfoCharacteristic(gattCharacteristics.get(j));
                     }
                 }
             }

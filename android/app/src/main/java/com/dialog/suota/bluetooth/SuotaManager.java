@@ -10,7 +10,7 @@ import com.dialog.suota.data.Statics;
 /**
  * Created by wouter on 6-11-14.
  */
-public class SuotaManager extends SuotaBLEManager {
+public class SuotaManager extends BJBLEManager {
     public static final int TYPE = 1;
 
 	public static final int MEMORY_TYPE_EXTERNAL_I2C = 0x12;

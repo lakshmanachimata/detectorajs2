@@ -71,7 +71,7 @@ public class Callback extends BluetoothGattCallback {
         }
         // Refresh device cache. This is the safest place to initiate the procedure.
         if (!refreshDone && ++refreshAttempt <= 10) {
-            refreshDone = SuotaBLEManager.refresh(gatt); // should not fail
+            refreshDone = BJBLEManager.refresh(gatt); // should not fail
             if (refreshDone)
                 Log.d(TAG, "restart discovery after refresh");
             gatt.discoverServices();

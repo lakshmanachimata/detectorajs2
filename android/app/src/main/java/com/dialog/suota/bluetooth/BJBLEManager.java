@@ -25,7 +25,7 @@ import java.util.Queue;
 /**
  * Created by wouter on 6-11-14.
  */
-public abstract class SuotaBLEManager {
+public abstract class BJBLEManager {
 	static final String TAG = "SuotaBLEManager";
 
 	public static final int END_SIGNAL = 0xfe000000;
@@ -62,19 +62,19 @@ public abstract class SuotaBLEManager {
 	boolean lastBlockSent = false;
 	boolean preparedForLastBlock = false;
 	boolean endSignalSent = false;
-	boolean rebootsignalSent = false;
+	public boolean rebootsignalSent = false;
 	boolean finished = false;
 	boolean hasError = false;
 	boolean refreshPending;
 	public int type;
-	protected int step;
+	public int step;
 	int blockCounter = 0;
-	int chunkCounter = -1;
+	public int chunkCounter = -1;
 	int gpioMapPrereq = 0;
 
 	public Queue characteristicsQueue;
 
-	public SuotaBLEManager(Context context) {
+	public BJBLEManager(Context context) {
 		this.context = context;
 		initErrorMap();
 		characteristicsQueue = new ArrayDeque<BluetoothGattCharacteristic>();
