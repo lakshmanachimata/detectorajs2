@@ -299,63 +299,63 @@ export class NetworkParams {
     public keyData:Buffer;
 }
 
-var bjCert ='-----BEGIN CERTIFICATE-----\
-MIIEyDCCA7KgAwIBAgIIWBtzVrg9BD0wCwYJKoZIhvcNAQEFMIH7MQswCQYDVQQG\
-EwJERTEcMBoGA1UECBMTTm9yZHJoZWluLVdlc3RmYWxlbjEdMBsGA1UEBxMUTXVl\
-bGhlaW0gYW4gZGVyIFJ1aHIxJzAlBgNVBAoTHlE6bWFya2V0aW5nIEFrdGllbmdl\
-c2VsbHNjaGFmdDEYMBYGA1UECxMPRGF0YWRldmVsb3BtZW50MUMwQQYDVQQDEzpB\
-QkIvQnVzY2gtSmFlZ2VyIEVsZWt0cm8gSW50ZXJuZXQgU2VydmljZSBQbGF0Zm9y\
-bSBSb290IENBMScwJQYJKoZIhvcNAQkBFhhhZG1pbkBkYXRhZGV2ZWxvcG1lbnQu\
-ZGUwIhgPMjAxNzA1MTIwNTU2NTRaGA8yMDE5MDUxMjA1NTY1NFowMTELMAkGA1UE\
-BhMCREUxIjAgBgNVBAMMGUJ1c2NoLUphZWdlciBFbGVrdHJvIEdtYkgwggEgMAsG\
-CSqGSIb3DQEBAQOCAQ8AMIIBCgKCAQEA35A23Rc4cyR74ChxWWZkXNlx7bivJ3/G\
-VgA9Iuy5bHQm3CCWN1ygtWMY1yTACeipvXDyIGF7IK7xVe7V5ygfAek9/x8gbxlS\
-IAncTcZyOJiKpc3pHx6ufATlBVWuoqio1taHsz2OmMXdA2Gz7dFu9/v9d9hinyHe\
-obcLPlNZxRunRkfT6ZZlWY+I7cIprxPKXUNscwcZHY3nzQPhAAwQhLVg7ihoSBls\
-cT/ByzwETRWCNEL8PsYiVgZfgswuGyj5IUjqOsv4ByMwnwK6IfyJR/MaiMAKGoBf\
-sWZjuoxWWf70nuYIqaTb5kNpYl8zsPh5GLVnPTEWZHBUo+LvLo1j+QIDAQABo4IB\
-GTCCARUwCQYDVR0TBAIwADCB5gYDVR0RBIHeMIHbhlJodHRwczovL215LXN0YWdp\
-bmcuYnVzY2gtamFlZ2VyLmRlL2FwaS9jbGllbnQvZjRmYWJiMDktZGMxYi00ZDFl\
-LWExZDUtOTNjMzgwYmY1M2Q4oDEGBysSAAIEhg+gJhMkZjRmYWJiMDktZGMxYi00\
-ZDFlLWExZDUtOTNjMzgwYmY1M2Q4oFIGCCsGAQUFBwgFoEYTRGY0ZmFiYjA5LWRj\
-MWItNGQxZS1hMWQ1LTkzYzM4MGJmNTNkOEB4bXBwLm15LXN0YWdpbmcuYnVzY2gt\
-amFlZ2VyLmRlMB8GA1UdIwQYMBaAFLmObDD6U5xzsml9CGOUbJneFYHFMAsGCSqG\
-SIb3DQEBBQOCAQEAjcmUeHqVWCngMjiMEBvowRg3PikWbtvAhYBcvfMT47EW1M+Q\
-KFiPfQMPGBKdRnk2cDNai2stf1ODuMG3iuIQbXoHV1hK4LqRwXPqUkcdmub1lQoA\
-8+NFFmh4QBhl74LVMbtht6LA3P5NWTbV3oxV+e2eq2zKOQpt45Xly0kr4J0Kg5UR\
-uZmUE6IiI6104ZabUPxBKW8XKtICq71a0T4zyLyvnfOzAWlW56rD6wEBVggJTOuq\
-XaQd4seXnKkxgVaGgTCnX2Yo8NvdhTiUhn0FKbSTxmQXo0gdb3McdhkP5EbqwYM8\
-OykaSStsjE5xlJOtDnM3jiofu5wp7f1e44s2fQ==\
------END CERTIFICATE-----';
+var bjCert ='-----BEGIN CERTIFICATE-----\r\n\
+MIIEyDCCA7KgAwIBAgIISdUtEDQ+o2cwCwYJKoZIhvcNAQEFMIH7MQswCQYDVQQG\r\n\
+EwJERTEcMBoGA1UECBMTTm9yZHJoZWluLVdlc3RmYWxlbjEdMBsGA1UEBxMUTXVl\r\n\
+bGhlaW0gYW4gZGVyIFJ1aHIxJzAlBgNVBAoTHlE6bWFya2V0aW5nIEFrdGllbmdl\r\n\
+c2VsbHNjaGFmdDEYMBYGA1UECxMPRGF0YWRldmVsb3BtZW50MUMwQQYDVQQDEzpB\r\n\
+QkIvQnVzY2gtSmFlZ2VyIEVsZWt0cm8gSW50ZXJuZXQgU2VydmljZSBQbGF0Zm9y\r\n\
+bSBSb290IENBMScwJQYJKoZIhvcNAQkBFhhhZG1pbkBkYXRhZGV2ZWxvcG1lbnQu\r\n\
+ZGUwIhgPMjAxNzA2MTYwOTQ1MTBaGA8yMDE5MDYxNjA5NDUxMFowMTELMAkGA1UE\r\n\
+BhMCREUxIjAgBgNVBAMMGUJ1c2NoLUphZWdlciBFbGVrdHJvIEdtYkgwggEgMAsG\r\n\
+CSqGSIb3DQEBAQOCAQ8AMIIBCgKCAQEAwfhE7i817O6Wb/n3RI7jZ5pSANMAvSBK\r\n\
+d7HkSOLCgW1EfpmNp9qfujIDTiwg1htA3mqBSf4BWvskKOCgCykkDw2Q69WaGlgZ\r\n\
+0eItvcTx+JruMFM0e0UV6IV7DeMZIh3Pr97LxzuWxOdH+GOzliYcu1Wle3bCyS+g\r\n\
+xuQS10ICsLVo08JUwbGEbUW6VOHA3KbfOnTGPVV2+rP25goBLv2DMYhKufTzDaIS\r\n\
+9WmMp2ZTIxhPDIMF9Gj2m0TRyvlMa0rejfXZ18Au3F/ZJM+Dbi4Dp9nBQLpajfAw\r\n\
+KlGIIJCU1idwavZGR+O3DEmFy3sXfr//U2Y/3143q8fhO2AH/60VqQIDAQABo4IB\r\n\
+GTCCARUwCQYDVR0TBAIwADCB5gYDVR0RBIHeMIHbhlJodHRwczovL215LXN0YWdp\r\n\
+bmcuYnVzY2gtamFlZ2VyLmRlL2FwaS9jbGllbnQvZjRmYWJiMDktZGMxYi00ZDFl\r\n\
+LWExZDUtOTNjMzgwYmY1M2Q4oDEGBysSAAIEhg+gJhMkZjRmYWJiMDktZGMxYi00\r\n\
+ZDFlLWExZDUtOTNjMzgwYmY1M2Q4oFIGCCsGAQUFBwgFoEYTRGY0ZmFiYjA5LWRj\r\n\
+MWItNGQxZS1hMWQ1LTkzYzM4MGJmNTNkOEB4bXBwLm15LXN0YWdpbmcuYnVzY2gt\r\n\
+amFlZ2VyLmRlMB8GA1UdIwQYMBaAFLmObDD6U5xzsml9CGOUbJneFYHFMAsGCSqG\r\n\
+SIb3DQEBBQOCAQEADGJU+z43LoXUL5vKdcXe6rVRIdYcyuI14UxQdpLrME4PWsY9\r\n\
+JzcD8fU4OYJM+q5aOv1eMdndGxbGMVMONJ5ubq1mBmi4kUEc92IFQjn7ygiScaFS\r\n\
+/Vmzo1EftjZPuiqdbba6l0KXZeqJN6D8Bkqemm6gpOmY7PeFqihnLPBPgSpGIwvA\r\n\
+Ser/W0fiODSfhcPXKu+wqqOQQRU6S+1z1s4oQI8iARtfjxtYH8j1y+VDewBqgu8t\r\n\
+1FrICH/wu8xFRcONXgU59vG96f9WQiN+sncP/B+xVkOvomCPbCFfMHIhpuuWIkoC\r\n\
+bsE0uHKMbeF3BP73mFpNvq+yRq5h+N28TrZ1uw==\r\n\
+-----END CERTIFICATE-----\n';
 
-var bjKey ='-----BEGIN PRIVATE KEY-----\
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDfkDbdFzhzJHvg\
-KHFZZmRc2XHtuK8nf8ZWAD0i7LlsdCbcIJY3XKC1YxjXJMAJ6Km9cPIgYXsgrvFV\
-7tXnKB8B6T3/HyBvGVIgCdxNxnI4mIqlzekfHq58BOUFVa6iqKjW1oezPY6Yxd0D\
-YbPt0W73+/132GKfId6htws+U1nFG6dGR9PplmVZj4jtwimvE8pdQ2xzBxkdjefN\
-A+EADBCEtWDuKGhIGWxxP8HLPARNFYI0Qvw+xiJWBl+CzC4bKPkhSOo6y/gHIzCf\
-Aroh/IlH8xqIwAoagF+xZmO6jFZZ/vSe5gippNvmQ2liXzOw+HkYtWc9MRZkcFSj\
-4u8ujWP5AgMBAAECggEBALSld2+XP8nqhR5QD6dJkXdlTSXlwcKNANqlPsFlvz7f\
-bDcbLcZ2VnW7KWtPCs327pFhHoUDv9ZdBi2F29n5FXUZ3zqzECY1s6Kn1RgTbmBF\
-AmOPyvuWcy9LVTPGVGKjHirbFrPC3eKcn0YIQLe+L4i6WcnpU2d6msbZfYBTIYqe\
-lw//J82pKnLtNSSJLMgT/doSDSz8G2vE+AeiINOoELf0WX31i2qM3Oc5LIPelSBv\
-txmtg6ZMcg4UAnw1RLTGEHWK8e7xOpX8QjYha8Z25jH0ZQU3ltz4+de9pG1jnA2s\
-CClynXSK2rxer+TXUshcpi8lJm5yntcP8jBFJfUiYbECgYEA86vaMIvhFPUAzuHT\
-APzHh6l58vgOXzQohV14Oblz9GWxpdv9FMqMYlez38JAFxDYRRxBmIAitaYUMFfV\
-VZwaFkTqW/J4WtX+9VrTpZC0BTyYHRbCIWQ4yv3OcuNyoVU8p9wc0t7w5eKYwBnD\
-5VMj2Z0XYt4fnT9cQfEF7zNewR8CgYEA6t/p/n8ZJkHoWj5fbA9S02PAnzYMi2NQ\
-DpaiVVFXVGkWtmZO8BlJyeazLTYow5G5Ib6qmYB9SmkHKXZhBQnYKDRazpZumc/T\
-MKOOCMDWwREzs9xmOxCVUhA9GHxBg74BVDe9q93OZdy3Js0WQFlO+VeOrOTCAxXi\
-sztYfkwpv+cCgYEA4AVzB4bSXE4TfCApuZKsbpDlSPe9XtG5H0ObsJZLgLmt5Wqm\
-9mJxRkiTWnhgK9SUwJUFyYqkXpRdo0RdIePuJ+McA4ScGgb7696hDmpG1zmqL7Qo\
-rkJR5G4LS5zIWoLezQSUi1nj57W38YS+kSsqnnrKcV79ebgyvX01k4CK8MkCgYAO\
-H7rtf+0ePNZhHuEUGXPMnHIH4PMuKqG0zuAiK0sKG2uvOkXC8HJcftAFhv06jXfJ\
-jLKrmmtuXxR8LM82w1nJSSSwyaELBNFZWmx/IEGJyKQIS9el86BXF/zkjQxPhMyF\
-qPhx7lusCnLFFY4h/nzeR6KfyP3Vu6ovRwFSTvgvvwKBgH6ucYddeLS87ScSWH6M\
-QhIauG/dDQCNte+6XPiEdN7ezcisqd+ElGOZYJj+lrACnrJsxPFEcQiUiuHohxvz\
-D6hKP1sH08HE73fFJiraQt6mCh0hCYyIaew+i9iau02P4bmWDQ1qexU3QQivoXBH\
-zTMmwS9ucX4JlYyqZqSzms69\
------END PRIVATE KEY-----';
+var bjKey ='-----BEGIN PRIVATE KEY-----\n\
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDB+ETuLzXs7pZv\n\
++fdEjuNnmlIA0wC9IEp3seRI4sKBbUR+mY2n2p+6MgNOLCDWG0DeaoFJ/gFa+yQo\n\
+4KALKSQPDZDr1ZoaWBnR4i29xPH4mu4wUzR7RRXohXsN4xkiHc+v3svHO5bE50f4\n\
+Y7OWJhy7VaV7dsLJL6DG5BLXQgKwtWjTwlTBsYRtRbpU4cDcpt86dMY9VXb6s/bm\n\
+CgEu/YMxiEq59PMNohL1aYynZlMjGE8MgwX0aPabRNHK+UxrSt6N9dnXwC7cX9kk\n\
+z4NuLgOn2cFAulqN8DAqUYggkJTWJ3Bq9kZH47cMSYXLexd+v/9TZj/fXjerx+E7\n\
+YAf/rRWpAgMBAAECggEARUHIGuNwdbCatlCiITCDsbJAJVsxoFWvQR2bTQrqOBwz\n\
+oKBjG9PLxEenNno7HzeL6d5NW4X+JeYV+yJ5AoMmBNnrLMmPxGhAj9gaTO/NFd77\n\
+vPV4f6sjL2q5jTPQ/YV3amw6hmCYbKXH5MB0lt/00k66T2MQGZWP6nP05jcDjuQX\n\
+zW66EesW66Uvar2IjNme78svQqfdEsjAbuwPgO7T+oLMYqx1EtE55OdLlncKXihp\n\
+NHDkHuWOzO4AS9bUJkbRSCuXvGQx2fH6uNp5MPPg6CeSCEOQQ69eexd97Eu7cVzf\n\
+i/H+6VacdaOXy6edSh9xYgFwdjaBtC8vjZNoKUZzoQKBgQDoQ2eYSzq5CWZgojmV\n\
+jaZ3xB3cukbKxDWNAvVTAukemf9mnZKhydXcX4A+vcrynOa1tjDKfKY+ipZhwRBi\n\
+Dp92zy+CUnDGoYMmuIRJ0Fc1REpPCKAGUvHTwARV6+elUowzz2nLpbFsKE4DUPEA\n\
+hsl1tmkBfhizX5LKuxD5fp1vwwKBgQDVywKFJGZrN83mbtx4kFs1vBIhdjOFrKvj\n\
+uGihbU0j/Iw6nBGJuVuFjOI1sZCD6dmln+dc0NbJXf9s3iihk2zredeVqT0MALS8\n\
+dP04ncibfq/OHk9y3wM9DkBRwm0pT1pJM6TdwkGiA+1b+j1SugidujDESp1jn24y\n\
+zlhyOi8aIwKBgQCchyieyzxVDY+wWkPilSb2GfZiFiu1ZQwN70tz2UdQN0qXVmRG\n\
+oqZ9MONV5USLws/88D7rh5vmFDIKyTkITICNak3DT1nvk1O22a1VrZHINTC7GL33\n\
+5RhSs1p4qVZg5UPVetf6xbzPfk4tD/SLfUryCK+1sMxmvmdIN0/WRM1HTwKBgQDN\n\
+F8FFJJQ0Cwa1JmjOJ/234MGr5A6tD+adwExvf8Fe4mlL2GhirLSFu49OXxb51R57\n\
+6pgyzA0gg9IDCGQGDL2ScAJGimIL36mCmOBKreLCeJgCrcUdt58NtVwyksfRt1Qv\n\
+oSFps27vE8FiWP73G4wkc3dQ9xthdJJsntLuUa7Z7QKBgEfglXGb7WER1IMc1odU\n\
+4g1XMbtEtTdtdK5JaF2+09Ak/4JZILUb2HF1pqbVd6eU7ynnC7E2l4xbqOXe7t1h\n\
+kGGBSpPwEfzUKhNKevh4KcrVMecG7q5n2hZvXlzkpgswaDMVnOyleYMMyLaajkzL\n\
+DevHWeT81htrDXAJ5Ee8eYw0\n\
+-----END PRIVATE KEY-----\n';
 
 
 
@@ -1177,9 +1177,12 @@ export class DataService {
             for(let  j =0; j < 64; j++){
                 userAddressSalt =  userAddressSalt + saltBufUserByteStr.charAt(j%saltBufUserByteStr.length);
             }
-            var byteArrayuser = new Buffer(devicePwd.length);
+            var byteArrayuser = new Buffer(32);
             for(var i=0; i < devicePwd.length; i++) {
                 byteArrayuser[i] = devicePwd.charCodeAt(i);
+            }
+            for(var ni = devicePwd.length; ni<32; ni++){
+                byteArrayuser[i] = 0x00;
             }
             if(DataService.getDataService().debugLogs ==  true){
                  DataService.getDataService().logger.log('user pwd auth is ' + byteArrayuser.toString('hex'))
@@ -1214,11 +1217,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 1111 ' + saltbufStart);
+                    this.logger.log('seleced address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 2222 ' + saltbufStart);
+                    this.logger.log('seleced address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1284,11 +1287,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 1111 ' + saltbufStart);
+                    this.logger.log('seleced address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 2222 ' + saltbufStart);
+                    this.logger.log('seleced address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1685,6 +1688,19 @@ export class DataService {
         this.logger.log(data);
     }
 
+    getDataWithCertReq(){
+        var options = {  
+            url: 'https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices',
+            cert: this.networkParams.certData,
+            port: 443,
+            key: this.networkParams.keyData,
+            method: 'GET',
+        };
+        request.get(options,function(error, response, body){
+            console.log('some shit came');
+        }); 
+    }
+
     getDataWithCert(httpPath){
         let httpOptions = this.makeCertHeaders();
         httpOptions.path = httpPath;
@@ -1801,7 +1817,8 @@ export class DataService {
     getDevicesFromCloud() {
         if(this.networkParams.useCertAuth){
             let path =  this.networkParams.certDevicesPath;
-            this.getDataWithCert(path);
+            //this.getDataWithCert(path);
+            this.getDataWithCertReq();
         }else{
             let url = this.networkParams.devicesUrl;
             this.getData(url);
