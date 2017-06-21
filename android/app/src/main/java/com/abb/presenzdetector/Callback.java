@@ -39,12 +39,12 @@ public class Callback extends BluetoothGattCallback {
     @Override
     public void onServicesDiscovered(BluetoothGatt gatt, int status) {
         Log.i(TAG, "onServicesDiscovered");
-        if (status != BluetoothGatt.GATT_SUCCESS) {
-            Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
-            MainActivity.getInstance().sendBroadcast(intent);
-            return;
+            if (status != BluetoothGatt.GATT_SUCCESS) {
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
+                MainActivity.getInstance().sendBroadcast(intent);
+                return;
         }
         // Refresh device cache. This is the safest place to initiate the procedure.
         if (!refreshDone && ++refreshAttempt <= 10) {
@@ -64,16 +64,17 @@ public class Callback extends BluetoothGattCallback {
             || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
             || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
             || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
-            ) {
+            )
+        {
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", MainActivity.ERROR_SUOTA_NOT_FOUND);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_SUOTA_NOT_FOUND);
             MainActivity.getInstance().sendBroadcast(intent);
             return;
         }
         Intent intent = new Intent();
-        intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-        intent.putExtra("step", 0);
+        intent.setAction(MainActivity.ACTION_FW_UPDATE);
+        intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
         MainActivity.getInstance().sendBroadcast(intent);
     }
 
@@ -105,12 +106,12 @@ public class Callback extends BluetoothGattCallback {
         if (sendUpdate) {
             Log.d(TAG, "onCharacteristicRead: " + index);
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
             if (index >= 0) {
                 intent.putExtra("characteristic", index);
                 intent.putExtra("value", new String(characteristic.getValue()));
             } else {
-                intent.putExtra("step", step);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
                 intent.putExtra("value", characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0));
             }
             MainActivity.getInstance().sendBroadcast(intent);
@@ -157,8 +158,8 @@ public class Callback extends BluetoothGattCallback {
 
             if (step > 0) {
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("step", step);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
                 MainActivity.getInstance().sendBroadcast(intent);
             }
         } else {
@@ -166,8 +167,8 @@ public class Callback extends BluetoothGattCallback {
             // Suota on remote device doesn't send write response before reboot
             if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
                 MainActivity.getInstance().sendBroadcast(intent);
             }
         }
@@ -180,8 +181,8 @@ public class Callback extends BluetoothGattCallback {
         Log.d(TAG, "onDescriptorWrite");
         if (status != BluetoothGatt.GATT_SUCCESS) {
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
             MainActivity.getInstance().sendBroadcast(intent);
             return;
         }
@@ -189,8 +190,8 @@ public class Callback extends BluetoothGattCallback {
             int step = 2;
 
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("step", step);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, step);
             MainActivity.getInstance().sendBroadcast(intent);
         }
     }
@@ -218,10 +219,10 @@ public class Callback extends BluetoothGattCallback {
         }
         if (step >= 0 || error >= 0 || memDevValue >= 0) {
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("step", step);
-            intent.putExtra("error", error);
-            intent.putExtra("memDevValue", memDevValue);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, error);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, memDevValue);
             MainActivity.getInstance().sendBroadcast(intent);
         }
     }

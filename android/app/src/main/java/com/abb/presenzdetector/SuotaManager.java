@@ -3,6 +3,7 @@ package com.abb.presenzdetector;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 /**
  * Created by wouter on 6-11-14.
@@ -10,10 +11,8 @@ import android.util.Log;
 public class SuotaManager extends BJBLEManager {
     public static final int TYPE = 1;
 
-	public static final int MEMORY_TYPE_EXTERNAL_I2C = 0x12;
-	public static final int MEMORY_TYPE_EXTERNAL_SPI = 0x13;
-
-    static final String TAG = "SuotaManager";
+    public static final int MEMORY_TYPE_EXTERNAL_I2C = 0x12;
+    public static final int MEMORY_TYPE_EXTERNAL_SPI = 0x13;
 
     public SuotaManager(Context context) {
         super(context);
@@ -24,14 +23,14 @@ public class SuotaManager extends BJBLEManager {
     public void processStep(Intent intent) {
         int newStep = intent.getIntExtra("step", -1);
         int error = intent.getIntExtra("error", -1);
-		int memDevValue = intent.getIntExtra("memDevValue", -1);
+        int memDevValue = intent.getIntExtra("memDevValue", -1);
         if (error != -1) {
             onError(error);
         }
 
-		else if(memDevValue >= 0) {
-			processMemDevValue(memDevValue);
-		}
+        else if(memDevValue >= 0) {
+            processMemDevValue(memDevValue);
+        }
         // If a step is set, change the global step to this value
         if (newStep >= 0) {
             this.step = newStep;
@@ -40,13 +39,12 @@ public class SuotaManager extends BJBLEManager {
         else {
             int index = intent.getIntExtra("characteristic", -1);
             String value = intent.getStringExtra("value");
-            //activity.setItemValue(index, value);
+//            activity.setItemValue(index, value);
             readNextCharacteristic();
         }
         Log.d(TAG, "step " + this.step);
         switch (this.step) {
             case 0:
-                //activity.initMainScreen();
                 this.step = -1;
 //                        initFileList();
                 break;
@@ -56,12 +54,7 @@ public class SuotaManager extends BJBLEManager {
                 break;
             // Init mem type
             case 2:
-                /*activity.progressText.setText("Uploading " + fileName + " to " + device.getName() + ".\n" +
-                        "Please wait until the progress is\n" +
-                        "completed.");*/
                 setSpotaMemDev();
-                //activity.fileListView.setVisibility(View.GONE);
-                //activity.progressBar.setVisibility(View.VISIBLE);
                 break;
             // Set mem_type for SPOTA_GPIO_MAP_UUID
             case 3:
@@ -88,7 +81,6 @@ public class SuotaManager extends BJBLEManager {
                     } else if (!lastBlockSent) {
                         sendBlock();
                     } else if (!endSignalSent) {
-                        //activity.progressChunk.setVisibility(View.GONE);
                         sendEndSignal();
                     } else if (error == -1) {
                         onSuccess();
@@ -98,34 +90,34 @@ public class SuotaManager extends BJBLEManager {
         }
     }
 
-	@Override
-	protected int getSpotaMemDev() {
-		int memTypeBase = -1;
-		switch (memoryType) {
-			case MainActivity.MEMORY_TYPE_SPI:
-				memTypeBase = MEMORY_TYPE_EXTERNAL_SPI;
-				break;
-			case MainActivity.MEMORY_TYPE_I2C:
-				memTypeBase = MEMORY_TYPE_EXTERNAL_I2C;
-				break;
-		}
-		int memType = (memTypeBase << 24) | imageBank;
-		return memType;
-	}
+    @Override
+    protected int getSpotaMemDev() {
+        int memTypeBase = -1;
+        switch (memoryType) {
+            case MainActivity.MEMORY_TYPE_SPI:
+                memTypeBase = MEMORY_TYPE_EXTERNAL_SPI;
+                break;
+            case MainActivity.MEMORY_TYPE_I2C:
+                memTypeBase = MEMORY_TYPE_EXTERNAL_I2C;
+                break;
+        }
+        int memType = (memTypeBase << 24) | imageBank;
+        return memType;
+    }
 
-	private void processMemDevValue(int memDevValue) {
-		String stringValue = String.format("%#10x", memDevValue);
-		Log.d(TAG, "processMemDevValue() step: " + step + ", value: " + stringValue);
-		switch (step) {
-			case 2:
-				if(memDevValue == 0x1) {
-					//activity.log("Set SPOTA_MEM_DEV: 0x1");
-					goToStep(3);
-				}
-				else {
-					onError(0);
-				}
-				break;
-		}
-	}
+    private void processMemDevValue(int memDevValue) {
+        String stringValue = String.format("%#10x", memDevValue);
+        Log.d(TAG, "processMemDevValue() step: " + step + ", value: " + stringValue);
+        switch (step) {
+            case 2:
+                if(memDevValue == 0x1) {
+                    activity.log("Set SPOTA_MEM_DEV: 0x1");
+                    goToStep(3);
+                }
+                else {
+                    onError(0);
+                }
+                break;
+        }
+    }
 }

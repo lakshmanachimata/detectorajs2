@@ -55,18 +55,8 @@ public class BluetoothLeService extends Service {
     private boolean refreshDone;
     private int refreshAttempt;
 
-    public final static String ACTION_GATT_CONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED =
-            "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
-    public final static String ACTION_GATT_SERVICES_DISCOVERED =
-            "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-    public final static String ACTION_DATA_AVAILABLE =
-            "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
-    public final static String EXTRA_DATA =
-            "com.example.bluetooth.le.EXTRA_DATA";
-    public final static String EXTRA_CHARECTERSTIC =
-            "com.example.bluetooth.le.EXTRA_CHARECTERSTIC";
+
+
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
@@ -75,7 +65,7 @@ public class BluetoothLeService extends Service {
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             String intentAction;
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                intentAction = ACTION_GATT_CONNECTED;
+                intentAction = MainActivity.ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
                 broadcastUpdate(intentAction);
                 Log.i(MainActivity.LOG_TAG, "Connected to GATT server.");
@@ -84,7 +74,7 @@ public class BluetoothLeService extends Service {
                         mBluetoothGatt.discoverServices());
 
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                intentAction = ACTION_GATT_DISCONNECTED;
+                intentAction = MainActivity.ACTION_GATT_DISCONNECTED;
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(MainActivity.LOG_TAG, "Disconnected from GATT server.");
                 broadcastUpdate(intentAction);
@@ -96,8 +86,8 @@ public class BluetoothLeService extends Service {
 
             if (status != BluetoothGatt.GATT_SUCCESS) {
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
@@ -120,19 +110,19 @@ public class BluetoothLeService extends Service {
                     || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
                     ) {
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", MainActivity.ERROR_SUOTA_NOT_FOUND);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_SUOTA_NOT_FOUND);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
             Intent intent = new Intent();
-            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("step", 0);
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
             MainActivity.getInstance().sendBroadcast(intent);
 
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
-                broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
+                broadcastUpdate(MainActivity.ACTION_GATT_SERVICES_DISCOVERED);
             } else {
                 Log.w(MainActivity.LOG_TAG, "onServicesDiscovered received: " + status);
             }
@@ -143,7 +133,7 @@ public class BluetoothLeService extends Service {
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
-                broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+                broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
             }
             super.onCharacteristicRead(gatt, characteristic, status);
         }
@@ -151,7 +141,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
-            broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+            broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
         }
         /**
          * Callback indicating the result of a characteristic write operation.
@@ -204,8 +194,8 @@ public class BluetoothLeService extends Service {
 
                 if (step > 0) {
                     Intent intent = new Intent();
-                    intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                    intent.putExtra("step", step);
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
                     MainActivity.getInstance().sendBroadcast(intent);
                 }
             } else {
@@ -213,8 +203,8 @@ public class BluetoothLeService extends Service {
                 // Suota on remote device doesn't send write response before reboot
                 if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
                     Intent intent = new Intent();
-                    intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                    intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
                     MainActivity.getInstance().sendBroadcast(intent);
                 }
             }
@@ -249,8 +239,8 @@ public class BluetoothLeService extends Service {
             Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
             if (status != BluetoothGatt.GATT_SUCCESS) {
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
@@ -258,8 +248,8 @@ public class BluetoothLeService extends Service {
                 int step = 2;
 
                 Intent intent = new Intent();
-                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("step", step);
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
                 MainActivity.getInstance().sendBroadcast(intent);
             }
         }
@@ -319,8 +309,8 @@ public class BluetoothLeService extends Service {
             for(byte byteChar : data)
                 stringBuilder.append(String.format("%02X ", byteChar));
 
-            intent.putExtra(EXTRA_DATA, data);
-            intent.putExtra(EXTRA_CHARECTERSTIC, new String(characteristic.getUuid().toString()));
+            intent.putExtra(MainActivity.EXTRA_DATA, data);
+            intent.putExtra(MainActivity.EXTRA_CHARECTERSTIC, new String(characteristic.getUuid().toString()));
         }
         sendBroadcast(intent);
     }

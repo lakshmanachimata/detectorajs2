@@ -98,7 +98,6 @@ public class MainActivity extends Activity {
     static final String  SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
     static final String   SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
     static final String   INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
-    public static final String BLUETOOTH_GATT_UPDATE = "BluetoothGattUpdate";
     public static final String PROGRESS_UPDATE = "ProgressUpdate";
     public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
     public static final int fileChunkSize = 20;
@@ -146,24 +145,32 @@ public class MainActivity extends Activity {
     public static final int ERROR_COMMUNICATION = 0xffff; // ble communication error
     public static final int ERROR_SUOTA_NOT_FOUND = 0xfffe; // suota service was not found
 
+    public final static String ACTION_GATT_CONNECTED =
+            "com.abb.presenzdetector.ACTION_GATT_CONNECTED";
+    public final static String ACTION_GATT_DISCONNECTED =
+            "com.abb.presenzdetector.ACTION_GATT_DISCONNECTED";
+    public final static String ACTION_GATT_SERVICES_DISCOVERED =
+            "com.abb.presenzdetector.ACTION_GATT_SERVICES_DISCOVERED";
+    public final static String ACTION_DATA_AVAILABLE =
+            "com.abb.presenzdetector.ACTION_DATA_AVAILABLE";
+    public final static String EXTRA_DATA =
+            "com.abb.presenzdetector.EXTRA_DATA";
+    public final static String EXTRA_CHARECTERSTIC =
+            "com.abb.presenzdetector.EXTRA_CHARECTERSTIC";
+    public final static String ACTION_FW_UPDATE =
+            "com.abb.presenzdetector.ACTION_FW_UPDATE";
+    public final static String EXTRA_FWUPDATE_STEP =
+            "com.abb.presenzdetector.EXTRA_FWUPDATE_STEP";
+
+    public final static String EXTRA_FWUPDATE_ERROR =
+            "com.abb.presenzdetector.EXTRA_FWUPDATE_ERROR";
+
+    public final static String EXTRA_FWUPDATE_MEMDEVVALUE =
+            "com.abb.presenzdetector.EXTRA_FWUPDATE_MEMDEVVALUE";
 
     // Default memory type
     public static final int DEFAULT_MEMORY_TYPE = MEMORY_TYPE_SPI;
 
-
-    private static String filesDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Suota";
-    private InputStream inputStream;
-    private byte crc;
-    private byte[] bytes;
-
-    private byte[][][] blocks;
-
-    private int fileBlockSize = 0;
-    private int bytesAvailable;
-    private int numberOfBlocks = -1;
-    private int chunksPerBlockCount;
-    private int totalChunkCount;
-    private int type;
 
 
     SSLContext sslContext;
@@ -191,6 +198,7 @@ public class MainActivity extends Activity {
     public  static boolean isUpdateFWGoing =  false;
     public  static boolean isUpdateFWSuccess =  false;
     public  static boolean isUpdateFWFailed =  false;
+    public  static boolean isFWUpdateSupported = true;
 
     Animation in;
     WebInterface webInterface;
@@ -697,10 +705,10 @@ public class MainActivity extends Activity {
 
     private static IntentFilter makeGattUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);
-        intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTED);
-        intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);
-        intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
+        intentFilter.addAction(ACTION_GATT_CONNECTED);
+        intentFilter.addAction(ACTION_GATT_DISCONNECTED);
+        intentFilter.addAction(ACTION_GATT_SERVICES_DISCOVERED);
+        intentFilter.addAction(ACTION_DATA_AVAILABLE);
         return intentFilter;
     }
 
@@ -779,22 +787,22 @@ public class MainActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
+            if (ACTION_GATT_CONNECTED.equals(action)) {
                 if(scanner != null) {
                     notifyAppAboutConnection(true);
                     scanner.stopScan(bleCallback);
                 }
             }
-            else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+            else if (ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
                 if(scanner != null)
                     scanner.startScan(bleCallback);
             }
-            else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+            else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
                 getDeviceInfo();
             }
-            else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+            else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
             }
         }
@@ -827,8 +835,8 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                byte[] data = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
-                String charecterstic = intent.getStringExtra(BluetoothLeService.EXTRA_CHARECTERSTIC);
+                byte[] data = intent.getByteArrayExtra(EXTRA_DATA);
+                String charecterstic = intent.getStringExtra(EXTRA_CHARECTERSTIC);
 
                 if (charecterstic.equalsIgnoreCase(SERVER_TX_DATA)) {
 
@@ -1016,6 +1024,25 @@ public class MainActivity extends Activity {
     private void getGattServices(List<BluetoothGattService> gattServices) {
         mGattServices.clear();
         mGattServices.addAll(gattServices);
+        BluetoothGattService suota = getGatt().getService(MainActivity.SPOTA_SERVICE_UUID);
+        if (suota == null
+                || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
+                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
+                )
+        {
+            isFWUpdateSupported =  false;
+        }else {
+            isFWUpdateSupported = true;
+            Intent intent = new Intent();
+            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
+            MainActivity.getInstance().sendBroadcast(intent);
+        }
     }
 
     @Override
