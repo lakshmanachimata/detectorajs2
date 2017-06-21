@@ -1,11 +1,8 @@
-package com.dialog.suota.bluetooth;
+package com.abb.presenzdetector;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import com.abb.presenzdetector.MainActivity;
-import com.dialog.suota.data.Statics;
 
 /**
  * Created by wouter on 6-11-14.
@@ -105,10 +102,10 @@ public class SuotaManager extends BJBLEManager {
 	protected int getSpotaMemDev() {
 		int memTypeBase = -1;
 		switch (memoryType) {
-			case Statics.MEMORY_TYPE_SPI:
+			case MainActivity.MEMORY_TYPE_SPI:
 				memTypeBase = MEMORY_TYPE_EXTERNAL_SPI;
 				break;
-			case Statics.MEMORY_TYPE_I2C:
+			case MainActivity.MEMORY_TYPE_I2C:
 				memTypeBase = MEMORY_TYPE_EXTERNAL_I2C;
 				break;
 		}

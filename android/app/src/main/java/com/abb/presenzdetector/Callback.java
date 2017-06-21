@@ -1,4 +1,4 @@
-package com.dialog.suota.bluetooth;
+package com.abb.presenzdetector;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -7,25 +7,17 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
-import com.abb.presenzdetector.MainActivity;
-import com.dialog.suota.async.DeviceConnectTask;
-import com.dialog.suota.data.Statics;
 
 /**
  * Created by wouter on 9-10-14.
  */
 public class Callback extends BluetoothGattCallback {
     public static String TAG = "Callback";
-    DeviceConnectTask task;
     private boolean refreshDone;
     private int refreshAttempt;
 
-    public Callback(DeviceConnectTask task) {
-        this.task = task;
-    }
 
     @Override
     public void onConnectionStateChange(final BluetoothGatt gatt, int status,
@@ -39,9 +31,9 @@ public class Callback extends BluetoothGattCallback {
             Log.i(TAG, "le device disconnected");
         }
         Intent intent = new Intent();
-        intent.setAction(Statics.CONNECTION_STATE_UPDATE);
+        intent.setAction(MainActivity.CONNECTION_STATE_UPDATE);
         intent.putExtra("state", newState);
-        task.context.sendBroadcast(intent);
+        MainActivity.getInstance().sendBroadcast(intent);
     }
 
     @Override
@@ -49,9 +41,9 @@ public class Callback extends BluetoothGattCallback {
         Log.i(TAG, "onServicesDiscovered");
         if (status != BluetoothGatt.GATT_SUCCESS) {
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", Statics.ERROR_COMMUNICATION);
-            task.context.sendBroadcast(intent);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+            intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+            MainActivity.getInstance().sendBroadcast(intent);
             return;
         }
         // Refresh device cache. This is the safest place to initiate the procedure.
@@ -63,26 +55,26 @@ public class Callback extends BluetoothGattCallback {
             return;
         }
         // Check for SUOTA support
-        BluetoothGattService suota = gatt.getService(Statics.SPOTA_SERVICE_UUID);
+        BluetoothGattService suota = gatt.getService(MainActivity.SPOTA_SERVICE_UUID);
         if (suota == null
-            || suota.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_GPIO_MAP_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_MEM_INFO_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_PATCH_LEN_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_PATCH_DATA_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID) == null
-            || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID).getDescriptor(Statics.SPOTA_DESCRIPTOR_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
+            || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
             ) {
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", Statics.ERROR_SUOTA_NOT_FOUND);
-            task.context.sendBroadcast(intent);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+            intent.putExtra("error", MainActivity.ERROR_SUOTA_NOT_FOUND);
+            MainActivity.getInstance().sendBroadcast(intent);
             return;
         }
         Intent intent = new Intent();
-        intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+        intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
         intent.putExtra("step", 0);
-        task.context.sendBroadcast(intent);
+        MainActivity.getInstance().sendBroadcast(intent);
     }
 
     @Override
@@ -91,17 +83,17 @@ public class Callback extends BluetoothGattCallback {
         int index = -1;
         int step = -1;
 
-        if (characteristic.getUuid().equals(Statics.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
+        if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
             index = 0;
-        } else if (characteristic.getUuid().equals(Statics.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
+        } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
             index = 1;
-        } else if (characteristic.getUuid().equals(Statics.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
+        } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
             index = 2;
-        } else if (characteristic.getUuid().equals(Statics.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
+        } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
             index = 3;
         }
         // SPOTA
-        else if (characteristic.getUuid().equals(Statics.SPOTA_MEM_INFO_UUID)) {
+        else if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
 //			int memInfoValue = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0);
 //			Log.d("mem info", memInfoValue + "");
 //			DeviceActivity.getInstance().logMemInfoValue(memInfoValue);
@@ -113,7 +105,7 @@ public class Callback extends BluetoothGattCallback {
         if (sendUpdate) {
             Log.d(TAG, "onCharacteristicRead: " + index);
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
             if (index >= 0) {
                 intent.putExtra("characteristic", index);
                 intent.putExtra("value", new String(characteristic.getValue()));
@@ -121,7 +113,7 @@ public class Callback extends BluetoothGattCallback {
                 intent.putExtra("step", step);
                 intent.putExtra("value", characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0));
             }
-            task.context.sendBroadcast(intent);
+            MainActivity.getInstance().sendBroadcast(intent);
         }
 
         super.onCharacteristicRead(gatt, characteristic, status);
@@ -135,20 +127,20 @@ public class Callback extends BluetoothGattCallback {
             Log.i(TAG, "write succeeded");
             int step = -1;
             // Step 2 callback: write SPOTA_MEM_DEV_UUID value
-            if (characteristic.getUuid().equals(Statics.SPOTA_MEM_DEV_UUID)) {
+            if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_DEV_UUID)) {
                 int currStep = MainActivity.getInstance().suotaManager.step;
                 if (currStep == 2 || currStep == 3)
                     step = 3;
             }
             // Step 3 callback: write SPOTA_GPIO_MAP_UUID value
-            else if (characteristic.getUuid().equals(Statics.SPOTA_GPIO_MAP_UUID)) {
+            else if (characteristic.getUuid().equals(MainActivity.SPOTA_GPIO_MAP_UUID)) {
                 step = 4;
             }
             // Step 4 callback: set the patch length, default 240
-            else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_LEN_UUID)) {
+            else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_LEN_UUID)) {
                 step = MainActivity.getInstance().suotaManager.type == SuotaManager.TYPE ? 5 : 7;
             }
-            else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_DATA_UUID)
+            else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_DATA_UUID)
                     //&& DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE
                     && MainActivity.getInstance().suotaManager.chunkCounter != -1
                     ) {
@@ -165,18 +157,18 @@ public class Callback extends BluetoothGattCallback {
 
             if (step > 0) {
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
                 intent.putExtra("step", step);
-                task.context.sendBroadcast(intent);
+                MainActivity.getInstance().sendBroadcast(intent);
             }
         } else {
             Log.e(TAG, "write failed: " + status);
             // Suota on remote device doesn't send write response before reboot
             if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", Statics.ERROR_COMMUNICATION);
-                task.context.sendBroadcast(intent);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+                MainActivity.getInstance().sendBroadcast(intent);
             }
         }
         super.onCharacteristicWrite(gatt, characteristic, status);
@@ -188,18 +180,18 @@ public class Callback extends BluetoothGattCallback {
         Log.d(TAG, "onDescriptorWrite");
         if (status != BluetoothGatt.GATT_SUCCESS) {
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-            intent.putExtra("error", Statics.ERROR_COMMUNICATION);
-            task.context.sendBroadcast(intent);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+            intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
+            MainActivity.getInstance().sendBroadcast(intent);
             return;
         }
-        if (descriptor.getCharacteristic().getUuid().equals(Statics.SPOTA_SERV_STATUS_UUID)) {
+        if (descriptor.getCharacteristic().getUuid().equals(MainActivity.SPOTA_SERV_STATUS_UUID)) {
             int step = 2;
 
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
             intent.putExtra("step", step);
-            task.context.sendBroadcast(intent);
+            MainActivity.getInstance().sendBroadcast(intent);
         }
     }
 
@@ -226,11 +218,11 @@ public class Callback extends BluetoothGattCallback {
         }
         if (step >= 0 || error >= 0 || memDevValue >= 0) {
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
             intent.putExtra("step", step);
             intent.putExtra("error", error);
             intent.putExtra("memDevValue", memDevValue);
-            task.context.sendBroadcast(intent);
+            MainActivity.getInstance().sendBroadcast(intent);
         }
     }
 }

@@ -1,10 +1,8 @@
-package com.dialog.suota.data;
+package com.abb.presenzdetector;
 
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-
-import com.dialog.suota.bluetooth.SuotaManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,7 +59,7 @@ public class BLEFile {
 
 	public void setFileBlockSize(int fileBlockSize) {
 		this.fileBlockSize = fileBlockSize;
-		this.chunksPerBlockCount = (int) Math.ceil((double) fileBlockSize / (double) Statics.fileChunkSize);
+		this.chunksPerBlockCount = (int) Math.ceil((double) fileBlockSize / (double) MainActivity.fileChunkSize);
 		this.numberOfBlocks = (int) Math.ceil((double) this.bytes.length / (double) this.fileBlockSize);
 		this.initBlocks();
 	}
@@ -76,19 +74,19 @@ public class BLEFile {
 			if (i + 1 == this.numberOfBlocks) {
 				blockSize = this.bytes.length % this.fileBlockSize;
 			}
-			int numberOfChunksInBlock = (int) Math.ceil((double) blockSize / Statics.fileChunkSize);
+			int numberOfChunksInBlock = (int) Math.ceil((double) blockSize / MainActivity.fileChunkSize);
 			int chunkNumber = 0;
 			blocks[i] = new byte[numberOfChunksInBlock][];
-			for (int j = 0; j < blockSize; j += Statics.fileChunkSize) {
+			for (int j = 0; j < blockSize; j += MainActivity.fileChunkSize) {
 				// Default chunk size
-				int chunkSize = Statics.fileChunkSize;
+				int chunkSize = MainActivity.fileChunkSize;
 				// Last chunk of all
-				if (byteOffset + Statics.fileChunkSize > this.bytes.length) {
+				if (byteOffset + MainActivity.fileChunkSize > this.bytes.length) {
 					chunkSize = this.bytes.length - byteOffset;
 				}
 				// Last chunk in block
-				else if (j + Statics.fileChunkSize > blockSize) {
-					chunkSize = this.fileBlockSize % Statics.fileChunkSize;
+				else if (j + MainActivity.fileChunkSize > blockSize) {
+					chunkSize = this.fileBlockSize % MainActivity.fileChunkSize;
 				}
 
 				Log.d("chunk", "total bytes: " + this.bytes.length + ", offset: " + byteOffset + ", block: " + i + ", chunk: " + (chunkNumber + 1) + ", blocksize: " + blockSize + ", chunksize: " + chunkSize);
@@ -107,17 +105,17 @@ public class BLEFile {
 	private void initBlocksSpota() {
 		this.numberOfBlocks = 1;
 		this.fileBlockSize = this.bytes.length;
-		this.totalChunkCount = (int) Math.ceil((double) this.bytes.length / (double) Statics.fileChunkSize);
+		this.totalChunkCount = (int) Math.ceil((double) this.bytes.length / (double) MainActivity.fileChunkSize);
 		this.blocks = new byte[numberOfBlocks][this.totalChunkCount][];
 		int byteOffset = 0;
-		int chunkSize = Statics.fileChunkSize;
+		int chunkSize = MainActivity.fileChunkSize;
 		for (int i = 0; i < this.totalChunkCount; i++) {
-			if (byteOffset + Statics.fileChunkSize > this.bytes.length) {
+			if (byteOffset + MainActivity.fileChunkSize > this.bytes.length) {
 				chunkSize = this.bytes.length - byteOffset;
 			}
 			byte[] chunk = Arrays.copyOfRange(this.bytes, byteOffset, byteOffset + chunkSize);
 			blocks[0][i] = chunk;
-			byteOffset += Statics.fileChunkSize;
+			byteOffset += MainActivity.fileChunkSize;
 		}
 	}
 
@@ -125,6 +123,8 @@ public class BLEFile {
 	private void initBlocks() {
 		if (this.type == SuotaManager.TYPE) {
 			this.initBlocksSuota();
+		} else if (this.type == SpotaManager.TYPE) {
+			this.initBlocksSpota();
 		}
 	}
 

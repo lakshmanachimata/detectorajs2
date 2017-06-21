@@ -32,12 +32,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.dialog.suota.bluetooth.BJBLEManager;
-import com.dialog.suota.bluetooth.SuotaManager;
-import com.dialog.suota.data.Statics;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
@@ -100,8 +96,8 @@ public class BluetoothLeService extends Service {
 
             if (status != BluetoothGatt.GATT_SUCCESS) {
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
@@ -113,24 +109,24 @@ public class BluetoothLeService extends Service {
                 gatt.discoverServices();
                 return;
             }
-            BluetoothGattService suota = gatt.getService(Statics.SPOTA_SERVICE_UUID);
+            BluetoothGattService suota = gatt.getService(MainActivity.SPOTA_SERVICE_UUID);
             if (suota == null
-                    || suota.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_GPIO_MAP_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_MEM_INFO_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_PATCH_LEN_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_PATCH_DATA_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID) == null
-                    || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID).getDescriptor(Statics.SPOTA_DESCRIPTOR_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
+                    || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
                     ) {
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", Statics.ERROR_SUOTA_NOT_FOUND);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", MainActivity.ERROR_SUOTA_NOT_FOUND);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
             Intent intent = new Intent();
-            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+            intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
             intent.putExtra("step", 0);
             MainActivity.getInstance().sendBroadcast(intent);
 
@@ -178,20 +174,20 @@ public class BluetoothLeService extends Service {
                 Log.i(MainActivity.LOG_TAG, "write succeeded");
                 int step = -1;
                 // Step 2 callback: write SPOTA_MEM_DEV_UUID value
-                if (characteristic.getUuid().equals(Statics.SPOTA_MEM_DEV_UUID)) {
+                if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_DEV_UUID)) {
                     int currStep = MainActivity.getInstance().suotaManager.step;
                     if (currStep == 2 || currStep == 3)
                         step = 3;
                 }
                 // Step 3 callback: write SPOTA_GPIO_MAP_UUID value
-                else if (characteristic.getUuid().equals(Statics.SPOTA_GPIO_MAP_UUID)) {
+                else if (characteristic.getUuid().equals(MainActivity.SPOTA_GPIO_MAP_UUID)) {
                     step = 4;
                 }
                 // Step 4 callback: set the patch length, default 240
-                else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_LEN_UUID)) {
+                else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_LEN_UUID)) {
                     step = MainActivity.getInstance().suotaManager.type == SuotaManager.TYPE ? 5 : 7;
                 }
-                else if (characteristic.getUuid().equals(Statics.SPOTA_PATCH_DATA_UUID)
+                else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_DATA_UUID)
                         //&& DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE
                         && MainActivity.getInstance().suotaManager.chunkCounter != -1
                         ) {
@@ -208,7 +204,7 @@ public class BluetoothLeService extends Service {
 
                 if (step > 0) {
                     Intent intent = new Intent();
-                    intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                    intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
                     intent.putExtra("step", step);
                     MainActivity.getInstance().sendBroadcast(intent);
                 }
@@ -217,8 +213,8 @@ public class BluetoothLeService extends Service {
                 // Suota on remote device doesn't send write response before reboot
                 if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
                     Intent intent = new Intent();
-                    intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-                    intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                    intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+                    intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
                     MainActivity.getInstance().sendBroadcast(intent);
                 }
             }
@@ -253,16 +249,16 @@ public class BluetoothLeService extends Service {
             Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
             if (status != BluetoothGatt.GATT_SUCCESS) {
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
-                intent.putExtra("error", Statics.ERROR_COMMUNICATION);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", MainActivity.ERROR_COMMUNICATION);
                 MainActivity.getInstance().sendBroadcast(intent);
                 return;
             }
-            if (descriptor.getCharacteristic().getUuid().equals(Statics.SPOTA_SERV_STATUS_UUID)) {
+            if (descriptor.getCharacteristic().getUuid().equals(MainActivity.SPOTA_SERV_STATUS_UUID)) {
                 int step = 2;
 
                 Intent intent = new Intent();
-                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.setAction(MainActivity.BLUETOOTH_GATT_UPDATE);
                 intent.putExtra("step", step);
                 MainActivity.getInstance().sendBroadcast(intent);
             }

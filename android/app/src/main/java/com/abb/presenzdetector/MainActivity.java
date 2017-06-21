@@ -35,12 +35,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -50,19 +46,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dialog.suota.bluetooth.BJBLEManager;
-import com.dialog.suota.bluetooth.SpotaManager;
-import com.dialog.suota.bluetooth.SuotaManager;
-import com.dialog.suota.data.Statics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -73,33 +63,27 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-
 import de.buschjaeger.freeathomedemo.FreeathomeJNI;
 import de.buschjaeger.freeathomedemo.Util;
 
@@ -114,7 +98,75 @@ public class MainActivity extends Activity {
     static final String  SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
     static final String   SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
     static final String   INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
+    public static final String BLUETOOTH_GATT_UPDATE = "BluetoothGattUpdate";
+    public static final String PROGRESS_UPDATE = "ProgressUpdate";
+    public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
+    public static final int fileChunkSize = 20;
 
+    public static final int MEMORY_TYPE_SYSTEM_RAM = 1;
+    public static final int MEMORY_TYPE_RETENTION_RAM = 2;
+    public static final int MEMORY_TYPE_SPI = 3;
+    public static final int MEMORY_TYPE_I2C = 4;
+
+    public static final UUID SPOTA_SERVICE_UUID = UUID.fromString("0000fef5-0000-1000-8000-00805f9b34fb");
+    public static final UUID SPOTA_MEM_DEV_UUID = UUID.fromString("8082caa8-41a6-4021-91c6-56f9b954cc34");
+    public static final UUID SPOTA_GPIO_MAP_UUID = UUID.fromString("724249f0-5eC3-4b5f-8804-42345af08651");
+    public static final UUID SPOTA_MEM_INFO_UUID = UUID.fromString("6c53db25-47a1-45fe-a022-7c92fb334fd4");
+    public static final UUID SPOTA_PATCH_LEN_UUID = UUID.fromString("9d84b9a3-000c-49d8-9183-855b673fda31");
+    public static final UUID SPOTA_PATCH_DATA_UUID = UUID.fromString("457871e8-d516-4ca1-9116-57d0b17b9cb2");
+    public static final UUID SPOTA_SERV_STATUS_UUID = UUID.fromString("5f78df94-798c-46f5-990a-b3eb6a065c88");
+    public static final UUID SPOTA_DESCRIPTOR_UUID = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_SERVICE_DEVICE_INFORMATION              = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING = UUID.fromString("00002A29-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING      = UUID.fromString("00002A24-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SERIAL_NUMBER_STRING     = UUID.fromString("00002A25-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_HARDWARE_REVISION_STRING = UUID.fromString("00002A27-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING = UUID.fromString("00002A26-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING = UUID.fromString("00002A28-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SYSTEM_ID                = UUID.fromString("00002A23-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_IEEE_11073               = UUID.fromString("00002A2A-0000-1000-8000-00805f9b34fb");
+    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_PNP_ID                   = UUID.fromString("00002A50-0000-1000-8000-00805f9b34fb");
+    // Default SPI memory settings
+    public static final int DEFAULT_MISO_VALUE = 5;
+    public static final int DEFAULT_MOSI_VALUE = 6;
+    public static final int DEFAULT_CS_VALUE = 3;
+    public static final int DEFAULT_SCK_VALUE = 0;
+    public static final String DEFAULT_BLOCK_SIZE_VALUE = "240";
+
+    // Default I2C memory settings
+    public static final int DEFAULT_MEMORY_BANK = 0;
+    public static final String DEFAULT_I2C_DEVICE_ADDRESS = "0x50";
+    public static final int DEFAULT_SCL_GPIO_VALUE = 2;
+    public static final int DEFAULT_SDA_GPIO_VALUE = 3;
+
+    public static final int MEMORY_TYPE_SUOTA_INDEX = 100;
+    public static final int MEMORY_TYPE_SPOTA_INDEX = 101;
+
+    // Application error codes (must be greater than 255 in order not to conflict with SUOTA error codes)
+    public static final int ERROR_COMMUNICATION = 0xffff; // ble communication error
+    public static final int ERROR_SUOTA_NOT_FOUND = 0xfffe; // suota service was not found
+
+
+    // Default memory type
+    public static final int DEFAULT_MEMORY_TYPE = MEMORY_TYPE_SPI;
+
+
+    private static String filesDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Suota";
+    private InputStream inputStream;
+    private byte crc;
+    private byte[] bytes;
+
+    private byte[][][] blocks;
+
+    private int fileBlockSize = 0;
+    private int bytesAvailable;
+    private int numberOfBlocks = -1;
+    private int chunksPerBlockCount;
+    private int totalChunkCount;
+    private int type;
+
+
+    SSLContext sslContext;
 
     private WebView webview;
     View splashScreen;
@@ -123,7 +175,6 @@ public class MainActivity extends Activity {
     BluetoothManager bluetoothManager;
     boolean blePacketStart = false;
     boolean blePacketEnd = false;
-    byte blePacketCounter = 0;
     ByteBuffer bleRecvBuffer;
 
     private BluetoothLeService mBluetoothLeService;
@@ -144,7 +195,6 @@ public class MainActivity extends Activity {
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
-    // Stops scanning after 5 seconds.
     private static final long SCAN_PERIOD = 15 * 60 * 1000;
 
 
@@ -221,7 +271,7 @@ public class MainActivity extends Activity {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();//zf.close here
+            e.printStackTrace();
         }
 
         suotaManager = new SuotaManager(MainActivity.this);
@@ -263,14 +313,7 @@ public class MainActivity extends Activity {
         else {
             setUpBluetooth();
         }
-
-
         String version = pInfo.versionName;
-
-        // Checks if Bluetooth is supported on the device.
-
-
-
 
         TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
         String logoText = "BJE\n presence\n detector";
@@ -288,10 +331,6 @@ public class MainActivity extends Activity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(activity.getResources().getColor(android.R.color.black));
         }
-
-
-
-
 
         webview.setWebViewClient(new WebViewClient() {
 
@@ -345,14 +384,11 @@ public class MainActivity extends Activity {
 
         mInstance = this;
 
-        Log.d(LOG_TAG, "Creating new free@home context");
         initFreeathomeContext();
-
         String hostName = "my-staging.busch-jaeger.de";
         String userName = "lakshmana";
         String password = "Abb@123456";
         Log.d(LOG_TAG, "Starting to connect to " + hostName);
-        File files[] = getFilesDir().listFiles();
         FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
         checkForFilesAgain();
     }
@@ -452,26 +488,12 @@ public class MainActivity extends Activity {
         }
 
 
-    void setLanguageToWeb(Locale locale){
-        try {
-            JSONObject jsonObject =  new JSONObject();
-            jsonObject.put("language",locale.toString());
-            String deviceData = "";
-                deviceData = deviceData + "setWebLanguage(";
-            deviceData = deviceData + jsonObject.toString() + ")";
-            webview.evaluateJavascript(deviceData, null);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    SSLContext sslContext;
     void addDevice(String btAddress,String filename){
 
         try {
             // Load CAs from an InputStream
 // (could be from a resource or ByteArrayInputStream or ...)
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
-// From https://www.washington.edu/itconnect/security/ca/load-der.crt
             InputStream caInput = new BufferedInputStream(new FileInputStream(filename));
             Certificate ca;
             try {
@@ -481,7 +503,6 @@ public class MainActivity extends Activity {
                 caInput.close();
             }
 
-// Create a KeyStore containing our trusted CAs
             String keyStoreType = KeyStore.getDefaultType();
             KeyStore keyStore = KeyStore.getInstance(keyStoreType);
             keyStore.load(null, null);
@@ -521,11 +542,6 @@ public class MainActivity extends Activity {
                     }
             };
 
-
-// Create a TrustManager that trusts the CAs in our KeyStore
-
-
-// Create an SSLContext that uses our TrustManager
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, wrappedTrustManagers, null);
             new URLTask().execute("https://api.my-staging.busch-jaeger.de/api/user/device/controltouch-unit-enduser/" + btAddress);
@@ -668,7 +684,6 @@ public class MainActivity extends Activity {
             }
 
             mBleGatt =  mBluetoothLeService.getGatt();
-            // Automatically connects to the device upon successful start-up initialization.
             if(scannedDevices.size() > 0)
                 mBluetoothLeService.connect(scannedDevices.get(0).btAddress);
 
@@ -709,15 +724,12 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
         if (loaded) {
             if (webview != null) {
-                //Review javaScript Enbable again:
                 webview.getSettings().setJavaScriptEnabled(true);
             }
         }
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-
     }
 
     void connectDevice(final String address){
@@ -768,7 +780,6 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
-                //addDevice(mBluetoothLeService.getGatt().getDevice().getAddress(),myFile);
                 if(scanner != null) {
                     notifyAppAboutConnection(true);
                     scanner.stopScan(bleCallback);
@@ -969,10 +980,6 @@ public class MainActivity extends Activity {
                     String devicesdata =  "updateScanList(";
                     devicesdata = devicesdata + myCustomArray.toString();
                     devicesdata = devicesdata + ")";
-//                    if(scannedDevices.size() > 0)
-//                        Toast.makeText(getApplicationContext(),"Devices Discovered",Toast.LENGTH_LONG).show();
-//                    else
-//                        Toast.makeText(getApplicationContext(),"DEMO MODE",Toast.LENGTH_LONG).show();
                     if(scannedDevices.size() > 0) {
                         webview.evaluateJavascript(devicesdata, null);
                         Log.d(MainActivity.LOG_TAG , "devices are " + devicesdata);
@@ -998,7 +1005,7 @@ public class MainActivity extends Activity {
                         writeCharecteristic =  gattCharacteristics.get(j);
                     }else if(uuidstr.equalsIgnoreCase(SERVER_TX_DATA)) {
                         mBluetoothLeService.setCharacteristicNotification(gattCharacteristics.get(j),true);
-                    } else if (uuidstr.equals(Statics.SPOTA_MEM_INFO_UUID)) {
+                    } else if (uuidstr.equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
                         setSpotaMemInfoCharacteristic(gattCharacteristics.get(j));
                     }
                 }
@@ -1222,5 +1229,4 @@ public class MainActivity extends Activity {
     public void log(String message) {
         Log.d(LOG_TAG,message);
     }
-
 }

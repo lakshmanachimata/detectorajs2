@@ -1,14 +1,10 @@
-package com.dialog.suota.bluetooth;
+package com.abb.presenzdetector;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
-import com.abb.presenzdetector.MainActivity;
-import com.abb.presenzdetector.MainActivity;
-import com.dialog.suota.data.Statics;
 
 /**
  * Created by wouter on 6-11-14.
@@ -122,14 +118,14 @@ public class SpotaManager extends BJBLEManager {
 		// For system and retention RAM, the patch base address is 0x00, for SPI and I2C, it's custom.
 		boolean customPatchBaseAddress = false;
 		switch (memoryType) {
-			case Statics.MEMORY_TYPE_RETENTION_RAM:
+			case MainActivity.MEMORY_TYPE_RETENTION_RAM:
 				memTypeBase = MEMORY_TYPE_RETENTION_RAM;
 				break;
-			case Statics.MEMORY_TYPE_SPI:
+			case MainActivity.MEMORY_TYPE_SPI:
 				memTypeBase = MEMORY_TYPE_EXTERNAL_SPI;
 				customPatchBaseAddress = true;
 				break;
-			case Statics.MEMORY_TYPE_I2C:
+			case MainActivity.MEMORY_TYPE_I2C:
 				memTypeBase = MEMORY_TYPE_EXTERNAL_I2C;
 				customPatchBaseAddress = true;
 				break;
@@ -152,8 +148,8 @@ public class SpotaManager extends BJBLEManager {
 
     @Override
     public void sendEndSignal() {
-        BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-                .getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
+        BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+                .getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID);
         characteristic.setValue(0xff000000, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
         activity.getGatt().writeCharacteristic(characteristic);
 		endSignalSent = true;

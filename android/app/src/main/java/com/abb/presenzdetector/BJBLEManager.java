@@ -1,4 +1,4 @@
-package com.dialog.suota.bluetooth;
+package com.abb.presenzdetector;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
@@ -10,10 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
-
-import com.abb.presenzdetector.MainActivity;
-import com.dialog.suota.data.BLEFile;
-import com.dialog.suota.data.Statics;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -173,11 +169,11 @@ public abstract class BJBLEManager {
 			List<BluetoothGattCharacteristic> characteristics = service.getCharacteristics();
 			for (BluetoothGattCharacteristic characteristic : characteristics) {
 				//activity.log("  Found characteristic: " + characteristic.getUuid().toString());
-				if (characteristic.getUuid().equals(Statics.SPOTA_SERV_STATUS_UUID)) {
+				if (characteristic.getUuid().equals(MainActivity.SPOTA_SERV_STATUS_UUID)) {
 					//activity.log("*** Found SUOTA service");
 					activity.getGatt().setCharacteristicNotification(characteristic, true);
 					BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-							Statics.SPOTA_DESCRIPTOR_UUID);
+							MainActivity.SPOTA_DESCRIPTOR_UUID);
 					descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
 					activity.getGatt().writeDescriptor(descriptor);
 				}
@@ -188,8 +184,8 @@ public abstract class BJBLEManager {
 	protected abstract int getSpotaMemDev();
 
 	public void setSpotaMemDev() {
-		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+				.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID);
 
 		int memType = this.getSpotaMemDev();
 		characteristic.setValue(memType, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
@@ -227,11 +223,11 @@ public abstract class BJBLEManager {
 		int memInfoData = 0;
 		boolean valid = false;
 		switch (memoryType) {
-			case Statics.MEMORY_TYPE_SPI:
+			case MainActivity.MEMORY_TYPE_SPI:
 				memInfoData = this.getMemParamsSPI();
 				valid = true;
 				break;
-			case Statics.MEMORY_TYPE_I2C:
+			case MainActivity.MEMORY_TYPE_I2C:
 				memInfoData = this.getMemParamsI2C();
 				valid = true;
 				break;
@@ -239,8 +235,8 @@ public abstract class BJBLEManager {
 		if (valid) {
 			Log.d(TAG, "setSpotaGpioMap: " + String.format("%#10x", memInfoData));
 			//activity.log("Set SPOTA_GPIO_MAP: " + String.format("%#10x", memInfoData));
-			BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-					.getCharacteristic(Statics.SPOTA_GPIO_MAP_UUID);
+			BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+					.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID);
 			characteristic.setValue(memInfoData, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
 			activity.getGatt().writeCharacteristic(characteristic);
 		} else {
@@ -258,8 +254,8 @@ public abstract class BJBLEManager {
 		}
 		Log.d(TAG, "setPatchLength: " + blocksize + " - " + String.format("%#4x", blocksize));
 		//activity.log("Set SPOTA_PATCH_LENGTH: " + blocksize);
-		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-				.getCharacteristic(Statics.SPOTA_PATCH_LEN_UUID);
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+				.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID);
 		characteristic.setValue(blocksize, BluetoothGattCharacteristic.FORMAT_UINT16, 0);
 		activity.getGatt().writeCharacteristic(characteristic);
 	}
@@ -315,8 +311,8 @@ public abstract class BJBLEManager {
 
 
 
-            BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-					.getCharacteristic(Statics.SPOTA_PATCH_DATA_UUID);
+            BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+					.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID);
 
 			characteristic.setValue(chunk);
 			characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
@@ -342,8 +338,8 @@ public abstract class BJBLEManager {
 	public void sendEndSignal() {
 		Log.d(TAG, "sendEndSignal");
 		//activity.log("send SUOTA END command");
-		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+				.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID);
 		characteristic.setValue(END_SIGNAL, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
         activity.getGatt().writeCharacteristic(characteristic);
 		endSignalSent = true;
@@ -352,8 +348,8 @@ public abstract class BJBLEManager {
 	public void sendRebootSignal() {
 		Log.d(TAG, "sendRebootSignal");
 		//activity.log("send SUOTA REBOOT command");
-		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(Statics.SPOTA_SERVICE_UUID)
-				.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID);
+		BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
+				.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID);
 		characteristic.setValue(REBOOT_SIGNAL, BluetoothGattCharacteristic.FORMAT_UINT32, 0);
         activity.getGatt().writeCharacteristic(characteristic);
 		rebootsignalSent = true;
@@ -468,8 +464,8 @@ public abstract class BJBLEManager {
 		errors.put(0x16, "Failed to read from external memory device");
 
         // Application error codes
-        errors.put(Statics.ERROR_COMMUNICATION, "Communication error.");
-        errors.put(Statics.ERROR_SUOTA_NOT_FOUND, "The remote device does not support SUOTA.");
+        errors.put(MainActivity.ERROR_COMMUNICATION, "Communication error.");
+        errors.put(MainActivity.ERROR_SUOTA_NOT_FOUND, "The remote device does not support SUOTA.");
 	}
 
 	protected void goToStep(int step) {
