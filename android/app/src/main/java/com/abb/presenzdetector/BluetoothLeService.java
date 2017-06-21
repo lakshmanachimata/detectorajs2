@@ -72,9 +72,6 @@ public class BluetoothLeService extends Service {
     public final static String EXTRA_CHARECTERSTIC =
             "com.example.bluetooth.le.EXTRA_CHARECTERSTIC";
 
-    public final static UUID UUID_HEART_RATE_MEASUREMENT =
-            UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
-
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -116,6 +113,27 @@ public class BluetoothLeService extends Service {
                 gatt.discoverServices();
                 return;
             }
+            BluetoothGattService suota = gatt.getService(Statics.SPOTA_SERVICE_UUID);
+            if (suota == null
+                    || suota.getCharacteristic(Statics.SPOTA_MEM_DEV_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_GPIO_MAP_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_MEM_INFO_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_PATCH_LEN_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_PATCH_DATA_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID) == null
+                    || suota.getCharacteristic(Statics.SPOTA_SERV_STATUS_UUID).getDescriptor(Statics.SPOTA_DESCRIPTOR_UUID) == null
+                    ) {
+                Intent intent = new Intent();
+                intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+                intent.putExtra("error", Statics.ERROR_SUOTA_NOT_FOUND);
+                MainActivity.getInstance().sendBroadcast(intent);
+                return;
+            }
+            Intent intent = new Intent();
+            intent.setAction(Statics.BLUETOOTH_GATT_UPDATE);
+            intent.putExtra("step", 0);
+            MainActivity.getInstance().sendBroadcast(intent);
+
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
@@ -297,30 +315,16 @@ public class BluetoothLeService extends Service {
                                  final BluetoothGattCharacteristic characteristic) {
         final Intent intent = new Intent(action);
 
-        // This is special handling for the Heart Rate Measurement profile.  Data parsing is
-        // carried out as per profile specifications:
-        // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
-        if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
-            int flag = characteristic.getProperties();
-            int format = -1;
-            if ((flag & 0x01) != 0) {
-                format = BluetoothGattCharacteristic.FORMAT_UINT16;
-            } else {
-                format = BluetoothGattCharacteristic.FORMAT_UINT8;
-            }
-            final int heartRate = characteristic.getIntValue(format, 1);
-            intent.putExtra(EXTRA_DATA, String.valueOf(heartRate));
-        } else {
-            // For all other profiles, writes the data formatted in HEX.
-            final byte[] data = characteristic.getValue();
-            if (data != null && data.length > 0) {
-                final StringBuilder stringBuilder = new StringBuilder(data.length);
-                for(byte byteChar : data)
-                    stringBuilder.append(String.format("%02X ", byteChar));
 
-                intent.putExtra(EXTRA_DATA, data);
-                intent.putExtra(EXTRA_CHARECTERSTIC, new String(characteristic.getUuid().toString()));
-            }
+        // For all other profiles, writes the data formatted in HEX.
+        final byte[] data = characteristic.getValue();
+        if (data != null && data.length > 0) {
+            final StringBuilder stringBuilder = new StringBuilder(data.length);
+            for(byte byteChar : data)
+                stringBuilder.append(String.format("%02X ", byteChar));
+
+            intent.putExtra(EXTRA_DATA, data);
+            intent.putExtra(EXTRA_CHARECTERSTIC, new String(characteristic.getUuid().toString()));
         }
         sendBroadcast(intent);
     }
@@ -487,14 +491,6 @@ public class BluetoothLeService extends Service {
             return;
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
-
-        // This is specific to Heart Rate Measurement.
-        if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
-            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
-                    UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
-            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-            mBluetoothGatt.writeDescriptor(descriptor);
-        }
     }
 
     /**
@@ -504,8 +500,8 @@ public class BluetoothLeService extends Service {
      * @return A {@code List} of supported services.
      */
     public List<BluetoothGattService> getSupportedGattServices() {
-        if (mBluetoothGatt == null) return null;
-
+        if (mBluetoothGatt == null)
+            return null;
         return mBluetoothGatt.getServices();
     }
 }

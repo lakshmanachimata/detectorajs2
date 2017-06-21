@@ -20,8 +20,6 @@ import com.dialog.suota.data.Statics;
 public class Callback extends BluetoothGattCallback {
     public static String TAG = "Callback";
     DeviceConnectTask task;
-    private Handler handler = new Handler();
-    private int checkRefreshAttempts;
     private boolean refreshDone;
     private int refreshAttempt;
 
@@ -36,22 +34,9 @@ public class Callback extends BluetoothGattCallback {
         if (newState == BluetoothProfile.STATE_CONNECTED) {
             Log.i(TAG, "le device connected");
             gatt.discoverServices();
-            // Wait for cache refresh before starting service discovery.
-            /*handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (task.refreshSucceeded() || ++checkRefreshAttempts > 20) {
-                        gatt.discoverServices();
-                    }
-                    else {
-                        Log.d(TAG, "Delay service discovery: " + checkRefreshAttempts);
-                        handler.postDelayed(this, 100);
-                    }
-                }
-            });*/
+
         } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
             Log.i(TAG, "le device disconnected");
-            handler.removeCallbacksAndMessages(null);
         }
         Intent intent = new Intent();
         intent.setAction(Statics.CONNECTION_STATE_UPDATE);
