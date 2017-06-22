@@ -391,25 +391,8 @@ public abstract class BJBLEManager {
 		finished = true;
 		refreshPending = true;
 		activity.log("Upload completed");
-		new AlertDialog.Builder(context)
-				.setTitle("Upload completed")
-				.setMessage("Reboot device?")
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-//						if (!activity.isDisconnected()) {
-							sendRebootSignal();
-//							activity.hideDisconnectMenu();
-//						}
-					}
-				})
-				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						//activity.switchView(0);
-						//disconnect();
-					}
-				})
-				.show();
-	}
+		sendRebootSignal();
+		}
 
 	public void onError(int errorCode) {
 		if (!hasError) {

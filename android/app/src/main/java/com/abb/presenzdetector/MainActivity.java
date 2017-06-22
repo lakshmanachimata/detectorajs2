@@ -178,7 +178,7 @@ public class MainActivity extends Activity {
 
     public  static String fwFileDirectory = "";
     SSLContext sslContext;
-
+    DetectorInfo selectedDetectorInfo = null;
     private WebView webview;
     View splashScreen;
     View mainScreen;
@@ -207,6 +207,7 @@ public class MainActivity extends Activity {
     public  static boolean isUpdateFWFailed =  false;
     public  static boolean isFWUpdateSupported = true;
 
+    BluetoothDevice bluetoothDevice;
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
@@ -221,15 +222,16 @@ public class MainActivity extends Activity {
     };
 
     class DetectorInfo {
-        String hashCode;
-        String btDeviceName;
-        String modelNumber;
-        String manufacturerName;
-        String deviceType;
-        String rssi;
-        String firmwareVersion;
-        String softwareVersion;
-        String btAddress;
+        String hashCode = "";
+        String btDeviceName = "";
+        String modelNumber = "";
+        String manufacturerName = "";
+        String deviceType = "";
+        String rssi = "";
+        String firmwareVersion = "";
+        String softwareVersion = "";
+        String btAddress = "";
+        boolean isSelected = false;
     }
     static public BJBLEManager suotaManager;
     //static public SpotaManager spotaManager;
@@ -298,15 +300,9 @@ public class MainActivity extends Activity {
         fwFilesList.clear();
         for(int count=0; count < fields.length; count++){
             fwFilesList.add(fields[count].getName());
-            Log.i("Raw Asset: ", fields[count].getName());
         }
         suotaManager = new SuotaManager(MainActivity.this);
         setMemoryType(MainActivity.MEMORY_TYPE_SPI);
-
-        InputStream ins = getResources().openRawResource(
-                getResources().getIdentifier(fwFilesList.get(0),
-                        "raw", getPackageName()));
-
 
         //spotaManager = new SpotaManager(MainActivity.this);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
@@ -817,12 +813,24 @@ public class MainActivity extends Activity {
                 if(scanner != null) {
                     notifyAppAboutConnection(true);
                     scanner.stopScan(bleCallback);
+                    for (int di = 0; di < scannedDevices.size(); di++) {
+                        if (getGatt().getDevice().getAddress().equalsIgnoreCase(scannedDevices.get(di).btAddress)) {
+                            bluetoothDevice = getGatt().getDevice();
+                            scannedDevices.get(di).isSelected = true;
+                            selectedDetectorInfo = scannedDevices.get(di);
+                        }
+                    }
                 }
             }
             else if (ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
                 if(scanner != null)
                     scanner.startScan(bleCallback);
+                for(int di =0; di < scannedDevices.size(); di++) {
+                    bluetoothDevice = null;
+                    scannedDevices.get(di).isSelected = false;
+                    selectedDetectorInfo = null;
+                }
             }
             else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -1061,7 +1069,28 @@ public class MainActivity extends Activity {
     }
 
     public void setItemValue(int index, String value) {
-        // set Items of all requested here.
+        switch (index){
+            case 0:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.manufacturerName = value;
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.softwareVersion = value;
+                }
+                break;
+            case 3:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.firmwareVersion = value;
+                    startUpdate();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void getGattServices(List<BluetoothGattService> gattServices) {
@@ -1250,7 +1279,40 @@ public class MainActivity extends Activity {
 
 
 
-    private void startUpdate() {
+    public  void startUpdate() {
+
+        String existingFwVersion =  selectedDetectorInfo.firmwareVersion;
+        String deviceType = selectedDetectorInfo.modelNumber;
+        String fileName = "";
+        for(int jj =0; jj <fwFilesList.size(); jj++){
+            String iFile = fwFilesList.get(jj);
+            if(deviceType.contains("01")){
+                if(iFile.contains("relais")){
+                    fileName = fwFilesList.get(jj);
+                }
+
+            }else if(deviceType.contains("03")){
+                if(iFile.contains("mosfet")){
+                    fileName = fwFilesList.get(jj);
+                }
+            }else if(deviceType.contains("05")){
+                if(iFile.contains("dali")){
+                    fileName = fwFilesList.get(jj);
+                }
+            }
+        }
+
+
+
+        try {
+            InputStream ins = getResources().openRawResource(
+                    getResources().getIdentifier(fileName,
+                            "raw", getPackageName()));
+            suotaManager.setFile(new BLEFile(ins));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent();
 
         if (suotaManager.type == SpotaManager.TYPE) {
@@ -1270,6 +1332,7 @@ public class MainActivity extends Activity {
         int fileBlockSize = 1;
         if (suotaManager.type == SuotaManager.TYPE) {
             try {
+                fileBlockSize = BLEFile.fileBlockSize;
             } catch (NumberFormatException nfe) {
                 fileBlockSize = 0;
             }
@@ -1280,7 +1343,7 @@ public class MainActivity extends Activity {
         suotaManager.getFile().setFileBlockSize(fileBlockSize);
 
         intent.setAction(MainActivity.ACTION_FW_UPDATE);
-        intent.putExtra("step", 1);
+        intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 1);
         sendBroadcast(intent);
     }
 

@@ -39,9 +39,10 @@ public class SuotaManager extends BJBLEManager {
         else {
             int index = intent.getIntExtra("characteristic", -1);
             String value = intent.getStringExtra("value");
-            activity.
-                    setItemValue(index, value);
-            readNextCharacteristic();
+            if(index >=0) {
+                activity.setItemValue(index, value);
+                readNextCharacteristic();
+            }
         }
         Log.d(TAG, "step " + this.step);
         switch (this.step) {

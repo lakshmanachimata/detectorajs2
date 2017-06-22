@@ -22,14 +22,14 @@ public class BLEFile {
 
 	private byte[][][] blocks;
 
-	private int fileBlockSize = 240;
+	public static int fileBlockSize = 240;
 	private int bytesAvailable;
 	private int numberOfBlocks = -1;
 	private int chunksPerBlockCount;
 	private int totalChunkCount;
 	private int type;
 
-	private BLEFile(InputStream inputStream) throws IOException {
+	public BLEFile(InputStream inputStream) throws IOException {
 		this.inputStream = inputStream;
 		this.bytesAvailable = this.inputStream.available();
 	}

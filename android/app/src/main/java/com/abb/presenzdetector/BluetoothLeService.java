@@ -175,6 +175,34 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
+            super.onCharacteristicChanged(gatt, characteristic);
+            int value = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+            Log.d(MainActivity.LOG_TAG, String.format("SPOTA_SERV_STATUS notification: %#04x", value));
+
+            int step = -1;
+            int error = -1;
+            int memDevValue = -1;
+            // Set memtype callback
+            if (value == 0x10) {
+                step = 3;
+            }
+            // Successfully sent a block, send the next one
+            else if (value == 0x02) {
+                step = MainActivity.suotaManager.type == SuotaManager.TYPE ? 5 : 8;
+            } else if (value == 0x03 || value == 0x01) {
+                memDevValue = value;
+            } else {
+                error = value;
+            }
+            if (step >= 0 || error >= 0 || memDevValue >= 0) {
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, error);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, memDevValue);
+                MainActivity.getInstance().sendBroadcast(intent);
+            }
+
             broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
         }
         /**
