@@ -15,14 +15,14 @@ import java.util.Comparator;
  * Created by wouter on 9-10-14.
  */
 public class BLEFile {
-	private static String filesDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Suota";
+
 	private InputStream inputStream;
 	private byte crc;
 	private byte[] bytes;
 
 	private byte[][][] blocks;
 
-	private int fileBlockSize = 0;
+	private int fileBlockSize = 240;
 	private int bytesAvailable;
 	private int numberOfBlocks = -1;
 	private int chunksPerBlockCount;
@@ -167,12 +167,12 @@ public class BLEFile {
 
 	public static BLEFile getByFileName(String filename) throws IOException {
 		// Get the file and store it in fileStream
-		InputStream is = new FileInputStream(filesDir + "/" + filename);
+		InputStream is = new FileInputStream(MainActivity.fwFileDirectory + "/" + filename);
 		return new BLEFile(is);
 	}
 
     public static ArrayList<String> list() {
-		java.io.File f = new java.io.File(filesDir);
+		java.io.File f = new java.io.File(MainActivity.fwFileDirectory);
 		java.io.File file[] = f.listFiles();
         Arrays.sort(file, new Comparator<java.io.File>() {
             @Override
@@ -209,7 +209,7 @@ public class BLEFile {
 //	}
 
 	public static void createFileDirectories(Context c) {
-		String directoryName = filesDir;
+		String directoryName = MainActivity.fwFileDirectory;
 		java.io.File directory;
 		directory = new java.io.File(directoryName);
 		directory.mkdirs();

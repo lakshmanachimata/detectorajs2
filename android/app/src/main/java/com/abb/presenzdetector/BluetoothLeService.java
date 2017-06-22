@@ -132,7 +132,41 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicRead(BluetoothGatt gatt,
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
-            if (status == BluetoothGatt.GATT_SUCCESS) {
+            int index = -1;
+            int step = -1;
+            boolean sendUpdate = true;
+
+            if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
+                index = 0;
+            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
+                index = 1;
+            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
+                index = 2;
+            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
+                index = 3;
+            }// SPOTA
+            else if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
+//			int memInfoValue = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0);
+//			Log.d("mem info", memInfoValue + "");
+//			DeviceActivity.getInstance().logMemInfoValue(memInfoValue);
+                step = 5;
+            } else {
+                sendUpdate = false;
+            }
+
+            if (sendUpdate) {
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                if (index >= 0) {
+                    intent.putExtra("characteristic", index);
+                    intent.putExtra("value", new String(characteristic.getValue()));
+                } else {
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                    intent.putExtra("value", characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0));
+                }
+                MainActivity.getInstance().sendBroadcast(intent);
+            }
+            if (status == BluetoothGatt.GATT_SUCCESS && characteristic.getService().getUuid().toString() == MainActivity.DSPS_SERVICE) {
                 broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
             }
             super.onCharacteristicRead(gatt, characteristic, status);

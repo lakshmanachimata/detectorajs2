@@ -21,9 +21,9 @@ public class SuotaManager extends BJBLEManager {
     }
 
     public void processStep(Intent intent) {
-        int newStep = intent.getIntExtra("step", -1);
-        int error = intent.getIntExtra("error", -1);
-        int memDevValue = intent.getIntExtra("memDevValue", -1);
+        int newStep = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_STEP, -1);
+        int error = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_ERROR, -1);
+        int memDevValue = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, -1);
         if (error != -1) {
             onError(error);
         }
@@ -39,7 +39,8 @@ public class SuotaManager extends BJBLEManager {
         else {
             int index = intent.getIntExtra("characteristic", -1);
             String value = intent.getStringExtra("value");
-//            activity.setItemValue(index, value);
+            activity.
+                    setItemValue(index, value);
             readNextCharacteristic();
         }
         Log.d(TAG, "step " + this.step);

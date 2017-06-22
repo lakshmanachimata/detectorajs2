@@ -25,9 +25,9 @@ public class SpotaManager extends BJBLEManager {
 
     @Override
     public void processStep(Intent intent) {
-        int newStep = intent.getIntExtra("step", -1);
-        int error = intent.getIntExtra("error", -1);
-        int memDevValue = intent.getIntExtra("memDevValue", -1);
+        int newStep = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_STEP, -1);
+        int error = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_ERROR, -1);
+        int memDevValue = intent.getIntExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, -1);
         if (error != -1) {
             onError(error);
         }

@@ -7,6 +7,7 @@ package com.abb.presenzdetector;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -20,6 +21,7 @@ import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -46,6 +48,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +68,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -172,12 +176,14 @@ public class MainActivity extends Activity {
     public static final int DEFAULT_MEMORY_TYPE = MEMORY_TYPE_SPI;
 
 
-
+    public  static String fwFileDirectory = "";
     SSLContext sslContext;
 
     private WebView webview;
     View splashScreen;
     View mainScreen;
+
+    ArrayList<String> fwFilesList = new ArrayList<>();
 
     BluetoothManager bluetoothManager;
     boolean blePacketStart = false;
@@ -194,6 +200,7 @@ public class MainActivity extends Activity {
     ArrayList <BluetoothGattService> mGattServices =  new ArrayList<>();
     BluetoothGattCharacteristic writeCharecteristic;
 
+    int memoryType;
     public  static boolean isUpdateFWStart =  false;
     public  static boolean isUpdateFWGoing =  false;
     public  static boolean isUpdateFWSuccess =  false;
@@ -224,8 +231,8 @@ public class MainActivity extends Activity {
         String softwareVersion;
         String btAddress;
     }
-    static public SuotaManager suotaManager;
-    static public SpotaManager spotaManager;
+    static public BJBLEManager suotaManager;
+    //static public SpotaManager spotaManager;
     BluetoothLeScanner scanner;
     BluetoothGatt mBleGatt;
 
@@ -271,6 +278,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         PackageInfo pInfo = null;
         String buildDate= "2017-05-18\n17:30:00";
         mHandler = new Handler();
@@ -281,9 +289,26 @@ public class MainActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        mInstance = this;
 
+        fwFileDirectory =  getAssets().toString() + "/fwupdate";
+
+
+        Field[] fields=R.raw.class.getFields();
+        fwFilesList.clear();
+        for(int count=0; count < fields.length; count++){
+            fwFilesList.add(fields[count].getName());
+            Log.i("Raw Asset: ", fields[count].getName());
+        }
         suotaManager = new SuotaManager(MainActivity.this);
-        spotaManager = new SpotaManager(MainActivity.this);
+        setMemoryType(MainActivity.MEMORY_TYPE_SPI);
+
+        InputStream ins = getResources().openRawResource(
+                getResources().getIdentifier(fwFilesList.get(0),
+                        "raw", getPackageName()));
+
+
+        //spotaManager = new SpotaManager(MainActivity.this);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 
 
@@ -390,7 +415,7 @@ public class MainActivity extends Activity {
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
-        mInstance = this;
+
 
         initFreeathomeContext();
         String hostName = "my-staging.busch-jaeger.de";
@@ -706,6 +731,7 @@ public class MainActivity extends Activity {
     private static IntentFilter makeGattUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_GATT_CONNECTED);
+        intentFilter.addAction(ACTION_FW_UPDATE);
         intentFilter.addAction(ACTION_GATT_DISCONNECTED);
         intentFilter.addAction(ACTION_GATT_SERVICES_DISCOVERED);
         intentFilter.addAction(ACTION_DATA_AVAILABLE);
@@ -804,6 +830,8 @@ public class MainActivity extends Activity {
             }
             else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
+            }else if(ACTION_FW_UPDATE.equals(action)){
+                suotaManager.processStep(intent);
             }
         }
     };
@@ -1004,21 +1032,36 @@ public class MainActivity extends Activity {
 
     public void getDeviceInfo() {
         for(int i =0; i < mGattServices.size(); i++) {
-            if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE)) {
+            //if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE))
+            {
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
                             mGattServices.get(i).getCharacteristics();
                 for(int j =0;j < gattCharacteristics.size(); j++ ){
-                    String uuidstr = gattCharacteristics.get(j).getUuid().toString();
+                    UUID myUUID =  gattCharacteristics.get(j).getUuid();
+                    String uuidstr = myUUID.toString();
                     if(uuidstr.equalsIgnoreCase(SERVER_RX_DATA)) {
                         writeCharecteristic =  gattCharacteristics.get(j);
                     }else if(uuidstr.equalsIgnoreCase(SERVER_TX_DATA)) {
                         mBluetoothLeService.setCharacteristicNotification(gattCharacteristics.get(j),true);
-                    } else if (uuidstr.equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
+                    }else if (myUUID.equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
+                        suotaManager.characteristicsQueue.add(gattCharacteristics.get(j));
+                    }else if (myUUID.equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
+                        suotaManager.characteristicsQueue.add(gattCharacteristics.get(j));
+                    } else if (myUUID.equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
+                        suotaManager.characteristicsQueue.add(gattCharacteristics.get(j));
+                    } else if (myUUID.equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
+                        suotaManager.characteristicsQueue.add(gattCharacteristics.get(j));
+                    }else if (myUUID.equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
                         setSpotaMemInfoCharacteristic(gattCharacteristics.get(j));
                     }
                 }
             }
+            suotaManager.readNextCharacteristic();
         }
+    }
+
+    public void setItemValue(int index, String value) {
+        // set Items of all requested here.
     }
 
     private void getGattServices(List<BluetoothGattService> gattServices) {
@@ -1203,6 +1246,68 @@ public class MainActivity extends Activity {
                 scanner.stopScan(bleCallback);
         }
     }
+
+
+
+
+    private void startUpdate() {
+        Intent intent = new Intent();
+
+        if (suotaManager.type == SpotaManager.TYPE) {
+            suotaManager.setPatchBaseAddress(0);
+        } else if (suotaManager.type == SuotaManager.TYPE) {
+        }
+
+        if (memoryType == MainActivity.MEMORY_TYPE_I2C) {
+            try {
+                suotaManager.setI2CDeviceAddress(0);
+            } catch (NumberFormatException nfe) {
+                return;
+            }
+        }
+
+        // Set default block size to 1 for SPOTA, this will not be used in this case
+        int fileBlockSize = 1;
+        if (suotaManager.type == SuotaManager.TYPE) {
+            try {
+            } catch (NumberFormatException nfe) {
+                fileBlockSize = 0;
+            }
+            if (fileBlockSize == 0) {
+                return;
+            }
+        }
+        suotaManager.getFile().setFileBlockSize(fileBlockSize);
+
+        intent.setAction(MainActivity.ACTION_FW_UPDATE);
+        intent.putExtra("step", 1);
+        sendBroadcast(intent);
+    }
+
+
+
+    private void setMemoryType(int memoryType) {
+        this.memoryType = memoryType;
+        suotaManager.setMemoryType(memoryType);
+
+
+        switch (memoryType) {
+            case MainActivity.MEMORY_TYPE_SYSTEM_RAM:
+                break;
+            case MainActivity.MEMORY_TYPE_RETENTION_RAM:
+                break;
+            case MainActivity.MEMORY_TYPE_SPI:
+                if (suotaManager.type == SpotaManager.TYPE) {
+                }
+                break;
+            case MainActivity.MEMORY_TYPE_I2C:
+                if (suotaManager.type == SpotaManager.TYPE) {
+                }
+                break;
+        }
+    }
+
+
     static char seed = 0xFFFF;
 
     static char[] crcCCITTLookupTable = {

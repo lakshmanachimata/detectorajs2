@@ -32,10 +32,10 @@ public abstract class BJBLEManager {
 	int memoryType;
 
 	// SPI
-	int MISO_GPIO;  // P0_5 (0x05)
-	int MOSI_GPIO;  // P0_6 (0x06)
-	int CS_GPIO;    // P0_3 (0x03)
-	int SCK_GPIO;   // P0_0 (0x00)
+	int MISO_GPIO = 0x05;  // P0_5 (0x05)
+	int MOSI_GPIO = 0x06;  // P0_6 (0x06)
+	int CS_GPIO = 0x03;    // P0_3 (0x03)
+	int SCK_GPIO =  0x00;   // P0_0 (0x00)
 
 	// I2C
 	int I2CDeviceAddress;
@@ -74,6 +74,7 @@ public abstract class BJBLEManager {
 	public BJBLEManager(Context context) {
 		this.context = context;
 		initErrorMap();
+		activity = MainActivity.getInstance();
 		characteristicsQueue = new ArrayDeque<BluetoothGattCharacteristic>();
 	}
 
@@ -467,7 +468,7 @@ public abstract class BJBLEManager {
 
 	protected void goToStep(int step) {
 		Intent i = new Intent();
-		i.putExtra("step", step);
+		i.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
 		processStep(i);
 	}
 
