@@ -84,47 +84,50 @@ public class BluetoothLeService extends Service {
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
 
-            if (status != BluetoothGatt.GATT_SUCCESS) {
+            if(MainActivity.isUpdateFWStart == true) {
+                if (status != BluetoothGatt.GATT_SUCCESS) {
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                    return;
+                }
+                // Refresh device cache. This is the safest place to initiate the procedure.
+                if (!refreshDone && ++refreshAttempt <= 10) {
+                    refreshDone = BJBLEManager.refresh(gatt); // should not fail
+                    if (refreshDone)
+                        Log.d(MainActivity.LOG_TAG, "restart discovery after refresh");
+                    gatt.discoverServices();
+                    return;
+                }
+                BluetoothGattService suota = gatt.getService(MainActivity.SPOTA_SERVICE_UUID);
+                if (suota == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
+                        || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
+                        ) {
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_SUOTA_NOT_FOUND);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
+                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
                 MainActivity.getInstance().sendBroadcast(intent);
-                return;
-            }
-            // Refresh device cache. This is the safest place to initiate the procedure.
-            if (!refreshDone && ++refreshAttempt <= 10) {
-                refreshDone = BJBLEManager.refresh(gatt); // should not fail
-                if (refreshDone)
-                    Log.d(MainActivity.LOG_TAG, "restart discovery after refresh");
-                gatt.discoverServices();
-                return;
-            }
-            BluetoothGattService suota = gatt.getService(MainActivity.SPOTA_SERVICE_UUID);
-            if (suota == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
-                    || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
-                    ) {
-                Intent intent = new Intent();
-                intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_SUOTA_NOT_FOUND);
-                MainActivity.getInstance().sendBroadcast(intent);
-                return;
-            }
-            Intent intent = new Intent();
-            intent.setAction(MainActivity.ACTION_FW_UPDATE);
-            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
-            MainActivity.getInstance().sendBroadcast(intent);
+            }else {
 
-
-            if (status == BluetoothGatt.GATT_SUCCESS) {
-                broadcastUpdate(MainActivity.ACTION_GATT_SERVICES_DISCOVERED);
-            } else {
-                Log.w(MainActivity.LOG_TAG, "onServicesDiscovered received: " + status);
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    broadcastUpdate(MainActivity.ACTION_GATT_SERVICES_DISCOVERED);
+                }
+                else {
+                    Log.w(MainActivity.LOG_TAG, "onServicesDiscovered received: " + status);
+                }
             }
         }
 
@@ -132,78 +135,90 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicRead(BluetoothGatt gatt,
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
-            int index = -1;
-            int step = -1;
-            boolean sendUpdate = true;
+            if(MainActivity.isUpdateFWStart == true) {
+                int index = -1;
+                int step = -1;
+                boolean sendUpdate = true;
 
-            if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
-                index = 0;
-            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
-                index = 1;
-            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
-                index = 2;
-            } else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
-                index = 3;
-            }// SPOTA
-            else if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
+                if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
+                    index = 0;
+                }
+                else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING)) {
+                    index = 1;
+                }
+                else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING)) {
+                    index = 2;
+                }
+                else if (characteristic.getUuid().equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING)) {
+                    index = 3;
+                }// SPOTA
+                else if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_INFO_UUID)) {
 //			int memInfoValue = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0);
 //			Log.d("mem info", memInfoValue + "");
 //			DeviceActivity.getInstance().logMemInfoValue(memInfoValue);
-                step = 5;
-            } else {
-                sendUpdate = false;
-            }
-
-            if (sendUpdate) {
-                Intent intent = new Intent();
-                intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                if (index >= 0) {
-                    intent.putExtra("characteristic", index);
-                    intent.putExtra("value", new String(characteristic.getValue()));
-                } else {
-                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
-                    intent.putExtra("value", characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0));
+                    step = 5;
                 }
-                MainActivity.getInstance().sendBroadcast(intent);
+                else {
+                    sendUpdate = false;
+                }
+
+                if (sendUpdate) {
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    if (index >= 0) {
+                        intent.putExtra("characteristic", index);
+                        intent.putExtra("value", new String(characteristic.getValue()));
+                    }
+                    else {
+                        intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                        intent.putExtra("value", characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 0));
+                    }
+                    MainActivity.getInstance().sendBroadcast(intent);
+                }
+            }else {
+                if (status == BluetoothGatt.GATT_SUCCESS ) {
+                    broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
+                }
+                super.onCharacteristicRead(gatt, characteristic, status);
             }
-            if (status == BluetoothGatt.GATT_SUCCESS && characteristic.getService().getUuid().toString() == MainActivity.DSPS_SERVICE) {
-                broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
-            }
-            super.onCharacteristicRead(gatt, characteristic, status);
         }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
-            super.onCharacteristicChanged(gatt, characteristic);
-            int value = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
-            Log.d(MainActivity.LOG_TAG, String.format("SPOTA_SERV_STATUS notification: %#04x", value));
+            if(MainActivity.isUpdateFWStart == true) {
+                super.onCharacteristicChanged(gatt, characteristic);
+                int value = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
+                Log.d(MainActivity.LOG_TAG, String.format("SPOTA_SERV_STATUS notification: %#04x", value));
 
-            int step = -1;
-            int error = -1;
-            int memDevValue = -1;
-            // Set memtype callback
-            if (value == 0x10) {
-                step = 3;
+                int step = -1;
+                int error = -1;
+                int memDevValue = -1;
+                // Set memtype callback
+                if (value == 0x10) {
+                    step = 3;
+                }
+                // Successfully sent a block, send the next one
+                else if (value == 0x02) {
+                    step = MainActivity.suotaManager.type == SuotaManager.TYPE ? 5 : 8;
+                }
+                else if (value == 0x03 || value == 0x01) {
+                    memDevValue = value;
+                }
+                else {
+                    error = value;
+                }
+                if (step >= 0 || error >= 0 || memDevValue >= 0) {
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, error);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, memDevValue);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                }
+            }else {
+                broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
             }
-            // Successfully sent a block, send the next one
-            else if (value == 0x02) {
-                step = MainActivity.suotaManager.type == SuotaManager.TYPE ? 5 : 8;
-            } else if (value == 0x03 || value == 0x01) {
-                memDevValue = value;
-            } else {
-                error = value;
-            }
-            if (step >= 0 || error >= 0 || memDevValue >= 0) {
-                Intent intent = new Intent();
-                intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, error);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_MEMDEVVALUE, memDevValue);
-                MainActivity.getInstance().sendBroadcast(intent);
-            }
-
-            broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
         }
         /**
          * Callback indicating the result of a characteristic write operation.
@@ -222,55 +237,58 @@ public class BluetoothLeService extends Service {
          */
         public void onCharacteristicWrite(BluetoothGatt gatt,
                                           BluetoothGattCharacteristic characteristic, int status) {
-            if (status == BluetoothGatt.GATT_SUCCESS) {
-                Log.i(MainActivity.LOG_TAG, "write succeeded");
-                int step = -1;
-                // Step 2 callback: write SPOTA_MEM_DEV_UUID value
-                if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_DEV_UUID)) {
-                    int currStep = MainActivity.getInstance().suotaManager.step;
-                    if (currStep == 2 || currStep == 3)
-                        step = 3;
-                }
-                // Step 3 callback: write SPOTA_GPIO_MAP_UUID value
-                else if (characteristic.getUuid().equals(MainActivity.SPOTA_GPIO_MAP_UUID)) {
-                    step = 4;
-                }
-                // Step 4 callback: set the patch length, default 240
-                else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_LEN_UUID)) {
-                    step = MainActivity.getInstance().suotaManager.type == SuotaManager.TYPE ? 5 : 7;
-                }
-                else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_DATA_UUID)
-                        //&& DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE
-                        && MainActivity.getInstance().suotaManager.chunkCounter != -1
-                        ) {
-                    //step = DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE ? 5 : 7;
+            if(MainActivity.isUpdateFWStart == true) {
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    Log.i(MainActivity.LOG_TAG, "write succeeded");
+                    int step = -1;
+                    // Step 2 callback: write SPOTA_MEM_DEV_UUID value
+                    if (characteristic.getUuid().equals(MainActivity.SPOTA_MEM_DEV_UUID)) {
+                        int currStep = MainActivity.getInstance().suotaManager.step;
+                        if (currStep == 2 || currStep == 3)
+                            step = 3;
+                    }
+                    // Step 3 callback: write SPOTA_GPIO_MAP_UUID value
+                    else if (characteristic.getUuid().equals(MainActivity.SPOTA_GPIO_MAP_UUID)) {
+                        step = 4;
+                    }
+                    // Step 4 callback: set the patch length, default 240
+                    else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_LEN_UUID)) {
+                        step = MainActivity.getInstance().suotaManager.type == SuotaManager.TYPE ? 5 : 7;
+                    }
+                    else if (characteristic.getUuid().equals(MainActivity.SPOTA_PATCH_DATA_UUID)
+                            //&& DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE
+                            && MainActivity.getInstance().suotaManager.chunkCounter != -1
+                            ) {
+                        //step = DeviceActivity.getInstance().bluetoothManager.type == SuotaManager.TYPE ? 5 : 7;
                 /*DeviceActivity.getInstance().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         DeviceActivity.getInstance().bluetoothManager.sendBlock();
                     }
                 });*/
-                    //Log.d(TAG, "Next block in chunk " + DeviceActivity.getInstance().bluetoothManager.chunkCounter);
-                    MainActivity.getInstance().suotaManager.sendBlock();
-                }
+                        //Log.d(TAG, "Next block in chunk " + DeviceActivity.getInstance().bluetoothManager.chunkCounter);
+                        MainActivity.getInstance().suotaManager.sendBlock();
+                    }
 
-                if (step > 0) {
-                    Intent intent = new Intent();
-                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
-                    MainActivity.getInstance().sendBroadcast(intent);
+                    if (step > 0) {
+                        Intent intent = new Intent();
+                        intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                        intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                        MainActivity.getInstance().sendBroadcast(intent);
+                    }
                 }
-            } else {
-                Log.e(MainActivity.LOG_TAG, "write failed: " + status);
-                // Suota on remote device doesn't send write response before reboot
-                if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
-                    Intent intent = new Intent();
-                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
-                    MainActivity.getInstance().sendBroadcast(intent);
+                else {
+                    Log.e(MainActivity.LOG_TAG, "write failed: " + status);
+                    // Suota on remote device doesn't send write response before reboot
+                    if (!MainActivity.getInstance().suotaManager.rebootsignalSent) {
+                        Intent intent = new Intent();
+                        intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                        intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
+                        MainActivity.getInstance().sendBroadcast(intent);
+                    }
                 }
+                super.onCharacteristicWrite(gatt, characteristic, status);
             }
-            super.onCharacteristicWrite(gatt, characteristic, status);
         }
 
         /**
@@ -297,22 +315,24 @@ public class BluetoothLeService extends Service {
          */
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor,
                                       int status) {
-            super.onDescriptorWrite(gatt, descriptor, status);
-            Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
-            if (status != BluetoothGatt.GATT_SUCCESS) {
-                Intent intent = new Intent();
-                intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
-                MainActivity.getInstance().sendBroadcast(intent);
-                return;
-            }
-            if (descriptor.getCharacteristic().getUuid().equals(MainActivity.SPOTA_SERV_STATUS_UUID)) {
-                int step = 2;
+            if(MainActivity.isUpdateFWStart == true) {
+                super.onDescriptorWrite(gatt, descriptor, status);
+                Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
+                if (status != BluetoothGatt.GATT_SUCCESS) {
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_ERROR, MainActivity.ERROR_COMMUNICATION);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                    return;
+                }
+                if (descriptor.getCharacteristic().getUuid().equals(MainActivity.SPOTA_SERV_STATUS_UUID)) {
+                    int step = 2;
 
-                Intent intent = new Intent();
-                intent.setAction(MainActivity.ACTION_FW_UPDATE);
-                intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
-                MainActivity.getInstance().sendBroadcast(intent);
+                    Intent intent = new Intent();
+                    intent.setAction(MainActivity.ACTION_FW_UPDATE);
+                    intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, step);
+                    MainActivity.getInstance().sendBroadcast(intent);
+                }
             }
         }
 

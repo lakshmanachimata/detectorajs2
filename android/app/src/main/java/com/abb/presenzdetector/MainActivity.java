@@ -838,9 +838,10 @@ public class MainActivity extends Activity {
             }
             else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
-            }else if(ACTION_FW_UPDATE.equals(action)){
-                suotaManager.processStep(intent);
             }
+//            else if(ACTION_FW_UPDATE.equals(action)){
+//                suotaManager.processStep(intent);
+//            }
         }
     };
 
@@ -1085,7 +1086,6 @@ public class MainActivity extends Activity {
             case 3:
                 if(selectedDetectorInfo != null){
                     selectedDetectorInfo.firmwareVersion = value;
-                    startUpdate();
                 }
                 break;
             default:
@@ -1097,24 +1097,24 @@ public class MainActivity extends Activity {
         mGattServices.clear();
         mGattServices.addAll(gattServices);
         BluetoothGattService suota = getGatt().getService(MainActivity.SPOTA_SERVICE_UUID);
-        if (suota == null
-                || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
-                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
-                )
-        {
-            isFWUpdateSupported =  false;
-        }else {
-            isFWUpdateSupported = true;
-            Intent intent = new Intent();
-            intent.setAction(MainActivity.ACTION_FW_UPDATE);
-            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
-            MainActivity.getInstance().sendBroadcast(intent);
-        }
+//        if (suota == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
+//                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
+//                )
+//        {
+//            isFWUpdateSupported =  false;
+//        }else {
+//            isFWUpdateSupported = true;
+//            Intent intent = new Intent();
+//            intent.setAction(MainActivity.ACTION_FW_UPDATE);
+//            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
+//            MainActivity.getInstance().sendBroadcast(intent);
+//        }
     }
 
     @Override
