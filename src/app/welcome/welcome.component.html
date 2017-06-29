@@ -2,14 +2,14 @@
   <div class="box-welcome">
     <div id="square-blue"></div>
     <div id="square-white"></div>
-    <div id="label-welcome" i18n>Welcome</div>
+    <div id="label-welcome" >{{ getWelcomeString() }}</div>
   </div>
     <div class="bj-welcome-container">
         <div id="bj-label-selection" i18n>Please select your user type</div>
         <div id="bj-main-menu-nav">
             <ul id="bj-welcome-nav" class="nav nav-pills nav-stacked">
-                <li (click)="gotoProfile('electrician')"><ng-container i18n>Installer</ng-container><span id="nav-right-electrician"  class="glyphicon glyphicon-menu-right"></span></li>
-                <li (click)="gotoProfile('user')"><ng-container i18n>Standard User</ng-container><span id="nav-right-user" class="glyphicon glyphicon-menu-right"></span></li>
+                <li (click)="gotoProfile('electrician')">{{ getElectricianString() }}<span id="nav-right-electrician"  class="glyphicon glyphicon-menu-right"></span></li>
+                <li (click)="gotoProfile('user')">{{ getUserString() }}<span id="nav-right-user" class="glyphicon glyphicon-menu-right"></span></li>
             </ul>
         </div>
     </div>

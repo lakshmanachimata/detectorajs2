@@ -26,8 +26,9 @@ export class i18n_Lang_Defs
             {
                 if(this.langTranslations[this.userLanguageCode]){
                     console.log('the lang code is ' + this.userLanguageCode);
-                    let transData = this.langTranslations[this.userLanguageCode];
-                    console.log("trans data is " +  transData);
+                    //let transData = this.langTranslations[this.userLanguageCode];
+                    let transData = this.langTranslations['en'];
+                    //console.log("trans data is " +  transData)
                     return transData;
                 }
                 else
