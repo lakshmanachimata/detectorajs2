@@ -714,6 +714,9 @@ export class DataService {
         return this.uiParams.profileName;
     }
 
+    getTranslatedString(in_string){
+        return this.translater.translate(in_string);
+    }
     getSubMenuItems() {
         if(this.uiParams.profile == 'user') {
             let menuItems: Array<SubMenuItem> = [ 

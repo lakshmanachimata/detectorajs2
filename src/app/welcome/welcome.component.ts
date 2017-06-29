@@ -26,13 +26,4 @@ export class WelcomeComponent implements OnInit {
     this.router.navigateByUrl(item);
     this.data.setEDevParamsState(0);
   }
-  getElectricianString(){
-   return this.translater.translate('Installer');
-  }
-  getWelcomeString(){
-    return this.translater.translate('Welcome');
-  }
-  getUserString(){
-    return this.translater.translate('Standard User');
-  }
 }
