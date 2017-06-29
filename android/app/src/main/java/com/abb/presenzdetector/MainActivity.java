@@ -426,6 +426,9 @@ public class MainActivity extends Activity {
         return mBluetoothLeService.getGatt();
 
     }
+    public void killApp(){
+        finish();
+    }
 
     void copyFile(File src, File dst)  {
         if(certDebug) {

@@ -78,6 +78,11 @@ function reset() {
     }
 }
 
+function killMeFromJS(){
+    if(BJE != undefined)
+        BJE.killApp()
+}
+
 function readAttr(readData) {
     var data = []
      data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);

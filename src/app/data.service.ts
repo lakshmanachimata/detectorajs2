@@ -368,7 +368,7 @@ declare var disConnectDevice;
 declare var setDeviceAccessLevel;
 declare var setPwdToDevice;
 declare var authenticateDevice;
-
+declare var killMeFromJS;
 
 @Injectable()
 export class DataService {
@@ -385,6 +385,7 @@ export class DataService {
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
+    killMeFromJSObj:any;
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
     public DeviceBuild = 1;
@@ -1052,6 +1053,9 @@ export class DataService {
         }
     }
 
+    killMe(){
+        this.killMeFromJSObj =  new killMeFromJS();
+    }
     resetReadArray(){
         this.readArray = [];
     }
@@ -1339,8 +1343,6 @@ export class DataService {
             
         }
     }
-
-
 
     getUTCDateFormat(){
         var date = new Date();

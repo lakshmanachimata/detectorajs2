@@ -12,7 +12,6 @@ export class i18n_Lang_Defs
             }
     getUserLanguage(_langStr:string)
             {
-              console.log(_langStr);
                 if(_langStr!=''){
                     if(_langStr.indexOf('-')>0){
                         return _langStr.substring(0,_langStr.indexOf('-'));
@@ -25,8 +24,12 @@ export class i18n_Lang_Defs
             }
     getTranslations()
             {
-                if(this.langTranslations[this.userLanguageCode])
-                    return this.langTranslations[this.userLanguageCode];
+                if(this.langTranslations[this.userLanguageCode]){
+                    console.log('the lang code is ' + this.userLanguageCode);
+                    let transData = this.langTranslations[this.userLanguageCode];
+                    console.log("trans data is " +  transData);
+                    return transData;
+                }
                 else
                     return this.langTranslations['en'];
             }

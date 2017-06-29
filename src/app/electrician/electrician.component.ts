@@ -33,10 +33,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     connectDeviceObj:any; 
     snap:RouterStateSnapshot;
     isDeviceConnected =  false;
+    selectedDevice =  false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
     private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
+      this.selectedDevice = false;
     }
   configureDetector(item){
+      this.selectedDevice = true;
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         if(this.data.getDeviceConnectionState() == false)
@@ -151,6 +154,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
   ngOnDestroy() {
     this.data.resetSendData();
+    if(this.selectedDevice == false &&  this.data.getProfile() == 'electrician')
+      this.data.killMe();      
   }
   onDeviceConnected(address){
     this.isDeviceConnected = true;

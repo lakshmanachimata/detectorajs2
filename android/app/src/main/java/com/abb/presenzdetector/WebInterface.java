@@ -70,4 +70,10 @@ public class WebInterface {
         mainActivity.sendBLEAppFrame(data);
         return true;
     }
+    @JavascriptInterface
+    public void killApp() {
+        mainActivity.killApp();
+    }
+
+
 }

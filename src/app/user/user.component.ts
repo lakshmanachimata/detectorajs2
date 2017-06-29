@@ -34,10 +34,13 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     connectDeviceObj:any;
     snap:RouterStateSnapshot;
     isDeviceConnected = false;
+    selectedDevice = false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
     private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
+      this.selectedDevice = false;
     }
   configureDetectorUser(item){
+    this.selectedDevice = true;
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         this.data.connectDevice(item.btAddress);
@@ -144,6 +147,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
   ngOnDestroy() {
     this.data.resetSendData();
+    this.data.resetSendData();
+    if(this.selectedDevice == false &&  this.data.getProfile() == 'electrician')
+      this.data.killMe();  
   }
 
   onDeviceConnected(address){
