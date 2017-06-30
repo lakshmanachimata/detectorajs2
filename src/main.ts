@@ -10,16 +10,17 @@ let langs:i18n_Lang_Defs = new i18n_Lang_Defs();
 if (environment.production) {
   enableProdMode();
 }
+
 //let appRef:PlatformRef =platformBrowserDynamic();
 //platformBrowserDynamic().bootstrapModule(AppModule);
 platformBrowserDynamic().bootstrapModule(
-         AppModule,
-         {
-            providers: 
-            [
-              {provide: TRANSLATIONS, useValue: langs.getTranslations()},
-              {provide:TRANSLATIONS_FORMAT, useValue:'xlf'},
-              {provide:LOCALE_ID, useValue:langs.userLanguageCode}
-            ],
-        }
+         AppModule//,
+        //  {
+        //     providers: 
+        //     [
+        //       {provide: TRANSLATIONS, useValue: langs.getTranslations()},
+        //       {provide:TRANSLATIONS_FORMAT, useValue:'xlf'},
+        //       {provide:LOCALE_ID, useValue:langs.userLanguageCode}
+        //     ],
+        // }
          );

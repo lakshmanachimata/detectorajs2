@@ -17,9 +17,9 @@
 </div>
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState">
     <div id="bj-switch-mode-div">
-        <label class="bj-lbl" i18n>Selected user profile</label>
-        <div><label class="bj-config-setting " i18n>Installer</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
-        <div><label class="bj-config-setting" i18n>Standard User</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
+        <label class="bj-lbl" >{{ this.data.getTranslatedString("Selected user profile") }}</label>
+        <div><label class="bj-config-setting " >{{ this.data.getTranslatedString("Installer") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
+        <div><label class="bj-config-setting" >{{ this.data.getTranslatedString("Standard User") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
     </div>
 </div>
 
@@ -72,10 +72,10 @@
   </div>
   <div class="bj-sync-my-bj">
     <label class="info"> Please fill in login information</label> 
-    <label class="field" i18n>Username</label>
+    <label class="field" >{{ this.data.getTranslatedString("Username") }}</label>
     <input type="text" [(ngModel)]="username">
 
-    <label class="field" i18n>Password</label>
+    <label class="field" >{{ this.data.getTranslatedString("Password") }}</label>
     <input type="password" [(ngModel)]="password">
     <input type="button" value="Log in" (click)="logmeIn()">
   </div>
@@ -85,12 +85,12 @@
     <label class="bj-config-lbl">My Busch-jaeger / myABB account</label>            
   </div>
   <div class="bj-sync-my-bj">
-    <label class="info" i18n>You are now logged in</label> 
+    <label class="info" >{{ this.data.getTranslatedString("You are now logged in") }}</label> 
     <div class="bj-user-info">
         <label class="userInfo"> {{username}} </label> 
     </div>
     <div class="bj-config-setting  logout" (click)="logmeOut()" >
-        <label class="bj-config-setting logout-inner-block" i18n>Logout</label><span class="glyphicon glyphicon-stop"></span>
+        <label class="bj-config-setting logout-inner-block" >{{ this.data.getTranslatedString("Logout") }}</label><span class="glyphicon glyphicon-stop"></span>
     </div>
     <div class="bj-config-setting  syncstatus" >
         <label class="bj-config-setting syncstatus-inner-block" >Synchronization</label>
@@ -113,7 +113,7 @@
         </span>
     </div>
     <div class="bj-config-setting  sync" (click)="syncNow()">
-        <label class="bj-config-setting sync-inner-block" i18n>Sync now</label><span class="glyphicon glyphicon-stop"></span>
+        <label class="bj-config-setting sync-inner-block" >{{ this.data.getTranslatedString("Sync now") }}</label><span class="glyphicon glyphicon-stop"></span>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
       <div id="bj-user-config-settings-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
         <div id="bj-light-settings-div">
             <div class="bj-user-config-setting-div light1-div">
-                <label class="light-name" i18n>Light 1</label>
+                <label class="light-name" >{{ this.data.getTranslatedString("Light 1") }}</label>
                 <label class="bj-light-brightness-lbl" *ngIf="activeDevice.deviceType == 'daliMaster1c'" >{{ad.ch1CurrentLevel}}%</label>
                 <div class="bulb-channel-info light1-div">
                     <div class="slide-prev light1" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="bj-user-config-setting-div light2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
-                <label class="light-name" i18n>Light 2</label>
+                <label class="light-name" >{{ this.data.getTranslatedString("Light 2") }}</label>
                 <div class="bulb-channel-info light2-div">
                     <div class="bulb-glow light2" >
                         <img class="bulb-glow light2"  src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
@@ -49,7 +49,7 @@
                 <label class="bj-config-setting user-energy-monitor-block">Monitor energy</label><div class="slide-next energy-monitor"><span class="glyphicon glyphicon-menu-right"></span></div>
             </div>
             <div class="bj-config-setting-div other-settings-div" (click)="gotoSettings()">
-                <label class="bj-config-setting user-settings-block" i18n>Settings</label><div class="slide-next settings"><span class="glyphicon glyphicon-menu-right"></span></div>
+                <label class="bj-config-setting user-settings-block" >{{ this.data.getTranslatedString("Settings") }}</label><div class="slide-next settings"><span class="glyphicon glyphicon-menu-right"></span></div>
             </div>
         </div>
     </div>

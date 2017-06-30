@@ -2,9 +2,8 @@
 <div id="bj-user-energymonitor-div">
     <div id="user-energymonitor-tabpanel">
         <ul class="nav nav-tabs">
-            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"(click)="setActiveTab(1)" i18n>Month Overview</li>
-            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}" (click)="setActiveTab(2)" i18n>Year Overview
-</li>
+            <li class="energy-monitor-month" [ngClass]="{'active': activeTab === 1}"(click)="setActiveTab(1)" >{{ this.data.getTranslatedString("Month Overview") }}</li>
+            <li class="energy-monitor-year" [ngClass]="{'active': activeTab === 2}" (click)="setActiveTab(2)" >{{ this.data.getTranslatedString("Year Overview") }}</li>
         </ul>
     </div>
     <div id="user-energymonitor-tab-content">
@@ -57,9 +56,9 @@
                 <label class="total-savings-value month" *ngIf="activeTab === 1">{{TotalSavingsMonthValue}}$</label>
                 <label class="total-savings-value month" *ngIf="activeTab === 2">{{TotalSavingsYearValue}}$</label>
             </div>
-            <div class="user-sensor-settings" *ngIf="activeTab === 2" i18n>Sensor settings</div>
-            <div class="details reference-details" (click)="gotoReference()"><ng-container i18n>Reference details</ng-container><span class="glyphicon glyphicon-menu-right"></span></div>
-            <div class="details reset-data" (click)="resetEM()" ><ng-container i18n>Reset data</ng-container><span class="glyphicon glyphicon-remove"></span></div>
+            <div class="user-sensor-settings" *ngIf="activeTab === 2" >{{ this.data.getTranslatedString("Sensor settings") }}</div>
+            <div class="details reference-details" (click)="gotoReference()"><ng-container >{{ this.data.getTranslatedString("Reference details") }}</ng-container><span class="glyphicon glyphicon-menu-right"></span></div>
+            <div class="details reset-data" (click)="resetEM()" ><ng-container >{{ this.data.getTranslatedString("Reset data") }}</ng-container><span class="glyphicon glyphicon-remove"></span></div>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="bj-installed-container" [@subMenuSlideIn]="subMenuState" style="overflow-y: scroll;" >
 	
 	<div class="bj-sensor-setting">
-		<label class="section" i18n>Sensor settings</label>
+		<label class="section" >{{ this.data.getTranslatedString("Sensor settings") }}</label>
 		<div>
-			<label i18n>Block potentiometer setting</label>
-			<span *ngIf="ad.potentiometerMode == 0" i18n>Enabled</span>
-			<span *ngIf="ad.potentiometerMode == 1" i18n>Disabled</span>
+			<label >{{ this.data.getTranslatedString("Block potentiometer setting") }}</label>
+			<span *ngIf="ad.potentiometerMode == 0" >{{ this.data.getTranslatedString("Enabled") }}</span>
+			<span *ngIf="ad.potentiometerMode == 1" >{{ this.data.getTranslatedString("Disabled") }}</span>
 			<span *ngIf="ad.potentiometerMode == 2">Limited</span>
 		</div>
 		
@@ -18,63 +18,63 @@
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Constant light regulation</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
-			<span *ngIf="ad.constantLightControlEnable == false" i18n>OFF</span>
+			<span *ngIf="ad.constantLightControlEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
 		<div>
-		<label i18n>Brightness threshold</label>
-		<span>{{ad.brightnessThreshold}} <ng-container i18n>lx</ng-container></span>
+		<label >{{ this.data.getTranslatedString("Brightness threshold") }}</label>
+		<span>{{ad.brightnessThreshold}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container></span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
-		<label i18n>Consider slave brightness</label>
+		<label >{{ this.data.getTranslatedString("Consider slave brightness") }}</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
-			<span *ngIf="ad.constantLightControlEnable == false" i18n>OFF</span>
+			<span *ngIf="ad.constantLightControlEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
 			<span *ngIf="ad.delimitLightingLevelEnable == true">ON</span>
-			<span *ngIf="ad.delimitLightingLevelEnable == false" i18n>OFF</span>
+			<span *ngIf="ad.delimitLightingLevelEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
 		<div>
-		<label i18n>Smallest value as reference</label>
+		<label >{{ this.data.getTranslatedString("Smallest value as reference") }}</label>
 			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == true">ON</span>
-			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false" i18n>OFF</span>
+			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
 		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
-		<label i18n>Short-time pulse</label>
+		<label >{{ this.data.getTranslatedString("Short-time pulse") }}</label>
 			<span *ngIf="ad.shortTimePulseEnable == true">ON</span>
-			<span *ngIf="ad.shortTimePulseEnable == false" i18n>OFF</span>
+			<span *ngIf="ad.shortTimePulseEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
 		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
-		<label i18n>Switch-off delay</label>
-			<span>{{ad.switchOffDelay}} <ng-container i18n>min</ng-container></span>
+		<label >{{ this.data.getTranslatedString("Switch-off delay") }}</label>
+			<span>{{ad.switchOffDelay}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container></span>
 		</div>
 		
 		<div (click)="gotoInstalledParams('additional','Additional sensor parameters')">
-		<label i18n>Additional sensor parameters</label>
+		<label >{{ this.data.getTranslatedString("Additional sensor parameters") }}</label>
 		<next-nav></next-nav>
 		</div>
 
   
-	  	<label class="section" i18n>Operating mode</label>
+	  	<label class="section" >{{ this.data.getTranslatedString("Operating mode") }}</label>
 	  	<div>
-	  	<label i18n>Operating mode</label>
-	  		<span *ngIf="ad.operationMode == 0" i18n>Automatic</span>
-			<span *ngIf="ad.operationMode == 1" i18n>Semiautomatic</span>
-			<span *ngIf="ad.operationMode == 2" i18n>Semiautomatic, comfort</span>
+	  	<label >{{ this.data.getTranslatedString("Operating mode") }}</label>
+	  		<span *ngIf="ad.operationMode == 0" >{{ this.data.getTranslatedString("Automatic") }}</span>
+			<span *ngIf="ad.operationMode == 1" >{{ this.data.getTranslatedString("Semiautomatic") }}</span>
+			<span *ngIf="ad.operationMode == 2" >{{ this.data.getTranslatedString("Semiautomatic, comfort") }}</span>
 	  	</div>
   
   
  
-	  <label class="section" i18n>Actuator settings</label>
+	  <label class="section" >{{ this.data.getTranslatedString("Actuator settings") }}</label>
 	  
 	 <div (click)="gotoInstalledParams('actuator1','Settings of actuator 1')">
-	  <label i18n>Settings of actuator 1</label>
+	  <label >{{ this.data.getTranslatedString("Settings of actuator 1") }}</label>
 	  	<next-nav></next-nav>
 	  </div>
 	   
@@ -84,10 +84,10 @@
 	  </div>
 
 
-	  <label class="section" i18n>Service</label>
+	  <label class="section" >{{ this.data.getTranslatedString("Service") }}</label>
 	   
 	   <div>
-	   <label i18n>Saved profile</label>
+	   <label >{{ this.data.getTranslatedString("Saved profile") }}</label>
 	   <span>Garage</span>
 	   </div>
 	   
@@ -97,7 +97,7 @@
 	   </div>
 	   
 	    <div (click)="gotoInstalledParams('emonitor','Energy monitor')">
-	   <label i18n>Energy monitor</label>
+	   <label >{{ this.data.getTranslatedString("Energy monitor") }}</label>
 	   	<next-nav></next-nav>
 	   </div>
 
@@ -108,12 +108,12 @@
 	   </div>
 	   
 	   <div (click)="gotoInstalledParams('buildingallocation','Building allocation')">
-	  <label i18n>Building allocation</label>
+	  <label >{{ this.data.getTranslatedString("Building allocation") }}</label>
 		<next-nav></next-nav>
 	  </div>
 	  
 	  <div (click)="gotoInstalledParams('enablesettings','Enable user settings')">
-	  <label i18n>Enable settings</label>
+	  <label >{{ this.data.getTranslatedString("Enable settings") }}</label>
 		<next-nav></next-nav>
 	  </div>
 
