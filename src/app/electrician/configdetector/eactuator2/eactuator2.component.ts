@@ -15,8 +15,8 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
   activeDevice:any;
   ad:any;
-  onLabel = this.translater.translate('on');
-  offLabel = this.translater.translate('off');
+  onLabel = this.translater.translate('ON');
+  offLabel = this.translater.translate('OFF');
   loadingDataDone = false;
    readAttrs =[ 
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               

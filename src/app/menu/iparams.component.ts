@@ -30,8 +30,8 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     subMenuState = 'none';
     activeDevice:any;
     ad:any;
-    onLabel = this.translater.translate('on');
-    offLabel = this.translater.translate('off');
+    onLabel = this.translater.translate('ON');
+    offLabel = this.translater.translate('OFF');
     styleValue = '#ffffff';
     showUserPin = false;
     showFitterPin = false;

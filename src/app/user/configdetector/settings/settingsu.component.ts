@@ -16,8 +16,8 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   presenceSimulationEnable = true;
   activeDevice:any;
   ad:any;
-  onLabel = 'on';
-  offLabel = 'off';
+  onLabel = 'ON';
+  offLabel = 'OFF';
   loadingDataDone = false;
 
     NLStartTime = "";

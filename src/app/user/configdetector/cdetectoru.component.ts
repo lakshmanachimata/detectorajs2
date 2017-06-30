@@ -18,8 +18,8 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     doDisConnect = true;
-    onLabel = 'on';
-    offLabel = 'off';
+    onLabel = 'ON';
+    offLabel = 'OFF';
     readAttrs =[
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
                 //settings u

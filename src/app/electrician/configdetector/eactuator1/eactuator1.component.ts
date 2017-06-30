@@ -77,8 +77,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                                
                 ]
 
-  onLabel = this.translater.translate('on');
-  offLabel = this.translater.translate('off');
+  onLabel = this.translater.translate('ON');
+  offLabel = this.translater.translate('OFF');
   constructor(public logger: LoggerService,public data: DataService, private router:Router,
               private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);

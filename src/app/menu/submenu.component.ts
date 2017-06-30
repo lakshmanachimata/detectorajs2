@@ -47,8 +47,8 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     jsonLoadObserve: any;
     sortedMap;
     profile_name;
-    onLabel = this.translater.translate('on');
-    offLabel = this.translater.translate('off');
+    onLabel = this.translater.translate('ON');
+    offLabel = this.translater.translate('OFF');
     autoSync = true;
     loadingInstalleDeviceData =  false;
     header:HeaderComponent;

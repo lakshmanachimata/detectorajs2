@@ -15,8 +15,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
 
   activeDevice:any;
   ad:any;
-  onLabel = this.translater.translate('on');
-  offLabel = this.translater.translate('off');
+  onLabel = this.translater.translate('ON');
+  offLabel = this.translater.translate('OFF');
   showFitterPin = false;
   showUserPin = false;
   A1LoadIdentify = false;

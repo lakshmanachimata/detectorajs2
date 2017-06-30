@@ -14,8 +14,8 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     activeDevice:any;
     ad:any;
-    onLabel = this.translater.translate('on');
-    offLabel = this.translater.translate('off');
+    onLabel = this.translater.translate('ON');
+    offLabel = this.translater.translate('OFF');
     brrangeerror = false;
     loadingDataDone = false;
     readAttrs =[

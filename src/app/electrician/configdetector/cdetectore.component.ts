@@ -44,8 +44,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     doDisConnect = true;
-    onLabel = this.translater.translate('on');
-    offLabel = this.translater.translate('off');
+    onLabel = this.translater.translate('ON');
+    offLabel = this.translater.translate('OFF');
     brthresholderror = false;
     brsetpointerror = false;
     sdelayerror = false;

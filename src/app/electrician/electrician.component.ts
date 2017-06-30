@@ -154,8 +154,9 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
   ngOnDestroy() {
     this.data.resetSendData();
-    if(this.selectedDevice == false &&  this.data.getProfile() == 'electrician')
-      this.data.killMe();      
+    if(this.selectedDevice == false &&  this.data.getProfile() == 'electrician'){
+      this.data.killMe();     
+    } 
   }
   onDeviceConnected(address){
     this.isDeviceConnected = true;
