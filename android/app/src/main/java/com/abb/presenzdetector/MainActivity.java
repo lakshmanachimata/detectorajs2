@@ -99,9 +99,15 @@ public class MainActivity extends Activity {
 
 
     static final String DSPS_SERVICE   = "0783B03E-8535-B5A0-7140-A304D2495CB7";
-    static final String  SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
-    static final String   SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
-    static final String   INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
+    static final String SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
+    static final String SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
+    static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
+
+    static final String NEW_DSPS_SERVICE   = "10af0100-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_TX_DATA = "10af0101-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_RX_DATA = "10af0103-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_FLOW_CONTROL   = "10af0102-50de-11e7-b114-b2f933d5fe66";
+
     public static final String PROGRESS_UPDATE = "ProgressUpdate";
     public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
     public static final int fileChunkSize = 20;
@@ -1174,7 +1180,8 @@ public class MainActivity extends Activity {
                     boolean isABBPresenseDetector = false;
                     if (sUUIDs != null) {
                         for (int i = 0; i < sUUIDs.size(); i++) {
-                            if (DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString())) {
+                            if (DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ||
+                                    NEW_DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ) {
                                 isABBPresenseDetector = true;
                             }
                         }
