@@ -336,12 +336,7 @@ public class MainActivity extends Activity {
         webview.addJavascriptInterface(webInterface,"BJE");
 
 
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            verifyStoragePermissions(MainActivity.this);
-        }
-        else {
-            setUpBluetooth();
-        }
+
         String version = pInfo.versionName;
 
         TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
@@ -427,6 +422,10 @@ public class MainActivity extends Activity {
 
     }
     public void killApp(){
+        if(scanner != null)
+            scanner.stopScan(bleCallback);
+        mBluetoothLeService.close();
+        mBluetoothLeService.disconnect();
         finish();
     }
 
@@ -762,6 +761,15 @@ public class MainActivity extends Activity {
                 webview.getSettings().setJavaScriptEnabled(true);
             }
         }
+        log("1111111111  onREsume Called");
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            verifyStoragePermissions(MainActivity.this);
+        }
+        else {
+            log("111111111111  onREsume Called");
+            setUpBluetooth();
+        }
+
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
     }
 
@@ -1156,6 +1164,7 @@ public class MainActivity extends Activity {
     ScanCallback bleCallback =  new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, final ScanResult result) {
+            log("11111111111 callback came");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1170,6 +1179,7 @@ public class MainActivity extends Activity {
                             }
                         }
                         if (isABBPresenseDetector == true) {
+                            log("11111111111 abbdevice call came");
                             if (mBluetoothLeService != null) {
                                 boolean deviceExists = false;
                                 SparseArray<byte[]> manufacturerSpecificData = scanRecord.getManufacturerSpecificData();
@@ -1213,12 +1223,12 @@ public class MainActivity extends Activity {
                                     if(deviceInfo.modelNumber.contains("01"))
                                             deviceInfo.deviceType = "relay1c";
                                     scannedDevices.add(deviceInfo);
-                                    if(scannedDevices.size() >0)
-                                        sendDeviceInfo();
                                 }
                             }
                         }
                     }
+                    if(scannedDevices.size() >0)
+                        sendDeviceInfo();
                 }
             });
             super.onScanResult(callbackType, result);
@@ -1271,8 +1281,10 @@ public class MainActivity extends Activity {
                 }
             }, SCAN_PERIOD);
 
-            if(scanner != null)
+            if(scanner != null) {
+                log("111111111111 scan start called");
                 scanner.startScan(bleCallback);
+            }
         } else {
             if(scanner != null)
                 scanner.stopScan(bleCallback);
