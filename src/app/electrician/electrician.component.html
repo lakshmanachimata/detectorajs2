@@ -3,7 +3,7 @@
     <ul  (click)="configureDetector(detector)" *ngFor="let detector of detectors" class="bj-detectors-list">
         <li class="bj-detector-name">
             <div id="bj-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
-            <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">firware update available</span>
+            <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">{{ this.data.getTranslatedString("firware update available") }}</span>
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
             <span id="bj-detector-icon-signal" >
