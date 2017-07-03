@@ -91,6 +91,7 @@ enum SPOTA_STATUS: Int {
 
 enum SPOTA_UUID: String {
     case
+    SPOTA_SERVICE_UUID     = "FEF5",
     SPOTA_MEM_DEV_UUID     = "8082CAA8-41A6-4021-91C6-56F9B954CC34",
     SPOTA_GPIO_MAP_UUID    = "724249F0-5EC3-4B5F-8804-42345AF08651",
     SPOTA_MEM_INFO_UUID    = "6C53DB25-47A1-45FE-A022-7C92FB334FD4",
@@ -101,7 +102,7 @@ enum SPOTA_UUID: String {
 
 enum SUOTA_BLE_UUID: Int {
     case
-     SPOTA_SERVICE_UUID                                          = 0xFEF5,
+
      HOMEKIT_UUID                                                = 0xFED4,
      ORG_BLUETOOTH_SERVICE_DEVICE_INFORMATION                    = 0x180A,
      ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING       = 0x2A29,
