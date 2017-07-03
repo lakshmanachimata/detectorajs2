@@ -99,6 +99,7 @@ public class MainActivity extends Activity {
 
 
     static final String DSPS_SERVICE   = "0783B03E-8535-B5A0-7140-A304D2495CB7";
+    static final String SUOTA_SERVICE   = "0000fef5-0000-1000-8000-00805f9b34fb";
     static final String SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
     static final String SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
     static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
@@ -237,6 +238,7 @@ public class MainActivity extends Activity {
         String firmwareVersion = "";
         String softwareVersion = "";
         String btAddress = "";
+        boolean OTASupported = false;
         boolean isSelected = false;
     }
     static public BJBLEManager suotaManager;
@@ -1113,25 +1115,6 @@ public class MainActivity extends Activity {
     private void getGattServices(List<BluetoothGattService> gattServices) {
         mGattServices.clear();
         mGattServices.addAll(gattServices);
-        BluetoothGattService suota = getGatt().getService(MainActivity.SPOTA_SERVICE_UUID);
-//        if (suota == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_GPIO_MAP_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_MEM_INFO_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_LEN_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_PATCH_DATA_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID) == null
-//                || suota.getCharacteristic(MainActivity.SPOTA_SERV_STATUS_UUID).getDescriptor(MainActivity.SPOTA_DESCRIPTOR_UUID) == null
-//                )
-//        {
-//            isFWUpdateSupported =  false;
-//        }else {
-//            isFWUpdateSupported = true;
-//            Intent intent = new Intent();
-//            intent.setAction(MainActivity.ACTION_FW_UPDATE);
-//            intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 0);
-//            MainActivity.getInstance().sendBroadcast(intent);
-//        }
     }
 
     @Override
@@ -1178,11 +1161,16 @@ public class MainActivity extends Activity {
                     ScanRecord scanRecord = result.getScanRecord();
                     List<ParcelUuid> sUUIDs = scanRecord.getServiceUuids();
                     boolean isABBPresenseDetector = false;
+                    boolean isSUOTASupported =  false;
                     if (sUUIDs != null) {
                         for (int i = 0; i < sUUIDs.size(); i++) {
                             if (DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ||
                                     NEW_DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ) {
                                 isABBPresenseDetector = true;
+                            }
+                            if (SUOTA_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ||
+                                    NEW_DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ) {
+                                isSUOTASupported = true;
                             }
                         }
                         if (isABBPresenseDetector == true) {
@@ -1204,7 +1192,7 @@ public class MainActivity extends Activity {
                                     deviceInfo.btAddress = device.getAddress();
                                     deviceInfo.btDeviceName = device.getName();
                                     deviceInfo.rssi = Integer.toString(result.getRssi());
-
+                                    deviceInfo.OTASupported =  isSUOTASupported;
                                     byte[] manufactureDataBytes = manufacturerSpecificData.valueAt(0);
                                     StringBuilder firmwareVersionStr = new StringBuilder();
                                     StringBuilder modelNumber = new StringBuilder();
