@@ -13,6 +13,7 @@ import WebKit
 class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     
+    
     var manager :CBCentralManager? = nil
     var peripheral:CBPeripheral!
     var peripherals:[CBPeripheral] = []
@@ -55,6 +56,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
+    func stopscan(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.manager?.stopScan();
+        }
+    }
+    
     func connect(device: String)  {
         peripherals.forEach { (iperipheral) in
             if(iperipheral.identifier.uuidString == device){
@@ -74,7 +81,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func getServices(device: String)  {
-        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue)]
+        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue)]
         peripheral.discoverServices(services)
     }
     
@@ -83,6 +90,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
                               type: CBCharacteristicWriteType.withoutResponse);
     }
+    
     
     func getScannedDevices() {
         
@@ -115,6 +123,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         let services = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
         
+//        for bjeservice in services!{
+//            print("serice is ", bjeservice.uuidString)
+//        }
         
         if(services != nil) {
             
@@ -190,13 +201,14 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     peripherals.append(peripheral);
                     
                 }
-                self.getScannedDevices();
             }
+            self.getScannedDevices();
         }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         self.peripheral.delegate = self
+        self.stopscan()
         getServices(device: peripheral.identifier.uuidString)
     }
     
@@ -215,6 +227,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("service length   ", peripheral.services?.count ?? 0)
         for service in peripheral.services! {
             let thisService = service as CBService
             peripheral.discoverCharacteristics(nil, for: thisService)
@@ -222,12 +235,13 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     }
     
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverIncludedServicesFor service: CBService, error: Error?) {
-    }
-    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
             for characteristic in service.characteristics! {
+                if(service.uuid.uuidString.contains("180A")){
+                    peripheral.readValue(for: characteristic)
+                    print("read sent for charecterstic  "  + characteristic.uuid.uuidString)
+                }
                 if (characteristic.properties.contains(CBCharacteristicProperties.notify)) {
                     if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_TX_DATA.rawValue) {
                         peripheral.setNotifyValue(true, for: characteristic);
@@ -260,9 +274,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
-        
         let recvData = [UInt8](characteristic.value!);
-    
+
         if (recvData[0] == 0x7e) {
             blePacketStart = true;
             if(recvData[recvData.count-1] == 0x7e)
@@ -314,6 +327,13 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
                     }
                 }
+            }
+        }
+        else {
+            if let string = String(data: characteristic.value!, encoding: .utf8) {
+                print("value of characteristic  " + string)
+            } else {
+                print("not a valid UTF-8 sequence")
             }
         }
         

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A085E141F06706F00DDF1AD /* SuOTAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A085E131F06706F00DDF1AD /* SuOTAManager.swift */; };
+		2A085E161F0A07B300DDF1AD /* SUOTADefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A085E151F0A07B300DDF1AD /* SUOTADefines.swift */; };
 		3A2CB9011E5F59DF006D61A9 /* CRCCCITT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9001E5F59DF006D61A9 /* CRCCCITT.swift */; };
 		3A2CB9031E5F5E67006D61A9 /* SCCPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9021E5F5E67006D61A9 /* SCCPHelper.swift */; };
 		3A2CB9051E5FF59C006D61A9 /* SCCPEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9041E5FF59C006D61A9 /* SCCPEnumerations.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A085E131F06706F00DDF1AD /* SuOTAManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuOTAManager.swift; sourceTree = "<group>"; };
+		2A085E151F0A07B300DDF1AD /* SUOTADefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SUOTADefines.swift; sourceTree = "<group>"; };
 		3A2CB9001E5F59DF006D61A9 /* CRCCCITT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRCCCITT.swift; sourceTree = "<group>"; };
 		3A2CB9021E5F5E67006D61A9 /* SCCPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCCPHelper.swift; sourceTree = "<group>"; };
 		3A2CB9041E5FF59C006D61A9 /* SCCPEnumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCCPEnumerations.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				3A2CB9021E5F5E67006D61A9 /* SCCPHelper.swift */,
 				3A2CB9041E5FF59C006D61A9 /* SCCPEnumerations.swift */,
 				3A2CB9061E60409E006D61A9 /* BLEHelper.swift */,
+				2A085E131F06706F00DDF1AD /* SuOTAManager.swift */,
+				2A085E151F0A07B300DDF1AD /* SUOTADefines.swift */,
 			);
 			path = blescanner;
 			sourceTree = "<group>";
@@ -157,9 +163,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2CB9051E5FF59C006D61A9 /* SCCPEnumerations.swift in Sources */,
+				2A085E161F0A07B300DDF1AD /* SUOTADefines.swift in Sources */,
 				3A2CB9031E5F5E67006D61A9 /* SCCPHelper.swift in Sources */,
 				3AF2FBEB1E691CA3003AC94A /* Utilities.swift in Sources */,
 				3A36F1F51E56DC9D008899E8 /* ViewController.swift in Sources */,
+				2A085E141F06706F00DDF1AD /* SuOTAManager.swift in Sources */,
 				3A2CB9071E60409E006D61A9 /* BLEHelper.swift in Sources */,
 				3A36F1F31E56DC9D008899E8 /* AppDelegate.swift in Sources */,
 				3A2CB9011E5F59DF006D61A9 /* CRCCCITT.swift in Sources */,
