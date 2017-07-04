@@ -40,7 +40,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     
     var manager :CBCentralManager? = nil
-    var peripheral:CBPeripheral!
+    var selectedperipheral:CBPeripheral!
     var peripherals:[CBPeripheral] = []
     
     var peripheralInfo:Dictionary<String,String> = [:]
@@ -74,6 +74,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     /// interface functions
     func setup() {
+        getImageListsFromBundle();
         scannedDevices = [];
         manager = CBCentralManager(delegate: self, queue: nil)
     }
@@ -94,7 +95,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func connect(device: String)  {
         peripherals.forEach { (iperipheral) in
             if(iperipheral.identifier.uuidString == device){
-                peripheral = iperipheral;
+                selectedperipheral = iperipheral;
             }
         }
         scannedDevices.forEach { (scannedDevice) in
@@ -103,28 +104,33 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
         }
         
-        manager?.connect(peripheral, options: nil)
+        manager?.connect(selectedperipheral, options: nil)
     }
     
     func disConnect(device: String)  {
         peripherals.forEach { (iperipheral) in
             if(iperipheral.identifier.uuidString == device){
-                peripheral = iperipheral;
+                selectedperipheral = iperipheral;
             }
         }
         selectedDevice = [:];
-        manager?.cancelPeripheralConnection(peripheral)
+        manager?.cancelPeripheralConnection(selectedperipheral)
     }
     
     func getServices(device: String)  {
         let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue)]
-        peripheral.discoverServices(services)
+        selectedperipheral.discoverServices(services)
     }
     
     func writeWithoutResponse(frame:  Data)  {
         
-        peripheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
+        selectedperipheral.writeValue(frame, for: writeWithoutResponseCharacteristic!,
                               type: CBCharacteristicWriteType.withoutResponse);
+    }
+    
+    func writeValue(indata: Data, charcharcterstic: CBCharacteristic ){
+        selectedperipheral.writeValue(indata, for: charcharcterstic,
+                              type: CBCharacteristicWriteType.withResponse);
     }
     
     
@@ -242,7 +248,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        self.peripheral.delegate = self
+        self.selectedperipheral.delegate = self
         self.stopscan()
         getServices(device: peripheral.identifier.uuidString)
     }
@@ -378,18 +384,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     
     
-    func getImageListsFromBundle () {
-        let resourcePath : String = Bundle.main.resourcePath!
-        let docPath : String = resourcePath.appending("/resource")
-        
-        do {
-            let directoryContents = try FileManager.default.contentsOfDirectory(atPath: docPath)
-            print("dir paths \(directoryContents)")
-        }catch let error{
-            print("error \(error.localizedDescription)")
-        }
-    }
-    
     func gpioScanner(with gpio: String, to output: UnsafeMutablePointer<UInt32>) {
         let values: [String] = ["0x00", "0x01", "0x02", "0x03", "0x04", "0x05", "0x06", "0x07", "0x10", "0x11", "0x12", "0x13", "0x20", "0x21", "0x22", "0x23", "0x24", "0x25", "0x26", "0x27", "0x28", "0x29", "0x30", "0x31", "0x32", "0x33", "0x34", "0x35", "0x36", "0x37"]
         let titles: [String] = ["P0_0", "P0_1", "P0_2", "P0_3", "P0_4", "P0_5", "P0_6", "P0_7", "P1_0", "P1_1", "P1_2", "P1_3", "P2_0", "P2_1", "P2_2", "P2_3", "P2_4", "P2_5", "P2_6", "P2_7", "P2_8", "P2_9", "P3_0", "P3_1", "P3_2", "P3_3", "P3_4", "P3_5", "P3_6", "P3_7"]
@@ -481,6 +475,34 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
     }
     
+    
+    func  getCBCharectestic(charactersticUUID: String) -> CBCharacteristic?{
+        for service in selectedperipheral.services! {
+            let thisService = service as CBService
+            for characteristic in thisService.characteristics!{
+                if(characteristic.uuid.uuidString == charactersticUUID){
+                    return characteristic;
+                }
+            }
+        }
+        return nil;
+    }
+
+    func getImageListsFromBundle () {
+        let resourcePath : String = Bundle.main.resourcePath!
+        let docPath : String = resourcePath.appending("/resource")
+        
+        do {
+            let directoryContents = try FileManager.default.contentsOfDirectory(atPath: docPath)
+            print("dir paths \(directoryContents)")
+        }catch let error{
+            print("error \(error.localizedDescription)")
+        }
+    }
+    
+    
+    
+    
     func didSendValueForCharacteristic(_ notification : NSNotification) {
         
         if step != 7 {
@@ -499,25 +521,26 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             var _memDevData: Int = (Int(memoryType) << 24) | (memoryBank & 0xff)
             
             let memDevData = Data(bytes: withUnsafeMutablePointer(to: &_memDevData, { $0 }), count: MemoryLayout<Int>.size)//Data(bytes: _memDevData, length: MemoryLayout<Int>.size)
-            serviceManager?.writeValue(serviceManager!.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)), characteristicUUID: CBUUID(string: SPOTA_UUID.SPOTA_MEM_DEV_UUID), p: serviceManager?.device, data: memDevData)
+            
+            self.writeValue( indata: memDevData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
             break;
         case 2:
             // Step 2: Set memory params
             var _memInfoData: Int = Int((spiMISO << 24) | (spiMOSI << 16) | (spiCS << 8) | spiSCK)
             let memInfoData = Data(bytes: withUnsafeMutablePointer(to: &_memInfoData, { $0 }), count: MemoryLayout<Int>.size)
             step = 3
-            serviceManager?.writeValue(serviceManager!.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)), characteristicUUID: CBUUID(string: SPOTA_UUID.SPOTA_GPIO_MAP_UUID), p: serviceManager?.device, data: memInfoData)
+            self.writeValue( indata: memInfoData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue)!)
             break
         case 3:
             
-            let storage : ParamaterStorage = ParamaterStorage.getInstance()
-            
-            do {
-                fileData = try Data(contentsOf: storage.file_url)
-                
-            }catch let error{
-                print(error.localizedDescription)
-            }
+//            let storage : ParamaterStorage = ParamaterStorage.getInstance()
+//            
+//            do {
+//                fileData = try Data(contentsOf: storage.file_url)
+//                
+//            }catch let error{
+//                print(error.localizedDescription)
+//            }
             
             appendChecksum()
             
@@ -533,9 +556,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             
             let patchLengthData = Data(bytes: withUnsafeMutablePointer(to: &blockSize, { $0 }), count: MemoryLayout<UInt16>.size)
             step = 5
-            serviceManager?.writeValue(serviceManager!.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID)), characteristicUUID: CBUUID(string: SPOTA_UUID.SPOTA_PATCH_LEN_UUID), p: serviceManager?.device, data: patchLengthData)
             
-            
+            self.writeValue( indata: patchLengthData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue)!)
             break
             
         case 5:
@@ -589,7 +611,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     }
                 }
                 
-                serviceManager?.writeValue(serviceManager!.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID)), characteristicUUID: CBUUID(string: SPOTA_UUID.SPOTA_PATCH_DATA_UUID), p: serviceManager?.device, data: byteData)
+                self.writeValue( indata: byteData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_DATA_UUID.rawValue)!)
                 
             }
             
@@ -603,7 +625,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             var suotaEnd : Int = 0xFE000000;
             
             let suotaEndData = Data(bytes: withUnsafeMutablePointer(to: &suotaEnd, { $0 }), count: MemoryLayout<Int>.size)
-            serviceManager?.writeValue(serviceManager!.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID)), characteristicUUID: CBUUID(string: SPOTA_UUID.SPOTA_MEM_DEV_UUID), p: serviceManager?.device, data: suotaEndData)
+            
+            self.writeValue( indata: suotaEndData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
             
             break
         case 7:
@@ -616,22 +639,21 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
             
             //alertController.addAction(DestructiveAction)
-            alertController.addAction(noAction)
+            //alertController.addAction(noAction)
             
-            let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
-                (result : UIAlertAction) -> Void in
-                
-            }
+            //let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
+            //    (result : UIAlertAction) -> Void in
+            //}
             
             //alertController.addAction(DestructiveAction)
-            alertController.addAction(yesAction)
+            //alertController.addAction(yesAction)
             
             
-            self.present(alertController, animated: true, completion: nil)
+            //self.present(alertController, animated: true, completion: nil)
             break
         case 8:
             
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
             break
             
         default:
