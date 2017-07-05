@@ -12,20 +12,16 @@ import WebKit
 /// BLE Helper class
 class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    var memoryType : UInt32 = 0
+    var memoryType : UInt32 = 0x13
     var memoryBank : Int = 0
-    var blockSize : Int = 0
-    
-    var spiMOSI : UInt32 = 0
-    var spiMISO : UInt32 = 0
-    var spiCS : UInt32 = 0
-    var spiSCK : UInt32 = 0
-    
-    var spiMISOAddress : String = ""
-    var spiMOSIAddress : String = ""
-    var spiCSAddress : String = ""
-    var spiSCKAddress : String = ""
-    var blockSizetext : String = ""
+    var blockSize : Int = 240
+    var expectedValue : Int = -1;
+    var isFWUpdateStarted : Bool = false;
+    var spiMOSI : UInt32 = 0x06
+    var spiMISO : UInt32 = 0x05
+    var spiCS : UInt32 = 0x03
+    var spiSCK : UInt32 = 0x00
+    var fwUpdateFilePath : String = "";
     
     var step : Int = 0
     var nextStep : Int = 0
@@ -74,7 +70,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     /// interface functions
     func setup() {
-        getImageListsFromBundle();
         scannedDevices = [];
         manager = CBCentralManager(delegate: self, queue: nil)
     }
@@ -133,6 +128,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                               type: CBCharacteristicWriteType.withResponse);
     }
     
+    func startUpdate(){
+        getImageListsFromBundle();
+    }
     
     func getScannedDevices() {
         
@@ -296,10 +294,11 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                                     let jsData = Utilities.jsonStringify(data: deviceAddr as AnyObject)
                                     let script: String = "onDeviceConnected(\(jsData))"
                                     print("Device  connected",peripheral.identifier.uuidString)
-                                    DispatchQueue.main.async {
-                                        //Run UI Updates
-                                        self.webView?.evaluateJavaScript(script);
-                                    }
+//                                    DispatchQueue.main.async {
+//                                        //Run UI Updates
+//                                        self.webView?.evaluateJavaScript(script);
+//                                    }
+                                    self.startUpdate();
                                 }
                     }
                 }
@@ -307,11 +306,55 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     }
     
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         print("didUpdateNotificationState");
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        
+        if(isFWUpdateStarted){
+            
+            
+            if characteristic.uuid == CBUUID(string:SPOTA_UUID.SPOTA_SERV_STATUS_UUID.rawValue){
+                
+                var value : UInt8 = 0
+                
+                if let val = characteristic.value {
+                    val.copyBytes(to: withUnsafeMutablePointer(to: &value, { $0 }), count: val.count)
+                }
+                
+                var message : String = ""
+                
+                if value > 0 {
+                    
+                    message = getErrorMessage(status: SPOTA_STATUS(rawValue: Int(value))!)
+                    if value != UInt8(SPOTA_STATUS.SPOTAR_CMP_OK.rawValue) {
+                        print ("message: \(message)")
+                        
+                    }
+                }
+                
+                if expectedVal != 0 {
+                    
+                    if Int(value) == expectedVal {
+                        
+                        step = nextStep
+                        expectedVal = 0
+                        
+                        doStep()
+                    }
+                    else {
+                        
+                        //                    let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        //                    self.present(alertController, animated: true, completion: nil)
+                    }
+                    
+                }
+            }
+
+            
+        }else {
         
         let recvData = [UInt8](characteristic.value!);
 
@@ -375,6 +418,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 print("not a valid UTF-8 sequence")
             }
         }
+        }
         
     }
     
@@ -396,86 +440,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
-    
-    func configureDeviceConnectivityParam () {
-        
-        memoryType = UInt32(MEMTYPE_SUOTA.MEM_TYPE_SUOTA_SPI.rawValue)
-        
-        gpioScanner(with: spiMISOAddress, to: withUnsafeMutablePointer(to: &spiMISO, { $0 }))
-        gpioScanner(with: spiMOSIAddress, to: withUnsafeMutablePointer(to: &spiMOSI, { $0 }))
-        gpioScanner(with: spiCSAddress, to: withUnsafeMutablePointer(to: &spiCS, { $0 }))
-        gpioScanner(with: spiSCKAddress, to: withUnsafeMutablePointer(to: &spiSCK, { $0 }))
-        
-        let defaultVal : UserDefaults = UserDefaults.standard
-        defaultVal.set(spiMISOAddress, forKey: "spiMISOAddress")
-        defaultVal.set(spiMOSIAddress, forKey: "spiMOSIAddress")
-        defaultVal.set(spiCSAddress, forKey: "spiCSAddress")
-        defaultVal.set(spiSCKAddress, forKey: "spiSCKAddress")
-        
-        defaultVal.set(memoryBank, forKey: "memoryBank")
-        
-        Scanner(string: blockSizetext).scanInt(&blockSize)
-        defaultVal.set(blockSize, forKey: "blockSize")
-        
-        
-        configureStepsForValidatingUpdate()
-    }
-    
-    //2nd method towards updating
-    func configureStepsForValidatingUpdate () {
-        
-        //    serviceManager?.notification(serviceManager?.int(toCBUUID: UInt16(SPOTA_UUID.SPOTA_SERVICE_UUID)), characteristicUUID: CBUUID(string:SPOTA_UUID.SPOTA_SERV_STATUS_UUID), p: serviceManager?.device, on: true)
-        //
-        //    NotificationCenter.default.addObserver(self, selector: #selector(DeviceViewController.didUpdateValueForCharacteristic(_:)), name: NSNotification.Name(rawValue: GenericServiceManagerDidReceiveValue), object: nil)
-        //    NotificationCenter.default.addObserver(self, selector: #selector(DeviceViewController.didSendValueForCharacteristic(_:)), name: NSNotification.Name(rawValue: GenericServiceManagerDidSendValue), object: nil)
-    }
-    
-    func didUpdateValueForCharacteristic(_ notification : NSNotification) {
-        print("retrieve devices \(String(describing: notification.object))")
-        
-        let characteristics : CBCharacteristic = notification.object as! CBCharacteristic
-        
-        if characteristics.uuid == CBUUID(string:SPOTA_UUID.SPOTA_SERV_STATUS_UUID.rawValue){
-            
-            var value : UInt8 = 0
-            
-            if let val = characteristics.value {
-                val.copyBytes(to: withUnsafeMutablePointer(to: &value, { $0 }), count: val.count)
-            }
-            
-            var message : String = ""
-            
-            if value > 0 {
-                
-                message = getErrorMessage(status: SPOTA_STATUS(rawValue: Int(value))!)
-                if value != UInt8(SPOTA_STATUS.SPOTAR_CMP_OK.rawValue) {
-                    print ("message: \(message)")
-                    
-                }
-            }
-            
-            if expectedVal != 0 {
-                
-                if Int(value) == expectedVal {
-                    
-                    step = nextStep
-                    expectedVal = 0
-                    
-                    doStep()
-                }
-                else {
-                    
-                    let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
-//                    self.present(alertController, animated: true, completion: nil)
-                }
-                
-            }
-        }
-        
-        
-    }
-    
-    
     func  getCBCharectestic(charactersticUUID: String) -> CBCharacteristic?{
         for service in selectedperipheral.services! {
             let thisService = service as CBService
@@ -490,16 +454,18 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     func getImageListsFromBundle () {
         let resourcePath : String = Bundle.main.resourcePath!
-        let docPath : String = resourcePath.appending("/resource")
+        let fwFilesPath : String = resourcePath.appending("/fwfiles")
         
         do {
-            let directoryContents = try FileManager.default.contentsOfDirectory(atPath: docPath)
-            print("dir paths \(directoryContents)")
+            let directoryContents = try FileManager.default.contentsOfDirectory(atPath: fwFilesPath)
+            fwUpdateFilePath = (fwFilesPath as NSString).appendingPathComponent(directoryContents[0])
+            step = 1;
+            doStep();
+            
         }catch let error{
             print("error \(error.localizedDescription)")
         }
     }
-    
     
     
     
@@ -512,152 +478,171 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func doStep() {
         
-        switch step {
-        case 1:
-            // Step 1: Set memory type
-            step = 0
-            expectedVal = 0x10
-            nextStep = 2
-            var _memDevData: Int = (Int(memoryType) << 24) | (memoryBank & 0xff)
+        switch (step){
+            case 1:
+                // Step 1: Set memory type
+                step = 0;
+                expectedValue = 0x10;
+                nextStep = 2;
+                
+//                int _memDevData = (self.memoryType << 24) | (self.memoryBank & 0xFF);
+//                NSData *memDevData = [NSData dataWithBytes:&_memDevData length:sizeof(int)];
+                var _memDevData: Int = (Int(memoryType) << 24) | (memoryBank & 0xff)
+                
+                let memDevData = Data(bytes: withUnsafeMutablePointer(to: &_memDevData, { $0 }), count: MemoryLayout<Int>.size)//Data(bytes: _memDevData, length: MemoryLayout<Int>.size)
             
-            let memDevData = Data(bytes: withUnsafeMutablePointer(to: &_memDevData, { $0 }), count: MemoryLayout<Int>.size)//Data(bytes: _memDevData, length: MemoryLayout<Int>.size)
+                
+                self.writeValue( indata: memDevData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
+
+                break;
             
-            self.writeValue( indata: memDevData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
-            break;
-        case 2:
-            // Step 2: Set memory params
-            var _memInfoData: Int = Int((spiMISO << 24) | (spiMOSI << 16) | (spiCS << 8) | spiSCK)
-            let memInfoData = Data(bytes: withUnsafeMutablePointer(to: &_memInfoData, { $0 }), count: MemoryLayout<Int>.size)
-            step = 3
-            self.writeValue( indata: memInfoData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue)!)
-            break
-        case 3:
             
-//            let storage : ParamaterStorage = ParamaterStorage.getInstance()
-//            
-//            do {
-//                fileData = try Data(contentsOf: storage.file_url)
+            case 2:
+                // Step 2: Set memory params
+//                int _memInfoData;
+//                if (self.memoryType == MEM_TYPE_SUOTA_SPI) {
+//                    _memInfoData = (self.spiMISOAddress << 24) | (self.spiMOSIAddress << 16) | (self.spiCSAddress << 8) | self.spiSCKAddress;
+//                } else if (self.memoryType == MEM_TYPE_SUOTA_I2C) {
+//                    _memInfoData = (self.i2cAddress << 16) | (self.i2cSCLAddress << 8) | self.i2cSDAAddress;
+//                }
+//                NSData *memInfoData = [NSData dataWithBytes:&_memInfoData length:sizeof(int)];
 //                
-//            }catch let error{
-//                print(error.localizedDescription)
-//            }
-            
-            appendChecksum()
-            
-            // Step 3: Set patch length
-            chunkSize = 20
-            blockStartByte = 0
-            step = 4
-            doStep()
-            break
-            
-            
-        case 4:
-            
-            let patchLengthData = Data(bytes: withUnsafeMutablePointer(to: &blockSize, { $0 }), count: MemoryLayout<UInt16>.size)
-            step = 5
-            
-            self.writeValue( indata: patchLengthData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue)!)
-            break
-            
-        case 5:
-            
-            step = 0;
-            expectedVal = 0x02;
-            nextStep = 5;
-            
-            var dataLength : Int = (fileData?.count)!
-            var chunkStartByte : Int = 0
-            
-            while chunkStartByte < blockSize {
+                var _memInfoData: Int = Int((spiMISO << 24) | (spiMOSI << 16) | (spiCS << 8) | spiSCK)
+                let memInfoData = Data(bytes: withUnsafeMutablePointer(to: &_memInfoData, { $0 }), count: MemoryLayout<Int>.size)
                 
-                let bytesRemaining : Int = blockSize - chunkStartByte
                 
-                if bytesRemaining < chunkSize {
+                step = 3;
+                self.writeValue( indata: memInfoData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue)!)
+
+                break;
+            
+            
+            case 3:
+                // Load patch data
+                //LAKSHMANA READ FILEDATA TO DATA COMMENTED
+                let fileNSData : NSData? = NSData(contentsOfFile: fwUpdateFilePath)
+                
+                let fileUrl : URL = URL(fileURLWithPath: fwUpdateFilePath)
+            
+                do {
+                    try fileData =  Data.init(contentsOf: fileUrl)
+                }catch let error{
+                    print("error \(error.localizedDescription)")
+                }
+
+                
+                //fileData = [[NSData, dataWithContentsOfURL:fwFilesPath] mutableCopy];
+                appendChecksum()
+                
+                // Step 3: Set patch length
+                chunkSize = 20;
+                blockStartByte = 0;
+                
+                step = 4;
+                doStep();
+                break;
+            
+            
+            case 4:
+                // Set patch length
+                //UInt16 blockSizeLE = (blockSize & 0xFF) << 8 | (((blockSize & 0xFF00) >> 8) & 0xFF);
+//                NSData *patchLengthData = [NSData dataWithBytes:&blockSize length:sizeof(UInt16)];
+                
+                let patchLengthData = Data(bytes: withUnsafeMutablePointer(to: &blockSize, { $0 }), count: MemoryLayout<UInt16>.size)
+                step = 5
+                
+                self.writeValue( indata: patchLengthData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue)!)
+
+                break;
+            
+            
+            case 5:
+                // Send current block in chunks of 20 bytes
+//                if (blockStartByte == 0)
+//                [self debug:@"Upload procedure started" UILog:YES];
+                
+                step = 0;
+                expectedValue = 0x02;
+                nextStep = 5;
+                
+                var dataLength : Int = (fileData?.count)!
+                var chunkStartByte : Int = 0
+                
+                while (chunkStartByte < blockSize) {
                     
-                    chunkSize = bytesRemaining
+                    // Check if we have less than current block-size bytes remaining
+                    var bytesRemaining = blockSize - chunkStartByte;
+                    if (bytesRemaining < chunkSize) {
+                        chunkSize = bytesRemaining;
+                    }
+
+//                    
+//                    double progress = (double)(blockStartByte + chunkStartByte + chunkSize) / (double)dataLength;
+//                    [self.progressView setProgress:progress];
+//                    [self.progressTextLabel setText:[NSString stringWithFormat:@"%d%%", (int)(100 * progress)]];
+//                    
+                    // Step 4: Send next n bytes of the patch
+                    var bytes : [UInt8] = [UInt8](repeating: UInt8(), count: chunkSize)
+                    let dataRange : Range = Int(blockStartByte + chunkStartByte)..<Int(blockStartByte + chunkStartByte + chunkSize + 1)
                     
+                    fileData?.copyBytes(to: &bytes, from: dataRange)
+                    
+                    var byteData = Data(bytes: bytes, count: MemoryLayout<CChar>.size * chunkSize)
+                    
+                    
+                    // On to the chunk
+                    chunkStartByte += chunkSize;
+                    
+                    // Check if we are passing the current block
+                    if (chunkStartByte >= blockSize) {
+                        // Prepare for next block
+                        blockStartByte += blockSize;
+                        
+                        var bytesRemaining : Int = dataLength - blockStartByte;
+                        if (bytesRemaining == 0) {
+                            nextStep = 6;
+                            
+                        } else if (bytesRemaining < blockSize) {
+                            blockSize = bytesRemaining;
+                            nextStep = 4; // Back to step 4, setting the patch length
+                        }
+                    }
+                    
+                    self.writeValue( indata: byteData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_DATA_UUID.rawValue)!)
+
                 }
                 
-                //Later required to show progress view //let progress : Double = Double(blockStartByte + chunkStartByte + chunkSize) / Double(dataLength)
-                //progress view you can add
+                break;
+            
+            
+            case 6:
+                // Send SUOTA END command
+                step = 0;
+                expectedValue = 0x02;
+                nextStep = 7;
                 
-                //step 4 send next n bytes of the patch
-                //val.copyBytes(to: withUnsafeMutablePointer(to: &value, { $0 }), count: val.count)
-                
-                var bytes : [UInt8] = [UInt8](repeating: UInt8(), count: chunkSize)
-                //fileData?.copyBytes(withUnsafeMutablePointer(to: &bytes, { $0 }), from: NSRange(location: blockStartByte + chunkStartByte, length: chunkSize))
-                
-                let dataRange : Range = Int(blockStartByte + chunkStartByte)..<Int(blockStartByte + chunkStartByte + chunkSize + 1)
-                
-                fileData?.copyBytes(to: &bytes, from: dataRange)
-                
-                var byteData = Data(bytes: bytes, count: MemoryLayout<CChar>.size * chunkSize)
-                
-                // On to the chunk
-                chunkStartByte += chunkSize
-                // Check if we are passing the current block
-                if chunkStartByte >= blockSize {
-                    // Prepare for next block
-                    blockStartByte += blockSize
-                    var bytesRemaining: Int = dataLength - blockStartByte
-                    if bytesRemaining == 0 {
-                        nextStep = 6
-                    }
-                    else if bytesRemaining < blockSize {
-                        blockSize = bytesRemaining
-                        nextStep = 4
-                        // Back to step 4, setting the patch length
-                    }
-                }
-                
-                self.writeValue( indata: byteData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_DATA_UUID.rawValue)!)
-                
-            }
-            
-            break
-        case 6:
-            
-            step = 0;
-            expectedVal = 0x02;
-            nextStep = 7;
-            
-            var suotaEnd : Int = 0xFE000000;
-            
-            let suotaEndData = Data(bytes: withUnsafeMutablePointer(to: &suotaEnd, { $0 }), count: MemoryLayout<Int>.size)
-            
-            self.writeValue( indata: suotaEndData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
-            
-            break
-        case 7:
-            
-            let alertController = UIAlertController(title: "Device has been updated", message: "Do you wish to reboot the device?", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.default) {
-                (result : UIAlertAction) -> Void in
-                
-            }
-            
-            //alertController.addAction(DestructiveAction)
-            //alertController.addAction(noAction)
-            
-            //let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default) {
-            //    (result : UIAlertAction) -> Void in
-            //}
-            
-            //alertController.addAction(DestructiveAction)
-            //alertController.addAction(yesAction)
+                var suotaEnd = 0xFE000000;
+                let suotaEndData = Data(bytes: withUnsafeMutablePointer(to: &suotaEnd, { $0 }), count: MemoryLayout<Int>.size)
+                self.writeValue( indata: suotaEndData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
+
+                break;
             
             
-            //self.present(alertController, animated: true, completion: nil)
-            break
-        case 8:
+            case 7:
+//                [self debug:@"Upload completed" UILog:YES];
+//                // Wait for user to confirm reboot
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Device has been updated" message:@"Do you wish to reboot the device?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes, reboot", nil];
+//                [alert setTag:UIALERTVIEW_TAG_REBOOT];
+//                [alert show];
+               break;
             
-            //self.navigationController?.popViewController(animated: true)
-            break
             
+            case 8:
+                // Go back to overview of devices
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+                break;
         default:
-            break
+                break;
             
         }
     }

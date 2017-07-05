@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A085E141F06706F00DDF1AD /* SuOTAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A085E131F06706F00DDF1AD /* SuOTAManager.swift */; };
 		2A085E161F0A07B300DDF1AD /* SUOTADefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A085E151F0A07B300DDF1AD /* SUOTADefines.swift */; };
-		2A085E321F0B9ED700DDF1AD /* resource in Resources */ = {isa = PBXBuildFile; fileRef = 2A085E311F0B9ED600DDF1AD /* resource */; };
+		2A085E361F0CC6CD00DDF1AD /* fwfiles in Resources */ = {isa = PBXBuildFile; fileRef = 2A085E351F0CC6CD00DDF1AD /* fwfiles */; };
 		3A2CB9011E5F59DF006D61A9 /* CRCCCITT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9001E5F59DF006D61A9 /* CRCCCITT.swift */; };
 		3A2CB9031E5F5E67006D61A9 /* SCCPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9021E5F5E67006D61A9 /* SCCPHelper.swift */; };
 		3A2CB9051E5FF59C006D61A9 /* SCCPEnumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2CB9041E5FF59C006D61A9 /* SCCPEnumerations.swift */; };
@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		2A085E131F06706F00DDF1AD /* SuOTAManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuOTAManager.swift; sourceTree = "<group>"; };
 		2A085E151F0A07B300DDF1AD /* SUOTADefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SUOTADefines.swift; sourceTree = "<group>"; };
-		2A085E311F0B9ED600DDF1AD /* resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resource; sourceTree = "<group>"; };
+		2A085E351F0CC6CD00DDF1AD /* fwfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fwfiles; sourceTree = "<group>"; };
 		3A2CB9001E5F59DF006D61A9 /* CRCCCITT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRCCCITT.swift; sourceTree = "<group>"; };
 		3A2CB9021E5F5E67006D61A9 /* SCCPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCCPHelper.swift; sourceTree = "<group>"; };
 		3A2CB9041E5FF59C006D61A9 /* SCCPEnumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCCPEnumerations.swift; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		3A36F1E61E56DC9C008899E8 = {
 			isa = PBXGroup;
 			children = (
-				2A085E311F0B9ED600DDF1AD /* resource */,
+				2A085E351F0CC6CD00DDF1AD /* fwfiles */,
 				3AACC4311E67CC1700D64AFC /* www */,
 				3A36F1F11E56DC9D008899E8 /* blescanner */,
 				3A36F1F01E56DC9D008899E8 /* Products */,
@@ -151,7 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A085E321F0B9ED700DDF1AD /* resource in Resources */,
+				2A085E361F0CC6CD00DDF1AD /* fwfiles in Resources */,
 				3AACC4321E67CC1700D64AFC /* www in Resources */,
 				3A36F1FD1E56DC9D008899E8 /* LaunchScreen.storyboard in Resources */,
 				3A36F1FA1E56DC9D008899E8 /* Assets.xcassets in Resources */,
