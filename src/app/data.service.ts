@@ -373,7 +373,7 @@ declare var killMeFromJS;
 @Injectable()
 export class DataService {
     debugLogs = true;
-    isABBFlavor = true;
+    isABBFlavor = false;
     scanneddata:any;
     profilesKey = 'profiles';
     uiParams:UIParams   =  new UIParams();
