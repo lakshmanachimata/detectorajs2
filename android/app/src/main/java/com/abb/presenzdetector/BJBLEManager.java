@@ -262,18 +262,10 @@ public abstract class BJBLEManager {
 		activity.getGatt().writeCharacteristic(characteristic);
 	}
 
-	public float sendBlock() {
+	public void sendBlock() {
 		//float progress = 0;
-		final float progress = ((float) (blockCounter + 1) / (float) file.getNumberOfBlocks()) * 100;
 		if (!lastBlockSent) {
-			//progress = ((float) (blockCounter + 1) / (float) file.getNumberOfBlocks()) * 100;
-			activity.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					sendProgressUpdate((int) progress);
-				}
-			});
-			//sendProgressUpdate((int) progress);
+
 			Log.d(TAG, "Sending block " + (blockCounter + 1) + " of " + file.getNumberOfBlocks());
 			byte[][] block = file.getBlock(blockCounter);
 
@@ -287,25 +279,6 @@ public abstract class BJBLEManager {
 
 			final int chunkNumber = (blockCounter * file.getChunksPerBlockCount()) + i + 1;
 			final String message = "Sending chunk " + chunkNumber + " of " + file.getTotalChunkCount() + " (with " + chunk.length + " bytes)";
-			if (chunkNumber == 1)
-				activity.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						activity.log("Update procedure started.");
-					}
-				});
-            /*if (chunkNumber < 100 || chunkNumber % 100 == 0 || chunkNumber > (file.getNumberOfBlocks() - 1) * file.getChunksPerBlockCount())
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        activity.log(message);
-                    }
-                });*/
-			activity.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-				}
-			});
 			String systemLogMessage = "Sending block " + (blockCounter + 1) + ", chunk " + (i + 1) + ", blocksize: " + block.length + ", chunksize " + chunk.length;
 			Log.d(TAG, systemLogMessage);
 			BluetoothGattCharacteristic characteristic = activity.getGatt().getService(MainActivity.SPOTA_SERVICE_UUID)
@@ -333,7 +306,6 @@ public abstract class BJBLEManager {
 				}
 			}
 		}
-		return progress;
 	}
 
 	public void sendEndSignal() {

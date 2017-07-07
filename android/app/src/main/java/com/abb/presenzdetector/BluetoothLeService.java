@@ -541,8 +541,10 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
+            Log.d("lakshmana","lakshmana write is success");
         }
         else {
+            Log.d("lakshmana","lakshmana write is fail");
         }
     }
 

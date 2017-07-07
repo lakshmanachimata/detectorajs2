@@ -104,10 +104,10 @@ public class MainActivity extends Activity {
     static final String SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
     static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
 
-    static final String NEW_DSPS_SERVICE   = "10af0100-50de-11e7-b114-b2f933d5fe66";
-    static final String NEW_SERVER_TX_DATA = "10af0101-50de-11e7-b114-b2f933d5fe66";
-    static final String NEW_SERVER_RX_DATA = "10af0103-50de-11e7-b114-b2f933d5fe66";
-    static final String NEW_FLOW_CONTROL   = "10af0102-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_DSPS_SERVICE   = "10af0100-11de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_TX_DATA   = "10af0101-11de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_RX_DATA   = "10af0103-11de-11e7-b114-b2f933d5fe66";
+    static final String NEW_FLOW_CONTROL   = "10af0102-11de-11e7-b114-b2f933d5fe66";
 
     public static final String PROGRESS_UPDATE = "ProgressUpdate";
     public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
@@ -117,6 +117,7 @@ public class MainActivity extends Activity {
     public static final int MEMORY_TYPE_RETENTION_RAM = 2;
     public static final int MEMORY_TYPE_SPI = 3;
     public static final int MEMORY_TYPE_I2C = 4;
+
 
     public static final UUID SPOTA_SERVICE_UUID = UUID.fromString("0000fef5-0000-1000-8000-00805f9b34fb");
     public static final UUID SPOTA_MEM_DEV_UUID = UUID.fromString("8082caa8-41a6-4021-91c6-56f9b954cc34");
@@ -227,6 +228,8 @@ public class MainActivity extends Activity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
     };
+
+    boolean isABB =  false;
 
     class DetectorInfo {
         String hashCode = "";
@@ -389,6 +392,7 @@ public class MainActivity extends Activity {
                         url.equals("file:///android_asset/welcome") ||
                         url.equals("file:///android_asset/index.html") ) {
                     if (splashScreen.getVisibility() == View.VISIBLE) {
+
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
 
@@ -400,6 +404,7 @@ public class MainActivity extends Activity {
                         mainScreen.bringToFront();
                     }
                     loaded = true;
+                    setFlavorType();
                 }
             }
 
@@ -801,6 +806,19 @@ public class MainActivity extends Activity {
         });
     }
 
+    void setFlavorType(){
+        JSONObject jsonObject =  new JSONObject();
+        try {
+            jsonObject.put("isabb", isABB);
+            String deviceData = "";
+            deviceData = deviceData + "setFlavor(";
+            deviceData = deviceData + jsonObject.toString() + ")";
+            webview.evaluateJavascript(deviceData, null);
+        }catch (Exception e){
+
+        }
+    }
+
 
     void notifyAppAboutConnection(final boolean isConnection){
         runOnUiThread(new Runnable() {
@@ -894,7 +912,8 @@ public class MainActivity extends Activity {
                 byte[] data = intent.getByteArrayExtra(EXTRA_DATA);
                 String charecterstic = intent.getStringExtra(EXTRA_CHARECTERSTIC);
 
-                if (charecterstic.equalsIgnoreCase(SERVER_TX_DATA)) {
+                if (charecterstic.equalsIgnoreCase(SERVER_TX_DATA) ||
+                        charecterstic.equalsIgnoreCase(NEW_SERVER_TX_DATA)) {
 
                     byte[] rawdata = data;
 
@@ -1010,16 +1029,19 @@ public class MainActivity extends Activity {
                     if (bleRecvBuffer != null)
                         bleRecvBuffer.clear();
 
+                    Log.d("lakshmana","lakshmana sending app data ");
                     mBluetoothLeService.writeCharacteristic(writeCharecteristic);
                     return;
                 }
                 else {
                     for (int i = 0; i < mGattServices.size(); i++) {
-                        if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE)) {
+                        if (mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE) ||
+                                mGattServices.get(i).getUuid().toString().equalsIgnoreCase(NEW_DSPS_SERVICE)   ) {
                             final List<BluetoothGattCharacteristic> gattCharacteristics =
                                     mGattServices.get(i).getCharacteristics();
                             for (int j = 0; j < gattCharacteristics.size(); j++) {
-                                if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SERVER_RX_DATA)) {
+                                if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SERVER_RX_DATA) ||
+                                        gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(NEW_SERVER_RX_DATA) ) {
                                     BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
                                     writeme.setValue(data);
                                     writeme.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
@@ -1062,14 +1084,19 @@ public class MainActivity extends Activity {
         for(int i =0; i < mGattServices.size(); i++) {
             //if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE))
             {
+               // Log.d("laks","lakshmana service uuid is   " + mGattServices.get(i).getUuid().toString());
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
                             mGattServices.get(i).getCharacteristics();
                 for(int j =0;j < gattCharacteristics.size(); j++ ){
+
                     UUID myUUID =  gattCharacteristics.get(j).getUuid();
                     String uuidstr = myUUID.toString();
-                    if(uuidstr.equalsIgnoreCase(SERVER_RX_DATA)) {
+                    //Log.d("laks","lakshmana Characteristic uuid is   " + uuidstr);
+                    if(uuidstr.equalsIgnoreCase(SERVER_RX_DATA) ||
+                            uuidstr.equalsIgnoreCase(NEW_SERVER_RX_DATA)) {
                         writeCharecteristic =  gattCharacteristics.get(j);
-                    }else if(uuidstr.equalsIgnoreCase(SERVER_TX_DATA)) {
+                    }else if(uuidstr.equalsIgnoreCase(SERVER_TX_DATA) ||
+                            uuidstr.equalsIgnoreCase(NEW_SERVER_TX_DATA)) {
                         mBluetoothLeService.setCharacteristicNotification(gattCharacteristics.get(j),true);
                     }else if (myUUID.equals(MainActivity.ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING)) {
                         suotaManager.characteristicsQueue.add(gattCharacteristics.get(j));
@@ -1158,6 +1185,12 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     BluetoothDevice device = result.getDevice();
+                    ParcelUuid[] dUUIDs;
+                    try {
+                        dUUIDs  = device.getUuids();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     ScanRecord scanRecord = result.getScanRecord();
                     List<ParcelUuid> sUUIDs = scanRecord.getServiceUuids();
                     boolean isABBPresenseDetector = false;
