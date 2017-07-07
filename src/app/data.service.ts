@@ -728,12 +728,21 @@ export class DataService {
     }
     getSubMenuItems() {
         if(this.uiParams.profile == 'user') {
-            let menuItems: Array<SubMenuItem> = [ 
-                new SubMenuItem(this.translater.translate('Help'),'help'),
-                new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'), 
-                new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
-            ];
-            return menuItems;
+            if(this.isABBFlavor ==  false){
+                let menuItems: Array<SubMenuItem> = [ 
+                    new SubMenuItem(this.translater.translate('Help'),'help'),
+                    new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'), 
+                    new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
+                ];
+                return menuItems;
+            }else {
+                let menuItems: Array<SubMenuItem> = [ 
+                    new SubMenuItem(this.translater.translate('Help'),'help'),
+                    new SubMenuItem(this.translater.translate('About ABB'),'about'), 
+                    new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
+                ];
+                return menuItems;
+            }
         }else {
             if(this.isABBFlavor ==  false){
                 let menuItems: Array<SubMenuItem> = [ 

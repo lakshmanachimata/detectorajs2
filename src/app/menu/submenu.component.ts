@@ -279,7 +279,10 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             this.data.setSMMainTitle('Help')
             break;
             case 'about':
-            this.data.setSMMainTitle('About Busch-Jaeger')
+            if(this.data.getIsAbbFlavor() ==  false)
+                this.data.setSMMainTitle('About Busch-Jaeger')
+            else 
+                this.data.setSMMainTitle('About ABB')
             break;
             case 'switch_mode':
             this.data.setSMMainTitle('Switch mode')
@@ -291,7 +294,10 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
             this.data.setSMMainTitle('Installed devices')
             break;
             case 'sync':
-            this.data.setSMMainTitle('Sync with myBUSCH-JAEGER')
+            if(this.data.getIsAbbFlavor() ==  false)
+                this.data.setSMMainTitle('Sync with my BUSCH-JAEGER')
+            else
+                this.data.setSMMainTitle('Sync with my ABB')
             break;
         }
     }
