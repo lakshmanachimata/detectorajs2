@@ -937,6 +937,14 @@ export class DataService {
     }
 
     setAccessLevel(){
+        this.logger.log("lakshmana  setAccessLevel called ")
+        setTimeout(()=> 
+            this.setAccessLevelNow(), 250
+        )
+    }
+
+    setAccessLevelNow(){
+        this.logger.log("lakshmana  setAccessLevelNow called ")
         if(this.getProfile()=='user'){
             this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x01)
         }else{
