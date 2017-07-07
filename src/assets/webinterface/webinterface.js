@@ -23,6 +23,10 @@ function BJ_updateScanList() {
     welcomecomponent.onDevices(devData);
 }
 
+function setFlavor(data){
+    appDataService.setIsAbbFlavor(data.isabb);
+}
+
 function setWebLanguage(data){
     var lang = data.language;
 }

@@ -68,7 +68,8 @@
 
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'sync' && isUserLoggedIn() == false" [@subMenuSlideIn]="subMenuState">
   <div id="#bj-sync-my-bj-div">
-    <label class="bj-config-lbl">My Busch-jaeger / myABB account</label>            
+    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> my Busch-jaeger </label>  
+    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account </label>        
   </div>
   <div class="bj-sync-my-bj">
     <label class="info"> Please fill in login information</label> 
@@ -82,7 +83,8 @@
 </div>
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'sync' && isUserLoggedIn() == true" [@subMenuSlideIn]="subMenuState">
   <div id="#bj-sync-my-bj-div">
-    <label class="bj-config-lbl">My Busch-jaeger / myABB account</label>            
+    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> my Busch-jaeger </label>
+    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account  </label>      
   </div>
   <div class="bj-sync-my-bj">
     <label class="info" >{{ this.data.getTranslatedString("You are now logged in") }}</label> 

@@ -373,6 +373,7 @@ declare var killMeFromJS;
 @Injectable()
 export class DataService {
     debugLogs = true;
+    isABBFlavor = true;
     scanneddata:any;
     profilesKey = 'profiles';
     uiParams:UIParams   =  new UIParams();
@@ -412,6 +413,14 @@ export class DataService {
         this.checkDeviceMode();
         this.setCertData('');
         this.setKeyData('')
+    }
+
+    setIsAbbFlavor(flavor){
+        this.isABBFlavor =  flavor;
+    }
+
+    getIsAbbFlavor(){
+        return this.isABBFlavor;
     }
 
     checkDeviceMode(){
@@ -726,15 +735,27 @@ export class DataService {
             ];
             return menuItems;
         }else {
-            let menuItems: Array<SubMenuItem> = [ 
-                new SubMenuItem(this.translater.translate('Installed devices'),'installed_devices'),
-                new SubMenuItem(this.translater.translate('User profiles'),'user_profiles'), 
-                new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
-                new SubMenuItem(this.translater.translate('Help'),'help'),
-                new SubMenuItem(this.translater.translate('Sync with myBUSCH-JAEGER'),'sync'),
-                new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'),
-            ];
-            return menuItems;
+            if(this.isABBFlavor ==  false){
+                let menuItems: Array<SubMenuItem> = [ 
+                    new SubMenuItem(this.translater.translate('Installed devices'),'installed_devices'),
+                    new SubMenuItem(this.translater.translate('User profiles'),'user_profiles'), 
+                    new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
+                    new SubMenuItem(this.translater.translate('Help'),'help'),
+                    new SubMenuItem(this.translater.translate('Sync with my BUSCH-JAEGER'),'sync'),
+                    new SubMenuItem(this.translater.translate('About Busch-Jaeger'),'about'),
+                ];
+                return menuItems;
+            }else {
+                let menuItems: Array<SubMenuItem> = [ 
+                    new SubMenuItem(this.translater.translate('Installed devices'),'installed_devices'),
+                    new SubMenuItem(this.translater.translate('User profiles'),'user_profiles'), 
+                    new SubMenuItem(this.translater.translate('Switch mode'),'switch_mode'), 
+                    new SubMenuItem(this.translater.translate('Help'),'help'),
+                    new SubMenuItem(this.translater.translate('Sync with my ABB'),'sync'),
+                    new SubMenuItem(this.translater.translate('About ABB'),'about'),
+                ];
+                return menuItems;
+            }
         }
     }
 /****************  DEVICE INFO APIs specific to each device ******************/
