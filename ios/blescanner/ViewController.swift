@@ -99,6 +99,11 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             decisionHandler(.allow)
         }
     }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
+        print("url loader is " ,(webView.url?.absoluteURL)!)
+    }
+
 
     
     override func didReceiveMemoryWarning() {
