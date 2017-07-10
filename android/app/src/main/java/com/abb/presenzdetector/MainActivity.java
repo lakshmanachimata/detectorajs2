@@ -350,14 +350,14 @@ public class MainActivity extends Activity {
 
         String version = pInfo.versionName;
 
-        TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
-        String logoText = "BJE\n presence\n detector";
-        tvLogo.setText(logoText);
-
-
-        TextView tvVersion =(TextView) (splashScreen.findViewById(R.id.textViewVersion));
-        String versionText = "Version "+version+"\n"+ buildDate;
-        tvVersion.setText(versionText);
+//        TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
+//        String logoText = "BJE\n presence\n detector";
+//        tvLogo.setText(logoText);
+//
+//
+//        TextView tvVersion =(TextView) (splashScreen.findViewById(R.id.textViewVersion));
+//        String versionText = "Version "+version+"\n"+ buildDate;
+//        tvVersion.setText(versionText);
 
 
         Window window = activity.getWindow();
