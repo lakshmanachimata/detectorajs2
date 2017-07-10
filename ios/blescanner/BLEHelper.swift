@@ -25,8 +25,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var step : Int = 0
     var nextStep : Int = 0
-    var expectedVal : Int = 0
-    var chunkSize : Int = 0
+    var chunkSize : Int = 20
     var blockStartByte : Int = 0
     
     var fileData : Data? = Data()
@@ -35,6 +34,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var titles: [String] = ["P0_0", "P0_1", "P0_2", "P0_3", "P0_4", "P0_5", "P0_6", "P0_7", "P1_0", "P1_1", "P1_2", "P1_3", "P2_0", "P2_1", "P2_2", "P2_3", "P2_4", "P2_5", "P2_6", "P2_7", "P2_8", "P2_9", "P3_0", "P3_1", "P3_2", "P3_3", "P3_4", "P3_5", "P3_6", "P3_7"]
 
     
+    var  fwDataUpdateChatacterstic : CBCharacteristic? = nil;
     var manager :CBCentralManager? = nil
     var selectedperipheral:CBPeripheral!
     var peripherals:[CBPeripheral] = []
@@ -113,7 +113,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func getServices(device: String)  {
-        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue)]
+        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue),CBUUID.init(string: SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)]
         selectedperipheral.discoverServices(services)
     }
     
@@ -123,10 +123,18 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                               type: CBCharacteristicWriteType.withoutResponse);
     }
     
-    func writeValue(indata: Data, charcharcterstic: CBCharacteristic ){
+    func writeValueWithResponseForCharacterstic(indata: Data, charcharcterstic: CBCharacteristic ){
+        print("Snding data  writeValueWithResponseForCharacterstic " + charcharcterstic.uuid.uuidString)
         selectedperipheral.writeValue(indata, for: charcharcterstic,
                               type: CBCharacteristicWriteType.withResponse);
     }
+    
+    func writeValueWithoutResponseForCharacterstic(indata: Data, charcharcterstic: CBCharacteristic ){
+        print("Snding data  writeValueWithoutResponseForCharacterstic " + charcharcterstic.uuid.uuidString)
+        selectedperipheral.writeValue(indata, for: charcharcterstic,
+                                      type: CBCharacteristicWriteType.withoutResponse);
+    }
+    
     
     func startUpdate(){
         getImageListsFromBundle();
@@ -161,13 +169,13 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        let services = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
+        let advservices = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
         
-        if(services != nil) {
+        if(advservices != nil) {
             
             let cbuuid = CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue);
             let suotaUUID = CBUUID.init(string: SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue);
-            let isServiceExists = services!.contains(cbuuid)
+            let isServiceExists = advservices!.contains(cbuuid)
             let manufactorData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
             
             if ( isServiceExists == true && manufactorData != nil) {
@@ -201,7 +209,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["modelNumber"] = modelNumberStr;
                     detectorInfo["hashCode"] = String(peripheral.hash);
-                    detectorInfo["OTAsupported"] = String(services!.contains(suotaUUID));
+                    detectorInfo["OTAsupported"] = String(advservices!.contains(suotaUUID));
                     if(modelNumberStr.contains("05")){
                         detectorInfo["deviceType"] = "daliMaster1c";
                     }
@@ -225,7 +233,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["modelNumber"] = modelNumberStr;
-                    detectorInfo["OTAsupported"] = String(services!.contains(suotaUUID));
+                    detectorInfo["OTAsupported"] = String(advservices!.contains(suotaUUID));
                     if(modelNumberStr.contains("05")){
                         detectorInfo["deviceType"] = "daliMaster1c";
                     }
@@ -276,9 +284,15 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
             for characteristic in service.characteristics! {
-                if(service.uuid.uuidString.contains("180A")){
+                if(service.uuid.uuidString.contains(SCCP_SERVICE.INFO_SERVICE.rawValue)){
                     peripheral.readValue(for: characteristic)
                 }
+                if(service.uuid.uuidString.contains(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)){
+                    if (characteristic.uuid.uuidString == SPOTA_UUID.SPOTA_SERV_STATUS_UUID.rawValue){
+                        peripheral.setNotifyValue(true, for: characteristic)
+                    }
+                }
+                
                 if (characteristic.properties.contains(CBCharacteristicProperties.notify)) {
                     if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_TX_DATA.rawValue) {
                         peripheral.setNotifyValue(true, for: characteristic);
@@ -294,24 +308,31 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                                     let jsData = Utilities.jsonStringify(data: deviceAddr as AnyObject)
                                     let script: String = "onDeviceConnected(\(jsData))"
                                     print("Device  connected",peripheral.identifier.uuidString)
+                                    //LAKSHMANA COMMENTED TEMPORARILY
 //                                    DispatchQueue.main.async {
 //                                        //Run UI Updates
 //                                        self.webView?.evaluateJavaScript(script);
 //                                    }
-                                    self.startUpdate();
                                 }
                     }
                 }
             }
+        if(service.uuid.uuidString.contains(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                self.startUpdate()
+            })
+        }
 
     }
     
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        print("didUpdateNotificationState");
+        //print("didUpdateNotificationState    " + characteristic.uuid.uuidString);
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        
+//        print("didUpdateValueFor came for characterstic " + characteristic.uuid.uuidString)
         
         if(isFWUpdateStarted){
             
@@ -335,12 +356,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     }
                 }
                 
-                if expectedVal != 0 {
+                if expectedValue != 0 {
                     
-                    if Int(value) == expectedVal {
+                    if Int(value) == expectedValue {
                         
                         step = nextStep
-                        expectedVal = 0
+                        expectedValue = 0
                         
                         doStep()
                     }
@@ -412,18 +433,24 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
         }
         else {
-            if let string = String(data: characteristic.value!, encoding: .utf8) {
-                print("value of characteristic  " + string)
-            } else {
-                print("not a valid UTF-8 sequence")
-            }
+//            if let string = String(data: characteristic.value!, encoding: .utf8) {
+//                print("value of characteristic  " + string)
+//            } else {
+//                print("not a valid UTF-8 sequence")
+//            }
         }
         }
         
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        print("didWriteValueFor");
+        print("didWriteValueFor descriptor");
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?){
+         DispatchQueue.global(qos: .background).async {
+            self.didSendValueForCharacteristic(incharcharcterstic: characteristic);
+        }
     }
     
     
@@ -469,17 +496,21 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     
     
-    func didSendValueForCharacteristic(_ notification : NSNotification) {
-        
-        if step != 7 {
-            doStep();
+    func didSendValueForCharacteristic(incharcharcterstic : CBCharacteristic) {
+        print("didSendValueForCharacteristic " ,  step , "  " , incharcharcterstic.uuid.uuidString);
+        if step != 0 && step != 7 {
+            if(incharcharcterstic.uuid.uuidString == SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue
+                || incharcharcterstic.uuid.uuidString == SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue){
+                doStep();
+            }
         }
     }
     
     func doStep() {
-        
+        print("the step is " ,  step)
         switch (step){
             case 1:
+                isFWUpdateStarted =  true;
                 // Step 1: Set memory type
                 step = 0;
                 expectedValue = 0x10;
@@ -489,10 +520,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //                NSData *memDevData = [NSData dataWithBytes:&_memDevData length:sizeof(int)];
                 var _memDevData: Int = (Int(memoryType) << 24) | (memoryBank & 0xff)
                 
-                let memDevData = Data(bytes: withUnsafeMutablePointer(to: &_memDevData, { $0 }), count: MemoryLayout<Int>.size)//Data(bytes: _memDevData, length: MemoryLayout<Int>.size)
+                let memDevData = Data(bytes: withUnsafeMutablePointer(to: &_memDevData, { $0 }), count:MemoryLayout<Int32>.size)//Data(bytes: _memDevData, length: MemoryLayout<Int>.size)
             
                 
-                self.writeValue( indata: memDevData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
+                self.writeValueWithResponseForCharacterstic( indata: memDevData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
 
                 break;
             
@@ -508,19 +539,17 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //                NSData *memInfoData = [NSData dataWithBytes:&_memInfoData length:sizeof(int)];
 //                
                 var _memInfoData: Int = Int((spiMISO << 24) | (spiMOSI << 16) | (spiCS << 8) | spiSCK)
-                let memInfoData = Data(bytes: withUnsafeMutablePointer(to: &_memInfoData, { $0 }), count: MemoryLayout<Int>.size)
+                let memInfoData = Data(bytes: withUnsafeMutablePointer(to: &_memInfoData, { $0 }), count: MemoryLayout<Int32>.size)
                 
                 
                 step = 3;
-                self.writeValue( indata: memInfoData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue)!)
+                self.writeValueWithResponseForCharacterstic( indata: memInfoData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_GPIO_MAP_UUID.rawValue)!)
 
                 break;
             
             
             case 3:
                 // Load patch data
-                //LAKSHMANA READ FILEDATA TO DATA COMMENTED
-                let fileNSData : NSData? = NSData(contentsOfFile: fwUpdateFilePath)
                 
                 let fileUrl : URL = URL(fileURLWithPath: fwUpdateFilePath)
             
@@ -551,7 +580,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 let patchLengthData = Data(bytes: withUnsafeMutablePointer(to: &blockSize, { $0 }), count: MemoryLayout<UInt16>.size)
                 step = 5
                 
-                self.writeValue( indata: patchLengthData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue)!)
+                self.writeValueWithResponseForCharacterstic( indata: patchLengthData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_LEN_UUID.rawValue)!)
 
                 break;
             
@@ -560,18 +589,20 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 // Send current block in chunks of 20 bytes
 //                if (blockStartByte == 0)
 //                [self debug:@"Upload procedure started" UILog:YES];
-                
+                var loopTimes = 1;
                 step = 0;
                 expectedValue = 0x02;
                 nextStep = 5;
                 
-                var dataLength : Int = (fileData?.count)!
+                let dataLength : Int = (fileData?.count)!
                 var chunkStartByte : Int = 0
                 
                 while (chunkStartByte < blockSize) {
                     
+                    print(" start and final is " , chunkStartByte , "   " , blockSize , "  loop times " ,loopTimes)
+                    
                     // Check if we have less than current block-size bytes remaining
-                    var bytesRemaining = blockSize - chunkStartByte;
+                    let bytesRemaining = blockSize - chunkStartByte;
                     if (bytesRemaining < chunkSize) {
                         chunkSize = bytesRemaining;
                     }
@@ -581,13 +612,16 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //                    [self.progressView setProgress:progress];
 //                    [self.progressTextLabel setText:[NSString stringWithFormat:@"%d%%", (int)(100 * progress)]];
 //                    
+                    print("sending  start bytes ", blockStartByte + chunkStartByte, "  endbytes  ", blockStartByte + chunkStartByte + chunkSize, " chunk " ,chunkStartByte, "of", blockSize, dataLength);
+                    
                     // Step 4: Send next n bytes of the patch
                     var bytes : [UInt8] = [UInt8](repeating: UInt8(), count: chunkSize)
                     let dataRange : Range = Int(blockStartByte + chunkStartByte)..<Int(blockStartByte + chunkStartByte + chunkSize + 1)
                     
                     fileData?.copyBytes(to: &bytes, from: dataRange)
                     
-                    var byteData = Data(bytes: bytes, count: MemoryLayout<CChar>.size * chunkSize)
+                    let byteData = Data(bytes: bytes, count: MemoryLayout<UInt8>.size * chunkSize)
+                    
                     
                     
                     // On to the chunk
@@ -597,18 +631,24 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     if (chunkStartByte >= blockSize) {
                         // Prepare for next block
                         blockStartByte += blockSize;
-                        
-                        var bytesRemaining : Int = dataLength - blockStartByte;
+                        chunkStartByte = 0;
+                        let bytesRemaining : Int = dataLength - blockStartByte;
                         if (bytesRemaining == 0) {
                             nextStep = 6;
                             
+                        }else if(bytesRemaining > blockSize){
+                            chunkStartByte = 0;
                         } else if (bytesRemaining < blockSize) {
                             blockSize = bytesRemaining;
                             nextStep = 4; // Back to step 4, setting the patch length
                         }
                     }
+                    if(fwDataUpdateChatacterstic == nil){
+                        fwDataUpdateChatacterstic = self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_DATA_UUID.rawValue)!
+                    }
                     
-                    self.writeValue( indata: byteData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_PATCH_DATA_UUID.rawValue)!)
+                    self.writeValueWithoutResponseForCharacterstic( indata: byteData,charcharcterstic: fwDataUpdateChatacterstic!)
+                    loopTimes =  loopTimes + 1;
 
                 }
                 
@@ -623,7 +663,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 
                 var suotaEnd = 0xFE000000;
                 let suotaEndData = Data(bytes: withUnsafeMutablePointer(to: &suotaEnd, { $0 }), count: MemoryLayout<Int>.size)
-                self.writeValue( indata: suotaEndData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
+                self.writeValueWithResponseForCharacterstic( indata: suotaEndData,charcharcterstic: self.getCBCharectestic(charactersticUUID: SPOTA_UUID.SPOTA_MEM_DEV_UUID.rawValue)!)
 
                 break;
             
@@ -676,15 +716,15 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func appendChecksum() {
         
-        var crc_code: UInt8 = 0
-        fileData?.withUnsafeBytes { (bytes:UnsafePointer<CChar>)->Void in
-            
-            for i in 0..<fileData!.count {
-                crc_code ^= UInt8(bytes[i])
-            }
-            
-            fileData!.append(withUnsafeMutablePointer(to: &crc_code, { $0 }), count: MemoryLayout<UInt8>.size)
+        
+        var crc_code : UInt8 = 0;
+        
+        for number in 0..<((fileData?.count)!){
+            crc_code ^= (fileData?[number])!;
         }
-    }
 
+        
+        print("CRC Code is " , crc_code)
+        //fileData!.append(contentsOf: crc_code)
+    }
 }
