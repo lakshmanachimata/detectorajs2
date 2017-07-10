@@ -12,6 +12,7 @@ import WebKit
 class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate {
     
     var webView: WKWebView!;
+    var uiImageView : UIImageView!;
     var bleHelper:BLEHelper? = nil
     required init?(coder aDecoder: NSCoder) {
         
@@ -26,6 +27,16 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         //let userScript = WKUserScript(source: routeScript, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true);
         
         webView = WKWebView();
+        uiImageView = UIImageView();
+        
+        uiImageView.frame = self.view.bounds;
+        uiImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight];
+        uiImageView.translatesAutoresizingMaskIntoConstraints = false;
+        uiImageView.contentMode = .scaleAspectFit
+        uiImageView.image = UIImage(named: "Image");
+        UIView.animate(withDuration: 2.5, delay: 2.5, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.uiImageView.alpha = 0.0
+        }, completion: nil)
         
         
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight];
@@ -40,6 +51,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         webView.allowsLinkPreview = false;
         
         view.addSubview(webView)
+        view.addSubview(uiImageView)
         
         //https://www.raywenderlich.com/110393/auto-layout-visual-format-language-tutorial
         //TODO: Doesn't work for landscape and upside down in case of iPhone but works for iPad
