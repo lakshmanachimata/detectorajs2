@@ -7,7 +7,6 @@ package com.abb.presenzdetector;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -21,7 +20,6 @@ import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -29,6 +27,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +36,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.support.v4.app.ActivityCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -46,10 +46,11 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.ClientCertRequest;
+import android.webkit.HttpAuthHandler;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -62,8 +63,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -72,13 +75,16 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.security.KeyFactory;
 import java.security.KeyStore;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -102,15 +108,15 @@ public class MainActivity extends Activity {
     static final String SUOTA_SERVICE   = "0000fef5-0000-1000-8000-00805f9b34fb";
     static final String SERVER_TX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CB8";
     static final String SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
-    static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
+//    static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
 
     static final String NEW_DSPS_SERVICE   = "10af0100-11de-11e7-b114-b2f933d5fe66";
     static final String NEW_SERVER_TX_DATA   = "10af0101-11de-11e7-b114-b2f933d5fe66";
     static final String NEW_SERVER_RX_DATA   = "10af0103-11de-11e7-b114-b2f933d5fe66";
-    static final String NEW_FLOW_CONTROL   = "10af0102-11de-11e7-b114-b2f933d5fe66";
+//    static final String NEW_FLOW_CONTROL   = "10af0102-11de-11e7-b114-b2f933d5fe66";
 
-    public static final String PROGRESS_UPDATE = "ProgressUpdate";
-    public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
+//    public static final String PROGRESS_UPDATE = "ProgressUpdate";
+//    public static final String CONNECTION_STATE_UPDATE = "ConnectionState";
     public static final int fileChunkSize = 20;
 
     public static final int MEMORY_TYPE_SYSTEM_RAM = 1;
@@ -127,31 +133,31 @@ public class MainActivity extends Activity {
     public static final UUID SPOTA_PATCH_DATA_UUID = UUID.fromString("457871e8-d516-4ca1-9116-57d0b17b9cb2");
     public static final UUID SPOTA_SERV_STATUS_UUID = UUID.fromString("5f78df94-798c-46f5-990a-b3eb6a065c88");
     public static final UUID SPOTA_DESCRIPTOR_UUID = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_SERVICE_DEVICE_INFORMATION              = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_SERVICE_DEVICE_INFORMATION              = UUID.fromString("0000180a-0000-1000-8000-00805f9b34fb");
     public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_MANUFACTURER_NAME_STRING = UUID.fromString("00002A29-0000-1000-8000-00805f9b34fb");
     public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_MODEL_NUMBER_STRING      = UUID.fromString("00002A24-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SERIAL_NUMBER_STRING     = UUID.fromString("00002A25-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_HARDWARE_REVISION_STRING = UUID.fromString("00002A27-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SERIAL_NUMBER_STRING     = UUID.fromString("00002A25-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_HARDWARE_REVISION_STRING = UUID.fromString("00002A27-0000-1000-8000-00805f9b34fb");
     public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_FIRMWARE_REVISION_STRING = UUID.fromString("00002A26-0000-1000-8000-00805f9b34fb");
     public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SOFTWARE_REVISION_STRING = UUID.fromString("00002A28-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SYSTEM_ID                = UUID.fromString("00002A23-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_IEEE_11073               = UUID.fromString("00002A2A-0000-1000-8000-00805f9b34fb");
-    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_PNP_ID                   = UUID.fromString("00002A50-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_SYSTEM_ID                = UUID.fromString("00002A23-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_IEEE_11073               = UUID.fromString("00002A2A-0000-1000-8000-00805f9b34fb");
+//    public static final UUID ORG_BLUETOOTH_CHARACTERISTIC_PNP_ID                   = UUID.fromString("00002A50-0000-1000-8000-00805f9b34fb");
     // Default SPI memory settings
-    public static final int DEFAULT_MISO_VALUE = 5;
-    public static final int DEFAULT_MOSI_VALUE = 6;
-    public static final int DEFAULT_CS_VALUE = 3;
-    public static final int DEFAULT_SCK_VALUE = 0;
-    public static final String DEFAULT_BLOCK_SIZE_VALUE = "240";
+//    public static final int DEFAULT_MISO_VALUE = 5;
+//    public static final int DEFAULT_MOSI_VALUE = 6;
+//    public static final int DEFAULT_CS_VALUE = 3;
+//    public static final int DEFAULT_SCK_VALUE = 0;
+//    public static final String DEFAULT_BLOCK_SIZE_VALUE = "240";
 
     // Default I2C memory settings
-    public static final int DEFAULT_MEMORY_BANK = 0;
-    public static final String DEFAULT_I2C_DEVICE_ADDRESS = "0x50";
-    public static final int DEFAULT_SCL_GPIO_VALUE = 2;
-    public static final int DEFAULT_SDA_GPIO_VALUE = 3;
-
-    public static final int MEMORY_TYPE_SUOTA_INDEX = 100;
-    public static final int MEMORY_TYPE_SPOTA_INDEX = 101;
+//    public static final int DEFAULT_MEMORY_BANK = 0;
+//    public static final String DEFAULT_I2C_DEVICE_ADDRESS = "0x50";
+//    public static final int DEFAULT_SCL_GPIO_VALUE = 2;
+//    public static final int DEFAULT_SDA_GPIO_VALUE = 3;
+//
+//    public static final int MEMORY_TYPE_SUOTA_INDEX = 100;
+//    public static final int MEMORY_TYPE_SPOTA_INDEX = 101;
 
     // Application error codes (must be greater than 255 in order not to conflict with SUOTA error codes)
     public static final int ERROR_COMMUNICATION = 0xffff; // ble communication error
@@ -181,9 +187,11 @@ public class MainActivity extends Activity {
             "com.abb.presenzdetector.EXTRA_FWUPDATE_MEMDEVVALUE";
 
     // Default memory type
-    public static final int DEFAULT_MEMORY_TYPE = MEMORY_TYPE_SPI;
+    //public static final int DEFAULT_MEMORY_TYPE = MEMORY_TYPE_SPI;
 
 
+    X509Certificate myBJECert;
+    PrivateKey myBJEKey;
     public  static String fwFileDirectory = "";
     SSLContext sslContext;
     DetectorInfo selectedDetectorInfo = null;
@@ -210,10 +218,7 @@ public class MainActivity extends Activity {
 
     int memoryType;
     public  static boolean isUpdateFWStart =  false;
-    public  static boolean isUpdateFWGoing =  false;
-    public  static boolean isUpdateFWSuccess =  false;
-    public  static boolean isUpdateFWFailed =  false;
-    public  static boolean isFWUpdateSupported = true;
+
 
     BluetoothDevice bluetoothDevice;
     Animation in;
@@ -334,21 +339,18 @@ public class MainActivity extends Activity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setUseWideViewPort(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
-            webview.getSettings().setAllowFileAccessFromFileURLs(true);
-            webview.clearCache(true);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webview.setWebContentsDebuggingEnabled(true);
-        }
+        webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        webview.getSettings().setAllowFileAccessFromFileURLs(true);
+        webview.clearCache(true);
+        WebView.setWebContentsDebuggingEnabled(true);
+
 
         webInterface = new WebInterface(MainActivity.this);
         webview.addJavascriptInterface(webInterface,"BJE");
 
 
 
-        String version = pInfo.versionName;
+//        String version = pInfo.versionName;
 
 //        TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
 //        String logoText = "BJE\n presence\n detector";
@@ -384,6 +386,44 @@ public class MainActivity extends Activity {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
+
+            @Override
+            public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+
+
+                X509Certificate certs[] = new X509Certificate[1];
+                certs[0] = myBJECert;
+                request.proceed(myBJEKey,certs);
+//                request.cancel();
+            }
+            @Override
+            public void onReceivedHttpAuthRequest(WebView view,
+                                                  HttpAuthHandler handler, String host, String realm) {
+                handler.cancel();
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                                           SslError error) {
+                String message = "SSL Certificate error.";
+                switch (error.getPrimaryError()) {
+                    case SslError.SSL_UNTRUSTED:
+                        message = "The certificate authority is not trusted.";
+                        break;
+                    case SslError.SSL_EXPIRED:
+                        message = "The certificate has expired.";
+                        break;
+                    case SslError.SSL_IDMISMATCH:
+                        message = "The certificate Hostname mismatch.";
+                        break;
+                    case SslError.SSL_NOTYETVALID:
+                        message = "The certificate is not yet valid.";
+                        break;
+                }
+                message =  message + "ERROR";
+                handler.cancel();
+            }
+
 
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -422,7 +462,7 @@ public class MainActivity extends Activity {
 
 
         initFreeathomeContext();
-        String hostName = "my-staging.busch-jaeger.de";
+        String hostName = "api.my-staging.busch-jaeger.de";
         String userName = "lakshmana";
         String password = "Abb@123456";
         Log.d(LOG_TAG, "Starting to connect to " + hostName);
@@ -486,6 +526,16 @@ public class MainActivity extends Activity {
                                 for(int j = 0; j < data.size(); j++) {
                                     sendData[j] = (char)(0x00FF & data.get(j));
                                 }
+                                FileInputStream fis = new FileInputStream(files[i]);
+                                BufferedInputStream bis = new BufferedInputStream(fis);
+
+                                CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+                                while (bis.available() > 0) {
+                                    myBJECert = (X509Certificate) cf.generateCertificate(bis);
+                                }
+
+
                                 JSONObject certiData = new JSONObject();
                                 String text = String.copyValueOf(sendData);
                                 certiData.put("data",text);
@@ -504,6 +554,7 @@ public class MainActivity extends Activity {
 
                                 ArrayList<Integer> data = new ArrayList<Integer>();
                                 BufferedReader r=new BufferedReader(new FileReader(files[i]));
+
                                 int ch;
                                 while((ch=r.read())!=-1){
                                     data.add(ch);
@@ -522,6 +573,47 @@ public class MainActivity extends Activity {
                                 keyData =  keyData + keyiData.toString()+ ")";
                                 webview.evaluateJavascript(keyData,null);
                                 r.close();
+
+
+                                int size = (int) files[i].length();
+                                byte[] bytes = new byte[size];
+                                try {
+                                    BufferedInputStream buf = new BufferedInputStream(new FileInputStream(files[i]));
+                                    buf.read(bytes, 0, bytes.length);
+                                    buf.close();
+                                } catch (FileNotFoundException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+
+                                try{
+                                KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+                                    text = text.replace("-----BEGIN PRIVATE KEY-----\n","");
+                                    text = text.replace("-----END PRIVATE KEY-----","");
+                                myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                String algorithm = keyFactory.getAlgorithm();
+                                //algorithm = "RSA";
+                                //publicKey = keyFactory.generatePublic(keySpec);
+                            } catch (InvalidKeySpecException excep1) {
+                                try {
+                                    KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+                                    myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                    String algorithm = keyFactory.getAlgorithm();
+                                    //publicKey = keyFactory.generatePublic(keySpec);
+                                } catch (InvalidKeySpecException excep2) {
+
+                                    KeyFactory keyFactory = KeyFactory.getInstance("EC");
+                                    myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+
+                                } catch(Exception e){
+                                    e.printStackTrace();   // inner catch
+                                }
+                            }
+
+
                             }
                         }
                     }catch (Exception e){
@@ -774,12 +866,10 @@ public class MainActivity extends Activity {
                 webview.getSettings().setJavaScriptEnabled(true);
             }
         }
-        log("1111111111  onREsume Called");
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             verifyStoragePermissions(MainActivity.this);
         }
         else {
-            log("111111111111  onREsume Called");
             setUpBluetooth();
         }
 
@@ -1029,7 +1119,6 @@ public class MainActivity extends Activity {
                     if (bleRecvBuffer != null)
                         bleRecvBuffer.clear();
 
-                    Log.d("lakshmana","lakshmana sending app data ");
                     mBluetoothLeService.writeCharacteristic(writeCharecteristic);
                     return;
                 }
@@ -1068,7 +1157,6 @@ public class MainActivity extends Activity {
                     devicesdata = devicesdata + ")";
                     if(scannedDevices.size() > 0) {
                         webview.evaluateJavascript(devicesdata, null);
-                        Log.d(MainActivity.LOG_TAG , "devices are " + devicesdata);
                     }
                     else
                         Toast.makeText(getApplicationContext(),"NO DEVICES FOUND",Toast.LENGTH_LONG).show();
@@ -1084,14 +1172,12 @@ public class MainActivity extends Activity {
         for(int i =0; i < mGattServices.size(); i++) {
             //if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE))
             {
-               // Log.d("laks","lakshmana service uuid is   " + mGattServices.get(i).getUuid().toString());
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
                             mGattServices.get(i).getCharacteristics();
                 for(int j =0;j < gattCharacteristics.size(); j++ ){
 
                     UUID myUUID =  gattCharacteristics.get(j).getUuid();
                     String uuidstr = myUUID.toString();
-                    //Log.d("laks","lakshmana Characteristic uuid is   " + uuidstr);
                     if(uuidstr.equalsIgnoreCase(SERVER_RX_DATA) ||
                             uuidstr.equalsIgnoreCase(NEW_SERVER_RX_DATA)) {
                         writeCharecteristic =  gattCharacteristics.get(j);
@@ -1180,7 +1266,6 @@ public class MainActivity extends Activity {
     ScanCallback bleCallback =  new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, final ScanResult result) {
-            log("11111111111 callback came");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -1207,7 +1292,6 @@ public class MainActivity extends Activity {
                             }
                         }
                         if (isABBPresenseDetector == true) {
-                            log("11111111111 abbdevice call came");
                             if (mBluetoothLeService != null) {
                                 boolean deviceExists = false;
                                 SparseArray<byte[]> manufacturerSpecificData = scanRecord.getManufacturerSpecificData();
@@ -1310,7 +1394,6 @@ public class MainActivity extends Activity {
             }, SCAN_PERIOD);
 
             if(scanner != null) {
-                log("111111111111 scan start called");
                 scanner.startScan(bleCallback);
             }
         } else {
