@@ -6,6 +6,9 @@ var BJE;
 var debugLogs = true;
 var authGenSent = false;
 
+var sendPacketCounter = 0;
+var recvPacketCounter = 0;
+
  function  getFormattedDateTime() {
     var date = new Date();
     var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();
@@ -93,7 +96,7 @@ function readAttr(readData) {
     if(BJE != undefined) {
         BJE.readAttr(data);
         if(debugLogs == true)
-            bjeLog('sending BLE READ Frame   ' + data.join(','))
+            bjeLog('sending packet number ' + ++sendPacketCounter + ' bje_detector read frame ' + data.join(','))
     }
     else {
         var message = {"send":data}
@@ -108,7 +111,7 @@ function writeAttr(writeData) {
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending packet number ' + ++sendPacketCounter +' bje_detector write frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -142,6 +145,8 @@ function setBLEDataToService(indata){
         charCode = bytedata.charCodeAt(i);
         databytes.push(charCode);
     }
+    if(debugLogs == true)
+        console.log('received packet number ' + ++recvPacketCounter + ' bje_detector recv frame  ' + databytes.join(','))
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
@@ -151,7 +156,7 @@ function setDeviceAccessLevel(accessLevel){
      if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+            bjeLog('sending packet number ' + ++sendPacketCounter + ' bje_detector write frame ' + data.join(','))
     }
      else {
         var message = {"send":data}

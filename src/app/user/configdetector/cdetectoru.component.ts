@@ -26,7 +26,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
-                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,     
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME_ASTRO_FUNCTION_ENABLE,     
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,

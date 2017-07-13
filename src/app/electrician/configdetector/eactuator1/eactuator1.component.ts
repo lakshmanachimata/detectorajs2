@@ -65,7 +65,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,        
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,                              
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,                                
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE,                  
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,                  
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,                              
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,                                   
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
@@ -113,7 +113,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   togglepb() {
     this.ad.permanentLightByPushButtonEnable = !this.ad.permanentLightByPushButtonEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])
   }
   nightLightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
@@ -173,7 +173,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
    }
    toggleAs(){
      this.ad.basicBrightnessStartTimeAstroFunctionEnable = !this.ad.basicBrightnessStartTimeAstroFunctionEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.basicBrightnessStartTimeAstroFunctionEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.basicBrightnessStartTimeAstroFunctionEnable?1:0])
    }
    toggleNl() {
      this.ad.nightLightFunctionEnable = !this.ad.nightLightFunctionEnable

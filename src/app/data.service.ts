@@ -16,16 +16,16 @@ export class WriteData{
 }
 
 export class HTTPCODES {
-    static SUCCESS_START = 200;
-    static SUCCESS_END = 299;
-    static NOT_FOUND = 404;
-    static NO_AUTH = 401;
-    static FORBIDDN = 403;
-    static BAD_REQUEST = 400;
-    static METHOD_NOT_ALLOWED = 405;
-    static PAYLAOD_HUGE = 413;
-    static TOO_MANY_REQUESTS = 429;
-    static SERVER_ERR_START = 500;
+    static SUCCESS_START        = 200;
+    static SUCCESS_END          = 299;
+    static NOT_FOUND            = 404;
+    static NO_AUTH              = 401;
+    static FORBIDDN             = 403;
+    static BAD_REQUEST          = 400;
+    static METHOD_NOT_ALLOWED   = 405;
+    static PAYLAOD_HUGE         = 413;
+    static TOO_MANY_REQUESTS    = 429;
+    static SERVER_ERR_START     = 500;
 }
 
 export class CloudObj {
@@ -81,14 +81,20 @@ export class SCCP_COMMAND  {
     static SCCP_TYPE_INT16    = 0x0D;
     static SCCP_TYPE_INT32    = 0x0E;
     static SCCP_TYPE_INT64    = 0x0F;
-    //static SCCP_TYPE_AUINT8   = 0x88;
+    static SCCP_TYPE_AUINT8   = 0x88;
 }
 
 export class SCCP_ATTRIBUTES  {
     static FIRMWARE_VERSION                                        = 0x0000;
+    static UNIQUE_IDENTIFIER                                       = 0x0002;
+    static UNIQUE_IDENTIFIER_LENGTH                                = 0x0003;
     static BT_DEVICE_NAME                                          = 0x0020;
     static ARTICLE_NUMBER                                          = 0x0021;
     static DEVICE_TYPE                                             = 0x0022;
+    static IS_FACTORY_NEW                                          = 0x0023;
+    static LATITTUDE                                               = 0x0028;
+    static LONGITUDE                                               = 0x0029;
+    static TIMEZONE                                                = 0x002A;
     static POTENTIOMETER_MODE                                      = 0x0030;
     static BRIGHTNESS_THRESHOLD                                    = 0x0031;
     static BRIGHTNESS_THRESHOLD_MIN                                = 0x0032;
@@ -153,7 +159,8 @@ export class SCCP_ATTRIBUTES  {
     static BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX       = 0x008C;
     static BASIC_BRIGHTNESS_START_TIME                             = 0x008D;
     static BASIC_BRIGHTNESS_END_TIME                               = 0x008E;
-    static BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  = 0x008F;
+    static BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE       = 0x008F;
+    static BASIC_BRIGHTNESS_END_TIME_ASTRO_FUNCTION_ENABLE         = 0x0090;
     static NIGHT_LIGHT_FUNCTION_ENABLE                             = 0x0094;
     static NIGHT_LIGHT_START_TIME                                  = 0x0095;
     static NIGHT_LIGHT_END_TIME                                    = 0x0096;
@@ -166,8 +173,10 @@ export class SCCP_ATTRIBUTES  {
     static PRESENCE_SIMULATION_ENABLE                              = 0x009D;
     static PRESENCE_SIMULATION_START_TIME                          = 0x009E;
     static PRESENCE_SIMULATION_END_TIME                            = 0x009F;
-    static PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               = 0x00A0;
-    static PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID                = 0x00A5;
+    static PRESENCE_SIMULATION_START_TIME_ASTRO_FUNCTION_ENABLE     = 0x00A0;
+    static PRESENCE_SIMULATION_END_TIME_ASTRO_FUNCTION_ENABLE       = 0x00A1;
+    static SWITCH_OFF_PRE_WARNING_ENABLE                           = 0x00A2;
+    static PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE                   = 0x00A5;
     static CH2_CIRCUIT_LOGIC                                       = 0x0100;
     static CH2_MODE                                                = 0x0101;
     static HVAC_DYNAMICAL_CONTROL_ENABLE                           = 0x0102;
@@ -184,6 +193,7 @@ export class SCCP_ATTRIBUTES  {
     static ENERGY_MONITOR_LIGHTING_DURATION                        = 0x00C3;
     static ENERGY_MONITOR_LIGHTING_DURATION_MIN                    = 0x00C4;
     static ENERGY_MONITOR_LIGHTING_DURATION_MAX                    = 0x00C5;
+    static ENERGY_MONITOR_DB                                       = 0x00C6;
     static CONTACT                                                 = 0x00D0;
     static BUILDING                                                = 0x00D1;
     static ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    = 0x00E0;
@@ -192,33 +202,25 @@ export class SCCP_ATTRIBUTES  {
     static ENABLE_USER_BASIC_BRIGHTNESS                            = 0x00E3;
     static ENABLE_USER_NIGHT_LIGHT_FUNCTION                        = 0x00E4;
     static ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            = 0x00E5;
+    static IS_BT_CONNECTED                                         = 0x1000;
     static CURRENT_BRIGHTNESS                                      = 0x1020;
     static IDENTIFYING_DEVICE                                      = 0x1021;
+    static CURRENT_OPERATING_MODE                                  = 0x1022;
     static MOVEMENT                                                = 0x1040;
     static CH1_IDENTIFYING_LOAD                                    = 0x1060;
     static CH1_ON_OFF_STATE                                        = 0x1061;
     static CH1_CURRENT_LEVEL                                       = 0x1062;
     static CH2_IDENTIFYING_LOAD                                    = 0x10A0;
     static CH2_ON_OFF_STATE                                        = 0x10A1;
-    static CH2_CURRENT_LEVEL                                       = 0x10A2;
     static TEST_MODE_ENABLE                                        = 0x10B0;
     static ACCESS_LEVEL                                            = 0x10E0;
-    static TEST_BOOL                                               = 0x8001;
-    static TEST_STRING                                             = 0x8002;
-    static TEST_ENUM8                                              = 0x8003;
-    static TEST_ENUM16                                             = 0x8004;
-    static TEST_TIME                                               = 0x8005;
-    static TEST_UINT8                                              = 0x8008;
-    static TEST_UINT16                                             = 0x8009;
-    static TEST_UINT32                                             = 0x800A;
-    static TEST_INT8                                               = 0x800C;
-    static TEST_INT16                                              = 0x800D;
-    static TEST_INT32                                              = 0x800E;
+    static END_USER_PASSWORD                                       = 0x10E1;
+    static END_USER_PASSWORD_LENGTH                                = 0x10E2;
+    static PASSWORD_REMINDER_ACTIVE                                = 0x10E3;
 };
 
 
 export class UIParams {
-
       constructor() {}
       public showHeader = false;
       public showFooter = false;
@@ -426,6 +428,7 @@ export class DataService {
     checkDeviceMode(){
         let aindex =  navigator.platform.toLowerCase().indexOf('linux');
         let iindex = navigator.platform.toLowerCase().indexOf('iphone');
+        //LAKSHMANA commented temporarily to simulate devices
         if( aindex >=  0 ||
         iindex >= 0){
             this.DeviceBuild = 1;
@@ -459,7 +462,7 @@ export class DataService {
     }
 
      str2ab(str) {
-        var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+        var buf = new ArrayBuffer(str.length*2); 
         var bufView = new Uint16Array(buf);
         for (var i=0, strLen=str.length; i<strLen; i++) {
             bufView[i] = str.charCodeAt(i);
@@ -468,7 +471,7 @@ export class DataService {
     }
 
     getEOptionText(){
-        if(this.uiParams.eOptionText == ''){//added to resolve issue with localization
+        if(this.uiParams.eOptionText == ''){
             this.uiParams.eOptionText = this.translater.translate('Save');
         }
         return this.uiParams.eOptionText;
@@ -839,7 +842,6 @@ export class DataService {
                     this.setBLEdataOnDeviceData(atrType,atrValue);
                 }
                 if(this.readArray.length > this.readCount){
-                    
                     this.readArray = this.readArray.slice(this.readCount,this.readArray.length);
                 }
                 else {
@@ -1740,7 +1742,7 @@ export class DataService {
             method: 'GET',
         };
         request.get(options,function(error, response, body){
-            console.log('some shit came');
+            console.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
         }); 
     }
 
@@ -1997,18 +1999,21 @@ export class DataService {
     }
     putDevicesToCloud(installed){
         if(this.networkParams.useCertAuth){
-            for(let i = 0; i < this.uiParams.devicesObj.IDevicesArray.length; i++){
-                    if(this.uiParams.devicesObj.DeviceData.btAddress == this.uiParams.devicesObj.IDevicesArray[i].btAddress){
-                        this.uiParams.devicesObj.IDevicesArray[i] = this.uiParams.devicesObj.DeviceData;
-                        break;
-                    }
-            }
-            this.uiParams.devicesObj.DetectorsObj = {
+            if(this.uiParams.devicesObj.IDevicesArray != undefined ){
+                for(let i = 0; i < this.uiParams.devicesObj.IDevicesArray.length; i++){
+                        if(this.uiParams.devicesObj.DeviceData.btAddress == this.uiParams.devicesObj.IDevicesArray[i].btAddress){
+                            this.uiParams.devicesObj.IDevicesArray[i] = this.uiParams.devicesObj.DeviceData;
+                            break;
+                        }
+                }
+            
+                this.uiParams.devicesObj.DetectorsObj = {
                     'detectors':this.uiParams.devicesObj.IDevicesArray
                 }
                 let bodyString = JSON.stringify(this.uiParams.devicesObj.DetectorsObj);
                 let path = this.networkParams.certDevicesPath;
                 this.putData(path,bodyString);
+            }
         }else{
             if(this.uiParams.userLoggedIn){
                 for(let i = 0; i < this.uiParams.devicesObj.IDevicesArray.length; i++){
@@ -2230,7 +2235,7 @@ export class DataService {
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME                               : 
                 this.uiParams.devicesObj.DeviceData.basicBrightnessEndTime= attrValue;
             break;
-            case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE                  :
+            case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE                  :
                 this.uiParams.devicesObj.DeviceData.basicBrightnessStartTimeAstroFunctionEnable= attrValue;
             break;
             case SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE                             : 
@@ -2269,9 +2274,11 @@ export class DataService {
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME                            :
                 this.uiParams.devicesObj.DeviceData.presenceSimulationEndTime = attrValue 
             break;
-            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE               :
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME_ASTRO_FUNCTION_ENABLE               :
             break;
-            case SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID                :
+            case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME_ASTRO_FUNCTION_ENABLE               :
+            break;
+            case SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE                :
                 this.uiParams.devicesObj.DeviceData.permanentLightByPushButtonEnable = attrValue;
             break;
             case SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC                                       :
@@ -2369,9 +2376,6 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.CH2_ON_OFF_STATE                                        :
                 this.uiParams.devicesObj.DeviceData.ch2OnOffState = attrValue 
-            break;
-            case SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL                                       :
-                this.uiParams.devicesObj.DeviceData.ch2CurrentLevel = attrValue 
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
                 this.uiParams.devicesObj.DeviceData.testModeEnable = attrValue 

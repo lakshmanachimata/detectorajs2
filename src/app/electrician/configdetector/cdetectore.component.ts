@@ -54,6 +54,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     brSubScribed = false;
     loadingDataDone = false;
     readAttrs =[
+                //packet1
                 SCCP_ATTRIBUTES.POTENTIOMETER_MODE,                                       
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,                                     
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,                                 
@@ -62,7 +63,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_ENABLE,                            
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT,                      
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MIN,                  
-                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,                  
+                SCCP_ATTRIBUTES.CONSTANT_LIGHT_BRIGHTNESS_SET_POINT_MAX,
+                //packet2                  
                 SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,  
                 SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,                                  
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
@@ -73,6 +75,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
                 //add params screen
+                //packet3
                 SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
                 SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
                 SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,
@@ -82,7 +85,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,                                
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN,                            
                 SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX,                                        
-                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,                               
+                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,
+                //packet4                               
                 SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN,                           
                 SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX,                           
                 SCCP_ATTRIBUTES.SOFT_ON_ENABLE,                                        
@@ -91,7 +95,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.SOFT_ON_DURATION_MAX,                                     
                 SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,                                          
                 SCCP_ATTRIBUTES.SOFT_OFF_DURATION,                                        
-                SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN,                                    
+                SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN,
+                //packet5                                    
                 SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MAX,
                 SCCP_ATTRIBUTES.PHASE_CUT_MODE,                                           
                 SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,                               
@@ -100,7 +105,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CH1_MIN_LEVEL,                                            
                 SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,                                     
                 SCCP_ATTRIBUTES.CH1_MAX_LEVEL,                                            
-                SCCP_ATTRIBUTES.LEVEL_MIN,                                                
+                SCCP_ATTRIBUTES.LEVEL_MIN,
+                //packet6                                                
                 SCCP_ATTRIBUTES.LEVEL_MAX,                                                
                 SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,                                      
                 // SCCP_ATTRIBUTES.COLOR_TEMPERATURE,    
@@ -112,16 +118,19 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN,                                     
                 SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX,                                     
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,                                    
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,                                   
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
+                //packet7                                   
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,            
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,        
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,        
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,                              
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,                                
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_ASTRO_FUNCTION_ENABLE,                  
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME_ASTRO_FUNCTION_ENABLE,                  
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,                              
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,                                   
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
+                //packet8
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,                                        
                 SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,                         
                 SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,                                
@@ -131,9 +140,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 //eactuator 2
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE,                               
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,                           
-                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
-                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ASTRO_FUNCTION_ENABLE,
-                //SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE_ID,                
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME, 
+                //packet9                            
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME_ASTRO_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME_ASTRO_FUNCTION_ENABLE,
+                SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE,                
                 SCCP_ATTRIBUTES.CH2_CIRCUIT_LOGIC,                                        
                 SCCP_ATTRIBUTES.CH2_MODE,                                                 
                 SCCP_ATTRIBUTES.HVAC_DYNAMICAL_CONTROL_ENABLE,                            
@@ -141,7 +152,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MIN,                                 
                 SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX,                                 
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,                                    
-                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN,                                
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN,
+                //packet10                                
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX,   
                 //others 
                 SCCP_ATTRIBUTES.CONTACT,
@@ -151,7 +163,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,                        
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,                         
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN,                     
-                SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,                                                                                                                        
+                SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,
+                //packet11                                                                                                                        
                 SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
                 SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
                 SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
@@ -160,13 +173,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE,             
                 SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,                                       
                 SCCP_ATTRIBUTES.IDENTIFYING_DEVICE,                                       
-                SCCP_ATTRIBUTES.MOVEMENT,                                                 
+                SCCP_ATTRIBUTES.MOVEMENT,
+                //packet12                                                 
                 SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,                                     
                 SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,                                         
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,                                        
                 SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,                                     
                 SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,                                         
-                SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL,                                        
                 SCCP_ATTRIBUTES.TEST_MODE_ENABLE,                                         
                 SCCP_ATTRIBUTES.ACCESS_LEVEL,
                 SCCP_ATTRIBUTES.BUILDING,

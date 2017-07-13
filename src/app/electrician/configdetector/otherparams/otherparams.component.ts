@@ -63,7 +63,6 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                   SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,                                        
                   SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,                                     
                   SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,                                         
-                  SCCP_ATTRIBUTES.CH2_CURRENT_LEVEL,                                        
                   SCCP_ATTRIBUTES.TEST_MODE_ENABLE,                                         
                   SCCP_ATTRIBUTES.ACCESS_LEVEL,
                   SCCP_ATTRIBUTES.BUILDING,
