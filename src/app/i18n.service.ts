@@ -35,7 +35,6 @@ export class i18nService {
             var _target = translation.substring(_startIndx,_endIndx);
 
             index = _endIndx;
-            console.log('target string is ' + _target);
             this.wordDefs[_source] = _target;
         }
         
@@ -49,7 +48,6 @@ export class i18nService {
             if(!this.notFoundDefs[_srcString])
             {
                 this.notFoundDefs[_srcString] = "1";
-                console.log('trans not found : '+_srcString)
             }
         }
         return _srcString;

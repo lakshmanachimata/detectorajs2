@@ -16,7 +16,7 @@ var recvPacketCounter = 0;
   }
 
 function bjeLog(msg){
-    console.log(msg + '     ' + getFormattedDateTime());
+    console.log('bje_detector  '+ msg + '     ' + getFormattedDateTime());
 }
 function setDevicesCallBack(component) {
     welcomecomponent = component;
@@ -50,6 +50,7 @@ function disConnectDevice() {
 }
 
 function onDeviceConnected(deviceAddress){
+    bjeLog(' onDeviceConnected web interface')
     appDataService.onDeviceConnected(deviceAddress);
 }
 
@@ -96,7 +97,7 @@ function readAttr(readData) {
     if(BJE != undefined) {
         BJE.readAttr(data);
         if(debugLogs == true)
-            bjeLog('sending packet number ' + ++sendPacketCounter + ' bje_detector read frame ' + data.join(','))
+            bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
     }
     else {
         var message = {"send":data}
@@ -111,7 +112,7 @@ function writeAttr(writeData) {
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
-            bjeLog('sending packet number ' + ++sendPacketCounter +' bje_detector write frame  ' + data.join(','))
+            bjeLog('sending packet number ' + ++sendPacketCounter +'  write frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -146,7 +147,7 @@ function setBLEDataToService(indata){
         databytes.push(charCode);
     }
     if(debugLogs == true)
-        console.log('received packet number ' + ++recvPacketCounter + ' bje_detector recv frame  ' + databytes.join(','))
+        bjeLog('received packet number ' + ++recvPacketCounter + '  recv frame  ' + databytes.join(','))
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
@@ -582,6 +583,28 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
         frame.unshift(0x7e) // START BYTE
         frame.push(0x7e) // END BYTE
         break;
+
+    // case READ_EM_DB:
+    //     frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
+    //     frame.push(0x08); // CONTROL DEVICE
+    //     frame.push(0x00); // SEQUENCE
+    //     frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+        
+    //     for (var d in data) {
+    //         var val = data[d];
+    //         frame.push(val & 0x00FF); // ADDR LOW
+    //         frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+    //         frame.push(0x01);   // length of bytes
+    //         frame.push(0x00);   // offset lower  byte
+    //         frame.push(0x00);   // offset upper  byte
+    //     }
+    //     crc = crcCCITT(frame)
+    //     frame.push(crc >> 8); // CRC LOWER
+    //     frame.push(crc & 0x00ff); // CRC UPPER
+        
+    //     frame.unshift(0x7e) // START BYTE
+    //     frame.push(0x7e) // END BYTE
+    // break;
     case SCCP_COMMAND.READ_ATTRIBUTE_REQUEST:
         
         frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
@@ -593,9 +616,9 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
             var val = data[d];
             frame.push(val & 0x00FF); // ADDR LOW
             frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-            frame.push(0x01);
-            frame.push(0x00);
-            frame.push(0x00);
+            frame.push(0x01);   // length of bytes
+            frame.push(0x00);   // offset lower  byte
+            frame.push(0x00);   // offset upper  byte
         }
         crc = crcCCITT(frame)
         frame.push(crc >> 8); // CRC LOWER
@@ -628,14 +651,18 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
             }else {
                 i = i + 1; 
                 val = data[i];
-                if(val > 0xFF){
-                    frame.push((val & 0x00ff)); // VAL LOW
-                    frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
-                    counter += 5;
-                }else {
-                    frame.push((val & 0x00ff)); // VAL LOW
-                    counter += 4;
-                }
+                frame.push((val & 0x00ff)); // VAL LOW
+                frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
+                counter += 5;
+                // if(val > 0xFF){
+                //     frame.push((val & 0x00ff)); // VAL LOW
+                //     frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
+                //     counter += 5;
+                // }else {
+                //     frame.push((val & 0x00ff)); // VAL LOW
+                //     frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
+                //     counter += 5;
+                // }
             }
         }
         frame.unshift(6 + counter); // LENGTH            

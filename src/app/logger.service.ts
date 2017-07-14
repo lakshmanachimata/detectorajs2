@@ -9,15 +9,15 @@ export class LoggerService {
 
   log(msg: any)   { 
     if(this.logData == true)
-      console.log(msg + '     ' + this.getFormattedDateTime());
+      console.log( 'bje_detector  '+  msg + '     ' + this.getFormattedDateTime());
    }
   error(msg: any) { 
     if(this.logWarn == true)
-      console.error(msg+ '     ' + this.getFormattedDateTime()); 
+      console.error('bje_detector  '+msg+ '     ' + this.getFormattedDateTime()); 
   }
   warn(msg: any)  { 
     if(this.logErr == true)
-    console.warn(msg+ '     ' + this.getFormattedDateTime()); 
+    console.warn('bje_detector  '+msg+ '     ' + this.getFormattedDateTime()); 
   }
   
    getFormattedDateTime() {

@@ -267,8 +267,6 @@ export class DeviceParams {
         public fwupdate = false;
         public modelType= '';
         public firmwareVersion= '';
-        jsonLoadEmitter: EventEmitter<any> = new EventEmitter();
-        iJsonLoadEmitter: EventEmitter<any> = new EventEmitter();
         deviceConnected = false;
         public installer_pwd="";
         public user_pwd="";
@@ -786,17 +784,16 @@ export class DataService {
             return this.uiParams.devicesObj.SelectedDevice;
         }
     }
-    subscribeJsonLoad(component, callback) {
-        return this.deviceParams.jsonLoadEmitter.subscribe(data => callback(component, data));
-    }
     public initDeviceData(installed){
+        this.logger.log('initDeviceData called')
     this.loadDeviceData(installed).then((data) => {
             if(installed) {
                 this.uiParams.devicesObj.IDevicesArray = data;
                 this.iJsonLoadEmit();
             }else {
-             this.uiParams.devicesObj.DeviceData = data;
-             this.jsonLoadEmit();
+                this.logger.log('initDeviceData  callback called')
+                this.uiParams.devicesObj.DeviceData = data;
+                this.jsonLoadEmit();
             }
         });
     }
@@ -954,8 +951,11 @@ export class DataService {
         }
     }
     onAccessLevelUpdate(accessLevel){
+        this.logger.log('onAccessLevelUpdate data service')
         if(this.deviceParams.deviceConnected == true){
+            this.logger.log('onAccessLevelUpdate data service1')
             if(this.activeComponent != undefined) {
+                this.logger.log('onAccessLevelUpdate data service2')
                 this.activeComponent.onAccessLevelUpdate(accessLevel);
             }
         }
@@ -996,9 +996,7 @@ export class DataService {
         this.configureAttrObj =  new configureAttr(data);
     }
 
-    subscribeIJsonLoad(component, callback) {
-        return this.deviceParams.iJsonLoadEmitter.subscribe(data => callback(component, data));
-    }
+
     public getDevicedata(installed) {
         if(installed) {
             return this.uiParams.devicesObj.IDeviceData;
@@ -1010,7 +1008,8 @@ export class DataService {
         if(installed){
             this.getDevicesFromCloud()
         }else {
-             return new Promise<Array<any>>(resolve => {
+            this.logger.log('loadDeviceData called')
+            return new Promise<Array<any>>(resolve => {
                 this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
@@ -1019,10 +1018,11 @@ export class DataService {
     }
 
     jsonLoadEmit() {
-        this.deviceParams.jsonLoadEmitter.emit(0);
+        this.logger.log('jsonLoadEmit called')
+        this.activeComponent.jsonOnLoad(this.activeComponent);
     }
     iJsonLoadEmit() {
-        this.deviceParams.iJsonLoadEmitter.emit(0);
+        this.uiParams.subMenuComponent.jsonOnLoad(this.uiParams.subMenuComponent)
     }
 
     resetSendData() {
@@ -1742,7 +1742,7 @@ export class DataService {
             method: 'GET',
         };
         request.get(options,function(error, response, body){
-            console.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
+            this.logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
         }); 
     }
 
@@ -1862,8 +1862,8 @@ export class DataService {
     getDevicesFromCloud() {
         if(this.networkParams.useCertAuth){
             let path =  this.networkParams.certDevicesPath;
-            //this.getDataWithCert(path);
-            this.getDataWithCertReq();
+            this.getDataWithCert(path);
+            //this.getDataWithCertReq();
         }else{
             let url = this.networkParams.devicesUrl;
             this.getData(url);

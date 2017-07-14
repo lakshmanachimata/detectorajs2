@@ -122,7 +122,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
   ngOnInit () {
     this.data.setActiveComponent(this);
-    this.jsonLoadObserve = this.data.subscribeJsonLoad(this, this.jsonOnLoad);
     if(this.data.DeviceBuild == 1){
       this.setScannedData();
       this.data.resetSendData();

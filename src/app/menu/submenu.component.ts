@@ -44,7 +44,6 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     helpLink ="https://www.busch-jaeger.de/en/service-int/downloads/downloads-data-sheets/";
     aboutText = this.translater.translate("More information available on");
     aboutLink="https://www.busch-jaeger.de/en/";
-    jsonLoadObserve: any;
     sortedMap;
     profile_name;
     onLabel = this.translater.translate('ON');
@@ -264,7 +263,6 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     }
     ngOnInit() { 
         this.data.setSubMenuComponent(this);
-        this.jsonLoadObserve = this.data.subscribeIJsonLoad(this, this.jsonOnLoad);
         this.arrowStateObserve = this.data.subscribeArrowState(this, this.menuArrowStateChange);
          if (this.subMenuState == 'none') {
             setTimeout(() => this.subMenuState = "rightin")
