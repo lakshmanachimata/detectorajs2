@@ -14,6 +14,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     var webView: WKWebView!;
     var uiImageView : UIImageView!;
     var bleHelper:BLEHelper? = nil
+    var isABB:Bool =  true;
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder);
@@ -114,6 +115,21 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
+        
+        if(webView.url?.absoluteURL.absoluteString.contains("index.html#/welcome"))!{
+            
+            var appFlavor:Dictionary<String,Bool> = [:]
+            
+            appFlavor["isabb"] =  isABB;
+            let jsData = Utilities.jsonStringify(data: appFlavor as AnyObject)
+            
+            let script: String = "setFlavor(\(jsData))"
+            DispatchQueue.main.async {
+                //Run UI Updates
+                self.webView?.evaluateJavaScript(script);
+            }
+        };
+        
         print("url loader is " ,(webView.url?.absoluteURL)!)
     }
 
