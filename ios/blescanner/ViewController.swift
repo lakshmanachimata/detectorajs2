@@ -50,6 +50,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
         webView.allowsLinkPreview = false;
         
+        
         view.addSubview(webView)
         view.addSubview(uiImageView)
         
@@ -116,6 +117,9 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         print("url loader is " ,(webView.url?.absoluteURL)!)
     }
 
+    public func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+        
+    }
 
     
     override func didReceiveMemoryWarning() {

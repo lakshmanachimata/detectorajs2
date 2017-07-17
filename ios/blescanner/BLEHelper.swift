@@ -76,8 +76,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func startscan() {
         scannedDevices = [];
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.manager?.scanForPeripherals(withServices: nil, options: nil);
+        self.manager?.scanForPeripherals(withServices: nil, options: nil);
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.stopscan();
         }
     }
     
@@ -113,7 +114,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func getServices(device: String)  {
-        let services:[CBUUID] = [CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue),CBUUID.init(string: SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)]
+        let services:[CBUUID] = [
+            //CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),
+            CBUUID.init(string: SCCP_SERVICE.INFO_SERVICE.rawValue),
+            CBUUID.init(string: SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue),
+            CBUUID.init(string: SCCP_SERVICE.NEW_DSPS_SERVICE.rawValue)
+        ]
         selectedperipheral.discoverServices(services)
     }
     
@@ -276,6 +282,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in peripheral.services! {
             let thisService = service as CBService
+            print("get chars for service " , thisService.uuid.uuidString)
             peripheral.discoverCharacteristics(nil, for: thisService)
         }
 
@@ -284,38 +291,40 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
             for characteristic in service.characteristics! {
+                print("char of " , characteristic.uuid.uuidString + "  service   " , service.uuid.uuidString )
                 if(service.uuid.uuidString.contains(SCCP_SERVICE.INFO_SERVICE.rawValue)){
                     peripheral.readValue(for: characteristic)
                 }
                 if(service.uuid.uuidString.contains(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)){
                     if (characteristic.uuid.uuidString == SPOTA_UUID.SPOTA_SERV_STATUS_UUID.rawValue){
+                        print("SPOTA CAME")
                         peripheral.setNotifyValue(true, for: characteristic)
                     }
                 }
                 
-                if (characteristic.properties.contains(CBCharacteristicProperties.notify)) {
-                    if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_TX_DATA.rawValue) {
-                        peripheral.setNotifyValue(true, for: characteristic);
+                if ( characteristic.uuid.uuidString == SCCP_SERVICE.NEW_SERVER_TX_DATA.rawValue) {
+                    print("TX DATA CAME")
+                    peripheral.setNotifyValue(true, for: characteristic);
+                }
+                
+                if (characteristic.uuid.uuidString == SCCP_SERVICE.NEW_SERVER_RX_DATA.rawValue )
+                {
+                    print("RX DATA CAME")
+
+                    writeWithoutResponseCharacteristic = characteristic
+                    DispatchQueue.global(qos: .background).async {
+                        var deviceAddr:Dictionary<String,String> = [:]
+                        deviceAddr["deviceaddress"] = peripheral.identifier.uuidString;
+                        let jsData = Utilities.jsonStringify(data: deviceAddr as AnyObject)
+                        let script: String = "onDeviceConnected(\(jsData))"
+                        print("Device  connected",peripheral.identifier.uuidString)
+                        DispatchQueue.main.async {
+                            //Run UI Updates
+                            self.webView?.evaluateJavaScript(script);
+                        }
                     }
                 }
-                if (characteristic.properties.contains(CBCharacteristicProperties.writeWithoutResponse)) {
-                    if (characteristic.uuid.uuidString == SCCP_SERVICE.SERVER_RX_DATA.rawValue) {
-                        writeWithoutResponseCharacteristic = characteristic
-                                DispatchQueue.global(qos: .background).async {
-                        
-                                    var deviceAddr:Dictionary<String,String> = [:]
-                                    deviceAddr["deviceaddress"] = peripheral.identifier.uuidString;
-                                    let jsData = Utilities.jsonStringify(data: deviceAddr as AnyObject)
-                                    let script: String = "onDeviceConnected(\(jsData))"
-                                    print("Device  connected",peripheral.identifier.uuidString)
-                                    //LAKSHMANA COMMENTED TEMPORARILY
-//                                    DispatchQueue.main.async {
-//                                        //Run UI Updates
-//                                        self.webView?.evaluateJavaScript(script);
-//                                    }
-                                }
-                    }
-                }
+                
             }
         if(service.uuid.uuidString.contains(SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue)){
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
@@ -487,7 +496,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             let directoryContents = try FileManager.default.contentsOfDirectory(atPath: fwFilesPath)
             fwUpdateFilePath = (fwFilesPath as NSString).appendingPathComponent(directoryContents[0])
             step = 1;
-            doStep();
+            //doStep();
             
         }catch let error{
             print("error \(error.localizedDescription)")
