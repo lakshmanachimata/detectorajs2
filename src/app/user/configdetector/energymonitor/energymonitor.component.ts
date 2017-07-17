@@ -50,6 +50,7 @@ TotalSavingsYearValue = 759;
     this.maxYear = Math.max.apply(Math,this.ad.energy_monitor.energy_monitor_year_data.map(function(o){return o.data;}));
     this.maxMonth = (Math.round(this.maxMonth/10)*10) + 10;
     this.maxYear = (Math.round(this.maxYear/10)*10) + 10;
+    this.data.readEMDB(0);
   }
   ngAfterContentInit() { 
   }

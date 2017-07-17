@@ -221,6 +221,7 @@ export class SCCP_ATTRIBUTES  {
 
 
 export class UIParams {
+
       constructor() {}
       public showHeader = false;
       public showFooter = false;
@@ -369,6 +370,7 @@ declare var setDeviceAccessLevel;
 declare var setPwdToDevice;
 declare var authenticateDevice;
 declare var killMeFromJS;
+declare var reademdb;
 
 @Injectable()
 export class DataService {
@@ -386,6 +388,7 @@ export class DataService {
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
+    reademdbObj:any;
     killMeFromJSObj:any;
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
@@ -976,6 +979,9 @@ export class DataService {
         return this.deviceParams.deviceConnected;
     }
 
+    readEMDB(offset){
+        this.reademdbObj =  new reademdb(offset);
+    }
     readData(data) {
         if(this.DeviceBuild == 1){
             if(this.readArray.length == 0) {

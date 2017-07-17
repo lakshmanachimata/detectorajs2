@@ -200,6 +200,21 @@ function setPwdToDevice(pwd,length,installer){
     }
 }
 
+function reademdb(offset){
+    var data = []
+     data = getEMDBRequestFrame(offset);
+    if(BJE != undefined) {
+        BJE.readAttr(data);
+        if(debugLogs == true)
+            bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
+    }
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
 function authenticateDevice(pwdHash,length,installer){
     var data = [];
     data = getRequestFrame(SCCP_COMMAND.AUTH_REQUST, pwdHash,length,installer);
@@ -239,6 +254,7 @@ function prepareAttributeArray(indata) {
             }
             return;
         }
+        
         if(indata[3] == 0x0B){
             if(indata[5] == 0){
                 appDataService.onInstallerPwdSetSuccess()
@@ -278,6 +294,11 @@ function prepareAttributeArray(indata) {
         case 131: // read attr resonse
         if(debugLogs ==  true)
             bjeLog("read attr response     " + indata);
+        if(indata[3] == 0x09){
+            if(debugLogs ==  true)
+                bjeLog("EMDB response     " + indata);
+            return;
+        }
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
@@ -462,6 +483,29 @@ function prepareAttributeArray(indata) {
 function setDataServiceCallBack(dataService) {
     appDataService = dataService;
 }
+
+function getEMDBRequestFrame(offset){
+        var frame = [];
+        var crc;
+
+        frame.push(11); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x09); // SEQUENCE
+        frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+        frame.push(0xC6)
+        frame.push(0x00)
+        frame.push(0x1B)
+        frame.push(0x00)
+        frame.push(0x00)
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        return frame;
+    
+}
 function getRequestFrame(command, data,len,installer,isuserpwd) {
     var frame = [];
     var crc;
@@ -583,28 +627,6 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
         frame.unshift(0x7e) // START BYTE
         frame.push(0x7e) // END BYTE
         break;
-
-    // case READ_EM_DB:
-    //     frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
-    //     frame.push(0x08); // CONTROL DEVICE
-    //     frame.push(0x00); // SEQUENCE
-    //     frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
-        
-    //     for (var d in data) {
-    //         var val = data[d];
-    //         frame.push(val & 0x00FF); // ADDR LOW
-    //         frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-    //         frame.push(0x01);   // length of bytes
-    //         frame.push(0x00);   // offset lower  byte
-    //         frame.push(0x00);   // offset upper  byte
-    //     }
-    //     crc = crcCCITT(frame)
-    //     frame.push(crc >> 8); // CRC LOWER
-    //     frame.push(crc & 0x00ff); // CRC UPPER
-        
-    //     frame.unshift(0x7e) // START BYTE
-    //     frame.push(0x7e) // END BYTE
-    // break;
     case SCCP_COMMAND.READ_ATTRIBUTE_REQUEST:
         
         frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
