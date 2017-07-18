@@ -295,8 +295,7 @@ function prepareAttributeArray(indata) {
         if(debugLogs ==  true)
             bjeLog("read attr response     " + indata);
         if(indata[3] == 0x09){
-            if(debugLogs ==  true)
-                bjeLog("EMDB response     " + indata);
+            appDataService.appendEMDBRespones(indata)
             return;
         }
         var dataLength = indata.length - 6;

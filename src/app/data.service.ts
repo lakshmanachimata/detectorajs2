@@ -254,10 +254,12 @@ export class UIParams {
       userPwdChanged = false;
       toBeSetInstallerPwd = "";
       toBeSetUserPwd="";
+
 }
 
 export class DeviceParams {
         constructor(){}
+        public accessLevel = 0;
         public deviceName = '';
         public deviceType= '';
         public deviceAddress = '';
@@ -275,6 +277,11 @@ export class DeviceParams {
         public accessLevelRequsetedAddress ="";
 }
 
+export class emEntryData {
+        constructor(){}
+        public upperChar = 0x0000;
+        public lowerChar = 0x0000;
+}
 export class NetworkParams {
     constructor(){}
     public username = ''
@@ -406,6 +413,7 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
+    emDBData = new Array<emEntryData>();
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
         if(this.DeviceBuild == 1)
@@ -953,7 +961,15 @@ export class DataService {
             this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x02)
         }
     }
+    getAccessLevel(){
+        return this.deviceParams.accessLevel;
+    }
     onAccessLevelUpdate(accessLevel){
+        if(this.getProfile() == 'electrician'){
+            this.deviceParams.accessLevel = 2;
+        }else{
+            this.deviceParams.accessLevel = 1;
+        }
         this.logger.log('onAccessLevelUpdate data service')
         if(this.deviceParams.deviceConnected == true){
             this.logger.log('onAccessLevelUpdate data service1')
@@ -962,6 +978,7 @@ export class DataService {
                 this.activeComponent.onAccessLevelUpdate(accessLevel);
             }
         }
+        
     }
     onDeviceConnected(deviceAddress) {
         this.deviceParams.deviceConnected = true;
@@ -981,6 +998,18 @@ export class DataService {
 
     readEMDB(offset){
         this.reademdbObj =  new reademdb(offset);
+    }
+    appendEMDBRespones(indata){
+        if(indata.length > 12){
+            for(let i = 12; i = i + 2; i< indata.length - 2){
+                let ementrydata = new emEntryData()
+                ementrydata.upperChar = indata[i]
+                ementrydata.lowerChar = indata[i+1]
+                this.emDBData.push(ementrydata);
+            }
+        }else{
+
+        }
     }
     readData(data) {
         if(this.DeviceBuild == 1){

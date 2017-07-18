@@ -110,9 +110,9 @@ public class MainActivity extends Activity {
     static final String SERVER_RX_DATA = "0783B03E-8535-B5A0-7140-A304D2495CBA";
 //    static final String INFO_SERVICE = "0000180a-0000-1000-8000-00805f9b34fb";
 
-    static final String NEW_DSPS_SERVICE   = "10af0100-11de-11e7-b114-b2f933d5fe66";
-    static final String NEW_SERVER_TX_DATA   = "10af0101-11de-11e7-b114-b2f933d5fe66";
-    static final String NEW_SERVER_RX_DATA   = "10af0103-11de-11e7-b114-b2f933d5fe66";
+    static final String NEW_DSPS_SERVICE   = "10af0100-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_TX_DATA   = "10af0101-50de-11e7-b114-b2f933d5fe66";
+    static final String NEW_SERVER_RX_DATA   = "10af0103-50de-11e7-b114-b2f933d5fe66";
 //    static final String NEW_FLOW_CONTROL   = "10af0102-11de-11e7-b114-b2f933d5fe66";
 
 //    public static final String PROGRESS_UPDATE = "ProgressUpdate";
@@ -234,7 +234,7 @@ public class MainActivity extends Activity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
     };
 
-    boolean isABB =  false;
+    boolean isABB = false;
 
     class DetectorInfo {
         String hashCode = "";
@@ -257,7 +257,7 @@ public class MainActivity extends Activity {
     int bleDataLengthReceived = 0;
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
 
-    public static final String LOG_TAG = "BJDETECTOR";
+    public static final String LOG_TAG = "bje_detector";
     private static BluetoothGattCharacteristic spotaMemInfoCharacteristic = null;
 
     private static MainActivity mInstance;
@@ -298,7 +298,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         PackageInfo pInfo = null;
-        String buildDate= "2017-05-18\n17:30:00";
+        String buildDate= "2017-07-17\n17:30:00";
         mHandler = new Handler();
         currentLocale = getResources().getConfiguration().locale;
         try {
@@ -477,8 +477,10 @@ public class MainActivity extends Activity {
     public void killApp(){
         if(scanner != null)
             scanner.stopScan(bleCallback);
+        if(mBluetoothLeService.mConnectionState == BluetoothLeService.STATE_CONNECTED ||
+                mBluetoothLeService.mConnectionState ==  BluetoothLeService.STATE_CONNECTING )
+            mBluetoothLeService.disconnect();
         mBluetoothLeService.close();
-        mBluetoothLeService.disconnect();
         finish();
     }
 
@@ -620,7 +622,7 @@ public class MainActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-            },5000);
+            },10000);
         }
 
 
@@ -1548,6 +1550,6 @@ public class MainActivity extends Activity {
     }
 
     public void log(String message) {
-        Log.d(LOG_TAG,message);
+        Log.d(LOG_TAG, LOG_TAG + "  " + message);
     }
 }

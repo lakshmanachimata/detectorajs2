@@ -140,11 +140,11 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 .signal-bars .bar.fourth-bar { height: 100%; }
 
 .bar {
-  background-color: #94b3d7;
+  background-color: #57697A
 }
 
 .three-bars .bar.fourth-bar,
 .one-bar .bar:not(.first-bar),
 .two-bars .bar:not(.first-bar):not(.second-bar) {      
-  background-color: #fafafa;
+  background-color: #37475B;
 }

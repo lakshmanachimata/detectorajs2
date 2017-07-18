@@ -45,11 +45,11 @@ public class BluetoothLeService extends Service {
     private BluetoothAdapter mBluetoothAdapter;
     private String mBluetoothDeviceAddress;
     private BluetoothGatt mBluetoothGatt;
-    private int mConnectionState = STATE_DISCONNECTED;
+    public int mConnectionState = STATE_DISCONNECTED;
 
-    private static final int STATE_DISCONNECTED = 0;
-    private static final int STATE_CONNECTING = 1;
-    private static final int STATE_CONNECTED = 2;
+    public static final int STATE_DISCONNECTED = 0;
+    public static final int STATE_CONNECTING = 1;
+    public static final int STATE_CONNECTED = 2;
 
     private int checkRefreshAttempts;
     private boolean refreshDone;
@@ -541,10 +541,10 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
-            Log.d("lakshmana","lakshmana write is success");
+            Log.d("bje_detector","bje_detector write is success");
         }
         else {
-            Log.d("lakshmana","lakshmana write is fail");
+            Log.d("bje_detector","bje_detector write is fail    " + getGatt().getDevice().getAddress());
         }
     }
 

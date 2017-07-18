@@ -77,7 +77,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func startscan() {
         scannedDevices = [];
         self.manager?.scanForPeripherals(withServices: nil, options: nil);
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + (15 * 60 * 1000)) {
             self.stopscan();
         }
     }
@@ -275,6 +275,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             DispatchQueue.main.async {
                 //Run UI Updates
                 self.webView?.evaluateJavaScript(script);
+                self.startscan()
             }
         }
     }
