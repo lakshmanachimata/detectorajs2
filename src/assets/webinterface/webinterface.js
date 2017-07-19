@@ -9,6 +9,17 @@ var authGenSent = false;
 var sendPacketCounter = 0;
 var recvPacketCounter = 0;
 
+function getSafariSubtle(webkitSubtleObj){
+    if(window.crypto.webkitSubtle){
+        bjeLog(' subtle and assigning same')
+         webkitSubtleObj = window.crypto.webkitSubtle;
+         return window.crypto.webkitSubtle;
+    }else{
+        bjeLog('no subtle')
+        return;
+    }
+}
+
  function  getFormattedDateTime() {
     var date = new Date();
     var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();

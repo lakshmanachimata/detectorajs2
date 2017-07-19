@@ -378,6 +378,7 @@ declare var setPwdToDevice;
 declare var authenticateDevice;
 declare var killMeFromJS;
 declare var reademdb;
+declare var getSafariSubtle;
 
 @Injectable()
 export class DataService {
@@ -399,6 +400,7 @@ export class DataService {
     killMeFromJSObj:any;
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
+    getSafariSubtleObj:any;
     public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
@@ -415,6 +417,8 @@ export class DataService {
     screenHeight;
     demoMode = 0;
     emDBData = new Array<emEntryData>();
+    isIPhone = 0;
+    safariSubtle:any;
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
         if(this.DeviceBuild == 1)
@@ -438,12 +442,19 @@ export class DataService {
     checkDeviceMode(){
         let aindex =  navigator.platform.toLowerCase().indexOf('linux');
         let iindex = navigator.platform.toLowerCase().indexOf('iphone');
+        
         //LAKSHMANA commented temporarily to simulate devices
-        if( aindex >=  0 ||
-        iindex >= 0){
+        if( aindex >=  0){
             this.DeviceBuild = 1;
-        }else {
+            this.isIPhone = 0;
+        }
+        if(iindex >= 0){
+            this.DeviceBuild = 1;
+            this.isIPhone = 1;
+        }
+        if(aindex < 0 && iindex < 0) {
             this.DeviceBuild = 0;
+            this.isIPhone = 0;
         }
         if(this.demoMode == 1){
             this.DeviceBuild = 0;
@@ -1157,6 +1168,8 @@ export class DataService {
     }
 
     authenticateDevice(devicePwd){
+        if(this.isIPhone == 1)
+            this.safariSubtle = new getSafariSubtle(this.safariSubtle);
         if(this.getProfile()=='electrician'){
             let saltbufStart;
             let saltBufByteStr = "";
@@ -1189,57 +1202,117 @@ export class DataService {
                 bytearrayInstaller[i] = devicePwd.charCodeAt(i);
             }
             // First, create a PBKDF2 "key" containing the password
-            window.crypto.subtle.importKey(
-                "raw",
-                bytearrayInstaller,
-                {"name": "PBKDF2"},
-                false,
-                ["deriveKey"]).
-            then(function(baseKey){
-                var saltbuf = new Buffer(addressSalt,'hex');
-                return window.crypto.subtle.deriveKey(
-                    {
-                        "name": "PBKDF2",
-                        "salt": saltbuf,
-                        "iterations": 1000,
-                        "hash": 'SHA-1'
-                    },
-                    baseKey,
-                    {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
-                    true,                               // Extractable
-                    ["encrypt", "decrypt"]              // For new key
-                    );
-            }).then(function(aesKey) {
-                // Export it so we can display it
-                return window.crypto.subtle.exportKey("raw", aesKey);
-            }).then(function(keyBytes) {
-                var byteArray3 = new Buffer(keyBytes);
-                var byteString = byteArray3.toString('hex').toUpperCase();
-                if(byteString.length == 64){
-                    if(DataService.getDataService().getAuthChallenge().length > 0)
-                    {
-                        var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                        let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
-                        if(DataService.getDataService().debugLogs == true){
-                            DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
-                        } 
-                        for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
-                            hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
-                        crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
-                        var hexCodes = [];
-                        var byteArray31 = new Buffer(hash);
-                        let result = [];
-                        for(let j =0; j < 32; j++){
-                            result.push(byteArray31[j])
+            //this.logger.log('print import key ' + window.crypto.subtle.importKey)
+            this.logger.log('print import key ' + this.safariSubtle.importKey)
+            if(this.isIPhone == 1){
+                this.logger.log('print import key 1111 ' );
+                    this.safariSubtle.importKey(
+                    "raw",
+                    bytearrayInstaller,
+                    {"name": "PBKDF2"},
+                    false,
+                    ["deriveKey"]).
+                then(function(baseKey){
+                     this.logger.log('print import key 2222 ' );
+                    var saltbuf = new Buffer(addressSalt,'hex');
+                    return this.safariSubtle.deriveKey(
+                        {
+                            "name": "PBKDF2",
+                            "salt": saltbuf,
+                            "iterations": 1000,
+                            "hash": 'SHA-1'
+                        },
+                        baseKey,
+                        {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
+                        true,                               // Extractable
+                        ["encrypt", "decrypt"]              // For new key
+                        );
+                }).then(function(aesKey) {
+                    this.logger.log('print import key 3333 ' );
+                    // Export it so we can display it
+                    return this.safariSubtle.exportKey("raw", aesKey);
+                }).then(function(keyBytes) {
+                    this.logger.log('print import key 4444 ' );
+                    var byteArray3 = new Buffer(keyBytes);
+                    var byteString = byteArray3.toString('hex').toUpperCase();
+                    if(byteString.length == 64){
+                        if(DataService.getDataService().getAuthChallenge().length > 0)
+                        {
+                            var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
+                            let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                            if(DataService.getDataService().debugLogs == true){
+                                DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
+                            } 
+                            for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+                                hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
+                            crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                            var hexCodes = [];
+                            var byteArray31 = new Buffer(hash);
+                            let result = [];
+                            for(let j =0; j < 32; j++){
+                                result.push(byteArray31[j])
+                            }
+                            if(DataService.getDataService().DeviceBuild == 1)
+                                DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
+                            });
+                        }else {
+                            DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
                         }
-                        if(DataService.getDataService().DeviceBuild == 1)
-                            DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
-                        });
-                    }else {
-                        DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
                     }
-                }
-            });
+                });
+            }else{
+                window.crypto.subtle.importKey(
+                    "raw",
+                    bytearrayInstaller,
+                    {"name": "PBKDF2"},
+                    false,
+                    ["deriveKey"]).
+                then(function(baseKey){
+                    var saltbuf = new Buffer(addressSalt,'hex');
+                    return window.crypto.subtle.deriveKey(
+                        {
+                            "name": "PBKDF2",
+                            "salt": saltbuf,
+                            "iterations": 1000,
+                            "hash": 'SHA-1'
+                        },
+                        baseKey,
+                        {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
+                        true,                               // Extractable
+                        ["encrypt", "decrypt"]              // For new key
+                        );
+                }).then(function(aesKey) {
+                    // Export it so we can display it
+                    return window.crypto.subtle.exportKey("raw", aesKey);
+                }).then(function(keyBytes) {
+                    var byteArray3 = new Buffer(keyBytes);
+                    var byteString = byteArray3.toString('hex').toUpperCase();
+                    if(byteString.length == 64){
+                        if(DataService.getDataService().getAuthChallenge().length > 0)
+                        {
+                            var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
+                            let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                            if(DataService.getDataService().debugLogs == true){
+                                DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
+                            } 
+                            for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
+                                hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
+                            crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                            var hexCodes = [];
+                            var byteArray31 = new Buffer(hash);
+                            let result = [];
+                            for(let j =0; j < 32; j++){
+                                result.push(byteArray31[j])
+                            }
+                            if(DataService.getDataService().DeviceBuild == 1)
+                                DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
+                            });
+                        }else {
+                            DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
+                        }
+                    }
+                });
+            }
         }if(this.getProfile()=='user'){
             let saltbufStart;
             let saltBufUserByteStr = "";
@@ -1298,6 +1371,8 @@ export class DataService {
     }
 
     setDevicePwd(setPWD,profile){
+        if(this.isIPhone == 1)
+            this.safariSubtle = new getSafariSubtle(this.safariSubtle);
         if(profile=='electrician'){
             let saltbufStart;
             if(this.uiParams.devicesObj == undefined ||
@@ -1329,17 +1404,18 @@ export class DataService {
             for(var i=0; i < setPWD.length; i++) {
                 byteArraySInstaller[i] = setPWD.charCodeAt(i);
             }
-            // First, create a PBKDF2 "key" containing the password
-            window.crypto.subtle.importKey(
-                "raw",
-                byteArraySInstaller,
-                {"name": "PBKDF2"},
-                false,
-                ["deriveKey"]).
-            then(function(baseKey){
+
+            if(this.isIPhone == 1){
+                this.safariSubtle.importKey(
+                    "raw",
+                    byteArraySInstaller,
+                    {"name": "PBKDF2"},
+                    false,
+                    ["deriveKey"]).
+                then(function(baseKey){
                 // Derive a key from the password
-                var saltbuf = new Buffer(setIAddressSalt,'hex');
-                return window.crypto.subtle.deriveKey(
+                    var saltbuf = new Buffer(setIAddressSalt,'hex');
+                    return this.safariSubtle.deriveKey(
                     {
                         "name": "PBKDF2",
                         "salt": saltbuf,
@@ -1351,26 +1427,70 @@ export class DataService {
                     true,                               // Extractable
                     ["encrypt", "decrypt"]              // For new key
                     );
-            }).then(function(aesKey) {
-                // Export it so we can display it
-                return window.crypto.subtle.exportKey("raw", aesKey);
-            }).then(function(keyBytes) {
-                var byteArray3 = new Buffer(keyBytes);
-                var byteString = byteArray3.toString('hex').toUpperCase();
-                if(byteString.length == 64){
-                    let result = [];
-                    for(let j =0; j < 32; j++){
-                        result.push(byteArray3[j] ^ saltbuf[j])
+                }).then(function(aesKey) {
+                    // Export it so we can display it
+                    return this.safariSubtle.exportKey("raw", aesKey);
+                }).then(function(keyBytes) {
+                    var byteArray3 = new Buffer(keyBytes);
+                    var byteString = byteArray3.toString('hex').toUpperCase();
+                    if(byteString.length == 64){
+                        let result = [];
+                        for(let j =0; j < 32; j++){
+                            result.push(byteArray3[j] ^ saltbuf[j])
+                        }
+                        if(DataService.getDataService().debugLogs ==  true){
+                            DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
+                        }
+                        if(DataService.getDataService().DeviceBuild == 1)
+                            DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
+                    }else {
+                        DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
                     }
-                    if(DataService.getDataService().debugLogs ==  true){
-                        DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
+                });
+            }else{
+            // First, create a PBKDF2 "key" containing the password
+                window.crypto.subtle.importKey(
+                    "raw",
+                    byteArraySInstaller,
+                    {"name": "PBKDF2"},
+                    false,
+                    ["deriveKey"]).
+                then(function(baseKey){
+                    // Derive a key from the password
+                    var saltbuf = new Buffer(setIAddressSalt,'hex');
+                    return window.crypto.subtle.deriveKey(
+                        {
+                            "name": "PBKDF2",
+                            "salt": saltbuf,
+                            "iterations": 1000,
+                            "hash": 'SHA-1'
+                        },
+                        baseKey,
+                        {"name": "AES-CBC", "length": 256}, // Key we want.Can be any AES algorithm ("AES-CTR", "AES-CBC", "AES-CMAC", "AES-GCM", "AES-CFB", "AES-KW", "ECDH", "DH", or "HMAC")
+                        true,                               // Extractable
+                        ["encrypt", "decrypt"]              // For new key
+                        );
+                }).then(function(aesKey) {
+                    // Export it so we can display it
+                    return window.crypto.subtle.exportKey("raw", aesKey);
+                }).then(function(keyBytes) {
+                    var byteArray3 = new Buffer(keyBytes);
+                    var byteString = byteArray3.toString('hex').toUpperCase();
+                    if(byteString.length == 64){
+                        let result = [];
+                        for(let j =0; j < 32; j++){
+                            result.push(byteArray3[j] ^ saltbuf[j])
+                        }
+                        if(DataService.getDataService().debugLogs ==  true){
+                            DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
+                        }
+                        if(DataService.getDataService().DeviceBuild == 1)
+                            DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
+                    }else {
+                        DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
                     }
-                    if(DataService.getDataService().DeviceBuild == 1)
-                        DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
-                }else {
-                    DataService.getDataService().logger.log("PBKDF2 could not deliver stuff")
-                }
-            });
+                });
+            }
         }if(profile=='user'){
             let saltbufStart;
             if(this.uiParams.devicesObj == undefined ||
