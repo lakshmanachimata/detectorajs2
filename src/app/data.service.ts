@@ -413,6 +413,7 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
+    demoMode = 0;
     emDBData = new Array<emEntryData>();
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
@@ -442,6 +443,9 @@ export class DataService {
         iindex >= 0){
             this.DeviceBuild = 1;
         }else {
+            this.DeviceBuild = 0;
+        }
+        if(this.demoMode == 1){
             this.DeviceBuild = 0;
         }
     }
@@ -893,12 +897,14 @@ export class DataService {
 
     onInstallerPwdSetSuccess(){
         this.activeComponent.onInstallerPwdSetSuccess();
+        this.installerPasswordChanged(false)
     }
     onInstallerPwdSetFailed(){
         this.activeComponent.onInstallerPwdSetFailed();
     }
      onUserPwdSetSuccess(){
         this.activeComponent.onInstallerPwdSetSuccess();
+        this.userPasswordChanged(false)
     }
     onUserPwdSetFailed(){
         this.activeComponent.onInstallerPwdSetFailed();
@@ -1161,11 +1167,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 1111 ' + saltbufStart);
+                    this.logger.log('selected address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 2222 ' + saltbufStart);
+                    this.logger.log('selected address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let PBKDF2Hash;
@@ -1243,11 +1249,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 1111 ' + saltbufStart);
+                    this.logger.log('selected address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address 2222 ' + saltbufStart);
+                    this.logger.log('selected address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
 
@@ -1299,11 +1305,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address abc ' + saltbufStart);
+                    this.logger.log('selected address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address def ' + saltbufStart);
+                    this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1356,6 +1362,9 @@ export class DataService {
                     for(let j =0; j < 32; j++){
                         result.push(byteArray3[j] ^ saltbuf[j])
                     }
+                    if(DataService.getDataService().debugLogs ==  true){
+                        DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
+                    }
                     if(DataService.getDataService().DeviceBuild == 1)
                         DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
                 }else {
@@ -1369,11 +1378,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address abc ' + saltbufStart);
+                    this.logger.log('selected address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
                 if(this.debugLogs == true)
-                    this.logger.log('seleced address def ' + saltbufStart);
+                    this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";

@@ -298,7 +298,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         PackageInfo pInfo = null;
-        String buildDate= "2017-07-17\n17:30:00";
+        String buildDate= "2017-07-19\n10:30:00";
         mHandler = new Handler();
         currentLocale = getResources().getConfiguration().locale;
         try {
