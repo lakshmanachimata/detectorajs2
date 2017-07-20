@@ -18,7 +18,6 @@ export class WelcomeComponent implements OnInit {
             private router:Router,private location:Location, private translater:i18nService) {
       }
   ngOnInit() {
-    this.logger.log('welcome loaded')
   }
   gotoProfile(item) {
     this.data.setProfile(item);

@@ -144,9 +144,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
-    this.logger.log('jsonOnLoad called')
     if(component.isDeviceConnected == true){
-      this.logger.log('jsonOnLoad')
       component.data.setProfileSwitch(false);
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
     }
@@ -159,7 +157,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     } 
   }
   onDeviceConnected(address){
-    this.logger.log('onDeviceConnected')
     this.isDeviceConnected = true;
   }
   onAccessLevelUpdate(accessLevel){

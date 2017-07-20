@@ -226,13 +226,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.shortTimePulseEnable?1:0])
   }
   ngOnInit() {
-    this.logger.log('ngOnInit cde')
     this.doDisConnect = true; 
     this.data.setMainTitle(this.translater.translate('Configure detector'));
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
     if(this.data.getDeviceConnectionState() == true){
-      this.logger.log('ngOnInit cde readStart')
       this.data.readData(this.readAttrs);
     }
   }
