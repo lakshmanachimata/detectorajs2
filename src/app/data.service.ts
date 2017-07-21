@@ -382,6 +382,7 @@ declare var authenticateDevice;
 declare var killMeFromJS;
 declare var reademdb;
 declare var getSafariSubtle;
+declare var Sha256;
 
 @Injectable()
 export class DataService {
@@ -403,6 +404,7 @@ export class DataService {
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
     getSafariSubtleObj:any;
+    Sha256Obj:any;
     public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
@@ -1000,7 +1002,14 @@ export class DataService {
         }
         
     }
+    readDeviceAddress(deviceAddress){
+        this.readData([SCCP_ATTRIBUTES.UNIQUE_IDENTIFIER])
+    }
+
     onDeviceConnected(deviceAddress) {
+        if(this.isIPhone == 1){
+            this.readDeviceAddress(deviceAddress)
+        }
         this.deviceParams.deviceConnected = true;
         if(this.activeComponent != undefined) {
             this.activeComponent.onDeviceConnected(deviceAddress);
@@ -1220,9 +1229,12 @@ export class DataService {
                         
                         for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                             hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
-                        crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                        DataService.getDataService().logger.log("calling sha256 digest");
+                        this.safariSubtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                        DataService.getDataService().logger.log("called and inside sha256 digest");
                         var hexCodes = [];
                         var byteArray31 = new Buffer(hash);
+                        DataService.getDataService().logger.log("result before is " + byteArray31.join(','));
                         let result = [];
                         for(let j =0; j < 32; j++){
                             result.push(byteArray31[j])
@@ -1230,7 +1242,8 @@ export class DataService {
                         if(DataService.getDataService().DeviceBuild == 1)
                             DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
                         });
-                    }else {
+                    }
+                    else {
                         DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
                     }
                 }
@@ -1273,14 +1286,17 @@ export class DataService {
                         if(DataService.getDataService().getAuthChallenge().length > 0)
                         {
                             var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                            let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                            let preHashStr = genArray.toString().toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
                             DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
                             
                             for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                                 hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
-                            crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+
+                            window.crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
                             var hexCodes = [];
                             var byteArray31 = new Buffer(hash);
+                            DataService.getDataService().logger.log('result before chrome  ' + byteArray31.join(','));
+
                             let result = [];
                             for(let j =0; j < 32; j++){
                                 result.push(byteArray31[j])
@@ -1290,7 +1306,8 @@ export class DataService {
                             if(DataService.getDataService().DeviceBuild == 1)
                                 DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
                             });
-                        }else {
+                        }
+                        else {
                             DataService.getDataService().logger.log("SHA-256 could not deliver stuff")
                         }
                     }
@@ -1335,8 +1352,10 @@ export class DataService {
                 for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                     hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
                     DataService.getDataService().logger.log('user prehash str is ' + preHashStr)
-                    crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
-                    var hexCodes = [];
+                if(this.isIPhone == 1)
+                {
+                    this.safariSubtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {  
+                        var hexCodes = [];
                     var byteArray31 = new Buffer(hash);
                     let result = [];
                     for(let j =0; j < 32; j++){
@@ -1345,12 +1364,26 @@ export class DataService {
                     DataService.getDataService().logger.log('result str for user ' + byteArray31.toString('hex'))
                     if(DataService.getDataService().DeviceBuild == 1)
                         DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,false)
-                });
+                    });
+                }else {
+                    crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
+                        var hexCodes = [];
+                        var byteArray31 = new Buffer(hash);
+                        let result = [];
+                        for(let j =0; j < 32; j++){
+                            result.push(byteArray31[j])
+                        }
+                        DataService.getDataService().logger.log('result str for user ' + byteArray31.toString('hex'))
+                        if(DataService.getDataService().DeviceBuild == 1)
+                            DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,false)
+                    });
+                }
              }
         }
     }
 
     setDevicePwd(setPWD,profile){
+        this.authenticateDevice("1111")
         var testme =  customCryptoJS;
         if(this.isIPhone == 1)
             this.safariSubtle = new getSafariSubtle(this.safariSubtle);
