@@ -1305,7 +1305,7 @@ export class DataService {
                         if(DataService.getDataService().getAuthChallenge().length > 0)
                         {
                             var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
-                            let preHashStr = genArray.toString().toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
+                            let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
                             DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
                             
                             for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
