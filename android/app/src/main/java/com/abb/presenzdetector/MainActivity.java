@@ -246,6 +246,7 @@ public class MainActivity extends Activity {
         String firmwareVersion = "";
         String softwareVersion = "";
         String btAddress = "";
+        String btIAddress = "";
         boolean OTASupported = false;
         boolean isSelected = false;
     }

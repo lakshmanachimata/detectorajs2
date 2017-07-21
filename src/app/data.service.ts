@@ -382,7 +382,7 @@ declare var authenticateDevice;
 declare var killMeFromJS;
 declare var reademdb;
 declare var getSafariSubtle;
-declare var Sha256;
+declare var readAddrAttr;
 
 @Injectable()
 export class DataService {
@@ -404,7 +404,7 @@ export class DataService {
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
     getSafariSubtleObj:any;
-    Sha256Obj:any;
+    readAddrAttrObj:any;
     public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
@@ -961,7 +961,7 @@ export class DataService {
     }
 
     setAccessLevelRequsetedAddress(address){
-        this.logger.log("btAddress Selecetd is " + address)
+        this.logger.log("btAddress Selecetd for AccessLevel " + address)
         this.deviceParams.accessLevelRequsetedAddress = address;
     }
     getAccessLevelRequsetedAddress(){
@@ -1003,7 +1003,26 @@ export class DataService {
         
     }
     readDeviceAddress(deviceAddress){
-        this.readData([SCCP_ATTRIBUTES.UNIQUE_IDENTIFIER])
+        this.readAddrAttrObj = new readAddrAttr()
+    }
+    parseDeviceAddress(indata){
+        var address = "";
+        var byteAddr = [];
+        if(indata.length > 15){
+            for(let as = 12; as<18; as++){
+                byteAddr.push(indata[as])
+            }
+        }
+        var address = '';
+        for(let ds=0;ds<byteAddr.length; ds++){
+            if(ds < byteAddr.length -1)
+                address += ('0' + (byteAddr[ds] & 0xFF).toString(16)).slice(-2) + ':';
+            else
+              address += ('0' + (byteAddr[ds] & 0xFF).toString(16)).slice(-2);  
+        }
+        this.logger.log("the selected address  is " + address)
+        this.uiParams.devicesObj.SelectedDevice.btAddress = address;
+        this.setAccessLevelRequsetedAddress(address)
     }
 
     onDeviceConnected(deviceAddress) {
@@ -1383,7 +1402,7 @@ export class DataService {
     }
 
     setDevicePwd(setPWD,profile){
-        this.authenticateDevice("1111")
+        // this.authenticateDevice("1111")
         var testme =  customCryptoJS;
         if(this.isIPhone == 1)
             this.safariSubtle = new getSafariSubtle(this.safariSubtle);
@@ -1395,7 +1414,7 @@ export class DataService {
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 this.logger.log('selected address abc ' + saltbufStart);
             }else {
-                saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                saltbufStart = this.uiParams.devicesObj.SelectedDevice.btAddress;
                 this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
@@ -1489,7 +1508,7 @@ export class DataService {
                 saltbufStart = this.getAccessLevelRequsetedAddress();
                 this.logger.log('selected address abc ' + saltbufStart);
             }else {
-                saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
+                saltbufStart = this.uiParams.devicesObj.SelectedDevice.btAddress;
                 this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;

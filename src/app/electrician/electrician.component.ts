@@ -12,6 +12,7 @@ export class DetectorInfo {
         public firmwareVersion;
         public softwareVersion;
         public btAddress;
+        public btIAddress;
         public rssi;
         public contactName;
         public buildingName;
@@ -42,7 +43,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         if(this.data.getDeviceConnectionState() == false)
-          this.data.connectDevice(item.btAddress);
+          if(this.data.isIPhone == 1)
+            this.data.connectDevice(item.btIAddress);
+          else
+            this.data.connectDevice(item.btAddress); 
         else 
           this.data.setAccessLevel();
       }
@@ -104,6 +108,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
         detectorInfo.modelNumber = this.scannedData[i].modelNumber;
         detectorInfo.btAddress = this.scannedData[i].btAddress;
+        detectorInfo.btIAddress = this.scannedData[i].btIAddress;
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.createdDate=this.data.getFormattedDate();

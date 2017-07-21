@@ -129,6 +129,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     let data = this.data.getSelectedDevice(false);
     this.ad.btDeviceName = data.btDeviceName;
     this.ad.btAddress = data.btAddress;
+    this.ad.btIAddress = data.btIAddress;
     this.ad.modelNumber = data.modelNumber;
     this.ad.deviceType = data.deviceType;
     this.ad.contactName = data.contactName;

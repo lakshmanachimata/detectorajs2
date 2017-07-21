@@ -14,6 +14,7 @@ export class DetectorInfo {
         public firmwareVersion;
         public softwareVersion;
         public btAddress;
+        public btIAddress;
         public rssi;
         public contactName;
         public buildingName;
@@ -44,7 +45,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
         if(this.data.getDeviceConnectionState() == false)
-          this.data.connectDevice(item.btAddress);
+          if(this.data.isIPhone == 1)
+            this.data.connectDevice(item.btIAddress);
+          else
+            this.data.connectDevice(item.btAddress); 
         else 
           this.data.setAccessLevel();
       }
@@ -80,6 +84,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
         detectorInfo.modelNumber = this.scannedData[i].modelNumber;
         detectorInfo.btAddress = this.scannedData[i].btAddress;
+        detectorInfo.btIAddress = this.scannedData[i].btIAddress;
         detectorInfo.deviceType = this.scannedData[i].deviceType;
         detectorInfo.rssi = this.scannedData[i].rssi;
         detectorInfo.createdDate=this.data.getFormattedDate();
@@ -93,6 +98,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
          this.data.setEDevParamsState(0);
       });
   }
+
 
     getSignalRange(item){
     if(this.data.DeviceBuild == 1){
@@ -153,6 +159,8 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     if(this.selectedDevice == false &&  !(this.data.getProfile() == 'electrician'))
       this.data.killMe();  
   }
+
+  
 
   onDeviceConnected(address){
      this.isDeviceConnected = true

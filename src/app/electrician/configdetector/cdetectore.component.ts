@@ -447,6 +447,8 @@ slideBackground (value) {
     let data = this.data.getSelectedDevice(false);
     this.ad.btDeviceName = data.btDeviceName;
     this.ad.btAddress = data.btAddress;
+    this.logger.log("bt address setting for ad" + data.btAddress)
+    this.ad.btIAddress = data.btIAddress;
     this.ad.modelNumber = data.modelNumber;
     this.ad.deviceType = data.deviceType;
     this.ad.contactName = data.contactName;

@@ -1,6 +1,7 @@
 {
 "btDeviceName": "DaliMaster",
-"btAddress": "00:13:43:1e:8e:79",
+"btAddress": "",
+"btIAddress": "",
 "modelNumber": "",
 "deviceType":"",
 "contactName":"",

@@ -95,7 +95,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             }
         }
         scannedDevices.forEach { (scannedDevice) in
-            if(scannedDevice["btAddress"] == device){
+            if(scannedDevice["btIAddress"] == device){
                 selectedDevice = scannedDevice;
             }
         }
@@ -210,7 +210,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     let nameofDevice =  advertisementData[CBAdvertisementDataLocalNameKey] as? String
                     var detectorInfo:Dictionary<String,String> = [:]
                     detectorInfo["btDeviceName"] = nameofDevice!;
-                    detectorInfo["btAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["btIAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["btAddress"] = "";
                     detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["modelNumber"] = modelNumberStr;
@@ -235,7 +236,8 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     let nameofDevice =  advertisementData[CBAdvertisementDataLocalNameKey] as? String
                     var detectorInfo:Dictionary<String,String> = [:]
                     detectorInfo["btDeviceName"] = nameofDevice!;
-                    detectorInfo["btAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["btIAddress"] = peripheral.identifier.uuidString;
+                    detectorInfo["btAddress"] = "";
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["modelNumber"] = modelNumberStr;

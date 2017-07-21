@@ -226,6 +226,21 @@ function reademdb(offset){
     }
 }
 
+function readAddrAttr(){
+    var data = []
+     data = getAddrRequestFrame();
+    if(BJE != undefined) {
+        BJE.readAttr(data);
+        if(debugLogs == true)
+            bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
+    }
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
 function authenticateDevice(pwdHash,length,installer){
     var data = [];
     data = getRequestFrame(SCCP_COMMAND.AUTH_REQUST, pwdHash,length,installer);
@@ -307,6 +322,10 @@ function prepareAttributeArray(indata) {
             bjeLog("read attr response     " + indata);
         if(indata[3] == 0x09){
             appDataService.appendEMDBRespones(indata)
+            return;
+        } 
+        if(indata[3] == 0x08){
+            appDataService.parseDeviceAddress(indata);
             return;
         }
         var dataLength = indata.length - 6;
@@ -515,6 +534,50 @@ function getEMDBRequestFrame(offset){
         frame.push(0x7e) // END BYTE
         return frame;
     
+}
+
+function getAddrLenRequestFrame(){
+    var frame = [];
+        var crc;
+
+        frame.push(11); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x08); // SEQUENCE
+        frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+        frame.push(0x03)
+        frame.push(0x00)
+        frame.push(0x01)
+        frame.push(0x00)
+        frame.push(0x00)
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        return frame;
+}
+
+function getAddrRequestFrame(){
+    var frame = [];
+        var crc;
+
+        frame.push(11); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x08); // SEQUENCE
+        frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+        frame.push(0x02)
+        frame.push(0x00)
+        frame.push(0x06)
+        frame.push(0x00)
+        frame.push(0x00)
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        return frame;
 }
 function getRequestFrame(command, data,len,installer,isuserpwd) {
     var frame = [];
