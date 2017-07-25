@@ -18,13 +18,19 @@
 		2A6944201F276D9700639B35 /* FreehomeInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6944131F276D9700639B35 /* FreehomeInterface.m */; };
 		2A6944211F276D9700639B35 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6944151F276D9700639B35 /* BLEHelper.swift */; };
 		2A6944221F276D9700639B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6944171F276D9700639B35 /* AppDelegate.swift */; };
-		2A6944231F276D9700639B35 /* freehome in Resources */ = {isa = PBXBuildFile; fileRef = 2A6944181F276D9700639B35 /* freehome */; };
 		2A6944241F276D9700639B35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6944191F276D9700639B35 /* ViewController.swift */; };
 		2A6944251F276D9700639B35 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69441A1F276D9700639B35 /* Utilities.swift */; };
 		2A6944261F276D9700639B35 /* CRCCCITT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69441B1F276D9700639B35 /* CRCCCITT.swift */; };
 		2A6944281F276DD300639B35 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6944271F276DD300639B35 /* Images.xcassets */; };
 		2A69442B1F276E4700639B35 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 2A6944291F276E4700639B35 /* www */; };
 		2A69442C1F276E4700639B35 /* fwfiles in Resources */ = {isa = PBXBuildFile; fileRef = 2A69442A1F276E4700639B35 /* fwfiles */; };
+		2AE462611F2778510039803C /* freehome in Resources */ = {isa = PBXBuildFile; fileRef = 2AE462601F2778510039803C /* freehome */; };
+		2AE462641F277AF30039803C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE462631F277AF30039803C /* Foundation.framework */; };
+		2AE462661F277AFE0039803C /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE462651F277AFE0039803C /* libstdc++.6.0.9.tbd */; };
+		2AE4626A1F277B2F0039803C /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE462691F277B2F0039803C /* libresolv.tbd */; };
+		2AE4626C1F277B3E0039803C /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE4626B1F277B3E0039803C /* libstdc++.6.tbd */; };
+		2AE4626E1F277B450039803C /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE4626D1F277B450039803C /* libz.1.1.3.tbd */; };
+		2AE462701F277B4D0039803C /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE4626F1F277B4D0039803C /* libxml2.2.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,13 +49,20 @@
 		2A6944151F276D9700639B35 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
 		2A6944161F276D9700639B35 /* bje-bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bje-bridge.h"; sourceTree = "<group>"; };
 		2A6944171F276D9700639B35 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2A6944181F276D9700639B35 /* freehome */ = {isa = PBXFileReference; lastKnownFileType = folder; path = freehome; sourceTree = "<group>"; };
 		2A6944191F276D9700639B35 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A69441A1F276D9700639B35 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2A69441B1F276D9700639B35 /* CRCCCITT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRCCCITT.swift; sourceTree = "<group>"; };
 		2A6944271F276DD300639B35 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A6944291F276E4700639B35 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		2A69442A1F276E4700639B35 /* fwfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fwfiles; sourceTree = "<group>"; };
+		2AE462601F2778510039803C /* freehome */ = {isa = PBXFileReference; lastKnownFileType = folder; path = freehome; sourceTree = "<group>"; };
+		2AE462631F277AF30039803C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2AE462651F277AFE0039803C /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		2AE462671F277B090039803C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2AE462691F277B2F0039803C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		2AE4626B1F277B3E0039803C /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		2AE4626D1F277B450039803C /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
+		2AE4626F1F277B4D0039803C /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +70,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE462701F277B4D0039803C /* libxml2.2.tbd in Frameworks */,
+				2AE4626E1F277B450039803C /* libz.1.1.3.tbd in Frameworks */,
+				2AE4626C1F277B3E0039803C /* libstdc++.6.tbd in Frameworks */,
+				2AE4626A1F277B2F0039803C /* libresolv.tbd in Frameworks */,
+				2AE462661F277AFE0039803C /* libstdc++.6.0.9.tbd in Frameworks */,
+				2AE462641F277AF30039803C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +89,7 @@
 				2A69442A1F276E4700639B35 /* fwfiles */,
 				2A6943E01F276CA500639B35 /* presencedetector */,
 				2A6943DF1F276CA500639B35 /* Products */,
+				2AE462621F277AF30039803C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +104,7 @@
 		2A6943E01F276CA500639B35 /* presencedetector */ = {
 			isa = PBXGroup;
 			children = (
+				2AE462601F2778510039803C /* freehome */,
 				2A6944271F276DD300639B35 /* Images.xcassets */,
 				2A69440F1F276D9700639B35 /* SuOTAManager.swift */,
 				2A6944101F276D9700639B35 /* SUOTADefines.swift */,
@@ -94,7 +115,6 @@
 				2A6944151F276D9700639B35 /* BLEHelper.swift */,
 				2A6944161F276D9700639B35 /* bje-bridge.h */,
 				2A6944171F276D9700639B35 /* AppDelegate.swift */,
-				2A6944181F276D9700639B35 /* freehome */,
 				2A6944191F276D9700639B35 /* ViewController.swift */,
 				2A69441A1F276D9700639B35 /* Utilities.swift */,
 				2A69441B1F276D9700639B35 /* CRCCCITT.swift */,
@@ -105,6 +125,20 @@
 				2A6943E81F276CA500639B35 /* presencedetector.xcdatamodeld */,
 			);
 			path = presencedetector;
+			sourceTree = "<group>";
+		};
+		2AE462621F277AF30039803C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AE4626F1F277B4D0039803C /* libxml2.2.tbd */,
+				2AE4626D1F277B450039803C /* libz.1.1.3.tbd */,
+				2AE4626B1F277B3E0039803C /* libstdc++.6.tbd */,
+				2AE462691F277B2F0039803C /* libresolv.tbd */,
+				2AE462671F277B090039803C /* UIKit.framework */,
+				2AE462651F277AFE0039803C /* libstdc++.6.0.9.tbd */,
+				2AE462631F277AF30039803C /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +203,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A69442C1F276E4700639B35 /* fwfiles in Resources */,
+				2AE462611F2778510039803C /* freehome in Resources */,
 				2A69442B1F276E4700639B35 /* www in Resources */,
 				2A6943EF1F276CA500639B35 /* LaunchScreen.storyboard in Resources */,
 				2A6944281F276DD300639B35 /* Images.xcassets in Resources */,
 				2A6943EC1F276CA500639B35 /* Assets.xcassets in Resources */,
 				2A6943E71F276CA500639B35 /* Main.storyboard in Resources */,
-				2A6944231F276D9700639B35 /* freehome in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,9 +355,24 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = JAWB2S5NHB;
+				HEADER_SEARCH_PATHS = (
+					"\"${SDK_DIR}\"/../../../../usr/include/libxml2",
+					"$(PROJECT_DIR)/presencedetector/freehome/include",
+					"$(PROJECT_DIR)/presencedetector/freehome/include/freeathome",
+				);
 				INFOPLIST_FILE = presencedetector/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-L$(PROJECT_DIR)/presencedetector/freehome/lib",
+					"-lfreeathome",
+					"-lcrypto",
+					"-lcurl",
+					"-lssl",
+					"-lsodium",
+					"-lc++",
+					"-v",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/pd-test/presencedetector/presencedetector/bje-bridge.h";
@@ -339,9 +388,24 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = JAWB2S5NHB;
+				HEADER_SEARCH_PATHS = (
+					"\"${SDK_DIR}\"/../../../../usr/include/libxml2",
+					"$(PROJECT_DIR)/presencedetector/freehome/include",
+					"$(PROJECT_DIR)/presencedetector/freehome/include/freeathome",
+				);
 				INFOPLIST_FILE = presencedetector/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-L$(PROJECT_DIR)/presencedetector/freehome/lib",
+					"-lfreeathome",
+					"-lcrypto",
+					"-lcurl",
+					"-lssl",
+					"-lsodium",
+					"-lc++",
+					"-v",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/pd-test/presencedetector/presencedetector/bje-bridge.h";
@@ -368,6 +432,7 @@
 				2A6943F51F276CA500639B35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
