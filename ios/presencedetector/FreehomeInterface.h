@@ -12,6 +12,7 @@
 
 @interface FreehomeInterface : NSObject
 
+- (void) callCertInit;
 
 - (void) callCertCreate;
 

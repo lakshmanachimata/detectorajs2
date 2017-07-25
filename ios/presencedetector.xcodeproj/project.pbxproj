@@ -375,7 +375,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/pd-test/presencedetector/presencedetector/bje-bridge.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/abb/detectorajs2/ios/presencedetector/bje-bridge.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -408,7 +408,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/pd-test/presencedetector/presencedetector/bje-bridge.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/lakshmana/projects/abb/detectorajs2/ios/presencedetector/bje-bridge.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

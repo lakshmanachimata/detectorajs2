@@ -72,6 +72,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func setup() {
         scannedDevices = [];
         manager = CBCentralManager(delegate: self, queue: nil)
+        
+
+        
     }
     
     func startscan() {

@@ -13,6 +13,7 @@
 
 @implementation FreehomeInterface  
 
+fh_context* gFHContext = NULL;
 
 void fhEventCallback(fh_context* ctx, fh_event event, const fh_event_data* data, void* user_ptr)
 {
@@ -20,7 +21,7 @@ void fhEventCallback(fh_context* ctx, fh_event event, const fh_event_data* data,
     {
         case FH_EVENT_CERT_CREATE_RESULT:
         {
-            
+            NSLog(@"NO ERROR AND ITS SO COOL");
             NSError *error;
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
@@ -34,10 +35,20 @@ void fhEventCallback(fh_context* ctx, fh_event event, const fh_event_data* data,
     }
 }
 
-
-- (void) callCertCreate {
+- (void) callCertCreate{
+    NSString* user = @"lakshmana";
+    NSString* pwd = @"Abb@123456";
+    fh_cert_info info;
+    memset(&info, 0, sizeof(info));
+    info.m_cert_common_name = "yourCommonName";
+    info.m_device_uuid = "yourDeviceUUID";
+    info.m_friendly_device_name = "Any iPhone";
+    info.m_cert_country = "de";
+    fh_cert_create(gFHContext, user.UTF8String, pwd.UTF8String, &info);
     
-    fh_context* gFHContext = NULL;
+}
+
+- (void) callCertInit {
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
