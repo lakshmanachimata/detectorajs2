@@ -236,6 +236,8 @@ public class MainActivity extends Activity {
 
     boolean isABB = false;
 
+    Handler scanDevicesMessagesHandler  =  new Handler();
+
     class DetectorInfo {
         String hashCode = "";
         String btDeviceName = "";
@@ -474,6 +476,17 @@ public class MainActivity extends Activity {
     public BluetoothGatt getGatt(){
         return mBluetoothLeService.getGatt();
 
+    }
+
+    public void showMessageIfNoDevicesAreAvailable(){
+        scanDevicesMessagesHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(scannedDevices.size() == 0){
+                    Toast.makeText(getApplicationContext(), "NO DEVICES ARE AVAILABLE",Toast.LENGTH_LONG).show();
+                }
+            }
+        },5 * 60 * 1000);
     }
     public void killApp(){
         if(scanner != null)
@@ -863,6 +876,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onResume() {
+        showMessageIfNoDevicesAreAvailable();
         super.onResume();
         if (loaded) {
             if (webview != null) {
