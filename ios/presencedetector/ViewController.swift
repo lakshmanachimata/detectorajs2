@@ -9,16 +9,25 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate {
+class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate , URLSessionDelegate{
     
     var webView: WKWebView!;
     var uiImageView : UIImageView!;
     var bleHelper:BLEHelper? = nil
     var isABB:Bool =  true;
+    var isCertCreateSuccess:Bool =  false;
+    
+    var urlCredential:URLCredential? = nil;
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder);
     }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        // Custom initialization
+    }
+    
     
     override func viewDidLoad() {
         // Do any additional setup after loading the view, typically from a nib.
@@ -97,6 +106,17 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         super.viewDidLoad()
         bleHelper = BLEHelper(webView: webView, topView: self)
         bleHelper?.setup();
+       //DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
+         //   self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
+        //}
+    }
+    
+    func setCertCreateState(certState: Bool){
+        self.isCertCreateSuccess = certState;
+        if(certState ==  true){
+
+            //urlCredential = URLCredential.init(identity: SecIdentity, certificates: <#T##[Any]?#>, persistence: URLCredential.Persistence.permanent)
+        }
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -136,7 +156,39 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     public func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
     }
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void) {
+        if(self.isCertCreateSuccess){
+        completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+        }
 
+    }
+    
+    
+    func sendToServer( serverAddr: String){
+        
+        let request = NSMutableURLRequest(url: NSURL(string: serverAddr)! as URL)
+        request.httpMethod = "GET"
+        //let postString = "UID=\(uid)&Gender=\(gender)"
+        //request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let session: URLSession =  URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+        
+        let task = session.dataTask(with: request as URLRequest) {
+            data, response, error in
+            
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            print("response = \(response)")
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print("responseString = \(responseString)")
+        }
+        task.resume()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

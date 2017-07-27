@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 
 #include <freeathome/freeathome.h>
+#import "presencedetector-Swift.h"
 
 @implementation FreehomeInterface  
 
@@ -21,13 +22,17 @@ void fhEventCallback(fh_context* ctx, fh_event event, const fh_event_data* data,
     {
         case FH_EVENT_CERT_CREATE_RESULT:
         {
-            NSLog(@"NO ERROR AND ITS SO COOL");
             NSError *error;
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:&error];
             if (files == nil) {
                 NSLog(@"Error reading contents of documents directory: %@", [error localizedDescription]);
+                return;
+            }
+            else{
+                ViewController *instance = [ViewController new];
+                [instance setCertCreateStateWithCertState:true];
                 return;
             }
         }

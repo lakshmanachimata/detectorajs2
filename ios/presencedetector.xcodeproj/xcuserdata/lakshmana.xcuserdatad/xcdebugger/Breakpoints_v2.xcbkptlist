@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "presencedetector/FreehomeInterface.m"
-            timestampString = "522682360.94825"
+            filePath = "presencedetector/ViewController.swift"
+            timestampString = "522847035.820549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "fhEventCallback()"
-            landmarkType = "9">
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "urlSession(_:didReceive:completionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

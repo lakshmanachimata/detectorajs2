@@ -405,7 +405,6 @@ export class DataService {
     setPwdToDeviceObj:any;
     getSafariSubtleObj:any;
     readAddrAttrObj:any;
-    public DeviceBuild = 1;
     activeComponent:any;
     iActiveComponent:any;
     headerComponent:any;
@@ -419,7 +418,8 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
-    demoMode = 0;
+    public DeviceBuild = 0;
+    demoMode = 1;
     emDBData = new Array<emEntryData>();
     isIPhone = 0;
     isAPhone = 0;
@@ -1912,7 +1912,7 @@ export class DataService {
             method: 'GET',
         };
         request.get(options,function(error, response, body){
-            this.logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
+            DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
         }); 
     }
 
@@ -2032,8 +2032,8 @@ export class DataService {
     getDevicesFromCloud() {
         if(this.networkParams.useCertAuth){
             let path =  this.networkParams.certDevicesPath;
-            this.getDataWithCert(path);
-            //this.getDataWithCertReq();
+            //this.getDataWithCert(path);
+            this.getDataWithCertReq();
         }else{
             let url = this.networkParams.devicesUrl;
             this.getData(url);
