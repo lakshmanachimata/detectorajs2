@@ -17,6 +17,9 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     var isABB:Bool =  true;
     var isCertCreateSuccess:Bool =  false;
     
+    var certFileData : Data? = Data()
+    var keyFileData : Data? = Data()
+    
     var urlCredential:URLCredential? = nil;
     required init?(coder aDecoder: NSCoder) {
         
@@ -115,7 +118,46 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         self.isCertCreateSuccess = certState;
         if(certState ==  true){
 
-            //urlCredential = URLCredential.init(identity: SecIdentity, certificates: <#T##[Any]?#>, persistence: URLCredential.Persistence.permanent)
+            let fm = FileManager.default
+            let docsurl = try! fm.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let certFilePath = docsurl.appendingPathComponent("client.cert")
+            let keyFilePath = docsurl.appendingPathComponent("client.private")
+            
+            do {
+                try certFileData =  Data.init(contentsOf: certFilePath)
+                try keyFileData =  Data.init(contentsOf: keyFilePath)
+            }catch let error{
+                print("error \(error.localizedDescription)")
+            }
+            
+            
+            let base64Decoded = String(data: certFileData!, encoding: .utf8)
+            
+            //let base64Decoded: NSString = NSString(data: certFileData!, encoding: String.Encoding.utf8)!
+            
+            print("cert data " , base64Decoded)
+            
+            certFileData?.withUnsafeBytes {(bytes: UnsafePointer<UInt8>)->Void in
+                
+                let CFdataPtr = CFDataCreate(kCFAllocatorDefault, bytes, (certFileData?.count)!)
+//                let certSecCertData = SecCertificateCreateWithData(kCFAllocatorDefault,CFdataPtr!)
+//                
+//                let certData = SecCertificateCopyData(certSecCertData!) as Data
+//                
+//                let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, certData as CFData)
+            }
+            
+            
+
+
+            
+
+            
+            var identity: SecIdentity?
+            //let status = SecIdentityCreateWithCertificate(nil, certificate, &identity)
+            
+//            urlCredential = URLCredential.init(identity: SecIdentity as! SecIdentity, certificates: <#T##[Any]?#>, persistence: URLCredential.Persistence.permanent)
+            print("print certdata ");
         }
     }
     
