@@ -185,9 +185,9 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 print(error.localizedDescription)
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
-                self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
+//                self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
+//            }
 
             
         }
