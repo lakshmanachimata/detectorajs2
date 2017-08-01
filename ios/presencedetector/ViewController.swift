@@ -11,6 +11,14 @@ import WebKit
 
 class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate , URLSessionDelegate{
     
+    
+    struct IdentityAndTrust {
+        
+        var identityRef:SecIdentity
+        var trust:SecTrust
+        var certArray:AnyObject
+    }
+    
     var webView: WKWebView!;
     var uiImageView : UIImageView!;
     var bleHelper:BLEHelper? = nil
@@ -20,6 +28,9 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     var certFileData : Data? = Data()
     var keyFileData : Data? = Data()
     
+    var pfxFilePath: URL!;
+    
+    var pfxpwd = "bje_detector";
     var urlCredential:URLCredential? = nil;
     required init?(coder aDecoder: NSCoder) {
         
@@ -109,9 +120,6 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         super.viewDidLoad()
         bleHelper = BLEHelper(webView: webView, topView: self)
         bleHelper?.setup();
-       //DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
-         //   self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
-        //}
     }
     
     func setCertCreateState(certState: Bool){
@@ -157,10 +165,10 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             
             certChain = nil
             
-            let pfxFilePath = docsurl.appendingPathComponent("client.pfx")
+            pfxFilePath = docsurl.appendingPathComponent("client.pfx")
             
             //  Finally, write the PFX w/ a password.
-            success = (pfx?.toFile("bje_detector", path: pfxFilePath.path))!
+            success = (pfx?.toFile(pfxpwd, path: pfxFilePath.path))!
             if success != true {
                 print("\(String(describing: pfx?.lastErrorText))")
                 return
@@ -177,42 +185,15 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 print(error.localizedDescription)
             }
             
-            
-//            do {
-//                try certFileData =  Data.init(contentsOf: certDerFilePath)
-//                try keyFileData =  Data.init(contentsOf: keyFilePath)
-//            }catch let error{
-//                print("error \(error.localizedDescription)")
-//            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
+                self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
+            }
 
             
-            
-//            certFileData?.withUnsafeBytes {(bytes: UnsafePointer<UInt8>)->Void in
-//                let CFdataPtr = CFDataCreate(kCFAllocatorDefault, bytes, (certFileData?.count)!)
-//                let certSecCertData = SecCertificateCreateWithData(kCFAllocatorDefault,CFdataPtr!)
-//                
-//                var secTrust: SecTrust?
-//                let secTrustStatus = SecTrustCreateWithCertificates(certSecCertData!, nil, &secTrust)
-//                if secTrustStatus != errSecSuccess { return  }
-//                // 3
-//                var resultType: SecTrustResultType = SecTrustResultType(rawValue: UInt32(0))! // ignore results.
-//                let evaluateStatus = SecTrustEvaluate(secTrust!, &resultType)
-//                if evaluateStatus != errSecSuccess { return  }
-//                // 4
-//                let publicKeyRef = SecTrustCopyPublicKey(secTrust!)
-//                //return publicKeyRef
-//            
-//            }
-            
-            
-
-
-            
-
-
-//            urlCredential = URLCredential.init(identity: SecIdentity as! SecIdentity, certificates: <#T##[Any]?#>, persistence: URLCredential.Persistence.permanent)
         }
     }
+    
+    
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.navigationType == .linkActivated  {
@@ -253,11 +234,71 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void) {
-        if(self.isCertCreateSuccess){
-        completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        }
+        
+        
+        let localCertData = try?  Data(contentsOf: self.pfxFilePath)
+        
+            
+            let identityAndTrust:IdentityAndTrust = extractIdentity(certData: localCertData as! NSData, certPassword: pfxpwd)
+            
+            if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate {
+                
+                let urlCredential:URLCredential = URLCredential(
+                    identity: identityAndTrust.identityRef,
+                    certificates: identityAndTrust.certArray as! [AnyObject],
+                    persistence: URLCredential.Persistence.forSession);
+                
+                completionHandler(URLSession.AuthChallengeDisposition.useCredential, urlCredential);
+                
+                return
+            }
+        
+        
+        challenge.sender?.cancel(challenge)
+        completionHandler(URLSession.AuthChallengeDisposition.rejectProtectionSpace, nil)
 
     }
+    
+    
+    public func extractIdentity(certData:NSData, certPassword:String) -> IdentityAndTrust {
+        
+        var identityAndTrust:IdentityAndTrust!
+        var securityError:OSStatus = errSecSuccess
+        
+        var items: CFArray?
+        let certOptions: Dictionary = [ kSecImportExportPassphrase as String : certPassword ];
+        // import certificate to read its entries
+        securityError = SecPKCS12Import(certData, certOptions as CFDictionary, &items);
+        if securityError == errSecSuccess {
+            
+            let certItems:CFArray = items as CFArray!;
+            let certItemsArray:Array = certItems as Array
+            let dict:AnyObject? = certItemsArray.first;
+            
+            if let certEntry:Dictionary = dict as? Dictionary<String, AnyObject> {
+                
+                // grab the identity
+                let identityPointer:AnyObject? = certEntry["identity"];
+                let secIdentityRef:SecIdentity = identityPointer as! SecIdentity!;
+                
+                // grab the trust
+                let trustPointer:AnyObject? = certEntry["trust"];
+                let trustRef:SecTrust = trustPointer as! SecTrust;
+                
+                // grab the certificate chain
+                var certRef: SecCertificate?
+                SecIdentityCopyCertificate(secIdentityRef, &certRef);
+                let certArray:NSMutableArray = NSMutableArray();
+                certArray.add(certRef as SecCertificate!);
+                
+                identityAndTrust = IdentityAndTrust(identityRef: secIdentityRef, trust: trustRef, certArray: certArray);
+            }
+        }
+        
+        return identityAndTrust;
+    }
+    
+
     
     
     func sendToServer( serverAddr: String){
