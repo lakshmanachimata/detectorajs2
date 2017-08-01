@@ -8,9 +8,10 @@
 
 #import "FreehomeInterface.h"
 #import <Foundation/Foundation.h>
-
 #include <freeathome/freeathome.h>
 #import "presencedetector-Swift.h"
+
+
 
 @implementation FreehomeInterface  
 
@@ -31,6 +32,7 @@ void fhEventCallback(fh_context* ctx, fh_event event, const fh_event_data* data,
                 return;
             }
             else{
+                
                 ViewController *instance = [ViewController new];
                 [instance setCertCreateStateWithCertState:true];
                 return;

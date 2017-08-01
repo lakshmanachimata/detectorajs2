@@ -123,41 +123,94 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             let certFilePath = docsurl.appendingPathComponent("client.cert")
             let keyFilePath = docsurl.appendingPathComponent("client.private")
             
-            do {
-                try certFileData =  Data.init(contentsOf: certFilePath)
-                try keyFileData =  Data.init(contentsOf: keyFilePath)
-            }catch let error{
-                print("error \(error.localizedDescription)")
+            
+            
+            var success: Bool
+            let cert = CkoCert()
+            success = cert!.load(fromFile: certFilePath.path)
+            if success != true {
+                print("\(cert?.lastErrorText)")
+                return
+            }
+            
+            var certChain: CkoCertChain? = cert?.getChain()
+            if cert?.lastMethodSuccess != true {
+                print("\(String(describing: cert?.lastErrorText))")
+                return
+            }
+            
+            let privKey = CkoPrivateKey()
+            success = (privKey?.loadPemFile(keyFilePath.path))!
+            if success != true {
+                print("\(privKey?.lastErrorText)")
+                certChain = nil
+                return
+            }
+            
+            let pfx = CkoPfx()
+            success = (pfx?.add(privKey, certChain: certChain))!
+            if success != true {
+                print("\(pfx?.lastErrorText)")
+                certChain = nil
+                return
+            }
+            
+            certChain = nil
+            
+            let pfxFilePath = docsurl.appendingPathComponent("client.pfx")
+            
+            //  Finally, write the PFX w/ a password.
+            success = (pfx?.toFile("bje_detector", path: pfxFilePath.path))!
+            if success != true {
+                print("\(String(describing: pfx?.lastErrorText))")
+                return
+            }
+
+            
+            
+            do{
+                let directoryContents = try FileManager.default.contentsOfDirectory(at: docsurl, includingPropertiesForKeys: nil, options: [])
+                print(directoryContents)
+
+            }
+            catch let error as NSError {
+                print(error.localizedDescription)
             }
             
             
-            let base64Decoded = String(data: certFileData!, encoding: .utf8)
+//            do {
+//                try certFileData =  Data.init(contentsOf: certDerFilePath)
+//                try keyFileData =  Data.init(contentsOf: keyFilePath)
+//            }catch let error{
+//                print("error \(error.localizedDescription)")
+//            }
+
             
-            //let base64Decoded: NSString = NSString(data: certFileData!, encoding: String.Encoding.utf8)!
             
-            print("cert data " , base64Decoded)
-            
-            certFileData?.withUnsafeBytes {(bytes: UnsafePointer<UInt8>)->Void in
-                
-                let CFdataPtr = CFDataCreate(kCFAllocatorDefault, bytes, (certFileData?.count)!)
+//            certFileData?.withUnsafeBytes {(bytes: UnsafePointer<UInt8>)->Void in
+//                let CFdataPtr = CFDataCreate(kCFAllocatorDefault, bytes, (certFileData?.count)!)
 //                let certSecCertData = SecCertificateCreateWithData(kCFAllocatorDefault,CFdataPtr!)
 //                
-//                let certData = SecCertificateCopyData(certSecCertData!) as Data
-//                
-//                let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, certData as CFData)
-            }
+//                var secTrust: SecTrust?
+//                let secTrustStatus = SecTrustCreateWithCertificates(certSecCertData!, nil, &secTrust)
+//                if secTrustStatus != errSecSuccess { return  }
+//                // 3
+//                var resultType: SecTrustResultType = SecTrustResultType(rawValue: UInt32(0))! // ignore results.
+//                let evaluateStatus = SecTrustEvaluate(secTrust!, &resultType)
+//                if evaluateStatus != errSecSuccess { return  }
+//                // 4
+//                let publicKeyRef = SecTrustCopyPublicKey(secTrust!)
+//                //return publicKeyRef
+//            
+//            }
             
             
 
 
             
 
-            
-            var identity: SecIdentity?
-            //let status = SecIdentityCreateWithCertificate(nil, certificate, &identity)
-            
+
 //            urlCredential = URLCredential.init(identity: SecIdentity as! SecIdentity, certificates: <#T##[Any]?#>, persistence: URLCredential.Persistence.permanent)
-            print("print certdata ");
         }
     }
     
