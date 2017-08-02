@@ -33,38 +33,6 @@
             endingLineNumber = "188"
             landmarkName = "setCertCreateState(certState:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "presencedetector.ViewController.setCertCreateState (certState : Swift.Bool) -&gt; ()"
-                  moduleName = "presencedetector"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lakshmana/projects/abb/detectorajs2/ios/presencedetector/ViewController.swift"
-                  timestampString = "523281147.545371"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "188"
-                  endingLineNumber = "188"
-                  offsetFromSymbolStart = "11009">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "presencedetector.ViewController.(setCertCreateState (certState : Swift.Bool) -&gt; ()).(closure #1)"
-                  moduleName = "presencedetector"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lakshmana/projects/abb/detectorajs2/ios/presencedetector/ViewController.swift"
-                  timestampString = "523281147.547523"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "189"
-                  endingLineNumber = "189"
-                  offsetFromSymbolStart = "38">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
