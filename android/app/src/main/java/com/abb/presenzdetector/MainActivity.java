@@ -353,6 +353,7 @@ public class MainActivity extends Activity {
 
 
 
+
 //        String version = pInfo.versionName;
 
 //        TextView tvLogo = (TextView) (splashScreen.findViewById(R.id.textViewLogo));
@@ -613,23 +614,22 @@ public class MainActivity extends Activity {
                                 String algorithm = keyFactory.getAlgorithm();
                                 //algorithm = "RSA";
                                 //publicKey = keyFactory.generatePublic(keySpec);
-                            } catch (InvalidKeySpecException excep1) {
-                                try {
-                                    KeyFactory keyFactory = KeyFactory.getInstance("DSA");
-                                    myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
-                                    String algorithm = keyFactory.getAlgorithm();
-                                    //publicKey = keyFactory.generatePublic(keySpec);
-                                } catch (InvalidKeySpecException excep2) {
+                            } catch (InvalidKeySpecException excep1)
+                                {
+                                    try {
+                                        KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                        String algorithm = keyFactory.getAlgorithm();
+                                        //publicKey = keyFactory.generatePublic(keySpec);
+                                    } catch (InvalidKeySpecException excep2) {
 
-                                    KeyFactory keyFactory = KeyFactory.getInstance("EC");
-                                    myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                        KeyFactory keyFactory = KeyFactory.getInstance("EC");
+                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
 
-                                } catch(Exception e){
-                                    e.printStackTrace();   // inner catch
+                                    } catch(Exception e){
+                                        e.printStackTrace();   // inner catch
+                                    }
                                 }
-                            }
-
-
                             }
                         }
                     }catch (Exception e){
@@ -696,7 +696,7 @@ public class MainActivity extends Activity {
 
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, wrappedTrustManagers, null);
-            new URLTask().execute("https://api.my-staging.busch-jaeger.de/api/user/device/controltouch-unit-enduser/" + btAddress);
+            new URLTask().execute("https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -729,7 +729,7 @@ public class MainActivity extends Activity {
                 newObjet.put("name","test");
                 newObjet.put("software_version","0.1");
                 newObjet.put("description","testing");
-                urlConnection.setRequestMethod("PUT");
+                urlConnection.setRequestMethod("GET");
                 urlConnection.setConnectTimeout(1500);
                 urlConnection.setReadTimeout(1500);
                 urlConnection.setRequestProperty("Content-Type","application/json");

@@ -55,6 +55,9 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
+
+
+
   toggleBr(){
    this.ad.brightnessCorrectionEnable = !this.ad.brightnessCorrectionEnable;
    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.brightnessCorrectionEnable?1:0])
@@ -69,6 +72,10 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
   }
 
+
+  setBrSt(event: any){
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,SCCP_DATATYPES.SCCP_TYPE_INT16,this.ad.brightnessCorrectionValue])
+  }
 
   increaseCount(item,isClick) {
     this.ad.brightnessCorrectionValue = this.ad.brightnessCorrectionValue + 1;

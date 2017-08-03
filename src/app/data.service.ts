@@ -418,8 +418,8 @@ export class DataService {
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
-    public DeviceBuild = 0;
-    demoMode = 1;
+    public DeviceBuild = 1;
+    demoMode = 0;
     emDBData = new Array<emEntryData>();
     isIPhone = 0;
     isAPhone = 0;
@@ -476,7 +476,8 @@ export class DataService {
     }
 
     setCertData(data){
-        if(this.DeviceBuild == 1){
+        if(this.DeviceBuild == 1)
+        {
             this.networkParams.certData = new Buffer(data);
         }
         else{
@@ -484,7 +485,8 @@ export class DataService {
         }
     }
     setKeyData(data){
-        if(this.DeviceBuild ==1 ){
+        if(this.DeviceBuild ==1 )
+        {
             this.networkParams.keyData = new Buffer(data);
         }
         else{
@@ -1904,6 +1906,7 @@ export class DataService {
     }
 
     getDataWithCertReq(){
+        this.logger.log("getDataWithCertReq called    " + this.networkParams.certData.length + " AND " + this.networkParams.keyData.length);
         var options = {  
             url: 'https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices',
             cert: this.networkParams.certData,
@@ -1912,7 +1915,10 @@ export class DataService {
             method: 'GET',
         };
         request.get(options,function(error, response, body){
-            DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
+            if(response != undefined)
+                DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
+            else 
+                DataService.getDataService().logger.log('response is error  ' + error);
         }); 
     }
 

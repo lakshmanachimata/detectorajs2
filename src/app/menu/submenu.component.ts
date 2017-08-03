@@ -349,7 +349,7 @@ export class SubMenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
       });
    }
    syncNow(){
-    this.data.syncDataNow(true);
+    this.data.syncDataNow(false);
    }
    toggleAS(){
        this.autoSync = !this.autoSync;
