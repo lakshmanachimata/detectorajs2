@@ -1181,7 +1181,7 @@ div#bj-user-basic-illumination-div {
 .switch-onlabel{
 	height: 100%;
     width: 10px;
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     float: left;
     padding-top: 8px;
@@ -1192,7 +1192,7 @@ div#bj-user-basic-illumination-div {
 .switch-offlabel{
     height: 100%;
     width: 28px;
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     float: right;
     padding-top: 10px;

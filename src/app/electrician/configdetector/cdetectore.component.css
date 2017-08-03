@@ -1227,7 +1227,7 @@ div#bj-user-basic-illumination-div {
 .switch-onlabel{
 	height: 100%;
     width: 10px;
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     float: left;
     padding-top: 8px;
@@ -1238,7 +1238,7 @@ div#bj-user-basic-illumination-div {
 .switch-offlabel{
     height: 100%;
     width: 28px;
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     float: right;
     padding-top: 10px;
@@ -1282,7 +1282,7 @@ label.switch-onlabel.user {
 
 .track{
 	width:56px;
-	height:28px;
+    height:28px;
 	border-radius:3px;
 	border: 1px solid;
     position: relative;
