@@ -77,7 +77,7 @@
                 </span>
             <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.softOnEnable && activeDevice.deviceType == 'daliMaster1c'" >
                 <div class="adjust-minus" long-press (click)="reduceCount('softon',true)" (onLongPressEnd)="reduceCount('softon',true)" (onLongPressing)="reduceCount('softon',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" [(ngModel)]="ad.softOnDuration" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
+                <input class="adjust" type="number" (keyup)="setSSON($event)" [(ngModel)]="ad.softOnDuration" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('softon',true)" (onLongPressEnd)="increaseCount('softon',true)" (onLongPressing)="increaseCount('softon',false)" ><span class="glyphicon glyphicon-plus"></span>
                 </div>
@@ -94,7 +94,7 @@
                 </span>
             <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.softOffEnable && activeDevice.deviceType == 'daliMaster1c'">
                 <div class="adjust-minus" long-press (click)="reduceCount('softoff',true)" (onLongPressEnd)="reduceCount('softoff',true)" (onLongPressing)="reduceCount('softoff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" [(ngModel)]="ad.softOffDuration" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
+                <input class="adjust" type="number"  (keyup)="setSSOFF($event)"  [(ngModel)]="ad.softOffDuration" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('softoff',true)" (onLongPressEnd)="increaseCount('softoff',true)" (onLongPressing)="increaseCount('softoff',false)" ><span class="glyphicon glyphicon-plus"></span>
                 </div>

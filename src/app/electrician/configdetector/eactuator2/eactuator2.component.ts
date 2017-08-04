@@ -65,6 +65,30 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
+  setHVSOnDelay(event: any){
+    if(event.target.value < this.ad.hvacSwitchOnDelayMin ){
+      this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelayMin;
+      event.target.value = this.ad.hvacSwitchOnDelayMin;
+    }
+    if(event.target.value > this.ad.hvacSwitchOnDelayMax) {
+        this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelayMax;
+        event.target.value = this.ad.hvacSwitchOnDelayMax;
+    }
+     this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOnDelay])
+  }
+
+  setHVSOffDelay(event: any){
+    if(event.target.value < this.ad.hvacSwitchOffDelayMin ){
+      this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelayMin;
+      event.target.value = this.ad.hvacSwitchOffDelayMin;
+    }
+    if(event.target.value > this.ad.hvacSwitchOffDelayMax) {
+        this.ad.hvacSwitchOffDelay = this.ad.hvacSwitchOffDelayMax;
+        event.target.value = this.ad.hvacSwitchOffDelayMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
+  }
+
   reduceCount(item,isClick){
     if(item == 'sondelay') {
       this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay -1;

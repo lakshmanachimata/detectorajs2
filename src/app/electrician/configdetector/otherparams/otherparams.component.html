@@ -159,7 +159,7 @@
             <label class="energy-monitor-reference-load-lbl" >{{ this.data.getTranslatedString("Connected load") }}</label>
             <div class="bj-config-setting-adjust energy-monitor-reference-load-function">
                 <div class="adjust-minus" long-press (click)="reduceCount('cload',true)" (onLongPressEnd)="reduceCount('cload',true)" (onLongPressing)="reduceCount('cload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" [(ngModel)]="ad.energyMonitorConnectedLoad" [ngStyle]="{'color':cLoad ==true ? 'red' : '#26394f'}">
+                <input class="adjust" type="number"  (keyup)="setCLoad($event)" [(ngModel)]="ad.energyMonitorConnectedLoad" [ngStyle]="{'color':cLoad ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > W </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('cload',true)" (onLongPressEnd)="increaseCount('cload',true)" (onLongPressing)="increaseCount('cload',false)"><span class="glyphicon glyphicon-plus"></span>
                 </div>
@@ -169,7 +169,7 @@
             <label class="energy-monitor-reference-lighting-lbl" >{{ this.data.getTranslatedString("Lighting duration per week") }}</label>
             <div class="bj-config-setting-adjust energy-monitor-reference-lighting-function">
                 <div class="adjust-minus" long-press (click)="reduceCount('lduration',true)" (onLongPressEnd)="reduceCount('lduration',true)" (onLongPressing)="reduceCount('lduration',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" [(ngModel)]="ad.energyMonitorLightingDuration" [ngStyle]="{'color':lDuration ==true ? 'red' : '#26394f'}">
+                <input class="adjust" type="number"  (keyup)="setLduration($event)" [(ngModel)]="ad.energyMonitorLightingDuration" [ngStyle]="{'color':lDuration ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > h </div>
                 <div class="adjust-plus" long-press (click)="increaseCount('lduration',true)" (onLongPressEnd)="increaseCount('lduration',true)" (onLongPressing)="increaseCount('lduration',false)" ><span class="glyphicon glyphicon-plus"></span>
                 </div>
@@ -179,7 +179,7 @@
             <label class="energy-monitor-reference-price-lbl" >{{ this.data.getTranslatedString("Electricity price") }}</label>
             <div class="bj-config-setting-adjust energy-monitor-reference-price-function">
                 <div class="adjust-minus" long-press (click)="reduceCount('eprice',true)" (onLongPressEnd)="reduceCount('eprice',true)" (onLongPressing)="reduceCount('eprice',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" [(ngModel)]="ad.energyMonitor.electricityPrice" [ngStyle]="{'color':ePrice ==true ? 'red' : '#26394f'}">
+                <input class="adjust" type="number"  (keyup)="setEprice($event)"  [(ngModel)]="ad.energyMonitor.electricityPrice" [ngStyle]="{'color':ePrice ==true ? 'red' : '#26394f'}">
                 <div class="static-unit-text" > ct/kWh</div>
                 <div class="adjust-plus" long-press (click)="increaseCount('eprice',true)" (onLongPressEnd)="increaseCount('eprice',true)" (onLongPressing)="increaseCount('eprice',false)" ><span class="glyphicon glyphicon-plus"></span>
                 </div>

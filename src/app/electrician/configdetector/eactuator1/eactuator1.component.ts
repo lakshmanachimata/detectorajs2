@@ -17,7 +17,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     activeDevice:any;
     ad:any;
     loadingDataDone = false;
-
+    showSoftSwitchingSettings = true;
     NLStartTime : string = "";
     NLEndTime : string = "";
     BRStartTime : string = "";
@@ -84,13 +84,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      // if(this.data.getDeviceConnectionState() == true){
-      //   this.data.readData(this.readAttrs);
-      // }
-      // else 
-      {
-        this.loadingDataDone = true;
-      }
+      this.loadingDataDone = true;
+      
   }
   ngOnChanges(changes) { 
   }
@@ -111,8 +106,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
-  setSsOt(event : any){
 
+
+  setSSOFF(event : any){
+    if(event.target.value <= this.ad.softOffDurationMin ){
+      this.ad.softOffDuration = this.ad.softOffDurationMin;
+      event.target.value = this.ad.softOffDurationMin;
+    }
+    if(event.target.value >= this.ad.softOffDurationMax) {
+        this.ad.softOffDuration = this.ad.softOffDurationMax;
+        event.target.value = this.ad.softOffDurationMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOffDuration) ])
+  }
+
+  setSSON(event : any){
+    if(event.target.value <= this.ad.softOnDurationMin ){
+      this.ad.softOnDuration = this.ad.softOnDurationMin;
+      event.target.value = this.ad.softOnDurationMin;
+    }
+    if(event.target.value >= this.ad.softOnDurationMax) {
+        this.ad.softOnDuration = this.ad.softOnDurationMax;
+        event.target.value = this.ad.softOnDurationMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
+  }
+
+
+  setSsOt(event : any){
     if(event.target.value < this.ad.stepwiseSwitchOffDelayMin ){
       this.ad.brightnessThreshold = this.ad.stepwiseSwitchOffDelayMin;
       event.target.value = this.ad.stepwiseSwitchOffDelayMin;

@@ -226,6 +226,38 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   getOtherParam() {
     return this.data.getOtherParam();
   }
+
+      setCLoad(event: any){
+    if(event.target.value < this.ad.energyMonitorConnectedLoadMin ){
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMin;
+      event.target.value = this.ad.energyMonitorConnectedLoadMin;
+    }
+    if(event.target.value > this.ad.energyMonitorConnectedLoadMax) {
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMax;
+        event.target.value = this.ad.energyMonitorConnectedLoadMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
+  }
+
+  setLduration(event: any){
+    if(event.target.value < 0 ){
+      this.ad.energyMonitorLightingDuration = 0;
+      event.target.value = 0;
+    }
+    if(event.target.value > 168) {
+        this.ad.energyMonitorLightingDuration = 168;
+        event.target.value = 168;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
+  }
+
+    setEprice(event: any){
+    if(event.target.value < 0 ){
+      this.ad.energyMonitor.electricityPrice = 0;
+      event.target.value = 0;
+    }
+  }
+
   reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad - 1;
@@ -235,10 +267,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
+      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
       if(this.ad.energyMonitorLightingDuration <= this.ad.energyMonitorLightingDurationMin){
           this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDurationMin;
         }
-      this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration - 1;
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
