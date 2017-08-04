@@ -64,7 +64,10 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.data.setShowEModal(true);
   }
   updateDemoDevices(){
-      this.detectors = this.data.getDevices(false);
+      this.zone.run( () => {
+        this.detectors = this.data.getDevices(false);
+        this.ngOnChanges(''); 
+      });
   }
    onUserAccessSuccess(){
     if(this.isDeviceConnected)
@@ -77,25 +80,27 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       });
   }
  setScannedData(){
-    this.detectors= [];
-    this.scannedData = this.data.getScannedData();
-    if(this.scannedData != undefined) {
-      for(let i =0; i < this.scannedData.length; i++)
-      {
-        let detectorInfo =  new DetectorInfo()
-        detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
-        detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
-        detectorInfo.modelNumber = this.scannedData[i].modelNumber;
-        detectorInfo.btAddress = this.scannedData[i].btAddress;
-        detectorInfo.btIAddress = this.scannedData[i].btIAddress;
-        detectorInfo.deviceType = this.scannedData[i].deviceType;
-        detectorInfo.rssi = this.scannedData[i].rssi;
-        detectorInfo.createdDate=this.data.getFormattedDate();
-        detectorInfo.updatedDate = this.data.getUTCDateFormat();
-        detectorInfo.contactName = this.scannedData[i].manufacturerName;
-        this.detectors.push(detectorInfo);
+   if(this.data.getDemoMode() == 0){
+    this.detectors = [];
+      this.scannedData = this.data.getScannedData();
+      if(this.scannedData != undefined) {
+        for(let i =0; i < this.scannedData.length; i++)
+        {
+          let detectorInfo =  new DetectorInfo()
+          detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
+          detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
+          detectorInfo.modelNumber = this.scannedData[i].modelNumber;
+          detectorInfo.btAddress = this.scannedData[i].btAddress;
+          detectorInfo.btIAddress = this.scannedData[i].btIAddress;
+          detectorInfo.deviceType = this.scannedData[i].deviceType;
+          detectorInfo.rssi = this.scannedData[i].rssi;
+          detectorInfo.createdDate=this.data.getFormattedDate();
+          detectorInfo.updatedDate = this.data.getUTCDateFormat();
+          detectorInfo.contactName = this.scannedData[i].manufacturerName;
+          this.detectors.push(detectorInfo);
+        }
       }
-    }
+   }
       this.zone.run( () => { // Change the property within the zone, CD will run after
         this.data.setMainTitle(this.translater.translate('Detectors'));
          this.data.setEDevParamsState(0);

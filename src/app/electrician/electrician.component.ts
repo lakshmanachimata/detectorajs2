@@ -99,30 +99,32 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   updateDemoDevices(){
-      this.zone.run( () => { 
+      this.zone.run( () => {
         this.detectors = this.data.getDevices(false);
-        this.logger.log("detectors lenths " + this.detectors.length)
+        this.ngOnChanges(''); 
       });
   }
 
   setScannedData(){
-    this.detectors= [];
-    this.scannedData = this.data.getScannedData();
-    if(this.scannedData != undefined) {
-      for(let i =0; i < this.scannedData.length; i++)
-      {
-        let detectorInfo =  new DetectorInfo()
-        detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
-        detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
-        detectorInfo.modelNumber = this.scannedData[i].modelNumber;
-        detectorInfo.btAddress = this.scannedData[i].btAddress;
-        detectorInfo.btIAddress = this.scannedData[i].btIAddress;
-        detectorInfo.deviceType = this.scannedData[i].deviceType;
-        detectorInfo.rssi = this.scannedData[i].rssi;
-        detectorInfo.createdDate=this.data.getFormattedDate();
-        detectorInfo.updatedDate = this.data.getUTCDateFormat();
-        detectorInfo.contactName = this.scannedData[i].manufacturerName;
-        this.detectors.push(detectorInfo);
+    if(this.data.demoMode == 0){
+      this.detectors = [];
+      this.scannedData = this.data.getScannedData();
+      if(this.scannedData != undefined) {
+        for(let i =0; i < this.scannedData.length; i++)
+        {
+          let detectorInfo =  new DetectorInfo()
+          detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
+          detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
+          detectorInfo.modelNumber = this.scannedData[i].modelNumber;
+          detectorInfo.btAddress = this.scannedData[i].btAddress;
+          detectorInfo.btIAddress = this.scannedData[i].btIAddress;
+          detectorInfo.deviceType = this.scannedData[i].deviceType;
+          detectorInfo.rssi = this.scannedData[i].rssi;
+          detectorInfo.createdDate=this.data.getFormattedDate();
+          detectorInfo.updatedDate = this.data.getUTCDateFormat();
+          detectorInfo.contactName = this.scannedData[i].manufacturerName;
+          this.detectors.push(detectorInfo);
+        }
       }
     }
 
