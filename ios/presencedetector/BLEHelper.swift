@@ -83,11 +83,23 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + (30 * 60 )) {
             self.stopscan();
         }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + (5 * 60)) {
             if(self.peripherals.count <= 0){
-                self.mainView?.showToast(message: "NO DEVICES AVAILABLE")
+                
+                var demoModeData:Dictionary<String,Int> = [:]
+                demoModeData["demomode"] =  1;
+                let jsData = Utilities.jsonStringify(data: demoModeData as AnyObject)
+                let script: String = "setDemoMode(\(jsData))"
+                DispatchQueue.main.async {
+                    //Run UI Updates
+                    self.webView?.evaluateJavaScript(script);
+                    self.stopscan();
+                    self.mainView?.showToast(message: "NO DEVICES AVAILABLE")
+                }
             }
         }
+        
     }
     
     func stopscan(){
