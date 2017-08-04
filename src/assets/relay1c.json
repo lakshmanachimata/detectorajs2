@@ -71,7 +71,7 @@
    "testmode": {
       "deactivate_outputs_enable":false
     },
-    "energy_monitor": {
+    "energyMonitor": {
       "connected_load": 0,
       "connected_load_min": 0,
       "connected_load_max": 10,

@@ -461,7 +461,8 @@ export class DataService {
         if(aindex < 0 && iindex < 0) {
             this.DeviceBuild = 0;
             this.isIPhone = 0;
-            this.isAPhone = 1;
+            this.isAPhone = 0;
+            this.demoMode = 1;
         }
         if(this.demoMode == 1){
             this.DeviceBuild = 0;
@@ -472,9 +473,12 @@ export class DataService {
         return this.demoMode;
     }
     setDemoMode(isDemoMode){
-        this.demoMode = isDemoMode;
-        this.checkDeviceMode();
-        this.initDevices();
+        if(isDemoMode == 1){
+            this.deviceParams.accessLevel = 2; 
+            this.demoMode = isDemoMode;
+            this.checkDeviceMode();
+            this.initDevices();
+        }
     }
     saveToLocalStorage(key,value){
         localStorage.setItem(key,value);
@@ -1000,6 +1004,10 @@ export class DataService {
         return this.deviceParams.accessLevel;
     }
     onAccessLevelUpdate(accessLevel){
+        if(this.demoMode == 1){
+            this.deviceParams.accessLevel = 2; 
+            return
+        }
         if(this.getProfile() == 'electrician'){
             this.deviceParams.accessLevel = 2;
         }else{
@@ -1107,7 +1115,7 @@ export class DataService {
             this.logger.log('loadDeviceData called')
             if(this.demoMode == 1){
             return new Promise<Array<any>>(resolve => {
-                this.http.get('assets/params.json').subscribe(response => {
+                this.http.get('assets/params_demo.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });

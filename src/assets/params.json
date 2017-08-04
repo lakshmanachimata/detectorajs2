@@ -132,15 +132,15 @@
 "ch2CurrentLevel":0,
 "testModeEnable":false,
 "accessLevel":0,
- "energy_monitor": {
-      "electricity_price": 0,
+ "energyMonitor": {
+      "electricityPrice": 0,
       "currency": 0,
-      "energy_monitor_select_period": 0,
-      "energy_monitor_lighting_duration_year":"0",
-      "energy_monitor_lighting_duration_month":"0",
-      "energy_monitor_year":"2017",
-      "energy_monitor_month":"AUGUST",
-      "energy_monitor_year_data":[
+      "energyMonitorSelectPeriod": 0,
+      "energyMonitorLightingDurationYear":"0",
+      "energyMonitorLightingDurationMonth":"0",
+      "energyMonitorYear":"2017",
+      "energyMonitorMonth":"AUGUST",
+      "energyMonitorYearData":[
         {
           "month":"JAN",
           "data":0
@@ -192,7 +192,7 @@
           "data":0
         }
       ],
-      "energy_monitor_month_data":[
+      "energyMonitorMonthData":[
         {
           "week":"CW1",
           "data":0

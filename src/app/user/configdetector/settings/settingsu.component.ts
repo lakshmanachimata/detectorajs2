@@ -119,6 +119,19 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
   }
 
+
+  setSwOff(event: any){
+    if(event.target.value < this.ad.switchOffDelayMin ){
+      this.ad.switchOffDelay = this.ad.switchOffDelayMin;
+      event.target.value = this.ad.switchOffDelayMin;
+    }
+    if(event.target.value > this.ad.switchOffDelayMax) {
+        this.ad.switchOffDelay = this.ad.switchOffDelayMax;
+        event.target.value = this.ad.switchOffDelayMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
+  }
+
   
   reduceCount(item,isClick) {
     if(item == 'brightness') {
@@ -130,6 +143,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
       this.ad.switchOffDelay = this.ad.switchOffDelay- 1;
+      if(this.ad.switchOffDelay <=this.ad.switchOffDelayMin){
+        this.ad.switchOffDelay = this.ad.switchOffDelayMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {
@@ -184,6 +200,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
       this.ad.switchOffDelay = this.ad.switchOffDelay+ 1;
+      if(this.ad.switchOffDelay >= this.ad.switchOffDelayMax){
+        this.ad.switchOffDelay = this.ad.switchOffDelayMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
     }else if(item == 'illuminationstart') {

@@ -5,7 +5,7 @@
         <label class="bj-config-setting-block-lbl energy-monitor-reference-load-lbl" >{{ this.data.getTranslatedString("Connected load") }}</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-load-function user">
             <div class="adjust-minus user" long-press (click)="reduceCount('cload',true)" (onLongPressEnd)="reduceCount('cload',true)" (onLongPressing)="reduceCount('cload',false)"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust user"type="text" [(ngModel)]="ad.energyMonitorConnectedLoad"   [ngStyle]="{'color': cLoad ==true ? 'red' : '#0173b2'}">
+            <input class="adjust user" type="number"  (keyup)="setCLoad($event)"  [(ngModel)]="ad.energyMonitorConnectedLoad"   [ngStyle]="{'color': cLoad ==true ? 'red' : '#0173b2'}">
             <div class="static-unit-text user">W</div>
             <div class="adjust-plus user" long-press (click)="increaseCount('cload',true)" (onLongPressEnd)="increaseCount('cload',true)" (onLongPressing)="increaseCount('cload',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
@@ -14,7 +14,7 @@
         <label class="bj-config-setting-block-lbl energy-monitor-reference-lighting-lbl" >{{ this.data.getTranslatedString("Lighting duration per week") }}</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-lighting-function user">
             <div class="adjust-minus user" long-press (click)="reduceCount('lduration',true)" (onLongPressEnd)="reduceCount('lduration',true)" (onLongPressing)="reduceCount('lduration',false)"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust user"type="text" [(ngModel)]="ad.energyMonitorLightingDuration"   [ngStyle]="{'color': lDuration ==true ? 'red' : '#0173b2'}">
+            <input class="adjust user" type="number"  (keyup)="setLduration($event)"  [(ngModel)]="ad.energyMonitorLightingDuration"   [ngStyle]="{'color': lDuration ==true ? 'red' : '#0173b2'}">
             <div class="static-unit-text user">h</div>
             <div class="adjust-plus user" long-press (click)="increaseCount('lduration',true)" (onLongPressEnd)="increaseCount('lduration',true)" (onLongPressing)="increaseCount('lduration',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
@@ -23,7 +23,7 @@
         <label class="bj-config-setting-block-lbl energy-monitor-reference-price-lbl" >{{ this.data.getTranslatedString("Electricity price") }}</label>
         <div class="bj-config-setting-adjust energy-monitor-reference-price-function user">
             <div class="adjust-minus user" long-press (click)="reduceCount('eprice',true)" (onLongPressEnd)="reduceCount('eprice',true)" (onLongPressing)="reduceCount('eprice',false)"><span class="glyphicon glyphicon-minus"></span></div> 
-            <input class="adjust user"type="text" [(ngModel)]="ad.energy_monitor.electricity_price"   [ngStyle]="{'color': eCurrency ==true ? 'red' : '#0173b2'}">
+            <input class="adjust user" type="number" [(ngModel)]="ad.energyMonitor.electricityPrice"   [ngStyle]="{'color': eCurrency ==true ? 'red' : '#0173b2'}">
             <div class="static-unit-text user">ct/kWh</div>
             <div class="adjust-plus user" long-press (click)="increaseCount('eprice',true)" (onLongPressEnd)="increaseCount('eprice',true)" (onLongPressing)="increaseCount('eprice',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>

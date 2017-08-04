@@ -63,9 +63,9 @@
 "levelMin":0,
 "levelMax":1000,
 "daliPowerOnLevel":0,
-"colorTemperature":"",
-"colorTemperatureMin":"",
-"colorTemperatureMax":"",
+"colorTemperature":50,
+"colorTemperatureMin":0,
+"colorTemperatureMax":100,
 "burnInEnable":false,
 "burnInMode":0,
 "burnInDuration":100,
@@ -86,7 +86,7 @@
 "nightLightEndTime":0,
 "nightLightLevel":48,
 "stepwiseSwitchOffDelayEnable":false,
-"stepwiseSwitchOffDelay":10,
+"stepwiseSwitchOffDelay":40,
 "stepwiseSwitchOffDelayMin":0,
 "stepwiseSwitchOffDelayMax":100,
 "stepwiseSwitchOffLevel":10,
@@ -111,8 +111,8 @@
 "energyMonitorLightingDuration":10,
 "energyMonitorLightingDurationMin":0,
 "energyMonitorLightingDurationMax":168,
-"contact":"ABB",
-"building":"ABB",
+"contact":"DIRK GOLDYN",
+"building":"BUSCH-JAEGER",
 "enableUserSetBrightnessThreshold":false,
 "enableUserSetSwitchOffDelay":false,
 "enableUserEnergyMonitor":false,
@@ -132,15 +132,15 @@
 "ch2CurrentLevel":10,
 "testModeEnable":false,
 "accessLevel":2,
- "energy_monitor": {
-      "electricity_price": 10,
+ "energyMonitor": {
+      "electricityPrice": 10,
       "currency": 0,
-      "energy_monitor_select_period": 0,
-      "energy_monitor_lighting_duration_year":"240",
-      "energy_monitor_lighting_duration_month":"60",
-      "energy_monitor_year":"2017",
-      "energy_monitor_month":"JUNE",
-      "energy_monitor_year_data":[
+      "energyMonitorSelectPeriod": 0,
+      "energyMonitorLightingDurationYear":"240",
+      "energyMonitorLightingDurationMonth":"60",
+      "energyMonitorYear":"2017",
+      "energyMonitorMonth":"JUNE",
+      "energyMonitorYearData":[
         {
           "month":"JAN",
           "data":15
@@ -192,7 +192,7 @@
           "data":235
         }
       ],
-      "energy_monitor_month_data":[
+      "energyMonitorMonthData":[
         {
           "week":"CW1",
           "data":43

@@ -45,17 +45,61 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnDestroy() {
   }
+
+    setCLoad(event: any){
+    if(event.target.value < this.ad.energyMonitorConnectedLoadMin ){
+      this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMin;
+      event.target.value = this.ad.energyMonitorConnectedLoadMin;
+    }
+    if(event.target.value > this.ad.energyMonitorConnectedLoadMax) {
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMax;
+        event.target.value = this.ad.energyMonitorConnectedLoadMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
+  }
+
+  setLduration(event: any){
+    if(event.target.value < 0 ){
+      this.ad.energyMonitorLightingDuration = 0;
+      event.target.value = 0;
+    }
+    if(event.target.value > 168) {
+        this.ad.energyMonitorLightingDuration = 168;
+        event.target.value = 168;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
+  }
+
+    setEprice(event: any){
+    if(event.target.value < 0 ){
+      this.ad.energyMonitor.electricityPrice = 0;
+      event.target.value = 0;
+    }
+  }
+
+
+
+
   reduceCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad -1;
+      if(this.ad.energyMonitorConnectedLoad <= this.ad.energyMonitorConnectedLoadMin){
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration -1;
+      if(this.ad.energyMonitorLightingDuration <= 0){
+        this.ad.energyMonitorLightingDuration = 0;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price -1;
+      this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice -1;
+      if(this.ad.energyMonitor.electricityPrice <= 0){
+        this.ad.energyMonitor.electricityPrice = 0;
+      }
     }
   }
 
@@ -63,14 +107,20 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   increaseCount(item,isClick) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
+      if(this.ad.energyMonitorConnectedLoad >= this.ad.energyMonitorConnectedLoadMax){
+        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoadMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorConnectedLoad])
     }else if(item == 'lduration') {
       this.ad.energyMonitorLightingDuration = this.ad.energyMonitorLightingDuration + 1;
+      if(this.ad.energyMonitorLightingDuration >= 168){
+        this.ad.energyMonitorLightingDuration = 168;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.energy_monitor.electricity_price = this.ad.energy_monitor.electricity_price + 1;
+      this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice + 1;
     }
   }
   
