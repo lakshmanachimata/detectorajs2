@@ -32,6 +32,15 @@ function bjeLog(msg){
 function setDevicesCallBack(component) {
     welcomecomponent = component;
 }
+
+function setDemoMode(data){
+    bjeLog(JSON.stringify(data))
+    isDemoMode = data.demomode;
+    appDataService.setDemoMode(isDemoMode);
+}
+
+
+
 function BJ_updateScanList() {
     var devData = BJE.getDeviceData();
     welcomecomponent.onDevices(devData);

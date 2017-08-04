@@ -14,44 +14,44 @@
 "updatedDate":0,
 "profileName":"",
 "potentiometerMode":0,
-"brightnessThreshold":0,
-"brightnessThresholdMin":0,
-"brightnessThresholdMax":0,
+"brightnessThreshold":200,
+"brightnessThresholdMin":10,
+"brightnessThresholdMax":2000,
 "considerSlaveBrightnessEnable":true,
 "constantLightControlEnable":true,
-"constantLightBrightnessSetPoint":0,
-"constantLightBrightnessSetPointMin":0,
-"constantLightBrightnessSetPointMax":0,
+"constantLightBrightnessSetPoint":300,
+"constantLightBrightnessSetPointMin":10,
+"constantLightBrightnessSetPointMax":2000,
 "constantLightControlConsiderSlaveBrightnessEnable":true,
 "shortTimePulseEnable":false,
-"switchOffDelay":0,
+"switchOffDelay":10,
 "switchOffDelayMin":0,
-"switchOffDelayMax":0,
+"switchOffDelayMax":1800,
 "operationMode":0,
 "slaveModeEnable":false,
 "outdoorApplicationEnable":false,
-"pirSensitivity0":0,
-"pirSensitivity1":0,
-"pirSensitivity2":0,
-"pirSensitivity3":0,
+"pirSensitivity0":25,
+"pirSensitivity1":50,
+"pirSensitivity2":75,
+"pirSensitivity3":100,
 "brightnessCorrectionEnable":false,
 "brightnessCorrectionValue":0,
 "DynamicSwitchOffDelayEnable":false,
 "ch1CircuitLogic":0,
 "ch1PermanentOnDuration":0,
-"ch1PermanentOnDurationMin":0,
-"ch1PermanentOnDurationMax":0,
+"ch1PermanentOnDurationMin":30,
+"ch1PermanentOnDurationMax":1800,
 "ch1PermanentOffDuration":0,
-"ch1PermanentOffDurationMin":0,
-"ch1PermanentOffDurationMax":0,
+"ch1PermanentOffDurationMin":30,
+"ch1PermanentOffDurationMax":1800,
 "softOnEnable":false,
-"softOnDuration":0,
-"softOnDurationMin":0,
-"softOnDurationMax":0,
+"softOnDuration":20,
+"softOnDurationMin":10,
+"softOnDurationMax":300,
 "softOffEnable":false,
-"softOffDuration":0,
-"softOffDurationMin":0,
-"softOffDurationMax":0,
+"softOffDuration":20,
+"softOffDurationMin":10,
+"softOffDurationMax":300,
 "phaseCutMode":0,
 "ch1SwitchOffPreWarning":false,
 "ch1MemoryFunctionEnable":false,
@@ -59,37 +59,37 @@
 "ch1MinLevelEnable":false,
 "ch1MinLevel":0,
 "ch1MaxLevelEnable":false,
-"ch1MaxLevel":0,
+"ch1MaxLevel":1000,
 "levelMin":0,
-"levelMax":0,
+"levelMax":1000,
 "daliPowerOnLevel":0,
 "colorTemperature":"",
 "colorTemperatureMin":"",
 "colorTemperatureMax":"",
 "burnInEnable":false,
 "burnInMode":0,
-"burnInDuration":0,
-"burnInDurationMin":0,
-"burnInDurationMax":0,
+"burnInDuration":100,
+"burnInDurationMin":1,
+"burnInDurationMax":254,
 "basicBrightnessMode":0,
-"basicBrightnessLevel":0,
-"basicBrightnessAmbientBrightnessThreshold":0,
+"basicBrightnessLevel":48,
+"basicBrightnessAmbientBrightnessThreshold":20,
 "basicBrightnessAmbientBrightnessThresholdMin":0,
-"basicBrightnessAmbientBrightnessThresholdMax":0,
-"basicBrightnessStartTime":0,
-"basicBrightnessEndTime":0,
+"basicBrightnessAmbientBrightnessThresholdMax":500,
+"basicBrightnessStartTime":82800,
+"basicBrightnessEndTime":82800,
 "basicBrightnessStartTimeAstroFunctionEnable":false,
 "basicBrightnessEndTimeAstroFunctionEnable":false,
 "permanentLightByPushButtonEnable":false,
 "nightLightFunctionEnable":false,
 "nightLightStartTime":0,
 "nightLightEndTime":0,
-"nightLightLevel":0,
+"nightLightLevel":48,
 "stepwiseSwitchOffDelayEnable":false,
-"stepwiseSwitchOffDelay":0,
+"stepwiseSwitchOffDelay":10,
 "stepwiseSwitchOffDelayMin":0,
-"stepwiseSwitchOffDelayMax":0,
-"stepwiseSwitchOffLevel":0,
+"stepwiseSwitchOffDelayMax":100,
+"stepwiseSwitchOffLevel":10,
 "presenceSimulationEnable":false,
 "presenceSimulationStartTime":0,
 "presenceSimulationEndTime":0,
@@ -98,21 +98,21 @@
 "ch2CircuitLogic":0,
 "ch2Mode":0,
 "hvacDynamicalControlEnable":false,
-"hvacSwitchOnDelay":0,
+"hvacSwitchOnDelay":10,
 "hvacSwitchOnDelayMin":0,
-"hvacSwitchOnDelayMax":0,
-"hvacSwitchOffDelay":0,
+"hvacSwitchOnDelayMax":100,
+"hvacSwitchOffDelay":10,
 "hvacSwitchOffDelayMin":0,
-"hvacSwitchOffDelayMax":0,
+"hvacSwitchOffDelayMax":100,
 "testModeDeactivateOutputsEnable":false,
-"energyMonitorConnectedLoad":0,
+"energyMonitorConnectedLoad":10,
 "energyMonitorConnectedLoadMin":0,
-"energyMonitorConnectedLoadMax":0,
-"energyMonitorLightingDuration":0,
+"energyMonitorConnectedLoadMax":100,
+"energyMonitorLightingDuration":10,
 "energyMonitorLightingDurationMin":0,
-"energyMonitorLightingDurationMax":0,
-"contact":"DIRK GOLDYN",
-"building":"BUSCH-JAEGER",
+"energyMonitorLightingDurationMax":168,
+"contact":"ABB",
+"building":"ABB",
 "enableUserSetBrightnessThreshold":false,
 "enableUserSetSwitchOffDelay":false,
 "enableUserEnergyMonitor":false,
@@ -120,94 +120,94 @@
 "enableUserNightLightFunction":false,
 "enableUserColorTemperatureControlEnable":false,
 "btIsConnected":false,
-"currentBrightness":0,
+"currentBrightness":480,
 "identifyingDevice":"",
 "currentOperatingMode":0,
 "movement":"",
 "ch1IdentifyingLoad":false,
 "ch1OnOffState":true,
-"ch1CurrentLevel":0,
+"ch1CurrentLevel":10,
 "ch2IdentifyingLoad":false,
 "ch2OnOffState":true,
-"ch2CurrentLevel":0,
+"ch2CurrentLevel":10,
 "testModeEnable":false,
-"accessLevel":0,
+"accessLevel":2,
  "energy_monitor": {
-      "electricity_price": 0,
+      "electricity_price": 10,
       "currency": 0,
       "energy_monitor_select_period": 0,
-      "energy_monitor_lighting_duration_year":"0",
-      "energy_monitor_lighting_duration_month":"0",
+      "energy_monitor_lighting_duration_year":"240",
+      "energy_monitor_lighting_duration_month":"60",
       "energy_monitor_year":"2017",
-      "energy_monitor_month":"AUGUST",
+      "energy_monitor_month":"JUNE",
       "energy_monitor_year_data":[
         {
           "month":"JAN",
-          "data":0
+          "data":15
         },
         {
           "month":"FEB",
-          "data":0
+          "data":75
 
         },
         {
           "month":"MARCH",
-          "data":0
+          "data":135
         },
         {
           "month":"APRIL",
-          "data":0
+          "data":195
         },
         {
           "month":"MAY",
-          "data":0
+          "data":35
         },
         {
           "month":"JUNE",
-          "data":0
+          "data":95
 
         },
         {
           "month":"JULY",
-          "data":0
+          "data":155
         },
         {
           "month":"AUG",
-          "data":0
+          "data":215
         },
         {
           "month":"SEPT",
-          "data":0
+          "data":55
         },
         {
           "month":"OCT",
-          "data":0
+          "data":115
         },
         {
           "month":"NOV",
-          "data":0
+          "data":175
         },
         {
           "month":"DEC",
-          "data":0
+          "data":235
         }
       ],
       "energy_monitor_month_data":[
         {
           "week":"CW1",
-          "data":0
+          "data":43
         },
         {
           "week":"CW2",
-          "data":0
+          "data":13
         },
         {
           "week":"CW3",
-          "data":0
+          "data":55
         },
         {
           "week":"CW4",
-          "data":0
+          "data":33
         }
       ]
     }

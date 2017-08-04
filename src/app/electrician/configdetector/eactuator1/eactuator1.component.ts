@@ -111,6 +111,29 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnDestroy() {
   }
+  setSsOt(event : any){
+
+    if(event.target.value < this.ad.stepwiseSwitchOffDelayMin ){
+      this.ad.brightnessThreshold = this.ad.stepwiseSwitchOffDelayMin;
+      event.target.value = this.ad.stepwiseSwitchOffDelayMin;
+    }
+    if(event.target.value > this.ad.stepwiseSwitchOffDelayMax) {
+        this.ad.stepwiseSwitchOffDelay = this.ad.brightnessThresholdMax;
+        event.target.value = this.ad.brightnessThresholdMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
+  }
+  setBrIs(event: any){
+    if(event.target.value < 0 ){
+      this.ad.brightnessThreshold = 0;
+      event.target.value = 0;
+    }
+    if(event.target.value > 100) {
+      this.ad.brightnessThreshold = 100;
+      event.target.value = 100;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+  }
   togglepb() {
     this.ad.permanentLightByPushButtonEnable = !this.ad.permanentLightByPushButtonEnable
     this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])

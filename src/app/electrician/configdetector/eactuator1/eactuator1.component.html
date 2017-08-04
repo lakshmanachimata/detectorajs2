@@ -392,7 +392,7 @@
                 <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.stepwiseSwitchOffDelayMax}}  <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
                 <div class="bj-config-setting-adjust time-shift-switchoff-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('sstime',true)" (onLongPressEnd)="reduceCount('sstime',true)" (onLongPressing)="reduceCount('sstime',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
+                        <input class="adjust" (keyup)="setSsOt($event)"  type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('sstime',true)" (onLongPressEnd)="increaseCount('sstime',true)" (onLongPressing)="increaseCount('sstime',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
@@ -400,7 +400,7 @@
                 <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate state</label>
                 <div class="bj-config-setting-adjust time-shift-brightness-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('ssinter',true)" (onLongPressEnd)="reduceCount('ssinter',true)" (onLongPressing)="reduceCount('ssinter',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.stepwiseSwitchOffLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                        <input class="adjust"  (keyup)="setBrIs($event)"  type="number" [(ngModel)]="ad.stepwiseSwitchOffLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > % </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('ssinter',true)" (onLongPressEnd)="increaseCount('ssinter',true)" (onLongPressing)="increaseCount('ssinter',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>

@@ -78,16 +78,17 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnInit () {
     this.data.setActiveComponent(this);
-    if(this.data.DeviceBuild == 1){
-      this.setScannedData();
-      this.data.resetSendData();
+    if(this.data.getDemoMode() == 1){
+      this.updateDemoDevices();
     }
-    else{
-      this.detectors = this.data.getDevices(false);
-    }
-    if(this.detectors != undefined &&  this.detectors.length == 0){
-      this.detectors = this.data.getDevices(false);
-      this.data.DeviceBuild = 0;
+    else {
+      if(this.data.DeviceBuild == 1){
+        this.setScannedData();
+        this.data.resetSendData();
+      }
+      else{
+        this.detectors = this.data.getDevices(false);
+      }
     }
     this.data.setMainTitle(this.translater.translate('Detectors'));
     this.data.setHeader(true);
@@ -95,6 +96,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     this.data.setProfile('electrician');
     this.data.setProfileSwitch(true);
     this.data.setEDevParamsState(0);
+  }
+
+  updateDemoDevices(){
+      this.zone.run( () => { 
+        this.detectors = this.data.getDevices(false);
+        this.logger.log("detectors lenths " + this.detectors.length)
+      });
   }
 
   setScannedData(){

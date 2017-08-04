@@ -63,6 +63,9 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
         this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
         this.data.setShowEModal(true);
   }
+  updateDemoDevices(){
+      this.detectors = this.data.getDevices(false);
+  }
    onUserAccessSuccess(){
     if(this.isDeviceConnected)
       this.data.initDeviceData(false);
@@ -128,17 +131,18 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
   ngOnInit () {
     this.data.setActiveComponent(this);
-    if(this.data.DeviceBuild == 1){
-      this.setScannedData();
-      this.data.resetSendData();
+    if(this.data.demoMode == 1){
+      this.updateDemoDevices();
+    }else{
+      if(this.data.DeviceBuild == 1){
+        this.setScannedData();
+        this.data.resetSendData();
+      }
+      else{
+        this.detectors = this.data.getDevices(false);
+      }
     }
-    else{
-      this.detectors = this.data.getDevices(false);
-    }
-    if(this.detectors != undefined &&  this.detectors.length == 0){
-      this.detectors = this.data.getDevices(false);
-      this.data.DeviceBuild = 0;
-    }
+
     this.data.setMainTitle(this.translater.translate('Detectors'));
     this.data.setHeader(true);
     this.data.setMenuArrow(0);

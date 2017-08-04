@@ -467,6 +467,15 @@ export class DataService {
             this.DeviceBuild = 0;
         }
     }
+
+    getDemoMode(){
+        return this.demoMode;
+    }
+    setDemoMode(isDemoMode){
+        this.demoMode = isDemoMode;
+        this.checkDeviceMode();
+        this.initDevices();
+    }
     saveToLocalStorage(key,value){
         localStorage.setItem(key,value);
     }
@@ -515,7 +524,8 @@ export class DataService {
     }
     setScannedData(scanned){
         this.scanneddata = scanned;
-        this.activeComponent.setScannedData();
+        if(this.activeComponent != undefined)
+            this.activeComponent.setScannedData();
     }
     getScannedData() {
         return this.scanneddata;
@@ -540,15 +550,18 @@ export class DataService {
                 this.uiParams.devicesObj.DevicesArray = [];
              else 
                 this.uiParams.devicesObj.DevicesArray = devs;
+            if(this.demoMode == 1 &&  this.activeComponent != undefined){
+                this.activeComponent.updateDemoDevices();
+            }
         });
     }
    
     loadDevices() {
-        return new Promise<Array<any>>(resolve => {
-        this.http.get('assets/detectorslist.json').subscribe(response => {
-                resolve(response.json().detectors);
+            return new Promise<Array<any>>(resolve => {
+            this.http.get('assets/detectorslist.json').subscribe(response => {
+                    resolve(response.json().detectors);
+                });
             });
-        });
     }
 
     getEDevParamsState() {
@@ -820,13 +833,11 @@ export class DataService {
         }
     }
     public initDeviceData(installed){
-        this.logger.log('initDeviceData called')
-    this.loadDeviceData(installed).then((data) => {
+        this.loadDeviceData(installed).then((data) => {
             if(installed) {
                 this.uiParams.devicesObj.IDevicesArray = data;
                 this.iJsonLoadEmit();
             }else {
-                this.logger.log('initDeviceData  callback called')
                 this.uiParams.devicesObj.DeviceData = data;
                 this.jsonLoadEmit();
             }
@@ -1094,11 +1105,19 @@ export class DataService {
             this.getDevicesFromCloud()
         }else {
             this.logger.log('loadDeviceData called')
+            if(this.demoMode == 1){
             return new Promise<Array<any>>(resolve => {
                 this.http.get('assets/params.json').subscribe(response => {
                         resolve(response.json());
                     });
                 });
+            }else{
+            return new Promise<Array<any>>(resolve => {
+                this.http.get('assets/params.json').subscribe(response => {
+                        resolve(response.json());
+                    });
+                });
+            }
         }
     }
 
@@ -2433,12 +2452,15 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelay= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN                           : 
+                this.logger.log('sstime min is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX                           : 
+            this.logger.log('sstime max is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                               : 
+                this.logger.log('sstime level is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              :

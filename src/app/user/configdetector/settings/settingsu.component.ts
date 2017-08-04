@@ -106,9 +106,26 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnDestroy() {
   }
+
+  setBrTr(event: any){
+    if(event.target.value < this.ad.brightnessThresholdMin ){
+      this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+      event.target.value = this.ad.brightnessThresholdMin;
+    }
+    if(event.target.value > this.ad.brightnessThresholdMax) {
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+        event.target.value = this.ad.brightnessThresholdMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+  }
+
+  
   reduceCount(item,isClick) {
     if(item == 'brightness') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold- 1;
+      if(this.ad.brightnessThreshold <=this.ad.brightnessThresholdMin){
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
@@ -160,6 +177,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   increaseCount(item,isClick) {
     if(item == 'brightness') {
       this.ad.brightnessThreshold = this.ad.brightnessThreshold+ 1;
+      if(this.ad.brightnessThreshold >= this.ad.brightnessThresholdMax){
+        this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+      }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {

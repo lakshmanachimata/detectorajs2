@@ -19,7 +19,7 @@
         <label class="bj-config-setting-block-lbl brightness-user-function"><ng-container >{{ this.data.getTranslatedString("Brightness threshold") }}</ng-container> ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container>)</label>
         <div class="bj-config-setting-adjust brightness-user-function">
             <div class="adjust-minus user" long-press (click)="reduceCount('brightness',true)" (onLongPressEnd)="reduceCount('brightness',true)" (onLongPressing)="reduceCount('brightness',false)"><span class="glyphicon glyphicon-minus"></span></div>
-            <input class="adjust user"type="text" [(ngModel)]="ad.brightnessThreshold"   [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
+            <input class="adjust user" type="number"  (keyup)="setBrTr($event)"  [(ngModel)]="ad.brightnessThreshold"   [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
             <div class="static-unit-text user" >{{ this.data.getTranslatedString("lx") }}</div>
             <div class="adjust-plus user" long-press (click)="increaseCount('brightness',true)" (onLongPressEnd)="increaseCount('brightness',true)" (onLongPressing)="increaseCount('brightness',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
@@ -32,7 +32,7 @@
         <label class="bj-config-setting-block-lbl short-time-pulse-user-function"><ng-container >{{ this.data.getTranslatedString("Switch-off delay") }}</ng-container> ({{ad.switchOffDelay_min}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> -{{ad.switchOffDelay_max}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
         <div class="bj-config-setting-adjust short-time-pulse-user-function">
             <div class="adjust-minus user" long-press (click)="reduceCount('soff',true)" (onLongPressEnd)="reduceCount('soff',true)" (onLongPressing)="reduceCount('soff',false)"><span class="glyphicon glyphicon-minus"></span></div>
-            <input class="adjust user"type="text" [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
+            <input class="adjust user"type="number" [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color':brightnessError==true ? 'red' : '#0173b2'}">
             <div class="static-unit-text user"><ng-container >{{ this.data.getTranslatedString("min") }}</ng-container></div>
             <div class="adjust-plus user" long-press (click)="increaseCount('soff',true)" (onLongPressEnd)="increaseCount('soff',true)" (onLongPressing)="increaseCount('soff',false)"><span class="glyphicon glyphicon-plus"></span></div>
         </div>
