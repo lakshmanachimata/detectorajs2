@@ -150,7 +150,7 @@
                      </span>
                 </div>
 
-            <div class="bj-config-setting inner-setting actuator1 min-load">
+            <div class="bj-config-setting inner-setting actuator1 min-load" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                 <label class="actuator-min-load-lbl" >{{ this.data.getTranslatedString("Minimum load") }}</label>
                 <span class="bj-config-toggle-switch actuator1">
                     <div class="track"   (click)="toggleminl()"  [(ngModel)]="ad.ch1MinLevelEnable " [ngStyle]="{'border-color': ad.ch1MinLevelEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -162,13 +162,13 @@
                 </span>
                 <div class="bj-config-setting-adjust min-load-function" *ngIf="ad.ch1MinLevelEnable && activeDevice.deviceType == 'daliMaster1c'">
                     <div class="adjust-minus" long-press (click)="reduceCount('minload',true)" (onLongPressEnd)="reduceCount('minload',true)" (onLongPressing)="reduceCount('minload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" [(ngModel)]="ad.ch1MinLevel" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
+                    <input class="adjust" type="number"  (keyup)="setMinLoad($event)"  [(ngModel)]="ad.ch1MinLevel" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('minload',true)" (onLongPressEnd)="increaseCount('minload',true)" (onLongPressing)="increaseCount('minload',false)" ><span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
             </div>
-            <div class="bj-config-setting inner-setting actuator1 max-load">
+            <div class="bj-config-setting inner-setting actuator1 max-load" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
                 <label class="actuator-max-load-lbl" >{{ this.data.getTranslatedString("Maximum load") }}</label>
                 <span class="bj-config-toggle-switch actuator1">
                    <div class="track"   (click)="togglemaxl()"  [(ngModel)]="ad.ch1MaxLevelEnable" [ngStyle]="{'border-color': ad.ch1MaxLevelEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -180,7 +180,7 @@
                 </span>
                 <div class="bj-config-setting-adjust max-load-function" *ngIf="ad.ch1MaxLevelEnable && activeDevice.deviceType == 'daliMaster1c'">
                     <div class="adjust-minus" long-press (click)="reduceCount('maxload',true)" (onLongPressEnd)="reduceCount('maxload',true)" (onLongPressing)="reduceCount('maxload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" [(ngModel)]="ad.ch1MaxLevel" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
+                    <input class="adjust" type="number" (keyup)="setMaxLoad($event)"  [(ngModel)]="ad.ch1MaxLevel" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('maxload',true)" (onLongPressEnd)="increaseCount('maxload',true)" (onLongPressing)="increaseCount('maxload',false)" ><span class="glyphicon glyphicon-plus"></span>
                     </div>

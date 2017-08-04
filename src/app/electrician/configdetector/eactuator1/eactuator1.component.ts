@@ -133,6 +133,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
   }
 
+  setMinLoad(event: any){
+
+    if(event.target.value <= this.ad.levelMin ){
+      this.ad.ch1MinLevel = this.ad.levelMin;
+      event.target.value = this.ad.levelMin;
+    }
+    if(event.target.value >= this.ad.levelMax) {
+        this.ad.ch1MinLevel = this.ad.levelMax;
+        event.target.value = this.ad.levelMax;
+    }
+
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel)])
+
+  }
+  setMaxLoad(event: any){
+    
+    if(event.target.value <= this.ad.levelMin ){
+      this.ad.ch1MaxLevel = this.ad.levelMin;
+      event.target.value = this.ad.levelMin;
+    }
+    if(event.target.value >= this.ad.levelMax) {
+        this.ad.ch1MaxLevel = this.ad.levelMax;
+        event.target.value = this.ad.levelMax;
+    }
+
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel)])
+
+  }
 
 
 
@@ -167,8 +195,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       event.target.value = this.ad.stepwiseSwitchOffDelayMin;
     }
     if(event.target.value > this.ad.stepwiseSwitchOffDelayMax) {
-        this.ad.stepwiseSwitchOffDelay = this.ad.brightnessThresholdMax;
-        event.target.value = this.ad.brightnessThresholdMax;
+        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMax;
+        event.target.value = this.ad.stepwiseSwitchOffDelayMax;
     }
       this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
   }
