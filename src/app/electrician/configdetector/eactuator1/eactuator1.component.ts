@@ -108,6 +108,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
 
+  setPEROFF(event : any){
+    if(event.target.value <= this.ad.ch1PermanentOffDurationMin ){
+      this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMin;
+      event.target.value = this.ad.ch1PermanentOffDurationMin;
+    }
+    if(event.target.value >= this.ad.ch1PermanentOffDurationMax) {
+        this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMax;
+        event.target.value = this.ad.ch1PermanentOffDurationMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1PermanentOffDuration) ])
+  }
+
+
+  setPERON(event : any){
+    if(event.target.value <= this.ad.ch1PermanentOnDurationMin ){
+      this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMin;
+      event.target.value = this.ad.ch1PermanentOnDurationMin;
+    }
+    if(event.target.value >= this.ad.ch1PermanentOnDurationMax) {
+        this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMax;
+        event.target.value = this.ad.ch1PermanentOnDurationMax;
+    }
+      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
+  }
+
+
+
+
   setSSOFF(event : any){
     if(event.target.value <= this.ad.softOffDurationMin ){
       this.ad.softOffDuration = this.ad.softOffDurationMin;
@@ -240,6 +268,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       if(this.ad.ch1PermanentOffDuration <= this.ad.ch1PermanentOffDurationMin){
         this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMin;
       }
+      if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
     } else if(item == 'softon'){
       this.ad.softOnDuration = this.ad.softOnDuration - 1;

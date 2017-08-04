@@ -40,7 +40,7 @@
                 <label class="actuator-durable-switching-lbl"><ng-container >{{ this.data.getTranslatedString("Permanent ON for…") }}</ng-container> ({{ad.ch1PermanentOnDurationMin}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOnDurationMax}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
                 <div class="bj-config-setting-adjust durable-switching-function">
                     <div class="adjust-minus" long-press (click)="reduceCount('peron',true)" (onLongPressEnd)="reduceCount('peron',true)" (onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
+                    <input class="adjust" type="number" type="number" (keyup)="setPERON($event)" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
                     <div class="static-unit-text"> <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> </div>
                     <div class="adjust-plus" long-press (click)="increaseCount('peron',true)" (onLongPressEnd)="increaseCount('peron',true)" (onLongPressing)="increaseCount('peron',false)" ><span class="glyphicon glyphicon-plus"></span></div>
                 </div>
@@ -49,7 +49,7 @@
                     <label class="actuator-durable-switching-lbl"><ng-container >{{ this.data.getTranslatedString("Permanent OFF for…") }}</ng-container> ({{ad.ch1PermanentOffDurationMin}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOffDurationMax}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
                         <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peroff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
+                        <input class="adjust" type="number" (keyup)="setPEROFF($event)" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
                         <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> </div>
                         <div class="adjust-plus" long-press (click)="increaseCount('peroff',true)" (onLongPressEnd)="increaseCount('peroff',true)" (onLongPressing)="increaseCount('peroff',false)" ><span class="glyphicon glyphicon-plus"></span>
                         </div>
