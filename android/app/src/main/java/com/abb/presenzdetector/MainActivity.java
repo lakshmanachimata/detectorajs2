@@ -484,6 +484,18 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 if(scannedDevices.size() == 0){
+                    try {
+                        JSONObject demoData = new JSONObject();
+                        demoData.put("demomode", 1);
+                        String demoSData = "";
+                        demoSData = demoSData + "setDemoMode(";
+                        demoSData =  demoSData + demoData.toString()+ ")";
+                        webview.evaluateJavascript(demoSData,null);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                     Toast.makeText(getApplicationContext(), "NO DEVICES ARE AVAILABLE",Toast.LENGTH_LONG).show();
                 }
             }

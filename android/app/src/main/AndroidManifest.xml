@@ -26,7 +26,8 @@
             android:label="@string/app_name"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustNothing">
+            android:fitsSystemWindows="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
