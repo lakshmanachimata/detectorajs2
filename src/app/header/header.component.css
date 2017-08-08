@@ -589,7 +589,7 @@ img.settime-save{
 	z-index:100;
 	margin-top: 30px;
     display: inline-block;
-	width: 150px
+	width: 200px
 }
 
 .time_wrapper form{
@@ -604,9 +604,9 @@ img.settime-save{
     border-top: solid 1px #CCC;
     border-bottom: solid 1px #CCC;
     position: absolute;
-    top: 58px;
-    left: -3px;
-    width: 120px;
+    top: 57px;
+    left: 0px;
+    width: 200px;
     height: 40px;
 }
 
@@ -631,10 +631,15 @@ img.settime-save{
 .drum-wrapper .inner {
     height: 150px;
 }
-
+.mins_colon{
+	margin-left: -25px;
+}
+.secs_colon{
+	margin-left: 45px;
+}
 #drum_hours {
     margin-left: 10px;
 }
- #drum_hours, #drum_minutes {
+ #drum_hours, #drum_minutes, #drum_seconds {
     width: 60px;
 }
