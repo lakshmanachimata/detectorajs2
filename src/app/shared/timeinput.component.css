@@ -1,0 +1,24 @@
+.time_container{
+    width: 100%;
+    border: solid 1px;
+    border-color: #9eabbb;
+    height: 40px;
+    /* margin-top: 10px; */
+    text-align: center;
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+.time_adjust{
+    margin-top: 5px;
+}
+.time-dialog-overlay{
+    position: absolute;
+	z-index:100;
+	top:30%;
+	left:10%;
+	width:80%;
+	height:50%;
+    background-color: rgba(0,0,0,0.8);
+}

@@ -409,7 +409,7 @@ img.slave-dis {
 	width: 44px;
 }
 
-edit-dialog-overlay{
+.edit-dialog-overlay{
 	z-index:100;
 	top:0;
 	left:0;
@@ -488,3 +488,85 @@ div.edialog-ok-btn label.edit-save{
 	background: #0171ae;
 	text-align:center;
 }
+
+
+
+.settime-dialog-header{
+	height:50px;
+	left:0;
+	right:0;
+	top:0;
+	background:#eeeff0;
+	border-bottom:1px solid #d2dadf;
+	text-align:center;
+}
+
+.settime-dialog.bj-user-view div.settime-dialog-header {
+    background-color: #eeeff0;
+}
+
+.settime-dialog.bj-user-view div.settime-dialog-header label.dialog-heading {
+    color: #000000;
+}
+
+.settime-dialog.bj-user-view div.settime-dialog-body label.dialog-text {
+    margin-top: 160px;
+    color: #000000;
+}
+.settime-dialog-body{
+	left:0;
+	right:0;
+	top:50px;
+	background:white;
+	bottom:60px;
+	position:absolute;
+}
+
+
+.settime-dialog-footer{
+	bottom:0;
+	left:0;
+	right:0;
+	height:60px;
+	position:absolute;
+}
+
+.settime-dialog.bj-user-view div.settime-dialog-footer div.dialog-cancel-btn {
+    background-color: #bfbfbf;
+    border-right: 1px solid #a7a9ac;
+}
+
+.settime-dialog.bj-user-view div.settime-dialog-footer div.dialog-ok-btn {
+    background: #bfbfbf;
+}
+
+.settime-dialog-overlay{
+	position:absolute;
+	z-index:100;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.settime-dialog {
+	right: 40px;
+	left: 40px;
+	top: 80px;
+	bottom: 80px;
+	z-index: 30;
+	box-shadow: 4px 4px 80px #000;
+	position: absolute;
+	opacity: 1;
+}
+
+img.settime-cancel{
+	margin-top:18px;
+}
+
+
+img.settime-save{
+	margin-top:18px;
+}
+

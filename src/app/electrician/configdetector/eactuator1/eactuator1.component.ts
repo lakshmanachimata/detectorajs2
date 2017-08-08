@@ -438,7 +438,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
 
-
   increaseCount(item, isClick) {
     if(item == 'peron') {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;

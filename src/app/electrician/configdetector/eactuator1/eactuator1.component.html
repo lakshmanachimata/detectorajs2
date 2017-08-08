@@ -340,21 +340,13 @@
            </div>
            <div *ngIf="ad.nightLightFunctionEnable ">
                 <div class="anti-glare-start-end-time-div">
-                    <label class="actuator-anti-glare-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
-                    <div class="bj-config-setting-adjust anti-glare-start-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('glarestart',true)" (onLongPressEnd)="reduceCount('glarestart',true)" (onLongPressing)="reduceCount('glarestart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input  class="adjust" type="text" [(ngModel)]="NLStartTime"  [ngStyle]="{'color':glareStart ==true ? 'red' : '#26394f'}" >
-                        <div class="static-unit-text" > h </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('glarestart',true)" (onLongPressEnd)="increaseCount('glarestart',true)" (onLongPressing)="increaseCount('glarestart',false)"><span class="glyphicon glyphicon-plus"></span>
-                        </div>
+                    <div class="bj-config-setting-time-adjust anti-glare-start-function">
+                        <label class="actuator-anti-glare-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
+                          <timeinput timeHours=1 timeMins=1 timeSecs=1  timeType='nlstarttime' style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
-                    <label class="actuator-anti-glare-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
-                    <div class="bj-config-setting-adjust anti-glare-end-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('glareend',true)" (onLongPressEnd)="reduceCount('glareend',true)" (onLongPressing)="reduceCount('glareend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="text" [(ngModel)]="NLEndTime" [ngStyle]="{'color':glareEnd ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > h </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('glareend',true)" (onLongPressEnd)="increaseCount('glareend',true)" (onLongPressing)="increaseCount('glareend',false)" ><span class="glyphicon glyphicon-plus"></span>
-                        </div>
+                    <div class="bj-config-setting-time-adjust anti-glare-end-function">
+                        <label class="actuator-anti-glare-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
+                          <timeinput timeHours=1 timeMins=1 timeSecs=0  timeType='nlendtime'  style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
                 </div>
                 <div class="anti-glare-level-div">

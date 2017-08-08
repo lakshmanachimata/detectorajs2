@@ -13,6 +13,7 @@ import { LoggerService } from './logger.service';
 import { FooterComponent} from './header/footer.component';
 import {DialogComponent} from './header/dialog.component';
 import {EDialogComponent} from './header/edialog.component';
+import {SetTimeComponent}from'./header/settime.component'
 import {CDetectorIComponent} from './menu/cdetectori.component';
 import {IParamsComponent} from './menu/iparams.component';
 import {SharedModule} from './shared/shared.module';
@@ -29,6 +30,7 @@ import { DummyComponentComponent } from './dummy-component/dummy-component.compo
     FooterComponent,
     DialogComponent,
     EDialogComponent,
+    SetTimeComponent,
     CDetectorIComponent,
     IParamsComponent,
     DummyComponentComponent,

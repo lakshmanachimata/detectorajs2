@@ -520,9 +520,9 @@ label.actuator-anti-glare-level-lbl{
 	margin-top: 12px;
 }
 
-label.actuator-anti-glare-start-time-lbl {
+/* label.actuator-anti-glare-start-time-lbl {
 	margin-top: 24px;
-}
+} */
 
 .time-shift-settings-div {
 	margin-top: 22px;
@@ -1078,6 +1078,27 @@ div#bj-user-sensor-div {
     border-left: none;
     border-right: none;
 }
+
+.bj-config-setting-time-adjust .adjust{
+	width: 50%;
+    border: solid 1px;
+    border-color: #9eabbb;
+    /* margin-top: 10px; */
+    text-align: center;
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: 32px;
+    border-radius: 10px;
+}
+
+.bj-config-setting-time-adjust{
+	left:0;
+    right:0;
+    margin-top: 10px;
+	height:50px;
+	display:flex;
+}
+
 .adjust-value{
     width: 112px;
     height: 34px;
@@ -1171,13 +1192,18 @@ label.bj-config-setting.brightness-user-function,
 label.bj-config-setting-block-lbl.short-time-pulse-user-function
 label.bj-config-setting-block-lbl.actuator-illumination-start-time-lbl
 label.bj-config-setting-block-lbl.actuator-illumination-end-time-lbl
-label.bj-config-setting-block-lbl.actuator-anti-glare-start-time-lbl
-label.bj-config-setting-block-lbl.actuator-anti-glare-end-time-lbl {
+/* label.bj-config-setting-block-lbl.actuator-anti-glare-start-time-lbl */
+ {
     margin-top: 20px;
     font-size: 16px;
     color: #63778f;
 }
 
+label.actuator-anti-glare-start-time-lbl,
+label.actuator-anti-glare-end-time-lbl{
+    margin-top: 8px;
+    text-align: center;
+}
 div#bj-user-basic-illumination-div {
     margin-top: -22px;
 }

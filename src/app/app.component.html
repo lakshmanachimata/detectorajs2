@@ -3,6 +3,7 @@
 <submenu-root *ngIf="data.getMenuArrow() == 2"></submenu-root>
 <dialog-root *ngIf="data.getShowModal() == true"></dialog-root>
 <edialog-root *ngIf="data.getShowEModal() == true"></edialog-root>
+<settime-root *ngIf="data.getTimeModal() == true"></settime-root>
 <cdetectori-root *ngIf="data.getShowCDI() == 0"></cdetectori-root>
 <iparams-root *ngIf="data.getShowCDI() == 1"></iparams-root>
 <router-outlet></router-outlet>

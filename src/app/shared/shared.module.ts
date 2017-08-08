@@ -5,6 +5,7 @@ import { HttpModule  } from '@angular/http';
 import { DataService } from '../data.service';
 import { LoggerService } from '../logger.service';
 import { NextComponent} from './next.component';
+import { TimeInputComponent} from './timeinput.component';
 import { UpComponent} from './up.component';
 import { DownComponent} from './down.component';
 import { SwitchComponent} from './switch.component';
@@ -17,6 +18,7 @@ import { LongPress } from './LongPress';
   DownComponent,
   SwitchComponent,
   LongPress,
+  TimeInputComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { LongPress } from './LongPress';
       UpComponent,
       DownComponent,
       SwitchComponent,
+      TimeInputComponent,
       LongPress,
       CommonModule,
       FormsModule,

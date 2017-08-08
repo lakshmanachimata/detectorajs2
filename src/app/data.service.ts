@@ -244,6 +244,7 @@ export class UIParams {
       dialogText = '';
       showModal = false;
       showEModal = false;
+      showTimeModal = false;
       profileName ='';
       showCDI = -1;
       eOptionText = '';// 'Save'; //commented to solve issue with localization
@@ -759,6 +760,12 @@ export class DataService {
     }
     setShowEModal(item) {
         this.uiParams.showEModal = item;
+    }
+    getTimeModal() {
+        return this.uiParams.showTimeModal;
+    }
+    setTimeModal(item) {
+        this.uiParams.showTimeModal = item;
     }
 
     getEDialogInputHint(){
@@ -2460,15 +2467,12 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelay= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN                           : 
-                this.logger.log('sstime min is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX                           : 
-            this.logger.log('sstime max is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffDelayMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                               : 
-                this.logger.log('sstime level is  ' + attrValue);
                 this.uiParams.devicesObj.DeviceData.stepwiseSwitchOffLevel= attrValue;
             break;
             case SCCP_ATTRIBUTES.PRESENCE_SIMULATION_ENABLE                              :
