@@ -7,10 +7,9 @@
 	right:0;
 	width: 100%;
 	background-color: #1e2a3d;
-	/*z-index:150 !Important;*/
     background-image: linear-gradient(#2e4761, #1e2a3d);
 	display:inline-block;
-	z-index:20;
+	z-index:100;
 }
 
 #bj-header.bj-user-view {
@@ -24,7 +23,7 @@
 	background-image: linear-gradient(#8797ac, #6d8199);
 	color:black;
 	display:inline-block;
-	z-index:20;
+	z-index:100;
 }
 /*
 
@@ -358,7 +357,11 @@ label.dialog-text {
 .reset-dialog.bj-user-view div.reset-dialog-footer div.dialog-ok-btn {
     background: #bfbfbf;
 }
-
+.select.bje_time,
+{
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
 .reset-dialog-overlay{
 	position:absolute;
 	z-index:100;
@@ -374,7 +377,7 @@ label.dialog-text {
 	left: 40px;
 	top: 80px;
 	bottom: 80px;
-	z-index: 30;
+	z-index:100;
 	box-shadow: 4px 4px 80px #000;
 	position: absolute;
 	opacity: 1;
@@ -422,7 +425,7 @@ img.slave-dis {
 	left: 10%;
 	top: 25%;
 	bottom: 25%;
-	z-index: 130;
+	z-index:100;
 	background: white;
 	box-shadow: 4px 4px 80px #000;
 	position: absolute;
@@ -554,8 +557,8 @@ div.edialog-ok-btn label.edit-save{
 	right: 40px;
 	left: 40px;
 	top: 80px;
-	bottom: 80px;
-	z-index: 30;
+	bottom: 200px;
+	z-index:100;
 	box-shadow: 4px 4px 80px #000;
 	position: absolute;
 	opacity: 1;
@@ -570,3 +573,68 @@ img.settime-save{
 	margin-top:18px;
 }
 
+.time_container{
+	z-index:100;
+	background: #bfbfbf;
+    align-content: center;
+	text-align: center;
+	left:0;
+	right:0;
+	font-size: 24px;
+	top:50px;
+	bottom:60px;
+	position:absolute;
+}
+.time_wrapper{
+	z-index:100;
+	margin-top: 30px;
+    display: inline-block;
+	width: 150px
+}
+
+.time_wrapper form{
+	z-index:100;
+	position: relative;
+}
+
+.lines{
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-top: solid 1px #CCC;
+    border-bottom: solid 1px #CCC;
+    position: absolute;
+    top: 58px;
+    left: -3px;
+    width: 120px;
+    height: 40px;
+}
+
+.drum-wrapper {
+    float: left;
+}
+.drum-wrapper.container,
+.drum-wrapper figure {
+    height: 44px;
+    line-height: 65px;
+}
+#drum_hours .dial div {
+    margin: 0 7px;
+    visibility: hidden;
+}
+
+.outside.drum-wrapper.dial {
+    background-color: transparent;
+}
+
+.drum-wrapper, 
+.drum-wrapper .inner {
+    height: 150px;
+}
+
+#drum_hours {
+    margin-left: 10px;
+}
+ #drum_hours, #drum_minutes {
+    width: 60px;
+}

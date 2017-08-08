@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("assets/bootstrap/dist/css/bootstrap.min.css");
+@import url("assets/drum/drum.css");
+@import url("assets/drum/drum.min.css");
 div.bj-config-setting-div.additional-sensor-div span.glyphicon.glyphicon-menu-right,
 div.bj-config-setting-div.actuator1-div span.glyphicon.glyphicon-menu-right,
 div.bj-config-setting-div.actuator2-div span.glyphicon.glyphicon-menu-right,
