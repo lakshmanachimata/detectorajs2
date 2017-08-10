@@ -54,6 +54,19 @@ function setWebLanguage(data){
     var lang = data.language;
 }
 
+function operateDrumElement(element){
+    $(element).drum({
+        onChange: function(_this) {
+            return function(e) {
+                var changed;
+                changed = false;
+                if (e.name === "hours") 
+                    bjeLog('something came')
+            }
+        }(this)
+    });
+}
+
 function connectDevice(deviceAddress){
     if(BJE != undefined)
         BJE.connectDevice(deviceAddress)

@@ -384,6 +384,7 @@ declare var killMeFromJS;
 declare var reademdb;
 declare var getSafariSubtle;
 declare var readAddrAttr;
+declare var operateDrumElement;
 
 @Injectable()
 export class DataService {
@@ -397,6 +398,7 @@ export class DataService {
     connectDeviceObj:any;
     disConnectDeviceObj:any;
     authenticateDeviceObj:any;
+    operateDrumElementObj:any;
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
@@ -1119,7 +1121,6 @@ export class DataService {
         if(installed){
             this.getDevicesFromCloud()
         }else {
-            this.logger.log('loadDeviceData called')
             if(this.demoMode == 1){
             return new Promise<Array<any>>(resolve => {
                 this.http.get('assets/params_demo.json').subscribe(response => {
@@ -1137,7 +1138,6 @@ export class DataService {
     }
 
     jsonLoadEmit() {
-        this.logger.log('jsonLoadEmit called')
         this.activeComponent.jsonOnLoad(this.activeComponent);
     }
     iJsonLoadEmit() {
@@ -2241,7 +2241,9 @@ export class DataService {
             }
         }
     }
-
+    setDrumElement(element){
+        this.operateDrumElementObj =  new operateDrumElement(element)
+    }
 
     setBLEdataOnDeviceData(attrType,attrValue){
         switch(attrType) {
