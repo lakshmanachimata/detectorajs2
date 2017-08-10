@@ -11,7 +11,8 @@ import { DataService } from '../data.service';
 export class SetTimeComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
   
   @ViewChild('bjehours') bjehours;
-
+  @ViewChild('bjeminutes') bjeminutes
+  @ViewChild('bjeseconds') bjeseconds
   constructor(public logger: LoggerService,private router:Router,public data:DataService) {
   }
   ngOnChanges(changes) { 
@@ -41,6 +42,8 @@ export class SetTimeComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngAfterContentInit() { 
     this.data.setDrumElement(this.bjehours)
+    this.data.setDrumElement(this.bjeminutes)
+    this.data.setDrumElement(this.bjeseconds)
   }
   ngAfterContentChecked() { 
   }
