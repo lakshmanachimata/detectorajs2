@@ -158,7 +158,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
   jsonOnLoad(component) {
      if(component.isDeviceConnected == true){
-      component.data.setProfileSwitch(false);
+      //component.data.setProfileSwitch(false);
       component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
      }
   }

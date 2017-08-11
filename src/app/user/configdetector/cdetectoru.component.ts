@@ -44,6 +44,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
+                SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,
+                SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,
+                SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
                 ]
 
     light1state = 0;
