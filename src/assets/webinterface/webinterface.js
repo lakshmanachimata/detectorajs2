@@ -60,8 +60,6 @@ function operateDrumElement(element){
             return function(e) {
                 var changed;
                 changed = false;
-                if (e.name === "hours") 
-                    bjeLog('something came')
             }
         }(this)
     });

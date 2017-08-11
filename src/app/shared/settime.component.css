@@ -7,6 +7,18 @@
 	background: #02507c;
 }
 
+.configRow{
+	border-bottom:solid 0.1em rgba(47,117,181,0.5);
+	padding:10px 2px;
+	display:inline-block;
+	vertical-align:middle;
+	margin-left:5%;
+	margin-right:5%;
+	width:90%;
+	color:rgba(255,255,255,0.7)
+}
+
+
 .dialog-ok-btn{
 	height:100%;
 	background: #0171ae;
@@ -76,7 +88,7 @@ img.reset-cancel{
 
 .settime-dialog-overlay{
 	position:absolute;
-	/* z-index:100; */
+	z-index:100; 
 	top:0;
 	left:0;
 	width:100%;
@@ -89,7 +101,7 @@ img.reset-cancel{
 	left: 40px;
 	top: 80px;
 	bottom: 200px;
-	/* z-index:100; */
+	z-index:100; 
 	box-shadow: 4px 4px 80px #000;
 	position: absolute;
 	opacity: 1;
@@ -105,7 +117,7 @@ img.settime-save{
 }
 
 .time_container{
-	/* z-index:100; */
+	z-index:100; 
 	background: #bfbfbf;
     align-content: center;
 	text-align: center;
@@ -117,15 +129,17 @@ img.settime-save{
 	position:absolute;
 }
 .time_wrapper{
-	/* z-index:100; */
+	z-index:100; 
 	margin-top: 30px;
-    display: inline-block;
 	width: 200px
 }
 
 .time_wrapper form{
-	/* z-index:100; */
+	z-index:100; 
 	position: relative;
+	display:inline-flex;
+	vertical-align: middle;
+	left: 28%;
 }
 
 .lines{
@@ -135,10 +149,11 @@ img.settime-save{
     border-top: solid 1px #CCC;
     border-bottom: solid 1px #CCC;
     position: absolute;
-    top: 57px;
-    left: 0px;
+    top: 58px;
+	left: 0px;
+	display: inline-flex;
     width: 200px;
-    height: 40px;
+    height: 25px;
 }
 
 .drum-wrapper {
@@ -160,13 +175,15 @@ img.settime-save{
 
 .drum-wrapper, 
 .drum-wrapper .inner {
-    height: 150px;
+    height: 200px;
 }
 .mins_colon{
-	margin-left: -25px;
+	margin-left: 30%;
+	margin-top: -8px;
 }
 .secs_colon{
-	margin-left: 45px;
+	margin-left: 30%;
+	margin-top: -8px;
 }
 #drum_hours {
     margin-left: 10px;

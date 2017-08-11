@@ -10,8 +10,8 @@ const AppRoutes: Routes = [
 ];
 @NgModule({
   imports: [
-    // RouterModule.forRoot(AppRoutes,{ useHash: true })
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes,{ useHash: true })
+    // RouterModule.forRoot(AppRoutes)
   ],
   exports: [
     RouterModule

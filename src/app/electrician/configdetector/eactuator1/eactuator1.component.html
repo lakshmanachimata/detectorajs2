@@ -1,6 +1,5 @@
- <settime-root *ngIf="data.getTimeModal() == true"></settime-root> 
 <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf="this.data.DeviceBuild == 1 && !loadingDataDone" />
-<div class="bj-config-container" *ngIf="(loadingDataDone || this.data.DeviceBuild == 0) && this.data.getTimeModal() == false ">
+<div class="bj-config-container" *ngIf="(loadingDataDone || this.data.DeviceBuild == 0)">
 <div id="bj-actuator1-sub-settings-div">
     <!--circuit-logic-->
     <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">

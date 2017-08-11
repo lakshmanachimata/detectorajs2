@@ -1,14 +1,12 @@
 <div class="settime-dialog-overlay" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
     <div class="settime-dialog" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
         <div class="settime-dialog-header"><label class="dialog-heading"> Set time </label></div>
-            <div class="time_container">
+            <div class="time_container" >
                 <div class="time_wrapper outside">
                     <form name="date">
                         <div class="lines">
-                            <div>
-                                <span class="mins_colon">:</span>
-                                <span class="secs_colon">:</span>
-                            </div>
+                                <div class="mins_colon">:</div>
+                                <div class="secs_colon">:</div>
                         </div>
                         <select #bjehours  class="date" id="hours" name="hours"  style="display: none;"  >
                             <option value="00">00</option>

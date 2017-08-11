@@ -6,9 +6,7 @@
 
 (function($) {
 	"use strict";
-	window.document.onload = function(e){ 
-    console.log("DRUM  JS document.onload"); 
-	}
+
 	var DrumIcon = (function () {
 		var svgelem = function (tagName) {
 			return document.createElementNS("http://www.w3.org/2000/svg", tagName);
@@ -80,7 +78,6 @@
 
 	var PanelModel = function (index, data_index, settings) 
 	{
-		console.log('DRUM CHECK 444444')
 		this.index = index;
 		this.dataModel = new (function (data, i) {
 			this.data = data;
@@ -91,7 +88,6 @@
 		})(settings.data, data_index);
 
 		this.init = function () {
-			console.log('DRUM CHECK 555555')
 			this.angle = settings.theta * index;
 			this.elem = document.createElement('figure');
 			$(this.elem).addClass('a' + this.angle*100);
@@ -115,13 +111,12 @@
 
 	var Drum = function(element, options, transformProp)
 	{
-		console.log('DRUM CHECK11111')
 
 		var mainSelect = ($(element))[0];
 		var HTMLselect = mainSelect.nativeElement;
 		var obj = this;
 		var settings = $.extend({
-			panelCount : 16,
+			panelCount : 24,
 			rotateFn : 'rotateX',
 			interactive: true,
 			dail_w: 20,
@@ -225,7 +220,6 @@
 			}
 		};
 		var update = function (selected) {
-			console.log('DRUM CHECK 333333')
 			var c, list = [], pc = settings.panelCount, ph = settings.panelCount / 2, l = settings.data.length;
 			var i = selected.index; 
 			var j = selected.dataModel.index;
@@ -263,7 +257,6 @@
 			}			
 		};
 		this.setIndex = function (dataindex) {
-			console.log('DRUM CHECK 22222')
 
 			var page = Math.floor(dataindex / settings.panelCount);
 			var index = dataindex - (page * settings.panelCount);
@@ -286,12 +279,10 @@
 			});
 			
 			settings.touch.on("dragstart", function (e) { 
-				console.log('DRUM TOUCH START')
 				settings.distance = 0;
 			});
 
 			settings.touch.on("drag", function (e) {
-				console.log('DRUM TOUCH DRAG')
 				var evt = ["up", "down"];
 				if (evt.indexOf(e.gesture.direction)>=0) {
 					settings.rotation += Math.round(e.gesture.deltaY - settings.distance) * -1;
@@ -301,7 +292,6 @@
 			});
 
 			settings.touch.on("dragend", function (e) {
-				console.log('DRUM TOUCH DRAGGED')
 				settings.rotation = getNearest();
 				transform();
 			});
