@@ -3,10 +3,13 @@
         <div class="settime-dialog-header"><label class="dialog-heading"> Set time </label></div>
             <div class="time_container" >
                 <div class="time_wrapper outside">
-                    <form name="date">
-                        <div class="lines">
-                                <div class="mins_colon">:</div>
-                                <div class="secs_colon">:</div>
+                    <form name="date" [ngStyle]="{'left': this.timeSecs < 0 == true ? '20%':'28%'}">
+                        <div class="lines_three" *ngIf="this.timeHours >= 0 && this.timeMins >= 0 && this.timeSecs >= 0">
+                                <div class="mins_colon_three" *ngIf="this.timeMins >= 0">:</div>
+                                <div class="secs_colon_three" *ngIf="this.timeSecs >= 0">:</div>
+                        </div>
+                        <div class="lines_two" *ngIf="this.timeSecs < 0">
+                                <div class="mins_colon_two" *ngIf="this.timeMins >= 0">:</div>
                         </div>
                         <select #bjehours  class="date" id="hours" name="hours"  style="display: none;"  >
                             <option value="00">00</option>
@@ -34,48 +37,6 @@
                             <option value="22">22</option>
                             <option value="23">23</option>
                         </select>
-                        <!-- <div style="display: none;" class="drum-wrapper" id="drum_hours" style="user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: pan-y;">
-                            <div class="inner">
-                            <div class="container">
-                                <div class="drum" style="transform: translateZ(-111px) rotateX(112.5deg);">
-                                    <figure class="a0" style="opacity: 0.5; transform: rotateX(0deg) translateZ(111px);">00</figure>
-                                    <figure class="a2250" style="opacity: 0.5; transform: rotateX(-22.5deg) translateZ(111px);">01</figure>
-                                    <figure class="a4500" style="opacity: 0.5; transform: rotateX(-45deg) translateZ(111px);">02</figure>
-                                    <figure class="a6750" style="opacity: 0.5; transform: rotateX(-67.5deg) translateZ(111px);">03</figure>
-                                    <figure class="a9000" style="opacity: 0.5; transform: rotateX(-90deg) translateZ(111px);">04</figure>
-                                    <figure class="a11250" style="opacity: 1; transform: rotateX(-112.5deg) translateZ(111px);">05</figure>
-                                    <figure class="a13500" style="opacity: 0.5; transform: rotateX(-135deg) translateZ(111px);">06</figure>
-                                    <figure class="a15750" style="opacity: 0.5; transform: rotateX(-157.5deg) translateZ(111px);">07</figure>
-                                    <figure class="a18000" style="opacity: 0.5; transform: rotateX(-180deg) translateZ(111px);">08</figure>
-                                    <figure class="a20250" style="opacity: 0.5; transform: rotateX(-202.5deg) translateZ(111px);">09</figure>
-                                    <figure class="a22500" style="opacity: 0.5; transform: rotateX(-225deg) translateZ(111px);">10</figure>
-                                    <figure class="a24750" style="opacity: 0.5; transform: rotateX(-247.5deg) translateZ(111px);">11</figure>
-                                    <figure class="a27000" style="opacity: 0.5; transform: rotateX(-270deg) translateZ(111px);">12</figure>
-                                    <figure class="a29250" style="opacity: 0.5; transform: rotateX(-292.5deg) translateZ(111px);">21</figure>
-                                    <figure class="a31500" style="opacity: 0.5; transform: rotateX(-315deg) translateZ(111px);">22</figure>
-                                    <figure class="a33750" style="opacity: 0.5; transform: rotateX(-337.5deg) translateZ(111px);">23</figure>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="dial up">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,6l10,-5l10,5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                            <div class="dial down">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,-1l10,5l10,-5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                        </div> -->
                         <select #bjeminutes  class="date" id="minutes" name="minutes" style="display: none;">
                             <option value="00">00</option>
                             <option value="01">01</option>
@@ -138,48 +99,6 @@
                             <option value="58">58</option>
                             <option value="59">59</option>
                         </select>
-                        <!-- <div   class="drum-wrapper" id="drum_minutes" style="user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: pan-y;">
-                            <div class="inner">
-                            <div class="container">
-                                <div class="drum" style="transform: translateZ(-111px) rotateX(247.5deg);">
-                                    <figure class="a0" style="opacity: 0.5; transform: rotateX(0deg) translateZ(111px);">04</figure>
-                                    <figure class="a2250" style="opacity: 0.5; transform: rotateX(-22.5deg) translateZ(111px);">05</figure>
-                                    <figure class="a4500" style="opacity: 0.5; transform: rotateX(-45deg) translateZ(111px);">06</figure>
-                                    <figure class="a6750" style="opacity: 0.5; transform: rotateX(-67.5deg) translateZ(111px);">51</figure>
-                                    <figure class="a9000" style="opacity: 0.5; transform: rotateX(-90deg) translateZ(111px);">52</figure>
-                                    <figure class="a11250" style="opacity: 0.5; transform: rotateX(-112.5deg) translateZ(111px);">53</figure>
-                                    <figure class="a13500" style="opacity: 0.5; transform: rotateX(-135deg) translateZ(111px);">54</figure>
-                                    <figure class="a15750" style="opacity: 0.5; transform: rotateX(-157.5deg) translateZ(111px);">55</figure>
-                                    <figure class="a18000" style="opacity: 0.5; transform: rotateX(-180deg) translateZ(111px);">56</figure>
-                                    <figure class="a20250" style="opacity: 0.5; transform: rotateX(-202.5deg) translateZ(111px);">57</figure>
-                                    <figure class="a22500" style="opacity: 0.5; transform: rotateX(-225deg) translateZ(111px);">58</figure>
-                                    <figure class="a24750" style="opacity: 1; transform: rotateX(-247.5deg) translateZ(111px);">59</figure>
-                                    <figure class="a27000" style="opacity: 0.5; transform: rotateX(-270deg) translateZ(111px);">00</figure>
-                                    <figure class="a29250" style="opacity: 0.5; transform: rotateX(-292.5deg) translateZ(111px);">01</figure>
-                                    <figure class="a31500" style="opacity: 0.5; transform: rotateX(-315deg) translateZ(111px);">02</figure>
-                                    <figure class="a33750" style="opacity: 0.5; transform: rotateX(-337.5deg) translateZ(111px);">03</figure>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="dial up">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,6l10,-5l10,5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                            <div class="dial down">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,-1l10,5l10,-5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                        </div> -->
                           <select #bjeseconds class="date" id="seconds" name="minutes" style="display: none;">
                             <option value="00">00</option>
                             <option value="01">01</option>
@@ -242,48 +161,6 @@
                             <option value="58">58</option>
                             <option value="59">59</option>
                         </select>
-                        <!-- <div class="drum-wrapper" id="drum_seconds" style="user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); touch-action: pan-y;">
-                            <div class="inner">
-                            <div class="container">
-                                <div class="drum" style="transform: translateZ(-111px) rotateX(247.5deg);">
-                                    <figure class="a0" style="opacity: 0.5; transform: rotateX(0deg) translateZ(111px);">04</figure>
-                                    <figure class="a2250" style="opacity: 0.5; transform: rotateX(-22.5deg) translateZ(111px);">05</figure>
-                                    <figure class="a4500" style="opacity: 0.5; transform: rotateX(-45deg) translateZ(111px);">06</figure>
-                                    <figure class="a6750" style="opacity: 0.5; transform: rotateX(-67.5deg) translateZ(111px);">51</figure>
-                                    <figure class="a9000" style="opacity: 0.5; transform: rotateX(-90deg) translateZ(111px);">52</figure>
-                                    <figure class="a11250" style="opacity: 0.5; transform: rotateX(-112.5deg) translateZ(111px);">53</figure>
-                                    <figure class="a13500" style="opacity: 0.5; transform: rotateX(-135deg) translateZ(111px);">54</figure>
-                                    <figure class="a15750" style="opacity: 0.5; transform: rotateX(-157.5deg) translateZ(111px);">55</figure>
-                                    <figure class="a18000" style="opacity: 0.5; transform: rotateX(-180deg) translateZ(111px);">56</figure>
-                                    <figure class="a20250" style="opacity: 0.5; transform: rotateX(-202.5deg) translateZ(111px);">57</figure>
-                                    <figure class="a22500" style="opacity: 0.5; transform: rotateX(-225deg) translateZ(111px);">58</figure>
-                                    <figure class="a24750" style="opacity: 1; transform: rotateX(-247.5deg) translateZ(111px);">59</figure>
-                                    <figure class="a27000" style="opacity: 0.5; transform: rotateX(-270deg) translateZ(111px);">00</figure>
-                                    <figure class="a29250" style="opacity: 0.5; transform: rotateX(-292.5deg) translateZ(111px);">01</figure>
-                                    <figure class="a31500" style="opacity: 0.5; transform: rotateX(-315deg) translateZ(111px);">02</figure>
-                                    <figure class="a33750" style="opacity: 0.5; transform: rotateX(-337.5deg) translateZ(111px);">03</figure>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="dial up">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,6l10,-5l10,5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                            <div class="dial down">
-                            <div>
-                                <svg width="20" height="5">
-                                    <g>
-                                        <path fill="none" stroke="#999999" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" stroke-opacity="1" d="m0,-1l10,5l10,-5"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            </div>
-                        </div> -->
                     </form>
                 </div>
             </div> 

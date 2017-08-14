@@ -258,6 +258,9 @@ export class UIParams {
       userPwdChanged = false;
       toBeSetInstallerPwd = "";
       toBeSetUserPwd="";
+      timeHours;
+      timeMins;
+      timeSecs;
 
 }
 
@@ -2240,6 +2243,26 @@ export class DataService {
                 this.putData(url,bodyString);
             }
         }
+    }
+
+    setTimeHours(hrs){
+        this.uiParams.timeHours = hrs;
+    }
+    setTimeMins(mins){
+        this.uiParams.timeMins = mins;
+    }
+    setTimeSecs(secs){
+        this.uiParams.timeSecs = secs;
+    }
+
+    getTimeHours(){
+        return this.uiParams.timeHours;
+    }
+    getTimeMins(){
+        return this.uiParams.timeMins;
+    }
+    getTimeSecs(){
+        return this.uiParams.timeSecs;
     }
     setDrumElement(element){
         this.operateDrumElementObj =  new operateDrumElement(element)

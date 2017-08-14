@@ -1,4 +1,4 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,ViewChild} from '@angular/core';
+import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,ViewChild,Input,Output} from '@angular/core';
 import { LoggerService } from '../logger.service';
 import { RouterModule, Routes ,Router} from '@angular/router';
 import { DataService } from '../data.service';
@@ -13,45 +13,48 @@ export class SetTimeComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   @ViewChild('bjehours') bjehours;
   @ViewChild('bjeminutes') bjeminutes
   @ViewChild('bjeseconds') bjeseconds
+
+  timeHours = -1;
+  timeMins = -1;
+  timeSecs =-1;
+
   constructor(public logger: LoggerService,private router:Router,public data:DataService) {
   }
   ngOnChanges(changes) { 
   }
 
-  onPanStartHours(event: any): void {
-    console.log('onPanStartHours called')
-  }
-
-  onPanHours(event: any): void {
-    event.preventDefault();
-    console.log('onPanHours called')
-  }
-
-  onPanStartMins(event: any): void {
-    console.log('onPanStartMins called')
-  }
-
-  onPanMins(event: any): void {
-    event.preventDefault();
-    console.log('onPanMins called')
-  }
 
   ngOnInit() { 
+    this.timeHours= this.data.getTimeHours();
+    this.timeMins= this.data.getTimeMins();
+    this.timeSecs= this.data.getTimeSecs();
   }
   ngDoCheck() { 
   }
   ngAfterContentInit() { 
-    this.data.setDrumElement(this.bjehours)
-    this.data.setDrumElement(this.bjeminutes)
-    this.data.setDrumElement(this.bjeseconds)
   }
   ngAfterContentChecked() { 
   }
   ngAfterViewInit() { 
   }
   ngAfterViewChecked() { 
+    if(this.timeHours >= 0){
+      this.bjehours.nativeElement.selectedIndex = this.timeHours;
+      this.data.setDrumElement(this.bjehours)
+    }
+    if(this.timeMins >= 0){
+      this.bjeminutes.nativeElement.selectedIndex = this.timeMins;
+      this.data.setDrumElement(this.bjeminutes)
+    }
+    if(this.timeSecs >= 0){
+      this.bjeseconds.nativeElement.selectedIndex = this.timeSecs;
+      this.data.setDrumElement(this.bjeseconds)
+    }
   }
   ngOnDestroy() { 
+    this.timeHours = -1;
+    this.timeMins = -1;
+    this.timeSecs =-1;
   }
 
   getArrowType() {

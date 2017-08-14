@@ -28,7 +28,9 @@ export class TimeInputComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
   ngOnInit() { 
   }
   showTimeInPut(timeType){
-    console.log('OPEN TIME FOR   ' + timeType)
+      this.data.setTimeHours(this.timeHours);
+      this.data.setTimeMins(this.timeMins);
+      this.data.setTimeSecs(this.timeSecs);
       this.zone.run( () => {
         this.data.setTimeModal(true);
         this.ngOnChanges(''); 
