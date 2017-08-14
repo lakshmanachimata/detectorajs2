@@ -58,7 +58,13 @@ function operateDrumElement(element){
     $(element).drum({
         onChange: function(_this) {
             return function(e) {
-                var changed;
+                if(e.name =='hours'){
+                    appDataService.setTimeHours(e.value)
+                }if(e.name =='minutes'){
+                    appDataService.setTimeMins(e.value)
+                }if(e.name =='seconds'){
+                    appDataService.setTimeSecs(e.value)
+                }
                 changed = false;
             }
         }(this)
