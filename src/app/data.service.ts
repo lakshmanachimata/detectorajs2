@@ -261,6 +261,7 @@ export class UIParams {
       timeHours;
       timeMins;
       timeSecs;
+      sTimeComponent:any;
 
 }
 
@@ -874,9 +875,14 @@ export class DataService {
     setActiveComponent(component) {
         this.activeComponent = component;
     }
-
     setIActiveComponent(component){
         this.iActiveComponent = component;
+    }
+    setTimeComponent(component){
+        this.uiParams.sTimeComponent = component;
+    }
+    getTimeComponent(){
+        return this.uiParams.sTimeComponent;
     }
     
 

@@ -13,7 +13,7 @@ export class TimeInputComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
   
   @Input() timeType: String;
   @Input() timeValue: number;
-  
+  @Input() parentComponent: any;
   @Input() timeHours: number;
   @Input() timeMins: number;
   @Input() timeSecs: number;
@@ -34,7 +34,13 @@ export class TimeInputComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
       this.zone.run( () => {
         this.data.setTimeModal(true);
         this.ngOnChanges(''); 
+        this.data.setTimeComponent(this);
       });
+  }
+
+  setTimeBackToParent(){
+    this.setTimeBack.emit(this.timeType);
+    this.data.setTimeComponent(undefined);
   }
 
   ngDoCheck() { 

@@ -66,6 +66,9 @@ export class SetTimeComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
       this.data.setTimeModal(false);
   }
   doStuff() {
+    if(this.data.getTimeComponent() != undefined){
+      this.data.getTimeComponent().setTimeBackToParent();
+    }
       this.data.setTimeModal(false);
   }
   getIfShowCancel(){

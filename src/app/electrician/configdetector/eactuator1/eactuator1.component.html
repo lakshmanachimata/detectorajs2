@@ -213,8 +213,8 @@
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 0"  name="power_level" [value]="0"/></div>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl" >{{ this.data.getTranslatedString("Memo") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 255" name="power_level" [value]="255"/></div>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl" >{{ this.data.getTranslatedString("100%") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()"[checked]="ad.daliPowerOnLevel === 254" name="power_level" [value]="254"/></div>
-            <div class="bj-config-setting actuator1 reset" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
-                <label class="bj-config-setting reset-inner-block" (click)="resetDali()" >{{ this.data.getTranslatedString("Reset control gear") }}</label><span class="glyphicon glyphicon-stop"></span>
+            <div class="bj-config-setting actuator1 reset"   (click)="resetDali()" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+                <label class="bj-config-setting reset-inner-block"  >{{ this.data.getTranslatedString("Reset control gear") }}</label><span class="glyphicon glyphicon-stop"></span>
             </div>
         </div>
     </div>
@@ -342,11 +342,11 @@
                 <div class="anti-glare-start-end-time-div">
                     <div class="bj-config-setting-time-adjust anti-glare-start-function">
                         <label class="actuator-anti-glare-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
-                          <timeinput timeHours=23 timeMins=59 timeSecs=23  timeType='nlstarttime' style="width:50%; position:absolute; right:10px;"></timeinput>  
+                          <timeinput [timeHours]="this.NLStartTimeHH" [timeMins]="this.NLStartTimeMM" timeSecs=-1  timeType='nlstarttime' (setTimeBack)="setTime('nlstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
                     <div class="bj-config-setting-time-adjust anti-glare-end-function">
                         <label class="actuator-anti-glare-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
-                          <timeinput timeHours=11 timeMins=10 timeSecs=-1  timeType='nlendtime'  style="width:50%; position:absolute; right:10px;"></timeinput>  
+                          <timeinput [timeHours]="this.NLEndTimeHH" timeMins="this.NLEndTimeMM" timeSecs=-1  timeType='nlendtime'  (setTimeBack)="setTime('nlendtime')" style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
                 </div>
                 <div class="anti-glare-level-div">

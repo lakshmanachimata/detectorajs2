@@ -173,7 +173,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightStartTime <= 0 ){
           this.ad.nightLightStartTime = 86400;
         }
-      this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
+      //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
@@ -230,7 +230,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightStartTime >= 86400 ){
           this.ad.nightLightStartTime = 0;
         }
-      this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
+      //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
@@ -240,7 +240,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightEndTime >= 86400 ){
           this.ad.nightLightEndTime = 0;
         }
-      this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+      //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])

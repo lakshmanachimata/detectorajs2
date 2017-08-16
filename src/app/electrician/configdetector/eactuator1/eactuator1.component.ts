@@ -18,8 +18,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     ad:any;
     loadingDataDone = false;
     showSoftSwitchingSettings = true;
-    NLStartTime : string = "";
-    NLEndTime : string = "";
+    NLStartTimeHH:number = 0;
+    NLStartTimeMM:number = 0;
+    NLEndTimeHH:number  = 0;
+    NLEndTimeMM:number = 0;
     BRStartTime : string = "";
     BREndTime : string = "";
 
@@ -85,7 +87,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
       this.loadingDataDone = true;
-      
   }
   ngOnChanges(changes) { 
   }
@@ -93,8 +94,8 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Settings of actuator 1'));
-    this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
-    this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+    //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
+    //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
   }
   ngAfterContentInit() { 
   }
@@ -398,6 +399,16 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
 
+  setTime(timetype){
+   if(timetype == 'nlstarttime'){
+      this.NLStartTimeHH = this.data.getTimeHours();
+      this.NLStartTimeMM = this.data.getTimeMins();
+   }if(timetype == 'nlendtime'){
+      this.NLEndTimeHH = this.data.getTimeHours();
+      this.NLEndTimeMM = this.data.getTimeMins();
+   }
+  }
+
   getBytesFromTime(sec_num){
     let byteData = []
     var hours   = Math.floor(sec_num / 3600);
@@ -430,10 +441,12 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         this.BREndTime =  shours+' : '+sminutes;
       break;
       case 'glarestart':
-        this.NLStartTime =  shours+' : '+sminutes;
+        this.NLStartTimeHH =  hours
+        this.NLStartTimeMM = minutes;
       break;
       case 'glareend':
-        this.NLEndTime =  shours+' : '+sminutes;
+        this.NLEndTimeHH  = hours;
+        this.NLEndTimeMM = minutes;
       break;
     }
   }
@@ -517,7 +530,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightStartTime >= 86400 ){
           this.ad.nightLightStartTime = 0;
         }
-        this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
+        //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -529,7 +542,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightEndTime >= 86400 ){
           this.ad.nightLightEndTime = 0;
         }
-        this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+        //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
