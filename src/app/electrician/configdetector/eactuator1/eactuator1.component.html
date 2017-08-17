@@ -342,11 +342,11 @@
                 <div class="anti-glare-start-end-time-div">
                     <div class="bj-config-setting-time-adjust anti-glare-start-function">
                         <label class="actuator-anti-glare-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
-                          <timeinput [timeHours]="this.NLStartTimeHH" [timeMins]="this.NLStartTimeMM" timeSecs=-1  timeType='nlstarttime' (setTimeBack)="setTime('nlstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput>  
+                          <timeinput [timeHours]="this.NLStartTimeHH" [timeMins]="this.NLStartTimeMM" [timeSecs]=-1  [timeType]='nlstarttime' (setTimeBack)="setTime('nlstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
                     <div class="bj-config-setting-time-adjust anti-glare-end-function">
                         <label class="actuator-anti-glare-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
-                          <timeinput [timeHours]="this.NLEndTimeHH" timeMins="this.NLEndTimeMM" timeSecs=-1  timeType='nlendtime'  (setTimeBack)="setTime('nlendtime')" style="width:50%; position:absolute; right:10px;"></timeinput>  
+                          <timeinput [timeHours]="this.NLEndTimeHH" [timeMins]="this.NLEndTimeMM" [timeSecs]=-1  [timeType]='nlendtime'  (setTimeBack)="setTime('nlendtime')" style="width:50%; position:absolute; right:10px;"></timeinput>  
                     </div>
                 </div>
                 <div class="anti-glare-level-div">
