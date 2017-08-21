@@ -509,8 +509,9 @@ label.actuator-anti-glare-level-lbl{
 	margin-top: 12px;
 }
 
-label.actuator-anti-glare-start-time-lbl {
-	margin-top: 24px;
+label.actuator-anti-glare-start-time-lbl
+label.actuator-anti-glare-end-time-lbl {
+	margin-top: 0px;
 }
 
 .time-shift-settings-div {
@@ -1113,7 +1114,8 @@ div#bj-user-sensor-div {
 	left:0;
 	right:0;
 	height:50px;
-	display:flex;
+    display:flex;
+    color: #9eabbb;
 }
 
 label.bj-config-setting.presence-simulation-block {

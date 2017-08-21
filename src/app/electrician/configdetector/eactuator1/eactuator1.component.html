@@ -287,21 +287,13 @@
                 </div>
             </div>
             <div class="bj-config-setting inner-setting actuator1"  *ngIf=" ad.basicBrightnessMode == 1">
-                <label class="actuator-illumination-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
                 <div class="bj-config-setting-adjust illumination-start-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('brightstart',true)" (onLongPressEnd)="reduceCount('brightstart',true)" (onLongPressing)="reduceCount('brightstart',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="text" [(ngModel)]="BRStartTime" [ngStyle]="{'color':brightStart ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text" > h </div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('brightstart',true)" (onLongPressEnd)="increaseCount('brightstart',true)" (onLongPressing)="increaseCount('brightstart',false)" ><span class="glyphicon glyphicon-plus"></span>
-                    </div>
+                    <label class="actuator-illumination-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
+                    <timeinput [timeHours]="this.BRStartTimeHH" [timeMins]="this.BRStartTimeMM" [timeSecs]=-1  [timeType]='brstarttime' (setTimeBack)="setTime('brstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput> 
                 </div>
-                <label class="actuator-illumination-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
                 <div class="bj-config-setting-adjust illumination-end-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('brightend',true)" (onLongPressEnd)="reduceCount('brightend',true)" (onLongPressing)="reduceCount('brightend',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="text" [(ngModel)]="BREndTime" [ngStyle]="{'color':brightEnd ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text" > h </div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('brightend',true)" (onLongPressEnd)="increaseCount('brightend',true)" (onLongPressing)="increaseCount('brightend',false)" ><span class="glyphicon glyphicon-plus"></span>
-                    </div>
+                <label class="actuator-illumination-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
+                    <timeinput [timeHours]="this.BREndTimeHH" [timeMins]="this.BREndTimeMM" [timeSecs]=-1  [timeType]='brendtime' (setTimeBack)="setTime('brendtime')"  style="width:50%; position:absolute; right:10px;"></timeinput> 
                 </div>
             </div>
             <div class="bj-config-setting inner-setting actuator1 astro-function" *ngIf=" ad.basicBrightnessMode == 1" >

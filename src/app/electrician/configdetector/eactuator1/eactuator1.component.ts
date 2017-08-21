@@ -22,8 +22,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     NLStartTimeMM:number = 0;
     NLEndTimeHH:number  = 0;
     NLEndTimeMM:number = 0;
-    BRStartTime : string = "";
-    BREndTime : string = "";
+    BRStartTimeHH : number = 0;
+    BRStartTimeMM : number = 0;
+    BREndTimeHH : number = 0;
+    BREndTimeMM : number = 0;
 
       readAttrs =[
                 SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 
@@ -407,6 +409,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.NLEndTimeHH = this.data.getTimeHours();
       this.NLEndTimeMM = this.data.getTimeMins();
    }
+  if(timetype == 'brstarttime'){
+      this.BRStartTimeHH = this.data.getTimeHours();
+      this.BRStartTimeMM = this.data.getTimeMins();
+   }if(timetype == 'brendtime'){
+      this.BREndTimeHH = this.data.getTimeHours();
+      this.BREndTimeMM = this.data.getTimeMins();
+   }
   }
 
   getBytesFromTime(sec_num){
@@ -433,22 +442,22 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     if (minutes < 10) {sminutes = "0"+sminutes;}
     if (seconds < 10) {sseconds = "0"+sseconds;}
 
-    switch(itemAttr){
-      case 'brightstart':
-        this.BRStartTime =  shours+' : '+sminutes;
-      break;
-      case 'brightend':
-        this.BREndTime =  shours+' : '+sminutes;
-      break;
-      case 'glarestart':
-        this.NLStartTimeHH =  hours
-        this.NLStartTimeMM = minutes;
-      break;
-      case 'glareend':
-        this.NLEndTimeHH  = hours;
-        this.NLEndTimeMM = minutes;
-      break;
-    }
+    // switch(itemAttr){
+    //   case 'brightstart':
+    //     this.BRStartTime =  shours+' : '+sminutes;
+    //   break;
+    //   case 'brightend':
+    //     this.BREndTime =  shours+' : '+sminutes;
+    //   break;
+    //   case 'glarestart':
+    //     this.NLStartTimeHH =  hours
+    //     this.NLStartTimeMM = minutes;
+    //   break;
+    //   case 'glareend':
+    //     this.NLEndTimeHH  = hours;
+    //     this.NLEndTimeMM = minutes;
+    //   break;
+    // }
   }
 
   increaseCount(item, isClick) {
@@ -506,7 +515,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
         }
-        this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
+        //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -518,7 +527,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
          if(this.ad.basicBrightnessEndTime >= 86400 ){
           this.ad.basicBrightnessEndTime = 0;
         }
-        this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
+        //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []

@@ -1200,7 +1200,10 @@ label.bj-config-setting-block-lbl.actuator-illumination-end-time-lbl
 }
 
 label.actuator-anti-glare-start-time-lbl,
-label.actuator-anti-glare-end-time-lbl{
+label.actuator-anti-glare-end-time-lbl,
+label.actuator-illumination-start-time-lbl,
+label.actuator-illumination-end-time-lbl
+{
     margin-top: 8px;
     text-align: center;
 }

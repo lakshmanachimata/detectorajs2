@@ -20,10 +20,18 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   offLabel = 'OFF';
   loadingDataDone = false;
 
-    NLStartTime = "";
-    NLEndTime = "";
-    BRStartTime = "";
-    BREndTime = "";
+  PEStartTimeHH = 0
+  PEStartTimeMM = 0
+  PEEndTimeHH = 0
+  PEEndTimeMM = 0
+  NLStartTimeHH = 0;
+  NLStartTimeMM = 0;
+  NLEndTimeHH = 0;
+  NLEndTimeMM = 0;
+  BRStartTimeHH = 0;
+  BRStartTimeMM = 0;
+  BREndTimeHH = 0;
+  BREndTimeMM = 0;
 
 
   readAttrs =[
@@ -106,6 +114,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnDestroy() {
   }
+  setTime(type){
+
+  }
 
   setBrTr(event: any){
     if(event.target.value < this.ad.brightnessThresholdMin ){
@@ -153,7 +164,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessStartTime <= 0 ){
           this.ad.basicBrightnessStartTime = 86400;
         }
-      this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
+      //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
@@ -163,7 +174,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessEndTime <= 0 ){
           this.ad.basicBrightnessEndTime = 86400;
         }
-      this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
+      //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
@@ -183,7 +194,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
        if(this.ad.nightLightEndTime <= 0 ){
           this.ad.nightLightEndTime = 86400;
         }
-      this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+      //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
@@ -210,7 +221,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
         }
-      this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
+      //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
@@ -220,7 +231,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessEndTime >= 86400 ){
           this.ad.basicBrightnessEndTime = 0;
         }
-      this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
+      //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
       this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
@@ -260,20 +271,20 @@ secondsToString (sec_num,itemAttr) {
     if (minutes < 10) {sminutes = "0"+sminutes;}
     if (seconds < 10) {sseconds = "0"+sseconds;}
 
-    switch(itemAttr){
-      case 'illuminationstart':
-        this.BRStartTime =  shours+' : '+sminutes;
-      break;
-      case 'illuminationend':
-        this.BREndTime =  shours+' : '+sminutes;
-      break;
-      case 'glarestart':
-        this.NLStartTime =  shours+' : '+sminutes;
-      break;
-      case 'glareend':
-        this.NLEndTime =  shours+' : '+sminutes;
-      break;
-    }
+    // switch(itemAttr){
+    //   case 'illuminationstart':
+    //     this.BRStartTime =  shours+' : '+sminutes;
+    //   break;
+    //   case 'illuminationend':
+    //     this.BREndTime =  shours+' : '+sminutes;
+    //   break;
+    //   case 'glarestart':
+    //     this.NLStartTime =  shours+' : '+sminutes;
+    //   break;
+    //   case 'glareend':
+    //     this.NLEndTime =  shours+' : '+sminutes;
+    //   break;
+    // }
   }
 
   setCurrentBr(event: any) { // without type info
