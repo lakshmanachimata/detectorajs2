@@ -43,6 +43,11 @@ export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContent
       this.data.setShowModal(false);
   }
   doStuff() {
+      let resetcmd =  this.data.getResetCommand()
+      if( resetcmd > 0){
+            this.data.sendResetCmd(resetcmd)
+      }
+      this.data.setResetCommand(-1);
       this.data.setShowModal(false);
   }
   getIfShowCancel(){

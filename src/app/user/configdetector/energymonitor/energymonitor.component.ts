@@ -70,6 +70,7 @@ TotalSavingsYearValue = 759;
     this.data.setDialogTitle(this.translater.translate("Reset "));
     this.data.setDialogText(this.translater.translate("Reset energy monitor"));
     this.data.setShowModal(true);
+    this.data.setResetCommand(0x40)
   }
   getStyle (data, isYear) {
     let percentage;

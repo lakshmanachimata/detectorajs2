@@ -262,6 +262,7 @@ export class UIParams {
       timeMins:number;
       timeSecs:number;
       sTimeComponent:any;
+      resetCommand = -1;
 
 }
 
@@ -389,6 +390,7 @@ declare var reademdb;
 declare var getSafariSubtle;
 declare var readAddrAttr;
 declare var operateDrumElement;
+declare var resetCmd;
 
 @Injectable()
 export class DataService {
@@ -407,6 +409,7 @@ export class DataService {
     readAttrObj:any;
     configureAttrObj:any;
     reademdbObj:any;
+    resetCmdObj:any;
     killMeFromJSObj:any;
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
@@ -785,6 +788,18 @@ export class DataService {
         this.uiParams.profileName = profilename;
     }
 
+    setResetCommand(resetcmd){
+        this.uiParams.resetCommand = resetcmd;
+    }
+
+    getResetCommand(){
+        return this.uiParams.resetCommand;
+    }
+
+    sendResetCmd(cmd){
+        this.resetCmdObj = new resetCmd(cmd)
+    }
+    
     getProfileName(){
         return this.uiParams.profileName;
     }

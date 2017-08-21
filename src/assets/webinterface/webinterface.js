@@ -108,8 +108,8 @@ function updateScanList(scanned) {
     appDataService.setScannedData(scanned);
 }
 
-function reset() {
-    var data = getRequestFrame(SCCP_COMMAND.RESET);
+function resetCmd(resetCmd) {
+    var data = getRequestFrame(resetCmd);
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
