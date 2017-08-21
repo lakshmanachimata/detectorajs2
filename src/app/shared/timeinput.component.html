@@ -1,9 +1,12 @@
 <div class="time_container" (click)="showTimeInPut(timeType)">
 	<div class="time_adjust">
-		<span class='timehours' *ngIf="timeHours >= 0" >{{timeHours}}</span>
+		<span class='timehours' *ngIf="timeHours >= 0 && timeHours < 10" >0{{timeHours}}</span>
+		<span class='timehours' *ngIf="timeHours >= 0 && timeHours >= 10" >{{timeHours}}</span>
 		<span *ngIf="timeMins >= 0">:</span>
-		<span class='timemins' *ngIf="timeMins >= 0">{{timeMins}}</span>
+		<span class='timeMins' *ngIf="timeMins >= 0 && timeMins < 10" >0{{timeMins}}</span>
+		<span class='timeMins' *ngIf="timeMins >= 0 && timeMins >= 10" >{{timeMins}}</span>
 		<span *ngIf="timeSecs >= 0">:</span>
-		<span class='timesecs' *ngIf="timeSecs >= 0">{{timeSecs}}</span>
+		<span class='timeSecs' *ngIf="timeSecs >= 0 && timeSecs < 10" >0{{timeSecs}}</span>
+		<span class='timeSecs' *ngIf="timeSecs >= 0 && timeSecs >= 10" >{{timeSecs}}</span>
 	</div> 
 </div>

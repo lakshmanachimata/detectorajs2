@@ -258,9 +258,9 @@ export class UIParams {
       userPwdChanged = false;
       toBeSetInstallerPwd = "";
       toBeSetUserPwd="";
-      timeHours;
-      timeMins;
-      timeSecs;
+      timeHours:number;
+      timeMins:number;
+      timeSecs:number;
       sTimeComponent:any;
 
 }
@@ -2252,13 +2252,13 @@ export class DataService {
     }
 
     setTimeHours(hrs){
-        this.uiParams.timeHours = hrs;
+        this.uiParams.timeHours = parseInt(hrs);
     }
     setTimeMins(mins){
-        this.uiParams.timeMins = mins;
+        this.uiParams.timeMins = parseInt(mins);
     }
     setTimeSecs(secs){
-        this.uiParams.timeSecs = secs;
+        this.uiParams.timeSecs = parseInt(secs);
     }
 
     getTimeHours(){

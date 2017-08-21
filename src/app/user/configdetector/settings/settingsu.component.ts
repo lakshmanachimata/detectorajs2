@@ -73,6 +73,12 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnInit() {
     this.data.setMainTitle('Settings');
+    this.secondsToTimeValues(this.ad.nightLightStartTime,'nlstarttime')
+    this.secondsToTimeValues(this.ad.nightLightEndTime,'nlendtime')
+    this.secondsToTimeValues(this.ad.basicBrightnessStartTime,'brstarttime')
+    this.secondsToTimeValues(this.ad.basicBrightnessEndTime,'brendtime')
+    this.secondsToTimeValues(this.ad.presenceSimulationStartTime,'pestarttime')
+    this.secondsToTimeValues(this.ad.presenceSimulationEndTime,'peendtime')
 
     this.data.setOtherParam('','');
       // if(this.data.getDeviceConnectionState() == true){
@@ -114,8 +120,54 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
   ngOnDestroy() {
   }
-  setTime(type){
-
+  setTime(timetype){
+     let byteData = []
+    byteData.push(0);
+   if(timetype == 'nlstarttime'){
+      this.NLStartTimeHH = this.data.getTimeHours();
+      this.NLStartTimeMM = this.data.getTimeMins();
+      byteData.push(this.NLStartTimeHH);
+      byteData.push(this.NLStartTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }if(timetype == 'nlendtime'){
+      this.NLEndTimeHH = this.data.getTimeHours();
+      this.NLEndTimeMM = this.data.getTimeMins();
+      byteData.push(this.NLEndTimeHH);
+      byteData.push(this.NLEndTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }
+  if(timetype == 'brstarttime'){
+      this.BRStartTimeHH = this.data.getTimeHours();
+      this.BRStartTimeMM = this.data.getTimeMins();
+      byteData.push(this.BRStartTimeHH);
+      byteData.push(this.BRStartTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }if(timetype == 'brendtime'){
+      this.BREndTimeHH = this.data.getTimeHours();
+      this.BREndTimeMM = this.data.getTimeMins();
+      byteData.push(this.BREndTimeHH);
+      byteData.push(this.BREndTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }
+    if(timetype == 'pestarttime'){
+      this.PEStartTimeHH = this.data.getTimeHours();
+      this.PEStartTimeMM = this.data.getTimeMins();
+      byteData.push(this.PEStartTimeHH);
+      byteData.push(this.PEStartTimeHH);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }if(timetype == 'peendtime'){
+      this.PEEndTimeHH = this.data.getTimeHours();
+      this.PEEndTimeMM = this.data.getTimeMins();
+      byteData.push(this.PEEndTimeHH);
+      byteData.push(this.PEEndTimeHH);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
+   }
   }
 
   setBrTr(event: any){
@@ -259,32 +311,32 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
 
   
-secondsToString (sec_num,itemAttr) {
+secondsToTimeValues (sec_num,timetype) {
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
-    var shours = hours.toString();
-    var sminutes = minutes.toString();
-    var sseconds = seconds.toString();
 
-    if (hours   < 10) {shours   = "0"+shours;}
-    if (minutes < 10) {sminutes = "0"+sminutes;}
-    if (seconds < 10) {sseconds = "0"+sseconds;}
-
-    // switch(itemAttr){
-    //   case 'illuminationstart':
-    //     this.BRStartTime =  shours+' : '+sminutes;
-    //   break;
-    //   case 'illuminationend':
-    //     this.BREndTime =  shours+' : '+sminutes;
-    //   break;
-    //   case 'glarestart':
-    //     this.NLStartTime =  shours+' : '+sminutes;
-    //   break;
-    //   case 'glareend':
-    //     this.NLEndTime =  shours+' : '+sminutes;
-    //   break;
-    // }
+    if(timetype == 'nlstarttime'){
+      this.NLStartTimeHH = hours
+      this.NLStartTimeMM = minutes
+   }if(timetype == 'nlendtime'){
+      this.NLEndTimeHH = hours
+      this.NLEndTimeMM = minutes
+   }
+  if(timetype == 'brstarttime'){
+      this.BRStartTimeHH = hours
+      this.BRStartTimeMM = minutes
+   }if(timetype == 'brendtime'){
+      this.BREndTimeHH = hours
+      this.BREndTimeMM = minutes
+   }if(timetype == 'pestarttime'){
+      this.PEStartTimeHH = hours
+      this.PEStartTimeMM = minutes
+   }
+    if(timetype == 'peendtime'){
+      this.PEEndTimeHH = hours
+      this.PEEndTimeMM = minutes
+   }
   }
 
   setCurrentBr(event: any) { // without type info
@@ -299,10 +351,6 @@ secondsToString (sec_num,itemAttr) {
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
         this.data.setEDevParamsState(0);
-        this.secondsToString(this.ad.basicBrightnessStartTime,'illuminationstart')
-        this.secondsToString(this.ad.basicBrightnessEndTime,'illuminationend')
-        this.secondsToString(this.ad.nightLightStartTime,'glarestart')
-        this.secondsToString(this.ad.nightLightEndTime,'glareend')
       });
   }
     setLoadingDataDone(value){

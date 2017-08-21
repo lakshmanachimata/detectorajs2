@@ -17,6 +17,7 @@ export class TimeInputComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
   @Input() timeHours: number;
   @Input() timeMins: number;
   @Input() timeSecs: number;
+
   
   @Output() setTimeBack = new EventEmitter<any>();
 
@@ -25,7 +26,7 @@ export class TimeInputComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnChanges(changes) { 
   }
-  ngOnInit() { 
+  ngOnInit(){ 
   }
   showTimeInPut(timeType){
       this.data.setTimeHours(this.timeHours);

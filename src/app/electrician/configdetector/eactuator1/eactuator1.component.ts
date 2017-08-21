@@ -96,8 +96,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Settings of actuator 1'));
-    //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
-    //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
+    this.secondsToTimeValues(this.ad.nightLightStartTime,'nlstarttime')
+    this.secondsToTimeValues(this.ad.nightLightEndTime,'nlendtime')
+    this.secondsToTimeValues(this.ad.basicBrightnessStartTime,'brstarttime')
+    this.secondsToTimeValues(this.ad.basicBrightnessEndTime,'brendtime')
   }
   ngAfterContentInit() { 
   }
@@ -341,7 +343,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.basicBrightnessStartTime <= 0){
           this.ad.basicBrightnessStartTime = 86400;
         }
-        this.secondsToString(this.ad.basicBrightnessStartTime,item)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -353,7 +354,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.basicBrightnessEndTime <= 0){
           this.ad.basicBrightnessEndTime = 86400;
         }
-        this.secondsToString(this.ad.basicBrightnessEndTime,item)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -365,7 +365,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightStartTime <= 0){
           this.ad.nightLightStartTime = 86400;
         }
-        this.secondsToString(this.ad.nightLightStartTime,item)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -377,7 +376,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightEndTime <= 0){
           this.ad.nightLightEndTime = 86400;
         }
-        this.secondsToString(this.ad.nightLightEndTime,item)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -402,19 +400,37 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   setTime(timetype){
+    let byteData = []
+    byteData.push(0);
    if(timetype == 'nlstarttime'){
       this.NLStartTimeHH = this.data.getTimeHours();
       this.NLStartTimeMM = this.data.getTimeMins();
+      byteData.push(this.NLStartTimeHH);
+      byteData.push(this.NLStartTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
    }if(timetype == 'nlendtime'){
       this.NLEndTimeHH = this.data.getTimeHours();
       this.NLEndTimeMM = this.data.getTimeMins();
+      byteData.push(this.NLEndTimeHH);
+      byteData.push(this.NLEndTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
    }
   if(timetype == 'brstarttime'){
       this.BRStartTimeHH = this.data.getTimeHours();
       this.BRStartTimeMM = this.data.getTimeMins();
+      byteData.push(this.BRStartTimeHH);
+      byteData.push(this.BRStartTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
    }if(timetype == 'brendtime'){
       this.BREndTimeHH = this.data.getTimeHours();
       this.BREndTimeMM = this.data.getTimeMins();
+      byteData.push(this.BREndTimeHH);
+      byteData.push(this.BREndTimeMM);
+      byteData.push(0);
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
    }
   }
 
@@ -430,34 +446,25 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     return byteData;
   }
 
-  secondsToString (sec_num,itemAttr) {
+  secondsToTimeValues (sec_num,timetype) {
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
-    var shours = hours.toString();
-    var sminutes = minutes.toString();
-    var sseconds = seconds.toString();
 
-    if (hours   < 10) {shours   = "0"+shours;}
-    if (minutes < 10) {sminutes = "0"+sminutes;}
-    if (seconds < 10) {sseconds = "0"+sseconds;}
-
-    // switch(itemAttr){
-    //   case 'brightstart':
-    //     this.BRStartTime =  shours+' : '+sminutes;
-    //   break;
-    //   case 'brightend':
-    //     this.BREndTime =  shours+' : '+sminutes;
-    //   break;
-    //   case 'glarestart':
-    //     this.NLStartTimeHH =  hours
-    //     this.NLStartTimeMM = minutes;
-    //   break;
-    //   case 'glareend':
-    //     this.NLEndTimeHH  = hours;
-    //     this.NLEndTimeMM = minutes;
-    //   break;
-    // }
+    if(timetype == 'nlstarttime'){
+      this.NLStartTimeHH = hours
+      this.NLStartTimeMM = minutes
+   }if(timetype == 'nlendtime'){
+      this.NLEndTimeHH = hours
+      this.NLEndTimeMM = minutes
+   }
+  if(timetype == 'brstarttime'){
+      this.BRStartTimeHH = hours
+      this.BRStartTimeMM = minutes
+   }if(timetype == 'brendtime'){
+      this.BREndTimeHH = hours
+      this.BREndTimeMM = minutes
+   }
   }
 
   increaseCount(item, isClick) {
@@ -515,7 +522,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
         }
-        //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -527,7 +533,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
          if(this.ad.basicBrightnessEndTime >= 86400 ){
           this.ad.basicBrightnessEndTime = 0;
         }
-        //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -539,7 +544,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightStartTime >= 86400 ){
           this.ad.nightLightStartTime = 0;
         }
-        //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -551,7 +555,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         if(this.ad.nightLightEndTime >= 86400 ){
           this.ad.nightLightEndTime = 0;
         }
-        //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
         this.onBLEdata();
         if(isClick){
           let timeBytes = []
@@ -595,10 +598,6 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.softOnEnable = this.ad.softOnEnable;
         this.data.setEDevParamsState(0);
-        this.secondsToString(this.ad.basicBrightnessStartTime,'brightstart')
-        this.secondsToString(this.ad.basicBrightnessEndTime,'brightend')
-        this.secondsToString(this.ad.nightLightStartTime,'glarestart')
-        this.secondsToString(this.ad.nightLightEndTime,'glareend')
     });
   }
   setLoadingDataDone(value){
