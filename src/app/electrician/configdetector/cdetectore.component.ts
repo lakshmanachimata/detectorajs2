@@ -184,6 +184,16 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ACCESS_LEVEL,
                 SCCP_ATTRIBUTES.BUILDING,
                 ]
+
+    subcribeAttrs =[
+      SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
+      SCCP_ATTRIBUTES.OPERATION_MODE,
+      SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,
+      SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
+      SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,
+      SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
+      SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
+    ]
     constructor(public logger: LoggerService,public data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
@@ -437,6 +447,10 @@ slideBackground (value) {
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }
   onBLEdata() {
+    setTimeout(()=> 
+        this.subcribeForDetails(), 5000
+    )
+    
     this.loadingDataDone =  true;
     this.setDeviceInfo();
     this.data.addDevice(this.ad,false);
@@ -466,5 +480,8 @@ slideBackground (value) {
   }
   setLoadingDataDone(value){
     this.loadingDataDone = value;
+  }
+  subcribeForDetails(){
+    this.data.configureData(this.subcribeAttrs)
   }
 }

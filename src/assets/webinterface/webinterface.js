@@ -294,7 +294,7 @@ function prepareAttributeArray(indata) {
     }
     
     switch(indata[4]){
-        case 128: // standard response
+        case SCCP_COMMAND.STANDARD_RESPONSE: // standard response
         if(debugLogs ==  true)
             bjeLog("standard response     " + indata);
         if(indata[3] == 0x0A){
@@ -343,7 +343,7 @@ function prepareAttributeArray(indata) {
         }
 
         break;
-        case 131: // read attr resonse
+        case SCCP_COMMAND.READ_ATTRIBUTE_RESPONSE: // read attr resonse
         if(debugLogs ==  true)
             bjeLog("read attr response     " + indata);
         if(indata[3] == 0x09){
@@ -469,72 +469,94 @@ function prepareAttributeArray(indata) {
             bledata.datas.push(data);
         }
         break;
-        case 132: // write attr response
+        case SCCP_COMMAND.WRITE_ATTRIBUTE_RESPONSE: // write attr response
         if(debugLogs ==  true)
             bjeLog("write attr response     " + indata);
         break;
-        case 133: // configure attr response
+        case SCCP_COMMAND.CONFIGURE_REPORTING_RESPONSE: // configure attr response
         if(debugLogs ==  true)
             bjeLog("configure attr response     " + indata);
-         var dataLength = indata.length - 6;
-        var lastParseByteIndex = 4;
-        while(lastParseByteIndex <= dataLength  ) {
-            var key,value; 
-            switch(indata[lastParseByteIndex+3]){
-                case SCCP_DATATYPES.SCCP_TYPE_BOOL:
-                    key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
-                    lastParseByteIndex = lastParseByteIndex + 5;
+        break;
+        case SCCP_COMMAND.REPORT_ATTRIBUTE:
+             if(debugLogs ==  true)
+                bjeLog("report attribute     " + indata);
+            var dataLength = indata.length - 6;
+            var lastParseByteIndex = 4;
+            while(lastParseByteIndex <= dataLength  ) {
+                var key,value; 
+                switch(indata[lastParseByteIndex+3]){
+                    case SCCP_DATATYPES.SCCP_TYPE_BOOL:
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = indata[lastParseByteIndex+4]
+                        lastParseByteIndex = lastParseByteIndex + 4;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_STRING:
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = indata[lastParseByteIndex+4]
+                        lastParseByteIndex = lastParseByteIndex + 4;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = indata[lastParseByteIndex+5];
+                        var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                        lastParseByteIndex = lastParseByteIndex + 4;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_TIME:
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_UINT8:
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = indata[lastParseByteIndex+4]
+                        lastParseByteIndex = lastParseByteIndex + 4;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_UINT16:
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                        var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                        lastParseByteIndex = lastParseByteIndex + 5;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_UINT32:
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_UINT64:
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_INT8:
+                        key = indata[lastParseByteIndex+1];
+                        value = indata[lastParseByteIndex+4]
+                        lastParseByteIndex = lastParseByteIndex + 4;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_INT16:
+                        key = (indata[lastParseByteIndex+1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                        var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                        lastParseByteIndex = lastParseByteIndex + 5;
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_INT32:
+                        break;
+                    case SCCP_DATATYPES.SCCP_TYPE_INT64:
+                        break;
+                    default:
                     break;
-                case SCCP_DATATYPES.SCCP_TYPE_STRING:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
-                    key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
-                    lastParseByteIndex = lastParseByteIndex + 5;
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_TIME:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_UINT8:
-                    key = indata[lastParseByteIndex];
-                    value = indata[lastParseByteIndex+4]
-                    lastParseByteIndex = lastParseByteIndex + 5;
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_UINT16:
-                    
-                    key = (indata[lastParseByteIndex] | (indata[lastParseByteIndex +1] << 8 & 0xFF00));
-                    value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
-                    var data = {
-                    "attrType": key,
-                    "attrValue": value
-                    }
-                    lastParseByteIndex = lastParseByteIndex + 6;
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_UINT32:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_UINT64:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_INT8:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_INT16:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_INT32:
-                    break;
-                case SCCP_DATATYPES.SCCP_TYPE_INT64:
-                    break;
-                default:
-                break;
+                }
+                if(debugLogs == true)
+                    bjeLog("attrType  " + key + "   attrValue  " + value);
+                bledata.datas.push(data);
             }
-            if(debugLogs == true)
-                bjeLog("attrType  " + key + "   attrValue  " + value);
-            bledata.datas.push(data);
-        }
         break;
     }
     return bledata;
 }
+
+
 function setDataServiceCallBack(dataService) {
     appDataService = dataService;
 }
@@ -790,15 +812,6 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 frame.push((val & 0x00ff)); // VAL LOW
                 frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
                 counter += 5;
-                // if(val > 0xFF){
-                //     frame.push((val & 0x00ff)); // VAL LOW
-                //     frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
-                //     counter += 5;
-                // }else {
-                //     frame.push((val & 0x00ff)); // VAL LOW
-                //     frame.push(val > 0xFF ? (val >> 8) : 0x00); // VAL HIGH
-                //     counter += 5;
-                // }
             }
         }
         frame.unshift(6 + counter); // LENGTH            
@@ -814,19 +827,17 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
         var counter = 0;
         
         frame.push(0x08); // CONTROL DEVICE
-        frame.push(0x00); // SEQUENCE
+        frame.push(0x10); // SEQUENCE
         frame.push(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST); // command
         
         for (var i=0; i < data.length; i+=1) {
             var val = data[i];
             frame.push(val & 0x00ff); // ADDR LOW
             frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
-            i = i + 1; val = data[i];
-            frame.push((val & 0x00ff)); // MIN REPORTING INTERVAL LOW
-            frame.push(val > 0xFF ? (val >> 8) : 0x00); // MIN REPORTING INTERVAL HIGH
-            i = i + 1; val = data[i];
-            frame.push((val & 0x00ff)); // MAX REPORTING INTERVAL LOW
-            frame.push(val > 0xFF ? (val >> 8) : 0x00); // MAX REPORTING INTERVAL HIGH
+            frame.push(0x01); // MIN REPORTING INTERVAL HIGH
+            frame.push((0x00)); // MIN REPORTING INTERVAL LOW
+            frame.push(0x0A); // MAX REPORTING INTERVAL HIGH
+            frame.push((0x00)); // MAX REPORTING INTERVAL LOW
             counter += 6;
         }
         

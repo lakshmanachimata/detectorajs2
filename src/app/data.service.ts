@@ -957,7 +957,13 @@ export class DataService {
             break;
             case SCCP_COMMAND.AUTH_GEN_RANDOM_RESPONSE:
             break;
-            case SCCP_COMMAND.CONFIGURE_REPORTING_RESPONSE:
+            case SCCP_COMMAND.REPORT_ATTRIBUTE:
+                for(let i =0 ; i < indata.length; i++) {
+                    let atrType = indata[i].attrType;
+                    let atrValue = indata[i].attrValue;
+                    this.setBLEdataOnDeviceData(atrType,atrValue);
+                }
+                this.notifyActiveComponentWithBLEdata();
             break;
             default:
             break;
@@ -1130,8 +1136,8 @@ export class DataService {
         }
     }
 
-    configureData(data, length){
-        this.configureAttrObj =  new configureAttr(data);
+    configureData(dataArray){
+        this.configureAttrObj =  new configureAttr(dataArray);
     }
 
 

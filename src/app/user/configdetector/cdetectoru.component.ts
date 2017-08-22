@@ -49,6 +49,16 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
                 ]
 
+    subcribeAttrs =[
+      SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
+      SCCP_ATTRIBUTES.OPERATION_MODE,
+      SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,
+      SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
+      SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,
+      SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
+      SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
+    ]
+
     light1state = 0;
     loadingDataDone = false;
     constructor(public logger: LoggerService,public data: DataService, 
@@ -118,6 +128,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
     
   onBLEdata() {
+    setTimeout(()=> 
+        this.subcribeForDetails(), 5000
+    )
     this.loadingDataDone =  true;
     this.setDeviceInfo();
     this.zone.run( () => { // Change the property within the zone, CD will run after
@@ -147,5 +160,8 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.ad.updatedDate = data.updatedDate;
     this.ad.profileName = data.profileName;
     this.ad.btDeviceName = data.btDeviceName;
+  }
+  subcribeForDetails(){
+    this.data.configureData(this.subcribeAttrs)
   }
 }
