@@ -97,6 +97,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngDoCheck() { 
   }
   ngOnInit() {
+    this.data.setProfileSwitch(true)
      this.doDisConnect = true;
     this.data.setOtherParam('','');
     this.data.setShowOnlyCancel(true);
@@ -110,6 +111,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
+    this.data.setProfileSwitch(false)
     this.data.resetSendData();
     if(this.doDisConnect == true)
       this.data.disConnectDevice();

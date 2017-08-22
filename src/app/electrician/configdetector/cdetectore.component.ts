@@ -233,6 +233,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     if(this.data.getDeviceConnectionState() == true){
       this.data.readData(this.readAttrs);
     }
+    this.data.setProfileSwitch(true)
   }
   ngAfterContentInit() { 
   }
@@ -412,6 +413,7 @@ slideBackground (value) {
   }
 
   ngOnDestroy() {
+    this.data.setProfileSwitch(false)
     this.data.resetSendData();
     if(this.doDisConnect == true)
       this.data.disConnectDevice();

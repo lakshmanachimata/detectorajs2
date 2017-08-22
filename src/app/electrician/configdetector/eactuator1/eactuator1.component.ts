@@ -100,6 +100,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     this.secondsToTimeValues(this.ad.nightLightEndTime,'nlendtime')
     this.secondsToTimeValues(this.ad.basicBrightnessStartTime,'brstarttime')
     this.secondsToTimeValues(this.ad.basicBrightnessEndTime,'brendtime')
+    this.data.setProfileSwitch(true)
   }
   ngAfterContentInit() { 
   }

@@ -148,3 +148,52 @@ div.bj-user-container ul.bj-user-detectors-list li.bj-user-detector-name{
 .two-bars .bar:not(.first-bar):not(.second-bar) {      
   background-color: #37475B;
 }
+
+div.searching_spinner{
+	position: absolute;
+	bottom: 6%;
+	left: 22%;
+}
+
+.spinner {
+  animation: spin 1.5s linear infinite;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 100px auto 0;
+  border: 2px solid #1f94ed;
+  border-radius: 50%;
+  margin-left: 28%;
+}
+.spinner:after {
+  content: "";
+  width: 85%;
+  height: 85%;
+  background: -webkit-linear-gradient(45deg,#2d425b 0%,#2d425b 40%, rgba(45, 68, 92, 0.7) 60%, rgba(255, 255, 255, 0) 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-5%, -5%);
+}
+.spinner.moon {
+  border-left: 0;
+  border-top: 0;
+}
+.spinner.moon:after {
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

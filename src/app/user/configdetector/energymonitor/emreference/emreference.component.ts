@@ -33,7 +33,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   ngDoCheck() { 
   }
   ngOnInit() {
-    
+    this.data.setProfileSwitch(true)
   }
   ngAfterContentInit() { 
   }
@@ -44,6 +44,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
+    this.data.setProfileSwitch(false)
   }
 
     setCLoad(event: any){

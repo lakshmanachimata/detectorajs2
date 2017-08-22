@@ -109,7 +109,7 @@ function updateScanList(scanned) {
 }
 
 function resetCmd(resetCmd) {
-    var data = getRequestFrame(resetCmd);
+    var data = getResetCommandFrame(resetCmd);
     if(BJE != undefined){
         BJE.writeAttr(data);
         if(debugLogs == true)
@@ -560,6 +560,21 @@ function getEMDBRequestFrame(offset){
         frame.push(0x7e) // END BYTE
         return frame;
     
+}
+
+function getResetCommandFrame(cmd){
+        var frame = [];
+        var crc;
+        frame.push(0x06); // LENGTH AFTER THIS BYTE
+        frame.push(0x08); // CONTROL DEVICE
+        frame.push(0x00); // SEQUENCE
+        frame.push(cmd); // command
+        crc = crcCCITT(frame)
+        frame.push(crc >> 8); // CRC LOWER
+        frame.push(crc & 0x00ff); // CRC UPPER
+        frame.unshift(0x7e) // START BYTE
+        frame.push(0x7e) // END BYTE
+        return frame;
 }
 
 function getAddrLenRequestFrame(){

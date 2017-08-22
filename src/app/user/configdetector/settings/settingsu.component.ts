@@ -79,7 +79,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.secondsToTimeValues(this.ad.basicBrightnessEndTime,'brendtime')
     this.secondsToTimeValues(this.ad.presenceSimulationStartTime,'pestarttime')
     this.secondsToTimeValues(this.ad.presenceSimulationEndTime,'peendtime')
-
+    this.data.setProfileSwitch(true)
     this.data.setOtherParam('','');
       // if(this.data.getDeviceConnectionState() == true){
       //   this.data.readData(this.readAttrs);
@@ -119,6 +119,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
+    this.data.setProfileSwitch(false)
   }
   setTime(timetype){
      let byteData = []

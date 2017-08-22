@@ -39,14 +39,18 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.selectedDevice = false;
     }
   configureDetector(item){
+      if(this.data.getAccessLevel() == 2){
+        this.jsonOnLoad(this)
+      }else{
       this.selectedDevice = true;
       this.data.setSelectedDevice(item,false);
       if(this.data.DeviceBuild == 1) {
-        if(this.data.getDeviceConnectionState() == false)
+        if(this.data.getDeviceConnectionState() == false){
           if(this.data.isIPhone == 1)
             this.data.connectDevice(item.btIAddress);
           else
             this.data.connectDevice(item.btAddress); 
+        }
         else 
           this.data.setAccessLevel();
       }
@@ -54,6 +58,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.isDeviceConnected = true;
         this.data.initDeviceData(false);
       }
+  }
   }
 
   showPWDDialog(){
@@ -159,14 +164,14 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
-    if(component.isDeviceConnected == true){
-      //component.data.setProfileSwitch(false);
+    if(this.data.getDeviceConnectionState() == true){
       component.router.navigate(['econfigdetector'],{relativeTo: component.route});
     }
   }
 
   ngOnDestroy() {
     this.data.resetSendData();
+    this.data.setProfileSwitch(false)
     if(this.selectedDevice == false &&  !(this.data.getProfile() == 'user')){
       this.data.killMe();     
     } 

@@ -207,11 +207,13 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ngDoCheck() { 
   }
   ngOnInit() {
-      this.data.setMainTitle(this.data.getOtherParamTitle());
-      this.getInstallerPwd();
-      this.getUserPwd();
-      this.data.userPasswordChanged(false)
-      this.data.installerPasswordChanged(false)
+    if(this.data.getOtherParam() == 'energymonitor')
+      this.data.setProfileSwitch(true)
+    this.data.setMainTitle(this.data.getOtherParamTitle());
+    this.getInstallerPwd();
+    this.getUserPwd();
+    this.data.userPasswordChanged(false)
+    this.data.installerPasswordChanged(false)
   }
   ngAfterContentInit() { 
   }

@@ -50,6 +50,7 @@ TotalSavingsYearValue = 759;
     this.maxYear = Math.max.apply(Math,this.ad.energyMonitor.energyMonitorYearData.map(function(o){return o.data;}));
     this.maxMonth = (Math.round(this.maxMonth/10)*10) + 10;
     this.maxYear = (Math.round(this.maxYear/10)*10) + 10;
+    this.data.setProfileSwitch(true)
     // this.data.readEMDB(0);
   }
   ngAfterContentInit() { 
@@ -68,7 +69,7 @@ TotalSavingsYearValue = 759;
   }
   resetEM() {
     this.data.setDialogTitle(this.translater.translate("Reset "));
-    this.data.setDialogText(this.translater.translate("Reset energy monitor"));
+    this.data.setDialogText(this.translater.translate("Reset energy monitor ?"));
     this.data.setShowModal(true);
     this.data.setResetCommand(0x40)
   }

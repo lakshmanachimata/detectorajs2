@@ -41,21 +41,25 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       this.selectedDevice = false;
     }
   configureDetectorUser(item){
-    this.selectedDevice = true;
-      this.data.setSelectedDevice(item,false);
-      if(this.data.DeviceBuild == 1) {
-        if(this.data.getDeviceConnectionState() == false)
-          if(this.data.isIPhone == 1)
-            this.data.connectDevice(item.btIAddress);
-          else
-            this.data.connectDevice(item.btAddress); 
-        else 
-          this.data.setAccessLevel();
-      }
-      else {
-        this.isDeviceConnected = true;
-        this.data.initDeviceData(false);
-      }
+    if(this.data.getAccessLevel() == 2){
+      this.jsonOnLoad(this);
+    }else {
+      this.selectedDevice = true;
+        this.data.setSelectedDevice(item,false);
+        if(this.data.DeviceBuild == 1) {
+          if(this.data.getDeviceConnectionState() == false)
+            if(this.data.isIPhone == 1)
+              this.data.connectDevice(item.btIAddress);
+            else
+              this.data.connectDevice(item.btAddress); 
+          else 
+            this.data.setAccessLevel();
+        }
+        else {
+          this.isDeviceConnected = true;
+          this.data.initDeviceData(false);
+        }
+    }
   }
   showPWDDialog(){
         this.data.setEOptionText(this.translater.translate('OK'));
@@ -157,8 +161,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
 
   jsonOnLoad(component) {
-     if(component.isDeviceConnected == true){
-      //component.data.setProfileSwitch(false);
+     if(this.data.getDeviceConnectionState() == true){
       component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
      }
   }

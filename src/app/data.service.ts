@@ -797,6 +797,7 @@ export class DataService {
     }
 
     sendResetCmd(cmd){
+        if(this.DeviceBuild == 1)
         this.resetCmdObj = new resetCmd(cmd)
     }
     

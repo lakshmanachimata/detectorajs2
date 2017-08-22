@@ -6,7 +6,7 @@
         <span id="bj-back-glyph" class="glyphicon glyphicon-menu-left"></span>
     </div>-->
 	<div id="bj-menu-head" >{{ getTitle() }}</div>
-	<div id="bj-nav" (click)="switchProfile()" *ngIf="arrowType() != -1 && data.getProfileSwitch() && data.getAccessLevel() == 2">
+	<div id="bj-nav" (click)="switchProfile()" *ngIf="(arrowType() != -1 && data.getProfileSwitch()) && ((data.getAccessLevel() == 2 && getProfile() == 'user') || getProfile() == 'electrician')">
 	    <!--<span ng-class="{'glyphicon glyphicon-home':(!showMenu && !menuItem && !configureDetector)}"></span>-->
 		<span class="glyphicon glyphicon-home"></span>
 	</div>
