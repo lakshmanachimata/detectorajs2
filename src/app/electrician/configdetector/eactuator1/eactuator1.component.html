@@ -352,7 +352,7 @@
         </div>
     </div>
     <!--time-shifted switch off-->
-    <div class="bj-config-setting-div actuator1-time-shifted-switchoff-div" style="border-bottom:none;">
+    <div class="bj-config-setting-div actuator1-time-shifted-switchoff-div" style="border-bottom:none;" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
         <div class="bj-config-setting inner-setting actuator1 heading">
             <label class="actuator-time-shifted-switchoff-lbl" >{{ this.data.getTranslatedString("Stepwise switch-off") }}</label>
             <div class="bj-actuator-toggle" (click)="showTimeShiftedSwitchOffSettings =!showTimeShiftedSwitchOffSettings">

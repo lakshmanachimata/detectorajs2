@@ -164,9 +164,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   jsonOnLoad(component) {
-    if(this.data.getDeviceConnectionState() == true){
-      component.router.navigate(['econfigdetector'],{relativeTo: component.route});
-    }
+    // if(this.data.getDeviceConnectionState() == true && this.data.DeviceBuild == 1){
+      
+    // }
+    // else {
+
+    // }
+    component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
 
   ngOnDestroy() {

@@ -51,7 +51,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     sdelayerror = false;
     aslider = 'none';
     showSlider = false;
-    brSubScribed = false;
     loadingDataDone = false;
     readAttrs =[
                 //packet1
