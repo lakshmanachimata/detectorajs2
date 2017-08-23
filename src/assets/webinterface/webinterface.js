@@ -806,7 +806,16 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 frame.push(data[i+4]) 
                 counter += 7;
                 i = i + 4;
-            }else {
+            }else if(val == 2){
+                arraylength = data[i+1].length;
+                arraydata = data[i+1];
+                for(var sl =0; sl<arraylength; sl++){
+                    frame.push(arraydata[sl])
+                }
+                counter+=arraylength+3;
+                i = i + 1;
+            }
+            else {
                 i = i + 1; 
                 val = data[i];
                 frame.push((val & 0x00ff)); // VAL LOW

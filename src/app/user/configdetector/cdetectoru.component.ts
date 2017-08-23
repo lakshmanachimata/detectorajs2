@@ -127,15 +127,21 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.disConnectDevice();
   }
     
-  onBLEdata() {
+  onBLEdata(isRead) {
     setTimeout(()=> 
         this.subcribeForDetails(), 5000
     )
     this.loadingDataDone =  true;
-    this.setDeviceInfo();
+    if(isRead)
+      this.setDeviceInfo();
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
         this.data.setEDevParamsState(0);
+      });
+  }
+  onReportBLEdata() {
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
       });
   }
 

@@ -1,7 +1,7 @@
 <div class="bj-config-container">
       <div class="bj-config-detector-name-wrap">
          <div id="bj-config-detector-name">
-                <input id="device-name-input" type="text" name="deviceName" [(ngModel)]="activeDevice.btDeviceName">
+                <input id="device-name-input" type="text" name="deviceName"  (keyup)="setDevName($event)" [(ngModel)]="detectorName" >
          </div>
       </div>
       <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />

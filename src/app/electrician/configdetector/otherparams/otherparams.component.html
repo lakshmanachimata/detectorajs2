@@ -233,11 +233,11 @@
 <div id="bj-building-alloc-settings-div"  *ngIf="getOtherParam()=='buildingallocation'">
     <label class="bj-config-lbl building-alloc-contact-div" >{{ this.data.getTranslatedString("Contact Name") }}</label>
     <div id="bj-building-alloc-contact">
-        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}" (ngModelChange)="CNameChanged()" [(ngModel)]="ad.contact">
+        <input class="bj-configure-input" type="text"  [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setCName($event)"  [(ngModel)]="contactName">
     </div>
     <label class="bj-config-lbl building-alloc-building-div" >{{ this.data.getTranslatedString("Building") }}</label>
     <div id="bj-building-alloc-building">
-        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" (ngModelChange)="BuildingChanged()" [(ngModel)]="ad.building">
+        <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setBName($event)"  [(ngModel)]="buildingName">
     </div>
 </div>
 <div id="bj-release-to-user-dev" *ngIf="getOtherParam()=='releasetouser'">

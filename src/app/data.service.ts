@@ -902,10 +902,14 @@ export class DataService {
     }
     
 
-    notifyActiveComponentWithBLEdata() {
+    notifyActiveComponentWithBLEdata(isReport,isRead) {
         if(this.activeComponent != undefined) {
-            this.activeComponent.onBLEdata();
-             this.setEDevParamsState(0)
+            if(isReport){
+                this.activeComponent.onReportBLEdata();
+            }else{
+                this.activeComponent.onBLEdata(isRead);
+                this.setEDevParamsState(0)
+            }
         }
     }
 
@@ -932,7 +936,7 @@ export class DataService {
                     this.readData(this.readArray);
                 }else {
                     this.putDevicesToCloud(false);
-                    this.notifyActiveComponentWithBLEdata()
+                    this.notifyActiveComponentWithBLEdata(false,true)
                 }
             break;
             case SCCP_COMMAND.WRITE_ATTRIBUTE_RESPONSE:
@@ -949,7 +953,7 @@ export class DataService {
                 if(this.writeArray.length > 0){
                     this.sendChangedParams();
                 }else {
-                    this.notifyActiveComponentWithBLEdata()
+                    this.notifyActiveComponentWithBLEdata(false,false)
                     this.putDevicesToCloud(false);
                 }
             break;
@@ -963,7 +967,7 @@ export class DataService {
                     let atrValue = indata[i].attrValue;
                     this.setBLEdataOnDeviceData(atrType,atrValue);
                 }
-                this.notifyActiveComponentWithBLEdata();
+                this.notifyActiveComponentWithBLEdata(true,false);
             break;
             default:
             break;
@@ -2299,8 +2303,10 @@ export class DataService {
     setBLEdataOnDeviceData(attrType,attrValue){
         switch(attrType) {
             case SCCP_ATTRIBUTES.FIRMWARE_VERSION                                        :
+                this.uiParams.devicesObj.DeviceData.firmwareVersion = attrValue;
             break;
             case SCCP_ATTRIBUTES.BT_DEVICE_NAME                                          :
+                this.uiParams.devicesObj.DeviceData.btDeviceName = attrValue;
             break;
             case SCCP_ATTRIBUTES.ARTICLE_NUMBER                                          : 
             break;

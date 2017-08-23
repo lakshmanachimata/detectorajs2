@@ -40,6 +40,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   searchText = '';
   masterQuad = 'q1';
   loadingDataDone = false;
+  contactName;
+  buildingName;
       readAttrs =[
                   SCCP_ATTRIBUTES.CONTACT,
                   SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
@@ -207,6 +209,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ngDoCheck() { 
   }
   ngOnInit() {
+    this.contactName = this.ad.contact;
+    this.buildingName = this.ad.building;
     if(this.data.getOtherParam() == 'energymonitor')
       this.data.setProfileSwitch(true)
     this.data.setMainTitle(this.data.getOtherParamTitle());
@@ -312,23 +316,29 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       });
   }
   
-  CNameChanged() {
-    var bytes = []; // char codes
-    for (var i = 0; i < this.ad.contact.length; ++i) {
-      var code = this.ad.contact.charCodeAt(i);
-      bytes = bytes.concat([code]);
+  setCName(event: any) {
+  if(this.contactName.length <= 0 ){
+        
+    }else {
+        var nameBytes = [];
+        for (var i = 0; i < this.contactName.length; i++){  
+            nameBytes.push(this.contactName.charCodeAt(i));
+        }
+        nameBytes.push(0)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
     }
-    bytes.concat[0];
-    this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,bytes])
   }
-  BuildingChanged() {
-    var bytes = []; // char codes
-    for (var i = 0; i < this.ad.building.length; ++i) {
-      var code = this.ad.contact.charCodeAt(i);
-      bytes = bytes.concat([code]);
+  setBName(event: any) {
+    if(this.buildingName.length <= 0 ){
+        
+    }else {
+        var nameBytes = [];
+        for (var i = 0; i < this.buildingName.length; i++){  
+            nameBytes.push(this.buildingName.charCodeAt(i));
+        }
+        nameBytes.push(0)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
     }
-    bytes.concat[0];
-    this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,this.ad.building])
   }
   togglepbr(){
     this.ad.enableUserSetBrightnessThreshold = !this.ad.enableUserSetBrightnessThreshold

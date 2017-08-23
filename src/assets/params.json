@@ -1,5 +1,5 @@
 {
-"btDeviceName": "DaliMaster",
+"btDeviceName": "",
 "btAddress": "",
 "btIAddress": "",
 "modelNumber": "",
@@ -111,8 +111,8 @@
 "energyMonitorLightingDuration":0,
 "energyMonitorLightingDurationMin":0,
 "energyMonitorLightingDurationMax":0,
-"contact":"DIRK GOLDYN",
-"building":"BUSCH-JAEGER",
+"contact":"",
+"building":"",
 "enableUserSetBrightnessThreshold":false,
 "enableUserSetSwitchOffDelay":false,
 "enableUserEnergyMonitor":false,

@@ -51,6 +51,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     sdelayerror = false;
     aslider = 'none';
     showSlider = false;
+    detectorName;
     loadingDataDone = false;
     readAttrs =[
                 //packet1
@@ -204,7 +205,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.showSlider = false;
       this.data.setActiveComponent(this);
       this.data.setEDevParamsState(0);
-
+      this.detectorName = this.ad.btDeviceName;
       // else {
       //   this.loadingDataDone = true;
       // }
@@ -317,6 +318,18 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
 
+  setDevName(event: any){
+    if(this.detectorName.length <= 0 ){
+        
+    }else {
+        var nameBytes = [];
+        for (var i = 0; i < this.detectorName.length; i++){  
+            nameBytes.push(this.detectorName.charCodeAt(i));
+        }
+        nameBytes.push(0)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BT_DEVICE_NAME,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
+    }
+  }
   setBrTr(event: any){
     if(event.target.value < this.ad.brightnessThresholdMin ){
       this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
@@ -445,13 +458,13 @@ slideBackground (value) {
     this.doDisConnect = false;
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }
-  onBLEdata() {
+  onBLEdata(isRead) {
     setTimeout(()=> 
         this.subcribeForDetails(), 5000
     )
-    
     this.loadingDataDone =  true;
-    this.setDeviceInfo();
+    if(isRead)
+      this.setDeviceInfo();
     this.data.addDevice(this.ad,false);
     this.data.checkAndAddDeviceToInstalledDevices();
     this.zone.run( () => { // Change the property within the zone, CD will run after
@@ -459,9 +472,17 @@ slideBackground (value) {
         this.data.setEDevParamsState(0);
       });
   }
+
+  onReportBLEdata() {
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+      });
+  }
+
   setDeviceInfo(){
     let data = this.data.getSelectedDevice(false);
     this.ad.btDeviceName = data.btDeviceName;
+    this.detectorName = this.ad.btDeviceName;
     this.ad.btAddress = data.btAddress;
     this.ad.btIAddress = data.btIAddress;
     this.ad.modelNumber = data.modelNumber;
@@ -475,7 +496,6 @@ slideBackground (value) {
     this.ad.rssi = data.rssi;
     this.ad.updatedDate = data.updatedDate;
     this.ad.profileName = data.profileName;
-    this.ad.btDeviceName = data.btDeviceName;
   }
   setLoadingDataDone(value){
     this.loadingDataDone = value;
