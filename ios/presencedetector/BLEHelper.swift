@@ -83,8 +83,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + (30 * 60 )) {
             self.stopscan();
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + (5 * 60)) {
+    }
+    
+    func showNoDevicesAvailable(timeout: Double){
+        DispatchQueue.main.asyncAfter(deadline: .now() + (timeout)) {
             if(self.peripherals.count <= 0){
                 
                 var demoModeData:Dictionary<String,Int> = [:]
@@ -99,7 +101,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 }
             }
         }
-        
     }
     
     func stopscan(){
@@ -188,9 +189,11 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         if central.state == CBManagerState.poweredOn {
             print("Bluetooth available.")
             startscan();
+            //showNoDevicesAvailable(timeout: 5 * 60);
         } else {
             print("Bluetooth not available.")
         }
+        showNoDevicesAvailable(timeout: 5);
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {

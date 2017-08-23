@@ -219,6 +219,9 @@ public class MainActivity extends Activity {
     int memoryType;
     public  static boolean isUpdateFWStart =  false;
 
+    String certText = "";
+    String keyText = "";
+    String keyOrgText = "";
 
     BluetoothDevice bluetoothDevice;
     Animation in;
@@ -301,7 +304,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         PackageInfo pInfo = null;
-        String buildDate= "2017-08-08\n11:00:00";
+        String buildDate= "2017-08-23\n13:00:00";
         mHandler = new Handler();
         currentLocale = getResources().getConfiguration().locale;
         try {
@@ -499,7 +502,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "NO DEVICES ARE AVAILABLE",Toast.LENGTH_LONG).show();
                 }
             }
-        },5 * 60 * 1000);
+        },5 * 1 * 1000);
     }
     public void killApp(){
         if(scanner != null)
@@ -529,6 +532,30 @@ public class MainActivity extends Activity {
             catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+    void preparePemFile(){
+        try {
+            String filesPath = getFilesDir().getAbsolutePath();
+            String pemFilePath = filesPath.concat("/client.pem");
+            File pemFile = new File(pemFilePath);
+            if (pemFile.exists()) {
+                pemFile.delete();
+            }
+            pemFile.createNewFile();
+
+            FileOutputStream fOut = new FileOutputStream(pemFile);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(keyOrgText);
+            myOutWriter.append(certText);
+
+            myOutWriter.close();
+
+            fOut.flush();
+            fOut.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -566,8 +593,12 @@ public class MainActivity extends Activity {
 
 
                                 JSONObject certiData = new JSONObject();
-                                String text = String.copyValueOf(sendData);
-                                certiData.put("data",text);
+                                certText = String.copyValueOf(sendData);
+                                if(certText.length() > 10 && keyText.length() > 10){
+                                    preparePemFile();
+                                }
+
+                                certiData.put("data",certText);
                                 String certData = "";
                                 certData = certData + "setCertData(";
                                 certData =  certData + certiData.toString()+ ")";
@@ -594,8 +625,13 @@ public class MainActivity extends Activity {
                                 }
 
                                 JSONObject keyiData = new JSONObject();
-                                String text = String.copyValueOf(sendData);
-                                keyiData.put("data",text);
+                                 keyText = String.copyValueOf(sendData);
+                                keyOrgText = String.copyValueOf(sendData);
+                                 if(certText.length() > 10 && keyText.length() > 10){
+                                     preparePemFile();
+                                 }
+
+                                keyiData.put("data",keyText);
 
                                 String keyData = "";
                                 keyData =  keyData + "setKeyData(";
@@ -620,9 +656,9 @@ public class MainActivity extends Activity {
 
                                 try{
                                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-                                    text = text.replace("-----BEGIN PRIVATE KEY-----\n","");
-                                    text = text.replace("-----END PRIVATE KEY-----","");
-                                myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                    keyText = keyText.replace("-----BEGIN PRIVATE KEY-----\n","");
+                                    keyText = keyText.replace("-----END PRIVATE KEY-----","");
+                                myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(keyText,0)));
                                 String algorithm = keyFactory.getAlgorithm();
                                 //algorithm = "RSA";
                                 //publicKey = keyFactory.generatePublic(keySpec);
@@ -630,13 +666,13 @@ public class MainActivity extends Activity {
                                 {
                                     try {
                                         KeyFactory keyFactory = KeyFactory.getInstance("DSA");
-                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(keyText,0)));
                                         String algorithm = keyFactory.getAlgorithm();
                                         //publicKey = keyFactory.generatePublic(keySpec);
                                     } catch (InvalidKeySpecException excep2) {
 
                                         KeyFactory keyFactory = KeyFactory.getInstance("EC");
-                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(text,0)));
+                                        myBJEKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(Base64.decode(keyText,0)));
 
                                     } catch(Exception e){
                                         e.printStackTrace();   // inner catch
