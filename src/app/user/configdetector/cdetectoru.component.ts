@@ -49,7 +49,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
                 ]
 
-    subcribeAttrs =[
+    updateSubcribeAttrs =[
       SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
       SCCP_ATTRIBUTES.OPERATION_MODE,
       SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,
@@ -123,14 +123,16 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnDestroy() {
     this.data.setProfileSwitch(false)
     this.data.resetSendData();
-    if(this.doDisConnect == true)
+    if(this.doDisConnect == true && this.data.getProfile() == 'user')
       this.data.disConnectDevice();
   }
     
   onBLEdata(isRead) {
-    setTimeout(()=> 
-        this.subcribeForDetails(), 5000
-    )
+    if(isRead){
+      setTimeout(()=> 
+          this.subcribeForDetails(), 1000
+      )
+    }
     this.loadingDataDone =  true;
     if(isRead)
       this.setDeviceInfo();
@@ -168,6 +170,6 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.ad.btDeviceName = data.btDeviceName;
   }
   subcribeForDetails(){
-    this.data.configureData(this.subcribeAttrs)
+    this.data.configureData(this.updateSubcribeAttrs)
   }
 }

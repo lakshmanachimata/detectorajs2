@@ -39,7 +39,9 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.selectedDevice = false;
     }
   configureDetector(item){
+    
       if(this.data.getAccessLevel() == 2){
+        this.selectedDevice = true;
         this.jsonOnLoad(this)
       }else{
       this.selectedDevice = true;

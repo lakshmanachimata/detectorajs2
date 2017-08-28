@@ -60,7 +60,7 @@
                   <div class="track"  (click)="toggleDP()"  [(ngModel)]="ad.testModeDeactivateOutputsEnable" [ngStyle]="{'border-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="ad.testModeDeactivateOutputsEnable == true">{{onLabel}}</label>
                     <label class="switch-offlabel" *ngIf="ad.testModeDeactivateOutputsEnable == false">{{offLabel}}</label>
-                    <div class="switch" [ngClass]="{'switch-on':ad.testModeDeactivateOutputsEnable == true,'switch-off':DeactivateOp == false }" [ngStyle]="{'background-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#ccc'}">
+                    <div class="switch" [ngClass]="{'switch-on':ad.testModeDeactivateOutputsEnable == true,'switch-off':ad.testModeDeactivateOutputsEnable == false }" [ngStyle]="{'background-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#ccc'}">
                     </div>
                 </div>
                 </span>

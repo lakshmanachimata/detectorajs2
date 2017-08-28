@@ -3,8 +3,9 @@
 <submenu-root *ngIf="data.getMenuArrow() == 2"></submenu-root>
 <dialog-root *ngIf="data.getShowModal() == true"></dialog-root>
 <edialog-root *ngIf="data.getShowEModal() == true"></edialog-root>
- <settime-root *ngIf="data.getTimeModal() == true"></settime-root> 
+<settime-root *ngIf="data.getTimeModal() == true"></settime-root> 
 <cdetectori-root *ngIf="data.getShowCDI() == 0"></cdetectori-root>
 <iparams-root *ngIf="data.getShowCDI() == 1"></iparams-root>
+ <!-- <testmode-root *ngIf="data.getShowTestMode() == 1"></testmode-root>  -->
 <router-outlet></router-outlet>
 <footer-root *ngIf="data.getFooter() == true"></footer-root>

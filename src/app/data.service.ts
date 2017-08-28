@@ -2,6 +2,8 @@ import {Injectable,EventEmitter} from '@angular/core';
 import {Http,Headers,RequestOptions,RequestOptionsArgs,Response,RequestMethod} from '@angular/http';
 import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
+import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
+
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
 import * as https from 'https';
@@ -433,9 +435,12 @@ export class DataService {
     emDBData = new Array<emEntryData>();
     isIPhone = 0;
     isAPhone = 0;
+    deviceTestMode = 0;
     safariSubtle:any;
+    currentRoute = '';
     static dataService:DataService;
-    constructor(private http:Http,public logger: LoggerService,private translater:i18nService) {
+    constructor(private http:Http,public logger: LoggerService,private translater:i18nService,
+        private router:Router,private route:ActivatedRoute) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
@@ -974,6 +979,24 @@ export class DataService {
         }
     }
 
+    setShowTestMode(testmode){
+        this.deviceTestMode =  testmode;
+        if(this.deviceTestMode == 1){
+            this.currentRoute = this.router.routerState.snapshot.url.toString();
+            this.setOtherParam('testmode','Test mode')
+            this.router.navigate(['/electrician/econfigdetector/otherparams'])
+        }else {
+            if(this.currentRoute.length > 0){
+                this.router.navigate([this.currentRoute])
+                this.currentRoute = '';
+            }
+        }
+    }
+
+    getShowTestMode(){
+        return this.deviceTestMode;
+    }
+
     onInstallerPwdSetSuccess(){
         this.activeComponent.onInstallerPwdSetSuccess();
         this.installerPasswordChanged(false)
@@ -1015,6 +1038,7 @@ export class DataService {
         this.setAccessLevelRequsetedAddress(btaddress)
     }
     disConnectDevice(){
+        this.logger.log('disconnect device is called')
         if(this.deviceParams.deviceConnected ==  true){
             this.disConnectDeviceObj = new disConnectDevice()
             this.setAccessLevelRequsetedAddress('')
@@ -1022,7 +1046,6 @@ export class DataService {
     }
 
     setAccessLevelRequsetedAddress(address){
-        this.logger.log("btAddress Selecetd for AccessLevel " + address)
         this.deviceParams.accessLevelRequsetedAddress = address;
     }
     getAccessLevelRequsetedAddress(){
@@ -1030,18 +1053,20 @@ export class DataService {
     }
 
     setAccessLevel(){
-        this.logger.log("lakshmana  setAccessLevel called ")
         setTimeout(()=> 
             this.setAccessLevelNow(), 250
         )
     }
 
     setAccessLevelNow(){
-        this.logger.log("lakshmana  setAccessLevelNow called ")
-        if(this.getProfile()=='user'){
-            this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x01)
+        if(this.DeviceBuild == 1){
+            if(this.getProfile()=='user'){
+                this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x01)
+            }else{
+                this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x02)
+            }
         }else{
-            this.setDeviceAccessLevelObj = new setDeviceAccessLevel(0x02)
+            this.onAccessLevelUpdate(2)
         }
     }
     getAccessLevel(){
@@ -2647,7 +2672,9 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.ch2OnOffState = attrValue 
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
+                this.logger.log("setting testmode value here " + attrValue)
                 this.uiParams.devicesObj.DeviceData.testModeEnable = attrValue 
+                this.setShowTestMode(attrValue)
             break;
             case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
                 this.uiParams.devicesObj.DeviceData.accessLevel = attrValue  

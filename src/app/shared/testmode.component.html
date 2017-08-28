@@ -1,0 +1,67 @@
+<div class="bj-testmode-div">
+    <label class="bj-config-lbl testmode-master-lbl" >{{ this.data.getTranslatedString("Master") }}</label>
+    <div class="testmode-master-div">
+        <div class="testmode-top-quadrants">
+            <div class="testmode-quadrant q1" [ngStyle]="{'background':masterQuad=='q1' ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q1-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q1')">
+            </div>
+            <div class="testmode-quadrant q2" [ngStyle]="{'background':masterQuad=='q2' ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q2-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q2')">
+            </div>
+        </div>
+        <div id="testmode-master-inner-ring">
+            <div id="testmode-master-inner-icon">
+                <span class="glyphicon glyphicon-modal-window"></span>
+                <div class="testmode-sensor-status"></div>
+            </div>
+        </div>
+        <div class="testmode-bottom-quadrants">
+            <div class="testmode-quadrant q3" [ngStyle]="{'background':masterQuad=='q3' ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q3-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q3')">
+            </div>
+            <div class="testmode-quadrant q4" [ngStyle]="{'background':masterQuad=='q4' ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q4-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q4')">
+            </div>
+        </div>
+    </div>
+    <div class="bj-config-setting-div testmode-slave-div">
+        <label class="bj-config-setting testmode-slave-block" >{{ this.data.getTranslatedString("Slaves") }}</label>
+        <img class="slave-dis" src="assets/icons/14_004_user_dis.svg" alt="slave_disabled">
+    </div>
+    <div id="testmode-settings-block">
+        <label class="bj-config-lbl testmode-settings-test-lbl" >{{ this.data.getTranslatedString("Test mode settings") }}</label>
+        <div class="bj-config-setting-div testmode-settings-test-actuator1-div" >
+            <label class="bj-config-setting testmode-settings-test-actuator1-block" >{{ this.data.getTranslatedString("Identify load on actuator 1") }}</label>
+                <span class="bj-config-toggle-switch">
+                   <div class="track"  (click)="togglech1ID()"  [(ngModel)]="ad.ch1IdentifyingLoad" [ngStyle]="{'border-color': ad.ch1IdentifyingLoad == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="ad.ch1IdentifyingLoad == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="ad.ch1IdentifyingLoad == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':ad.ch1IdentifyingLoad == true,'switch-off':ad.ch1IdentifyingLoad == false }" [ngStyle]="{'background-color': ad.ch1IdentifyingLoad == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
+                </span>
+        </div>
+        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+            <label class="bj-config-setting testmode-settings-test-actuator2-block" >{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
+                <span class="bj-config-toggle-switch">
+                  <div class="track"  (click)="togglech2ID()"  [(ngModel)]="ad.ch2IdentifyingLoad" [ngStyle]="{'border-color': ad.ch2IdentifyingLoad == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="ad.ch2IdentifyingLoad == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="ad.ch2IdentifyingLoad == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':ad.ch2IdentifyingLoad == true,'switch-off':ad.ch2IdentifyingLoad == false }" [ngStyle]="{'background-color': ad.ch2IdentifyingLoad == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
+                </span>
+        </div>
+        <div class="bj-config-setting-div testmode-settings-test-deactivate-div" >
+            <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivation of outputs</label>
+                <span class="bj-config-toggle-switch">
+                  <div class="track"  (click)="toggleDP()"  [(ngModel)]="ad.testModeDeactivateOutputsEnable" [ngStyle]="{'border-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
+                    <label class="switch-onlabel" *ngIf="ad.testModeDeactivateOutputsEnable == true">{{onLabel}}</label>
+                    <label class="switch-offlabel" *ngIf="ad.testModeDeactivateOutputsEnable == false">{{offLabel}}</label>
+                    <div class="switch" [ngClass]="{'switch-on':ad.testModeDeactivateOutputsEnable == true,'switch-off':ad.testModeDeactivateOutputsEnable == false }" [ngStyle]="{'background-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#ccc'}">
+                    </div>
+                </div>
+                </span>
+        </div>
+    </div>
+</div>

@@ -42,6 +42,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
   configureDetectorUser(item){
     if(this.data.getAccessLevel() == 2){
+      this.selectedDevice = true;
       this.jsonOnLoad(this);
     }else {
       this.selectedDevice = true;

@@ -185,7 +185,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.BUILDING,
                 ]
 
-    subcribeAttrs =[
+    updateSubcribeAttrs =[
       SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
       SCCP_ATTRIBUTES.OPERATION_MODE,
       SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,
@@ -194,6 +194,11 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
       SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
     ]
+
+    permanentSubscrioAttrs = [
+      SCCP_ATTRIBUTES.TEST_MODE_ENABLE,
+    ]
+    
     constructor(public logger: LoggerService,public data: DataService, 
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
@@ -244,6 +249,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.readData(this.readAttrs);
     }
     this.data.setProfileSwitch(true)
+    setTimeout(()=> 
+      this.data.setShowTestMode(1), 5000
+    )
+    
+    setTimeout(()=> 
+      this.data.setShowTestMode(0), 15000
+    )
   }
   ngAfterContentInit() { 
   }
@@ -413,7 +425,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   setActuatorBrightness() {
   }
-slideBackground (value) {
+  slideBackground (value) {
   let stringval = value.toString();
   let stylestr = "linear-gradient(to right,#2c435c " + stringval + "%, transparent 0%";
   let mystyles =  {
@@ -437,7 +449,7 @@ slideBackground (value) {
   ngOnDestroy() {
     this.data.setProfileSwitch(false)
     this.data.resetSendData();
-    if(this.doDisConnect == true)
+    if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
   }
   gotoActuator1(){
@@ -454,14 +466,17 @@ slideBackground (value) {
     this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
   }
+
   gotoaddParams(){
     this.doDisConnect = false;
     this.router.navigate(['addparams'],{relativeTo: this.route});
   }
   onBLEdata(isRead) {
-    setTimeout(()=> 
-        this.subcribeForDetails(), 5000
-    )
+    if(isRead){
+      setTimeout(()=> 
+          this.subcribeForDetails(), 1000
+      )
+    }
     this.loadingDataDone =  true;
     if(isRead)
       this.setDeviceInfo();
@@ -501,6 +516,11 @@ slideBackground (value) {
     this.loadingDataDone = value;
   }
   subcribeForDetails(){
-    this.data.configureData(this.subcribeAttrs)
+    //this.data.configureData(this.updateSubcribeAttrs)
+    this.data.configureData(this.permanentSubscrioAttrs)
+  }
+
+  subcribeForPermanentDetails(){
+    this.data.configureData(this.permanentSubscrioAttrs)
   }
 }

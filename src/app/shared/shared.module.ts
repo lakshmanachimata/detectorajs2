@@ -11,6 +11,7 @@ import { UpComponent} from './up.component';
 import { DownComponent} from './down.component';
 import { SwitchComponent} from './switch.component';
 import { LongPress } from './LongPress';
+import { TestModeComponent} from './testmode.component'
 // import 'hammerjs';
 // import 'hammer-timejs';
 
@@ -23,6 +24,7 @@ import { LongPress } from './LongPress';
   LongPress,
   TimeInputComponent,
   SetTimeComponent,
+  TestModeComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { LongPress } from './LongPress';
       SwitchComponent,
       TimeInputComponent,
       SetTimeComponent,
+      TestModeComponent,
       LongPress,
       CommonModule,
       FormsModule,
