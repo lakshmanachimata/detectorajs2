@@ -249,13 +249,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.readData(this.readAttrs);
     }
     this.data.setProfileSwitch(true)
-    setTimeout(()=> 
-      this.data.setShowTestMode(1), 5000
-    )
-    
-    setTimeout(()=> 
-      this.data.setShowTestMode(0), 15000
-    )
   }
   ngAfterContentInit() { 
   }
@@ -447,10 +440,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   ngOnDestroy() {
+    if(this.data.getShowTestMode () == 1){
+      return;
+    }else {
     this.data.setProfileSwitch(false)
     this.data.resetSendData();
     if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
+    }
   }
   gotoActuator1(){
     this.doDisConnect = false;

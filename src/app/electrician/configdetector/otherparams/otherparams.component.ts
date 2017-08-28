@@ -5,6 +5,7 @@ import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '
 import {SCCP_DATATYPES} from'../../../data.service';
 import {SCCP_ATTRIBUTES} from'../../../data.service';
 import { i18nService } from '../../../i18n.service';
+import { Location }  from '@angular/common';
 
 @Component({
   selector: 'other-root',
@@ -71,7 +72,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
                 ]
 
   constructor(public logger: LoggerService,public data: DataService, private router:Router,private route: ActivatedRoute,
-              private zone:NgZone,private translater:i18nService) {
+              private zone:NgZone,private translater:i18nService,private location:Location) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -213,6 +214,11 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.buildingName = this.ad.building;
     if(this.data.getOtherParam() == 'energymonitor')
       this.data.setProfileSwitch(true)
+    if(this.data.getOtherParamTitle().length <= 0){
+      this.location.back();
+      this.data.settestmodetest(0)
+      return;
+    }
     this.data.setMainTitle(this.data.getOtherParamTitle());
     this.getInstallerPwd();
     this.getUserPwd();

@@ -51,6 +51,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
     this.router.navigateByUrl(item);
   }
   bjGoBack() {
+    let somestuff = this.router.routerState.snapshot.toString();
     this.location.back();
   }
   getOtherParam() {

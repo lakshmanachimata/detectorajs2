@@ -14,6 +14,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
     activeDevice:any;
     ad:any;
+    testmodestate = 0;
     onLabel = this.translater.translate('ON');
     offLabel = this.translater.translate('OFF');
     brrangeerror = false;
@@ -44,6 +45,10 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Additional sensor parameters'));
+    if(this.data.gettestmodetest() == 0){
+      this.data.testTestMode();
+      this.data.settestmodetest(1);
+    }
   }
   ngAfterContentInit() { 
   }

@@ -3,6 +3,7 @@ import {Http,Headers,RequestOptions,RequestOptionsArgs,Response,RequestMethod} f
 import {LoggerService} from './logger.service';
 import {Observable} from 'rxjs/Observable';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
+import { Location }  from '@angular/common';
 
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
@@ -438,9 +439,10 @@ export class DataService {
     deviceTestMode = 0;
     safariSubtle:any;
     currentRoute = '';
+    testmodetest = 0;
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService,
-        private router:Router,private route:ActivatedRoute) {
+        private router:Router,private route:ActivatedRoute,private location:Location) {
         if(this.DeviceBuild == 1)
             this.setDataServiceCallBackObj = new setDataServiceCallBack(this);
         this.screenWidth = window.innerWidth;
@@ -979,18 +981,40 @@ export class DataService {
         }
     }
 
+    settestmodetest(test){
+        this.testmodetest =  test;
+    }
+    gettestmodetest(){
+        return this.testmodetest;
+    }
+
     setShowTestMode(testmode){
         this.deviceTestMode =  testmode;
         if(this.deviceTestMode == 1){
+            let somestuff = this.router.routerState.snapshot.toString();
             this.currentRoute = this.router.routerState.snapshot.url.toString();
             this.setOtherParam('testmode','Test mode')
             this.router.navigate(['/electrician/econfigdetector/otherparams'])
+            this.location.replaceState('/electrician/econfigdetector/otherparams');
         }else {
             if(this.currentRoute.length > 0){
+                let somestufff = this.router.routerState.snapshot.toString();
+                somestufff = this.router.routerState.snapshot.toString();
+                this.setOtherParam('','')
                 this.router.navigate([this.currentRoute])
-                this.currentRoute = '';
+                // this.currentRoute = '';
             }
         }
+    }
+
+    testTestMode(){
+        setTimeout(()=> 
+        this.setShowTestMode(1), 5000
+        )
+        
+        setTimeout(()=> 
+        this.setShowTestMode(0), 10000
+        )
     }
 
     getShowTestMode(){
