@@ -738,6 +738,7 @@ export class DataService {
         return this.uiParams.otherparamTitle;
     }
     getOtherParam(){
+        //this.logger.log('other param title is   ' + this.uiParams.otherparam)
         return this.uiParams.otherparam;
     }
      setIParam(item,itemTitle) {
@@ -1001,20 +1002,23 @@ export class DataService {
                 let somestufff = this.router.routerState.snapshot.toString();
                 somestufff = this.router.routerState.snapshot.toString();
                 this.setOtherParam('','')
-                this.router.navigate([this.currentRoute])
+                //this.disConnectDevice();
+                //this.router.navigate([this.currentRoute])
+                this.router.navigate(['/electrician/econfigdetector'])
                 // this.currentRoute = '';
             }
         }
     }
 
     testTestMode(){
-        setTimeout(()=> 
-        this.setShowTestMode(1), 5000
-        )
-        
-        setTimeout(()=> 
-        this.setShowTestMode(0), 10000
-        )
+        if(this.getDemoMode() == 1){
+            setTimeout(()=> 
+            this.setShowTestMode(1), 2000
+            )
+            setTimeout(()=> 
+            this.setShowTestMode(0), 4000
+            )
+        }
     }
 
     getShowTestMode(){
@@ -1066,6 +1070,7 @@ export class DataService {
         if(this.deviceParams.deviceConnected ==  true){
             this.disConnectDeviceObj = new disConnectDevice()
             this.setAccessLevelRequsetedAddress('')
+            this.deviceParams.accessLevel = 0;
         }
     }
 

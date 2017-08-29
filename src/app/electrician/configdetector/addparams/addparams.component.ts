@@ -31,6 +31,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
+      this.data.setOtherParam('','');
       // if(this.data.getDeviceConnectionState() == true){
       //   this.data.readData(this.readAttrs);
       // }
@@ -45,10 +46,12 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Additional sensor parameters'));
-    if(this.data.gettestmodetest() == 0){
-      this.data.testTestMode();
-      this.data.settestmodetest(1);
-    }
+
+      if(this.data.gettestmodetest() == 0){
+        this.data.testTestMode();
+        this.data.settestmodetest(1);
+      }
+    
   }
   ngAfterContentInit() { 
   }
