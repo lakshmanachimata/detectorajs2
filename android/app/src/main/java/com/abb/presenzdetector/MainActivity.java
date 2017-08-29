@@ -252,8 +252,9 @@ public class MainActivity extends Activity {
         String softwareVersion = "";
         String btAddress = "";
         String btIAddress = "";
+        String idenfiy = "0";
         boolean OTASupported = false;
-        boolean isSelected = false;
+
     }
     static public BJBLEManager suotaManager;
     //static public SpotaManager spotaManager;
@@ -502,7 +503,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "NO DEVICES ARE AVAILABLE",Toast.LENGTH_LONG).show();
                 }
             }
-        },5 * 1 * 1000);
+        },5 * 60 * 1000);
     }
     public void killApp(){
         if(scanner != null)
@@ -924,7 +925,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onResume() {
-        showMessageIfNoDevicesAreAvailable();
+        //showMessageIfNoDevicesAreAvailable();
         super.onResume();
         if (loaded) {
             if (webview != null) {
@@ -1003,12 +1004,11 @@ public class MainActivity extends Activity {
             final String action = intent.getAction();
             if (ACTION_GATT_CONNECTED.equals(action)) {
                 if(scanner != null) {
-                    notifyAppAboutConnection(true);
+
                     scanner.stopScan(bleCallback);
                     for (int di = 0; di < scannedDevices.size(); di++) {
                         if (getGatt().getDevice().getAddress().equalsIgnoreCase(scannedDevices.get(di).btAddress)) {
                             bluetoothDevice = getGatt().getDevice();
-                            scannedDevices.get(di).isSelected = true;
                             selectedDetectorInfo = scannedDevices.get(di);
                         }
                     }
@@ -1020,13 +1020,13 @@ public class MainActivity extends Activity {
                     scanner.startScan(bleCallback);
                 for(int di =0; di < scannedDevices.size(); di++) {
                     bluetoothDevice = null;
-                    scannedDevices.get(di).isSelected = false;
                     selectedDetectorInfo = null;
                 }
             }
             else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
                 getDeviceInfo();
+                notifyAppAboutConnection(true);
             }
             else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);

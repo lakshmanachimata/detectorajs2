@@ -232,12 +232,17 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     print("adding " + peripheral.identifier.uuidString);
                     let nameofDevice =  advertisementData[CBAdvertisementDataLocalNameKey] as? String
                     var detectorInfo:Dictionary<String,String> = [:]
-                    detectorInfo["btDeviceName"] = nameofDevice!;
+                    if(nameofDevice != nil){
+                        detectorInfo["btDeviceName"] = nameofDevice!;
+                    }else{
+                        detectorInfo["btDeviceName"] = "";
+                    }
                     detectorInfo["btIAddress"] = peripheral.identifier.uuidString;
                     detectorInfo["btAddress"] = "";
                     detectorInfo["rssi"] = RSSI.stringValue;
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["modelNumber"] = modelNumberStr;
+                    detectorInfo["idenfiy"] = "0";
                     detectorInfo["hashCode"] = String(peripheral.hash);
                     detectorInfo["OTAsupported"] = String(advservices!.contains(suotaUUID));
                     if(modelNumberStr.contains("05")){
@@ -263,6 +268,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     detectorInfo["btAddress"] = "";
                     detectorInfo["firmwareVersion"] = firmwareStr;
                     detectorInfo["rssi"] = RSSI.stringValue;
+                    detectorInfo["idenfiy"] = "0";
                     detectorInfo["modelNumber"] = modelNumberStr;
                     detectorInfo["OTAsupported"] = String(advservices!.contains(suotaUUID));
                     if(modelNumberStr.contains("05")){

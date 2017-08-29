@@ -137,7 +137,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             let cert = CkoCert()
             success = cert!.load(fromFile: certFilePath.path)
             if success != true {
-                print("\(cert?.lastErrorText)")
+                print("\(String(describing: cert?.lastErrorText))")
                 return
             }
             
