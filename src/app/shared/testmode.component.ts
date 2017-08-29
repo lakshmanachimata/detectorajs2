@@ -41,15 +41,14 @@ export class TestModeComponent  implements  OnChanges,OnInit ,DoCheck,AfterConte
         this.data.setOtherParam('','');
     }
     togglech1ID(){
-        this.ad.ch1IdentifyingLoad = !this.ad.ch1IdentifyingLoad;
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1IdentifyingLoad ])
+        this.data.sendIdentifyLoadCommand(0,5);
     }
     togglech2ID(){
-        this.ad.ch2IdentifyingLoad = !this.ad.ch2IdentifyingLoad;
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch2IdentifyingLoad ])
+        this.data.sendIdentifyLoadCommand(1,5);
     }
     toggleDP(){
         this.ad.testModeDeactivateOutputsEnable = !this.ad.testModeDeactivateOutputsEnable;
         this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.testModeDeactivateOutputsEnable])
+        this.data.sendChangedParams();
     }
 }

@@ -34,25 +34,11 @@
         <label class="bj-config-lbl testmode-settings-test-lbl" >{{ this.data.getTranslatedString("Test mode settings") }}</label>
         <div class="bj-config-setting-div testmode-settings-test-actuator1-div" >
             <label class="bj-config-setting testmode-settings-test-actuator1-block" >{{ this.data.getTranslatedString("Identify load on actuator 1") }}</label>
-                <span class="bj-config-toggle-switch">
-                   <div class="track"  (click)="togglech1ID()"  [(ngModel)]="ad.ch1IdentifyingLoad" [ngStyle]="{'border-color': ad.ch1IdentifyingLoad == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                    <label class="switch-onlabel" *ngIf="ad.ch1IdentifyingLoad == true">{{onLabel}}</label>
-                    <label class="switch-offlabel" *ngIf="ad.ch1IdentifyingLoad == false">{{offLabel}}</label>
-                    <div class="switch" [ngClass]="{'switch-on':ad.ch1IdentifyingLoad == true,'switch-off':ad.ch1IdentifyingLoad == false }" [ngStyle]="{'background-color': ad.ch1IdentifyingLoad == true ? '#26394f':'#ccc'}">
-                    </div>
-                </div>
-                </span>
+            <span class="glyphicon glyphicon-stop"></span>
         </div>
         <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
             <label class="bj-config-setting testmode-settings-test-actuator2-block" >{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
-                <span class="bj-config-toggle-switch">
-                  <div class="track"  (click)="togglech2ID()"  [(ngModel)]="ad.ch2IdentifyingLoad" [ngStyle]="{'border-color': ad.ch2IdentifyingLoad == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                    <label class="switch-onlabel" *ngIf="ad.ch2IdentifyingLoad == true">{{onLabel}}</label>
-                    <label class="switch-offlabel" *ngIf="ad.ch2IdentifyingLoad == false">{{offLabel}}</label>
-                    <div class="switch" [ngClass]="{'switch-on':ad.ch2IdentifyingLoad == true,'switch-off':ad.ch2IdentifyingLoad == false }" [ngStyle]="{'background-color': ad.ch2IdentifyingLoad == true ? '#26394f':'#ccc'}">
-                    </div>
-                </div>
-                </span>
+            <span class="glyphicon glyphicon-stop"></span>
         </div>
         <div class="bj-config-setting-div testmode-settings-test-deactivate-div" >
             <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivation of outputs</label>

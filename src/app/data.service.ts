@@ -395,6 +395,7 @@ declare var readAddrAttr;
 declare var operateDrumElement;
 declare var resetCmd;
 declare var identify;
+declare var identifyLoad;
 
 @Injectable()
 export class DataService {
@@ -408,6 +409,7 @@ export class DataService {
     connectDeviceObj:any;
     disConnectDeviceObj:any;
     identifyObj:any;
+    identifyLoadObj:any;
     authenticateDeviceObj:any;
     operateDrumElementObj:any;
     writeAttrObj:any;
@@ -1159,15 +1161,20 @@ export class DataService {
         this.identifyObj = identify(0)
     }
 
-    sendIdentifyCommand(){
+    sendIdentifyDeviceCommand(){
         this.identifyObj = identify(0xFF)
         this.setIdentifyDevicePending(0);
+    }
+
+    sendIdentifyLoadCommand(type, time){
+        this.identifyLoadObj = identifyLoad(type, time)
+        this.setIdentifyDevicePending(0); 
     }
 
     onDeviceConnected(deviceAddress) {
         if(this.getIdentifyDevicePending() == 1){
             setTimeout(()=> 
-                this.sendIdentifyCommand(), 500
+                this.sendIdentifyDeviceCommand(), 500
             )
             return;
         }
