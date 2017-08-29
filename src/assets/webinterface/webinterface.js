@@ -108,6 +108,38 @@ function updateScanList(scanned) {
     appDataService.setScannedData(scanned);
 }
 
+function identify(indata){
+    var data =  getIdentifyCommanmdFrame(indata)
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        if(debugLogs == true)
+            bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+    }
+
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
+
+function getIdentifyCommanmdFrame(cmd){
+            var frame = [];
+            var crc;
+            frame.push(0x07); // LENGTH AFTER THIS BYTE
+            frame.push(0x08); // CONTROL DEVICE
+            frame.push(0x11); // SEQUENCE
+            frame.push(0x20); // command
+            frame.push(cmd); // command
+            crc = crcCCITT(frame)
+            frame.push(crc >> 8); // CRC LOWER
+            frame.push(crc & 0x00ff); // CRC UPPER
+            frame.unshift(0x7e) // START BYTE
+            frame.push(0x7e) // END BYTE
+            return frame;
+}
+
 function resetCmd(resetCmd) {
     var data = getResetCommandFrame(resetCmd);
     if(BJE != undefined){

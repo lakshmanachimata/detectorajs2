@@ -1,6 +1,6 @@
 import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../logger.service';
-import { DataService } from '../data.service';
+import { DataService , SCCP_ATTRIBUTES,SCCP_COMMAND,SCCP_DATATYPES} from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { i18nService } from '../i18n.service';
 export class DetectorInfo {
@@ -30,7 +30,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
     detectors:Array<any>;
     scannedData:Array<any>;
-    connectDeviceObj:any; 
     snap:RouterStateSnapshot;
     isDeviceConnected =  false;
     selectedDevice =  false;
@@ -152,6 +151,14 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     else {
       return 4;
     }
+  }
+
+  identifyDevice(item){
+    this.data.setIdentifyDevicePending(1);
+    if(this.data.isIPhone == 1)
+      this.data.connectDevice(item.btIAddress);
+    else
+      this.data.connectDevice(item.btAddress); 
   }
 
   onInstallerAccessSuccess(){

@@ -1,12 +1,12 @@
 <div class="bj-electrician-container"> 
     <div id="bj-empty-list" *ngIf="detectors"></div>
-    <ul  (click)="configureDetector(detector)" *ngFor="let detector of detectors" class="bj-detectors-list">
+    <ul   *ngFor="let detector of detectors" class="bj-detectors-list">
         <li class="bj-detector-name">
-            <div id="bj-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
+            <div id="bj-detector-icon" (click)="identifyDevice(detector)" ><span class="glyphicon glyphicon-modal-window"></span></div>
             <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">{{ this.data.getTranslatedString("firware update available") }}</span>
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
-            <span id="bj-detector-icon-signal" >
+            <span id="bj-detector-icon-signal">
                 <div class="signal-bars four-bars" *ngIf="getSignalRange(detector) > 3">
                     <div class="first-bar bar"></div>
                     <div class="second-bar bar"></div>
@@ -32,7 +32,7 @@
                     <div class="fourth-bar bar"></div>
                 </div>
             </span>
-            <span id="nav-right" class="glyphicon glyphicon-menu-right"></span>
+            <span id="nav-right" class="glyphicon glyphicon-menu-right" (click)="configureDetector(detector)"></span>
         </li>
     </ul>
     <div class="searching_spinner">

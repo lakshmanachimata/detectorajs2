@@ -32,7 +32,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     detectors:Array<any>;
     jsonLoadObserve: any;
     scannedData:Array<any>;
-    connectDeviceObj:any;
     snap:RouterStateSnapshot;
     isDeviceConnected = false;
     selectedDevice = false;

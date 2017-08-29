@@ -394,6 +394,7 @@ declare var getSafariSubtle;
 declare var readAddrAttr;
 declare var operateDrumElement;
 declare var resetCmd;
+declare var identify;
 
 @Injectable()
 export class DataService {
@@ -406,6 +407,7 @@ export class DataService {
     setDataServiceCallBackObj:any;
     connectDeviceObj:any;
     disConnectDeviceObj:any;
+    identifyObj:any;
     authenticateDeviceObj:any;
     operateDrumElementObj:any;
     writeAttrObj:any;
@@ -428,6 +430,7 @@ export class DataService {
     readCount = 10;
     writeCount = 10;
     addData=[];
+    identifyDevice = 0;
     sendData =  new Array<WriteData>();
     screenWidth;
     screenHeight;
@@ -1144,7 +1147,30 @@ export class DataService {
         this.setAccessLevelRequsetedAddress(address)
     }
 
+    getIdentifyDevicePending(){
+        return this.identifyDevice;
+    }
+
+    setIdentifyDevicePending(identify){
+        this.identifyDevice = identify;
+    }
+
+    sendRemoveIdentifyCommand(){
+        this.identifyObj = identify(0)
+    }
+
+    sendIdentifyCommand(){
+        this.identifyObj = identify(0xFF)
+        this.setIdentifyDevicePending(0);
+    }
+
     onDeviceConnected(deviceAddress) {
+        if(this.getIdentifyDevicePending() == 1){
+            setTimeout(()=> 
+                this.sendIdentifyCommand(), 500
+            )
+            return;
+        }
         if(this.isIPhone == 1){
             this.readDeviceAddress(deviceAddress)
         }
