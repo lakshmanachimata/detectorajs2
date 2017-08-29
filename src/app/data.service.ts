@@ -1153,7 +1153,7 @@ export class DataService {
         return this.identifyDevice;
     }
 
-    setIdentifyDevicePending(identify){
+    setIdentifyDeviceState(identify){
         this.identifyDevice = identify;
     }
 
@@ -1163,16 +1163,15 @@ export class DataService {
 
     sendIdentifyDeviceCommand(){
         this.identifyObj = identify(0xFF)
-        this.setIdentifyDevicePending(0);
+        this.setIdentifyDeviceState(2);
     }
 
     sendIdentifyLoadCommand(type, time){
         this.identifyLoadObj = identifyLoad(type, time)
-        this.setIdentifyDevicePending(0); 
     }
 
     onDeviceConnected(deviceAddress) {
-        if(this.getIdentifyDevicePending() == 1){
+        if(this.getIdentifyDevicePending() == 2){
             setTimeout(()=> 
                 this.sendIdentifyDeviceCommand(), 500
             )

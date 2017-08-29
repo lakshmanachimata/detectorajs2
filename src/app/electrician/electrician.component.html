@@ -1,4 +1,4 @@
-<div class="bj-electrician-container"> 
+<div class="bj-electrician-container" (click)="removeIdentifyingDevice()"> 
     <div id="bj-empty-list" *ngIf="detectors"></div>
     <ul   *ngFor="let detector of detectors" class="bj-detectors-list">
         <li class="bj-detector-name">
