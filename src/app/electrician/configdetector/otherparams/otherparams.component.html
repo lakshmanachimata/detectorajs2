@@ -4,11 +4,11 @@
     <label class="bj-config-lbl testmode-master-lbl" >{{ this.data.getTranslatedString("Master") }}</label>
     <div class="testmode-master-div">
         <div class="testmode-top-quadrants">
-            <div class="testmode-quadrant q1" [ngStyle]="{'background':masterQuad=='q1' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q1-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q1')">
+            <div class="testmode-quadrant q1" [ngStyle]="{'background':Quad1==true ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q1-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(Quad1==true)">
             </div>
-            <div class="testmode-quadrant q2" [ngStyle]="{'background':masterQuad=='q2' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q2-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q2')">
+            <div class="testmode-quadrant q2" [ngStyle]="{'background':Quad2==true ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q2-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(Quad2==true)">
             </div>
         </div>
         <div id="testmode-master-inner-ring">
@@ -18,11 +18,11 @@
             </div>
         </div>
         <div class="testmode-bottom-quadrants">
-            <div class="testmode-quadrant q3" [ngStyle]="{'background':masterQuad=='q3' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q3-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q3')">
+            <div class="testmode-quadrant q3" [ngStyle]="{'background':Quad3==true ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q3-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(Quad3==true)">
             </div>
-            <div class="testmode-quadrant q4" [ngStyle]="{'background':masterQuad=='q4' ? '#0076b7' :'#f9fafc'}">
-                <img class="user-active q4-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(masterQuad =='q4')">
+            <div class="testmode-quadrant q4" [ngStyle]="{'background':Quad4==true ? '#0076b7' :'#f9fafc'}">
+                <img class="user-active q4-icon" src="assets/icons/14_004_user_foc.svg" alt="user-active" *ngIf="(Quad4==true)">
             </div>
         </div>
     </div>

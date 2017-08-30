@@ -222,8 +222,83 @@ function writeAttr(writeData) {
     }
 }
 
+function getConfigureFrame(cmd, data){
+    var counter = 0;
+    var frame = [];
+    var crc;
+    frame.push(0x08); // CONTROL DEVICE
+    frame.push(0x10); // SEQUENCE
+    frame.push(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST); // command
+    
+    for (var i=0; i < data.length; i+=1) {
+        var val = data[i];
+        frame.push(val & 0x00ff); // ADDR LOW
+        frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+        frame.push(0x01); // MIN REPORTING INTERVAL HIGH
+        frame.push((0x00)); // MIN REPORTING INTERVAL LOW
+        frame.push(0x0A); // MAX REPORTING INTERVAL HIGH
+        frame.push((0x00)); // MAX REPORTING INTERVAL LOW
+        counter += 6;
+    }
+    
+    frame.unshift(6 + counter); // LENGTH
+    
+    crc = crcCCITT(frame)
+    frame.push(crc >> 8); // CRC LOWER
+    frame.push(crc & 0x00ff); // CRC UPPER
+    
+    frame.unshift(0x7e) // START BYTE
+    frame.push(0x7e) // END BYTE
+    return frame;
+}
+
+function getUnConfigureFrame(cmd, data){
+    var counter = 0;
+    var frame = [];
+    var crc;
+    frame.push(0x08); // CONTROL DEVICE
+    frame.push(0x10); // SEQUENCE
+    frame.push(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST); // command
+    
+    for (var i=0; i < data.length; i+=1) {
+        var val = data[i];
+        frame.push(val & 0x00ff); // ADDR LOW
+        frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+        frame.push(0x01); // MIN REPORTING INTERVAL HIGH
+        frame.push((0x00)); // MIN REPORTING INTERVAL LOW
+        frame.push(0xFF); // MAX REPORTING INTERVAL HIGH
+        frame.push((0xFF)); // MAX REPORTING INTERVAL LOW
+        counter += 6;
+    }
+    
+    frame.unshift(6 + counter); // LENGTH
+    
+    crc = crcCCITT(frame)
+    frame.push(crc >> 8); // CRC LOWER
+    frame.push(crc & 0x00ff); // CRC UPPER
+    
+    frame.unshift(0x7e) // START BYTE
+    frame.push(0x7e) // END BYTE
+    return frame;
+}
+
+function unConfigureAttr(notifyData) {
+    var data = getUnConfigureFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
+    if(BJE != undefined) {
+        BJE.configureAttr(data);
+        if(debugLogs == true)
+            bjeLog('sending BLE CONFIGURE Frame  ' + data.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
+
 function configureAttr(notifyData) {
-    var data = getRequestFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
+    var data = getConfigureFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     if(BJE != undefined) {
         BJE.configureAttr(data);
         if(debugLogs == true)
@@ -875,14 +950,14 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
             i = i + 1; 
             val = data[i];
             frame.push(val); // DATA TYPE
-            if(val == 5){
+            if(val == 0x05){
                 frame.push(data[i+1]) 
                 frame.push(data[i+2]) 
                 frame.push(data[i+3]) 
                 frame.push(data[i+4]) 
                 counter += 7;
                 i = i + 4;
-            }else if(val == 2){
+            }else if(val == 0x02){
                 arraylength = data[i+1].length;
                 arraydata = data[i+1];
                 for(var sl =0; sl<arraylength; sl++){
@@ -891,7 +966,13 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 counter+=arraylength+3;
                 i = i + 1;
             }
-            else {
+            else if(val == 0x01 || val == 0x03 ||
+                    val == 0x08 || val == 0x0C){
+                i = i + 1; 
+                val = data[i];
+                frame.push((val & 0x00FF)); // VAL LOW
+                counter += 4;
+            }else {
                 i = i + 1; 
                 val = data[i];
                 frame.push((val & 0x00ff)); // VAL LOW

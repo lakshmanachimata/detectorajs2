@@ -518,6 +518,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
 
   subcribeForPermanentDetails(){
-    this.data.configureData(this.permanentSubscrioAttrs)
+    //this.data.configureData(this.permanentSubscrioAttrs)
   }
 }

@@ -39,8 +39,14 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
 
   preDefined_Searches=[];
   searchText = '';
-  masterQuad = 'q1';
+  Quad1 = false;
+  Quad2 = false;
+  Quad3 = false;
+  Quad4 = false;
   loadingDataDone = false;
+  slaveMovementAttrs=[
+    SCCP_ATTRIBUTES.MOVEMENT,
+  ]
   contactName;
   buildingName;
       readAttrs =[
@@ -76,7 +82,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
-      this.data.setActiveComponent(this);
+      this.data.setTestModeComponent(this);
       // if(this.data.getDeviceConnectionState() == true){
       //   this.data.readData(this.readAttrs);
       // }
@@ -210,20 +216,45 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   ngDoCheck() { 
   }
   ngOnInit() {
-    this.contactName = this.ad.contact;
-    this.buildingName = this.ad.building;
-    if(this.data.getOtherParam() == 'energymonitor')
-      this.data.setProfileSwitch(true)
     if(this.data.getOtherParamTitle().length <= 0){
       this.location.back();
       this.data.settestmodetest(0)
       return;
+    }
+    this.contactName = this.ad.contact;
+    this.buildingName = this.ad.building;
+    if(this.data.getOtherParam() == 'energymonitor')
+      this.data.setProfileSwitch(true)
+    if(this.data.getOtherParam() == 'testmode'){
+      this.data.setTestModeComponent(this)
+      this.subscribeForTestSlaves()
     }
     this.data.setMainTitle(this.data.getOtherParamTitle());
     this.getInstallerPwd();
     this.getUserPwd();
     this.data.userPasswordChanged(false)
     this.data.installerPasswordChanged(false)
+  }
+  setMovement(movement){
+    this.logger.log("TESTMODE MOVEMENT " + movement)
+    if((movement & 0x08 ) == 1){
+       this.Quad4 =true;
+    }if((movement & 0x04 ) == 1){
+       this.Quad3 =true;
+    }if((movement & 0x02 ) == 1){
+       this.Quad2 =true;
+    }if((movement & 0x01 ) == 1){
+       this.Quad1 =true;
+    }
+    setTimeout(()=> 
+      this.UnsetQuads(), 2000
+    )
+  }
+  UnsetQuads(){
+    this.Quad1 = false;
+    this.Quad2 = false;
+    this.Quad3 = false;
+    this.Quad4 = false;
   }
   ngAfterContentInit() { 
   }
@@ -382,5 +413,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   setLoadingDataDone(value){
     this.loadingDataDone = value;
+  }
+  subscribeForTestSlaves(){
+      this.data.configureData(this.slaveMovementAttrs)
   }
 }

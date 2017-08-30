@@ -381,6 +381,7 @@ DevHWeT81htrDXAJ5Ee8eYw0\n\
 
 declare var setDataServiceCallBack;
 declare var configureAttr;
+declare var unConfigureAttr;
 declare var writeAttr;
 declare var readAttr;
 declare var connectDevice;
@@ -415,6 +416,7 @@ export class DataService {
     writeAttrObj:any;
     readAttrObj:any;
     configureAttrObj:any;
+    unConfigureAttrObj:any;
     reademdbObj:any;
     resetCmdObj:any;
     killMeFromJSObj:any;
@@ -424,6 +426,7 @@ export class DataService {
     readAddrAttrObj:any;
     activeComponent:any;
     iActiveComponent:any;
+    testModeComponent:any;
     headerComponent:any;
     readArray=[];
     readDoneArray=[];
@@ -994,6 +997,17 @@ export class DataService {
         return this.testmodetest;
     }
 
+    updateSlaveMovement(movement){
+        this.logger.log("got movement  " + movement)
+        if(this.testModeComponent != undefined)
+            this.testModeComponent.setMovement(movement)
+    }
+    setTestModeComponent(component){
+        this.testModeComponent = component;
+    }
+    getTestModeComponent(){
+        return this.testModeComponent;
+    }
     setShowTestMode(testmode){
         this.deviceTestMode =  testmode;
         if(this.deviceTestMode == 1){
@@ -1227,7 +1241,13 @@ export class DataService {
     }
 
     configureData(dataArray){
-        this.configureAttrObj =  new configureAttr(dataArray);
+        if(this.DeviceBuild == 1)
+            this.configureAttrObj =  new configureAttr(dataArray);
+    }
+
+    unConfigureData(dataArray){
+        if(this.DeviceBuild == 1)
+            this.unConfigureAttrObj =  new unConfigureAttr(dataArray);
     }
 
 
@@ -2716,6 +2736,7 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.MOVEMENT                                                :
                 this.uiParams.devicesObj.DeviceData.movement = attrValue 
+                this.updateSlaveMovement(attrValue)
             break;
             case SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD                                    :
                 this.uiParams.devicesObj.DeviceData.ch1IdentifyingLoad = attrValue 
