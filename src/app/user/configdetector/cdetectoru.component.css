@@ -1554,7 +1554,8 @@ div.details.reference-details span.glyphicon.glyphicon-menu-right{
     margin-right: 10px;
 }
 
-div.details.reset-data span.glyphicon.glyphicon-remove{
+div.details.reset-data span.glyphicon.glyphicon-remove,
+div.details.reset-data span.glyphicon.glyphicon-stop{
 	color: #8ca8cb;
     font-size: 22px;
     float: right;

@@ -1,10 +1,16 @@
 <div class="reset-dialog-overlay" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
-    <div class="reset-dialog" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
-        <div class="reset-dialog-header"><label class="dialog-heading"> {{getDialogTitle()}} </label></div>
-        <div class="reset-dialog-body"><label class="dialog-text"> {{getDialogText()}} </label></div>
+    <div class="reset-dialog" [ngClass]="{'bj-reset-only': isResetEnergyMon() == true }"> <!--PDAL-2583-->
+        <div class="reset-dialog-header" *ngIf="isResetEnergyMon() != true"><label class="dialog-heading"> {{getDialogTitle()}} </label></div>
+        <div class="reset-dialog-body" [ngClass]="{'bj-reset-only': isResetEnergyMon() == true }"><label class="dialog-text"  [ngClass]="{'bj-reset-only': isResetEnergyMon() == true }"> {{getDialogText()}} </label></div>
         <div class="reset-dialog-footer">
-            <div class="dialog-cancel-btn" (click)="cancelStuff()"><img class="reset-cancel" src="assets/icons/05_017_button_delete_prs.svg" alt="cancel_btn"></div>
-            <div class="dialog-ok-btn" (click)="doStuff()" ><img class="reset-save" src="assets/icons/05_004_button_save_prs.svg" alt="save_btn"></div>
+            <div class="dialog-cancel-btn" [ngClass]="{'bj-reset-only': isResetEnergyMon() == true }" (click)="cancelStuff()">
+                <div class="reset-cancel" *ngIf="isResetEnergyMon() == true"><span class="glyphicon glyphicon-remove"></span></div>
+                <img class="reset-cancel" *ngIf="isResetEnergyMon() != true" src="assets/icons/05_017_button_delete_prs.svg" alt="cancel_btn">
+            </div>
+            <div class="dialog-ok-btn" [ngClass]="{'bj-reset-only': isResetEnergyMon() == true }" (click)="doStuff()" >
+                <img class="reset-save" *ngIf="isResetEnergyMon() != true" src="assets/icons/05_004_button_save_prs.svg" alt="save_btn">
+                <div class="reset-save" *ngIf="isResetEnergyMon() == true">Yes</div> <!--PDAL-2583-->
+            </div>
         </div>
     </div>
 </div>

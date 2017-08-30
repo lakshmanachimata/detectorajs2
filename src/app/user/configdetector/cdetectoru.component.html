@@ -45,7 +45,7 @@
         </div>
         <div id="bj-other-user-settings-div">
             <label class="bj-config-lbl other-settings-div">Other settings</label>
-            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()">
+            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()" *ngIf="activeDevice.enableUserEnergyMonitor"><!--Fix for PDAL-2247 -->
                 <label class="bj-config-setting user-energy-monitor-block">Monitor energy</label><div class="slide-next energy-monitor"><span class="glyphicon glyphicon-menu-right"></span></div>
             </div>
             <div class="bj-config-setting-div other-settings-div" (click)="gotoSettings()">

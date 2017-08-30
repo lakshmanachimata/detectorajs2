@@ -190,6 +190,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   ngOnDestroy() {
+    this.logger.log("somebody calling ngOnDestroy")
     this.data.resetSendData();
     this.data.setProfileSwitch(false)
     if(this.selectedDevice == false &&  !(this.data.getProfile() == 'user')){

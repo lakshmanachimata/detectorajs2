@@ -63,4 +63,8 @@ export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContent
   getProfile() {
     return this.data.getProfile();
   }
+ //PDAL-2583
+  isResetEnergyMon(){
+    return this.data.isResetEnergyMon();
+  }
 }

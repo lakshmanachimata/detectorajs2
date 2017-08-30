@@ -23,9 +23,9 @@
         </div>
     </div>
 </div>
-<div id="bj-user-sensor-div">
+<div id="bj-user-sensor-div" *ngIf="ad.enableUserSetBrightnessThreshold || ad.enableUserSetSwitchOffDelay"><!--Fix for PDAL-2247 -->
     <label class="bj-config-lbl user-sensor-div" >{{ this.data.getTranslatedString("Sensor settings") }}</label>
-    <div class="bj-config-setting-block-div brightness-user-div">
+    <div class="bj-config-setting-block-div brightness-user-div" *ngIf="ad.enableUserSetBrightnessThreshold"><!--Fix for PDAL-2247 -->
         <label class="bj-config-setting-block-lbl brightness-user-function"><ng-container >{{ this.data.getTranslatedString("Brightness threshold") }}</ng-container> ({{ad.brightnessThresholdMin}} - {{ad.brightnessThresholdMax}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container>)</label>
         <div class="bj-config-setting-adjust brightness-user-function">
             <div class="adjust-minus user" long-press (click)="reduceCount('brightness',true)" (onLongPressEnd)="reduceCount('brightness',true)" (onLongPressing)="reduceCount('brightness',false)"><span class="glyphicon glyphicon-minus"></span></div>
@@ -38,7 +38,7 @@
             <input class="adjust-value brightness-user-function" type="number" (keyup)="setCurrentBr($event)"   [(ngModel)]="ad.currentBrightness">
         </div>
     </div>
-    <div class="bj-config-setting-block-div short-time-pulse-user-div">
+    <div class="bj-config-setting-block-div short-time-pulse-user-div" *ngIf="ad.enableUserSetSwitchOffDelay"><!--Fix for PDAL-2247 -->
         <label class="bj-config-setting-block-lbl short-time-pulse-user-function"><ng-container >{{ this.data.getTranslatedString("Switch-off delay") }}</ng-container> ({{ad.switchOffDelayMin}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> -{{ad.switchOffDelayMax}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
         <div class="bj-config-setting-adjust short-time-pulse-user-function">
             <div class="adjust-minus user" long-press (click)="reduceCount('soff',true)" (onLongPressEnd)="reduceCount('soff',true)" (onLongPressing)="reduceCount('soff',false)"><span class="glyphicon glyphicon-minus"></span></div>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+<div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'&& ad.enableUserBasicBrightness"><!--Fix for PDAL-2247 -->
     <label class="bj-config-lbl user-basic-illumination-div" >{{ this.data.getTranslatedString("Basic brightness") }}</label>
     <div>
         <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-off" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChanged()" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+<div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'&& ad.enableUserNightLightFunction"><!--Fix for PDAL-2247 -->
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
         <div class="bj-config-setting-div-settings anti-glare-function-div">
             <label class="bj-config-setting-block-lbl anti-glare-function-lbl">Night-time anti-glare function</label>

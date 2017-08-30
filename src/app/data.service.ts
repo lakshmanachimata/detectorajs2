@@ -2754,7 +2754,6 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.ch2OnOffState = attrValue 
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
-                this.logger.log("setting testmode value here " + attrValue)
                 this.uiParams.devicesObj.DeviceData.testModeEnable = attrValue 
                 this.setShowTestMode(attrValue)
             break;

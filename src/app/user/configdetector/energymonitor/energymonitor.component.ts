@@ -13,7 +13,7 @@ export class EnergyMonitorComponent implements OnChanges,OnInit ,DoCheck,AfterCo
 
 TotalSavingsMonthText = this.translater.translate("Total savings");
 currentDurationMonthText=this.translater.translate("Current duration of monthly light");
-currentDurationYearText=this.translater.translate("Current duration of Yearly light");
+currentDurationYearText=this.translater.translate("Current duration of yearly light");
 currentDurationMonthValue = 213;
 currentDurationYearValue = 3130;
 TotalSavingsMonthValue = 23;

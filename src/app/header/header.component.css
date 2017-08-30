@@ -332,6 +332,31 @@ label.dialog-heading {
 	position:absolute;
 }
 
+.reset-dialog-body.bj-reset-only{
+	left:0;
+	right:0;
+	top:50px;
+	background:#1e2a38;
+	bottom:60px;
+	position:absolute;
+}
+
+div.reset-cancel .glyphicon.glyphicon-remove{
+	text-align: center;
+	color: #000000;
+    position: relative;
+    top: 22px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 100;
+	line-height: 1;
+	font-size:20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
 label.dialog-text {
 	margin-top: 100px;
 	margin-left: 60px;
@@ -339,6 +364,15 @@ label.dialog-text {
 	font-weight: 400;
 	font-size: 20px;
 	color: #697d96;
+}
+
+label.dialog-text.bj-reset-only {
+	margin-top: 100px;
+	margin-left: 60px;
+	margin-right:30px;
+	font-weight: 400;
+	font-size: 20px;
+	color: #ffffff !important;
 }
 
 .reset-dialog-footer{
@@ -379,12 +413,34 @@ label.dialog-text {
 	opacity: 1;
 }
 
+.reset-dialog.bj-reset-only{
+	right: 40px;
+	left: 40px;
+	top: 170px;
+	bottom: 218px;
+	z-index:100;
+	box-shadow: 4px 4px 80px #000;
+	position: absolute;
+	opacity: 1;
+}
+
 .dialog-cancel-btn{
 	float:left;
 	width:30%;
 	height:100%;
 	text-align:center;
 	background: #02507c;
+}
+
+.dialog-cancel-btn.bj-reset-only{
+	float:left;
+	width:56%;
+	height:100%;
+	text-align:center;
+	background: #dedede;
+	border-right-color: #a6a6a6;
+    border-right-style: solid;
+    border-right-width: 2px;
 }
 
 img.reset-cancel{
@@ -397,10 +453,21 @@ img.reset-cancel{
 	text-align:center;
 }
 
+.dialog-ok-btn.bj-reset-only{
+	height:100%;
+	background: #dedede;
+	text-align:center;
+} 
+
 img.reset-save{
 	margin-top:18px;
 }
 
+div.reset-save{
+	padding-top: 18px;
+	color:#000000;
+	font-size:20px;
+}
 img.slave-dis {
 	float: right;
 	margin-top: 4px;
