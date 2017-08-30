@@ -420,7 +420,7 @@ label.actuator-circuit-logic-lbl {
 	margin-top: 2px;
 }
 
-div.bj-config-setting.actuator1.reset span.glyphicon.glyphicon-stop,{
+div.bj-config-setting.actuator1.reset span.glyphicon.glyphicon-stop{
 	float: right;
 	margin-right: 22px;
 	margin-top: 4px;
