@@ -266,7 +266,7 @@ export class UIParams {
       timeSecs:number;
       sTimeComponent:any;
       resetCommand = -1;
-
+      resetEnergyMon = false; //PDAL-2583
 }
 
 export class DeviceParams {
@@ -706,6 +706,14 @@ export class DataService {
     getProfile(){
       return this.uiParams.profile;
     }
+    //PDAL-2583
+    setResetEnergyMonitor(reset){
+        this.uiParams.resetEnergyMon = reset; 
+    }
+    //PDAL-2583
+    isResetEnergyMon(){
+        return this.uiParams.resetEnergyMon;
+    }
 
     getProfileSwitch() {
         return this.uiParams.profileSwitch;
@@ -746,7 +754,6 @@ export class DataService {
         return this.uiParams.otherparamTitle;
     }
     getOtherParam(){
-        //this.logger.log('other param title is   ' + this.uiParams.otherparam)
         return this.uiParams.otherparam;
     }
      setIParam(item,itemTitle) {
@@ -1085,7 +1092,6 @@ export class DataService {
         this.setAccessLevelRequsetedAddress(btaddress)
     }
     disConnectDevice(){
-        this.logger.log('disconnect device is called')
         if(this.deviceParams.deviceConnected ==  true){
             this.disConnectDeviceObj = new disConnectDevice()
             this.setAccessLevelRequsetedAddress('')
