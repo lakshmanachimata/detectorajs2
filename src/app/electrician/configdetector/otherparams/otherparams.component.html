@@ -36,7 +36,7 @@
             <label class="bj-config-setting testmode-settings-test-actuator1-block" >{{ this.data.getTranslatedString("Identify load on actuator 1") }}</label>
             <span class="glyphicon glyphicon-stop"></span>
         </div>
-        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c'">
             <label class="bj-config-setting testmode-settings-test-actuator2-block" >{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
             <span class="glyphicon glyphicon-stop"></span>
         </div>
@@ -56,7 +56,7 @@
 <div id="bj-load-profile-div" *ngIf="getOtherParam()=='loaddetectorprofile'">
     <div id="bj-detector-info-div">
         <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
-        <li class="bj-detector-name update">{{activeDevice.btDeviceName}}
+        <li class="bj-detector-name update">{{ad.btDeviceName}}
             <div class="bj-detector-profile" >{{ this.data.getTranslatedString("No Profile") }}</div>
         </li>
         <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
@@ -102,7 +102,7 @@
 <div id="bj-save-userprofile-div" *ngIf="getOtherParam()=='saveasuserprofile'">
     <div id="bj-detector-info-div">
         <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
-        <li class="bj-detector-name update">{{activeDevice.btDeviceName}}
+        <li class="bj-detector-name update">{{ad.btDeviceName}}
             <div class="bj-detector-profile" >{{ this.data.getTranslatedString("No Profile") }}</div>
         </li>
         <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
@@ -125,16 +125,16 @@
 <div id="bj-update-firmware-div-top" *ngIf="getOtherParam()=='updatefirmware'">
     <div id="bj-update-firmware-div" >
         <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
-        <li class="bj-detector-name update">{{activeDevice.btDeviceName}}
-            <div class="bj-detector-version-num update">Version {{activeDevice.firmwareVersion}}
+        <li class="bj-detector-name update">{{ad.btDeviceName}}
+            <div class="bj-detector-version-num update">Version {{ad.firmwareVersion}}
             </div>
         </li>
        <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
     </div>
-    <div id="bj-update-firmware-progressbar" *ngIf="activeDevice.fwupdate=='true'">
+    <div id="bj-update-firmware-progressbar" *ngIf="ad.fwupdate=='true'">
         <div id="update-progress"></div>
     </div>
-    <div id="bj-update-firmware-statusbar" *ngIf="activeDevice.fwupdate=='false'">
+    <div id="bj-update-firmware-statusbar" *ngIf="ad.fwupdate=='false'">
         <label class="bj-config-lbl no-update-status-div">No firmware update available</label>
     </div>
 </div>
@@ -260,7 +260,7 @@
             </div>
            </span>
     </div>
-    <div class="bj-config-setting-div ground-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+    <div class="bj-config-setting-div ground-illumination-div" *ngIf="ad.deviceType == 'daliMaster1c'">
         <label class="bj-config-setting ground-illumination-block">Basic brigthtness</label>
            <span class="bj-config-toggle-switch">
                <div class="track"  (click)="togglebi()"  [(ngModel)]="ad.enableUserBasicBrightness" [ngStyle]="{'border-color': ad.enableUserBasicBrightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -271,7 +271,7 @@
             </div>
            </span>
     </div>
-    <div class="bj-config-setting-div anti-night-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+    <div class="bj-config-setting-div anti-night-glare-div" *ngIf="ad.deviceType == 'daliMaster1c'">
         <label class="bj-config-setting anti-night-glare-block">Nightlight function</label>
            <span class="bj-config-toggle-switch">
                 <div class="track"  (click)="togglenf()"  [(ngModel)]="ad.enableUserNightLightFunction" [ngStyle]="{'border-color': ad.enableUserNightLightFunction == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>

@@ -15,7 +15,7 @@
 		</div>-->
 		
     
-		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+		<div *ngIf="ad.deviceType == 'daliMaster1c'">
 		<label>Constant light regulation</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
 			<span *ngIf="ad.constantLightControlEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
@@ -26,13 +26,13 @@
 		<span>{{ad.brightnessThreshold}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container></span>
 		</div>
 		
-		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+		<div *ngIf="ad.deviceType == 'daliMaster1c'">
 		<label >{{ this.data.getTranslatedString("Consider slave brightness") }}</label>
 			<span *ngIf="ad.constantLightControlEnable == true">on</span>
 			<span *ngIf="ad.constantLightControlEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
-		<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+		<div *ngIf="ad.deviceType == 'daliMaster1c'">
 		<label>Limit  of room  brightness</label>
 			<span *ngIf="ad.delimitLightingLevelEnable == true">ON</span>
 			<span *ngIf="ad.delimitLightingLevelEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
@@ -44,13 +44,13 @@
 			<span *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
-		<div *ngIf="activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c'">
+		<div *ngIf="ad.deviceType == 'relay1c' || ad.deviceType == 'mosfet1c'">
 		<label >{{ this.data.getTranslatedString("Short-time pulse") }}</label>
 			<span *ngIf="ad.shortTimePulseEnable == true">ON</span>
 			<span *ngIf="ad.shortTimePulseEnable == false" >{{ this.data.getTranslatedString("OFF") }}</span>
 		</div>
 		
-		<div *ngIf="(((activeDevice.deviceType == 'relay1c' || activeDevice.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || activeDevice.deviceType == 'daliMaster1c')">
+		<div *ngIf="(((ad.deviceType == 'relay1c' || ad.deviceType == 'mosfet1c') && ad.shortTimePulseEnable == false) || ad.deviceType == 'daliMaster1c')">
 		<label >{{ this.data.getTranslatedString("Switch-off delay") }}</label>
 			<span>{{ad.switchOffDelay}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container></span>
 		</div>
@@ -93,7 +93,7 @@
 	   
 	   <div> 
 	   <label>Firmware</label>
-	   <span>{{activeDevice.firmwareVersion}}</span>
+	   <span>{{ad.firmwareVersion}}</span>
 	   </div>
 	   
 	    <div (click)="gotoInstalledParams('emonitor','Energy monitor')">

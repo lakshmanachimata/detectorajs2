@@ -4,7 +4,7 @@
         <div id="bj-light-settings-div">
             <div class="bj-user-config-setting-div light1-div">
                 <label class="light-name" >{{ this.data.getTranslatedString("Light 1") }}</label>
-                <label class="bj-light-brightness-lbl" *ngIf="activeDevice.deviceType == 'daliMaster1c'" >{{ad.ch1CurrentLevel}}%</label>
+                <label class="bj-light-brightness-lbl" *ngIf="ad.deviceType == 'daliMaster1c'" >{{ad.ch1CurrentLevel}}%</label>
                 <div class="bulb-channel-info light1-div">
                     <div class="slide-prev light1" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
                     <div class="channel-info">
@@ -27,13 +27,13 @@
                     </div>
                     <div class="slide-next light1" (click)="slideNext()" *ngIf="light1state < 3" ><span class="glyphicon glyphicon-menu-right"></span></div>
                 </div>
-                <div class="bj-brightness-slider light1" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+                <div class="bj-brightness-slider light1" *ngIf="ad.deviceType == 'daliMaster1c'">
                     <div class="bj-slider-control light1">
                         <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" (ngModelChange)="brightnessChanged()"   [(ngModel)]="ad.ch1CurrentLevel" [ngStyle]="slideBackground(ad.ch1CurrentLevel)">
                     </div>
                 </div>
             </div>
-            <div class="bj-user-config-setting-div light2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+            <div class="bj-user-config-setting-div light2-div" *ngIf="ad.deviceType == 'daliMaster1c'">
                 <label class="light-name" >{{ this.data.getTranslatedString("Light 2") }}</label>
                 <div class="bulb-channel-info light2-div">
                     <div class="bulb-glow light2" >
@@ -45,8 +45,8 @@
         </div>
         <div id="bj-other-user-settings-div">
             <label class="bj-config-lbl other-settings-div">Other settings</label>
-            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()" *ngIf="activeDevice.enableUserEnergyMonitor"><!--Fix for PDAL-2247 -->
-                <label class="bj-config-setting user-energy-monitor-block">Monitor energy</label><div class="slide-next energy-monitor"><span class="glyphicon glyphicon-menu-right"></span></div>
+            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()" *ngIf="ad.enableUserEnergyMonitor"><!--Fix for PDAL-2247 -->
+                <label class="bj-config-setting user-energy-monitor-block">{{ this.data.getTranslatedString("Energy monitor") }}</label><div class="slide-next energy-monitor"><span class="glyphicon glyphicon-menu-right"></span></div>
             </div>
             <div class="bj-config-setting-div other-settings-div" (click)="gotoSettings()">
                 <label class="bj-config-setting user-settings-block" >{{ this.data.getTranslatedString("Settings") }}</label><div class="slide-next settings"><span class="glyphicon glyphicon-menu-right"></span></div>

@@ -2717,21 +2717,27 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.building = attrValue;
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD                    :
+            this.logger.log("enableUserSetBrightnessThreshold    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserSetBrightnessThreshold = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY                        :
+            this.logger.log("enableUserSetSwitchOffDelay    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserSetSwitchOffDelay = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR                              :
+                this.logger.log("enableUserEnergyMonitor    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserEnergyMonitor = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS                            :
+            this.logger.log("enableUserBasicBrightness    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserBasicBrightness = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION                        :
+            this.logger.log("enableUserNightLightFunction    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserNightLightFunction = attrValue 
             break;
             case SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE            :
+            this.logger.log("enableUserColorTemperatureControlEnable    " + attrValue)
                 this.uiParams.devicesObj.DeviceData.enableUserColorTemperatureControlEnable = attrValue 
             break;
             case SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS                                      : 

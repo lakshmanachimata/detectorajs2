@@ -5,9 +5,9 @@
         <label class="bj-config-setting-block-lbl presence-simulation-block" >{{ this.data.getTranslatedString("Presence simulation") }}</label>
         <span class="bj-config-toggle-switch">
             <div class="track user"  (click)="togglePE()" [ngStyle]="{'border-color':'#7a7f85'}">
-                <label class="switch-onlabel user" *ngIf="this.ad.presenceSimulationEnable == true">{{onLabel}}</label>
-                <label class="switch-offlabel user" *ngIf="this.ad.presenceSimulationEnable  == false">{{offLabel}}</label>
-                <div class="switch user" [ngClass]="{'switch-on':this.ad.presenceSimulationEnable == true,'switch-off':this.ad.presenceSimulationEnable == false}" [ngStyle]="{'background-color':'#ccc'}">
+                <label class="switch-onlabel user" *ngIf="ad.presenceSimulationEnable == true">{{onLabel}}</label>
+                <label class="switch-offlabel user" *ngIf="ad.presenceSimulationEnable  == false">{{offLabel}}</label>
+                <div class="switch user" [ngClass]="{'switch-on':ad.presenceSimulationEnable == true,'switch-off':ad.presenceSimulationEnable == false}" [ngStyle]="{'background-color':'#ccc'}">
                 </div>
             </div>
         </span>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-basic-illumination-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'&& ad.enableUserBasicBrightness"><!--Fix for PDAL-2247 -->
+<div id="bj-user-basic-illumination-div" *ngIf="ad.deviceType == 'daliMaster1c'&& ad.enableUserBasicBrightness"><!--Fix for PDAL-2247 -->
     <label class="bj-config-lbl user-basic-illumination-div" >{{ this.data.getTranslatedString("Basic brightness") }}</label>
     <div>
         <div class="bj-config-setting inner-setting-user"><label id="illumination-mode-off" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChanged()" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode" [value]="0"/></div>
@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-<div id="bj-user-anti-glare-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'&& ad.enableUserNightLightFunction"><!--Fix for PDAL-2247 -->
+<div id="bj-user-anti-glare-div" *ngIf="ad.deviceType == 'daliMaster1c'&& ad.enableUserNightLightFunction"><!--Fix for PDAL-2247 -->
     <label class="bj-config-lbl user-anti-glare-div">Night-time anti-glare function</label>
         <div class="bj-config-setting-div-settings anti-glare-function-div">
             <label class="bj-config-setting-block-lbl anti-glare-function-lbl">Night-time anti-glare function</label>

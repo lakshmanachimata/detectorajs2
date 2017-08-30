@@ -47,6 +47,12 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
+                SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
+                SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
+                SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
+                SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,                             
+                SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,                         
+                SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE, 
                 ]
 
     updateSubcribeAttrs =[

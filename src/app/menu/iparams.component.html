@@ -47,7 +47,7 @@
 	<div *ngIf="data.getIParam() == 'actuator1'">
 		<div class="bj-container" style="overflow-y: scroll;" >
 			<div class="bj-sensor-setting">	
-				<div *ngIf="activeDevice.deviceType == 'mosfet1c' || activeDevice.deviceType == 'relay1c'">
+				<div *ngIf="ad.deviceType == 'mosfet1c' || ad.deviceType == 'relay1c'">
 					<div class="actuatorsection" (click)="showCircuitSettings=!showCircuitSettings">	
 					<label >{{ this.data.getTranslatedString("Circuit logic") }}</label>
 						<up-nav *ngIf="showCircuitSettings"></up-nav>
@@ -79,7 +79,7 @@
 				</div>
 				</div>
 
-				<div *ngIf="activeDevice.deviceType == 'mosfet1c' || activeDevice.deviceType == 'daliMaster1c'"> 
+				<div *ngIf="ad.deviceType == 'mosfet1c' || ad.deviceType == 'daliMaster1c'"> 
 				<div class="actuatorsection" (click)="showSoftSwitchingSettings=!showSoftSwitchingSettings">
 				<label>Soft switching of ON/OFF</label>
 				<up-nav  *ngIf="showSoftSwitchingSettings"></up-nav>
@@ -109,7 +109,7 @@
 				</div>
 				
 
-				<div  *ngIf="showSoftSwitchingSettings || activeDevice.deviceType == 'mosfet1c'">
+				<div  *ngIf="showSoftSwitchingSettings || ad.deviceType == 'mosfet1c'">
 				<label >{{ this.data.getTranslatedString("Dimming mode") }}</label>
 				<span *ngIf="ad.phaseCutMode ==  0" >{{ this.data.getTranslatedString("Leading edge") }}</span>
 				<span *ngIf="ad.phaseCutMode ==  1" >{{ this.data.getTranslatedString("Trailing edge") }}</span>
@@ -123,13 +123,13 @@
 				</div>
 				
 
-				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
+				<div  *ngIf="showMiscSettings && ad.deviceType == 'daliMaster1c'">
 				<label >{{ this.data.getTranslatedString("Memory function") }}</label>
 				<span *ngIf="ad.ch1MemoryFunctionEnable ==  true">ON</span>
 				<span *ngIf="ad.ch1MemoryFunctionEnable ==  false" >{{ this.data.getTranslatedString("OFF") }}</span>
 				</div>
 
-				<div  *ngIf="showMiscSettings && activeDevice.deviceType == 'daliMaster1c'">
+				<div  *ngIf="showMiscSettings && ad.deviceType == 'daliMaster1c'">
 				<label >{{ this.data.getTranslatedString("Limit room brightness") }}</label>
 				<span *ngIf="ad.delimitLightingLevelEnable ==  true">ON</span>
 				<span *ngIf="ad.delimitLightingLevelEnable ==  false" >{{ this.data.getTranslatedString("OFF") }}</span>
@@ -157,7 +157,7 @@
 				<span>{{ad.ch1MaxLevel}} %</span>
 				</div>
 				</div>
-				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div *ngIf="ad.deviceType == 'daliMaster1c'">
 				<div class="actuatorsection" (click)="showDaliSettings=!showDaliSettings">
 				<label >{{ this.data.getTranslatedString("DALI settings") }}</label>
 				<up-nav  *ngIf="showDaliSettings"></up-nav>
@@ -177,7 +177,7 @@
 				<span *ngIf="ad.daliPowerOnLevel ==  2" >{{ this.data.getTranslatedString("100%") }}</span>
 				</div>
 				</div>
-				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div *ngIf="ad.deviceType == 'daliMaster1c'">
 				<div class="actuatorsection" (click)="showFluorescentSettings=!showFluorescentSettings">
 				<label >{{ this.data.getTranslatedString("Fluorescent lamps") }}</label>
 				<up-nav  *ngIf="showFluorescentSettings"></up-nav>
@@ -202,7 +202,7 @@
 				<span>{{ad.burnInDuration}} h</span>
 				</div>
 				</div>
-				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div *ngIf="ad.deviceType == 'daliMaster1c'">
 				<div class="actuatorsection" (click)="showBasicIlluminationSettings=!showBasicIlluminationSettings">
 				<label >{{ this.data.getTranslatedString("Basic brightness") }}</label>
 				<up-nav  *ngIf="showBasicIlluminationSettings"></up-nav>
@@ -236,7 +236,7 @@
 				<span *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable ==  false" >{{ this.data.getTranslatedString("OFF") }}</span>
 				</div>
 				</div>
-				<div *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+				<div *ngIf="ad.deviceType == 'daliMaster1c'">
 				<div class="actuatorsection" (click)="showNightAntiGlareSettings=!showNightAntiGlareSettings">
 				<label >Night-time anti-glare function</label>
 				<up-nav  *ngIf="showNightAntiGlareSettings"></up-nav>
@@ -288,7 +288,7 @@
 			</div>
 		</div>
 	</div>
-	<div *ngIf="data.getIParam() == 'actuator2' && activeDevice.deviceType == 'daliMaster1c'">
+	<div *ngIf="data.getIParam() == 'actuator2' && ad.deviceType == 'daliMaster1c'">
 		<div class="bj-container" >
 			<div class="bj-sensor-setting">	
 				<div class="actuatorsection" (click)="showCircuitSettings=!showCircuitSettings">		
@@ -431,12 +431,12 @@
 			
 		<label class="section" >{{ this.data.getTranslatedString("Contact Name") }}</label>
 		<div>
-		<label style="font-size: 20px;"> {{activeDevice.contactName}} </label>
+		<label style="font-size: 20px;"> {{ad.contactName}} </label>
 		</div>
 		
 		<label class="section" >{{ this.data.getTranslatedString("Building") }}</label>
 		<div>
-		<label style="font-size: 20px;"> {{activeDevice.buildingName}} </label>
+		<label style="font-size: 20px;"> {{ad.buildingName}} </label>
 		</div>
 		
 		

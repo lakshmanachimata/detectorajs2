@@ -41,7 +41,7 @@
                 </div>
                 </span>
         </div>
-        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="activeDevice.deviceType == 'daliMaster1c'">
+        <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c'">
             <label class="bj-config-setting testmode-settings-test-actuator2-block" >{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
                 <span class="bj-config-toggle-switch">
                   <div class="track"  (click)="togglech2ID()"  [(ngModel)]="ad.ch2IdentifyingLoad" [ngStyle]="{'border-color': ad.ch2IdentifyingLoad == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
