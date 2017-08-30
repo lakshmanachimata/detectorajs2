@@ -432,8 +432,8 @@ export class DataService {
     readDoneArray=[];
     writeArray=[];
     writeDoneArray=[];
-    readCount = 10;
-    writeCount = 10;
+    readCount = 9;
+    writeCount = 9;
     addData=[];
     identifyDevice = 0;
     sendData =  new Array<WriteData>();
@@ -1024,7 +1024,7 @@ export class DataService {
                 //this.disConnectDevice();
                 //this.router.navigate([this.currentRoute])
                 this.router.navigate(['/electrician/econfigdetector'])
-                // this.currentRoute = '';
+                this.currentRoute = '';
             }
         }
     }
@@ -2584,10 +2584,10 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.burnInDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN                                    : 
-                this.uiParams.devicesObj.DeviceData.burnInDuration_min= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX                                    : 
-                this.uiParams.devicesObj.DeviceData.burnInDuration_max= attrValue;
+                this.uiParams.devicesObj.DeviceData.burnInDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE                                   : 
                 this.uiParams.devicesObj.DeviceData.basicBrightnessMode= attrValue;

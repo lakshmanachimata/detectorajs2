@@ -448,6 +448,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
     }
+    this.data.unConfigureData(this.updateSubcribeAttrs)
+    this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
   gotoActuator1(){
     this.doDisConnect = false;
@@ -513,11 +515,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = value;
   }
   subcribeForDetails(){
-    //this.data.configureData(this.updateSubcribeAttrs)
-    this.data.configureData(this.permanentSubscrioAttrs)
+    this.data.configureData(this.updateSubcribeAttrs)
   }
 
   subcribeForPermanentDetails(){
-    //this.data.configureData(this.permanentSubscrioAttrs)
+    this.data.configureData(this.permanentSubscrioAttrs)
+  }
+  unSubscriveDetails(){
+    this.data.unConfigureData(this.updateSubcribeAttrs)
+    this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
 }

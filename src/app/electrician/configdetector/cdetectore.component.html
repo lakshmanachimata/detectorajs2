@@ -81,7 +81,8 @@
                         <div class="bj-config-setting-adjust short-time-pulse-function "  >
                             <div class="adjust-minus" long-press (click)="reduceCount('sdelay',true)" (onLongPressEnd)="reduceCount('sdelay',true)" (onLongPressing)="reduceCount('sdelay',false)" ><span class="glyphicon glyphicon-minus"></span></div>
                                 <input class="adjust" type="number" (keyup)="setSoffDelay($event)" [(ngModel)]="ad.switchOffDelay"   [ngStyle]="{'color': sdelayerror == true?'red' : '#26394f'}">
-                                <div class="static-unit-text" >{{ this.data.getTranslatedString("s") }}</div>
+                                <div class="static-unit-text" *ngIf="ad.switchOffDelay < 60" >{{ this.data.getTranslatedString("s") }}</div>
+                                <div class="static-unit-text" *ngIf="ad.switchOffDelay >= 60" >{{ this.data.getTranslatedString("min") }}</div>
                                 <div class="adjust-plus" long-press (click)="increaseCount('sdelay',true)" (onLongPressEnd)="increaseCount('sdelay',true)" (onLongPressing)="increaseCount('sdelay',false)"><span class="glyphicon glyphicon-plus"></span>
                                 </div>
                         </div>
