@@ -943,6 +943,7 @@ public class MainActivity extends Activity {
     }
 
     void connectDevice(final String address){
+//        scanLeDevice(false);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
