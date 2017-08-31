@@ -509,9 +509,10 @@ public class MainActivity extends Activity {
         if(scanner != null)
             scanner.stopScan(bleCallback);
         if(mBluetoothLeService.mConnectionState == BluetoothLeService.STATE_CONNECTED ||
-                mBluetoothLeService.mConnectionState ==  BluetoothLeService.STATE_CONNECTING )
+                mBluetoothLeService.mConnectionState ==  BluetoothLeService.STATE_CONNECTING ) {
             mBluetoothLeService.disconnect();
-        mBluetoothLeService.close();
+            mBluetoothLeService.close();
+        }
         finish();
     }
 
@@ -884,7 +885,6 @@ public class MainActivity extends Activity {
                 finish();
             }
 
-            mBleGatt =  mBluetoothLeService.getGatt();
             if(scannedDevices.size() > 0)
                 mBluetoothLeService.connect(scannedDevices.get(0).btAddress);
 
@@ -959,6 +959,7 @@ public class MainActivity extends Activity {
             public void run() {
                 getDeviceInfo = false;
                 mBluetoothLeService.disconnect();
+                mBluetoothLeService.close();
             }
         });
     }

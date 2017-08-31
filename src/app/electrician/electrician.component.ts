@@ -16,7 +16,7 @@ export class DetectorInfo {
         public rssi;
         public createdDate;
         public updatedDate;
-        public idenfiy;
+        public identify;
     }
 
 
@@ -128,7 +128,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           detectorInfo.rssi = this.scannedData[i].rssi;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
-          detectorInfo.idenfiy='0';
+          detectorInfo.identify='0';
           this.detectors.push(detectorInfo);
         }
       }
@@ -153,6 +153,25 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
   }
 
+  getMystyle(identify) {
+    if(identify == '1'){
+      this.logger.log("identify is one" + identify)
+      let mystyles =  {
+        'background-color': '#0A60A0' ,
+        'color': '#FFFFFF',
+      }
+      return mystyles;
+    }else{
+      this.logger.log("identify is two" + identify)
+      let mystyles =  {
+        'background-color': '#FFFFFF' ,
+        'color': '#00395c',
+      }
+      return mystyles;
+    }
+  }
+
+
   removeIdentifyingDevice(){
     if(this.data.getIdentifyDevicePending() == 2){
         this.data.sendRemoveIdentifyCommand()
@@ -160,18 +179,18 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         if(this.data.isIPhone == 1){
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
-              this.detectors[i].idenfiy = '0';
+              this.detectors[i].identify = '0';
             }
           }
         }else {
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
-              this.detectors[i].idenfiy = '0';
+              this.detectors[i].identify = '0';
             }
           }
         }
-        this.identifyingDevice.idenfiy = '0';
-        this.logger.log("removeIdentifyingDevice " + this.identifyingDevice.idenfiy)
+        this.identifyingDevice.identify = '0';
+        this.logger.log("removeIdentifyingDevice " + this.identifyingDevice.identify)
         this.identifyingDevice = undefined;
     }
   }
@@ -182,48 +201,50 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         if(this.data.isIPhone == 1){
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
-              this.detectors[i].idenfiy = '1';
+              this.detectors[i].identify = '1';
             }
           }
         }else {
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
-              this.detectors[i].idenfiy = '1';
+              this.detectors[i].identify = '1';
             }
           }
         }
-        this.identifyingDevice.idenfiy = '1';
-        this.logger.log("setIdentify " + this.identifyingDevice.idenfiy)
+        this.identifyingDevice.identify = '1';
+        this.logger.log("setIdentify " + this.identifyingDevice.identify)
       }else{
         if(this.data.isIPhone == 1){
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
-              this.detectors[i].idenfiy = '0';
+              this.detectors[i].identify = '0';
             }
           }
         }else {
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
-              this.detectors[i].idenfiy = '0';
+              this.detectors[i].identify = '0';
             }
           }
         }
-        this.identifyingDevice.idenfiy = '0';
-        this.logger.log("setIdentify " + this.identifyingDevice.idenfiy)
+        this.identifyingDevice.identify = '0';
+        this.logger.log("setIdentify " + this.identifyingDevice.identify)
         this.identifyingDevice = undefined;
       }
     });
-
-
   }
 
   identifyDevice(item){
-    this.data.setIdentifyDeviceState(1);
-    this.identifyingDevice = item;
-    if(this.data.isIPhone == 1)
-      this.data.connectDevice(item.btIAddress);
-    else
-      this.data.connectDevice(item.btAddress); 
+    if(this.data.getIdentifyDevicePending() > 0 ){
+      return;
+    }else {
+      this.data.setIdentifyDeviceState(1);
+      this.identifyingDevice = item;
+      if(this.data.isIPhone == 1)
+        this.data.connectDevice(item.btIAddress);
+      else
+        this.data.connectDevice(item.btAddress); 
+    }
   }
 
   onInstallerAccessSuccess(){

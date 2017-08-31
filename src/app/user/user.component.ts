@@ -18,7 +18,7 @@ export class DetectorInfo {
         public rssi;
         public createdDate;
         public updatedDate;
-        public idenfiy;
+        public identify;
     }
 
 @Component({
@@ -99,7 +99,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
           detectorInfo.rssi = this.scannedData[i].rssi;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
-          detectorInfo.idenfiy = "0";
+          detectorInfo.identify = "0";
           this.detectors.push(detectorInfo);
         }
       }

@@ -1196,6 +1196,7 @@ export class DataService {
 
     onDeviceConnected(deviceAddress) {
         if(this.getIdentifyDevicePending() == 1){
+            this.deviceParams.deviceConnected = true;
             setTimeout(()=> 
                 this.sendIdentifyDeviceCommand(), 500
             )

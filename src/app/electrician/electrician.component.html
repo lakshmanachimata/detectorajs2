@@ -2,7 +2,9 @@
     <div id="bj-empty-list" *ngIf="detectors"></div>
     <ul   *ngFor="let detector of detectors" class="bj-detectors-list">
         <li class="bj-detector-name">
-            <div id="bj-detector-icon" (click)="identifyDevice(detector)" [ngStyle]="{ 'background-color': detector.idenfiy == '1' ? '#0A60A0':'#FFFFFF'}" ><span class="glyphicon glyphicon-modal-window"></span></div>
+            <div id="bj-detector-icon" (click)="identifyDevice(detector)" [ngStyle]="getMystyle(detector.identify)" >
+            <span class="glyphicon glyphicon-modal-window"></span>
+            </div>
             <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">{{ this.data.getTranslatedString("firware update available") }}</span>
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
