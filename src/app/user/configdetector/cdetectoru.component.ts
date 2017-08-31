@@ -75,6 +75,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.setActiveComponent(this);
       this.data.setMainTitle('Configure detector')
       this.data.readData(this.readAttrs);
+      this.ad.deviceType = this.activeDevice.deviceType;      
     }
 
   slideBackground (value) {

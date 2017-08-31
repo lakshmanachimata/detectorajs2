@@ -206,6 +206,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
+      this.ad.deviceType = this.activeDevice.deviceType;
       this.aslider = 'none';
       this.showSlider = false;
       this.data.setActiveComponent(this);
