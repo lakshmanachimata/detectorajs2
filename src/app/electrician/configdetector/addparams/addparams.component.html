@@ -1,7 +1,7 @@
 <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
 <div class="bj-config-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0"> 
 <div id="bj-sensor-params-settings-div">
-    <div class="bj-sensor-toggle brighteness-correction">
+    <!-- <div class="bj-sensor-toggle brighteness-correction">
        <label class="bj-config-setting inner-setting sensor-params-function" >{{ this.data.getTranslatedString("Brightness correction") }}</label>
             <span class="bj-config-toggle-switch">
             <div class="track"  (click)="toggleBr()"  [(ngModel)]="ad.brightnessCorrectionEnable" [ngStyle]="{'border-color': ad.brightnessCorrectionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -22,7 +22,7 @@
     <div class = "bj-current-val">
         <label class="bj-config-setting brightness-function"><ng-container >{{ this.data.getTranslatedString("Current brightness") }}</ng-container> : </label>
         <input class="adjust-value brightness-function" type="text" disabled [(ngModel)]="ad.currentBrightness">
-    </div>
+    </div> -->
     <div class="bj-sensor-toggle dynamic-delay">
     <label class="bj-config-setting inner-setting sensor-params-function" >{{ this.data.getTranslatedString("Dynamic switch-off delay") }}</label>
             <span class="bj-config-toggle-switch">

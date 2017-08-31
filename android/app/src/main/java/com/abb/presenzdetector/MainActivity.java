@@ -982,7 +982,11 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BluetoothDevice device = mBluetoothLeService.getGatt().getDevice();
+                if(mBluetoothLeService.getGatt() == null){
+                    return;
+                }
+                BluetoothDevice device = null;
+                    device  = mBluetoothLeService.getGatt().getDevice();
                 try {
                     JSONObject jsonObject =  new JSONObject();
                     jsonObject.put("deviceaddress",device.getAddress());

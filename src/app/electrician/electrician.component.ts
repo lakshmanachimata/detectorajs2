@@ -235,6 +235,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   identifyDevice(item){
+    this.removeIdentifyingDevice()
     if(this.data.getIdentifyDevicePending() > 0 ){
       return;
     }else {
