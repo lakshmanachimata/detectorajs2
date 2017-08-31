@@ -76,8 +76,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
                 //add params screen
                 //packet3
-                SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
-                SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
+                // SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
+                // SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
                 SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,
                 //eactuator 1
                 SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 

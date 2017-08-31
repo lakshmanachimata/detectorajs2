@@ -606,6 +606,7 @@ function prepareAttributeArray(indata) {
                 case SCCP_DATATYPES.SCCP_TYPE_INT64:
                     break;
                 default:
+                    bjeLog("WHO AM I " + indata[lastParseByteIndex + 4] +" AND AT " + lastParseByteIndex + 4)
                 break;
             }
             if(debugLogs == true)

@@ -2492,12 +2492,13 @@ export class DataService {
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
                 this.uiParams.devicesObj.DeviceData.pirSensitivity3= attrValue;
             break;
-            case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
-                this.uiParams.devicesObj.DeviceData.brightnessCorrectionEnable= attrValue;
-            break;
-            case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE                             : 
-                this.uiParams.devicesObj.DeviceData.brightnessCorrectionValue= attrValue;
-            break;
+            //REMOVED IN LATEST FW
+            // case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
+            //     this.uiParams.devicesObj.DeviceData.brightnessCorrectionEnable= attrValue;
+            // break;
+            // case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE                             : 
+            //     this.uiParams.devicesObj.DeviceData.brightnessCorrectionValue= attrValue;
+            // break;
             case SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         : 
                 this.uiParams.devicesObj.DeviceData.DynamicSwitchOffDelayEnable = attrValue;
             break;

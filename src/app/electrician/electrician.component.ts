@@ -155,14 +155,12 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
   getMystyle(identify) {
     if(identify == '1'){
-      this.logger.log("identify is one" + identify)
       let mystyles =  {
         'background-color': '#0A60A0' ,
         'color': '#FFFFFF',
       }
       return mystyles;
     }else{
-      this.logger.log("identify is two" + identify)
       let mystyles =  {
         'background-color': '#FFFFFF' ,
         'color': '#00395c',
@@ -190,7 +188,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           }
         }
         this.identifyingDevice.identify = '0';
-        this.logger.log("removeIdentifyingDevice " + this.identifyingDevice.identify)
         this.identifyingDevice = undefined;
     }
   }
@@ -212,7 +209,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           }
         }
         this.identifyingDevice.identify = '1';
-        this.logger.log("setIdentify " + this.identifyingDevice.identify)
       }else{
         if(this.data.isIPhone == 1){
           for(let i =0; i<this.detectors.length; i++){
@@ -228,7 +224,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           }
         }
         this.identifyingDevice.identify = '0';
-        this.logger.log("setIdentify " + this.identifyingDevice.identify)
         this.identifyingDevice = undefined;
       }
     });

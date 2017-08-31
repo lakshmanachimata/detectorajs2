@@ -20,8 +20,9 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     brrangeerror = false;
     loadingDataDone = false;
     readAttrs =[
-          SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
-          SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
+          //REMOVED IN LATEST RELEASE
+          // SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE,
+          // SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_VALUE,
           SCCP_ATTRIBUTES.DYNAMIC_SWITCH_OFF_DELAY_ENABLE,
           ]
 

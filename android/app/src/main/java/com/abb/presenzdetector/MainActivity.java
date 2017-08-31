@@ -469,13 +469,13 @@ public class MainActivity extends Activity {
 
 
 
-        initFreeathomeContext();
-        String hostName = "api.my-staging.busch-jaeger.de";
-        String userName = "lakshmana";
-        String password = "Abb@123456";
-        Log.d(LOG_TAG, "Starting to connect to " + hostName);
-        FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
-        checkForFilesAgain();
+//        initFreeathomeContext();
+//        String hostName = "api.my-staging.busch-jaeger.de";
+//        String userName = "lakshmana";
+//        String password = "Abb@123456";
+//        Log.d(LOG_TAG, "Starting to connect to " + hostName);
+//        FreeathomeJNI.CreateCert(mFreeathomeContext, Util.stringToByteArrayUtf8(userName), Util.stringToByteArrayUtf8(password), Util.stringToByteArrayUtf8("Some Device ID"), Util.stringToByteArrayUtf8("Some Name"));
+//        checkForFilesAgain();
     }
 
     public BluetoothGatt getGatt(){

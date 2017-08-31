@@ -457,7 +457,8 @@ public class BluetoothLeService extends Service {
     public boolean  connect(final String address) {
         if (mBluetoothAdapter == null || address == null) {
             Log.w(MainActivity.LOG_TAG, "BluetoothAdapter not initialized or unspecified address.");
-            return false;
+            initialize();
+            //return false;
         }
 
         // Previously connected device.  Try to reconnect.

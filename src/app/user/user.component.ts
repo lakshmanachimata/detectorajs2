@@ -34,6 +34,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     snap:RouterStateSnapshot;
     isDeviceConnected = false;
     selectedDevice = false;
+    identifyingDevice:any;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
     private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
       this.selectedDevice = false;
@@ -170,6 +171,96 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     this.data.resetSendData();
     if(this.selectedDevice == false &&  !(this.data.getProfile() == 'electrician'))
       this.data.killMe();  
+  }
+
+  getMystyle(identify) {
+    if(identify == '1'){
+      let mystyles =  {
+        'background-color': '#0A60A0' ,
+        'color': '#FFFFFF',
+      }
+      return mystyles;
+    }else{
+      let mystyles =  {
+        'background-color': '#FFFFFF' ,
+        'color': '#00395c',
+      }
+      return mystyles;
+    }
+  }
+
+
+  removeIdentifyingDevice(){
+    if(this.data.getIdentifyDevicePending() == 2){
+        this.data.sendRemoveIdentifyCommand()
+        this.data.setIdentifyDeviceState(0)
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].identify = '0';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].identify = '0';
+            }
+          }
+        }
+        this.identifyingDevice.identify = '0';
+        this.identifyingDevice = undefined;
+    }
+  }
+
+  setIdentify(state){
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+      if(state == 1){
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].identify = '1';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].identify = '1';
+            }
+          }
+        }
+        this.identifyingDevice.identify = '1';
+      }else{
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].identify = '0';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].identify = '0';
+            }
+          }
+        }
+        this.identifyingDevice.identify = '0';
+        this.identifyingDevice = undefined;
+      }
+    });
+  }
+
+  identifyDevice(item){
+    this.removeIdentifyingDevice()
+    if(this.data.getIdentifyDevicePending() > 0 ){
+      return;
+    }else {
+      this.data.setIdentifyDeviceState(1);
+      this.identifyingDevice = item;
+      if(this.data.isIPhone == 1)
+        this.data.connectDevice(item.btIAddress);
+      else
+        this.data.connectDevice(item.btAddress); 
+    }
   }
 
   
