@@ -16,10 +16,9 @@ export class DetectorInfo {
         public btAddress;
         public btIAddress;
         public rssi;
-        public contactName;
-        public buildingName;
         public createdDate;
         public updatedDate;
+        public idenfiy;
     }
 
 @Component({
@@ -100,7 +99,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
           detectorInfo.rssi = this.scannedData[i].rssi;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
-          detectorInfo.contactName = this.scannedData[i].manufacturerName;
+          detectorInfo.idenfiy = "0";
           this.detectors.push(detectorInfo);
         }
       }

@@ -436,6 +436,11 @@ function prepareAttributeArray(indata) {
         case SCCP_COMMAND.STANDARD_RESPONSE: // standard response
         if(debugLogs ==  true)
             bjeLog("standard response     " + indata);
+
+        if(indata[3] == 0x11){
+            return;
+        }
+
         if(indata[3] == 0x0A){
             if(indata[5] == 0){
                 appDataService.onAccessLevelUpdate(0);

@@ -56,9 +56,8 @@
                 <label class="total-savings-value month" *ngIf="activeTab === 1">{{TotalSavingsMonthValue}}$</label>
                 <label class="total-savings-value month" *ngIf="activeTab === 2">{{TotalSavingsYearValue}}$</label>
             </div>
-            <div class="user-sensor-settings" *ngIf="activeTab === 2" >{{ this.data.getTranslatedString("Sensor settings") }}</div>
             <div class="details reference-details" (click)="gotoReference()"><ng-container >{{ this.data.getTranslatedString("Reference details") }}</ng-container><span class="glyphicon glyphicon-menu-right"></span></div>
-            <div class="details reset-data" (click)="resetEM()" ><ng-container >{{ this.data.getTranslatedString("Reset data") }}</ng-container><span class="glyphicon glyphicon-remove"></span></div>
+            <div class="details reset-data" (click)="resetEM()" ><ng-container >{{ this.data.getTranslatedString("Reset data") }}</ng-container><span class="glyphicon glyphicon-stop"></span></div>
         </div>
     </div>
 </div>

@@ -14,10 +14,9 @@ export class DetectorInfo {
         public btAddress;
         public btIAddress;
         public rssi;
-        public contactName;
-        public buildingName;
         public createdDate;
         public updatedDate;
+        public idenfiy;
     }
 
 
@@ -32,6 +31,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     scannedData:Array<any>;
     snap:RouterStateSnapshot;
     isDeviceConnected =  false;
+    identifyingDevice:any;
     selectedDevice =  false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
     private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
@@ -128,7 +128,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           detectorInfo.rssi = this.scannedData[i].rssi;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
-          detectorInfo.contactName = this.scannedData[i].manufacturerName;
+          detectorInfo.idenfiy='0';
           this.detectors.push(detectorInfo);
         }
       }
@@ -157,11 +157,69 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     if(this.data.getIdentifyDevicePending() == 2){
         this.data.sendRemoveIdentifyCommand()
         this.data.setIdentifyDeviceState(0)
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].idenfiy = '0';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].idenfiy = '0';
+            }
+          }
+        }
+        this.identifyingDevice.idenfiy = '0';
+        this.logger.log("removeIdentifyingDevice " + this.identifyingDevice.idenfiy)
+        this.identifyingDevice = undefined;
     }
+  }
+
+  setIdentify(state){
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+      if(state == 1){
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].idenfiy = '1';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].idenfiy = '1';
+            }
+          }
+        }
+        this.identifyingDevice.idenfiy = '1';
+        this.logger.log("setIdentify " + this.identifyingDevice.idenfiy)
+      }else{
+        if(this.data.isIPhone == 1){
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+              this.detectors[i].idenfiy = '0';
+            }
+          }
+        }else {
+          for(let i =0; i<this.detectors.length; i++){
+            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+              this.detectors[i].idenfiy = '0';
+            }
+          }
+        }
+        this.identifyingDevice.idenfiy = '0';
+        this.logger.log("setIdentify " + this.identifyingDevice.idenfiy)
+        this.identifyingDevice = undefined;
+      }
+    });
+
+
   }
 
   identifyDevice(item){
     this.data.setIdentifyDeviceState(1);
+    this.identifyingDevice = item;
     if(this.data.isIPhone == 1)
       this.data.connectDevice(item.btIAddress);
     else

@@ -1179,10 +1179,14 @@ export class DataService {
 
     sendRemoveIdentifyCommand(){
         this.identifyObj = identify(0)
+        setTimeout(()=> 
+            this.disConnectDevice(), 500
+        )
     }
 
     sendIdentifyDeviceCommand(){
         this.identifyObj = identify(0xFF)
+        this.activeComponent.setIdentify(1)
         this.setIdentifyDeviceState(2);
     }
 
@@ -1191,7 +1195,7 @@ export class DataService {
     }
 
     onDeviceConnected(deviceAddress) {
-        if(this.getIdentifyDevicePending() == 2){
+        if(this.getIdentifyDevicePending() == 1){
             setTimeout(()=> 
                 this.sendIdentifyDeviceCommand(), 500
             )

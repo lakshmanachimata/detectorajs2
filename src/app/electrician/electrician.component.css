@@ -38,9 +38,9 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 	position:relative;
 	display:block;
 	height:100%;
-    font-size: 18px;
-    font-weight:400;
-    text-align:left;
+	font-size: 18px;
+	font-weight:400;
+	text-align:left;
 	color:#00395c;
 }
 
@@ -52,7 +52,7 @@ div.bj-electrician-container ul.bj-detectors-list li.bj-detector-name{
 	border-right: solid 1px #b5c4cd;
 	text-align:center;
 	width:90px;
-	height:100%;
+	height:89px;
 }
 
 .bj-detector-name #bj-detector-firmware-update{

@@ -1687,3 +1687,32 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
     border-bottom: 1px solid #334253;
     padding-bottom: 20px;
 }
+
+.energymon{
+    margin-left: 30%;
+    background-color: #dedede;
+    border-radius: 12px;
+    width: 150px;
+    height: 36px;
+    margin-top: 16px;
+    font-size: 22px;
+    padding-top: 2px;
+ }
+
+ .electPrice{
+    background-color: transparent;
+    border: none;
+ }
+
+ .price-plus{
+    margin-right: 30px;
+ }
+
+ .price-minus{
+    margin-left: 44px;
+ }
+
+ .elecprice-value{
+    margin-left: 0px !important;
+
+ }

@@ -40,6 +40,7 @@ export class DialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContent
       return this.data.getDialogText();
   }
   cancelStuff() {
+      this.data.setResetEnergyMonitor(false);
       this.data.setShowModal(false);
   }
   doStuff() {
