@@ -43,6 +43,9 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     showDaliSettings = false;
     showTimeShiftedSwitchOffSettings = false;
     showFluorescentSettings = false;
+    showTestModeSettings = true;
+    showEnergyMonitorRefSettings=true;
+
 
     constructor(public logger: LoggerService,public data: DataService,private router:Router,private translater:i18nService) {
         this.subMenuState = 'none';

@@ -1773,3 +1773,23 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
 #bj-config-operating-div{
     border-bottom: solid 1px #9eabbb;
 }
+
+
+.testmode-actuator-settings-heading,
+.energymonitor-ref-settings-heading{
+    display: block;
+    left: 0;
+    right: 0;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #cccccc;
+    color: #5B5B5B;
+    border-bottom: solid 1px #9eabbb;
+    padding-left:10px;
+    padding-top:4px;
+}
+
+.emreference-div{
+    border-bottom: 1px solid #9eabbb;
+    padding-bottom: 22px;
+}
