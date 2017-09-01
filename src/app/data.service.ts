@@ -1213,6 +1213,9 @@ export class DataService {
     }
 
     onDeviceDisconnected(deviceAddress){
+        if(this.activeComponent != undefined){
+            this.activeComponent.clearDevicesForRescan();
+        }
         this.deviceParams.deviceConnected = false;
     }
 

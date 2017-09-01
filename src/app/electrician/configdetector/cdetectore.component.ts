@@ -444,13 +444,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     if(this.data.getShowTestMode () == 1){
       return;
     }else {
+    this.unSubscriveDetails()
     this.data.setProfileSwitch(false)
     this.data.resetSendData();
     if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
     }
-    this.data.unConfigureData(this.updateSubcribeAttrs)
-    this.data.unConfigureData(this.permanentSubscrioAttrs)
+    // this.data.unConfigureData(this.updateSubcribeAttrs)
+    // this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
   gotoActuator1(){
     this.doDisConnect = false;

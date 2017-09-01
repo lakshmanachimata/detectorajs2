@@ -192,6 +192,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
   }
 
+  clearDevicesForRescan(){
+    this.logger.log("clearDevicesForRescan called")
+    this.zone.run( () => {
+      this.detectors = [];
+    });
+  }
+
   setIdentify(state){
     this.zone.run( () => { // Change the property within the zone, CD will run after
       if(state == 1){
