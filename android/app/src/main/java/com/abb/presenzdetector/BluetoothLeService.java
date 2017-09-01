@@ -495,7 +495,7 @@ public class BluetoothLeService extends Service {
      */
     public void disconnect() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-            Log.w(MainActivity.LOG_TAG, "BluetoothAdapter not initialized");
+            Log.w(MainActivity.LOG_TAG, "disconnect   BluetoothAdapter not initialized");
             return;
         }
         mBluetoothGatt.disconnect();
@@ -537,8 +537,12 @@ public class BluetoothLeService extends Service {
     }
 
     public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {
-        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-            Log.w(MainActivity.LOG_TAG, "BluetoothAdapter not initialized");
+        if (mBluetoothAdapter == null ){
+            Log.w(MainActivity.LOG_TAG, "writeCharacteristic mBluetoothAdapter not initialized");
+            return;
+        }
+        if(mBluetoothGatt == null) {
+            Log.w(MainActivity.LOG_TAG, "writeCharacteristic mBluetoothGatt not initialized");
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
@@ -558,7 +562,7 @@ public class BluetoothLeService extends Service {
     public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
                                               boolean enabled) {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-            Log.w(MainActivity.LOG_TAG, "BluetoothAdapter not initialized");
+            Log.w(MainActivity.LOG_TAG, "setCharacteristicNotification BluetoothAdapter not initialized");
             return;
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);

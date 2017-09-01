@@ -958,12 +958,13 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 getDeviceInfo = false;
+
                 mBluetoothLeService.disconnect();
-
-
-                //mBluetoothLeService.close();
             }
         });
+        if(scannedDevices.size() > 0){
+            this.scannedDevices.clear();
+        }
     }
 
     void setFlavorType(){
@@ -981,22 +982,29 @@ public class MainActivity extends Activity {
 
 
     void notifyAppAboutConnection(final boolean isConnection){
+        Log.d(LOG_TAG,"notifyAppAboutConnection state " + isConnection);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(mBluetoothLeService.getGatt() == null){
-                    return;
-                }
-                BluetoothDevice device = null;
-                    device  = mBluetoothLeService.getGatt().getDevice();
+
+
                 try {
                     JSONObject jsonObject =  new JSONObject();
-                    jsonObject.put("deviceaddress",device.getAddress());
+
                     String deviceData = "";
                     if(isConnection == true)
+                    {
+                        if(mBluetoothLeService.getGatt() == null){
+                            return;
+                        }
+                        BluetoothDevice device = null;
+                        device  = mBluetoothLeService.getGatt().getDevice();
+                        jsonObject.put("deviceaddress",device.getAddress());
                         deviceData = deviceData + "onDeviceConnected(";
-                    else
+                    }
+                    else {
                         deviceData = deviceData + "onDeviceDisconnected(";
+                    }
                     deviceData = deviceData + jsonObject.toString() + ")";
                     webview.evaluateJavascript(deviceData, null);
                 }catch (Exception e) {
@@ -1023,9 +1031,9 @@ public class MainActivity extends Activity {
                 }
             }
             else if (ACTION_GATT_DISCONNECTED.equals(action)) {
+                mBluetoothLeService.close();
                 notifyAppAboutConnection(false);
-                if(scanner != null)
-                    scanner.startScan(bleCallback);
+                scanLeDevice(true);
                 for(int di =0; di < scannedDevices.size(); di++) {
                     bluetoothDevice = null;
                     selectedDetectorInfo = null;
