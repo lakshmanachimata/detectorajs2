@@ -1087,6 +1087,25 @@ div#bj-user-sensor-div {
     border-right: none;
 }
 
+.adjust-value-input{
+    width: 120px;
+    height: 34px;
+    border-radius: 7px;
+    border:1px solid;
+    border-color:#26394f;
+    color: #26394f;
+    font-size: 15px;
+    float:right;
+    font-weight: 400;
+    margin-top: 10px;
+    /*margin-left: 8px;*/
+    margin-right: 12px;
+    text-align:center;
+    font-size: 20px;
+    padding-top: 2px;
+}
+
+
 .bj-config-setting-time-adjust .adjust{
 	width: 50%;
     border: solid 1px;

@@ -542,10 +542,10 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
-            Log.d("bje_detector","bje_detector write is success");
+            Log.d(MainActivity.LOG_TAG,"bje_detector write is success");
         }
         else {
-            Log.d("bje_detector","bje_detector write is fail    " + getGatt().getDevice().getAddress());
+            Log.d(MainActivity.LOG_TAG,"bje_detector write is fail    " + getGatt().getDevice().getAddress());
         }
     }
 

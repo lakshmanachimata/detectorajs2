@@ -176,14 +176,14 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   getMystyle(identify) {
     if(identify == '1'){
       let mystyles =  {
-        'background-color': '#0A60A0' ,
-        'color': '#FFFFFF',
+        'background-color': '#94b3d7' ,
+        'color': '#2d425b',
       }
       return mystyles;
     }else{
       let mystyles =  {
-        'background-color': '#FFFFFF' ,
-        'color': '#00395c',
+        'background-color': '#2d425b' ,
+        'color': '#94b3d7',
       }
       return mystyles;
     }

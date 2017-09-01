@@ -1,4 +1,4 @@
-<div class="bj-user-container">
+<div class="bj-user-container" (click)="removeIdentifyingDevice()">
     <div id="bj-user-empty-list" *ngIf="detectors"></div>
     <ul (click)="configureDetectorUser(detector)" *ngFor="let detector of detectors" class="bj-user-detectors-list">
         <li class="bj-user-detector-name">

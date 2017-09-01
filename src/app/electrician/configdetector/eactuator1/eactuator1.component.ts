@@ -26,6 +26,10 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
     BRStartTimeMM : number = 0;
     BREndTimeHH : number = 0;
     BREndTimeMM : number = 0;
+    colorNumerator: any = Math.pow(10, 6);
+    colorTempMax : any;
+    colorTempMin: any;
+    colorTempVal:any;
 
       readAttrs =[
                 SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 
@@ -169,8 +173,34 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
 
   }
 
+getMinColorTemp(){
+  if(this.ad.colorTemperatureMin > 0){
+    this.ad.colorTempMin = this.colorNumerator/this.ad.colorTemperatureMin;
+  }
+  else{
+    this.ad.colorTempMin = 0;
+  }
+  this.getColorTemperatureValue();
+  return this.ad.colorTempMin;
+}
 
-
+getMaxColorTemp(){
+  if(this.ad.colorTemperatureMax > 0){
+    this.ad.colorTempMax = this.colorNumerator/this.ad.colorTemperatureMax;    
+  }
+  else{
+    this.ad.colorTempMax = 0;
+  }
+  return this.ad.colorTempMax;
+}
+getColorTemperatureValue(){
+  if(this.ad.colorTemperature > 0){
+    this.ad.colorTempVal = this.colorNumerator/this.ad.colorTemperature;
+  }
+  else{
+    this.ad.colorTempVal = 0;
+  }
+}
   setSSOFF(event : any){
     if(event.target.value <= this.ad.softOffDurationMin ){
       this.ad.softOffDuration = this.ad.softOffDurationMin;
@@ -398,6 +428,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
+    }else if(item == 'colorTemp'){
+      this.ad.colorTempVal = this.ad.colorTempVal - 1;
+      if(this.ad.colorTempVal <= this.ad.colorTempMin){
+        this.ad.colorTempVal = this.ad.colorTempMin;
+      }
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.colorTempVal)])
     }
   }
 
@@ -577,6 +614,13 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
         }
         if(isClick)
         this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel) ])
+    }else if(item == 'colorTemp'){
+      this.ad.colorTempVal = this.ad.colorTempVal + 1;
+      if(this.ad.colorTempVal >= this.ad.colorTempMax){
+        this.ad.colorTempVal = this.ad.colorTempMax;
+      }
+      if(isClick)
+      this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.colorTempVal)])
     }
   }
 

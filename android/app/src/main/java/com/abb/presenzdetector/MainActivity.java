@@ -264,7 +264,7 @@ public class MainActivity extends Activity {
     int bleDataLengthReceived = 0;
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
 
-    public static final String LOG_TAG = "bje_detector";
+    public static final String LOG_TAG = "bje_detector_native";
     private static BluetoothGattCharacteristic spotaMemInfoCharacteristic = null;
 
     private static MainActivity mInstance;
@@ -943,7 +943,7 @@ public class MainActivity extends Activity {
     }
 
     void connectDevice(final String address){
-//        scanLeDevice(false);
+        scanLeDevice(false);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -959,7 +959,9 @@ public class MainActivity extends Activity {
             public void run() {
                 getDeviceInfo = false;
                 mBluetoothLeService.disconnect();
-                mBluetoothLeService.close();
+
+
+                //mBluetoothLeService.close();
             }
         });
     }

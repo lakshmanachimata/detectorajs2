@@ -213,7 +213,17 @@
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 0"  name="power_level" [value]="0"/></div>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl" >{{ this.data.getTranslatedString("Memo") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 255" name="power_level" [value]="255"/></div>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl" >{{ this.data.getTranslatedString("100%") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()"[checked]="ad.daliPowerOnLevel === 254" name="power_level" [value]="254"/></div>
-            <div class="bj-config-setting actuator1 reset"   (click)="resetDali()" *ngIf="ad.deviceType == 'daliMaster1c'">
+                <div class="bj-config-setting inner-setting actuator1 burnInTime" >
+                    <label class="actuator-burinin-switching-lbl" >Color Temperature({{getMinColorTemp()}} K - {{getMaxColorTemp()}} K)</label>
+                    <div class="bj-config-setting-adjust durable-switching-function">
+                        <div class="adjust-minus" long-press (click)="reduceCount('colorTemp',true)" (onLongPressEnd)="reduceCount('colorTemp',true)" (onLongPressing)="reduceCount('colorTemp',false)" ><span class="glyphicon glyphicon-minus"></span></div>
+                        <div class="adjust-value-input">{{ad.colorTempVal}} K </div>
+                        <div class="adjust-plus" long-press (click)="increaseCount('colorTemp',true)" (onLongPressEnd)="increaseCount('colorTemp',true)" (onLongPressing)="increaseCount('colorTemp',false)" ><span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bj-config-setting actuator1 reset"   (click)="resetDali()" *ngIf="ad.deviceType == 'daliMaster1c'">
                 <label class="bj-config-setting reset-inner-block"  >{{ this.data.getTranslatedString("Reset control gear") }}</label><span class="glyphicon glyphicon-stop"></span>
             </div>
         </div>

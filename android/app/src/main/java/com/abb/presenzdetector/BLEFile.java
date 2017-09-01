@@ -180,11 +180,11 @@ public class BLEFile {
                 return lhs.getPath().compareToIgnoreCase(rhs.getPath());
             }
         });
-		Log.d("Files", "Size: "+ file.length);
+		Log.d(MainActivity.LOG_TAG, "Size: "+ file.length);
         ArrayList<String> names = new ArrayList<String>();
 		for (int i=0; i < file.length; i++)
 		{
-			Log.d("Files", "FileName:" + file[i].getName());
+			Log.d(MainActivity.LOG_TAG, "FileName:" + file[i].getName());
             names.add(file[i].getName());
 		}
         return names;
