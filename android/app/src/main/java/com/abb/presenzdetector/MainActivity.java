@@ -304,16 +304,9 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        PackageInfo pInfo = null;
-        String buildDate= "2017-08-23\n13:00:00";
         mHandler = new Handler();
         currentLocale = getResources().getConfiguration().locale;
-        try {
-            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         mInstance = this;
 
         fwFileDirectory =  getAssets().toString() + "/fwupdate";
@@ -960,6 +953,7 @@ public class MainActivity extends Activity {
                 getDeviceInfo = false;
 
                 mBluetoothLeService.disconnect();
+
             }
         });
         if(scannedDevices.size() > 0){
@@ -1019,20 +1013,17 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (ACTION_GATT_CONNECTED.equals(action)) {
-                if(scanner != null) {
-
-                    scanner.stopScan(bleCallback);
-                    for (int di = 0; di < scannedDevices.size(); di++) {
-                        if (getGatt().getDevice().getAddress().equalsIgnoreCase(scannedDevices.get(di).btAddress)) {
-                            bluetoothDevice = getGatt().getDevice();
-                            selectedDetectorInfo = scannedDevices.get(di);
-                        }
+                for (int di = 0; di < scannedDevices.size(); di++) {
+                    if (getGatt().getDevice().getAddress().equalsIgnoreCase(scannedDevices.get(di).btAddress)) {
+                        bluetoothDevice = getGatt().getDevice();
+                        selectedDetectorInfo = scannedDevices.get(di);
                     }
                 }
             }
             else if (ACTION_GATT_DISCONNECTED.equals(action)) {
                 mBluetoothLeService.close();
                 notifyAppAboutConnection(false);
+                mBluetoothLeService.close();
                 scanLeDevice(true);
                 for(int di =0; di < scannedDevices.size(); di++) {
                     bluetoothDevice = null;
@@ -1321,6 +1312,10 @@ public class MainActivity extends Activity {
             webview.removeAllViews();
             webview.destroy();
         }
+        if(mBluetoothLeService != null){
+            mBluetoothLeService.disconnect();
+            mBluetoothLeService.close();
+        }
         super.onDestroy();
         unbindService(mServiceConnection);
         mFreeathomeContext = 0;
@@ -1377,9 +1372,8 @@ public class MainActivity extends Activity {
                                 boolean deviceExists = false;
                                 SparseArray<byte[]> manufacturerSpecificData = scanRecord.getManufacturerSpecificData();
 
-                                //parseAdvertisementPacket(scanRecord);
                                 for (int i = 0; i < scannedDevices.size(); i++) {
-                                    if (device.hashCode() == Integer.parseInt(scannedDevices.get(i).hashCode)) {
+                                    if (device.getAddress().equals(scannedDevices.get(i).btAddress)) {
                                         deviceExists = true;
                                         break;
                                     }

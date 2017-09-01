@@ -1093,6 +1093,7 @@ export class DataService {
     }
     disConnectDevice(){
         if(this.deviceParams.deviceConnected ==  true){
+            this.logger.log("data service disConnectDevice")
             this.disConnectDeviceObj = new disConnectDevice()
             this.setAccessLevelRequsetedAddress('')
             this.deviceParams.accessLevel = 0;

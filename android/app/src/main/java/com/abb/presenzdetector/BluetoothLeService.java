@@ -84,6 +84,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
 
+            Log.d(MainActivity.LOG_TAG,"onServicesDiscovered   " + status);
             if(MainActivity.isUpdateFWStart == true) {
                 if (status != BluetoothGatt.GATT_SUCCESS) {
                     Intent intent = new Intent();
@@ -135,6 +136,7 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicRead(BluetoothGatt gatt,
                                          BluetoothGattCharacteristic characteristic,
                                          int status) {
+            Log.d(MainActivity.LOG_TAG,"onCharacteristicRead  " + status);
             if(MainActivity.isUpdateFWStart == true) {
                 int index = -1;
                 int step = -1;
@@ -186,6 +188,7 @@ public class BluetoothLeService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
+            Log.d(MainActivity.LOG_TAG,"onCharacteristicChanged" );
             if(MainActivity.isUpdateFWStart == true) {
                 super.onCharacteristicChanged(gatt, characteristic);
                 int value = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0);
@@ -237,6 +240,8 @@ public class BluetoothLeService extends Service {
          */
         public void onCharacteristicWrite(BluetoothGatt gatt,
                                           BluetoothGattCharacteristic characteristic, int status) {
+            Log.d(MainActivity.LOG_TAG,"onCharacteristicWrite "  +  status);
+
             if(MainActivity.isUpdateFWStart == true) {
                 if (status == BluetoothGatt.GATT_SUCCESS) {
                     Log.i(MainActivity.LOG_TAG, "write succeeded");
@@ -287,8 +292,13 @@ public class BluetoothLeService extends Service {
                         MainActivity.getInstance().sendBroadcast(intent);
                     }
                 }
-                super.onCharacteristicWrite(gatt, characteristic, status);
+            }else{
+                if (status == BluetoothGatt.GATT_SUCCESS){
+
+                }
             }
+            super.onCharacteristicWrite(gatt, characteristic, status);
+
         }
 
         /**
@@ -315,8 +325,9 @@ public class BluetoothLeService extends Service {
          */
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor,
                                       int status) {
+            Log.d(MainActivity.LOG_TAG,"onDescriptorWrite "  +  status);
+
             if(MainActivity.isUpdateFWStart == true) {
-                super.onDescriptorWrite(gatt, descriptor, status);
                 Log.d(MainActivity.LOG_TAG, "onDescriptorWrite");
                 if (status != BluetoothGatt.GATT_SUCCESS) {
                     Intent intent = new Intent();
@@ -334,6 +345,7 @@ public class BluetoothLeService extends Service {
                     MainActivity.getInstance().sendBroadcast(intent);
                 }
             }
+            super.onDescriptorWrite(gatt, descriptor, status);
         }
 
         /**
@@ -344,6 +356,7 @@ public class BluetoothLeService extends Service {
          *               transaction was executed successfully
          */
         public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
+            Log.d(MainActivity.LOG_TAG,"onReliableWriteCompleted "  +  status);
         }
 
         /**
@@ -498,6 +511,7 @@ public class BluetoothLeService extends Service {
             Log.w(MainActivity.LOG_TAG, "disconnect   BluetoothAdapter not initialized");
             return;
         }
+        Log.d(MainActivity.LOG_TAG, "disconnect in A BluetoothLeService");
         mBluetoothGatt.disconnect();
     }
 
