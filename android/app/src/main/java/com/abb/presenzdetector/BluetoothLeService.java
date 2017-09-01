@@ -64,6 +64,8 @@ public class BluetoothLeService extends Service {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             String intentAction;
+            Log.d(MainActivity.LOG_TAG,"onConnectionStateChange   " + status);
+
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = MainActivity.ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
@@ -181,8 +183,8 @@ public class BluetoothLeService extends Service {
                 if (status == BluetoothGatt.GATT_SUCCESS ) {
                     broadcastUpdate(MainActivity.ACTION_DATA_AVAILABLE, characteristic);
                 }
-                super.onCharacteristicRead(gatt, characteristic, status);
             }
+            super.onCharacteristicRead(gatt, characteristic, status);
         }
 
         @Override
@@ -312,6 +314,7 @@ public class BluetoothLeService extends Service {
          */
         public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor,
                                      int status) {
+            Log.d(MainActivity.LOG_TAG,"onDescriptorRead "  +  status);
         }
 
         /**
@@ -370,6 +373,7 @@ public class BluetoothLeService extends Service {
          * @param status {@link BluetoothGatt#GATT_SUCCESS} if the RSSI was read successfully
          */
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+            Log.d(MainActivity.LOG_TAG,"onReadRemoteRssi "  +  status);
         }
 
         /**
@@ -384,6 +388,7 @@ public class BluetoothLeService extends Service {
          * @param status {@link BluetoothGatt#GATT_SUCCESS} if the MTU has been changed successfully
          */
         public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+            Log.d(MainActivity.LOG_TAG,"onMtuChanged "  +  status);
         }
     };
 
@@ -513,6 +518,7 @@ public class BluetoothLeService extends Service {
         }
         Log.d(MainActivity.LOG_TAG, "disconnect in A BluetoothLeService");
         mBluetoothGatt.disconnect();
+        mBluetoothDeviceAddress = null;
     }
 
     /**
@@ -544,9 +550,9 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.readCharacteristic(characteristic)){
-
+            Log.d(MainActivity.LOG_TAG,"readCharacteristic is success");
         }else {
-            Log.d(MainActivity.LOG_TAG,"not able to send readCharacteristic");
+            Log.d(MainActivity.LOG_TAG,"readCharacteristic is fail");
         }
     }
 
@@ -560,10 +566,10 @@ public class BluetoothLeService extends Service {
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {
-            Log.d(MainActivity.LOG_TAG,"bje_detector write is success");
+            Log.d(MainActivity.LOG_TAG," writeCharacteristic success");
         }
         else {
-            Log.d(MainActivity.LOG_TAG,"bje_detector write is fail    " + getGatt().getDevice().getAddress());
+            Log.d(MainActivity.LOG_TAG," writeCharacteristic fail    " + getGatt().getDevice().getAddress());
         }
     }
 
