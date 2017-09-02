@@ -47,6 +47,7 @@ public class BluetoothLeService extends Service {
     private BluetoothGatt mBluetoothGatt;
     public int mConnectionState = STATE_DISCONNECTED;
 
+    public static final int RETRY_CONNECTION = 2222;
     public static final int STATE_DISCONNECTED = 0;
     public static final int STATE_CONNECTING = 1;
     public static final int STATE_CONNECTED = 2;
@@ -82,6 +83,9 @@ public class BluetoothLeService extends Service {
                 broadcastUpdate(intentAction);
             }else{
                 close();
+                intentAction = MainActivity.ACTION_GATT_RETRY_CONNECTION;
+                mConnectionState = RETRY_CONNECTION;
+                broadcastUpdate(intentAction);
             }
         }
 

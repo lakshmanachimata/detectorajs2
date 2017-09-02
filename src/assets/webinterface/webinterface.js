@@ -4,7 +4,7 @@ var appDataService;
 var scannedDevices;
 var BJE;
 var debugLogs = true;
-var bjeLogs = false;
+var bjeLogs = true;
 var authGenSent = false;
 
 var sendPacketCounter = 0;
@@ -46,6 +46,9 @@ function setDemoMode(data){
     appDataService.setDemoMode(isDemoMode);
 }
 
+function retryConnection(){
+    appDataService.retryConnection();
+}
 
 
 function BJ_updateScanList() {

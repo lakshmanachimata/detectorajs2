@@ -55,6 +55,7 @@ public class WebInterface {
     }
 
 
+
     @JavascriptInterface
     public boolean readAttr(byte[] data){
         mainActivity.sendBLEAppFrame(data);

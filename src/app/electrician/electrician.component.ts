@@ -38,7 +38,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.selectedDevice = false;
     }
   configureDetector(item){
-    
       if(this.data.getAccessLevel() == 2){
         this.selectedDevice = true;
         this.jsonOnLoad(this)
@@ -60,6 +59,10 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.data.initDeviceData(false);
       }
   }
+  }
+
+  retryConnetion(){
+    this.configureDetector(this.data.getSelectedDevice(false))
   }
 
   showPWDDialog(){

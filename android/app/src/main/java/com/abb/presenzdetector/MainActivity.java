@@ -7,6 +7,7 @@ package com.abb.presenzdetector;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -39,6 +40,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -167,6 +169,8 @@ public class MainActivity extends Activity {
             "com.abb.presenzdetector.ACTION_GATT_CONNECTED";
     public final static String ACTION_GATT_DISCONNECTED =
             "com.abb.presenzdetector.ACTION_GATT_DISCONNECTED";
+    public final static String ACTION_GATT_RETRY_CONNECTION=
+            "com.abb.presenzdetector.ACTION_GATT_RETRY_CONNECTION";
     public final static String ACTION_GATT_SERVICES_DISCOVERED =
             "com.abb.presenzdetector.ACTION_GATT_SERVICES_DISCOVERED";
     public final static String ACTION_DATA_AVAILABLE =
@@ -240,7 +244,7 @@ public class MainActivity extends Activity {
     boolean isABB = false;
 
     Handler scanDevicesMessagesHandler  =  new Handler();
-
+    ProgressDialog dialog;
     class DetectorInfo {
         String hashCode = "";
         String btDeviceName = "";
@@ -256,10 +260,11 @@ public class MainActivity extends Activity {
         boolean OTASupported = false;
 
     }
+
+
     static public BJBLEManager suotaManager;
     //static public SpotaManager spotaManager;
     BluetoothLeScanner scanner;
-    BluetoothGatt mBleGatt;
 
     int bleDataLengthReceived = 0;
     ArrayList<DetectorInfo> scannedDevices =  new ArrayList<>();
@@ -474,6 +479,17 @@ public class MainActivity extends Activity {
     public BluetoothGatt getGatt(){
         return mBluetoothLeService.getGatt();
 
+    }
+
+    public void showConnectingDialog(){
+        dialog = ProgressDialog.show(MainActivity.this, "Connecting", "Connecting to Device");
+        dialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
+    public void closeConnectingDialog(){
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
 
     public void showMessageIfNoDevicesAreAvailable(){
@@ -896,6 +912,7 @@ public class MainActivity extends Activity {
         intentFilter.addAction(ACTION_GATT_DISCONNECTED);
         intentFilter.addAction(ACTION_GATT_SERVICES_DISCOVERED);
         intentFilter.addAction(ACTION_DATA_AVAILABLE);
+        intentFilter.addAction(ACTION_GATT_RETRY_CONNECTION);
         return intentFilter;
     }
 
@@ -937,6 +954,7 @@ public class MainActivity extends Activity {
 
     void connectDevice(final String address){
         scanLeDevice(false);
+        showConnectingDialog();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -990,6 +1008,7 @@ public class MainActivity extends Activity {
                         device  = mBluetoothLeService.getGatt().getDevice();
                         jsonObject.put("deviceaddress",device.getAddress());
                         deviceData = deviceData + "onDeviceConnected(";
+                        closeConnectingDialog();
                     }
                     else {
                         deviceData = deviceData + "onDeviceDisconnected(";
@@ -1001,6 +1020,17 @@ public class MainActivity extends Activity {
                 }
             }
         });
+    }
+
+    public void retryConnection(){
+        Log.d(LOG_TAG,"retryConnection");
+        try {
+            String deviceData = "";
+            deviceData = deviceData + "retryConnection()";
+            webview.evaluateJavascript(deviceData, null);
+        }catch (Exception e){
+
+        }
     }
 
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
@@ -1023,6 +1053,9 @@ public class MainActivity extends Activity {
                     selectedDetectorInfo = null;
                 }
                 scanLeDevice(true);
+            }
+            else if (ACTION_GATT_RETRY_CONNECTION.equals(action)) {
+                retryConnection();
             }
             else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());

@@ -815,6 +815,12 @@ export class DataService {
         this.uiParams.resetCommand = resetcmd;
     }
 
+    retryConnection(){
+        if(this.activeComponent != undefined){
+            this.activeComponent.retryConnetion()
+        }
+    }
+
     getResetCommand(){
         return this.uiParams.resetCommand;
     }

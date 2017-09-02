@@ -3,9 +3,9 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class LoggerService {
   
-  private logData = false;
-  private logWarn = false;
-  private logErr = false;  
+  private logData = true;
+  private logWarn = true;
+  private logErr = true;  
 
   log(msg: any)   { 
     if(this.logData == true)
