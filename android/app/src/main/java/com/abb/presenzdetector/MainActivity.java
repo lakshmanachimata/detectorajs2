@@ -482,6 +482,10 @@ public class MainActivity extends Activity {
     }
 
     public void showConnectingDialog(){
+        if(dialog != null && dialog.isShowing()){
+//            dialog.dismiss();
+            return;
+        }
         dialog = ProgressDialog.show(MainActivity.this, "Connecting", "Connecting to Device");
         dialog.getWindow().setGravity(Gravity.CENTER);
     }
@@ -955,7 +959,8 @@ public class MainActivity extends Activity {
     void connectDevice(final String address){
         scanLeDevice(false);
         showConnectingDialog();
-        runOnUiThread(new Runnable() {
+        Handler connectHandler =  new Handler(getApplicationContext().getMainLooper());
+        connectHandler.post(new Runnable() {
             @Override
             public void run() {
                 getDeviceInfo = true;
@@ -965,7 +970,8 @@ public class MainActivity extends Activity {
     }
 
     void disConnectDevice() {
-        runOnUiThread(new Runnable() {
+        Handler disConnectHandler =  new Handler(getApplicationContext().getMainLooper());
+        disConnectHandler.post(new Runnable() {
             @Override
             public void run() {
                 getDeviceInfo = false;
@@ -1048,6 +1054,7 @@ public class MainActivity extends Activity {
             else if (ACTION_GATT_DISCONNECTED.equals(action)) {
                 notifyAppAboutConnection(false);
                 mBluetoothLeService.close();
+                writeCharecteristic = null;
                 for(int di =0; di < scannedDevices.size(); di++) {
                     bluetoothDevice = null;
                     selectedDetectorInfo = null;
@@ -1055,6 +1062,7 @@ public class MainActivity extends Activity {
                 scanLeDevice(true);
             }
             else if (ACTION_GATT_RETRY_CONNECTION.equals(action)) {
+                writeCharecteristic = null;
                 retryConnection();
             }
             else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -1230,10 +1238,10 @@ public class MainActivity extends Activity {
                             for (int j = 0; j < gattCharacteristics.size(); j++) {
                                 if (gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(SERVER_RX_DATA) ||
                                         gattCharacteristics.get(j).getUuid().toString().equalsIgnoreCase(NEW_SERVER_RX_DATA) ) {
-                                    BluetoothGattCharacteristic writeme = gattCharacteristics.get(j);
-                                    writeme.setValue(data);
-                                    writeme.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-                                    mBluetoothLeService.writeCharacteristic(writeme);
+                                    writeCharecteristic = gattCharacteristics.get(j);
+                                    writeCharecteristic.setValue(data);
+                                    writeCharecteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                                    mBluetoothLeService.writeCharacteristic(writeCharecteristic);
                                     break;
                                 }
                             }
@@ -1375,12 +1383,6 @@ public class MainActivity extends Activity {
                 public void run() {
                     BluetoothDevice device = result.getDevice();
                     Log.d(MainActivity.LOG_TAG,"GOT SCAN CALLBACK   " + device.getAddress());
-                    ParcelUuid[] dUUIDs;
-                    try {
-                        dUUIDs  = device.getUuids();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
                     ScanRecord scanRecord = result.getScanRecord();
                     List<ParcelUuid> sUUIDs = scanRecord.getServiceUuids();
                     boolean isABBPresenseDetector = false;

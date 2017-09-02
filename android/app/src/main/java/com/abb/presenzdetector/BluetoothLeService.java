@@ -65,7 +65,15 @@ public class BluetoothLeService extends Service {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             String intentAction;
-            Log.d(MainActivity.LOG_TAG,"onConnectionStateChange   " + status);
+            Log.d(MainActivity.LOG_TAG,"onConnectionStateChange   " + status  + " CONNECTION IS " +  newState);
+
+            if(status  == 133){
+                close();
+                intentAction = MainActivity.ACTION_GATT_RETRY_CONNECTION;
+                mConnectionState = RETRY_CONNECTION;
+                broadcastUpdate(intentAction);
+                return;
+            }
 
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = MainActivity.ACTION_GATT_CONNECTED;
@@ -81,18 +89,27 @@ public class BluetoothLeService extends Service {
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(MainActivity.LOG_TAG, "Disconnected from GATT server.");
                 broadcastUpdate(intentAction);
-            }else{
-                close();
-                intentAction = MainActivity.ACTION_GATT_RETRY_CONNECTION;
-                mConnectionState = RETRY_CONNECTION;
-                broadcastUpdate(intentAction);
+                callRefresh(gatt);
             }
+        }
+
+        void callRefresh(BluetoothGatt gatt){
+            // Refresh device cache. This is the safest place to initiate the procedure.
+            if (!refreshDone && ++refreshAttempt <= 10) {
+                refreshDone = BJBLEManager.refresh(gatt); // should not fail
+                if (refreshDone)
+                    Log.d(MainActivity.LOG_TAG, "restart discovery after refresh");
+                gatt.discoverServices();
+                return;
+            }
+
         }
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
 
             Log.d(MainActivity.LOG_TAG,"onServicesDiscovered   " + status);
+
             if(MainActivity.isUpdateFWStart == true) {
                 if (status != BluetoothGatt.GATT_SUCCESS) {
                     Intent intent = new Intent();
@@ -101,14 +118,7 @@ public class BluetoothLeService extends Service {
                     MainActivity.getInstance().sendBroadcast(intent);
                     return;
                 }
-                // Refresh device cache. This is the safest place to initiate the procedure.
-                if (!refreshDone && ++refreshAttempt <= 10) {
-                    refreshDone = BJBLEManager.refresh(gatt); // should not fail
-                    if (refreshDone)
-                        Log.d(MainActivity.LOG_TAG, "restart discovery after refresh");
-                    gatt.discoverServices();
-                    return;
-                }
+
                 BluetoothGattService suota = gatt.getService(MainActivity.SPOTA_SERVICE_UUID);
                 if (suota == null
                         || suota.getCharacteristic(MainActivity.SPOTA_MEM_DEV_UUID) == null
