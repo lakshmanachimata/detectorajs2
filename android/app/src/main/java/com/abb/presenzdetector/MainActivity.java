@@ -958,6 +958,7 @@ public class MainActivity extends Activity {
 
     void connectDevice(final String address){
         scanLeDevice(false);
+        writeCharecteristic = null;
         showConnectingDialog();
         Handler connectHandler =  new Handler(getApplicationContext().getMainLooper());
         connectHandler.post(new Runnable() {
@@ -986,6 +987,7 @@ public class MainActivity extends Activity {
     void setFlavorType(){
         JSONObject jsonObject =  new JSONObject();
         try {
+            jsonObject.put("isabb", isABB);
             String deviceData = "";
             deviceData = deviceData + "setFlavor(";
             deviceData = deviceData + jsonObject.toString() + ")";
