@@ -45,9 +45,10 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
       return this.data.getDialogText();
   }
   cancelStuff() {
-      this.data.setShowEModal(false);
-      this.data.setEOptionText(this.translater.translate('Save'));
-		this.data.setEDialogInputHint('');
+    this.data.setShowEModal(false);
+    this.data.setEOptionText(this.translater.translate('Save'));
+    this.data.setEDialogInputHint('');
+    this.data.disConnectDevice()
   }
   doStuff() {
       this.data.setShowEModal(false);

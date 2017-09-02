@@ -118,7 +118,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN,                                     
                 SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX,                                     
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,                                    
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
+                SCCP_ATTRIBUTES.CONTACT,  
                 //packet7                                   
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,            
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,        
@@ -153,10 +153,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.HVAC_SWITCH_ON_DELAY_MAX,                                 
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,                                    
                 SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MIN,
-                //packet10                                
-                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX,   
+                //packet10        
+                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,                        
                 //others 
-                SCCP_ATTRIBUTES.CONTACT,
+                SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY_MAX, 
                 SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,                            
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,                        
@@ -282,7 +282,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setDialogTitle(this.translater.translate("Reset ")+ this.activeDevice.btDeviceName);
     this.data.setDialogText(this.translater.translate("Are you sure to set the ") +'"'+this.activeDevice.btDeviceName+'"' +this.translater.translate(" to factory adjustment?"));
     this.data.setShowModal(true);
-    this.data.setResetCommand(0x02)
+    this.data.setResetCommand(0x01);
   }
 
 
