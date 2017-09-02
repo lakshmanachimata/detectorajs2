@@ -37,6 +37,7 @@ var SCCP_COMMAND = {
     AUTH_SET_PWD_REQUEST            : 0x52,
     SET_ACCESS_LEVEL                : 0x53,
     READ_EM_DB                      : 0x11,
+    SET_DATE_TIME                   : 0x60,
 }
 
 

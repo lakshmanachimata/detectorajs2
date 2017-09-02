@@ -70,6 +70,7 @@ export class SCCP_COMMAND  {
    static AUTH_REQUST                     = 0x51;
    static AUTH_SET_PWD_REQUEST            = 0x52;
    static SET_ACCESS_LEVEL                = 0x53;
+   static SET_DATE_TIME                   = 0x60;
 }
 
 

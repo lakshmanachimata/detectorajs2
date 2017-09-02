@@ -32,6 +32,21 @@ function bjeLog(msg){
         console.log('bje_detector  '+ msg + '     ' + getFormattedDateTime());
 }
 
+function getHexDataOfData(data){
+    var hexdata = [];
+    var hexString = "";
+    for(var i =0; i<data.length; i++){
+        hexString = data[i].toString(16);
+        hexString = hexString.toUpperCase();
+        if(hexString.length == 1){
+            hexString = "0x0" + hexString;
+        }else if(hexString.length == 2){
+            hexString = "0x" + hexString;
+        }
+        hexdata.push(hexString)
+    }
+    return hexdata;
+}
 function debugLog(msg){
     if(debugLogs == true)
         console.log('bje_detector  '+ msg + '     ' + getFormattedDateTime());
@@ -131,7 +146,10 @@ function identifyLoad(type,time){
    var data =  getIdentifyLoadFrame(type,time)
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
 
     else {
@@ -146,7 +164,10 @@ function identify(indata){
     var data =  getIdentifyCommanmdFrame(indata)
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
 
     else {
@@ -193,7 +214,10 @@ function resetCmd(resetCmd) {
     var data = getResetCommandFrame(resetCmd);
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
 
     else {
@@ -213,7 +237,10 @@ function readAttr(readData) {
      data = getRequestFrame(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST, readData);
     if(BJE != undefined) {
         BJE.readAttr(data);
-        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
     }
     else {
         var message = {"send":data}
@@ -227,6 +254,9 @@ function writeAttr(writeData) {
     data = getRequestFrame(SCCP_COMMAND.WRITE_ATTRIBUTE_REQUEST, writeData);
     if(BJE != undefined){
         BJE.writeAttr(data);
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
         bjeLog('sending packet number ' + ++sendPacketCounter +'  write frame  ' + data.join(','))
     }
      else {
@@ -300,7 +330,9 @@ function unConfigureAttr(notifyData) {
     var data = getUnConfigureFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     if(BJE != undefined) {
         BJE.configureAttr(data);
-        bjeLog('sending BLE CONFIGURE Frame  ' + data.join(','))
+        if(debugLogs ==  true)
+            var hexData = getHexDataOfData(data)
+        bjeLog('sending BLE CONFIGURE Frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -314,7 +346,10 @@ function configureAttr(notifyData) {
     var data = getConfigureFrame(SCCP_COMMAND.CONFIGURE_REPORTING_REQUEST, notifyData);
     if(BJE != undefined) {
         BJE.configureAttr(data);
-        bjeLog('sending BLE CONFIGURE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE CONFIGURE Frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -334,16 +369,67 @@ function setBLEDataToService(indata){
         charCode = bytedata.charCodeAt(i);
         databytes.push(charCode);
     }
-    debugLog('received packet number ' + ++recvPacketCounter + '  recv frame  ' + databytes.join(','))
+    var hexData = [];
+    if(debugLogs ==  true)
+        hexData = getHexDataOfData(databytes)
+    debugLog('received packet number ' + ++recvPacketCounter + '  recv frame  ' + hexData.join(','))
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
+}
+
+function setDeviceDateTime(){
+    var data = []
+    data = getDateTimeFrame(SCCP_COMMAND.SET_DATE_TIME);
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending packet number ' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
+function getDateTimeFrame(cmd){
+    var frame = [];
+    var crc;
+    frame.push(0x0C); // LENGTH AFTER THIS BYTE
+    frame.push(0x08); // CONTROL DEVICE
+    frame.push(0x60); // SEQUENCE
+    frame.push(cmd); // command
+    var date = new Date();
+    var year =  date.getFullYear()
+    var month =  date.getMonth() + 1
+    var nowdate =  date.getDate()
+    var hours =  date.getHours()
+    var minutes =  date.getMinutes()
+    var seconds =  date.getSeconds()
+    frame.push(year-2000)
+    frame.push(month)
+    frame.push(nowdate)
+    frame.push(hours)
+    frame.push(minutes)
+    frame.push(seconds)
+    crc = crcCCITT(frame)
+    frame.push(crc >> 8); // CRC LOWER
+    frame.push(crc & 0x00ff); // CRC UPPER
+    frame.unshift(0x7e) // START BYTE
+    frame.push(0x7e) // END BYTE
+    return frame;
 }
 
 function setDeviceAccessLevel(accessLevel){
     var data = getRequestFrame(SCCP_COMMAND.SET_ACCESS_LEVEL, accessLevel);
      if(BJE != undefined){
         BJE.writeAttr(data);
-        debugLog('sending packet number ' + ++sendPacketCounter + ' bje_detector write frame ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        debugLog('sending packet number ' + ++sendPacketCounter + ' bje_detector write frame ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -357,7 +443,10 @@ function getGeneratedAuth(){
     var data = getRequestFrame(SCCP_COMMAND.AUTH_GEN_RANDOM_REQUEST);
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -375,7 +464,10 @@ function setPwdToDevice(pwd,length,installer){
     }
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -389,7 +481,10 @@ function reademdb(offset){
      data = getEMDBRequestFrame(offset);
     if(BJE != undefined) {
         BJE.readAttr(data);
-        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
     }
     else {
         var message = {"send":data}
@@ -403,7 +498,10 @@ function readAddrAttr(){
      data = getAddrRequestFrame();
     if(BJE != undefined) {
         BJE.readAttr(data);
-        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
     }
     else {
         var message = {"send":data}
@@ -417,7 +515,10 @@ function authenticateDevice(pwdHash,length,installer){
     data = getRequestFrame(SCCP_COMMAND.AUTH_REQUST, pwdHash,length,installer);
     if(BJE != undefined){
         BJE.writeAttr(data);
-        bjeLog('sending BLE WRITE Frame  ' + data.join(','))
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -439,22 +540,30 @@ function prepareAttributeArray(indata) {
     
     switch(indata[4]){
         case SCCP_COMMAND.STANDARD_RESPONSE: // standard response
-        bjeLog("standard response     " + indata);
+        //bjeLog("standard response     " + indata);
 
         if(indata[3] == 0x11){
             return;
         }
 
         if(indata[3] == 0x0A){
+
             if(indata[5] == 0){
-                appDataService.onAccessLevelUpdate(0);
+                setDeviceDateTime()
             }else {
                 appDataService.onAccessLevelUpdate(-1);
                 getGeneratedAuth();
             }
             return;
         }
-        
+        if(indata[3] == 0x60){
+            if(indata[5] == 0)
+                appDataService.onAccessLevelUpdate(0);
+            else{
+
+            }
+            return;
+        }
         if(indata[3] == 0x0B){
             if(indata[5] == 0){
                 appDataService.onInstallerPwdSetSuccess()
@@ -492,7 +601,7 @@ function prepareAttributeArray(indata) {
 
         break;
         case SCCP_COMMAND.READ_ATTRIBUTE_RESPONSE: // read attr resonse
-            bjeLog("read attr response     " + indata);
+            //bjeLog("read attr response     " + indata);
         if(indata[3] == 0x09){
             appDataService.appendEMDBRespones(indata)
             return;
@@ -504,7 +613,7 @@ function prepareAttributeArray(indata) {
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
-            bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+            //bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
@@ -611,18 +720,18 @@ function prepareAttributeArray(indata) {
                     bjeLog("WHO AM I " + indata[lastParseByteIndex + 4] +" AND AT " + lastParseByteIndex + 4)
                 break;
             }
-            bjeLog("attrType  " + key + "   attrValue  " + value);
+            //bjeLog("attrType  " + key + "   attrValue  " + value);
             bledata.datas.push(data);
         }
         break;
         case SCCP_COMMAND.WRITE_ATTRIBUTE_RESPONSE: // write attr response
-            bjeLog("write attr response     " + indata);
+           // bjeLog("write attr response     " + indata);
         break;
         case SCCP_COMMAND.CONFIGURE_REPORTING_RESPONSE: // configure attr response
-            bjeLog("configure attr response     " + indata);
+            //bjeLog("configure attr response     " + indata);
         break;
         case SCCP_COMMAND.REPORT_ATTRIBUTE:
-                bjeLog("report attribute     " + indata);
+                //bjeLog("report attribute     " + indata);
             var dataLength = indata.length - 6;
             var lastParseByteIndex = 4;
             while(lastParseByteIndex <= dataLength  ) {
@@ -702,7 +811,7 @@ function prepareAttributeArray(indata) {
                     default:
                     break;
                 }
-                bjeLog("attrType  " + key + "   attrValue  " + value);
+                //bjeLog("attrType  " + key + "   attrValue  " + value);
                 bledata.datas.push(data);
             }
         break;
