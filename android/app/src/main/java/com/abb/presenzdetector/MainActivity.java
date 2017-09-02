@@ -228,7 +228,7 @@ public class MainActivity extends Activity {
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
     private static final long SCAN_PERIOD = 15 * 60 * 1000;
-
+    private static boolean isScanning =  false;
 
     boolean getDeviceInfo =  false;
     private static final int REQUEST_PERMISSIONS = 124;
@@ -951,9 +951,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 getDeviceInfo = false;
-
                 mBluetoothLeService.disconnect();
-
             }
         });
         if(scannedDevices.size() > 0){
@@ -964,7 +962,6 @@ public class MainActivity extends Activity {
     void setFlavorType(){
         JSONObject jsonObject =  new JSONObject();
         try {
-            jsonObject.put("isabb", isABB);
             String deviceData = "";
             deviceData = deviceData + "setFlavor(";
             deviceData = deviceData + jsonObject.toString() + ")";
@@ -980,8 +977,6 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-
                 try {
                     JSONObject jsonObject =  new JSONObject();
 
@@ -1021,14 +1016,13 @@ public class MainActivity extends Activity {
                 }
             }
             else if (ACTION_GATT_DISCONNECTED.equals(action)) {
-                mBluetoothLeService.close();
                 notifyAppAboutConnection(false);
                 mBluetoothLeService.close();
-                scanLeDevice(true);
                 for(int di =0; di < scannedDevices.size(); di++) {
                     bluetoothDevice = null;
                     selectedDetectorInfo = null;
                 }
+                scanLeDevice(true);
             }
             else if (ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 getGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -1304,6 +1298,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy() {
+        scanLeDevice(false);
         if (webview != null) {
             ViewGroup parent = (ViewGroup) webview.getParent();
             if (parent != null) {
@@ -1346,6 +1341,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     BluetoothDevice device = result.getDevice();
+                    Log.d(MainActivity.LOG_TAG,"GOT SCAN CALLBACK   " + device.getAddress());
                     ParcelUuid[] dUUIDs;
                     try {
                         dUUIDs  = device.getUuids();
@@ -1367,6 +1363,7 @@ public class MainActivity extends Activity {
                                 isSUOTASupported = true;
                             }
                         }
+
                         if (isABBPresenseDetector == true) {
                             if (mBluetoothLeService != null) {
                                 boolean deviceExists = false;
@@ -1428,6 +1425,7 @@ public class MainActivity extends Activity {
          */
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
+            Log.d(MainActivity.LOG_TAG, "onBatchScanResults  " + results.size());
             super.onBatchScanResults(results);
         }
 
@@ -1438,6 +1436,7 @@ public class MainActivity extends Activity {
          */
         @Override
         public void onScanFailed(int errorCode) {
+            Log.d(MainActivity.LOG_TAG, "onScanFailed  " + errorCode);
             super.onScanFailed(errorCode);
         }
 
@@ -1464,17 +1463,23 @@ public class MainActivity extends Activity {
                 public void run() {
                     if(scanner != null) {
                         scanner.stopScan(bleCallback);
+                        isScanning  = false;
                     }
                 }
             }, SCAN_PERIOD);
 
             if(scanner != null) {
                 scanner.startScan(bleCallback);
+                scanner.flushPendingScanResults(bleCallback);
+                isScanning = true;
             }
         } else {
-            if(scanner != null)
+            if(scanner != null) {
                 scanner.stopScan(bleCallback);
+                isScanning = false;
+            }
         }
+        Log.d(MainActivity.LOG_TAG," IS SCANNING  " +  isScanning);
     }
 
 
@@ -1502,8 +1507,6 @@ public class MainActivity extends Activity {
                 }
             }
         }
-
-
 
         try {
             InputStream ins = getResources().openRawResource(

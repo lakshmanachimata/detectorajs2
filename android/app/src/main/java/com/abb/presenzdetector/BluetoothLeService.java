@@ -80,6 +80,8 @@ public class BluetoothLeService extends Service {
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(MainActivity.LOG_TAG, "Disconnected from GATT server.");
                 broadcastUpdate(intentAction);
+            }else{
+                close();
             }
         }
 
@@ -570,6 +572,7 @@ public class BluetoothLeService extends Service {
         }
         else {
             Log.d(MainActivity.LOG_TAG," writeCharacteristic fail    " + getGatt().getDevice().getAddress());
+            MainActivity.getInstance().disConnectDevice();
         }
     }
 
