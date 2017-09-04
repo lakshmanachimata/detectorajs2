@@ -33,10 +33,11 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      if(this.data.getDeviceConnectionState() == true){
-        this.data.readData(this.readAttrs);
-      }
-      else {
+      // if(this.data.getDeviceConnectionState() == true){
+      //   this.data.readData(this.readAttrs);
+      // }
+      //else 
+      {
         this.loadingDataDone = true;
       }
   }
