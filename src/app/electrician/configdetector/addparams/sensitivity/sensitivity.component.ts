@@ -101,9 +101,9 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       }
   }
     if(this.ad.outdoorApplicationEnable ==  true){
-      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,this.ad.opirSensitivity0,this.ad.opirSensitivity1,this.ad.opirSensitivity2,this.ad.opirSensitivity3]);
+      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,0x00,this.getDecToHexMode(this.ad.opirSensitivity0),this.getDecToHexMode(this.ad.opirSensitivity1),this.getDecToHexMode(this.ad.opirSensitivity2),this.getDecToHexMode(this.ad.opirSensitivity3)]);
     }else{
-      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,this.ad.pirSensitivity0,this.ad.pirSensitivity1,this.ad.pirSensitivity2,this.ad.pirSensitivity3]);
+      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,0x00,this.getDecToHexMode(this.ad.pirSensitivity0),this.getDecToHexMode(this.ad.pirSensitivity1),this.getDecToHexMode(this.ad.pirSensitivity2),this.getDecToHexMode(this.ad.pirSensitivity3)]);
     }
     this.setStyleAttr(this.selectedQuadrantValue);
   }

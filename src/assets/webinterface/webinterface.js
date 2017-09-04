@@ -1152,8 +1152,9 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 frame.push(data[i+4]) 
                 frame.push(data[i+5]) 
                 frame.push(data[i+6]) 
-                counter += 9;
-                i = i + 6;
+                frame.push(data[i+7]) 
+                counter += 10;
+                i = i + 7;
             }
             else {
                 i = i + 1; 
