@@ -1029,16 +1029,12 @@ export class DataService {
                 let somestuff = this.router.routerState.snapshot.toString();
                 this.currentRoute = this.router.routerState.snapshot.url.toString();
                 this.setOtherParam('testmode','Test mode')
-                this.router.navigate(['/user/configdetector/testmode'])
-                this.location.replaceState('/user/configdetector/testmode');
+                this.router.navigate(['/user/uconfigdetector/utestmode'])
+                this.location.replaceState('/user/uconfigdetector/utestmode');
             }else {
                 if(this.currentRoute.length > 0){
-                    let somestufff = this.router.routerState.snapshot.toString();
-                    somestufff = this.router.routerState.snapshot.toString();
                     this.setOtherParam('','')
-                    //this.disConnectDevice();
-                    //this.router.navigate([this.currentRoute])
-                    this.router.navigate(['/user/configdetector'])
+                    this.router.navigate(['/user/uconfigdetector'])
                     this.currentRoute = '';
                 }
             }
@@ -1051,11 +1047,7 @@ export class DataService {
                 this.location.replaceState('/electrician/econfigdetector/otherparams');
             }else {
                 if(this.currentRoute.length > 0){
-                    let somestufff = this.router.routerState.snapshot.toString();
-                    somestufff = this.router.routerState.snapshot.toString();
                     this.setOtherParam('','')
-                    //this.disConnectDevice();
-                    //this.router.navigate([this.currentRoute])
                     this.router.navigate(['/electrician/econfigdetector'])
                     this.currentRoute = '';
                 }
@@ -1069,7 +1061,7 @@ export class DataService {
             this.setShowTestMode(1), 2000
             )
             setTimeout(()=> 
-            this.setShowTestMode(0), 4000
+            this.setShowTestMode(0), 10000
             )
         }
     }

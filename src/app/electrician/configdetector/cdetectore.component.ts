@@ -250,6 +250,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.readData(this.readAttrs);
     }
     this.data.setProfileSwitch(true)
+    setTimeout(()=> 
+    this.data.testTestMode(), 5000
+    )
   }
   ngAfterContentInit() { 
   }
@@ -476,6 +479,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     if(isRead){
       setTimeout(()=> 
           this.subcribeForDetails(), 1000
+      )
+      setTimeout(()=> 
+          this.subcribeForPermanentDetails(), 1000
       )
     }
     this.loadingDataDone =  true;

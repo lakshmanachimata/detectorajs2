@@ -9,7 +9,7 @@ const CDetectorURoutes: Routes = [
   { path: '', component: CDetectorUComponent },
   { path: 'energymonitor', loadChildren: './energymonitor/energymonitor.module#EnergyMonitorModule' },
   { path: 'settingsu',loadChildren: './settings/settingsu.module#SettingsuModule'},
-  { path: 'testmode',loadChildren: './utestmode/utestmode.module#UTestmodeModule'}
+  { path: 'utestmode',loadChildren: './utestmode/utestmode.module#UTestmodeModule'}
 ];
 
 @NgModule({

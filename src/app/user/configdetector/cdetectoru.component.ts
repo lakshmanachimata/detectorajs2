@@ -64,6 +64,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
       SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
     ]
+    permanentSubscrioAttrs = [
+      SCCP_ATTRIBUTES.TEST_MODE_ENABLE,
+    ]
 
     light1state = 0;
     loadingDataDone = false;
@@ -122,6 +125,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
      this.doDisConnect = true;
     this.data.setOtherParam('','');
     this.data.setShowOnlyCancel(true);
+    setTimeout(()=> 
+    this.data.testTestMode(), 5000
+    )
   }
   ngAfterContentInit() { 
   }
@@ -132,17 +138,27 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
-    this.data.setProfileSwitch(false)
-    this.data.resetSendData();
-    if(this.doDisConnect == true && this.data.getProfile() == 'user')
+    if(this.data.getShowTestMode () == 1){
+      return;
+    }else {
+      this.unSubscriveDetails()
+      this.data.setProfileSwitch(false)
+      this.data.resetSendData();
+      if(this.doDisConnect == true && this.data.getProfile() == 'user')
       this.data.disConnectDevice();
+    }
   }
     
   onBLEdata(isRead) {
     if(isRead){
-      setTimeout(()=> 
-          this.subcribeForDetails(), 1000
-      )
+      if(isRead){
+        setTimeout(()=> 
+            this.subcribeForDetails(), 1000
+        )
+        setTimeout(()=> 
+            this.subcribeForPermanentDetails(), 1000
+        )
+      }
     }
     this.loadingDataDone =  true;
     if(isRead)
@@ -182,5 +198,12 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   subcribeForDetails(){
     this.data.configureData(this.updateSubcribeAttrs)
+  }
+  subcribeForPermanentDetails(){
+    this.data.configureData(this.permanentSubscrioAttrs)
+  }
+  unSubscriveDetails(){
+    this.data.unConfigureData(this.updateSubcribeAttrs)
+    this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
 }
