@@ -69,23 +69,41 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   setValue(value) {
     this.selectedQuadrantValue = value;
-    switch(this.selectedQuadrant) {
-      // case 'q1' :
-      //   this.ad.pirSensitivity0 = value;
-      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      // break;
-      // case 'q2' :
-      //   this.ad.pirSensitivity1 = value;
-      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      // break;
-      // case 'q3' :
-      //   this.ad.pirSensitivity2 = value;
-      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      // break;
-      // case 'q4' :
-      //   this.ad.pirSensitivity3 = value;
-      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      // break;
+    if(this.ad.outdoorApplicationEnable ==  true){
+      switch(this.selectedQuadrant) {
+        case 'q1' :
+          this.ad.opirSensitivity0 = value;
+        break;
+        case 'q2' :
+          this.ad.opirSensitivity1 = value;
+        break;
+        case 'q3' :
+          this.ad.opirSensitivity2 = value;
+        break;
+        case 'q4' :
+          this.ad.opirSensitivity3 = value;
+        break;
+      }
+    }else{
+      switch(this.selectedQuadrant) {
+        case 'q1' :
+          this.ad.pirSensitivity0 = value;
+        break;
+        case 'q2' :
+          this.ad.pirSensitivity1 = value;
+        break;
+        case 'q3' :
+          this.ad.pirSensitivity2 = value;
+        break;
+        case 'q4' :
+          this.ad.pirSensitivity3 = value;
+        break;
+      }
+  }
+    if(this.ad.outdoorApplicationEnable ==  true){
+      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,this.ad.opirSensitivity0,this.ad.opirSensitivity1,this.ad.opirSensitivity2,this.ad.opirSensitivity3]);
+    }else{
+      this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY,SCCP_DATATYPES.SCCP_TYPE_AUINT8,0x04,0x00,this.ad.pirSensitivity0,this.ad.pirSensitivity1,this.ad.pirSensitivity2,this.ad.pirSensitivity3]);
     }
     this.setStyleAttr(this.selectedQuadrantValue);
   }

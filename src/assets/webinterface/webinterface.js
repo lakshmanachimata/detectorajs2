@@ -1145,7 +1145,17 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 val = data[i];
                 frame.push((val & 0x00FF)); // VAL LOW
                 counter += 4;
-            }else {
+            }else if(val == 0x88){
+                frame.push(data[i+1]) 
+                frame.push(data[i+2]) 
+                frame.push(data[i+3]) 
+                frame.push(data[i+4]) 
+                frame.push(data[i+5]) 
+                frame.push(data[i+6]) 
+                counter += 9;
+                i = i + 6;
+            }
+            else {
                 i = i + 1; 
                 val = data[i];
                 frame.push((val & 0x00ff)); // VAL LOW

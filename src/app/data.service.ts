@@ -399,7 +399,7 @@ declare var resetCmd;
 declare var identify;
 declare var identifyLoad;
 declare var peerSensivity;
-declare var setPeerData;
+
 
 @Injectable()
 export class DataService {
@@ -428,7 +428,6 @@ export class DataService {
     getSafariSubtleObj:any;
     readAddrAttrObj:any;
     peerSensivityObj:any;
-    setPeerDataObj:any;
     activeComponent:any;
     iActiveComponent:any;
     testModeComponent:any;
@@ -453,7 +452,6 @@ export class DataService {
     safariSubtle:any;
     currentRoute = '';
     testmodetest = 0;
-    peerData=[];
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService,
         private router:Router,private route:ActivatedRoute,private location:Location) {
@@ -1178,16 +1176,13 @@ export class DataService {
     readPeerSensivitivity(data){
         this.peerSensivityObj = new peerSensivity(data)
     }
-    setPeerData(){
-        this.setPeerDataObj = new setPeerData(this.peerData);
-    }
-    addPeerData(indata){
-
-    }
-
+    
     onPeerSensitivityData(data){
-        this.logger.log("peer data is " + data.join(","))
+        if(this.activeComponent != undefined){
+            this.activeComponent.onPeerData(data);
+        }
     }
+    
     parseDeviceAddress(indata){
         var address = "";
         var byteAddr = [];
