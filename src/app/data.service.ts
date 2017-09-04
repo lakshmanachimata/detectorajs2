@@ -1024,21 +1024,41 @@ export class DataService {
     }
     setShowTestMode(testmode){
         this.deviceTestMode =  testmode;
-        if(this.deviceTestMode == 1){
-            let somestuff = this.router.routerState.snapshot.toString();
-            this.currentRoute = this.router.routerState.snapshot.url.toString();
-            this.setOtherParam('testmode','Test mode')
-            this.router.navigate(['/electrician/econfigdetector/otherparams'])
-            this.location.replaceState('/electrician/econfigdetector/otherparams');
+        if(this.getProfile() == 'user'){
+            if(this.deviceTestMode == 1){
+                let somestuff = this.router.routerState.snapshot.toString();
+                this.currentRoute = this.router.routerState.snapshot.url.toString();
+                this.setOtherParam('testmode','Test mode')
+                this.router.navigate(['/user/configdetector/testmode'])
+                this.location.replaceState('/user/configdetector/testmode');
+            }else {
+                if(this.currentRoute.length > 0){
+                    let somestufff = this.router.routerState.snapshot.toString();
+                    somestufff = this.router.routerState.snapshot.toString();
+                    this.setOtherParam('','')
+                    //this.disConnectDevice();
+                    //this.router.navigate([this.currentRoute])
+                    this.router.navigate(['/user/configdetector'])
+                    this.currentRoute = '';
+                }
+            }
         }else {
-            if(this.currentRoute.length > 0){
-                let somestufff = this.router.routerState.snapshot.toString();
-                somestufff = this.router.routerState.snapshot.toString();
-                this.setOtherParam('','')
-                //this.disConnectDevice();
-                //this.router.navigate([this.currentRoute])
-                this.router.navigate(['/electrician/econfigdetector'])
-                this.currentRoute = '';
+            if(this.deviceTestMode == 1){
+                let somestuff = this.router.routerState.snapshot.toString();
+                this.currentRoute = this.router.routerState.snapshot.url.toString();
+                this.setOtherParam('testmode','Test mode')
+                this.router.navigate(['/electrician/econfigdetector/otherparams'])
+                this.location.replaceState('/electrician/econfigdetector/otherparams');
+            }else {
+                if(this.currentRoute.length > 0){
+                    let somestufff = this.router.routerState.snapshot.toString();
+                    somestufff = this.router.routerState.snapshot.toString();
+                    this.setOtherParam('','')
+                    //this.disConnectDevice();
+                    //this.router.navigate([this.currentRoute])
+                    this.router.navigate(['/electrician/econfigdetector'])
+                    this.currentRoute = '';
+                }
             }
         }
     }

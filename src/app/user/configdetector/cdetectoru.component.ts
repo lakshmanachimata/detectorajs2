@@ -108,6 +108,10 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.router.navigate(['settingsu'],{relativeTo: this.route});
     this.data.setShowOnlyCancel(false);
   }
+  gotoTestMode() {
+    this.doDisConnect =  false;
+    this.router.navigate(['testmode'],{relativeTo: this.route});
+  }
 
   ngOnChanges(changes) { 
   }

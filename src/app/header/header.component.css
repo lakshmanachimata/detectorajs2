@@ -166,7 +166,7 @@
 	padding-top: 10px;
 	text-align:center;
 	background-color:#0171af;;
-	color:#015c8e;
+	color:whitesmoke;
 	font-size:20px;
 }
 
@@ -180,7 +180,7 @@
 	padding-top: 10px;
 	text-align:center;
 	background-color:#0171af;;
-	color:#ffffff;
+	color:whitesmoke;
 	font-size:20px;
 }
 
@@ -260,7 +260,7 @@
 	color:#4D4D4D;
 }
 
-.bj-footer-user #bj-send-to-device,.bj-footer #bj-load-profile{
+.bj-footer-user  #bj-send-to-device,.bj-footer #bj-load-profile{
 	float:right;
 	width:70%;
 	height:100%;
@@ -276,7 +276,16 @@
 	font-size:20px;
 }
 
-
+.bj-footer-user #deactivate-testmode{
+	width:100%;
+	height:100%;
+	padding-top: 10px;
+	text-align:center;
+	border: 1px solid #0c0c0c;
+	background-color:#bfbfbf;
+	color:whitesmoke;
+	font-size:20px;
+}
 .bj-footer-user {
 	position: absolute;
 	height: 50px;

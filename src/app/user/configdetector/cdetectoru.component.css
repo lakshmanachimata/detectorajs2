@@ -1716,3 +1716,11 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
     margin-left: 0px !important;
 
  }
+
+ div.test_text{
+     font-size: 24px;
+     top: 40%;
+     left: 5%;
+     position: absolute;
+     color: whitesmoke;
+ }
