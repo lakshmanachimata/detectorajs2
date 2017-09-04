@@ -30,7 +30,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     detectors:Array<any>;
     scannedData:Array<any>;
     snap:RouterStateSnapshot;
-    isDeviceConnected =  false;
     identifyingDevice:any;
     selectedDevice =  false;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
@@ -55,7 +54,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           this.data.setAccessLevel();
       }
       else {
-        this.isDeviceConnected = true;
         this.data.initDeviceData(false);
       }
   }
@@ -254,8 +252,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   onInstallerAccessSuccess(){
-      if(this.isDeviceConnected)
-        this.data.initDeviceData(false);
+    if(this.data.getDeviceConnectionState() ==  true)
+      this.data.initDeviceData(false);
   }
   onInstallerAccessDenied(){
       this.zone.run( () => { // Change the property within the zone, CD will run after
@@ -283,7 +281,6 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     } 
   }
   onDeviceConnected(address){
-    this.isDeviceConnected = true;
   }
   onAccessLevelUpdate(accessLevel){
     if(accessLevel == -1){
@@ -292,7 +289,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
          this.data.setEDevParamsState(0);
       });
     }else {
-      if(this.isDeviceConnected)
+      if(this.data.getDeviceConnectionState() ==  true)
         this.data.initDeviceData(false);
       }
       //this.data.setAccessLevelRequsetedAddress('')

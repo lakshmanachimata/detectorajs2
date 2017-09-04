@@ -22,24 +22,33 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     loadingDataDone = false;
 
     readAttrs =[
-      SCCP_ATTRIBUTES.PIR_SENSITIVITY0,
-      SCCP_ATTRIBUTES.PIR_SENSITIVITY1,
-      SCCP_ATTRIBUTES.PIR_SENSITIVITY2,
-      SCCP_ATTRIBUTES.PIR_SENSITIVITY3,
-      SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY,
+      SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR,
     ]
   constructor(public logger: LoggerService,public data: DataService, private router:Router,
               private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      // if(this.data.getDeviceConnectionState() == true){
-      //   this.data.readData(this.readAttrs);
-      // }
-      //else 
+      if(this.data.getDeviceConnectionState() == true){
+        this.data.readPeerSensivitivity(this.readAttrs);
+      }
+      else 
       {
         this.loadingDataDone = true;
       }
+  }
+  onPeerData(data){
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+    this.ad.pirSensitivity0 = this.getHexToDecMode(data[12]);
+    this.ad.pirSensitivity1= this.getHexToDecMode(data[13]);
+    this.ad.pirSensitivity2= this.getHexToDecMode(data[14]);
+    this.ad.pirSensitivity3= this.getHexToDecMode(data[15]);
+    this.ad.opirSensitivity0= this.getHexToDecMode(data[23]);
+    this.ad.opirSensitivity1= this.getHexToDecMode(data[24]);
+    this.ad.opirSensitivity2= this.getHexToDecMode(data[25]);
+    this.ad.opirSensitivity3= this.getHexToDecMode(data[26]);
+  });
   }
   ngOnChanges(changes) { 
   }
@@ -61,22 +70,22 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   setValue(value) {
     this.selectedQuadrantValue = value;
     switch(this.selectedQuadrant) {
-      case 'q1' :
-        this.ad.pirSensitivity0 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      break;
-      case 'q2' :
-        this.ad.pirSensitivity1 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      break;
-      case 'q3' :
-        this.ad.pirSensitivity2 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      break;
-      case 'q4' :
-        this.ad.pirSensitivity3 = value;
-        this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
-      break;
+      // case 'q1' :
+      //   this.ad.pirSensitivity0 = value;
+      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY0,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+      // break;
+      // case 'q2' :
+      //   this.ad.pirSensitivity1 = value;
+      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY1,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+      // break;
+      // case 'q3' :
+      //   this.ad.pirSensitivity2 = value;
+      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY2,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+      // break;
+      // case 'q4' :
+      //   this.ad.pirSensitivity3 = value;
+      //   this.data.addToSendData([SCCP_ATTRIBUTES.PIR_SENSITIVITY3,SCCP_DATATYPES.SCCP_TYPE_UINT8,value]);
+      // break;
     }
     this.setStyleAttr(this.selectedQuadrantValue);
   }
@@ -86,16 +95,31 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       case 0:
       return 0;
       case 25:
-      return  64;
+      return  72;
       case 50:
-      return 128;
+      return 102;
       case 75:
-      return 192;
+      return 170;
       case 100:
       return 255;
 
     }
   }
+  getHexToDecMode(value){
+    switch(value){
+      case 0:
+      return 0;
+      case 72:
+      return  25;
+      case 102:
+      return 50;
+      case 170:
+      return 75;
+      case 255:
+      return 100;
+    }
+  }
+
   setStyleAttr(value) {
     switch(value) {
       case 0:

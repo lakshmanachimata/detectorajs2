@@ -584,6 +584,7 @@ public class BluetoothLeService extends Service {
         }
         if(mBluetoothGatt == null) {
             Log.w(MainActivity.LOG_TAG, "writeCharacteristic mBluetoothGatt not initialized");
+            MainActivity.getInstance().notifyAppAboutConnection(false);
             return;
         }
         if(mBluetoothGatt.writeCharacteristic(characteristic)) {

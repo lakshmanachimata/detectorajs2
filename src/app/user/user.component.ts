@@ -32,7 +32,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     jsonLoadObserve: any;
     scannedData:Array<any>;
     snap:RouterStateSnapshot;
-    isDeviceConnected = false;
     selectedDevice = false;
     identifyingDevice:any;
     constructor(public logger: LoggerService,public data: DataService, private router:Router,
@@ -56,11 +55,18 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
             this.data.setAccessLevel();
         }
         else {
-          this.isDeviceConnected = true;
           this.data.initDeviceData(false);
         }
     }
   }
+
+  clearDevicesForRescan(){
+    this.logger.log("clearDevicesForRescan called")
+    this.zone.run( () => {
+      this.detectors = [];
+    });
+  }
+
   showPWDDialog(){
         this.data.setEOptionText(this.translater.translate('OK'));
         this.data.setEDialogInputHint(this.translater.translate('Enter password'));
@@ -74,7 +80,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
       });
   }
    onUserAccessSuccess(){
-    if(this.isDeviceConnected)
+     if(this.data.getDeviceConnectionState() ==  true)
       this.data.initDeviceData(false);
   }
   onUserAccessDenied(){
@@ -266,7 +272,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   
 
   onDeviceConnected(address){
-     this.isDeviceConnected = true
   }
   onAccessLevelUpdate(accessLevel){
      if(accessLevel == -1){
@@ -275,7 +280,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
          this.data.setEDevParamsState(0);
       });
     }else {
-      if(this.isDeviceConnected)
+      if(this.data.getDeviceConnectionState() ==  true)
         this.data.initDeviceData(false);
       }
       //this.data.setAccessLevelRequsetedAddress('')

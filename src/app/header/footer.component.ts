@@ -41,8 +41,12 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   }
   deActivateTestMode() {
     this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,0])
-    // if(this.data.getProfile() != 'user')
+    if(this.data.getTestPriorRouteLength() == 0){
+      this.location.back();
+    }else{
       this.data.setShowTestMode(0)
+    }
+      
       this.sendChangedParams();
   }
   getProfile() {
@@ -55,12 +59,10 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
   bjGoBack() {
     let somestuff = this.router.routerState.snapshot.toString();
     if(this.data.getShowTestMode() == 1){
-      this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,0])
-      this.data.sendChangedParams()
+      this.deActivateTestMode()
     }else {
       this.location.back();
     }
-    
   }
   getOtherParam() {
     // let testmodecheck = this.data.getOtherParam(); 

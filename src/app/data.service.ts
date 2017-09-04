@@ -119,10 +119,10 @@ export class SCCP_ATTRIBUTES  {
     static OPERATION_MODE                                          = 0x0044;
     static SLAVE_MODE_ENABLE                                       = 0x0045;
     static OUTDOOR_APPLICATION_ENABLE                              = 0x0050;
-    static PIR_SENSITIVITY0                                        = 0x0051;
-    static PIR_SENSITIVITY1                                        = 0x0052;
-    static PIR_SENSITIVITY2                                        = 0x0053;
-    static PIR_SENSITIVITY3                                        = 0x0054;
+    static PIR_SENSITIVITY                                         = 0x0051;
+    static PIR_SENSITIVITY_ODOR                                    = 0x0052;
+    // static PIR_SENSITIVITY2                                        = 0x0053;
+    // static PIR_SENSITIVITY3                                        = 0x0054;
     static BRIGHTNESS_CORRECTION_ENABLE                            = 0x0058;
     static BRIGHTNESS_CORRECTION_VALUE                             = 0x0059;
     static DYNAMIC_SWITCH_OFF_DELAY_ENABLE                         = 0x005A;
@@ -398,6 +398,8 @@ declare var operateDrumElement;
 declare var resetCmd;
 declare var identify;
 declare var identifyLoad;
+declare var peerSensivity;
+declare var setPeerData;
 
 @Injectable()
 export class DataService {
@@ -425,6 +427,8 @@ export class DataService {
     setPwdToDeviceObj:any;
     getSafariSubtleObj:any;
     readAddrAttrObj:any;
+    peerSensivityObj:any;
+    setPeerDataObj:any;
     activeComponent:any;
     iActiveComponent:any;
     testModeComponent:any;
@@ -449,6 +453,7 @@ export class DataService {
     safariSubtle:any;
     currentRoute = '';
     testmodetest = 0;
+    peerData=[];
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService,
         private router:Router,private route:ActivatedRoute,private location:Location) {
@@ -1026,8 +1031,6 @@ export class DataService {
         this.deviceTestMode =  testmode;
         if(this.getProfile() == 'user'){
             if(this.deviceTestMode == 1){
-                let somestuff = this.router.routerState.snapshot.toString();
-                this.currentRoute = this.router.routerState.snapshot.url.toString();
                 this.setOtherParam('testmode','Test mode')
                 this.router.navigate(['/user/uconfigdetector/utestmode'])
                 this.location.replaceState('/user/uconfigdetector/utestmode');
@@ -1040,8 +1043,6 @@ export class DataService {
             }
         }else {
             if(this.deviceTestMode == 1){
-                let somestuff = this.router.routerState.snapshot.toString();
-                this.currentRoute = this.router.routerState.snapshot.url.toString();
                 this.setOtherParam('testmode','Test mode')
                 this.router.navigate(['/electrician/econfigdetector/otherparams'])
                 this.location.replaceState('/electrician/econfigdetector/otherparams');
@@ -1053,6 +1054,10 @@ export class DataService {
                 }
             }
         }
+    }
+
+    getTestPriorRouteLength(){
+        return this.currentRoute.length;
     }
 
     testTestMode(){
@@ -1169,6 +1174,20 @@ export class DataService {
     readDeviceAddress(deviceAddress){
         this.readAddrAttrObj = new readAddrAttr()
     }
+
+    readPeerSensivitivity(data){
+        this.peerSensivityObj = new peerSensivity(data)
+    }
+    setPeerData(){
+        this.setPeerDataObj = new setPeerData(this.peerData);
+    }
+    addPeerData(indata){
+
+    }
+
+    onPeerSensitivityData(data){
+        this.logger.log("peer data is " + data.join(","))
+    }
     parseDeviceAddress(indata){
         var address = "";
         var byteAddr = [];
@@ -1184,7 +1203,6 @@ export class DataService {
             else
               address += ('0' + (byteAddr[ds] & 0xFF).toString(16)).slice(-2);  
         }
-        this.logger.log("the selected address  is " + address)
         this.uiParams.devicesObj.SelectedDevice.btAddress = address;
         this.setAccessLevelRequsetedAddress(address)
     }
@@ -1211,7 +1229,10 @@ export class DataService {
     }
 
     sendIdentifyLoadCommand(type, time){
-        this.identifyLoadObj = identifyLoad(type, time)
+        if(this.getDeviceConnectionState() ==  true)
+            this.identifyLoadObj = identifyLoad(type, time)
+        else
+            this.gotoHomeScreen();
     }
 
     onDeviceConnected(deviceAddress) {
@@ -1235,6 +1256,15 @@ export class DataService {
     onDeviceDisconnected(deviceAddress){
         if(this.activeComponent != undefined){
             this.activeComponent.clearDevicesForRescan();
+        }
+        this.gotoHomeScreen();
+    }
+    public gotoHomeScreen(){
+        if(this.router.routerState.snapshot.url.toString().length > 0){
+            if(this.getProfile() == 'user')
+                this.router.navigate(['/user'])
+            else
+                this.router.navigate(['/electrician'])
         }
         this.deviceParams.accessLevel = 0;
         this.deviceParams.deviceConnected = false;
@@ -2504,18 +2534,18 @@ export class DataService {
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
                 this.uiParams.devicesObj.DeviceData.outdoorApplicationEnable= attrValue;
             break;
-            case SCCP_ATTRIBUTES.PIR_SENSITIVITY0                                        : 
+            case SCCP_ATTRIBUTES.PIR_SENSITIVITY                                        : 
                 this.uiParams.devicesObj.DeviceData.pirSensitivity0= attrValue;
             break;
-            case SCCP_ATTRIBUTES.PIR_SENSITIVITY1                                        : 
+            case SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR                                        : 
                 this.uiParams.devicesObj.DeviceData.pirSensitivity1= attrValue;
             break;
-            case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
-                this.uiParams.devicesObj.DeviceData.pirSensitivity2= attrValue;
-            break;
-            case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
-                this.uiParams.devicesObj.DeviceData.pirSensitivity3= attrValue;
-            break;
+            // case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
+            //     this.uiParams.devicesObj.DeviceData.pirSensitivity2= attrValue;
+            // break;
+            // case SCCP_ATTRIBUTES.PIR_SENSITIVITY3                                        : 
+            //     this.uiParams.devicesObj.DeviceData.pirSensitivity3= attrValue;
+            // break;
             //REMOVED IN LATEST FW
             // case SCCP_ATTRIBUTES.BRIGHTNESS_CORRECTION_ENABLE                            : 
             //     this.uiParams.devicesObj.DeviceData.brightnessCorrectionEnable= attrValue;

@@ -40,11 +40,11 @@
                         <up-nav *ngIf="showTestModeSettings"></up-nav>
                     </div>
                 </div>
-                <div class="bj-config-setting-div testmode-settings-test-actuator1-div" *ngIf="showTestModeSettings">
+                <div class="bj-config-setting-div testmode-settings-test-actuator1-div" *ngIf="showTestModeSettings" (click)="identifyLoadCh1()">
                     <label class="bj-config-setting testmode-settings-test-actuator1-block">{{ this.data.getTranslatedString("Identify load on actuator 1") }}</label>
                     <span class="glyphicon glyphicon-stop"></span>
                 </div>
-                <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c' && showTestModeSettings">
+                <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c' && showTestModeSettings" (click)="identifyLoadCh2()">
                     <label class="bj-config-setting testmode-settings-test-actuator2-block">{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
                     <span class="glyphicon glyphicon-stop"></span>
                 </div>

@@ -455,6 +455,61 @@ function getGeneratedAuth(){
     }
 }
 
+function setPeerData(data){
+    if(BJE != undefined){
+        BJE.writeAttr(data);
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('TX PEER PKT  ' + hexData.join(','))
+    }
+     else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+function getReadPeerDataFrame(data){
+    var frame = [];
+    var crc;
+    frame.push(6 + (data.length * 5)); // LENGTH AFTER THIS BYTE
+    frame.push(0x08); // CONTROL DEVICE
+    frame.push(0x51); // SEQUENCE
+    frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+    
+    for (var d in data) {
+        var val = data[d];
+        frame.push(val & 0x00FF); // ADDR LOW
+        frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+        frame.push(0x04);   // length of bytes
+        frame.push(0x00);   // offset lower  byte
+        frame.push(0x00);   // offset upper  byte
+    }
+    crc = crcCCITT(frame)
+    frame.push(crc >> 8); // CRC LOWER
+    frame.push(crc & 0x00ff); // CRC UPPER
+    
+    frame.unshift(0x7e) // START BYTE
+    frame.push(0x7e) // END BYTE
+    return frame;
+}
+
+
+function peerSensivity(indata){
+    var  data =  getReadPeerDataFrame(indata)
+    if(BJE != undefined) {
+        BJE.readAttr(data);
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('TX READ PKT ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
+    }
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
 function setPwdToDevice(pwd,length,installer){
     var data = [];
     if(installer)
@@ -557,6 +612,7 @@ function prepareAttributeArray(indata) {
             }
             return;
         }
+
         if(indata[3] == 0x60){
             if(indata[5] == 0)
                 appDataService.onAccessLevelUpdate(0);
@@ -609,6 +665,10 @@ function prepareAttributeArray(indata) {
         } 
         if(indata[3] == 0x08){
             appDataService.parseDeviceAddress(indata);
+            return;
+        }
+        if(indata[3] == 0x51){
+            appDataService.onPeerSensitivityData(indata)
             return;
         }
         var dataLength = indata.length - 6;
