@@ -1224,6 +1224,7 @@ export class DataService {
         if(this.activeComponent != undefined){
             this.activeComponent.clearDevicesForRescan();
         }
+        this.deviceParams.accessLevel = 0;
         this.deviceParams.deviceConnected = false;
     }
 

@@ -149,7 +149,7 @@ function identifyLoad(type,time){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX  ILOAD PKT  ' + hexData.join(','))
     }
 
     else {
@@ -167,7 +167,7 @@ function identify(indata){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX  IDEVICE PKT  ' + hexData.join(','))
     }
 
     else {
@@ -217,7 +217,7 @@ function resetCmd(resetCmd) {
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX RESET PKT  ' + hexData.join(','))
     }
 
     else {
@@ -240,7 +240,7 @@ function readAttr(readData) {
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
+        bjeLog('TX PKT ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
     }
     else {
         var message = {"send":data}
@@ -257,7 +257,7 @@ function writeAttr(writeData) {
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending packet number ' + ++sendPacketCounter +'  write frame  ' + data.join(','))
+        bjeLog('TX PKT' + ++sendPacketCounter +'  write frame  ' + data.join(','))
     }
      else {
         var message = {"send":data}
@@ -332,7 +332,7 @@ function unConfigureAttr(notifyData) {
         BJE.configureAttr(data);
         if(debugLogs ==  true)
             var hexData = getHexDataOfData(data)
-        bjeLog('sending BLE CONFIGURE Frame  ' + hexData.join(','))
+        bjeLog('TX UCFG PKT  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -349,7 +349,7 @@ function configureAttr(notifyData) {
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE CONFIGURE Frame  ' + hexData.join(','))
+        bjeLog('TX CFG PKT ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -372,7 +372,7 @@ function setBLEDataToService(indata){
     var hexData = [];
     if(debugLogs ==  true)
         hexData = getHexDataOfData(databytes)
-    debugLog('received packet number ' + ++recvPacketCounter + '  recv frame  ' + hexData.join(','))
+    debugLog('RX PKT ' + ++recvPacketCounter + '  recv frame  ' + hexData.join(','))
     var data  = prepareAttributeArray(databytes);
     appDataService.setBLEDataToService(data,databytes[4]);
 }
@@ -385,7 +385,7 @@ function setDeviceDateTime(){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending packet number ' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
+        bjeLog('TX PKT ' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -429,7 +429,7 @@ function setDeviceAccessLevel(accessLevel){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        debugLog('sending packet number ' + ++sendPacketCounter + ' bje_detector write frame ' + hexData.join(','))
+        debugLog('TX ACCESS PKT ' + ++sendPacketCounter + ' bje_detector write frame ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -446,7 +446,7 @@ function getGeneratedAuth(){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX GENAUTH PKT  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -467,7 +467,7 @@ function setPwdToDevice(pwd,length,installer){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX SET PWD PKT  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -501,7 +501,7 @@ function readAddrAttr(){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending packet number ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
+        bjeLog('TX READ PKT ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
     }
     else {
         var message = {"send":data}
@@ -518,7 +518,7 @@ function authenticateDevice(pwdHash,length,installer){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('sending BLE WRITE Frame  ' + hexData.join(','))
+        bjeLog('TX AUTH PKT  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -549,7 +549,8 @@ function prepareAttributeArray(indata) {
         if(indata[3] == 0x0A){
 
             if(indata[5] == 0){
-                setDeviceDateTime()
+                appDataService.onAccessLevelUpdate(0);
+                //setDeviceDateTime()
             }else {
                 appDataService.onAccessLevelUpdate(-1);
                 getGeneratedAuth();
