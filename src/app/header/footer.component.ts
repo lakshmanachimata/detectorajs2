@@ -43,6 +43,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
     this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,0])
     // if(this.data.getProfile() != 'user')
       this.data.setShowTestMode(0)
+      this.sendChangedParams();
   }
   getProfile() {
     return this.data.getProfile();

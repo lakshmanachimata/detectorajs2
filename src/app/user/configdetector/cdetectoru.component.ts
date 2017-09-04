@@ -125,9 +125,9 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
      this.doDisConnect = true;
     this.data.setOtherParam('','');
     this.data.setShowOnlyCancel(true);
-    setTimeout(()=> 
-    this.data.testTestMode(), 5000
-    )
+    // setTimeout(()=> 
+    // this.data.testTestMode(), 5000
+    // )
   }
   ngAfterContentInit() { 
   }

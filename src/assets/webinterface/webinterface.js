@@ -257,7 +257,7 @@ function writeAttr(writeData) {
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('TX PKT' + ++sendPacketCounter +'  write frame  ' + data.join(','))
+        bjeLog('TX PKT' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}

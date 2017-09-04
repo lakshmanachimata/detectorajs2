@@ -250,9 +250,9 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.readData(this.readAttrs);
     }
     this.data.setProfileSwitch(true)
-    setTimeout(()=> 
-    this.data.testTestMode(), 5000
-    )
+    // setTimeout(()=> 
+    // this.data.testTestMode(), 5000
+    // )
   }
   ngAfterContentInit() { 
   }
@@ -466,6 +466,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   gotoOtherParams(otherparam,otherParamTitle){
     this.doDisConnect = false;
+    if(otherparam == 'testmode'){
+      this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,1])  
+      this.data.sendChangedParams();      
+    }
     otherParamTitle = this.translater.translate(otherParamTitle);
     this.data.setOtherParam(otherparam,otherParamTitle);
     this.router.navigate(['otherparams'],{relativeTo: this.route});
