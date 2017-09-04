@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="(ad.softOffEnable || ad.softOnEnable) && ad.deviceType == 'mosfet1c'" >
+        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="((ad.softOffEnable || ad.softOnEnable) && ad.deviceType == 'mosfet1c') && showSoftSwitchingSettings" >
             <label class="actuator-phase-load-lbl" style="margin-left: 18px;" >{{ this.data.getTranslatedString("Dimming mode") }}</label> 
             <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-leading" >{{ this.data.getTranslatedString("Leading edge") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()" [checked]="ad.phaseCutMode === 0" name="phase_load" [value]="0"/></div>
             <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-trailing" >{{ this.data.getTranslatedString("Trailing edge") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()"  [checked]="ad.phaseCutMode === 1" name="phase_load" [value]="1"/></div>
