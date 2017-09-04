@@ -46,5 +46,41 @@
             </div>
         </div>
     </div>
+    <div class="detection-outdoor-div" *ngIf="ad.outdoorApplicationEnable == true">
+            <div class="detection-outdoor-top-quadrants">
+                <div class="detection-outdoor-quadrant q1"  (click)="setQuadrantSelected('q1',ad.opirSensitivity0)" [ngStyle]="getMystyle('q1')">
+                    <label class="detection-quad-value q1-val">{{ad.opirSensitivity0}}%</label></div>
+                <div class="detection-outdoor-quadrant q2"  (click)="setQuadrantSelected('q2',ad.opirSensitivity1)" [ngStyle]="getMystyle('q2')">
+                    <label class="detection-quad-value q2-val">{{ad.opirSensitivity1}}%</label></div>
+            </div>
+            <div id="detection-outdoor-inner-ring">
+                <div id="detection-outdoor-inner-icon">
+                    <span class="glyphicon glyphicon-modal-window"></span>
+                </div>
+            </div>
+            <div class="detection-outdoor-bottom-quadrants">
+                <div class="detection-outdoor-quadrant q3"  (click)="setQuadrantSelected('q3',ad.opirSensitivity2)" [ngStyle]="getMystyle('q3')">
+                    <label class="detection-quad-value q3-val">{{ad.opirSensitivity2}}%</label></div>
+                <div class="detection-outdoor-quadrant q4"  (click)="setQuadrantSelected('q4',ad.opirSensitivity3)" [ngStyle]="getMystyle('q4')">
+                    <label class="detection-quad-value q4-val">{{ad.opirSensitivity3}}%</label></div>
+            </div>
+            <div class="bj-detection-outdoor-slider">
+                <div (click)="setValue(0)"><input id="value0" type="radio"  value="0" />
+                    <div class="detection-slider-value value0" *ngIf="getRangeValue() ==0" ></div>
+                </div>
+                <div  (click)="setValue(25)"><input id="value25" type="radio"  value="25" />
+                     <div class="detection-slider-value value25" *ngIf="getRangeValue() ==25"></div>
+                </div>
+                <div (click)="setValue(50)"><input id="value50" type="radio"  value="50" />
+                    <div class="detection-slider-value value50" *ngIf="getRangeValue() ==50"></div>
+                </div>
+                <div (click)="setValue(75)"><input id="value75" type="radio"  value="75" />
+                    <div class="detection-slider-value value75" *ngIf="getRangeValue() ==75"></div>
+                </div>
+                <div (click)="setValue(100)"><input id="value100" type="radio"  value="100" />
+                    <div class="detection-slider-value value100" *ngIf="getRangeValue() ==100"></div>
+                </div>
+            </div>
+        </div>
 </div>
 </div>

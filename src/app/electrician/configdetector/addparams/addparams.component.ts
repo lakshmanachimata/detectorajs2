@@ -48,10 +48,10 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Additional sensor parameters'));
 
-      if(this.data.gettestmodetest() == 0){
-        this.data.testTestMode();
-        this.data.settestmodetest(1);
-      }
+      // if(this.data.gettestmodetest() == 0){
+      //   this.data.testTestMode();
+      //   this.data.settestmodetest(1);
+      // }
     
   }
   ngAfterContentInit() { 
