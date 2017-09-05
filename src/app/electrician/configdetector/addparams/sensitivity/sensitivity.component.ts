@@ -172,20 +172,37 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     return this.selectedQuadrant;
   }
   getMystyle(item) {
-    switch(item) {
-      case 'q1' :
-        this.setStyleAttr(this.ad.pirSensitivity0);
-      break;
-      case 'q2' :
-        this.setStyleAttr(this.ad.pirSensitivity1);
-      break;
-      case 'q3' :
-        this.setStyleAttr(this.ad.pirSensitivity2);
-      break;
-      case 'q4' :
-        this.setStyleAttr(this.ad.pirSensitivity3);
-      break;
-    }
+    if(this.ad.outdoorApplicationEnable ==  true){
+      switch(item) {
+        case 'q1' :
+          this.setStyleAttr(this.ad.opirSensitivity0);
+        break;
+        case 'q2' :
+          this.setStyleAttr(this.ad.opirSensitivity1);
+        break;
+        case 'q3' :
+          this.setStyleAttr(this.ad.opirSensitivity2);
+        break;
+        case 'q4' :
+          this.setStyleAttr(this.ad.opirSensitivity3);
+        break;
+      }
+    }else{
+      switch(item) {
+        case 'q1' :
+          this.setStyleAttr(this.ad.pirSensitivity0);
+        break;
+        case 'q2' :
+          this.setStyleAttr(this.ad.pirSensitivity1);
+        break;
+        case 'q3' :
+          this.setStyleAttr(this.ad.pirSensitivity2);
+        break;
+        case 'q4' :
+          this.setStyleAttr(this.ad.pirSensitivity3);
+        break;
+      }
+  }
      if(item == this.selectedQuadrant) {
        let mystyles =  {
         'background': this.styleValue ,

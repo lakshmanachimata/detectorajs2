@@ -286,7 +286,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setDialogTitle(this.translater.translate("Reset ")+ this.activeDevice.btDeviceName);
     this.data.setDialogText(this.translater.translate("Are you sure to set the ") +'"'+this.activeDevice.btDeviceName+'"' +this.translater.translate(" to factory adjustment?"));
     this.data.setShowModal(true);
-    this.data.setResetCommand(0x01);
+    this.data.setResetCommand(0x02);
   }
 
 

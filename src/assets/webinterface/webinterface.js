@@ -674,7 +674,7 @@ function prepareAttributeArray(indata) {
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
-            //bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+            bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
