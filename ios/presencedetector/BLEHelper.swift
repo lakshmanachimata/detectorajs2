@@ -189,11 +189,11 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         if central.state == CBManagerState.poweredOn {
             print("Bluetooth available.")
             startscan();
-            //showNoDevicesAvailable(timeout: 5 * 60);
+            showNoDevicesAvailable(timeout: 60 * 60);
         } else {
             print("Bluetooth not available.")
         }
-        showNoDevicesAvailable(timeout: 5);
+        //showNoDevicesAvailable(timeout: 5);
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
@@ -203,8 +203,12 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         if(advservices != nil) {
             
             let cbuuid = CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue);
+            let cbuuidnew = CBUUID.init(string: SCCP_SERVICE.NEW_DSPS_SERVICE.rawValue);
             let suotaUUID = CBUUID.init(string: SPOTA_UUID.SPOTA_SERVICE_UUID.rawValue);
-            let isServiceExists = advservices!.contains(cbuuid)
+            var isServiceExists = advservices!.contains(cbuuid)
+            if(isServiceExists == false){
+                isServiceExists = advservices!.contains(cbuuidnew)
+            }
             let manufactorData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? NSData
             
             if ( isServiceExists == true && manufactorData != nil) {
