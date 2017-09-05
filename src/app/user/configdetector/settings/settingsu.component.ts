@@ -217,8 +217,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessStartTime <= 0 ){
           this.ad.basicBrightnessStartTime = 86400;
         }
-      //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     }
@@ -227,8 +225,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessEndTime <= 0 ){
           this.ad.basicBrightnessEndTime = 86400;
         }
-      //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }
@@ -237,8 +233,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightStartTime <= 0 ){
           this.ad.nightLightStartTime = 86400;
         }
-      //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     }
@@ -247,8 +241,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
        if(this.ad.nightLightEndTime <= 0 ){
           this.ad.nightLightEndTime = 86400;
         }
-      //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }
@@ -274,8 +266,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
         }
-      //this.secondsToString(this.ad.basicBrightnessStartTime,this.BRStartTime)
-      this.onBLEdata()
+
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessStartTime ])
     }
@@ -284,8 +275,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.basicBrightnessEndTime >= 86400 ){
           this.ad.basicBrightnessEndTime = 0;
         }
-      //this.secondsToString(this.ad.basicBrightnessEndTime,this.BREndTime)
-      this.onBLEdata()
+
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.basicBrightnessEndTime ])
     }
@@ -294,8 +284,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightStartTime >= 86400 ){
           this.ad.nightLightStartTime = 0;
         }
-      //this.secondsToString(this.ad.nightLightStartTime,this.NLStartTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightStartTime ])
     }
@@ -304,8 +292,6 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       if(this.ad.nightLightEndTime >= 86400 ){
           this.ad.nightLightEndTime = 0;
         }
-      //this.secondsToString(this.ad.nightLightEndTime,this.NLEndTime)
-      this.onBLEdata()
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,this.ad.nightLightEndTime ])
     }
@@ -345,9 +331,7 @@ secondsToTimeValues (sec_num,timetype) {
     this.data.addToSendData([SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
   }
 
-
-
-  onBLEdata() {
+  onBLEdata(isread) {
      this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;

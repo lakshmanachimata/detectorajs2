@@ -226,7 +226,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   setLoadingDataDone(){
     this.loadingDataDone = false;
   }
-  onBLEdata() {
+  onBLEdata(isread) {
     this.loadingDataDone = true;
      this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.pirSensitivity0 = this.ad.pirSensitivity0 ;

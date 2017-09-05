@@ -125,7 +125,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     }
   }
   
-  onBLEdata() {
+  onBLEdata(isread) {
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad ;

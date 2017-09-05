@@ -29,7 +29,7 @@ function getSafariSubtle(webkitSubtleObj){
 
 function bjeLog(msg){
     if(bjeLogs == true)
-        console.log('bje_detector  '+ msg + '     ' + getFormattedDateTime());
+        console.log('bje_detector_ui  '+ msg + '     ' + getFormattedDateTime());
 }
 
 function getHexDataOfData(data){
@@ -49,7 +49,7 @@ function getHexDataOfData(data){
 }
 function debugLog(msg){
     if(debugLogs == true)
-        console.log('bje_detector  '+ msg + '     ' + getFormattedDateTime());
+        console.log('bje_detector_ui  '+ msg + '     ' + getFormattedDateTime());
 }
 function setDevicesCallBack(component) {
     welcomecomponent = component;
@@ -429,7 +429,7 @@ function setDeviceAccessLevel(accessLevel){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        debugLog('TX ACCESS PKT ' + ++sendPacketCounter + ' bje_detector write frame ' + hexData.join(','))
+        debugLog('TX ACCESS PKT ' + ++sendPacketCounter + ' write frame ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -674,7 +674,7 @@ function prepareAttributeArray(indata) {
         var dataLength = indata.length - 6;
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
-            bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
+            //bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
             var key,value; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:

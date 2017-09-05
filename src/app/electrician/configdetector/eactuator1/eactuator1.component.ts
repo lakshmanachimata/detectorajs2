@@ -375,7 +375,6 @@ getColorTemperatureValue(){
         if(this.ad.basicBrightnessStartTime <= 0){
           this.ad.basicBrightnessStartTime = 86400;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
@@ -386,7 +385,6 @@ getColorTemperatureValue(){
         if(this.ad.basicBrightnessEndTime <= 0){
           this.ad.basicBrightnessEndTime = 86400;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
@@ -397,7 +395,6 @@ getColorTemperatureValue(){
         if(this.ad.nightLightStartTime <= 0){
           this.ad.nightLightStartTime = 86400;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
@@ -408,7 +405,6 @@ getColorTemperatureValue(){
         if(this.ad.nightLightEndTime <= 0){
           this.ad.nightLightEndTime = 86400;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
@@ -561,7 +557,6 @@ getColorTemperatureValue(){
         if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
@@ -572,7 +567,6 @@ getColorTemperatureValue(){
          if(this.ad.basicBrightnessEndTime >= 86400 ){
           this.ad.basicBrightnessEndTime = 0;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
@@ -583,7 +577,6 @@ getColorTemperatureValue(){
         if(this.ad.nightLightStartTime >= 86400 ){
           this.ad.nightLightStartTime = 0;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
@@ -594,7 +587,6 @@ getColorTemperatureValue(){
         if(this.ad.nightLightEndTime >= 86400 ){
           this.ad.nightLightEndTime = 0;
         }
-        this.onBLEdata();
         if(isClick){
           let timeBytes = []
           timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
@@ -641,7 +633,7 @@ getColorTemperatureValue(){
     this.data.setResetCommand(0x44)
   }
 
-  onBLEdata() {
+  onBLEdata(isread) {
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.softOnEnable = this.ad.softOnEnable;

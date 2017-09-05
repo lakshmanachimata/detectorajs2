@@ -348,14 +348,15 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice + 1;
     }
   }
-  onBLEdata() {
-    this.loadingDataDone = true;
-    this.logger.log("OTHER COMPO onBLEdata came  contact is  " + this.ad.contact + "building is ")
-    this.zone.run( () => { // Change the property within the zone, CD will run after
-      this.contactName = this.ad.contact;
-      this.buildingName = this.ad.building;
-      this.data.setEDevParamsState(0);
-    });
+  onBLEdata(isread) {
+    if(isread == true){
+      this.loadingDataDone = true;
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.contactName = this.ad.contact;
+        this.buildingName = this.ad.building;
+        this.data.setEDevParamsState(0);
+      });
+    }
   }
   
   setCName(event: any) {

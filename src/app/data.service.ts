@@ -551,6 +551,11 @@ export class DataService {
         return buf;
     }
 
+    setPKTExchangeCount(count){
+        this.readCount = count;
+        this.writeCount = count;
+    }
+
     getEOptionText(){
         if(this.uiParams.eOptionText == ''){
             this.uiParams.eOptionText = this.translater.translate('Save');
@@ -1291,7 +1296,6 @@ export class DataService {
         }
     }
     readData(data) {
-        this.logger.log("READ DATA REMAINING  00000000000  " + data.length);
         if(this.DeviceBuild == 1){
             if(this.readArray.length == 0) {
                 this.readArray = data;

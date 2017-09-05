@@ -18,6 +18,7 @@ export class WelcomeComponent implements OnInit {
             private router:Router,private location:Location, private translater:i18nService) {
       }
   ngOnInit() {
+    this.data.setPKTExchangeCount(10);
   }
   gotoProfile(item) {
     this.data.setProfile(item);

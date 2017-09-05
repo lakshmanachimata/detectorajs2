@@ -98,7 +98,7 @@ TotalSavingsYearValue = 759;
       return false;
     }
   }
-  onBLEdata() {
+  onBLEdata(isread) {
         this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad ;

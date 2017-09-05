@@ -126,7 +126,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.addToSendData([SCCP_ATTRIBUTES.HVAC_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.hvacSwitchOffDelay])
     }
   }
-  onBLEdata() {
+  onBLEdata(isread) {
     this.loadingDataDone = true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.hvacSwitchOnDelay = this.ad.hvacSwitchOnDelay;
