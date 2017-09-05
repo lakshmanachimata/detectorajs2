@@ -1182,7 +1182,7 @@ export class DataService {
             this.activeComponent.onPeerData(data);
         }
     }
-    
+
     parseDeviceAddress(indata){
         var address = "";
         var byteAddr = [];
@@ -2523,9 +2523,9 @@ export class DataService {
             case SCCP_ATTRIBUTES.OPERATION_MODE                                          : 
                 this.uiParams.devicesObj.DeviceData.operationMode= attrValue;
             break;
-            case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
-                this.uiParams.devicesObj.DeviceData.slaveModeEnable= attrValue;
-            break;
+            // case SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE                                       : 
+            //     this.uiParams.devicesObj.DeviceData.slaveModeEnable= attrValue;
+            // break;
             case SCCP_ATTRIBUTES.OUTDOOR_APPLICATION_ENABLE                              : 
                 this.uiParams.devicesObj.DeviceData.outdoorApplicationEnable= attrValue;
             break;

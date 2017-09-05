@@ -198,7 +198,7 @@
             </div>
         </div>
         <div *ngIf="showDaliSettings">
-            <div class="bj-config-setting inner-setting actuator1 master-slave-function">
+            <!-- <div class="bj-config-setting inner-setting actuator1 master-slave-function">
                 <label class="actuator-master-slave-lbl">Use master in slave operation</label>
                  <span class="bj-config-toggle-switch actuator1">
                          <div class="track"   (click)="togglemsd()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -208,7 +208,7 @@
                         </div>
                         </div>
                  </span>
-            </div>
+            </div> -->
             <label class="bj-config-lbl sensor-div" >{{ this.data.getTranslatedString("Power ON level") }}</label>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 0"  name="power_level" [value]="0"/></div>
                 <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl" >{{ this.data.getTranslatedString("Memo") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 255" name="power_level" [value]="255"/></div>

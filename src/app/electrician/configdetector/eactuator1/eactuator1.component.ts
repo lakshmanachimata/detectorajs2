@@ -625,8 +625,8 @@ getColorTemperatureValue(){
   }
 
   togglemsd() {
-    this.ad.slaveModeEnable = !this.ad.slaveModeEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
+    // this.ad.slaveModeEnable = !this.ad.slaveModeEnable
+    // this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
   }
   resetDali() {
     this.data.setDialogTitle(this.translater.translate("Reset DALI"));

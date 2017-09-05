@@ -72,7 +72,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,                                     
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,                                     
                 SCCP_ATTRIBUTES.OPERATION_MODE,                                           
-                SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,
+                // SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,
                 SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,
                 //add params screen
                 //packet3
@@ -235,8 +235,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.addToSendData([SCCP_ATTRIBUTES.CONSTANT_LIGHT_CONTROL_CONSIDER_SLAVE_BRIGHTNESS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.constantLightControlEnable?1:0])
   }
   togglemsd() {
-    this.ad.slaveModeEnable = ! this.ad.slaveModeEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
+    // this.ad.slaveModeEnable = ! this.ad.slaveModeEnable
+    // this.data.addToSendData([SCCP_ATTRIBUTES.SLAVE_MODE_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.slaveModeEnable?1:0])
   }
   togglestp(){
     this.ad.shortTimePulseEnable= !this.ad.shortTimePulseEnable;
@@ -279,7 +279,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
             this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
         });
       }
-
   }
 
   showResetDialog() {
@@ -288,8 +287,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setShowModal(true);
     this.data.setResetCommand(0x02);
   }
-
-
 
   potentioMeterChanged() {
     this.data.addToSendData([SCCP_ATTRIBUTES.POTENTIOMETER_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.potentiometerMode])
@@ -528,14 +525,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = value;
   }
   subcribeForDetails(){
-    this.data.configureData(this.updateSubcribeAttrs)
+    // this.data.configureData(this.updateSubcribeAttrs)
   }
 
   subcribeForPermanentDetails(){
-    this.data.configureData(this.permanentSubscrioAttrs)
+    // this.data.configureData(this.permanentSubscrioAttrs)
   }
   unSubscriveDetails(){
-    this.data.unConfigureData(this.updateSubcribeAttrs)
-    this.data.unConfigureData(this.permanentSubscrioAttrs)
+    // this.data.unConfigureData(this.updateSubcribeAttrs)
+    // this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
 }
