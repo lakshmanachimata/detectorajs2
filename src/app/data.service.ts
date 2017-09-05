@@ -8,7 +8,7 @@ import { Location }  from '@angular/common';
 import 'rxjs/Rx';
 import { i18nService } from './i18n.service';
 import * as https from 'https';
-import * as request from 'request'
+// import * as request from 'request'
 import * as customCryptoJS from 'crypto-js'
 
 
@@ -436,8 +436,9 @@ export class DataService {
     readDoneArray=[];
     writeArray=[];
     writeDoneArray=[];
-    readCount = 9;
-    writeCount = 9;
+    readCount = 10;
+    writeCount = 10;
+    attrReadCounter = 0;
     addData=[];
     identifyDevice = 0;
     sendData =  new Array<WriteData>();
@@ -475,8 +476,13 @@ export class DataService {
 
     checkDeviceMode(){
         let aindex =  navigator.platform.toLowerCase().indexOf('linux');
-        let iindex = navigator.platform.toLowerCase().indexOf('iphone');
-        
+        let iindex = navigator.platform.toLowerCase().indexOf('ios');
+        if(iindex < 0){
+            iindex = navigator.platform.toLowerCase().indexOf('iphone');
+        }
+        if(iindex < 0){
+            iindex = navigator.platform.toLowerCase().indexOf('ipad');
+        }
         //LAKSHMANA commented temporarily to simulate devices
         if( aindex >=  0){
             this.DeviceBuild = 1;
@@ -960,7 +966,7 @@ export class DataService {
                     this.setBLEdataOnDeviceData(atrType,atrValue);
                 }
                 if(this.readArray.length > this.readCount){
-                    this.readArray = this.readArray.slice(this.readCount,this.readArray.length);
+                    this.readArray = this.readArray.slice(this.readCount-1,this.readArray.length);
                 }
                 else {
                     this.readArray = [];
@@ -1285,6 +1291,7 @@ export class DataService {
         }
     }
     readData(data) {
+        this.logger.log("READ DATA REMAINING  00000000000  " + data.length);
         if(this.DeviceBuild == 1){
             if(this.readArray.length == 0) {
                 this.readArray = data;
@@ -2149,12 +2156,12 @@ export class DataService {
             key: this.networkParams.keyData,
             method: 'GET',
         };
-        request.get(options,function(error, response, body){
-            if(response != undefined)
-                DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
-            else 
-                DataService.getDataService().logger.log('response is error  ' + error);
-        }); 
+        // request.get(options,function(error, response, body){
+        //     if(response != undefined)
+        //         DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
+        //     else 
+        //         DataService.getDataService().logger.log('response is error  ' + error);
+        // }); 
     }
 
     getDataWithCert(httpPath){
@@ -2467,6 +2474,8 @@ export class DataService {
     }
 
     setBLEdataOnDeviceData(attrType,attrValue){
+        this.attrReadCounter =  this.attrReadCounter + 1;
+        this.logger.log("READ DATA REMAINING  " + attrType + "   " + attrValue + "  ATTRCOUNTER  " + this.attrReadCounter);
         switch(attrType) {
             case SCCP_ATTRIBUTES.FIRMWARE_VERSION                                        :
                 this.uiParams.devicesObj.DeviceData.firmwareVersion = attrValue;
@@ -2567,9 +2576,11 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN                          : 
+                this.logger.log("CH1_PERMANENT_OFF_DURATION_MIN is " + attrValue);
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX                          : 
+                this.logger.log("CH1_PERMANENT_OFF_DURATION_MAX is " + attrValue);
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_ENABLE                                          : 

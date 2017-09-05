@@ -52,29 +52,29 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   buildingName;
       readAttrs =[
                   SCCP_ATTRIBUTES.CONTACT,
-                  SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,                            
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,                        
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,                        
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,                         
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN,                     
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,                                                                                                                        
-                  SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
-                  SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
-                  SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
-                  SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,                             
-                  SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,                         
-                  SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE,             
-                  SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,                                       
-                  SCCP_ATTRIBUTES.IDENTIFYING_DEVICE,                                       
-                  SCCP_ATTRIBUTES.MOVEMENT,                                                 
-                  SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,                                     
-                  SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,                                         
-                  SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,                                        
-                  SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,                                     
-                  SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,                                         
-                  SCCP_ATTRIBUTES.TEST_MODE_ENABLE,                                         
-                  SCCP_ATTRIBUTES.ACCESS_LEVEL,
+                  // SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,                      
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,                            
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,                        
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,                        
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,                         
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MIN,                     
+                  // SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION_MAX,                                                                                                                        
+                  // SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
+                  // SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
+                  // SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
+                  // SCCP_ATTRIBUTES.ENABLE_USER_BASIC_BRIGHTNESS,                             
+                  // SCCP_ATTRIBUTES.ENABLE_USER_NIGHT_LIGHT_FUNCTION,                         
+                  // SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE,             
+                  // SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,                                       
+                  // SCCP_ATTRIBUTES.IDENTIFYING_DEVICE,                                       
+                  // SCCP_ATTRIBUTES.MOVEMENT,                                                 
+                  // SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD,                                     
+                  // SCCP_ATTRIBUTES.CH1_ON_OFF_STATE,                                         
+                  // SCCP_ATTRIBUTES.CH1_CURRENT_LEVEL,                                        
+                  // SCCP_ATTRIBUTES.CH2_IDENTIFYING_LOAD,                                     
+                  // SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,                                         
+                  // SCCP_ATTRIBUTES.TEST_MODE_ENABLE,                                         
+                  // SCCP_ATTRIBUTES.ACCESS_LEVEL,
                   SCCP_ATTRIBUTES.BUILDING,
                 ]
 
@@ -84,10 +84,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
       this.data.setTestModeComponent(this);
-      // if(this.data.getDeviceConnectionState() == true){
-      //   this.data.readData(this.readAttrs);
-      // }
-      // else 
+      this.data.setActiveComponent(this);
+      if(this.data.getDeviceConnectionState() == true){
+        if(this.data.getOtherParam() == "buildingallocation")
+          this.data.readData(this.readAttrs);
+      }
+      else 
       {
         this.loadingDataDone = true;
       }
@@ -348,10 +350,12 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   onBLEdata() {
     this.loadingDataDone = true;
+    this.logger.log("OTHER COMPO onBLEdata came  contact is  " + this.ad.contact + "building is ")
     this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;
-        this.data.setEDevParamsState(0);
-      });
+      this.contactName = this.ad.contact;
+      this.buildingName = this.ad.building;
+      this.data.setEDevParamsState(0);
+    });
   }
   
   setCName(event: any) {

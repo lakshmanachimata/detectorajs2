@@ -231,7 +231,7 @@ public class MainActivity extends Activity {
     Animation in;
     WebInterface webInterface;
     private static final int REQUEST_ENABLE_BT = 1;
-    private static final long SCAN_PERIOD = 15 * 60 * 1000;
+    private static final long SCAN_PERIOD = 60 * 60 * 1000;
     private static boolean isScanning =  false;
 
     boolean getDeviceInfo =  false;
