@@ -1130,8 +1130,10 @@ export class DataService {
         this.logger.log('gendata is ' + new Buffer(authData).toString('hex').toUpperCase())
     }
     connectDevice(btaddress){
-        this.connectDeviceObj = new connectDevice(btaddress);
-        this.setAccessLevelRequsetedAddress(btaddress)
+        if(this.DeviceBuild == 1){
+            this.connectDeviceObj = new connectDevice(btaddress);
+            this.setAccessLevelRequsetedAddress(btaddress)
+        }
     }
     disConnectDevice(){
         if(this.deviceParams.deviceConnected ==  true){

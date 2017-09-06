@@ -5,7 +5,7 @@
     left:0;
     z-index:5;
     overflow-y: scroll;
-	right:0;
+		right:0;
   	width:100%;
    	font-size:20px;
 	background-color:white;
@@ -120,12 +120,19 @@ img#mySpinner{
   }
 
 div.searching_spinner{
-	position: absolute;
-	bottom: 6%;
-	left: 22%;
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+	justify-content: center;
 }
 
-.spinner {
+.span1 {
+  text-align: center;
+  font-size: 22px;
+}
+
+
+.spinner_waiting {
   animation: spin 1.5s linear infinite;
   position: relative;
   width: 60px;
@@ -133,24 +140,27 @@ div.searching_spinner{
   margin: 100px auto 0;
   border: 2px solid #1f94ed;
   border-radius: 50%;
-  margin-left: 28%;
+	vertical-align: middle;
 }
-.spinner:after {
+.spinner_waiting:after {
   content: "";
   width: 85%;
   height: 85%;
   background: -webkit-linear-gradient(45deg, white 0%, white 40%, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0) 100%);
   position: absolute;
   top: 0;
-  left: 0;
+	left: 0;
+	vertical-align: middle;
   transform: translate(-5%, -5%);
 }
-.spinner.moon {
+.spinner_waiting.moon {
   border-left: 0;
-  border-top: 0;
+	border-top: 0;
+	vertical-align: middle;
 }
-.spinner.moon:after {
-  display: none;
+.spinner_waiting.moon:after {
+	display: none;
+	vertical-align: middle;
 }
 
 @keyframes spin {
