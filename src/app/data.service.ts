@@ -2580,11 +2580,9 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDuration= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN                          : 
-                this.logger.log("CH1_PERMANENT_OFF_DURATION_MIN is " + attrValue);
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMin= attrValue;
             break;
             case SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX                          : 
-                this.logger.log("CH1_PERMANENT_OFF_DURATION_MAX is " + attrValue);
                 this.uiParams.devicesObj.DeviceData.ch1PermanentOffDurationMax= attrValue;
             break;
             case SCCP_ATTRIBUTES.SOFT_ON_ENABLE                                          : 

@@ -12,6 +12,22 @@
 	color:blue;
 	background-color:white;
 }
+
+.bj-submenu-container.bj-user-view{
+    position:absolute;
+	width:100%;
+	top:50px;
+	opacity:0.94;
+	bottom:0;
+	left:0;
+	right:0;
+	z-index:50;
+	min-width:50px;
+	font-size:20px;
+	color:white;
+	background-color:#2d425b;
+}
+
 .bj-installed-container{
 	position:fixed;
 	top:50px;
@@ -36,7 +52,7 @@
 
 label.bj-instruction.help.bj-user-view,label.bj-instruction.about.bj-user-view {
     width: 50%;
-    color: #000000;
+    color: #ffffff;
     font-size: 20px;
     margin-top: 50%;
     margin-left: 20%;
@@ -52,12 +68,12 @@ label.bj-instruction.help,label.bj-instruction.about{
 
 a.bj-instruction-link.help.bj-user-view,a.bj-instruction-link.about.bj-user-view  {
     color: #a3a3a3;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 a.bj-instruction-link.help,a.bj-instruction-link.about{
     color: #2288c0;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .bj-instruction-link-p{
@@ -87,7 +103,7 @@ label.bj-config-setting.switchmode {
 #bj-switch-mode-div
 {
 	padding-bottom: 10px;
-	border-bottom: solid 1px #9eabbb;
+	/* border-bottom: solid 1px #9eabbb; */
 }
 .bj-config-setting-div{
 	width:100%;
@@ -103,6 +119,16 @@ label.bj-config-setting.switchmode {
 	padding-left: 18px;
 }
 
+.bj-config-setting.bj-user-view{
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 600;
+	padding-top: 14px;
+	padding-left: 18px;
+}
+.switch-mode{
+	border-bottom:solid 1px #9eabbb;
+}
 input.operating-radio {
     float: right;
     margin-right: 12px !Important;

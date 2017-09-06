@@ -15,11 +15,11 @@
         Version: 1.0.16</small>
     </p>
 </div>
-<div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState">
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
     <div id="bj-switch-mode-div">
         <label class="bj-lbl" >{{ this.data.getTranslatedString("Selected user profile") }}</label>
-        <div><label class="bj-config-setting " >{{ this.data.getTranslatedString("Installer") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
-        <div><label class="bj-config-setting" >{{ this.data.getTranslatedString("Standard User") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
+        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Installer") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
+        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Standard User") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
     </div>
 </div>
 

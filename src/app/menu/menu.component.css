@@ -54,7 +54,8 @@
 	z-index:50;
 	opacity:0.95;
 	bottom:0;
-	background-color:#cecfd0;
+	/* background-color:#cecfd0; */
+	background-color:#2d425b;
 }
 
 .bj-user-menu-list{
@@ -94,12 +95,14 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 18px;
     font-weight: 600;
-    color: #171717;
+	/* color: #171717; */
+	color: #ffffff;
     text-align: left;
     padding-top: 18px;
     padding-bottom: 15px;
     padding-left: 50px;
-    background-color: #cecfd0;
+	/* background-color: #cecfd0; */
+	background-color: #2d425b;
     margin: 0;
 }
 

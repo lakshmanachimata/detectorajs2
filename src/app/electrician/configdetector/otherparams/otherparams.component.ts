@@ -22,6 +22,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   showUserPin = false;
   A1LoadIdentify = false;
   A2LoadIdentify = false;
+  showEnergyMonitorRefSettings = true;
   installer_pwd ="";
   user_pwd ="";
   showTestModeSettings = false;
@@ -409,6 +410,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   identifyLoadCh2(){
     this.data.sendIdentifyLoadCommand(1,5)
   }
+
   toggleDP(){
     this.ad.testModeDeactivateOutputsEnable = !this.ad.testModeDeactivateOutputsEnable;
     this.data.addToSendData([SCCP_ATTRIBUTES.TEST_MODE_DEACTIVATE_OUTPUTS_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.testModeDeactivateOutputsEnable])

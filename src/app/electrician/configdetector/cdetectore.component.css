@@ -146,7 +146,8 @@ span.bj-actuator-bulb{
 	margin-bottom: 1.5%;
 	margin-top: 3%;
 	z-index:3;
-	position:relative;
+    position:relative;
+    border-top: 2px solid #ffff00;/*PDAL-2143*/
 }
 
 img.bulb-off{
@@ -193,7 +194,7 @@ label.actuator-name {
 
 .bj-actuator-bulb {
 	height: 100%;
-	border-top:3px solid #ffff00;
+	/* border-top:3px solid #ffff00; *//*PDAL-2143*/
 	border-right:1px solid #000000;
 	background-color: #233348;
 	border-bottom-left-radius: 6px;
@@ -208,7 +209,7 @@ label.actuator-name {
 .bj-actuator-slider {
 	width: 24%;
 	height: 100%;
-	border-top:3px solid #ffff00;
+	/* border-top:3px solid #ffff00; */ /*PDAL-2143*/
 	border-left:1px solid #667a93;
 	background-color:#212e40;
 	border-bottom-right-radius: 6px;
@@ -1792,4 +1793,39 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
 .emreference-div{
     border-bottom: 1px solid #9eabbb;
     padding-bottom: 22px;
+}
+
+.rev-button{
+    background-color: transparent;
+    border:none;
+    margin-top: 16px;
+}
+
+.input-val{
+    border: none !important;
+    margin-top: 0px !important;
+    width: 60% !important;
+    font-size: 20px;
+    margin-left: 4px;
+    padding-left: 36px;
+    color: #0171af !important;
+}
+
+.input-val-unit{
+    border: none !important;
+    margin-top: 0px !important;
+    padding-top: 0px;
+    text-align: left;
+    font-size: 20px;
+    margin-left: 2px;
+    color: #0171af;
+}
+
+.input-container-div{
+    width: 158px;
+    display: flex;
+    border: 1px solid #0171af;
+    border-radius: 4px;
+    height: 32px;
+    margin-top: 20px;
 }
