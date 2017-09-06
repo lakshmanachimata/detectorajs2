@@ -89,6 +89,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       if(this.data.getDeviceConnectionState() == true){
         if(this.data.getOtherParam() == "buildingallocation")
           this.data.readData(this.readAttrs);
+        else
+          this.loadingDataDone = true;
       }
       else 
       {
