@@ -10,6 +10,75 @@ var authGenSent = false;
 var sendPacketCounter = 0;
 var recvPacketCounter = 0;
 
+var SCCP_DATATYPES = {
+    SCCP_TYPE_BOOL     : 0x01,
+    SCCP_TYPE_STRING   : 0x02,
+    SCCP_TYPE_ENUM8    : 0x03,
+    SCCP_TYPE_ENUM16   : 0x04,
+    SCCP_TYPE_TIME     : 0x05,
+    SCCP_TYPE_UINT8    : 0x08,
+    SCCP_TYPE_UINT16   : 0x09,
+    SCCP_TYPE_UINT32   : 0x0A,
+    SCCP_TYPE_UINT64   : 0x0B,
+    SCCP_TYPE_INT8     : 0x0C,
+    SCCP_TYPE_INT16    : 0x0D,
+    SCCP_TYPE_INT32    : 0x0E,
+    SCCP_TYPE_INT64    : 0x0F,
+    SCCP_TYPE_AUINT8    : 0x88,
+    SCCP_TYPE_AUINT16    : 0x89,
+}
+
+var SCCP_COMMAND = {
+    STANDARD_RESPONSE               : 0x80,
+    RESET                           : 0x01,
+    RESET_FN                        : 0x02,
+    READ_ATTRIBUTE_REQUEST          : 0x03,
+    READ_ATTRIBUTE_RESPONSE         : 0x83,
+    WRITE_ATTRIBUTE_REQUEST         : 0x04,
+    WRITE_ATTRIBUTE_RESPONSE        : 0x84,
+    CONFIGURE_REPORTING_REQUEST     : 0x05,
+    CONFIGURE_REPORTING_RESPONSE    : 0x85,
+    REPORT_ATTRIBUTE                : 0x06,
+    IDENTIFY_DEVICE                 : 0x20,
+    IDENTIFY_LOAD                   : 0x30,
+    ON_OFF                          : 0x31,
+    SET_LEVEL                       : 0x32,
+    RESET_ENERGY_MONITOR            : 0x40,
+    RESET_DALI_CONTROL_GEAR         : 0x48,
+    AUTH_GEN_RANDOM_REQUEST         : 0x50,
+    AUTH_GEN_RANDOM_RESPONSE        : 0xD0,
+    AUTH_REQUST                     : 0x51,
+    AUTH_SET_PWD_REQUEST            : 0x52,
+    SET_ACCESS_LEVEL                : 0x53,
+    READ_EM_DB                      : 0x11,
+    SET_DATE_TIME                   : 0x60,
+    REPORT_ATTRIBUTE                : 0x06,
+    HANDSHAKE                       : 0x07,
+}
+
+
+/// <#Description#>
+var SCCP_STATUS = {
+    SCCP_STATUS_OK                          : 0x00,
+    SCCP_LL_NOT_INITIALIZED                 : 0x10,
+    SCCP_LL_NO_FREE_TX_BUFFER               : 0x11,
+    SCCP_LL_BAD_FRAME_LENGTH                : 0x12,
+    SCCP_FD_BAD_PAYLOAD_LENGTH              : 0x20,
+    SCCP_FD_BAD_DEST_ADDRESS                : 0x21,
+    SCCP_FD_NOT_INITIALIZED                 : 0x22,
+    SCCP_APP_UNSUPPORTED_ATTRIBUTE          : 0x40,
+    SCCP_APP_OUT_OF_BOUNDS                  : 0x41,
+    SCCP_APP_TYPE_MISMATCH                  : 0x42,
+    SCCP_APP_ACCESS_DENIED                  : 0x43,
+    SCCP_APP_UNREPORTABLE_ATTRIBUTE         : 0x44,
+    SCCP_APP_UNKNOWN_TYPE                   : 0x45,
+    SCCP_APP_BUFFER_TOO_SMALL               : 0x46,
+    SCCP_APP_MESSAGE_BROKEN                 : 0x47,
+    SCCP_APP_UNKNOWN_COMMAND                : 0x48,
+    SCCP_APP_TOO_MANY_REPORTED_ATTRIBUTES   : 0x49
+}
+
+
 function getSafariSubtle(webkitSubtleObj){
     if(window.crypto.webkitSubtle){
         bjeLog(' subtle and assigning same')
@@ -230,6 +299,48 @@ function resetCmd(resetCmd) {
 function killMeFromJS(){
     if(BJE != undefined)
         BJE.killApp()
+}
+
+
+function readArrayAttr(readData) {
+    var data = []
+     data = getFrameForArrayRead(readData);
+    if(BJE != undefined) {
+        BJE.readAttr(data);
+        var hexData = [];
+        if(debugLogs ==  true)
+            hexData = getHexDataOfData(data)
+        bjeLog('TX PKT ' + ++sendPacketCounter + ' read frame ' + hexData.join(','))
+    }
+    else {
+        var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
+function getFrameForArrayRead(data){
+    var frame = [];
+    var crc;
+    frame.push(6 + ((data.length/2) * 5)); // LENGTH AFTER THIS BYTE
+    frame.push(0x08); // CONTROL DEVICE
+    frame.push(0x89); // SEQUENCE
+    frame.push(SCCP_COMMAND.READ_ATTRIBUTE_REQUEST); // command
+    
+    for(var dd =0; dd<data.length; dd = dd +2) {
+        var val = data[dd];
+        frame.push(val & 0x00FF); // ADDR LOW
+        frame.push(val > 0xFF ? (val >> 8) : 0x00); // ADDR HIGH
+        frame.push(data[dd+1]);   // length of bytes
+        frame.push(0x00);   // offset lower  byte
+        frame.push(0x00);   // offset upper  byte
+    }
+    crc = crcCCITT(frame)
+    frame.push(crc >> 8); // CRC LOWER
+    frame.push(crc & 0x00ff); // CRC UPPER
+    frame.unshift(0x7e) // START BYTE
+    frame.push(0x7e) // END BYTE
+    return frame;
 }
 
 function readAttr(readData) {
@@ -777,6 +888,32 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_INT64:
                     break;
+                case SCCP_DATATYPES.SCCP_TYPE_AUINT8:
+                    var byteCounter = 0;
+                    for(var ne = 0; ne < indata[lastParseByteIndex+5]; ne++){
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + ne;
+                        value = indata[lastParseByteIndex+8+ne];
+                        var data = {
+                            "attrType": key,
+                            "attrValue": value
+                            }
+                    }
+                    lastParseByteIndex = lastParseByteIndex + 7;
+                    lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5])
+                    break;
+                case SCCP_DATATYPES.SCCP_TYPE_AUINT16:
+                var byteCounter = 0;
+                for(var ne = 0, keyne =0; ne < indata[lastParseByteIndex+5]; keyne=keyne+1,ne = ne + 2){
+                    key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + keyne;
+                    value = (indata[lastParseByteIndex+8+ne] | (indata[lastParseByteIndex +9+ne] << 8 & 0xFF00));
+                    var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                }
+                lastParseByteIndex = lastParseByteIndex + 7;
+                lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5] * 2)
+                    break;
                 default:
                     bjeLog("WHO AM I " + indata[lastParseByteIndex + 4] +" AND AT " + lastParseByteIndex + 4)
                 break;
@@ -1149,12 +1286,21 @@ function getRequestFrame(command, data,len,installer,isuserpwd) {
                 frame.push(data[i+1]) 
                 frame.push(data[i+2]) 
                 frame.push(data[i+3]) 
-                frame.push(data[i+4]) 
-                frame.push(data[i+5]) 
-                frame.push(data[i+6]) 
-                frame.push(data[i+7]) 
-                counter += 10;
-                i = i + 7;
+                for(var ref =0; ref<data[i+1]; ref++){
+                    frame.push(data[i+4+ref])  
+                }
+                counter += 6 + data[i+1];
+                i = i + 3 + data[i+1];
+            }else if(val == 0x89){
+                frame.push(data[i+1]) 
+                frame.push(data[i+2]) 
+                frame.push(data[i+3]) 
+                for(var ref =0; ref<data[i+1]; ref = ref +2){
+                    frame.push(data[i+4+ref]) 
+                    frame.push(data[i+5+ref])  
+                }
+                counter += 6 + (data[i+1] *2);
+                i = i + 3 + (data[i+1] *2);
             }
             else {
                 i = i + 1; 

@@ -89,6 +89,7 @@ export class SCCP_COMMAND  {
     static SCCP_TYPE_INT32    = 0x0E;
     static SCCP_TYPE_INT64    = 0x0F;
     static SCCP_TYPE_AUINT8   = 0x88;
+    static SCCP_TYPE_AUINT16   = 0x89;
 }
 
 export class SCCP_ATTRIBUTES  {
@@ -385,6 +386,7 @@ declare var configureAttr;
 declare var unConfigureAttr;
 declare var writeAttr;
 declare var readAttr;
+declare var readArrayAttr;
 declare var connectDevice;
 declare var disConnectDevice;
 declare var setDeviceAccessLevel;
@@ -418,6 +420,7 @@ export class DataService {
     operateDrumElementObj:any;
     writeAttrObj:any;
     readAttrObj:any;
+    readArrayAttrObj:any;
     configureAttrObj:any;
     unConfigureAttrObj:any;
     reademdbObj:any;
@@ -433,12 +436,16 @@ export class DataService {
     testModeComponent:any;
     headerComponent:any;
     readArray=[];
+    arrayReadArray=[];
     readDoneArray=[];
     writeArray=[];
     writeDoneArray=[];
     readCount = 10;
     writeCount = 10;
+    arrayReadCount = 10;
+    arrayAttrReadCounter = 0;
     attrReadCounter = 0;
+    readDataState = 0;
     addData=[];
     identifyDevice = 0;
     sendData =  new Array<WriteData>();
@@ -989,7 +996,14 @@ export class DataService {
                     this.readData(this.readArray);
                 }else {
                     this.putDevicesToCloud(false);
-                    this.notifyActiveComponentWithBLEdata(false,true)
+                    this.readDataState = this.readDataState + 1;
+                    if(this.readDataState == 1){
+                        this.notifyActiveComponentWithBLEdata(false,false)
+                    }
+                    if(this.readDataState == 2){
+                        this.notifyActiveComponentWithBLEdata(false,true)
+                        this.readDataState = 0
+                    }
                 }
             break;
             case SCCP_COMMAND.WRITE_ATTRIBUTE_RESPONSE:
@@ -1194,11 +1208,7 @@ export class DataService {
     readDeviceAddress(deviceAddress){
         this.readAddrAttrObj = new readAddrAttr()
     }
-
-    readPeerSensivitivity(data){
-        this.peerSensivityObj = new peerSensivity(data)
-    }
-    
+        
     onPeerSensitivityData(data){
         if(this.activeComponent != undefined){
             this.activeComponent.onPeerData(data);
@@ -1306,6 +1316,22 @@ export class DataService {
 
         }
     }
+    readArrayData(data){
+        if(this.DeviceBuild == 1){
+            if(this.arrayReadArray.length == 0) {
+                this.arrayReadArray = data;
+            }
+            if(this.arrayReadArray.length <= this.arrayReadCount) {
+                this.readArrayAttrObj =  new readArrayAttr(this.readArray);
+            }else {
+                let partArray =  this.arrayReadArray.slice(0, this.arrayReadCount-1);
+                this.readArrayAttrObj =  new readArrayAttr(partArray);
+            }
+        }else {
+
+        }
+    }
+
     readData(data) {
         if(this.DeviceBuild == 1){
             if(this.readArray.length == 0) {

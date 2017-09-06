@@ -1,6 +1,6 @@
 import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
 import { LoggerService } from '../logger.service';
-import { DataService , SCCP_ATTRIBUTES,SCCP_COMMAND,SCCP_DATATYPES} from '../data.service';
+import { DataService , SCCP_ATTRIBUTES,SCCP_DATATYPES} from '../data.service';
 import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
 import { i18nService } from '../i18n.service';
 export class DetectorInfo {

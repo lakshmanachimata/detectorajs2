@@ -28,25 +28,25 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_END_TIME,                             
                 SCCP_ATTRIBUTES.PRESENCE_SIMULATION_START_TIME_ASTRO_FUNCTION_ENABLE,     
                 SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
-                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
-                SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
+                // SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MAX,
+                // SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
                 SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,
-                SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
+                // SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MAX,
+                // SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
                 SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
                 SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,
+                // SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
+                // SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,
                 SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
                 SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD,
-                SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,
-                SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
+                // SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MAX,
+                // SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
                 SCCP_ATTRIBUTES.ENABLE_USER_SET_BRIGHTNESS_THRESHOLD,                     
                 SCCP_ATTRIBUTES.ENABLE_USER_SET_SWITCH_OFF_DELAY,                         
                 SCCP_ATTRIBUTES.ENABLE_USER_ENERGY_MONITOR,                               
@@ -55,6 +55,12 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.ENABLE_USER_COLOR_TEMPERATURE_CONTROL_ENABLE, 
                 ]
 
+                arrayReadAttrs = [
+                  SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
+                  SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
+                  SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
+                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN
+                ]
     updateSubcribeAttrs =[
       SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
       SCCP_ATTRIBUTES.OPERATION_MODE,
@@ -156,8 +162,16 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
     
+  onNonArrayRead(){
+    if(this.data.getDeviceConnectionState() == true){
+      if(this.data.getFromRoot() == true )
+        this.data.readArrayData(this.arrayReadAttrs);
+      else 
+        this.loadingDataDone = true;
+    }
+  }
+
   onBLEdata(isRead) {
-    if(isRead){
       if(isRead){
         setTimeout(()=> 
             this.subcribeForDetails(), 1000
@@ -166,15 +180,16 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
             this.subcribeForPermanentDetails(), 1000
         )
         this.data.setFromRoot(false);
+        this.loadingDataDone =  true;
+        this.setDeviceInfo();
+        this.zone.run( () => { // Change the property within the zone, CD will run after
+          this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
+          this.data.setEDevParamsState(0);
+        });
+      }else{
+        this.onNonArrayRead();
       }
-    }
-    this.loadingDataDone =  true;
-    if(isRead)
-      this.setDeviceInfo();
-    this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
-        this.data.setEDevParamsState(0);
-      });
+      
   }
   onReportBLEdata() {
     this.zone.run( () => { // Change the property within the zone, CD will run after
