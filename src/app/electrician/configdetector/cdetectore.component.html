@@ -10,9 +10,9 @@
              <label class="bj-config-lbl sensor-div" >{{ this.data.getTranslatedString("Sensor settings") }}</label>
              <div class="bj-config-setting-div" >
                     <label class="bj-config-setting potentiometer-block" >{{ this.data.getTranslatedString("Potentiometers") }}</label>
-                    <div><label class="bj-config-setting" >{{ this.data.getTranslatedString("Enabled") }}</label><input type="radio" class="operating-radio" [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 0" name="potentiometer_mode" [value]="0"/></div>
-                    <div><label class="bj-config-setting" >{{ this.data.getTranslatedString("Blocked") }}</label><input type="radio" class="operating-radio" [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 1" name="potentiometer_mode" [value]="1"/></div>
-                    <div><label class="bj-config-setting" >{{ this.data.getTranslatedString("Limit access after power cycle") }}</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 2" name="potentiometer_mode" [value]="2"/></div>
+                    <div><label class="bj-config-setting-label" >{{ this.data.getTranslatedString("Enabled") }}</label><input type="radio" class="operating-radio" [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 0" name="potentiometer_mode" [value]="0"/></div>
+                    <div><label class="bj-config-setting-label" >{{ this.data.getTranslatedString("Blocked") }}</label><input type="radio" class="operating-radio" [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 1" name="potentiometer_mode" [value]="1"/></div>
+                    <div><label class="bj-config-setting-label" >{{ this.data.getTranslatedString("Limit access after power cycle") }}</label><input type="radio" class="operating-radio"  [(ngModel)]="ad.potentiometerMode" (ngModelChange)="potentioMeterChanged()" [checked]="ad.potentiometerMode === 2" name="potentiometer_mode" [value]="2"/></div>
         </div>
             <div class="bj-config-setting-div constant-light-div" *ngIf="ad.constantLightControlEnable !== undefined && ad.deviceType == 'daliMaster1c'" >
                  <label class="bj-config-setting constant-light-function">Constant light regulation</label>
