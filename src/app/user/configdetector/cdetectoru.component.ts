@@ -77,7 +77,14 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.setFooter(true);
       this.data.setActiveComponent(this);
       this.data.setMainTitle('Configure detector')
-      this.data.readData(this.readAttrs);
+
+      if(this.data.getDeviceConnectionState() == true){
+        if(this.data.getFromRoot() == true )
+          this.data.readData(this.readAttrs);
+        else 
+          this.loadingDataDone = true;
+      }
+
       this.ad.deviceType = this.activeDevice.deviceType;      
     }
 
@@ -158,6 +165,7 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         setTimeout(()=> 
             this.subcribeForPermanentDetails(), 1000
         )
+        this.data.setFromRoot(false);
       }
     }
     this.loadingDataDone =  true;

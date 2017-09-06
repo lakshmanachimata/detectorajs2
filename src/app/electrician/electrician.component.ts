@@ -269,6 +269,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     // else {
 
     // }
+    this.data.setFromRoot(true);
     component.router.navigate(['econfigdetector'],{relativeTo: component.route});
   }
 

@@ -191,6 +191,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.data.setActiveComponent(this);
       this.data.setEDevParamsState(0);
       this.detectorName = this.ad.btDeviceName;
+      
       // else {
       //   this.loadingDataDone = true;
       // }
@@ -226,7 +227,10 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.data.setOtherParam('','');
     this.data.setEDevParamsState(0);
     if(this.data.getDeviceConnectionState() == true){
-      this.data.readData(this.readAttrs);
+      if(this.data.getFromRoot() == true )
+        this.data.readData(this.readAttrs);
+      else 
+        this.loadingDataDone = true;
     }
     this.data.setProfileSwitch(true)
     // setTimeout(()=> 
@@ -463,6 +467,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       setTimeout(()=> 
           this.subcribeForPermanentDetails(), 1000
       )
+      this.data.setFromRoot(false);
     }
     this.loadingDataDone =  true;
     if(isRead)

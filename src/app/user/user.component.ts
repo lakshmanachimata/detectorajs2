@@ -169,6 +169,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   jsonOnLoad(component) {
      //if(this.data.getDeviceConnectionState() == true)
       {
+      this.data.setFromRoot(true);
       component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
      }
   }

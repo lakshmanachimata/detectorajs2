@@ -453,6 +453,7 @@ export class DataService {
     safariSubtle:any;
     currentRoute = '';
     testmodetest = 0;
+    fromRoot = false;
     static dataService:DataService;
     constructor(private http:Http,public logger: LoggerService,private translater:i18nService,
         private router:Router,private route:ActivatedRoute,private location:Location) {
@@ -521,6 +522,14 @@ export class DataService {
 
     readFromLocalStorage(key){
         return localStorage.getItem(key);
+    }
+
+    setFromRoot(root){
+        this.fromRoot = root;
+    }
+
+    getFromRoot(){
+        return this.fromRoot;
     }
 
     setCertData(data){
