@@ -351,7 +351,8 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }
   }
   onBLEdata(isread) {
-    if(isread == true){
+    // if(isread == true)
+    {
       this.loadingDataDone = true;
       this.zone.run( () => { // Change the property within the zone, CD will run after
         this.contactName = this.ad.contact;

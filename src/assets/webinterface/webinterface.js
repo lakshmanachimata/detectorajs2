@@ -810,11 +810,11 @@ function prepareAttributeArray(indata) {
                     for (var j = 0; j < strByteArray.length; j++) {
                         result += String.fromCharCode(strByteArray[j]);
                     }
-                    var data = {
-                    "attrType": key,
-                    "attrValue": result
-                    }
                     value.push(result);
+                    var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
                     lastParseByteIndex = lastParseByteIndex + 5 + strByteArray.length;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
