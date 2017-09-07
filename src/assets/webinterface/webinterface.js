@@ -786,11 +786,11 @@ function prepareAttributeArray(indata) {
         var lastParseByteIndex = 4;
         while(lastParseByteIndex <= dataLength  ) {
             //bjeLog("lastParseByteIndex  " + lastParseByteIndex + "   dataLength  " + dataLength);
-            var key,value; 
+            var key,value = []; 
             switch(indata[lastParseByteIndex + 4]){
                 case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                     key = (indata[lastParseByteIndex + 1 ] | (indata[lastParseByteIndex + 2] << 8 & 0xFF00));
-                    value = indata[lastParseByteIndex+ 5];
+                    value.push(indata[lastParseByteIndex+ 5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -814,12 +814,12 @@ function prepareAttributeArray(indata) {
                     "attrType": key,
                     "attrValue": result
                     }
-                    value = result;
+                    value.push(result);
                     lastParseByteIndex = lastParseByteIndex + 5 + strByteArray.length;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = indata[lastParseByteIndex+5];
+                    value.push(indata[lastParseByteIndex+5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -828,7 +828,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = indata[lastParseByteIndex+5];
+                    value.push(indata[lastParseByteIndex+5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -837,7 +837,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_TIME:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = ((indata[lastParseByteIndex+7] * 3600) + (indata[lastParseByteIndex +6] * 60) + indata[lastParseByteIndex +5]);
+                    value.push(((indata[lastParseByteIndex+7] * 3600) + (indata[lastParseByteIndex +6] * 60) + indata[lastParseByteIndex +5]));
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -846,7 +846,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_UINT8:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = indata[lastParseByteIndex+5];
+                    value.push(indata[lastParseByteIndex+5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -855,7 +855,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_UINT16:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = (indata[lastParseByteIndex+5] | (indata[lastParseByteIndex +6] << 8 & 0xFF00));
+                    value.push((indata[lastParseByteIndex+5] | (indata[lastParseByteIndex +6] << 8 & 0xFF00)));
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -868,7 +868,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_INT8:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = indata[lastParseByteIndex+5];
+                    value.push(indata[lastParseByteIndex+5]);
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -877,7 +877,7 @@ function prepareAttributeArray(indata) {
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_INT16:
                     key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                    value = (indata[lastParseByteIndex+5] | (indata[lastParseByteIndex +6] << 8 & 0xFF00));
+                    value.push((indata[lastParseByteIndex+5] | (indata[lastParseByteIndex +6] << 8 & 0xFF00)));
                     var data = {
                     "attrType": key,
                     "attrValue": value
@@ -892,14 +892,14 @@ function prepareAttributeArray(indata) {
                 {
                     var byteCounter = 0;
                     for(var ne = 0; ne < indata[lastParseByteIndex+5]; ne++){
-                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + ne;
-                        value = indata[lastParseByteIndex+8+ne];
-                        var data = {
-                            "attrType": key,
-                            "attrValue": value
-                            }
-                            bledata.datas.push(data);
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value.push(indata[lastParseByteIndex+8+ne]);
                     }
+                    var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                        // bledata.datas.push(data);
                     lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5])
                     lastParseByteIndex = lastParseByteIndex + 7;
                 }
@@ -907,15 +907,15 @@ function prepareAttributeArray(indata) {
                 case SCCP_DATATYPES.SCCP_TYPE_AUINT16:
                 {
                     var byteCounter = 0;
-                    for(var ne = 0, keyne =0; ne < indata[lastParseByteIndex+5]; keyne=keyne+1,ne = ne + 2){
-                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + keyne;
-                        value = (indata[lastParseByteIndex+8+ne] | (indata[lastParseByteIndex +9+ne] << 8 & 0xFF00));
-                        var data = {
-                            "attrType": key,
-                            "attrValue": value
-                            }
-                            bledata.datas.push(data);
+                    for(var ne = 0, keyne =0; keyne < indata[lastParseByteIndex+5]; keyne=keyne+1,ne = ne + 2){
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
+                        value.push((indata[lastParseByteIndex+8+ne] | (indata[lastParseByteIndex +9+ne] << 8 & 0xFF00)));
                     }
+                    var data = {
+                        "attrType": key,
+                        "attrValue": value
+                        }
+                        // bledata.datas.push(data);
                     lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5] * 2)
                     lastParseByteIndex = lastParseByteIndex + 7;
                 }
@@ -943,7 +943,7 @@ function prepareAttributeArray(indata) {
                 switch(indata[lastParseByteIndex+3]){
                     case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = indata[lastParseByteIndex+4]
+                        vvalue.push(indata[lastParseByteIndex+4])
                         lastParseByteIndex = lastParseByteIndex + 4;
                         var data = {
                         "attrType": key,
@@ -954,12 +954,12 @@ function prepareAttributeArray(indata) {
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_ENUM8:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = indata[lastParseByteIndex+4]
+                        value.push(indata[lastParseByteIndex+4])
                         lastParseByteIndex = lastParseByteIndex + 4;
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_ENUM16:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = indata[lastParseByteIndex+5];
+                        value.push(indata[lastParseByteIndex+5]);
                         var data = {
                         "attrType": key,
                         "attrValue": value
@@ -970,7 +970,7 @@ function prepareAttributeArray(indata) {
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_UINT8:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = indata[lastParseByteIndex+4]
+                        value.push(indata[lastParseByteIndex+4])
                         lastParseByteIndex = lastParseByteIndex + 4;
                         var data = {
                         "attrType": key,
@@ -979,7 +979,7 @@ function prepareAttributeArray(indata) {
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_UINT16:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                        value.push((indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00)));
                         var data = {
                         "attrType": key,
                         "attrValue": value
@@ -992,7 +992,7 @@ function prepareAttributeArray(indata) {
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_INT8:
                         key = indata[lastParseByteIndex+1];
-                        value = indata[lastParseByteIndex+4]
+                        value.push(indata[lastParseByteIndex+4]);
                         lastParseByteIndex = lastParseByteIndex + 4;
                         var data = {
                         "attrType": key,
@@ -1001,7 +1001,7 @@ function prepareAttributeArray(indata) {
                         break;
                     case SCCP_DATATYPES.SCCP_TYPE_INT16:
                         key = (indata[lastParseByteIndex+1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        value = (indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00));
+                        value.push((indata[lastParseByteIndex+4] | (indata[lastParseByteIndex +5] << 8 & 0xFF00)));
                         var data = {
                         "attrType": key,
                         "attrValue": value
