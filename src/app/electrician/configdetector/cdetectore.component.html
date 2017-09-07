@@ -33,8 +33,8 @@
                   <div class="adjust-plus" long-press (click)="increaseCount('threshold',true)" (onLongPressEnd)="increaseCount('threshold',true)" (onLongPressing)="increaseCount('threshold',false)"><span class="glyphicon glyphicon-plus"></span>
                   </div>
               </div>
-              <label class="bj-config-setting brightnesssetpoint-function"><ng-container >{{ this.data.getTranslatedString("Brightness set point") }}</ng-container> ({{ad.constantLightBrightnessSetPointMin}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container> - {{ad.constantLightBrightnessSetPointMax}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container>)</label>
-              <div class="bj-config-setting-adjust brightness-function">
+              <label class="bj-config-setting brightnesssetpoint-function" *ngIf="ad.deviceType == 'daliMaster1c' && ad.constantLightControlEnable == true"><ng-container >{{ this.data.getTranslatedString("Brightness set point") }}</ng-container> ({{ad.constantLightBrightnessSetPointMin}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container> - {{ad.constantLightBrightnessSetPointMax}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container>)</label>
+              <div class="bj-config-setting-adjust brightness-function" *ngIf="ad.deviceType == 'daliMaster1c' && ad.constantLightControlEnable == true">
                   <div class="adjust-minus" long-press  (click)="reduceCount('setpoint',true)" (onLongPressEnd)="reduceCount('setpoint',true)" (onLongPressing)="reduceCount('setpoint',false)"><span class="glyphicon glyphicon-minus"></span></div>
                   <input class="adjust" type="number" (keyup)="setBrSp($event)"  [(ngModel)]="ad.constantLightBrightnessSetPoint" min="ad.constantLightBrightnessSetPointMin"   max="ad.constantLightBrightnessSetPointMax"  [ngStyle]="{'color': brsetpointerror == true?'red' : '#26394f'}">
                   <div class="static-unit-text" >{{ this.data.getTranslatedString("lx") }}</div>

@@ -2464,7 +2464,7 @@ export class DataService {
         hexString = hexString.toUpperCase();
         if(hexString.length == 1){
             hexString = "0x0" + hexString;
-        }else if(hexString.length == 2){
+        }else if(hexString.length >= 2){
             hexString = "0x" + hexString;
         }
         return hexString;
