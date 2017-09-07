@@ -425,8 +425,8 @@ label.dialog-text.bj-reset-only {
 .reset-dialog.bj-reset-only{
 	right: 40px;
 	left: 40px;
-	top: 170px;
-	bottom: 218px;
+	top: 16px;
+	bottom: 154px;
 	z-index:100;
 	box-shadow: 4px 4px 80px #000;
 	position: absolute;

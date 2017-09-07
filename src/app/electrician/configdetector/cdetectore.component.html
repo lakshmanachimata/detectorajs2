@@ -40,9 +40,9 @@
                   <div class="static-unit-text" >{{ this.data.getTranslatedString("lx") }}</div>
                   <div class="adjust-plus" long-press (click)="increaseCount('setpoint',true)" (onLongPressEnd)="increaseCount('setpoint',true)" (onLongPressing)="increaseCount('setpoint',false)"><span class="glyphicon glyphicon-plus"></span></div>
               </div>
-              <div class = "bj-current-val">
-                    <label class="bj-config-setting brightness-function" >{{ this.data.getTranslatedString("Take over current brightness") }}</label>
-                    <input class="adjust-value brightness-function" type="number" (keyup)="setCurrentBr($event)" [(ngModel)]="ad.currentBrightness">
+              <div class = "bj-current-val" style="display: inline-flex;">
+                    <label class="bj-config-setting brightness-function" style="margin-right: 30px;">{{ this.data.getTranslatedString("Take over current brightness") }}</label>
+                    <input class="adjust-value brightness-function" type="number" (keyup)="setCurrentBr($event)" [(ngModel)]="ad.currentBrightness" style="margin-left: auto;">
               </div>
             </div>
 
@@ -56,8 +56,8 @@
                          </div>
                     </span>
             </div>
-            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.constantLightControlEnable == true && ad.deviceType == 'daliMaster1c'">
-                 <label class="bj-config-setting reference-brightness-function" >{{ this.data.getTranslatedString("Smallest brightness value as reference") }}</label>
+            <div class="bj-config-setting-div reference-brightness-div" *ngIf ="ad.constantLightControlEnable == true && ad.deviceType == 'daliMaster1c'" style="display: inline-flex;">
+                 <label class="bj-config-setting reference-brightness-function" style="padding-right: 36px;">{{ this.data.getTranslatedString("Smallest brightness value as reference") }}</label>
                       <span class="bj-config-toggle-switch">
                          <div class="track"  (click)="togglerrb()" [(ngModel)]="ad.constantLightControlConsiderSlaveBrightnessEnable" [ngStyle]="{'border-color': ad.constantLightControlConsiderSlaveBrightnessEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                              <label class="switch-onlabel" *ngIf="ad.constantLightControlConsiderSlaveBrightnessEnable == true">{{onLabel}}</label>

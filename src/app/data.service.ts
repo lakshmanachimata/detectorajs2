@@ -442,7 +442,7 @@ export class DataService {
     writeDoneArray=[];
     readCount = 10;
     writeCount = 10;
-    arrayReadCount = 10;
+    arrayReadCount = 6;
     arrayAttrReadCounter = 0;
     attrReadCounter = 0;
     readDataState = 0;
@@ -992,17 +992,29 @@ export class DataService {
                 else {
                     this.readArray = [];
                 }  
-                if(this.readArray.length > 0){
-                    this.readData(this.readArray);
-                }else {
-                    this.putDevicesToCloud(false);
-                    this.readDataState = this.readDataState + 1;
-                    if(this.readDataState == 1){
-                        this.notifyActiveComponentWithBLEdata(false,false)
+                if(this.readDataState == 1 ){
+                    if(this.arrayReadArray.length > (this.arrayReadCount * 2)){
+                        this.arrayReadArray = this.arrayReadArray.slice(((this.arrayReadCount-1) * 2),this.arrayReadArray.length);
                     }
-                    if(this.readDataState == 2){
+                    else {
+                        this.arrayReadArray = [];
+                    }
+                    if(this.arrayReadArray.length > 0){
+                        this.readArrayData(this.arrayReadArray);
+                    }
+                    else{
                         this.notifyActiveComponentWithBLEdata(false,true)
                         this.readDataState = 0
+                    }  
+                }else{
+                    if(this.readArray.length > 0){
+                        this.readData(this.readArray);
+                    }else {
+                        this.putDevicesToCloud(false);
+                        this.readDataState = this.readDataState + 1;
+                        if(this.readDataState == 1){
+                            this.notifyActiveComponentWithBLEdata(false,false)
+                        }
                     }
                 }
             break;
@@ -1049,7 +1061,6 @@ export class DataService {
     }
 
     updateSlaveMovement(movement){
-        this.logger.log("got movement  " + movement)
         if(this.testModeComponent != undefined)
             this.testModeComponent.setMovement(movement)
     }
@@ -1141,7 +1152,6 @@ export class DataService {
             }
         }
         this.setAuthChallenge(authData);
-        this.logger.log('gendata is ' + new Buffer(authData).toString('hex').toUpperCase())
     }
     connectDevice(btaddress){
         if(this.DeviceBuild == 1){
@@ -1195,11 +1205,8 @@ export class DataService {
         }else{
             this.deviceParams.accessLevel = 1;
         }
-        this.logger.log('onAccessLevelUpdate data service')
         if(this.deviceParams.deviceConnected == true){
-            this.logger.log('onAccessLevelUpdate data service1')
             if(this.activeComponent != undefined) {
-                this.logger.log('onAccessLevelUpdate data service2')
                 this.activeComponent.onAccessLevelUpdate(accessLevel);
             }
         }
@@ -1321,10 +1328,10 @@ export class DataService {
             if(this.arrayReadArray.length == 0) {
                 this.arrayReadArray = data;
             }
-            if(this.arrayReadArray.length <= this.arrayReadCount) {
-                this.readArrayAttrObj =  new readArrayAttr(this.readArray);
+            if(this.arrayReadArray.length <= (this.arrayReadCount * 2)) {
+                this.readArrayAttrObj =  new readArrayAttr(this.arrayReadArray);
             }else {
-                let partArray =  this.arrayReadArray.slice(0, this.arrayReadCount-1);
+                let partArray =  this.arrayReadArray.slice(0, ((this.arrayReadCount-1) * 2));
                 this.readArrayAttrObj =  new readArrayAttr(partArray);
             }
         }else {
@@ -1496,10 +1503,8 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
-                this.logger.log('selected address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
-                this.logger.log('selected address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let PBKDF2Hash;
@@ -1512,8 +1517,6 @@ export class DataService {
                 addressSalt =  addressSalt + saltBufByteStr.charAt(j%saltBufByteStr.length);
             }
             var saltbuf = new Buffer(addressSalt,'hex');
-            this.logger.log("saltbuf str after init 111111111  " + saltbuf.toString());
-            this.logger.log("saltbuf hex str after init 111111111  " + saltbuf.toString('hex'));
             var bytearrayInstaller = new Buffer(devicePwd.length);
             for(var i=0; i < devicePwd.length; i++) {
                 bytearrayInstaller[i] = devicePwd.charCodeAt(i);
@@ -1523,22 +1526,17 @@ export class DataService {
             if(this.isIPhone == 1){
                 var wa = customCryptoJS.enc.Hex.parse(addressSalt)
                 let testContent = testme.PBKDF2(bytearrayInstaller.toString(),wa,{keySize: 8, iterations: 1000}).toString()
-                this.logger.log('pwd content from crypto js ' + testContent);
                 if(testContent.length == 64){
                     if(DataService.getDataService().getAuthChallenge().length > 0)
                     {
                         var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
                         let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + testContent.toUpperCase();
-                        DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
                         
                         for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                             hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
-                        DataService.getDataService().logger.log("calling sha256 digest");
                         this.safariSubtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
-                        DataService.getDataService().logger.log("called and inside sha256 digest");
                         var hexCodes = [];
                         var byteArray31 = new Buffer(hash);
-                        DataService.getDataService().logger.log("result before is " + byteArray31.join(','));
                         let result = [];
                         for(let j =0; j < 32; j++){
                             result.push(byteArray31[j])
@@ -1552,7 +1550,6 @@ export class DataService {
                     }
                 }
             }else{
-                DataService.getDataService().logger.log('PBKDF2 1000 strint is 111111111 pwdbin ' + bytearrayInstaller.toString());
                     
                 window.crypto.subtle.importKey(
                     "raw",
@@ -1561,8 +1558,6 @@ export class DataService {
                     false,
                     ["deriveKey"]).
                 then(function(baseKey){  
-                    DataService.getDataService().logger.log('PBKDF2 1000 strint is 111111111 base ' + baseKey);
-                    DataService.getDataService().logger.log('PBKDF2 1000 strint is 111111111 saltbin ' + saltbuf);
                     
                     return window.crypto.subtle.deriveKey(
                         {
@@ -1578,20 +1573,17 @@ export class DataService {
                         );
                 }).then(function(aesKey) {
                     // Export it so we can display it
-                    DataService.getDataService().logger.log('PBKDF2 1000 strint is  111111111  aes ' + aesKey);
                     
                     return window.crypto.subtle.exportKey("raw", aesKey);
                 }).then(function(keyBytes) {
                     var byteArray3 = new Buffer(keyBytes);
                     var byteString = byteArray3.toString('hex').toUpperCase();
-                    DataService.getDataService().logger.log('PBKDF2 1000 strint is 111111111 PBKDF2' + byteString);
                     
                     if(byteString.length == 64){
                         if(DataService.getDataService().getAuthChallenge().length > 0)
                         {
                             var genArray = new Buffer(DataService.getDataService().getAuthChallenge());
                             let preHashStr = genArray.toString('hex').toUpperCase() + addressSalt.toUpperCase() + byteArray3.toString('hex').toUpperCase();
-                            DataService.getDataService().logger.log('install pre hash str ' + preHashStr);
                             
                             for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                                 hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));   
@@ -1599,13 +1591,11 @@ export class DataService {
                             window.crypto.subtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {
                             var hexCodes = [];
                             var byteArray31 = new Buffer(hash);
-                            DataService.getDataService().logger.log('result before chrome  ' + byteArray31.join(','));
 
                             let result = [];
                             for(let j =0; j < 32; j++){
                                 result.push(byteArray31[j])
                             }
-                            DataService.getDataService().logger.log('auth str test ' + result.toString());
                         
                             if(DataService.getDataService().DeviceBuild == 1)
                                 DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,true)
@@ -1625,10 +1615,8 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
-                this.logger.log('selected address 1111 ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.DeviceData.btAddress;
-                this.logger.log('selected address 2222 ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
 
@@ -1647,7 +1635,6 @@ export class DataService {
             for(var ni = devicePwd.length; ni<32; ni++){
                 byteArrayuser[i] = 0x00;
             }
-            DataService.getDataService().logger.log('user pwd auth is ' + byteArrayuser.toString('hex'))
              
              if(DataService.getDataService().getAuthChallenge().length > 0)
              {
@@ -1665,7 +1652,6 @@ export class DataService {
                     for(let j =0; j < 32; j++){
                         result.push(byteArray31[j])
                     }
-                    DataService.getDataService().logger.log('result str for user ' + byteArray31.toString('hex'))
                     if(DataService.getDataService().DeviceBuild == 1)
                         DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,false)
                     });
@@ -1677,7 +1663,6 @@ export class DataService {
                         for(let j =0; j < 32; j++){
                             result.push(byteArray31[j])
                         }
-                        DataService.getDataService().logger.log('result str for user ' + byteArray31.toString('hex'))
                         if(DataService.getDataService().DeviceBuild == 1)
                             DataService.getDataService().authenticateDeviceObj = new authenticateDevice(result,32,false)
                     });
@@ -1697,10 +1682,8 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
-                this.logger.log('selected address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.SelectedDevice.btAddress;
-                this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1724,7 +1707,6 @@ export class DataService {
             if(this.isIPhone == 1){
                 var wa = customCryptoJS.enc.Hex.parse(setIAddressSalt)
                 let testContent = testme.PBKDF2(byteArraySInstaller.toString(),wa,{keySize: 8, iterations: 1000}).toString().toUpperCase()
-                this.logger.log('pwd content from crypto js ' + testContent);
                 let byteArray3 = new Buffer(32);
                 for (var bytes = [], c = 0, ii =0; c < testContent.length; c += 2, ii++)
                     byteArray3[ii] = parseInt(testContent.substr(c, 2), 16);
@@ -1734,7 +1716,6 @@ export class DataService {
                     for(let j =0; j < 32; j++){
                         result.push(byteArray3[j] ^ saltbuf[j])
                     }
-                    DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
                     
                     if(DataService.getDataService().DeviceBuild == 1)
                         DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
@@ -1776,7 +1757,6 @@ export class DataService {
                         for(let j =0; j < 32; j++){
                             result.push(byteArray3[j] ^ saltbuf[j])
                         }
-                        DataService.getDataService().logger.log('installer pwd set is ' + result.toString())
                         
                         if(DataService.getDataService().DeviceBuild == 1)
                             DataService.getDataService().setPwdToDeviceObj = new setPwdToDevice(result,32,true)
@@ -1791,10 +1771,8 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData == undefined ||
                 this.uiParams.devicesObj.DeviceData.btAddress == undefined){
                 saltbufStart = this.getAccessLevelRequsetedAddress();
-                this.logger.log('selected address abc ' + saltbufStart);
             }else {
                 saltbufStart = this.uiParams.devicesObj.SelectedDevice.btAddress;
-                this.logger.log('selected address def ' + saltbufStart);
             }
             let addRLenght =  saltbufStart.length;
             let saltBufByteStr = "";
@@ -1814,7 +1792,6 @@ export class DataService {
             }
             let mDataBuff = new Buffer(pwdBytes,'hex');
             let pDataBuff = new Buffer(finalUserSalt,'hex');
-            DataService.getDataService().logger.log('user pwd set is ' + mDataBuff.toString('hex'))
              
              let result  = [];
             for(let k =0; k < 32; k++){
@@ -2181,42 +2158,11 @@ export class DataService {
         });
     }
 
-    checkMyError(error:Error){
-        this.logger.log(error.stack);
-    }
-    checkMyData(data:String){
-        this.logger.log(data);
-    }
+
 
     getDataWithCertReq(){
-        this.logger.log("getDataWithCertReq called    " + this.networkParams.certData.length + " AND " + this.networkParams.keyData.length);
-        var options = {  
-            url: 'https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices',
-            cert: this.networkParams.certData,
-            port: 443,
-            key: this.networkParams.keyData,
-            method: 'GET',
-        };
-        // request.get(options,function(error, response, body){
-        //     if(response != undefined)
-        //         DataService.getDataService().logger.log('some response came'  + '   response ' + response.statusCode + ' message ' + response.statusMessage);
-        //     else 
-        //         DataService.getDataService().logger.log('response is error  ' + error);
-        // }); 
     }
 
-    getDataWithCert(httpPath){
-        let httpOptions = this.makeCertHeaders();
-        httpOptions.path = httpPath;
-        httpOptions.method = 'GET';
-        var req = https.request(httpOptions, function(res) {
-            res.addListener('data',DataService.getDataService().checkMyData)
-            res.addListener('error',DataService.getDataService().checkMyError)
-        });
-        req.end();
-        req.addListener('data',DataService.getDataService().checkMyData)
-        req.addListener('error',DataService.getDataService().checkMyError)
-    }
 
     putDataWithCert(httpPath,bodyData){
         let httpOptions = this.makeCertHeaders();
@@ -2321,7 +2267,6 @@ export class DataService {
     getDevicesFromCloud() {
         if(this.networkParams.useCertAuth){
             let path =  this.networkParams.certDevicesPath;
-            //this.getDataWithCert(path);
             this.getDataWithCertReq();
         }else{
             let url = this.networkParams.devicesUrl;
@@ -2516,7 +2461,7 @@ export class DataService {
 
     setBLEdataOnDeviceData(attrType,attrValue){
         this.attrReadCounter =  this.attrReadCounter + 1;
-        this.logger.log("READ DATA REMAINING  " + attrType + "   " + attrValue + "  ATTRCOUNTER  " + this.attrReadCounter);
+        this.logger.log("ATTR DATA  " + attrType + "   " + attrValue + "  COUNTER  " + this.attrReadCounter);
         switch(attrType) {
             case SCCP_ATTRIBUTES.FIRMWARE_VERSION                                        :
                 this.uiParams.devicesObj.DeviceData.firmwareVersion = attrValue;

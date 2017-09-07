@@ -1478,9 +1478,14 @@ div#user-energymonitor-currentMonth {
 }
 
 .details {
-    height: 60px;
+    min-height: 60px;
     border-top: 1px solid #2f4660;
     border-bottom: 2px solid #1f2939;
+    width:100%;
+}
+
+.details.current-duration.energymonu{
+    display:inline-flex;
 }
 
 div#user-energymonitor-tab-content {
@@ -1499,31 +1504,33 @@ div#user-energymonitor-tab-content {
 
 label.current-duration.month {
     margin-top: 16px;
-    margin-left: 34px;
+    margin-left: 4%;
     color: #566980;
     font-size: 18px;
     font-weight: 400;
+    float:left;
 }
 
 label.current-duration-value.month {
-    margin-right: 20px;
     float: right;
     margin-top: 14px;
     color: #8ca8cb;
     font-size: 20px;
     font-weight: 600;
+    margin-left: auto;
 }
 
 label.total-savings.month {
     margin-top: 16px;
-    margin-left: 34px;
+    margin-left: 4%;
     color: #566980;
     font-size: 18px;
     font-weight: 400;
+    float:left;
 }
 
 label.total-savings-value.month {
-    margin-right: 20px;
+    margin-right: 2%;
     float: right;
     margin-top: 12px;
     color: #8ca8cb;
@@ -1532,14 +1539,14 @@ label.total-savings-value.month {
 }
 
 .details.reference-details {
-    padding-left: 34px;
+    padding-left: 20px;
     padding-top: 12px;
     color: #8ca8cb;
     font-size: 18px;
 }
 
 .details.reset-data {
-    padding-left: 36px;
+    padding-left: 20px;
     padding-top: 14px;
     color: #8ca8cb;
     font-size: 16px;
@@ -1569,7 +1576,7 @@ div.details.reset-data span.glyphicon.glyphicon-stop{
     left: 0;
     height: 100%;
     overflow-x: scroll;
-    min-width: 200%;
+    /* min-width: 200%; PDAL-2582*/
     font-size: 50px;
     float: left;
     overflow-y: hidden;

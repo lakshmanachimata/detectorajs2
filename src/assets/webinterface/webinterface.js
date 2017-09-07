@@ -889,6 +889,7 @@ function prepareAttributeArray(indata) {
                 case SCCP_DATATYPES.SCCP_TYPE_INT64:
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_AUINT8:
+                {
                     var byteCounter = 0;
                     for(var ne = 0; ne < indata[lastParseByteIndex+5]; ne++){
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + ne;
@@ -897,23 +898,28 @@ function prepareAttributeArray(indata) {
                             "attrType": key,
                             "attrValue": value
                             }
+                            bledata.datas.push(data);
                     }
-                    lastParseByteIndex = lastParseByteIndex + 7;
                     lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5])
+                    lastParseByteIndex = lastParseByteIndex + 7;
+                }
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_AUINT16:
-                var byteCounter = 0;
-                for(var ne = 0, keyne =0; ne < indata[lastParseByteIndex+5]; keyne=keyne+1,ne = ne + 2){
-                    key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + keyne;
-                    value = (indata[lastParseByteIndex+8+ne] | (indata[lastParseByteIndex +9+ne] << 8 & 0xFF00));
-                    var data = {
-                        "attrType": key,
-                        "attrValue": value
-                        }
+                {
+                    var byteCounter = 0;
+                    for(var ne = 0, keyne =0; ne < indata[lastParseByteIndex+5]; keyne=keyne+1,ne = ne + 2){
+                        key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00)) + keyne;
+                        value = (indata[lastParseByteIndex+8+ne] | (indata[lastParseByteIndex +9+ne] << 8 & 0xFF00));
+                        var data = {
+                            "attrType": key,
+                            "attrValue": value
+                            }
+                            bledata.datas.push(data);
+                    }
+                    lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5] * 2)
+                    lastParseByteIndex = lastParseByteIndex + 7;
                 }
-                lastParseByteIndex = lastParseByteIndex + 7;
-                lastParseByteIndex = lastParseByteIndex + (indata[lastParseByteIndex+5] * 2)
-                    break;
+                break;
                 default:
                     bjeLog("WHO AM I " + indata[lastParseByteIndex + 4] +" AND AT " + lastParseByteIndex + 4)
                 break;

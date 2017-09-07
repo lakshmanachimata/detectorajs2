@@ -242,7 +242,6 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.installerPasswordChanged(false)
   }
   setMovement(movement){
-    this.logger.log("TESTMODE MOVEMENT " +"    "+ movement +"     " + (movement & 0x08) + "   " + (movement & 0x04)+ "   " + (movement & 0x02) + "   " + (movement & 0x01)) 
     if((movement & 0x08 ) > 0){
        this.Quad4 =true;
     }if((movement & 0x04 ) > 0){

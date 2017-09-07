@@ -61,7 +61,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
 
   clearDevicesForRescan(){
-    this.logger.log("clearDevicesForRescan called")
     this.zone.run( () => {
       this.detectors = [];
     });

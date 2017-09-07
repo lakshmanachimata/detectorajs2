@@ -43,14 +43,14 @@
 
 .bj-config-setting.reference-brightness-function{
 	color: #0c4264;
-	font-size: 4vw;
+	font-size: 16px;
 	font-weight: 600;
 	padding-top: 14px;
 	padding-left: 10px;
 } 
 
 .bj-config-setting.brightness-function{
-    font-size: 4vw;
+    /* font-size: 4vw; */
 }
 .bj-service-setting-div{
 	width:100%;
@@ -419,6 +419,10 @@ input.circuit-radio,input.currency-radio{
 	border-bottom: solid 1px #9eabbb;
 	min-height: 50px;
     padding-bottom: 12px;
+}
+
+#gear-volt-lbl{
+    max-width: 50%;
 }
 
 .bj-config-setting.inner-setting.actuator1.heading,.bj-config-setting.inner-setting.actuator2.heading,
@@ -1340,6 +1344,7 @@ label.switch-onlabel.user {
 	float: right;
     padding-top: 12px;
     padding-right: 10px;
+    margin-left:auto;
 }
 .bj-config-toggle-switch.actuator1,.bj-config-toggle-switch.actuator2{
 	margin-top:-12px;
@@ -1661,7 +1666,7 @@ div.details.reset-data span.glyphicon.glyphicon-remove{
     left: 0;
     height: 100%;
     overflow-x: scroll;
-    min-width: 200%;
+    /* min-width: 200%; PDAL-2582*/ 
     font-size: 50px;
     float: left;
     overflow-y: hidden;
