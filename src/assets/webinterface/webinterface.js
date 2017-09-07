@@ -939,11 +939,11 @@ function prepareAttributeArray(indata) {
             var dataLength = indata.length - 6;
             var lastParseByteIndex = 4;
             while(lastParseByteIndex <= dataLength  ) {
-                var key,value; 
+                var key,value = []; 
                 switch(indata[lastParseByteIndex+3]){
                     case SCCP_DATATYPES.SCCP_TYPE_BOOL:
                         key = (indata[lastParseByteIndex + 1] | (indata[lastParseByteIndex +2] << 8 & 0xFF00));
-                        vvalue.push(indata[lastParseByteIndex+4])
+                        value.push(indata[lastParseByteIndex+4])
                         lastParseByteIndex = lastParseByteIndex + 4;
                         var data = {
                         "attrType": key,

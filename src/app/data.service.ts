@@ -962,12 +962,12 @@ export class DataService {
     }
     
 
-    notifyActiveComponentWithBLEdata(isReport,isRead) {
+    notifyActiveComponentWithBLEdata(isReport,isRead,isWrite) {
         if(this.activeComponent != undefined) {
             if(isReport){
                 this.activeComponent.onReportBLEdata();
             }else{
-                this.activeComponent.onBLEdata(isRead);
+                this.activeComponent.onBLEdata(isRead,isWrite);
                 this.setEDevParamsState(0)
             }
         }
@@ -1003,7 +1003,7 @@ export class DataService {
                         this.readArrayData(this.arrayReadArray);
                     }
                     else{
-                        this.notifyActiveComponentWithBLEdata(false,true)
+                        this.notifyActiveComponentWithBLEdata(false,true,false)
                         this.readDataState = 0
                     }  
                 }else{
@@ -1013,7 +1013,7 @@ export class DataService {
                         this.putDevicesToCloud(false);
                         this.readDataState = this.readDataState + 1;
                         if(this.readDataState == 1){
-                            this.notifyActiveComponentWithBLEdata(false,false)
+                            this.notifyActiveComponentWithBLEdata(false,false,false)
                         }
                     }
                 }
@@ -1032,7 +1032,7 @@ export class DataService {
                 if(this.writeArray.length > 0){
                     this.sendChangedParams();
                 }else {
-                    this.notifyActiveComponentWithBLEdata(false,false)
+                    this.notifyActiveComponentWithBLEdata(false,false,true)
                     this.putDevicesToCloud(false);
                 }
             break;
@@ -1046,7 +1046,7 @@ export class DataService {
                     let atrValue = indata[i].attrValue;
                     this.setBLEdataOnDeviceData(atrType,atrValue);
                 }
-                this.notifyActiveComponentWithBLEdata(true,false);
+                this.notifyActiveComponentWithBLEdata(true,false,false);
             break;
             default:
             break;
@@ -1642,7 +1642,6 @@ export class DataService {
                 let preHashStr = genArray.toString('hex').toUpperCase() + userAddressSalt.toUpperCase() + byteArrayuser.toString('hex').toUpperCase();
                 for (var hashBytes = [], c = 0; c < preHashStr.length; c += 2)
                     hashBytes.push(parseInt(preHashStr.substr(c, 2), 16));
-                    DataService.getDataService().logger.log('user prehash str is ' + preHashStr)
                 if(this.isIPhone == 1)
                 {
                     this.safariSubtle.digest("SHA-256", new Buffer(hashBytes)).then(function (hash) {  

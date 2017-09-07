@@ -228,7 +228,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.aslider = 'none';
       this.showSlider = false;
       this.data.setActiveComponent(this);
-      this.data.setEDevParamsState(0);
       this.detectorName = this.ad.btDeviceName;
       
       // else {
@@ -348,7 +347,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   setDevName(event: any){
     if(this.detectorName.length <= 0 ){
-        
+      this.data.setEDevParamsState(0)
     }else {
         var nameBytes = [];
         for (var i = 0; i < this.detectorName.length; i++){  
@@ -357,6 +356,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         nameBytes.push(0)
         this.data.addToSendData([SCCP_ATTRIBUTES.BT_DEVICE_NAME,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
     }
+    this.data.setEDevParamsState(1)
   }
   setBrTr(event: any){
     if(event.target.value < this.ad.brightnessThresholdMin ){
@@ -507,7 +507,15 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.loadingDataDone = true;
     }
   }
-  onBLEdata(isRead) {
+  onBLEdata(isRead,iswrite) {
+    if(iswrite == true){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+        this.loadingDataDone =  true;
+      });
+      this.loadingDataDone =  true;
+    }
     if(isRead){
       setTimeout(()=> 
           this.subcribeForDetails(), 1000

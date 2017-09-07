@@ -633,7 +633,15 @@ getColorTemperatureValue(){
     this.data.setResetCommand(0x44)
   }
 
-  onBLEdata(isread) {
+  onBLEdata(isread,iswrite) {
+    if(iswrite == true){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+        this.loadingDataDone =  true;
+      });
+      this.loadingDataDone =  true;
+    }
     this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.softOnEnable = this.ad.softOnEnable;

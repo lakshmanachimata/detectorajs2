@@ -121,7 +121,7 @@ export class IParamsComponent implements OnChanges,OnInit ,DoCheck,AfterContentI
     
   }
 
-  onBLEdata(isread) {
+  onBLEdata(isread,iswrite) {
     
   }
 }

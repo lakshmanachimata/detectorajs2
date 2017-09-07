@@ -75,7 +75,7 @@ export class CDetectorIComponent implements OnChanges,OnInit ,DoCheck,AfterConte
         this.isParam  = true;
     }
 
-    onBLEdata(isread) {
+    onBLEdata(isread,iswrite) {
         
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;

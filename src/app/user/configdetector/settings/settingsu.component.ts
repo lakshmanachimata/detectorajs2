@@ -331,7 +331,15 @@ secondsToTimeValues (sec_num,timetype) {
     this.data.addToSendData([SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
   }
 
-  onBLEdata(isread) {
+  onBLEdata(isread,iswrite) {
+    if(iswrite == true){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+        this.loadingDataDone =  true;
+      });
+      this.loadingDataDone =  true;
+    }
      this.loadingDataDone =  true;
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;

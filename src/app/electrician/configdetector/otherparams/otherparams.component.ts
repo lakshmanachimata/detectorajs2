@@ -350,7 +350,15 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice + 1;
     }
   }
-  onBLEdata(isread) {
+  onBLEdata(isread,iswrite) {
+    if(iswrite == true){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+        this.loadingDataDone =  true;
+      });
+      this.loadingDataDone =  true;
+    }
     // if(isread == true)
     {
       this.loadingDataDone = true;

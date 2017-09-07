@@ -1493,6 +1493,14 @@ public class MainActivity extends Activity {
     private void scanLeDevice(final boolean enable) {
 
         if (enable) {
+            if(isScanning == true){
+                return;
+            }
+            if(mBluetoothLeService != null &&
+                    mBluetoothLeService.getGatt() != null  &&
+                    mBluetoothLeService.getGatt().getDevice() != null){
+                return;
+            }
             scannedDevices.clear();
             // Stops scanning after a pre-defined scan period.
             mHandler.postDelayed(new Runnable() {

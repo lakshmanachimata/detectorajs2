@@ -171,7 +171,15 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }
   }
 
-  onBLEdata(isRead) {
+  onBLEdata(isRead,iswrite) {
+    if(iswrite == true){
+      this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+        this.loadingDataDone =  true;
+      });
+      this.loadingDataDone =  true;
+    }
       if(isRead){
         setTimeout(()=> 
             this.subcribeForDetails(), 1000
