@@ -1731,3 +1731,27 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
      position: absolute;
      color: whitesmoke;
  }
+
+ .arrow-prev-flex{
+    margin-left:10px !important;
+ }
+
+ .arrow-next-flex{
+    margin-left: auto;
+    margin-right: -14px;
+ }
+ .channel-flex{
+    align-content: center;
+    margin-left: 0px !important;
+    position: absolute;
+    right: 30px;
+    left: 40px;
+ }
+
+ .light-flex{
+    display: flex;
+    position: relative;
+    width: inherit;
+    left: unset !important;
+    right: unset !important;
+ }

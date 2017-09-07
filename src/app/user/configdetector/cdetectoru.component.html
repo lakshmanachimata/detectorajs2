@@ -5,9 +5,9 @@
             <div class="bj-user-config-setting-div light1-div">
                 <label class="light-name" >{{ this.data.getTranslatedString("Light 1") }}</label>
                 <label class="bj-light-brightness-lbl" *ngIf="ad.deviceType == 'daliMaster1c'" >{{ad.ch1CurrentLevel}}%</label>
-                <div class="bulb-channel-info light1-div">
-                    <div class="slide-prev light1" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
-                    <div class="channel-info">
+                <div class="bulb-channel-info light1-div light-flex">
+                    <div class="slide-prev light1 arrow-prev-flex" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
+                    <div class="channel-info channel-flex">
                         <div class="bulb-glow light1" *ngIf="light1state==0">
                             <img class="bulb-glow light1"  src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
                             <img class="bulb-on light1" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
@@ -25,7 +25,7 @@
                             <img class="bulb-on light1" src="assets/icons/14_008_application_switching_def.svg" alt="bulb_active">
                         </div>
                     </div>
-                    <div class="slide-next light1" (click)="slideNext()" *ngIf="light1state < 3" ><span class="glyphicon glyphicon-menu-right"></span></div>
+                    <div class="slide-next light1 arrow-next-flex" (click)="slideNext()" *ngIf="light1state < 3" ><span class="glyphicon glyphicon-menu-right"></span></div>
                 </div>
                 <div class="bj-brightness-slider light1" *ngIf="ad.deviceType == 'daliMaster1c'">
                     <div class="bj-slider-control light1">

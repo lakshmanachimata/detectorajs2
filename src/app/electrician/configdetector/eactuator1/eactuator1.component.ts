@@ -93,6 +93,7 @@ export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterConte
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
       this.loadingDataDone = true;
+      this.ad.deviceType = this.activeDevice.deviceType;
   }
   ngOnChanges(changes) { 
   }

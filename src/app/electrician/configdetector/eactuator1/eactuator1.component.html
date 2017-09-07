@@ -25,7 +25,7 @@
             </div>
         </div>
         <div *ngIf="showDurableSwitchingSettings">
-             <div class="bj-config-setting inner-setting actuator1 fluorescent-function">
+             <div class="bj-config-setting inner-setting actuator1 fluorescent-function" *ngIf="ad.deviceType == 'daliMaster1c'">
                 <label class="actuator-fluorescent-lbl" >{{ this.data.getTranslatedString("Enabled by push button") }}</label>
                  <span class="bj-config-toggle-switch actuator1">
                           <div class="track"   (click)="togglepb()"  [(ngModel)]="ad.permanentLightByPushButtonEnable" [ngStyle]="{'border-color': ad.permanentLightByPushButtonEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
