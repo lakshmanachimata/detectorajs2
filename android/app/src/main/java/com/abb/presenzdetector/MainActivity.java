@@ -1467,7 +1467,7 @@ public class MainActivity extends Activity {
                                     StringBuilder firmwareVersionStr = new StringBuilder();
                                     StringBuilder modelNumber = new StringBuilder();
                                     try {
-                                        for (int j = 4; j <= 2; j--) {
+                                        for (int j = 4; j >= 2; j--) {
                                             firmwareVersionStr.append(manufactureDataBytes[j]);
                                             if(j != 2)
                                                 firmwareVersionStr.append(".");
@@ -1481,12 +1481,13 @@ public class MainActivity extends Activity {
                                         e.printStackTrace();
                                     }
                                     deviceInfo.fwupdate = "0";
-                                    String devVersion[] = firmwareVersionStr.toString().split(".");
+                                    String llfw =  firmwareVersionStr.toString();
+                                    String devVersion[] = llfw.split("\\.");
                                     deviceInfo.modelNumber = modelNumber.toString();
                                     if( deviceInfo.modelNumber.contains("05")){
                                         deviceInfo.deviceType = "daliMaster1c";
                                         if(daliFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split(".");
+                                            String latestVersion[] =  daliFWVersion.split("\\.");
 
                                             if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
                                                 deviceInfo.fwupdate = "1";
@@ -1494,16 +1495,16 @@ public class MainActivity extends Activity {
                                                 deviceInfo.fwupdate = "1";
                                             }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
                                                 deviceInfo.fwupdate = "1";
-                                            }else{
-                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
                                             }
+                                            deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+
                                         }
 
                                     }
                                     if( deviceInfo.modelNumber.contains("03")) {
                                         deviceInfo.deviceType = "mosfet1c";
                                         if(mosfetFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split(".");
+                                            String latestVersion[] =  daliFWVersion.split("\\.");
 
                                             if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
                                                 deviceInfo.fwupdate = "1";
@@ -1511,15 +1512,13 @@ public class MainActivity extends Activity {
                                                 deviceInfo.fwupdate = "1";
                                             }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
                                                 deviceInfo.fwupdate = "1";
-                                            }else{
-                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
-                                            }
+                                            }deviceInfo.firmwareVersion = firmwareVersionStr.toString();
                                         }
                                     }
                                     if(deviceInfo.modelNumber.contains("01")) {
                                         deviceInfo.deviceType = "relay1c";
                                         if(relaisFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split(".");
+                                            String latestVersion[] =  daliFWVersion.split("\\.");
 
                                             if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
                                                 deviceInfo.fwupdate = "1";
@@ -1527,9 +1526,7 @@ public class MainActivity extends Activity {
                                                 deviceInfo.fwupdate = "1";
                                             }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
                                                 deviceInfo.fwupdate = "1";
-                                            }else{
-                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
-                                            }
+                                            }deviceInfo.firmwareVersion = firmwareVersionStr.toString();
                                         }
                                     }
                                     scannedDevices.add(deviceInfo);
