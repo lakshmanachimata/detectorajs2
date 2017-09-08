@@ -55,6 +55,10 @@ public class WebInterface {
     }
 
 
+    @JavascriptInterface
+    public void updateDeviceFW(){
+        mainActivity.startFWUpdarte();
+    }
 
     @JavascriptInterface
     public boolean readAttr(byte[] data){

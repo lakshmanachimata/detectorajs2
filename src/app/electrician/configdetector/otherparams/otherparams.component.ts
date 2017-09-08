@@ -49,6 +49,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   slaveMovementAttrs=[
     SCCP_ATTRIBUTES.MOVEMENT,
   ]
+  fwpercentage = 0;
   contactName;
   buildingName;
       readAttrs =[
@@ -96,8 +97,32 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       {
         this.loadingDataDone = true;
       }
+      // if(this.ad.fwupdate == '1'){
+      //   this.updatePercentage();
+      // }
   }
 
+  getPercentageStyle(){
+    let mystyles =  {
+      'width': this.fwpercentage + '%' ,
+    }
+    return mystyles;
+  }
+
+  updatePercentage(){
+    if(this.fwpercentage < 100){
+      this.fwpercentage =  this.fwpercentage + 1;
+      setTimeout(()=> 
+      this.updatePercentage(), 100
+      )
+    }
+  }
+
+  onFirwareUpdateState(percentage){
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+      this.fwpercentage = percentage;
+    });
+  }
     onInstallerPwdSetSuccess(){
       this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad;

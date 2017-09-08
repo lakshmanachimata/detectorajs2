@@ -5,7 +5,7 @@
             <div id="bj-detector-icon" (click)="identifyDevice(detector)" [ngStyle]="getMystyle(detector.identify)" >
             <span class="glyphicon glyphicon-modal-window"></span>
             </div>
-            <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate=='true'">{{ this.data.getTranslatedString("firware update available") }}</span>
+            <span id="bj-detector-firmware-update" *ngIf="detector.fwupdate == '1'">{{ this.data.getTranslatedString("firware update available") }}</span>
             <span id="bj-detector-name-val">{{detector.btDeviceName}}</span>
             <span id="bj-detector-article-num">{{detector.modelNumber}}</span>
             <span id="bj-detector-icon-signal">

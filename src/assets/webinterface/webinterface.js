@@ -125,7 +125,7 @@ function setDevicesCallBack(component) {
 }
 
 function setDemoMode(data){
-    bjeLog(JSON.stringify(data))
+    // bjeLog(JSON.stringify(data))
     isDemoMode = data.demomode;
     appDataService.setDemoMode(isDemoMode);
 }
@@ -197,6 +197,10 @@ function onDeviceDisconnected(deviceAddress){
     appDataService.onDeviceDisconnected(deviceAddress);
 }
 
+function onFirwareUpdateState(data){
+    var fwpercentage = data.percentage;
+    appDataService.onFirwareUpdateState(fwpercentage)
+}
 function setCertData(certData){
     appDataService.setCertData(certData.data)
 }

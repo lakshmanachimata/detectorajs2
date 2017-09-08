@@ -937,6 +937,11 @@ export class DataService {
         });
     }
 
+    public onFirwareUpdateState(percentage){
+        if(this.activeComponent != undefined){
+            this.activeComponent.onFirwareUpdateState(percentage);
+        }
+    }
 
  setHeaderComponent(component) {
         this.headerComponent = component;

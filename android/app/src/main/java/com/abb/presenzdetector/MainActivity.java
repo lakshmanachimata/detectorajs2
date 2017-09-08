@@ -26,6 +26,8 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -255,11 +257,15 @@ public class MainActivity extends Activity {
         String firmwareVersion = "";
         String softwareVersion = "";
         String btAddress = "";
+        String fwupdate = "0";
         String btIAddress = "";
         String idenfiy = "0";
         boolean OTASupported = false;
-
     }
+
+    String daliFWVersion = "";
+    String mosfetFWVersion = "";
+    String relaisFWVersion = "";
 
 
     static public BJBLEManager suotaManager;
@@ -314,14 +320,6 @@ public class MainActivity extends Activity {
 
         mInstance = this;
 
-        fwFileDirectory =  getAssets().toString() + "/fwupdate";
-
-
-        Field[] fields=R.raw.class.getFields();
-        fwFilesList.clear();
-        for(int count=0; count < fields.length; count++){
-            fwFilesList.add(fields[count].getName());
-        }
         suotaManager = new SuotaManager(MainActivity.this);
         setMemoryType(MainActivity.MEMORY_TYPE_SPI);
 
@@ -334,7 +332,6 @@ public class MainActivity extends Activity {
         mainScreen.setVisibility(View.INVISIBLE);
         in = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
         in.setDuration(2500);//TODO: instead of static duration value,animate as soon as webview is loaded
-
 
         splashScreen = View.inflate(activity,R.layout.activity_splash,null);
         addContentView(splashScreen, lp);
@@ -953,7 +950,53 @@ public class MainActivity extends Activity {
             setUpBluetooth();
         }
 
+        getFWFilesList();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+    }
+
+    private void listAssetFiles(String path) {
+
+        try {
+            Resources res = getResources(); //if you are in an activity
+            AssetManager am = res.getAssets();
+            String fileList[] = am.list(path);
+
+            if (fileList != null && fileList.length > 0) {
+                for(int j =0; j<fileList.length; j++)
+                    fwFilesList.add(fileList[j]);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return;
+    }
+
+    public void getFWFilesList(){
+
+        fwFilesList.clear();
+        listAssetFiles("fwupdate");
+        for(int i =0; i< fwFilesList.size();i++){
+            String fileName =  fwFilesList.get(i);
+            String values[] = fileName.split("_");
+            for(int j =0; j <values.length; j++) {
+                String versionst = values[j];
+                if (versionst.startsWith("v")) {
+                    int verstlen = versionst.length();
+                    versionst  = versionst.substring(1,verstlen);
+                    versionst  = versionst.substring(0,verstlen-5);
+                    if (fileName.contains("relais")) {
+                        relaisFWVersion = versionst;
+                    }
+                    if (fileName.contains("mosfet")) {
+                        mosfetFWVersion = versionst;
+                    }
+                    if (fileName.contains("DALI")) {
+                        daliFWVersion = versionst;
+                    }
+                }
+            }
+        }
+
     }
 
     void connectDevice(final String address){
@@ -1311,27 +1354,27 @@ public class MainActivity extends Activity {
     }
 
     public void setItemValue(int index, String value) {
-        switch (index){
-            case 0:
-                if(selectedDetectorInfo != null){
-                    selectedDetectorInfo.manufacturerName = value;
-                }
-                break;
-            case 1:
-                break;
-            case 2:
-                if(selectedDetectorInfo != null){
-                    selectedDetectorInfo.softwareVersion = value;
-                }
-                break;
-            case 3:
-                if(selectedDetectorInfo != null){
-                    selectedDetectorInfo.firmwareVersion = value;
-                }
-                break;
-            default:
-                break;
-        }
+//        switch (index){
+//            case 0:
+//                if(selectedDetectorInfo != null){
+//                    selectedDetectorInfo.manufacturerName = value;
+//                }
+//                break;
+//            case 1:
+//                break;
+//            case 2:
+//                if(selectedDetectorInfo != null){
+//                    selectedDetectorInfo.softwareVersion = value;
+//                }
+//                break;
+//            case 3:
+//                if(selectedDetectorInfo != null){
+//                    selectedDetectorInfo.firmwareVersion = value;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     private void getGattServices(List<BluetoothGattService> gattServices) {
@@ -1419,13 +1462,15 @@ public class MainActivity extends Activity {
                                     deviceInfo.btDeviceName = device.getName();
                                     deviceInfo.rssi = Integer.toString(result.getRssi());
                                     deviceInfo.OTASupported =  isSUOTASupported;
+
                                     byte[] manufactureDataBytes = manufacturerSpecificData.valueAt(0);
                                     StringBuilder firmwareVersionStr = new StringBuilder();
                                     StringBuilder modelNumber = new StringBuilder();
                                     try {
-                                        for (int j = 2; j <= 4; j++) {
-                                            firmwareVersionStr.append(String.format("%02X", manufactureDataBytes[j]));
-                                            firmwareVersionStr.append(".");
+                                        for (int j = 4; j <= 2; j--) {
+                                            firmwareVersionStr.append(manufactureDataBytes[j]);
+                                            if(j != 2)
+                                                firmwareVersionStr.append(".");
                                         }
                                         modelNumber.append(String.format("%02X", manufactureDataBytes[6]));
                                         modelNumber.append(String.format("%02X", manufactureDataBytes[8]));
@@ -1435,14 +1480,58 @@ public class MainActivity extends Activity {
                                     catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                    deviceInfo.fwupdate = "0";
+                                    String devVersion[] = firmwareVersionStr.toString().split(".");
                                     deviceInfo.modelNumber = modelNumber.toString();
-                                    if( deviceInfo.modelNumber.contains("05"))
+                                    if( deviceInfo.modelNumber.contains("05")){
                                         deviceInfo.deviceType = "daliMaster1c";
-                                    if( deviceInfo.modelNumber.contains("03"))
+                                        if(daliFWVersion.length() > 0){
+                                            String latestVersion[] =  daliFWVersion.split(".");
+
+                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                deviceInfo.fwupdate = "1";
+                                            }else{
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            }
+                                        }
+
+                                    }
+                                    if( deviceInfo.modelNumber.contains("03")) {
                                         deviceInfo.deviceType = "mosfet1c";
-                                    if(deviceInfo.modelNumber.contains("01"))
-                                            deviceInfo.deviceType = "relay1c";
+                                        if(mosfetFWVersion.length() > 0){
+                                            String latestVersion[] =  daliFWVersion.split(".");
+
+                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                deviceInfo.fwupdate = "1";
+                                            }else{
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            }
+                                        }
+                                    }
+                                    if(deviceInfo.modelNumber.contains("01")) {
+                                        deviceInfo.deviceType = "relay1c";
+                                        if(relaisFWVersion.length() > 0){
+                                            String latestVersion[] =  daliFWVersion.split(".");
+
+                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
+                                                deviceInfo.fwupdate = "1";
+                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                deviceInfo.fwupdate = "1";
+                                            }else{
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            }
+                                        }
+                                    }
                                     scannedDevices.add(deviceInfo);
                                 }
                             }
@@ -1530,11 +1619,12 @@ public class MainActivity extends Activity {
 
 
 
-    public  void startUpdate() {
+    public  void startFWUpdarte() {
 
         String existingFwVersion =  selectedDetectorInfo.firmwareVersion;
         String deviceType = selectedDetectorInfo.modelNumber;
         String fileName = "";
+        fwFilesList = BLEFile.list();
         for(int jj =0; jj <fwFilesList.size(); jj++){
             String iFile = fwFilesList.get(jj);
             if(deviceType.contains("01")){
@@ -1554,9 +1644,9 @@ public class MainActivity extends Activity {
         }
 
         try {
-            InputStream ins = getResources().openRawResource(
-                    getResources().getIdentifier(fileName,
-                            "raw", getPackageName()));
+            File file = new File(this.fwFileDirectory + "/"+fileName);
+
+            InputStream ins = new FileInputStream(file);
             suotaManager.setFile(new BLEFile(ins));
         }catch (Exception e){
             e.printStackTrace();

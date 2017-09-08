@@ -16,6 +16,7 @@ export class DetectorInfo {
         public btAddress;
         public btIAddress;
         public rssi;
+        public fwupdate;
         public createdDate;
         public updatedDate;
         public identify;
@@ -103,6 +104,7 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
           detectorInfo.btIAddress = this.scannedData[i].btIAddress;
           detectorInfo.deviceType = this.scannedData[i].deviceType;
           detectorInfo.rssi = this.scannedData[i].rssi;
+          detectorInfo.fwupdate = this.scannedData[i].fwupdate;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
           detectorInfo.identify = "0";

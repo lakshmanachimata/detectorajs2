@@ -8,7 +8,7 @@
     "contactName":"Bayer",
     "buildingName":"Floor",
     "date":"08.07.2016",
-    "fwupdate":"true",
+    "fwupdate":"0",
     "modelType":"Sensor",
     "firmwareVersion":"1.0",
     "rssi":"",
@@ -23,7 +23,7 @@
     "buildingName":"Factory",
     "date":"04.05.2016",
     "modelType":"Sensor",
-    "fwupdate":"false",
+    "fwupdate":"0",
     "firmwareVersion":"1.0",
     "rssi":"",
     "last_updated":0
@@ -37,7 +37,7 @@
     "buildingName":"Main building",
     "date":"05.05.2016",
     "modelType":"Corridor DALI",
-    "fwupdate":"false",
+    "fwupdate":"1",
     "firmwareVersion":"1.0",
     "rssi":"",
     "last_updated":0

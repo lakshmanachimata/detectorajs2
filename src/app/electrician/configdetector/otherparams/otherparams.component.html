@@ -137,15 +137,18 @@
         <div id="bj-update-firmware-div">
             <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
             <li class="bj-detector-name update">{{ad.btDeviceName}}
-                <div class="bj-detector-version-num update">Version {{ad.firmwareVersion}}
+                <div class="bj-detector-version-num update">Version  {{ad.firmwareVersion}}
+                    <span class="bje-percent-text"> {{this.fwpercentage}} %</span>
                 </div>
             </li>
             <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
         </div>
-        <div id="bj-update-firmware-progressbar" *ngIf="ad.fwupdate=='true'">
-            <div id="update-progress"></div>
+        <div class="bje-progress" *ngIf="this.ad.fwupdate == '1'">
+            <div class="progress-bar" role="progressbar" aria-valuenow="this.fwpercentage" aria-valuemin="0" aria-valuemax="100" [ngStyle]="getPercentageStyle()">
+            </div>
+            
         </div>
-        <div id="bj-update-firmware-statusbar" *ngIf="ad.fwupdate=='false'">
+        <div id="bj-update-firmware-statusbar" *ngIf="ad.fwupdate=='0'">
             <label class="bj-config-lbl no-update-status-div">No firmware update available</label>
         </div>
     </div>

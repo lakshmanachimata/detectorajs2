@@ -14,6 +14,7 @@ export class DetectorInfo {
         public btAddress;
         public btIAddress;
         public rssi;
+        public fwupdate;
         public createdDate;
         public updatedDate;
         public identify;
@@ -113,32 +114,36 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   setScannedData(){
+    
     if(this.data.demoMode == 0){
       this.detectors = [];
       this.scannedData = this.data.getScannedData();
       if(this.scannedData != undefined) {
+        this.zone.run( () => { 
         for(let i =0; i < this.scannedData.length; i++)
         {
           let detectorInfo =  new DetectorInfo()
           detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
-          detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
+          detectorInfo.firmwareVersion = this.scannedData[i].firmwareVersion;
           detectorInfo.modelNumber = this.scannedData[i].modelNumber;
           detectorInfo.btAddress = this.scannedData[i].btAddress;
           detectorInfo.btIAddress = this.scannedData[i].btIAddress;
           detectorInfo.deviceType = this.scannedData[i].deviceType;
           detectorInfo.rssi = this.scannedData[i].rssi;
+          detectorInfo.fwupdate = this.scannedData[i].fwupdate;
           detectorInfo.createdDate=this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
           detectorInfo.identify='0';
           this.detectors.push(detectorInfo);
         }
+        this.data.setMainTitle(this.translater.translate('Detectors'));
+        this.data.setEDevParamsState(0);
+        });
       }
     }
 
-      this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.data.setMainTitle(this.translater.translate('Detectors'));
-         this.data.setEDevParamsState(0);
-      });
+      // Change the property within the zone, CD will run after
+   
   }
 
   getSignalRange(item){
