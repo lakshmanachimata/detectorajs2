@@ -295,7 +295,7 @@ getColorTemperatureValue(){
    }
    togglePW(){
      this.ad.ch1SwitchOffPreWarning = !this.ad.ch1SwitchOffPreWarning
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1SwitchOffPreWarning?1:0])
+     this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_PRE_WARNING_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1SwitchOffPreWarning?1:0])
    }
    toggleminl() {
      this.ad.ch1MinLevelEnable = !this.ad.ch1MinLevelEnable

@@ -62,6 +62,7 @@ export class FooterComponent implements OnChanges,OnInit ,DoCheck,AfterContentIn
       this.deActivateTestMode()
     }else {
       this.location.back();
+      this.data.resetTransferData();
     }
   }
   getOtherParam() {

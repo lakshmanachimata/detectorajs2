@@ -221,6 +221,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                   private router:Router,private route:ActivatedRoute,
                 private renderer:Renderer,private elRef:ElementRef,
                 private zone:NgZone,private translater:i18nService) {
+      //this.data.resetTransferData();
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setFooter(true);
@@ -468,7 +469,6 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }else {
     this.unSubscriveDetails()
     this.data.setProfileSwitch(false)
-    this.data.resetSendData();
     if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
     }
@@ -565,14 +565,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = value;
   }
   subcribeForDetails(){
-    // this.data.configureData(this.updateSubcribeAttrs)
+    this.data.configureData(this.updateSubcribeAttrs)
   }
 
   subcribeForPermanentDetails(){
-    // this.data.configureData(this.permanentSubscrioAttrs)
+    this.data.configureData(this.permanentSubscrioAttrs)
   }
   unSubscriveDetails(){
-    // this.data.unConfigureData(this.updateSubcribeAttrs)
-    // this.data.unConfigureData(this.permanentSubscrioAttrs)
+    this.data.unConfigureData(this.updateSubcribeAttrs)
+    this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
 }

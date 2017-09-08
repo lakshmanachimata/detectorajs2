@@ -174,7 +174,6 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
   ngOnDestroy() {
     this.data.resetSendData();
-    this.data.resetSendData();
     if(this.selectedDevice == false &&  !(this.data.getProfile() == 'electrician'))
       this.data.killMe();  
   }

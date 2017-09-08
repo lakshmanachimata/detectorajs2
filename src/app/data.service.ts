@@ -1403,6 +1403,12 @@ export class DataService {
     resetSendData() {
         this.sendData = [];
     }
+
+    resetTransferData(){
+        this.resetSendData();
+        this.resetWriteArray();
+        this.resetReadArray();
+    }
     addToSendData(paramBytes) {
         this.setEDevParamsState(1)
         this.addData = [];
@@ -2867,6 +2873,9 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
                 this.uiParams.devicesObj.DeviceData.accessLevel = attrValue[0]  
+            break;
+            case SCCP_ATTRIBUTES.SWITCH_OFF_PRE_WARNING_ENABLE                           :
+                this.uiParams.devicesObj.DeviceData.ch1SwitchOffPreWarning =  attrValue[0];
             break;
             default:
             break;

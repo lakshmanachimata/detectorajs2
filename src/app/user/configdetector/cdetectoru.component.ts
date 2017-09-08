@@ -156,7 +156,6 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     }else {
       this.unSubscriveDetails()
       this.data.setProfileSwitch(false)
-      this.data.resetSendData();
       if(this.doDisConnect == true && this.data.getProfile() == 'user')
       this.data.disConnectDevice();
     }
