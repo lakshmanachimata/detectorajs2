@@ -441,6 +441,8 @@ public class MainActivity extends Activity {
 
                         splashScreen.startAnimation(out);
                         splashScreen.setVisibility(View.INVISIBLE);
+                        if(scannedDevices.size() >0)
+                            sendDeviceInfo();
 
                     }
                     if ((splashScreen.getVisibility() == View.INVISIBLE)
@@ -448,6 +450,8 @@ public class MainActivity extends Activity {
                         mainScreen.startAnimation(in);
                         mainScreen.setVisibility(View.VISIBLE);
                         mainScreen.bringToFront();
+                        if(scannedDevices.size() >0)
+                            sendDeviceInfo();
                     }
                     loaded = true;
                     setFlavorType();
@@ -1709,6 +1713,7 @@ public class MainActivity extends Activity {
         intent.setAction(MainActivity.ACTION_FW_UPDATE);
         intent.putExtra(MainActivity.EXTRA_FWUPDATE_STEP, 1);
         sendBroadcast(intent);
+        isUpdateFWStart =  true;
     }
 
 

@@ -266,9 +266,12 @@ public abstract class BJBLEManager {
 		//float progress = 0;
 		if (!lastBlockSent) {
 
-			Log.d(TAG, "Sending block " + (blockCounter + 1) + " of " + file.getNumberOfBlocks());
-			int percentage = (blockCounter / file.getNumberOfBlocks()) * 98;
-			MainActivity.getInstance().updateAppFWPercentage(percentage);
+			int tBlocks =  file.getNumberOfBlocks();
+			Log.d(TAG, "Sending block " + (blockCounter + 1) + " of " + tBlocks);
+			float fperc = (float) ((float)blockCounter / (float)tBlocks );
+			int percentage = (int)(fperc * 100) * 98;
+			percentage =  percentage / 98;
+			MainActivity.getInstance().updateAppFWPercentage(percentage + 1);
 			byte[][] block = file.getBlock(blockCounter);
 
 			int i = ++chunkCounter;
