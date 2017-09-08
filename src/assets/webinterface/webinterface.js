@@ -197,6 +197,8 @@ function onDeviceDisconnected(deviceAddress){
     appDataService.onDeviceDisconnected(deviceAddress);
 }
 
+
+
 function onFirwareUpdateState(data){
     var fwpercentage = data.percentage;
     appDataService.onFirwareUpdateState(fwpercentage)
@@ -245,6 +247,17 @@ function identify(indata){
 
     else {
         var message = {"send":data}
+        var sendMessage =  JSON.stringify(message)
+        window.webkit.messageHandlers.webapi.postMessage(sendMessage);
+    }
+}
+
+function updateDeviceFW(){
+    if(BJE != undefined){
+        BJE.updateDeviceFW();
+    }
+    else {
+        var message = {"send":"updateDeviceFW"}
         var sendMessage =  JSON.stringify(message)
         window.webkit.messageHandlers.webapi.postMessage(sendMessage);
     }

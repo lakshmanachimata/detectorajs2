@@ -446,6 +446,8 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                     let firstValue = Array(dict!.values)[0] as? String
                     self.bleHelper?.disConnect(device: firstValue!)
                     break;
+                case "updateDeviceFW":
+                    break;
                 default:
                     print("Unknown command")
                 }

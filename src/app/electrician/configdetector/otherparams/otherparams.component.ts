@@ -97,6 +97,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       {
         this.loadingDataDone = true;
       }
+      
       // if(this.ad.fwupdate == '1'){
       //   this.updatePercentage();
       // }
@@ -259,6 +260,11 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     if(this.data.getOtherParam() == 'testmode'){
       this.data.setTestModeComponent(this)
       this.subscribeForTestSlaves()
+    }
+    if(this.data.getOtherParam() == 'updatefirmware'){
+      if(this.ad.fwupdate == "1"){
+        this.data.DeviceFWUpdate();
+      }
     }
     this.data.setMainTitle(this.data.getOtherParamTitle());
     this.getInstallerPwd();

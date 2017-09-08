@@ -401,7 +401,7 @@ declare var resetCmd;
 declare var identify;
 declare var identifyLoad;
 declare var peerSensivity;
-
+declare var updateDeviceFW;
 
 @Injectable()
 export class DataService {
@@ -429,6 +429,7 @@ export class DataService {
     setDeviceAccessLevelObj:any;
     setPwdToDeviceObj:any;
     getSafariSubtleObj:any;
+    updateDeviceFWObj:any;
     readAddrAttrObj:any;
     peerSensivityObj:any;
     activeComponent:any;
@@ -1500,6 +1501,9 @@ export class DataService {
     getAuthChallenge(){
         return this.deviceParams.auth_challenge;
     }
+    DeviceFWUpdate(){
+        this.updateDeviceFWObj = new updateDeviceFW()
+    }
 
     authenticateDevice(devicePwd){
         var testme =  customCryptoJS;
@@ -1680,6 +1684,8 @@ export class DataService {
              }
         }
     }
+
+
 
     setDevicePwd(setPWD,profile){
         // this.authenticateDevice("1111")

@@ -289,7 +289,6 @@ public abstract class BJBLEManager {
 			Log.d(TAG, "writeCharacteristic: " + r);
 
 			if (lastChunk) {
-
 				// SUOTA
 				if (!lastBlock) {
 					blockCounter++;
@@ -299,7 +298,6 @@ public abstract class BJBLEManager {
 				if (blockCounter + 1 == file.getNumberOfBlocks()) {
 					lastBlock = true;
 				}
-
 				// SPOTA
 				if (type == SpotaManager.TYPE) {
 					lastBlockSent = true;

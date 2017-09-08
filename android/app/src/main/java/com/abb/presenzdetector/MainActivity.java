@@ -493,6 +493,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void updateAppFWPercentage(int val){
+        try {
+            JSONObject demoData = new JSONObject();
+            demoData.put("percentage", val);
+            String demoSData = "";
+            demoSData = demoSData + "onFirwareUpdateState(";
+            demoSData =  demoSData + demoData.toString()+ ")";
+            webview.evaluateJavascript(demoSData,null);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void showMessageIfNoDevicesAreAvailable(){
         scanDevicesMessagesHandler.postDelayed(new Runnable() {
             @Override
@@ -1354,27 +1368,27 @@ public class MainActivity extends Activity {
     }
 
     public void setItemValue(int index, String value) {
-//        switch (index){
-//            case 0:
-//                if(selectedDetectorInfo != null){
-//                    selectedDetectorInfo.manufacturerName = value;
-//                }
-//                break;
-//            case 1:
-//                break;
-//            case 2:
-//                if(selectedDetectorInfo != null){
-//                    selectedDetectorInfo.softwareVersion = value;
-//                }
-//                break;
-//            case 3:
-//                if(selectedDetectorInfo != null){
-//                    selectedDetectorInfo.firmwareVersion = value;
-//                }
-//                break;
-//            default:
-//                break;
-//        }
+        switch (index){
+            case 0:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.manufacturerName = value;
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.softwareVersion = value;
+                }
+                break;
+            case 3:
+                if(selectedDetectorInfo != null){
+                    selectedDetectorInfo.firmwareVersion = value;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void getGattServices(List<BluetoothGattService> gattServices) {
@@ -1634,14 +1648,14 @@ public class MainActivity extends Activity {
                     fileName = fwFilesList.get(jj);
                 }
             }else if(deviceType.contains("05")){
-                if(iFile.contains("dali")){
+                if(iFile.contains("DALI")){
                     fileName = fwFilesList.get(jj);
                 }
             }
         }
 
         try {
-            File file = new File(this.fwFileDirectory + "/"+fileName);
+            File file = new File(getAssets() +"/" +this.fwFileDirectory + "/"+fileName);
 
             InputStream ins = new FileInputStream(file);
             suotaManager.setFile(new BLEFile(ins));
