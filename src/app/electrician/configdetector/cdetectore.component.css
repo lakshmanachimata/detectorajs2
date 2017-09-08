@@ -1084,10 +1084,10 @@ div#bj-user-sensor-div {
 	margin-right:10px;
 }
 .bj-current-val{
-	/*display:inline-flex;*/
+	display:inline-flex;
 	left:0;
 	right:0;
-	height: 40px;
+    min-height: 60px;
 }
 
 .bj-config-setting-adjust .adjust{

@@ -2471,6 +2471,24 @@ export class DataService {
     }
 
 
+    getHexToDecMode(value){
+        switch(value){
+          case 0:
+          return 0;
+          case 72:
+          return  25;
+          case 102:
+          return 50;
+          case 170:
+          return 75;
+          case 255:
+          return 100;
+          default:
+          return 100;
+        }
+      }
+
+
     setBLEdataOnDeviceData(attrType,attrValue){
         this.attrReadCounter =  this.attrReadCounter + 1;
         this.logger.log("ATTR DATA  " + this.getHexDataOfData(attrType) + "   " + attrValue.join(',') + "  COUNTER  " + this.attrReadCounter);
@@ -2540,16 +2558,16 @@ export class DataService {
                 this.uiParams.devicesObj.DeviceData.outdoorApplicationEnable= attrValue[0];
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY                                        : 
-                this.uiParams.devicesObj.DeviceData.pirSensitivity0= attrValue[0];
-                this.uiParams.devicesObj.DeviceData.pirSensitivity1= attrValue[1];
-                this.uiParams.devicesObj.DeviceData.pirSensitivity2= attrValue[2];
-                this.uiParams.devicesObj.DeviceData.pirSensitivity3= attrValue[3];
+                this.uiParams.devicesObj.DeviceData.pirSensitivity0= this.getHexToDecMode(attrValue[0]);
+                this.uiParams.devicesObj.DeviceData.pirSensitivity1= this.getHexToDecMode(attrValue[1]);
+                this.uiParams.devicesObj.DeviceData.pirSensitivity2= this.getHexToDecMode(attrValue[2]);
+                this.uiParams.devicesObj.DeviceData.pirSensitivity3= this.getHexToDecMode(attrValue[3]);
             break;
             case SCCP_ATTRIBUTES.PIR_SENSITIVITY_ODOR                                        : 
-                this.uiParams.devicesObj.DeviceData.opirSensitivity0= attrValue[0];
-                this.uiParams.devicesObj.DeviceData.opirSensitivity1= attrValue[1];
-                this.uiParams.devicesObj.DeviceData.opirSensitivity2= attrValue[2];
-                this.uiParams.devicesObj.DeviceData.opirSensitivity3= attrValue[3];
+                this.uiParams.devicesObj.DeviceData.opirSensitivity0= this.getHexToDecMode(attrValue[0]);
+                this.uiParams.devicesObj.DeviceData.opirSensitivity1= this.getHexToDecMode(attrValue[1]);
+                this.uiParams.devicesObj.DeviceData.opirSensitivity2= this.getHexToDecMode(attrValue[2]);
+                this.uiParams.devicesObj.DeviceData.opirSensitivity3= this.getHexToDecMode(attrValue[3]);
             break;
             // case SCCP_ATTRIBUTES.PIR_SENSITIVITY2                                        : 
             //     this.uiParams.devicesObj.DeviceData.pirSensitivity2= attrValue;

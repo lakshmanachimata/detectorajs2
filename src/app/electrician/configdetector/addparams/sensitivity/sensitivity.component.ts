@@ -110,7 +110,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       return 170;
       case 100:
       return 255;
-
+      default:
+      return 255;
     }
   }
   getHexToDecMode(value){
@@ -124,6 +125,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       case 170:
       return 75;
       case 255:
+      return 100;
+      default:
       return 100;
     }
   }
