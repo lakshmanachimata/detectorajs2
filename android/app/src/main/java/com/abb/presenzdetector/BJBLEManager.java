@@ -267,6 +267,8 @@ public abstract class BJBLEManager {
 		if (!lastBlockSent) {
 
 			Log.d(TAG, "Sending block " + (blockCounter + 1) + " of " + file.getNumberOfBlocks());
+			int percentage = (blockCounter / file.getNumberOfBlocks()) * 98;
+			MainActivity.getInstance().updateAppFWPercentage(percentage);
 			byte[][] block = file.getBlock(blockCounter);
 
 			int i = ++chunkCounter;

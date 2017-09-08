@@ -53,10 +53,12 @@ public class SuotaManager extends BJBLEManager {
             // Enable notifications
             case 1:
                 enableNotifications();
+                MainActivity.getInstance().updateAppFWPercentage(1);
                 break;
             // Init mem type
             case 2:
                 setSpotaMemDev();
+                MainActivity.getInstance().updateAppFWPercentage(3);
                 break;
             // Set mem_type for SPOTA_GPIO_MAP_UUID
             case 3:
@@ -67,10 +69,12 @@ public class SuotaManager extends BJBLEManager {
                 // The order of the callbacks doesn't matter with this implementation.
                 if (++gpioMapPrereq == 2)
                     setSpotaGpioMap();
+                MainActivity.getInstance().updateAppFWPercentage(4);
                 break;
             // Set SPOTA_PATCH_LEN_UUID
             case 4:
                 setPatchLength();
+                MainActivity.getInstance().updateAppFWPercentage(5);
                 break;
             // Send a block containing blocks of 20 bytes until the patch length (default 240) has been reached
             // Wait for response and repeat this action
@@ -81,8 +85,11 @@ public class SuotaManager extends BJBLEManager {
                     if (!preparedForLastBlock) {
                         setPatchLength();
                     } else if (!lastBlockSent) {
+                        int percentage = (blockCounter / file.getNumberOfBlocks()) * 99;
+                        MainActivity.getInstance().updateAppFWPercentage(percentage);
                         sendBlock();
                     } else if (!endSignalSent) {
+                        MainActivity.getInstance().updateAppFWPercentage(100);
                         sendEndSignal();
                     } else if (error == -1) {
                         onSuccess();

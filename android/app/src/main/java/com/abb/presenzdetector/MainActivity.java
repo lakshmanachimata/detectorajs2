@@ -198,7 +198,7 @@ public class MainActivity extends Activity {
 
     X509Certificate myBJECert;
     PrivateKey myBJEKey;
-    public  static String fwFileDirectory = "";
+    public  static String fwFileDirectory = "fwupdate";
     SSLContext sslContext;
     DetectorInfo selectedDetectorInfo = null;
     private WebView webview;
@@ -267,6 +267,9 @@ public class MainActivity extends Activity {
     String mosfetFWVersion = "";
     String relaisFWVersion = "";
 
+    String daliFWFile = "";
+    String mosfetFWFile = "";
+    String relaisFWFile = "";
 
     static public BJBLEManager suotaManager;
     //static public SpotaManager spotaManager;
@@ -988,7 +991,7 @@ public class MainActivity extends Activity {
     public void getFWFilesList(){
 
         fwFilesList.clear();
-        listAssetFiles("fwupdate");
+        listAssetFiles(this.fwFileDirectory);
         for(int i =0; i< fwFilesList.size();i++){
             String fileName =  fwFilesList.get(i);
             String values[] = fileName.split("_");
@@ -1000,12 +1003,15 @@ public class MainActivity extends Activity {
                     versionst  = versionst.substring(0,verstlen-5);
                     if (fileName.contains("relais")) {
                         relaisFWVersion = versionst;
+                        relaisFWFile =fileName;
                     }
                     if (fileName.contains("mosfet")) {
                         mosfetFWVersion = versionst;
+                        mosfetFWFile = fileName;
                     }
                     if (fileName.contains("DALI")) {
                         daliFWVersion = versionst;
+                        daliFWFile = fileName;
                     }
                 }
             }
@@ -1132,9 +1138,9 @@ public class MainActivity extends Activity {
             else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 setDeviceInfo(intent);
             }
-//            else if(ACTION_FW_UPDATE.equals(action)){
-//                suotaManager.processStep(intent);
-//            }
+            else if(ACTION_FW_UPDATE.equals(action)){
+                suotaManager.processStep(intent);
+            }
         }
     };
 
@@ -1518,7 +1524,7 @@ public class MainActivity extends Activity {
                                     if( deviceInfo.modelNumber.contains("03")) {
                                         deviceInfo.deviceType = "mosfet1c";
                                         if(mosfetFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split("\\.");
+                                            String latestVersion[] =  mosfetFWVersion.split("\\.");
 
                                             if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
                                                 deviceInfo.fwupdate = "1";
@@ -1532,7 +1538,7 @@ public class MainActivity extends Activity {
                                     if(deviceInfo.modelNumber.contains("01")) {
                                         deviceInfo.deviceType = "relay1c";
                                         if(relaisFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split("\\.");
+                                            String latestVersion[] =  relaisFWVersion.split("\\.");
 
                                             if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
                                                 deviceInfo.fwupdate = "1";
@@ -1551,6 +1557,7 @@ public class MainActivity extends Activity {
                     if(scannedDevices.size() >0)
                         sendDeviceInfo();
                 }
+
             });
             super.onScanResult(callbackType, result);
         }
@@ -1635,7 +1642,6 @@ public class MainActivity extends Activity {
         String existingFwVersion =  selectedDetectorInfo.firmwareVersion;
         String deviceType = selectedDetectorInfo.modelNumber;
         String fileName = "";
-        fwFilesList = BLEFile.list();
         for(int jj =0; jj <fwFilesList.size(); jj++){
             String iFile = fwFilesList.get(jj);
             if(deviceType.contains("01")){
@@ -1655,10 +1661,18 @@ public class MainActivity extends Activity {
         }
 
         try {
-            File file = new File(getAssets() +"/" +this.fwFileDirectory + "/"+fileName);
-
-            InputStream ins = new FileInputStream(file);
+            InputStream ins = null;
+            String fwFileName = "";
+            if(deviceType.contains("01")){
+                fwFileName  = this.fwFileDirectory + "/"+relaisFWFile;
+            }if(deviceType.contains("03")) {
+                fwFileName = this.fwFileDirectory + "/"+mosfetFWFile;
+            }if(deviceType.contains("05")){
+                fwFileName = this.fwFileDirectory + "/"+daliFWFile;
+            }
+            ins = getAssets().open(fwFileName);
             suotaManager.setFile(new BLEFile(ins));
+
         }catch (Exception e){
             e.printStackTrace();
         }

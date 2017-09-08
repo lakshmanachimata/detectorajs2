@@ -214,7 +214,8 @@ function updateScanList(scanned) {
     scannedDevices = scanned
     var deviceData =  JSON.stringify(scannedDevices);
     // debugLog(deviceData)
-    appDataService.setScannedData(scanned);
+    if(appDataService != undefined)
+        appDataService.setScannedData(scanned);
 }
 
 function identifyLoad(type,time){
