@@ -45,6 +45,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   Quad2 = false;
   Quad3 = false;
   Quad4 = false;
+  SlaveMovement = false;
   loadingDataDone = false;
   slaveMovementAttrs=[
     SCCP_ATTRIBUTES.MOVEMENT,
@@ -272,26 +273,34 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     this.data.userPasswordChanged(false)
     this.data.installerPasswordChanged(false)
   }
+  onReportBLEdata(){
+    
+  }
   setMovement(movement){
-    this.logger.log("setMovement called " + movement);
+    this.zone.run(() => {
     if((movement & 0x08 ) > 0){
        this.Quad4 =true;
     }if((movement & 0x04 ) > 0){
        this.Quad3 =true;
     }if((movement & 0x02 ) > 0){
-       this.Quad2 =true;
+      this.Quad2 =true;
     }if((movement & 0x01 ) > 0 ){
        this.Quad1 =true;
     }
+    if ((movement & 0x80) || (movement & 0x40)  > 0){
+      this.SlaveMovement = true; 
+    }
     setTimeout(()=> 
-      this.UnsetQuads(), 1000
+      this.UnsetQuads(), 2000
     )
+   });
   }
   UnsetQuads(){
     this.Quad1 = false;
     this.Quad2 = false;
     this.Quad3 = false;
     this.Quad4 = false;
+    this.SlaveMovement = false; 
   }
   ngAfterContentInit() { 
   }

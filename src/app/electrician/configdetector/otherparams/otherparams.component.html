@@ -26,9 +26,9 @@
                 </div>
             </div>
         </div>
-        <div class="bj-config-setting-div testmode-slave-div">
+        <div class="bj-config-setting-div testmode-slave-div" >
             <label class="bj-config-setting testmode-slave-block">{{ this.data.getTranslatedString("Slaves") }}</label>
-            <img class="slave-dis" src="assets/icons/14_004_user_dis.svg" alt="slave_disabled">
+            <img class="slave-dis" *ngIf="SlaveMovement == true" src="assets/icons/14_004_user_dis.svg" alt="slave_disabled">
         </div>
         <div id="testmode-settings-block">
             <!--PDAL-2553 -->
