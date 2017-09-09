@@ -521,7 +521,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           this.subcribeForDetails(), 1000
       )
       setTimeout(()=> 
-          this.subcribeForPermanentDetails(), 1000
+          this.subcribeForPermanentDetails(), 2000
       )
       this.data.setFromRoot(false);
       this.loadingDataDone =  true;

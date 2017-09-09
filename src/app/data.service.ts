@@ -2861,7 +2861,7 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.MOVEMENT                                                :
                 this.uiParams.devicesObj.DeviceData.movement = attrValue[0] 
-                this.updateSlaveMovement(attrValue)
+                this.updateSlaveMovement(attrValue[0])
             break;
             case SCCP_ATTRIBUTES.CH1_IDENTIFYING_LOAD                                    :
                 this.uiParams.devicesObj.DeviceData.ch1IdentifyingLoad = attrValue[0] 
@@ -2880,7 +2880,7 @@ export class DataService {
             break;
             case SCCP_ATTRIBUTES.TEST_MODE_ENABLE                                        :
                 this.uiParams.devicesObj.DeviceData.testModeEnable = attrValue[0] 
-                this.setShowTestMode(attrValue)
+                this.setShowTestMode(attrValue[0])
             break;
             case SCCP_ATTRIBUTES.ACCESS_LEVEL                                            :
                 this.uiParams.devicesObj.DeviceData.accessLevel = attrValue[0]  
