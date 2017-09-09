@@ -57,9 +57,13 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
                 arrayReadAttrs = [
                   SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD_MIN,
+                  0x02,
                   SCCP_ATTRIBUTES.SWITCH_OFF_DELAY_MIN,
+                  0x02,
                   SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
-                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN
+                  0x02,
+                  SCCP_ATTRIBUTES.ENERGY_MONITOR_CONNECTED_LOAD_MIN,
+                  0x02
                 ]
     updateSubcribeAttrs =[
       SCCP_ATTRIBUTES.SHORT_TIME_PULSE_ENABLE,
