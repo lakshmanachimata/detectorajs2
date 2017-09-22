@@ -26,8 +26,8 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
       this.data.setActiveComponent(this);
-      this.loadingDataDone = true;
-  }
+        this.loadingDataDone = true;
+      }
   onPeerData(data){
     this.zone.run( () => { // Change the property within the zone, CD will run after
     // this.ad.pirSensitivity0 = this.getHexToDecMode(data[12]);
@@ -227,7 +227,7 @@ export class ESensitivityComponent implements OnChanges,OnInit ,DoCheck,AfterCon
         this.loadingDataDone =  true;
       });
       this.loadingDataDone =  true;
-    }
+  }
     this.loadingDataDone = true;
      this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.pirSensitivity0 = this.ad.pirSensitivity0 ;

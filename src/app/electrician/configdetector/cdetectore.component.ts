@@ -472,8 +472,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     if(this.doDisConnect == true && this.data.getProfile() == 'electrician')
       this.data.disConnectDevice();
     }
-    // this.data.unConfigureData(this.updateSubcribeAttrs)
-    // this.data.unConfigureData(this.permanentSubscrioAttrs)
+    this.data.unConfigureData(this.updateSubcribeAttrs)
+    this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
   gotoActuator1(){
     this.doDisConnect = false;
@@ -524,14 +524,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
           this.subcribeForPermanentDetails(), 2000
       )
       this.data.setFromRoot(false);
-      this.loadingDataDone =  true;
+    this.loadingDataDone =  true;
       this.setDeviceInfo();
-      this.data.addDevice(this.ad,false);
-      this.data.checkAndAddDeviceToInstalledDevices();
-      this.zone.run( () => { // Change the property within the zone, CD will run after
-          this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
-          this.data.setEDevParamsState(0);
-        });
+    this.data.addDevice(this.ad,false);
+    this.data.checkAndAddDeviceToInstalledDevices();
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+        this.data.setEDevParamsState(0);
+      });
     }else{
       this.onNonArrayRead();
     }
@@ -565,14 +565,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.loadingDataDone = value;
   }
   subcribeForDetails(){
-    // this.data.configureData(this.updateSubcribeAttrs)
+     this.data.configureData(this.updateSubcribeAttrs)
   }
 
   subcribeForPermanentDetails(){
     this.data.configureData(this.permanentSubscrioAttrs)
   }
   unSubscriveDetails(){
-    // this.data.unConfigureData(this.updateSubcribeAttrs)
-    // this.data.unConfigureData(this.permanentSubscrioAttrs)
+   this.data.unConfigureData(this.updateSubcribeAttrs)
+   this.data.unConfigureData(this.permanentSubscrioAttrs)
   }
 }

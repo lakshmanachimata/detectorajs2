@@ -215,7 +215,7 @@ function updateScanList(scanned) {
     var deviceData =  JSON.stringify(scannedDevices);
     // debugLog(deviceData)
     if(appDataService != undefined)
-        appDataService.setScannedData(scanned);
+    appDataService.setScannedData(scanned);
 }
 
 function identifyLoad(type,time){
@@ -830,9 +830,9 @@ function prepareAttributeArray(indata) {
                     }
                     value.push(result);
                     var data = {
-                        "attrType": key,
+                    "attrType": key,
                         "attrValue": value
-                        }
+                    }
                     lastParseByteIndex = lastParseByteIndex + 5 + strByteArray.length;
                     break;
                 case SCCP_DATATYPES.SCCP_TYPE_ENUM8:

@@ -1,11 +1,11 @@
 .bj-electrician-container{
 	position:absolute;
-		top:50px;
+    top:50px;
     bottom:0;
     left:0;
     z-index:5;
     overflow-y: scroll;
-		right:0;
+	right:0;
   	width:100%;
    	font-size:20px;
 	background-color:white;
@@ -149,17 +149,17 @@ div.searching_spinner{
   background: -webkit-linear-gradient(45deg, white 0%, white 40%, rgba(255, 255, 255, 0.7) 60%, rgba(255, 255, 255, 0) 100%);
   position: absolute;
   top: 0;
-	left: 0;
+  left: 0;
 	vertical-align: middle;
   transform: translate(-5%, -5%);
 }
 .spinner_waiting.moon {
   border-left: 0;
-	border-top: 0;
+  border-top: 0;
 	vertical-align: middle;
 }
 .spinner_waiting.moon:after {
-	display: none;
+  display: none;
 	vertical-align: middle;
 }
 

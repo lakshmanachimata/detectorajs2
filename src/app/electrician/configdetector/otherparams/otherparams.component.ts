@@ -198,6 +198,37 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     getUserPwd(){
       this.user_pwd = this.data.deviceParams.user_pwd;
     }
+
+    onContactChanged(){
+      if(this.contactName.length >= 19){
+        this.contactName =  this.contactName.slice(0,18);
+      }
+      if(this.contactName.length <= 0 ){
+          
+      }else {
+          var nameBytes = [];
+          for (var i = 0; i < this.contactName.length; i++){  
+              nameBytes.push(this.contactName.charCodeAt(i));
+          }
+          nameBytes.push(0)
+          this.data.addToSendData([SCCP_ATTRIBUTES.CONTACT,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
+      }
+    }
+    onBuildingChanged(){
+      if(this.buildingName.length >= 19){
+        this.buildingName =  this.contactName.slice(0,18);
+      }
+      if(this.buildingName.length <= 0 ){
+        
+    }else {
+        var nameBytes = [];
+        for (var i = 0; i < this.buildingName.length; i++){  
+            nameBytes.push(this.buildingName.charCodeAt(i));
+        }
+        nameBytes.push(0)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BUILDING,SCCP_DATATYPES.SCCP_TYPE_STRING,nameBytes])
+    }
+    }
   onFitterPinChanged(){
       if(this.installer_pwd.length >= 16){
         this.installer_pwd =  this.installer_pwd.slice(0,15);
@@ -283,7 +314,7 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }if((movement & 0x04 ) > 0){
        this.Quad3 =true;
     }if((movement & 0x02 ) > 0){
-      this.Quad2 =true;
+       this.Quad2 =true;
     }if((movement & 0x01 ) > 0 ){
        this.Quad1 =true;
     }
@@ -412,7 +443,10 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
   }
   
   setCName(event: any) {
-  if(this.contactName.length <= 0 ){
+    if(this.contactName.length >= 19){
+      this.contactName =  this.contactName.slice(0,18);
+    }
+    if(this.contactName.length <= 0 ){
         
     }else {
         var nameBytes = [];
@@ -424,6 +458,9 @@ export class EOtherParamsComponent implements OnChanges,OnInit ,DoCheck,AfterCon
     }
   }
   setBName(event: any) {
+    if(this.buildingName.length >= 19){
+      this.buildingName =  this.buildingName.slice(0,18);
+    }
     if(this.buildingName.length <= 0 ){
         
     }else {

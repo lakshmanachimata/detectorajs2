@@ -191,12 +191,12 @@ export class CDetectorUComponent implements OnChanges,OnInit ,DoCheck,AfterConte
             this.subcribeForPermanentDetails(), 1000
         )
         this.data.setFromRoot(false);
-        this.loadingDataDone =  true;
-        this.setDeviceInfo();
-        this.zone.run( () => { // Change the property within the zone, CD will run after
-          this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
-          this.data.setEDevParamsState(0);
-        });
+    this.loadingDataDone =  true;
+      this.setDeviceInfo();
+    this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.ad.ch1CurrentLevel = this.ad.ch1CurrentLevel ;
+        this.data.setEDevParamsState(0);
+      });
       }else{
         this.onNonArrayRead();
       }

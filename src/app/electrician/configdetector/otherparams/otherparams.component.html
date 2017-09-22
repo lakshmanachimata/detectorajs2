@@ -137,7 +137,7 @@
         <div id="bj-update-firmware-div">
             <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
             <li class="bj-detector-name update">{{ad.btDeviceName}}
-                <div class="bj-detector-version-num update">Version  {{ad.firmwareVersion}}
+                <div class="bj-detector-version-num update">Version {{ad.firmwareVersion}}
                     <span class="bje-percent-text"> {{this.fwpercentage}} %</span>
                 </div>
             </li>
@@ -145,7 +145,7 @@
         </div>
         <div class="bje-progress" *ngIf="this.ad.fwupdate == '1'">
             <div class="progress-bar" role="progressbar" aria-valuenow="this.fwpercentage" aria-valuemin="0" aria-valuemax="100" [ngStyle]="getPercentageStyle()">
-            </div>
+        </div>
             
         </div>
         <div id="bj-update-firmware-statusbar" *ngIf="ad.fwupdate=='0'">
@@ -253,11 +253,11 @@
     <div id="bj-building-alloc-settings-div" *ngIf="getOtherParam()=='buildingallocation'">
         <label class="bj-config-lbl building-alloc-contact-div">{{ this.data.getTranslatedString("Contact Name") }}</label>
         <div id="bj-building-alloc-contact">
-            <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setCName($event)" [(ngModel)]="contactName">
+            <input class="bj-configure-input"  type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setCName($event)" [(ngModel)]="contactName"    maxlength="19"  [maxlength]="19">
         </div>
         <label class="bj-config-lbl building-alloc-building-div">{{ this.data.getTranslatedString("Building") }}</label>
         <div id="bj-building-alloc-building">
-            <input class="bj-configure-input" type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setBName($event)" [(ngModel)]="buildingName">
+            <input class="bj-configure-input"   type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setBName($event)" [(ngModel)]="buildingName"  maxlength="19"  [maxlength]="19">
         </div>
     </div>
     <div id="bj-release-to-user-dev" *ngIf="getOtherParam()=='releasetouser'">

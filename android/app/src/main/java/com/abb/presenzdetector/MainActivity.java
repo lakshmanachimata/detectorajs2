@@ -1494,7 +1494,7 @@ public class MainActivity extends Activity {
                                         for (int j = 4; j >= 2; j--) {
                                             firmwareVersionStr.append(manufactureDataBytes[j]);
                                             if(j != 2)
-                                                firmwareVersionStr.append(".");
+                                            firmwareVersionStr.append(".");
                                         }
                                         modelNumber.append(String.format("%02X", manufactureDataBytes[6]));
                                         modelNumber.append(String.format("%02X", manufactureDataBytes[8]));
@@ -1540,7 +1540,7 @@ public class MainActivity extends Activity {
                                         }
                                     }
                                     if(deviceInfo.modelNumber.contains("01")) {
-                                        deviceInfo.deviceType = "relay1c";
+                                            deviceInfo.deviceType = "relay1c";
                                         if(relaisFWVersion.length() > 0){
                                             String latestVersion[] =  relaisFWVersion.split("\\.");
 

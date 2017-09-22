@@ -1013,10 +1013,10 @@ export class DataService {
                         this.readDataState = 0
                     }  
                 }else{
-                    if(this.readArray.length > 0){
-                        this.readData(this.readArray);
-                    }else {
-                        this.putDevicesToCloud(false);
+                if(this.readArray.length > 0){
+                    this.readData(this.readArray);
+                }else {
+                    this.putDevicesToCloud(false);
                         this.readDataState = this.readDataState + 1;
                         if(this.readDataState == 1){
                             this.notifyActiveComponentWithBLEdata(false,false,false)
@@ -1161,9 +1161,9 @@ export class DataService {
     }
     connectDevice(btaddress){
         if(this.DeviceBuild == 1){
-            this.connectDeviceObj = new connectDevice(btaddress);
-            this.setAccessLevelRequsetedAddress(btaddress)
-        }
+        this.connectDeviceObj = new connectDevice(btaddress);
+        this.setAccessLevelRequsetedAddress(btaddress)
+    }
     }
     disConnectDevice(){
         if(this.deviceParams.deviceConnected ==  true){
@@ -1221,7 +1221,7 @@ export class DataService {
     readDeviceAddress(deviceAddress){
         this.readAddrAttrObj = new readAddrAttr()
     }
-        
+    
     onPeerSensitivityData(data){
         if(this.activeComponent != undefined){
             this.activeComponent.onPeerData(data);

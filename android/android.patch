@@ -1,0 +1,31 @@
+diff --git a/ios/presencedetector.xcodeproj/project.xcworkspace/xcuserdata/lakshmana.xcuserdatad/UserInterfaceState.xcuserstate b/ios/presencedetector.xcodeproj/project.xcworkspace/xcuserdata/lakshmana.xcuserdatad/UserInterfaceState.xcuserstate
+index 48dd1ea..6aeedac 100644
+Binary files a/ios/presencedetector.xcodeproj/project.xcworkspace/xcuserdata/lakshmana.xcuserdatad/UserInterfaceState.xcuserstate and b/ios/presencedetector.xcodeproj/project.xcworkspace/xcuserdata/lakshmana.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff --git a/src/app/app.routing.module.ts b/src/app/app.routing.module.ts
+index 16ad358..78e92f7 100644
+--- a/src/app/app.routing.module.ts
++++ b/src/app/app.routing.module.ts
+@@ -10,8 +10,8 @@ const AppRoutes: Routes = [
+ ];
+ @NgModule({
+   imports: [
+-    RouterModule.forRoot(AppRoutes,{ useHash: true })
+-    // RouterModule.forRoot(AppRoutes)
++    // RouterModule.forRoot(AppRoutes,{ useHash: true })
++    RouterModule.forRoot(AppRoutes)
+   ],
+   exports: [
+     RouterModule
+diff --git a/src/index.html b/src/index.html
+index 6e593b8..af2039c 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -19,7 +19,7 @@ html {
+    -webkit-touch-callout: none; 
+    }
+   </style>
+-           <!-- <base href="/">                 -->
++            <base href="/">                 
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
+ </head>
