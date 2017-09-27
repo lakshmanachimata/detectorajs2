@@ -136,6 +136,8 @@
 "ch2CurrentLevel":0,
 "testModeEnable":false,
 "accessLevel":0,
+"enduserpwdlength":0,
+"passwordreminder":0,
  "energyMonitor": {
       "electricityPrice": 0,
       "currency": 0,

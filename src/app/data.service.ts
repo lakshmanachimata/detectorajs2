@@ -2892,6 +2892,12 @@ export class DataService {
             case SCCP_ATTRIBUTES.SWITCH_OFF_PRE_WARNING_ENABLE                           :
                 this.uiParams.devicesObj.DeviceData.ch1SwitchOffPreWarning =  attrValue[0];
             break;
+            case SCCP_ATTRIBUTES.END_USER_PASSWORD_LENGTH                                :
+                this.uiParams.devicesObj.DeviceData.ch1SwitchOffPreWarning = attrValue[0];
+                break;
+            case SCCP_ATTRIBUTES.PASSWORD_REMINDER_ACTIVE:
+                this.uiParams.devicesObj.DeviceData.ch1SwitchOffPreWarning = attrValue[0];
+                break;
             default:
             break;
         }

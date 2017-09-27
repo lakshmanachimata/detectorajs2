@@ -163,6 +163,8 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
                 SCCP_ATTRIBUTES.CH2_ON_OFF_STATE,                                         
                 SCCP_ATTRIBUTES.TEST_MODE_ENABLE,                                         
                 SCCP_ATTRIBUTES.ACCESS_LEVEL,
+                SCCP_ATTRIBUTES.END_USER_PASSWORD_LENGTH,
+                SCCP_ATTRIBUTES.PASSWORD_REMINDER_ACTIVE,
                 ]
 
   arrayReadAttrs = [
@@ -502,12 +504,14 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
 
   onNonArrayRead(){
     if(this.data.getDeviceConnectionState() == true){
-      if(this.data.getFromRoot() == true )
+      if(this.data.getFromRoot() == true ){
         this.data.readArrayData(this.arrayReadAttrs);
+      }
       else 
         this.loadingDataDone = true;
     }
   }
+  
   onBLEdata(isRead,iswrite) {
     if(iswrite == true){
       this.zone.run( () => { // Change the property within the zone, CD will run after
@@ -518,6 +522,7 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
       this.loadingDataDone =  true;
     }
     if(isRead){
+      this.checkPWDReminder()
       setTimeout(()=> 
           this.subcribeForDetails(), 1000
       )
@@ -542,6 +547,13 @@ export class CDetectorEComponent implements OnChanges,OnInit ,DoCheck,AfterConte
     this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
       });
+  }
+
+  checkPWDReminder(){
+    if (this.ad.enduserpwdlength == 0 && this.ad.passwordreminder==1){
+      this.logger.log("PWD REMINDER IS ACTIVE")
+      // Show PWD REMINDER
+    }
   }
 
   setDeviceInfo(){
