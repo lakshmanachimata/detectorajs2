@@ -1140,15 +1140,19 @@ export class DataService {
     }
     onInstallerAccessSuccess(){
         this.activeComponent.onInstallerAccessSuccess();
+        this.onAccessLevelUpdate(2)
     }
     onInstallerAccessDenied(){
         this.activeComponent.onInstallerAccessDenied();
+        this.onAccessLevelUpdate(0)
     }
     onUserAccessSuccess(){
         this.activeComponent.onUserAccessSuccess();
+        this.onAccessLevelUpdate(1)
     }
     onUserAccessDenied(){
         this.activeComponent.onUserAccessDenied();
+        this.onAccessLevelUpdate(0)
     }
     setAuthGenData(indata){
         let authData = [];

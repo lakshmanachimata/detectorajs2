@@ -251,8 +251,8 @@
             </div>
             <div *ngIf="ad.burnInEnable && ad.deviceType == 'daliMaster1c'">
                     <label class="bj-config-lbl sensor-div" >{{ this.data.getTranslatedString("Burn in mode") }}</label>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl" >{{ this.data.getTranslatedString("Steady") }}</label><input type="radio" class="circuit-radio"  (ngModelChange)="burnInModeChange()" [(ngModel)]="ad.burnInMode" [checked]="ad.burnInMode === 0" name="burn_in_mode" [value]="0"/></div>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl" >{{ this.data.getTranslatedString("Accumulated") }}</label><input type="radio" class="circuit-radio"  (ngModelChange)="burnInModeChange()" [(ngModel)]="ad.burnInMode" [checked]="ad.burnInMode === 1" name="burn_in_mode" [value]="1"/></div>
+                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl" >{{ this.data.getTranslatedString("Steady") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.burnInMode" (ngModelChange)="burnInModeChange()"  [checked]="ad.burnInMode === 0" name="burn_in_mode" [value]="0"/></div>
+                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl" >{{ this.data.getTranslatedString("Accumulated") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.burnInMode"  (ngModelChange)="burnInModeChange()"  [checked]="ad.burnInMode === 1" name="burn_in_mode" [value]="1"/></div>
                 <div class="bj-config-setting inner-setting actuator1 burnInTime" >
                     <label class="actuator-burinin-switching-lbl">Duration for burn in({{ad.burnInDurationMin}} h - {{ad.burnInDurationMax}} h)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">

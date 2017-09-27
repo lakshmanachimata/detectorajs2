@@ -514,7 +514,7 @@ function setDeviceDateTime(){
         var hexData = [];
         if(debugLogs ==  true)
             hexData = getHexDataOfData(data)
-        bjeLog('TX PKT ' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
+        bjeLog('TX TIME PKT ' + ++sendPacketCounter +'  write frame  ' + hexData.join(','))
     }
      else {
         var message = {"send":data}
@@ -734,7 +734,7 @@ function prepareAttributeArray(indata) {
 
             if(indata[5] == 0){
                 appDataService.onAccessLevelUpdate(0);
-                //setDeviceDateTime()
+                setDeviceDateTime()
             }else {
                 appDataService.onAccessLevelUpdate(-1);
                 getGeneratedAuth();
@@ -743,11 +743,11 @@ function prepareAttributeArray(indata) {
         }
 
         if(indata[3] == 0x60){
-            if(indata[5] == 0)
-                appDataService.onAccessLevelUpdate(0);
-            else{
+            // if(indata[5] == 0)
+            //     appDataService.onAccessLevelUpdate(0);
+            // else{
 
-            }
+            // }
             return;
         }
         if(indata[3] == 0x0B){
@@ -769,6 +769,7 @@ function prepareAttributeArray(indata) {
         if(indata[3] == 0x0D){
             if(indata[5] == 0){
                 appDataService.onInstallerAccessSuccess()
+                setDeviceDateTime()                
              }else{
                 appDataService.onInstallerAccessDenied()
                 getGeneratedAuth();
@@ -778,6 +779,7 @@ function prepareAttributeArray(indata) {
         if(indata[3] == 0x0E){
             if(indata[5] == 0){
                 appDataService.onUserAccessSuccess()
+                setDeviceDateTime()                
              }else{
                 appDataService.onUserAccessDenied()
                 getGeneratedAuth();

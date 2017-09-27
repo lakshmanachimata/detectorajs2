@@ -18,6 +18,7 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -78,6 +79,7 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.security.KeyFactory;
 import java.security.KeyStore;
@@ -204,7 +206,7 @@ public class MainActivity extends Activity {
     private WebView webview;
     View splashScreen;
     View mainScreen;
-
+    ScanCallback callback;
     ArrayList<String> fwFilesList = new ArrayList<>();
 
     BluetoothManager bluetoothManager;
@@ -538,7 +540,7 @@ public class MainActivity extends Activity {
     }
     public void killApp(){
         if(scanner != null)
-            scanner.stopScan(bleCallback);
+            scanner.stopScan(callback);
         if(mBluetoothLeService.mConnectionState == BluetoothLeService.STATE_CONNECTED ||
                 mBluetoothLeService.mConnectionState ==  BluetoothLeService.STATE_CONNECTING ) {
             mBluetoothLeService.disconnect();
@@ -1444,150 +1446,167 @@ public class MainActivity extends Activity {
         FHHandler.sendEmptyMessage(MyHandler.MSG_EMIT_NEXT_EVENT);
     }
 
-    ScanCallback bleCallback =  new ScanCallback() {
+    public static List<UUID> parseFromAdvertisementData(byte[] advertisedData) {
+        List<UUID> uuids = new ArrayList<UUID>();
+
+        ByteBuffer buffer = ByteBuffer.wrap(advertisedData).order(ByteOrder.LITTLE_ENDIAN);
+        while (buffer.remaining() > 2) {
+            byte length = buffer.get();
+            if (length == 0) break;
+
+            byte type = buffer.get();
+            --length;
+
+            switch (type) {
+                case 0x02: // Partial list of 16-bit UUIDs
+                case 0x03: // Complete list of 16-bit UUIDs
+                    while (length >= 2 && buffer.remaining() >= 2) {
+                        uuids.add(UUID.fromString(String.format(
+                                "%08x-0000-1000-8000-00805f9b34fb", buffer.getShort())));
+                        length -= 2;
+                    }
+                    break;
+
+                case 0x06: // Partial list of 128-bit UUIDs
+                case 0x07: // Complete list of 128-bit UUIDs
+                    while (length >= 16 && buffer.remaining() >= 16) {
+                        long lsb = buffer.getLong();
+                        long msb = buffer.getLong();
+                        uuids.add(new UUID(msb, lsb));
+                        length -= 16;
+                    }
+                    break;
+            }
+
+            if (length > buffer.remaining())
+                break;
+            buffer.position(buffer.position() + length);
+        }
+
+        return uuids;
+    }
+
+    private BluetoothAdapter.LeScanCallback bleCallback = new BluetoothAdapter.LeScanCallback()  {
         @Override
-        public void onScanResult(int callbackType, final ScanResult result) {
+        public void onLeScan(final BluetoothDevice device, final int rssi,
+                             final byte[] scanRecord) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    BluetoothDevice device = result.getDevice();
-                    Log.d(MainActivity.LOG_TAG,"GOT SCAN CALLBACK   " + device.getAddress());
-                    ScanRecord scanRecord = result.getScanRecord();
-                    List<ParcelUuid> sUUIDs = scanRecord.getServiceUuids();
+                    Log.d(MainActivity.LOG_TAG, "GOT SCAN CALLBACK   " + device.getAddress());
+                    List<UUID> sUUIDs = parseFromAdvertisementData(scanRecord);
                     boolean isABBPresenseDetector = false;
-                    boolean isSUOTASupported =  false;
+                    boolean isSUOTASupported = false;
                     if (sUUIDs != null) {
-                        for (int i = 0; i < sUUIDs.size(); i++) {
-                            if (DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ||
-                                    NEW_DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ) {
-                                isABBPresenseDetector = true;
-                            }
-                            if (SUOTA_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ||
-                                    NEW_DSPS_SERVICE.equalsIgnoreCase(sUUIDs.get(i).getUuid().toString()) ) {
-                                isSUOTASupported = true;
-                            }
-                        }
-
-                        if (isABBPresenseDetector == true) {
-                            if (mBluetoothLeService != null) {
-                                boolean deviceExists = false;
-                                SparseArray<byte[]> manufacturerSpecificData = scanRecord.getManufacturerSpecificData();
-
-                                for (int i = 0; i < scannedDevices.size(); i++) {
-                                    if (device.getAddress().equals(scannedDevices.get(i).btAddress)) {
-                                        deviceExists = true;
-                                        break;
-                                    }
+                        for (UUID uuid : sUUIDs) {
+                            {
+                                if (DSPS_SERVICE.equalsIgnoreCase(uuid.toString()) ||
+                                        NEW_DSPS_SERVICE.equalsIgnoreCase(uuid.toString())) {
+                                    isABBPresenseDetector = true;
                                 }
-                                if (deviceExists == false) {
-                                    DetectorInfo deviceInfo = new DetectorInfo();
-                                    deviceInfo.hashCode = Integer.toString(device.hashCode());
-                                    deviceInfo.btAddress = device.getAddress();
-                                    deviceInfo.btDeviceName = device.getName();
-                                    deviceInfo.rssi = Integer.toString(result.getRssi());
-                                    deviceInfo.OTASupported =  isSUOTASupported;
+                                if (SUOTA_SERVICE.equalsIgnoreCase(uuid.toString()) ||
+                                        NEW_DSPS_SERVICE.equalsIgnoreCase(uuid.toString())) {
+                                    isSUOTASupported = true;
+                                }
+                            }
 
-                                    byte[] manufactureDataBytes = manufacturerSpecificData.valueAt(0);
-                                    StringBuilder firmwareVersionStr = new StringBuilder();
-                                    StringBuilder modelNumber = new StringBuilder();
-                                    try {
-                                        for (int j = 4; j >= 2; j--) {
-                                            firmwareVersionStr.append(manufactureDataBytes[j]);
-                                            if(j != 2)
-                                            firmwareVersionStr.append(".");
+                            if (isABBPresenseDetector == true) {
+                                if (mBluetoothLeService != null) {
+                                    boolean deviceExists = false;
+
+                                    for (int i = 0; i < scannedDevices.size(); i++) {
+                                        if (device.getAddress().equals(scannedDevices.get(i).btAddress)) {
+                                            deviceExists = true;
+                                            break;
                                         }
-                                        modelNumber.append(String.format("%02X", manufactureDataBytes[6]));
-                                        modelNumber.append(String.format("%02X", manufactureDataBytes[8]));
-                                        modelNumber.append("/");
-                                        modelNumber.append(String.format("%02X", manufactureDataBytes[7]));
                                     }
-                                    catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    deviceInfo.fwupdate = "0";
-                                    String llfw =  firmwareVersionStr.toString();
-                                    String devVersion[] = llfw.split("\\.");
-                                    deviceInfo.modelNumber = modelNumber.toString();
-                                    if( deviceInfo.modelNumber.contains("05")){
-                                        deviceInfo.deviceType = "daliMaster1c";
-                                        if(daliFWVersion.length() > 0){
-                                            String latestVersion[] =  daliFWVersion.split("\\.");
+                                    if (deviceExists == false) {
+                                        DetectorInfo deviceInfo = new DetectorInfo();
+                                        deviceInfo.hashCode = Integer.toString(device.hashCode());
+                                        deviceInfo.btAddress = device.getAddress();
+                                        deviceInfo.btDeviceName = device.getName();
+                                        deviceInfo.rssi = Integer.toString(rssi);
+                                        deviceInfo.OTASupported = isSUOTASupported;
 
-                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
-                                                deviceInfo.fwupdate = "1";
+                                        byte[] manufactureDataBytes = scanRecord;
+                                        StringBuilder firmwareVersionStr = new StringBuilder();
+                                        StringBuilder modelNumber = new StringBuilder();
+                                        try {
+                                            for (int j = 50; j >= 48; j--) {
+                                                firmwareVersionStr.append(manufactureDataBytes[j]);
+                                                if (j != 48)
+                                                    firmwareVersionStr.append(".");
                                             }
-                                            deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            modelNumber.append(String.format("%02X", manufactureDataBytes[52]));
+                                            modelNumber.append(String.format("%02X", manufactureDataBytes[53]));
+                                            modelNumber.append("/");
+                                            modelNumber.append(String.format("%02X", manufactureDataBytes[54]));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        deviceInfo.fwupdate = "0";
+                                        String llfw = firmwareVersionStr.toString();
+                                        String devVersion[] = llfw.split("\\.");
+                                        deviceInfo.modelNumber = modelNumber.toString();
+                                        if (deviceInfo.modelNumber.contains("05")) {
+                                            deviceInfo.deviceType = "daliMaster1c";
+                                            if (daliFWVersion.length() > 0) {
+                                                String latestVersion[] = daliFWVersion.split("\\.");
+
+                                                if (Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                }
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+
+                                            }
 
                                         }
+                                        if (deviceInfo.modelNumber.contains("03")) {
+                                            deviceInfo.deviceType = "mosfet1c";
+                                            if (mosfetFWVersion.length() > 0) {
+                                                String latestVersion[] = mosfetFWVersion.split("\\.");
 
-                                    }
-                                    if( deviceInfo.modelNumber.contains("03")) {
-                                        deviceInfo.deviceType = "mosfet1c";
-                                        if(mosfetFWVersion.length() > 0){
-                                            String latestVersion[] =  mosfetFWVersion.split("\\.");
-
-                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
-                                                deviceInfo.fwupdate = "1";
-                                            }deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                                if (Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                }
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            }
                                         }
-                                    }
-                                    if(deviceInfo.modelNumber.contains("01")) {
+                                        if (deviceInfo.modelNumber.contains("01")) {
                                             deviceInfo.deviceType = "relay1c";
-                                        if(relaisFWVersion.length() > 0){
-                                            String latestVersion[] =  relaisFWVersion.split("\\.");
+                                            if (relaisFWVersion.length() > 0) {
+                                                String latestVersion[] = relaisFWVersion.split("\\.");
 
-                                            if(Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])){
-                                                deviceInfo.fwupdate = "1";
-                                            }else if(Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
-                                                deviceInfo.fwupdate = "1";
-                                            }deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                                if (Integer.parseInt(latestVersion[0]) > Integer.parseInt(devVersion[0])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[1]) > Integer.parseInt(devVersion[1])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                } else if (Integer.parseInt(latestVersion[2]) > Integer.parseInt(devVersion[2])) {
+                                                    deviceInfo.fwupdate = "1";
+                                                }
+                                                deviceInfo.firmwareVersion = firmwareVersionStr.toString();
+                                            }
                                         }
+                                        scannedDevices.add(deviceInfo);
                                     }
-                                    scannedDevices.add(deviceInfo);
                                 }
                             }
                         }
+                        if (scannedDevices.size() > 0)
+                            sendDeviceInfo();
                     }
-                    if(scannedDevices.size() >0)
-                        sendDeviceInfo();
                 }
 
             });
-            super.onScanResult(callbackType, result);
         }
-
-        /**
-         * Callback when batch results are delivered.
-         *
-         * @param results List of scan results that are previously scanned.
-         */
-        @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            Log.d(MainActivity.LOG_TAG, "onBatchScanResults  " + results.size());
-            super.onBatchScanResults(results);
-        }
-
-        /**
-         * Callback when scan could not be started.
-         *
-         * @param errorCode Error code (one of SCAN_FAILED_*) for scan failure.
-         */
-        @Override
-        public void onScanFailed(int errorCode) {
-            Log.d(MainActivity.LOG_TAG, "onScanFailed  " + errorCode);
-            super.onScanFailed(errorCode);
-        }
-
     };
 
     @Override
@@ -1601,7 +1620,12 @@ public class MainActivity extends Activity {
 
     }
 
+
     private void scanLeDevice(final boolean enable) {
+
+        scanner = mBluetoothAdapter.getBluetoothLeScanner();
+
+        ScanSettings settings = null;
 
         if (enable) {
             if(isScanning == true){
@@ -1614,24 +1638,39 @@ public class MainActivity extends Activity {
             }
             scannedDevices.clear();
             // Stops scanning after a pre-defined scan period.
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if(scanner != null) {
-                        scanner.stopScan(bleCallback);
-                        isScanning  = false;
-                    }
-                }
-            }, SCAN_PERIOD);
 
             if(scanner != null) {
-                scanner.startScan(bleCallback);
-                scanner.flushPendingScanResults(bleCallback);
+                settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).setReportDelay(0).build();
+//                scanner.flushPendingScanResults(bleCallback);
                 isScanning = true;
+
+                callback = new ScanCallback() {
+                    @Override
+                    public void onScanResult(int callbackType, ScanResult result) {
+                        bleCallback.onLeScan(result.getDevice(), result.getRssi(), result.getScanRecord().getBytes());
+                    }
+
+                    @Override
+                    public void onBatchScanResults(List<ScanResult> results) {
+                        for (ScanResult result : results)
+                            bleCallback.onLeScan(result.getDevice(), result.getRssi(), result.getScanRecord().getBytes());
+                    }
+                };
+                scanner.startScan(null, settings,callback);
+
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(scanner != null) {
+                            scanner.stopScan(callback);
+                            isScanning  = false;
+                        }
+                    }
+                }, SCAN_PERIOD);
             }
         } else {
             if(scanner != null) {
-                scanner.stopScan(bleCallback);
+                scanner.stopScan(callback);
                 isScanning = false;
             }
         }
