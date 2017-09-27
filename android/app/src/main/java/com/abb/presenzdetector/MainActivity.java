@@ -502,18 +502,42 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void updateAppFWPercentage(int val){
-        try {
-            JSONObject demoData = new JSONObject();
-            demoData.put("percentage", val);
-            String demoSData = "";
-            demoSData = demoSData + "onFirwareUpdateState(";
-            demoSData =  demoSData + demoData.toString()+ ")";
-            webview.evaluateJavascript(demoSData,null);
+    public void updateAppFWPercentage(final int val){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject demoData = new JSONObject();
+                    demoData.put("percentage", val);
+                    String demoSData = "";
+                    demoSData = demoSData + "onFirwareUpdateState(";
+                    demoSData =  demoSData + demoData.toString()+ ")";
+                    webview.evaluateJavascript(demoSData,null);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    public  void setResetCommand(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject demoData = new JSONObject();
+                    String demoSData = "";
+                    demoSData = demoSData + "sendReset(";
+                    demoSData =  demoSData + demoData.toString()+ ")";
+                    webview.evaluateJavascript(demoSData,null);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void showMessageIfNoDevicesAreAvailable(){
@@ -1066,6 +1090,12 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void reLaunchMe(){
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 
     void notifyAppAboutConnection(final boolean isConnection){
         Log.d(LOG_TAG,"notifyAppAboutConnection state " + isConnection);

@@ -366,7 +366,8 @@ public abstract class BJBLEManager {
 		finished = true;
 		refreshPending = true;
 		activity.log("Upload completed");
-		sendRebootSignal();
+//		sendRebootSignal();
+		activity.setResetCommand();
 		}
 
 	public void onError(int errorCode) {

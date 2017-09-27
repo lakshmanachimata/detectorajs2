@@ -80,5 +80,9 @@ public class WebInterface {
         mainActivity.killApp();
     }
 
+    @JavascriptInterface
+    public void reLaunchMe(){
+        mainActivity.reLaunchMe();
+    }
 
 }

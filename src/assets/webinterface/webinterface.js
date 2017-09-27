@@ -297,6 +297,10 @@ function getIdentifyCommanmdFrame(cmd){
     return frame;
 }
 
+function sendReset(){
+    resetCmd(0x01);
+}
+
 function resetCmd(resetCmd) {
     var data = getResetCommandFrame(resetCmd);
     if(BJE != undefined){
