@@ -1,55 +1,108 @@
 <div class="bj-config-container-user">
-     <img id="mySpinner" src="assets/icons/spinner_user.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
-      <div id="bj-user-config-settings-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
+    <img id="mySpinner" src="assets/icons/spinner_user.gif" *ngIf=" this.data.DeviceBuild == 1 && !loadingDataDone" />
+    <div id="bj-user-config-settings-container" *ngIf="loadingDataDone || this.data.DeviceBuild == 0">
         <div id="bj-light-settings-div">
-            <div class="bj-user-config-setting-div light1-div">
-                <label class="light-name" >{{ this.data.getTranslatedString("Light 1") }}</label>
-                <label class="bj-light-brightness-lbl" *ngIf="ad.deviceType == 'daliMaster1c'" >{{ad.ch1CurrentLevel}}%</label>
-                <div class="bulb-channel-info light1-div light-flex">
-                    <div class="slide-prev light1 arrow-prev-flex" (click)="slidePrev()"  *ngIf="light1state != 0"><span class="glyphicon glyphicon-menu-left"></span></div>
-                    <div class="channel-info channel-flex">
-                        <div class="bulb-glow light1" *ngIf="light1state==0">
-                            <img class="bulb-glow light1"  src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on light1" src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+            <div class="bj-config-setting-div actuator1-div">
+                <div class="bj-actuator-brightness">
+                    <div class="bj-actuator-bulb actuator1">
+                        <label class="actuator-name">{{ this.data.getTranslatedString("Light 1") }}</label>
+                        <div class="bulb-glow" *ngIf="!ad.ch1OnOffState">
+                            <img class="bulb-off" *ngIf="!ad.ch1OnOffState" src="assets/icons/light-off_001001.svg" alt="bulb_inactive" (click)="toggleActuator(1,0)">
                         </div>
-
-                        <div class="bulb-glow light1" *ngIf="light1state==1">
-                            <img class="bulb-glow light1"  src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on light1"  src="assets/icons/08_022_light_forced_act.svg" alt="bulb_active">
-                        </div>
-                        <div class="bulb-glow light1" *ngIf="light1state==2">
-                            <img class="bulb-on light1 state2" src="assets/icons/08_022_light_forced_deact.svg" alt="bulb_active">
-                        </div>
-                        <div class="bulb-glow light1" *ngIf="light1state==3">
-                            <img class="bulb-glow light1" src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                            <img class="bulb-on light1" src="assets/icons/14_008_application_switching_def.svg" alt="bulb_active">
+                        <div class="bulb-glow" *ngIf="ad.ch1OnOffState">
+                            <div class="bulb-aura"></div>
+                            <img [ngStyle]="getLightIntensity()" class="bulb-on" *ngIf="ad.ch1OnOffState" src="assets/icons/light-on-detail_001003.svg"
+                                alt="bulb_active" (click)="toggleActuator(0,0)">
                         </div>
                     </div>
-                    <div class="slide-next light1 arrow-next-flex" (click)="slideNext()" *ngIf="light1state < 3" ><span class="glyphicon glyphicon-menu-right"></span></div>
-                </div>
-                <div class="bj-brightness-slider light1" *ngIf="ad.deviceType == 'daliMaster1c'">
-                    <div class="bj-slider-control light1">
-                        <input class = "actuator-range" type="range" name="points" min="0" max="100" step="1" (ngModelChange)="brightnessChanged()"   [(ngModel)]="ad.ch1CurrentLevel" [ngStyle]="slideBackground(ad.ch1CurrentLevel)">
+                    <div class="bj-actuator-slider">
+                        <!-- <label class="bj-brightness-lbl">{{ad.ch1CurrentLevel}}%</label> -->
+                        <!-- <div class="slide-open" (click)="slideBrightnessIn()"><span class="glyphicon glyphicon-menu-left"></span></div> -->
+                        <div class="bj-actuator-auto">
+                            <img (click)="operationModeChanged(0)" class="bulb-auto" src="assets/icons/auto_003032.svg" alt="auto_mode" [ngStyle]="operatingModeStatus(0)"
+                            />
+                        </div>
+                        <div class="bj-actuator-timed">
+                            <div class="bj-actuator-timed-on">
+                                <img (click)="operationModeChanged(2)" class="bulb-timed-on" src="assets/icons/light-timed-on_001007.svg" alt="timed_on"
+                                    [ngStyle]="operatingModeStatus(2)" />
+                            </div>
+                            <div class="bj-actuator-timed-off">
+                                <img (click)="operationModeChanged(3)" class="bulb-timed-off" src="assets/icons/light-timed-off_001006.svg" alt="timed_off"
+                                    [ngStyle]="operatingModeStatus(3)" />
+                            </div>
+                        </div>
+                        <div class="bj-slider-level">
+                            <img class="slider-dim" *ngIf="ad.deviceType == 'daliMaster1c' && ad.burnInEnable == true" src="assets/icons/dim_001026_strike_through.svg"
+                                alt="slider_disabled" />
+                            <label *ngIf="ad.deviceType == 'daliMaster1c' && ad.burnInEnable == false" class="bj-brightness-lbl">{{ad.ch1CurrentLevel}}%</label>
+                        </div>
+                    </div>
+                    <!-- <div class="bj-brightness-slider" *ngIf="ad.deviceType == 'daliMaster1c'" [@slideIn1]="aslider" (@slideIn1.start)="animationStarted($event)" (@slideIn1.done)="animationDone($event)"> -->
+                    <div class="bj-brightness-slider" *ngIf="ad.deviceType == 'daliMaster1c'">
+                        <!-- <div class="slide-close" (click)="slideBrightnessOut()"><span class="glyphicon glyphicon-menu-right"></span></div>  -->
+                        <!-- <div class="bj-slider-control" [@slideIn2]="aslider" (@slideIn2.start)="animationStarted($event)" (@slideIn2.done)="animationDone($event)"> -->
+                        <div class="bj-slider-control">
+                            <input [disabled]="ad.deviceType == 'daliMaster1c' && ad.burnInEnable == true" class="actuator-range" type="range" name="points"
+                                min="0" max="100" step="1" (click)="switchToManualMode()" (ngModelChange)="brightnessChanged()"
+                                [(ngModel)]="ad.ch1CurrentLevel" [ngStyle]="slideBackground(ad.ch1CurrentLevel)">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bj-user-config-setting-div light2-div" *ngIf="ad.deviceType == 'daliMaster1c'">
-                <label class="light-name" >{{ this.data.getTranslatedString("Light 2") }}</label>
-                <div class="bulb-channel-info light2-div">
-                    <div class="bulb-glow light2" >
-                        <img class="bulb-glow light2"  src="assets/icons/08_002_lightglow_def.svg" alt="bulb_glow">
-                        <img class="bulb-on light2"  src="assets/icons/08_001_light_act.svg" alt="bulb_active">
+
+            <!-- Actuator 2 -->
+            <!-- gopal:) hiding the hvac based on the condition # PDAL-2929, PDAL-2926,  -->
+            <div class="bj-config-setting-div hvac-div" *ngIf="(ad.deviceType == 'daliMaster1c' && ad.ch2Mode == 6)">
+                <div class="bj-hvac-status">
+                    <div class="bj-actuator-hvac actuator1">
+                        <label class="actuator-name">{{ this.data.getTranslatedString("HVAC") }}</label>
+                        <div class="hvac-state-holder">
+                            <img (click)="toggleActuator(ad.ch2OnOffState?0:1, 1)" class="hvac-state-icon" [src]="getHvacState()" alt="HVAC State" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- gopal:) hiding the blackboard light based on the condition # PDAL-2929, PDAL-2926, -->
+            <div class="bj-config-setting-div hvac-dev blackboard-light-div" *ngIf="(ad.deviceType == 'daliMaster1c' && ad.ch2Mode == 4)">
+                <div class="bj-bbl-status">
+                    <div class="bj-actuator-hvac actuator1">
+                        <label class="actuator-name">{{ this.data.getTranslatedString("Blackboard Lighting") }}</label>
+                        <div class="hvac-state-holder">
+                            <img (click)="toggleActuator(ad.ch2OnOffState?0:1, 1)" class="bbl-state-icon" [src]="getBlackBoardLightState()" alt="Black Board Lighting"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- gopal:) hiding the actuator 2 based on the condition # PDAL-2929, PDAL-2926, -->
+            <div class="bj-config-setting-div hvac-dev blackboard-light-div" *ngIf="(ad.deviceType == 'daliMaster1c' && (ad.ch2Mode == 5 || ad.ch2Mode == 1))">
+                <div class="bj-bbl-status">
+                    <div class="bj-actuator-hvac actuator1">
+                        <label class="actuator-name">{{ this.data.getTranslatedString("Actuator 2") }}</label>
+                        <div class="hvac-state-holder">
+                            <img (click)="toggleActuator(ad.ch2OnOffState?0:1, 1)" class="bbl-state-icon" [src]="getActuator2State()" alt="Actuator 2"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="bj-other-user-settings-div">
-            <label class="bj-config-lbl other-settings-div">Other settings</label>
-            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()" *ngIf="ad.enableUserEnergyMonitor"><!--Fix for PDAL-2247 -->
-                <label class="bj-config-setting user-energy-monitor-block">{{ this.data.getTranslatedString("Energy monitor") }}</label><div class="slide-next energy-monitor"><span class="glyphicon glyphicon-menu-right"></span></div>
+            <label *ngIf="0" class="bj-config-lbl other-settings-div">Other settings</label>
+            <div class="bj-config-setting-div other-settings-div" (click)="gotoEnergySettings()" *ngIf="ad.enableUserEnergyMonitor">
+                <!--Fix for PDAL-2247 -->
+                <label class="bj-config-setting user-energy-monitor-block">{{ this.data.getTranslatedString("Energy monitor") }}</label>
+                <div class="slide-next energy-monitor">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </div>
             </div>
             <div class="bj-config-setting-div other-settings-div" (click)="gotoSettings()">
-                <label class="bj-config-setting user-settings-block" >{{ this.data.getTranslatedString("Settings") }}</label><div class="slide-next settings"><span class="glyphicon glyphicon-menu-right"></span></div>
+                <label class="bj-config-setting user-settings-block">{{ this.data.getTranslatedString("Settings") }}</label>
+                <div class="slide-next settings">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </div>
             </div>
             <!-- <div class="bj-config-setting-div other-settings-div" (click)="gotoTestMode()">
                     <label class="bj-config-setting user-settings-block" >{{ this.data.getTranslatedString("Test mode") }}</label><div class="slide-next settings"><span class="glyphicon glyphicon-menu-right"></span></div>

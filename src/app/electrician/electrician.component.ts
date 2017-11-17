@@ -38,6 +38,18 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       this.selectedDevice = false;
     }
   configureDetector(item){
+
+    if(this.identifyingDevice != undefined){
+      if((this.data.getIdentifyDevicePending() == 2) && (item.btAddress==this.identifyingDevice.btAddress)){
+        this.removeIdentifyingDevice();
+        return;
+      }
+    }
+
+    // if((this.data.getDeviceConnectionState() == true)){
+    //   this.removeIdentifyingDevice();
+    //   return;
+    // }
       if(this.data.getAccessLevel() == 2){
         this.selectedDevice = true;
         this.jsonOnLoad(this)
@@ -55,6 +67,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           this.data.setAccessLevel();
       }
       else {
+        console.log("init device 1 called");
         this.data.initDeviceData(false);
       }
   }
@@ -65,9 +78,19 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   showPWDDialog(){
+
+    console.log("show pwd dialog called!!"); 
         this.data.setEOptionText(this.translater.translate('OK'));
         this.data.setEDialogInputHint(this.translater.translate('Enter password'));
-        this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
+        if(this.data.isWrongPWEntered() && this.data.uiParams.numberOfPasswordMistakes < 2){
+          this.data.setDialogTitle(this.translater.translate('Wrong password'));                    
+        }else if(this.data.isWrongPWEntered() && this.data.uiParams.numberOfPasswordMistakes >= 2){
+          this.data.setDialogTitle(this.translater.translate('Wrong password'));
+          this.data.setRetypeText(this.translater.translate('Retype password in'));
+        }
+        else{
+          this.data.setDialogTitle(this.translater.translate('Enter password for device'));          
+        }
         this.data.setShowEModal(true);
         this.ngAfterViewChecked();
   }
@@ -98,12 +121,13 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
         this.detectors = this.data.getDevices(false);
       }
     }
-    this.data.setMainTitle(this.translater.translate('Detectors'));
+    this.data.setMainTitle(this.translater.translate('Devices'));
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('electrician');
     this.data.setProfileSwitch(true);
     this.data.setEDevParamsState(0);
+    this.data.setShowHomeButton(true); //PDAL-2577
   }
 
   updateDemoDevices(){
@@ -136,7 +160,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
           detectorInfo.identify='0';
           this.detectors.push(detectorInfo);
         }
-        this.data.setMainTitle(this.translater.translate('Detectors'));
+        this.data.setMainTitle(this.translater.translate('Devices'));
         this.data.setEDevParamsState(0);
         });
       }
@@ -180,6 +204,8 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
     if(this.data.getIdentifyDevicePending() == 2){
         this.data.sendRemoveIdentifyCommand()
         this.data.setIdentifyDeviceState(0)
+        // Added by Laxmi
+        this.data.disConnectDevice();
         if(this.data.isIPhone == 1){
           for(let i =0; i<this.detectors.length; i++){
             if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
@@ -242,25 +268,45 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
 
   identifyDevice(item){
-    this.removeIdentifyingDevice()
-    if(this.data.getIdentifyDevicePending() > 0 ){
-      return;
-    }else {
-      this.data.setIdentifyDeviceState(1);
-      this.identifyingDevice = item;
-      if(this.data.isIPhone == 1)
-        this.data.connectDevice(item.btIAddress);
-      else
-        this.data.connectDevice(item.btAddress); 
+
+    if(this.identifyingDevice != undefined)
+    {
+      if(this.data.getIdentifyDevicePending()==2){
+        this.removeIdentifyingDevice();
+        return;
+      }
     }
+    else{
+      if(this.data.getIdentifyDevicePending() == 2 ){
+        this.removeIdentifyingDevice();
+        return;
+      }
+      else {
+        this.data.setIdentifyDeviceState(1);
+        this.identifyingDevice = item;
+        if(this.data.isIPhone == 1)
+          this.data.connectDevice(item.btIAddress);
+        else
+          this.data.connectDevice(item.btAddress); 
+      }
+    }
+
+
+    
+    
   }
 
   onInstallerAccessSuccess(){
     if(this.data.getDeviceConnectionState() ==  true)
+    console.log("init device 2 called");
+      this.data.wrongPWEntered(false);  /*Added by BikashV*/
       this.data.initDeviceData(false);
   }
   onInstallerAccessDenied(){
+    console.log("on installer access denied"); 
       this.zone.run( () => { // Change the property within the zone, CD will run after
+        this.data.wrongPWEntered(true);
+        this.data.uiParams.numberOfPasswordMistakes +=1;
         this.showPWDDialog();
          this.data.setEDevParamsState(0);
       });
@@ -268,7 +314,7 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
   jsonOnLoad(component) {
     // if(this.data.getDeviceConnectionState() == true && this.data.DeviceBuild == 1){
-      
+      console.log("page redirect called!!"); 
     // }
     // else {
 
@@ -287,13 +333,15 @@ export class ElectricianComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   onDeviceConnected(address){
   }
   onAccessLevelUpdate(accessLevel){
-    if(accessLevel == -1){
+    if((accessLevel == -1) || (this.data.isWrongPWEntered())){  /*Added by BikashV*/
       this.zone.run( () => { // Change the property within the zone, CD will run after
+      console.log("on access level update"); 
         this.showPWDDialog();
          this.data.setEDevParamsState(0);
       });
     }else {
       if(this.data.getDeviceConnectionState() ==  true)
+      console.log("init device 3 called");
         this.data.initDeviceData(false);
       }
       //this.data.setAccessLevelRequsetedAddress('')

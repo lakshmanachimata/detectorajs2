@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 import WebKit
 /// BLE Helper class
-class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+ @objc class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var memoryType : UInt32 = 0x13
     var memoryBank : Int = 0
@@ -22,13 +22,14 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var spiCS : UInt32 = 0x03
     var spiSCK : UInt32 = 0x00
     var fwUpdateFilePath : String = "";
+    var fileURL: URL?
     
     var step : Int = 0
     var nextStep : Int = 0
     var chunkSize : Int = 20
     var blockStartByte : Int = 0
     
-    var fileData : Data? = Data()
+    var fileData : Data? =    Data()
     
     
     var titles: [String] = ["P0_0", "P0_1", "P0_2", "P0_3", "P0_4", "P0_5", "P0_6", "P0_7", "P1_0", "P1_1", "P1_2", "P1_3", "P2_0", "P2_1", "P2_2", "P2_3", "P2_4", "P2_5", "P2_6", "P2_7", "P2_8", "P2_9", "P3_0", "P3_1", "P3_2", "P3_3", "P3_4", "P3_5", "P3_6", "P3_7"]
@@ -63,6 +64,9 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         self.mainView = topView;
     }
     
+     override init() {
+        
+    }
     deinit {
         // perform the deinitialization
         //disConnect()
@@ -72,8 +76,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func setup() {
         scannedDevices = [];
         manager = CBCentralManager(delegate: self, queue: nil)
-        
-
         
     }
     
@@ -103,13 +105,40 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
     }
     
+    @objc func resetCommand(){
+        DispatchQueue.global(qos: .background).async {
+          //  let jsData = Utilities.jsonStringify(data: "" as AnyObject)
+            let emptyData = [NSData]()
+            let script: String = "sendReset(\(emptyData))"
+            DispatchQueue.main.async {
+                //REset command
+                self.webView?.evaluateJavaScript(script);
+            }
+        }
+    }
+    
+    func updateProgress(value: Int) {
+        DispatchQueue.global(qos: .background).async {
+            
+            var dict:Dictionary<String,Int> = [:]
+            dict["percentage"] = value
+            let jsData = Utilities.jsonStringify(data: dict as AnyObject)
+            let script: String = "onFirwareUpdateState(\(jsData))"
+            DispatchQueue.main.async {
+                self.webView?.evaluateJavaScript(script);
+            }
+        }
+    }
+    
     func stopscan(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.manager?.stopScan();
         }
     }
     
-    func connect(device: String)  {
+    func connect(device: String) {
+        
+        print("inside connect")
         peripherals.forEach { (iperipheral) in
             if(iperipheral.identifier.uuidString == device){
                 selectedperipheral = iperipheral;
@@ -134,6 +163,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         manager?.cancelPeripheralConnection(selectedperipheral)
     }
     
+    func disConnection(peripheral: CBPeripheral) {
+        manager?.cancelPeripheralConnection(peripheral)
+    }
+    
     func getServices(device: String)  {
         let services:[CBUUID] = [
             //CBUUID.init(string: SCCP_SERVICE.DSPS_SERVICE.rawValue),
@@ -142,7 +175,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             CBUUID.init(string: SCCP_SERVICE.NEW_DSPS_SERVICE.rawValue)
         ]
         selectedperipheral.discoverServices(services)
-    }
+   }
     
     func writeWithoutResponse(frame:  Data)  {
         
@@ -252,7 +285,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                     if(modelNumberStr.contains("05")){
                         detectorInfo["deviceType"] = "daliMaster1c";
                     }
-                    if(modelNumberStr.contains("03")){
+                     if(modelNumberStr.contains("03")){
                         detectorInfo["deviceType"] = "mosfet1c";
                     }
                     if(modelNumberStr.contains("01")){
@@ -308,6 +341,7 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
          DispatchQueue.global(qos: .background).async {
             let script: String = "onDeviceDisconnected(\(peripheral.identifier.uuidString))"
             DispatchQueue.main.async {
+                print("Device disconnected");
                 //Run UI Updates
                 self.webView?.evaluateJavaScript(script);
                 self.startscan()
@@ -525,21 +559,56 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
 
     func getImageListsFromBundle () {
+        
+        // Firmupdatefile taken from iTunes 
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let publicDocumentsDir: String = paths[0]
+        var error: Error?
+        let files = try? FileManager.default.contentsOfDirectory(atPath: publicDocumentsDir)
+
+        if files == nil {
+            print("Error reading contents of documents directory: \(String(describing: error?.localizedDescription))")
+        }
+        for file: String in files! {
+            if ((URL(fileURLWithPath: file).pathExtension.compare("bin", options: .caseInsensitive, range: nil, locale: .current) == .orderedSame) || (URL(fileURLWithPath: file).pathExtension.compare("img", options: .caseInsensitive, range: nil, locale: .current) == .orderedSame)){
+                let fullPath: String = URL(fileURLWithPath: publicDocumentsDir).appendingPathComponent(file).absoluteString
+                let fileURLlocal = URL(string: "file://\(fullPath)")
+                fileURL = fileURLlocal
+                let fileURLString = "file://\(fullPath)"
+                fwUpdateFilePath = fileURLString
+                step = 1
+            }
+        }
+        
+        
+        /* TODO : commented for testing
+ 
         let resourcePath : String = Bundle.main.resourcePath!
         let fwFilesPath : String = resourcePath.appending("/fwfiles")
         
         do {
             let directoryContents = try FileManager.default.contentsOfDirectory(atPath: fwFilesPath)
             fwUpdateFilePath = (fwFilesPath as NSString).appendingPathComponent(directoryContents[0])
-            step = 1;
+            step = 1
             //doStep();
             
         }catch let error{
             print("error \(error.localizedDescription)")
-        }
+        }*/
     }
     
     
+    func frmUpdate ()  {
+        let param = ParamaterStorage.getInstance()
+        if let selectperipheral = selectedperipheral {
+            param?.device = selectperipheral
+            param?.manager = SUOTAServiceManager.init(device: selectperipheral)
+        }
+        param?.file_url = fileURL//URL(fileURLWithPath: fwUpdateFilePath)
+        let firmWare = FirmWareUpdate.init()
+        firmWare.initalValues(self)
+        
+    }
     
     func didSendValueForCharacteristic(incharcharcterstic : CBCharacteristic) {
         print("didSendValueForCharacteristic " ,  step , "  " , incharcharcterstic.uuid.uuidString);

@@ -51,6 +51,8 @@ TotalSavingsYearValue = 759;
     this.maxMonth = (Math.round(this.maxMonth/10)*10) + 10;
     this.maxYear = (Math.round(this.maxYear/10)*10) + 10;
     this.data.setProfileSwitch(true)
+    this.data.setShowOnlyCancel(true);
+    this.data.setShowHomeButton(false);//PDAL-2577
     // this.data.readEMDB(0);
   }
   ngAfterContentInit() { 
@@ -66,6 +68,7 @@ TotalSavingsYearValue = 759;
   gotoReference() {
       this.router.navigate(['emreference'],{relativeTo: this.route});
       this.data.setShowOnlyCancel(false);
+      this.data.setShowHomeButton(true);//PDAL-2577
   }
   resetEM() {
     this.data.setDialogTitle(this.translater.translate("Reset "));

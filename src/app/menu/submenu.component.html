@@ -1,9 +1,7 @@
-<div class="bj-submenu-container" *ngIf="subMenuVal()== 'help'"[@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'help'" [@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
     <label class="bj-instruction help" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{heloText}}</label>
     <p class="bj-instruction-link-p">
-        <a 
-            class="bj-instruction-link help" 
-            href="{{helpLink}}">
+        <a class="bj-instruction-link help" href="{{helpLink}}">
             {{helpLink}}
         </a>
     </p>
@@ -11,51 +9,56 @@
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'about'" [@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
     <label class="bj-instruction about" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{aboutText}}</label>
     <p class="bj-instruction-link-p"><a class="bj-instruction-link about" href="{{aboutLink}}">{{aboutLink}}</a>
-    <small class="version">
-        Version: 1.0.17</small>
+        <small class="version" [ngStyle]="{'display':'block'}">
+            Version: {{ appVersion }}
+        </small>
     </p>
 </div>
-<div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'"[@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
+<div class="bj-submenu-container" *ngIf="subMenuVal()== 'switch_mode'" [@subMenuSlideIn]="subMenuState" [ngClass]="{'bj-user-view':getProfile() == 'user'}">
     <div id="bj-switch-mode-div">
-        <label class="bj-lbl" >{{ this.data.getTranslatedString("Selected user profile") }}</label>
-        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Installer") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value = 'electrician' class="operating-radio"/></div>
-        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Standard User") }}</label><input type="radio"  [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value = 'user' class="operating-radio"/></div>
+        <label class="bj-lbl">{{ this.data.getTranslatedString("Selected user profile") }}</label>
+        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Installer") }}</label><input
+                type="radio" [(ngModel)]="profile_name" (ngModelChange)="switchProfile('electrician')" value='electrician' class="operating-radio"
+            /></div>
+        <div class="switch-mode"><label class="bj-config-setting" [ngClass]="{'bj-user-view':getProfile() == 'user'}">{{ this.data.getTranslatedString("Standard User") }}</label><input
+                type="radio" [(ngModel)]="profile_name" (ngModelChange)="switchProfile('user')" value='user' class="operating-radio"
+            /></div>
     </div>
 </div>
 
-<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'user_profiles'" [@subMenuSlideIn]="subMenuState" >
+<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'user_profiles'" [@subMenuSlideIn]="subMenuState">
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" placeholder="Search" i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control" placeholder="Search" i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0"
+            /><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
     <div class="bj-customised-detectors" *ngIf="detectors">
-            <ul class="bj-detectors-list" *ngFor="let detector of detectors">
-                <li class="bj-detector-name">{{detector.btDeviceName}}
-                    <div class="bj-detector-article-num">{{detector.modelNumber}}</div>
-                </li>
-            </ul>
+        <ul class="bj-detectors-list" *ngFor="let detector of detectors">
+            <li class="bj-detector-name">{{detector.btDeviceName}}
+                <div class="bj-detector-article-num">{{detector.modelNumber}}</div>
+            </li>
+        </ul>
     </div>
 </div>
-<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'installed_devices'" [@subMenuSlideIn]="subMenuState" >
+<div class="bj-submenu-container" style="overflow-y:scroll;" *ngIf="subMenuVal()== 'installed_devices'" [@subMenuSlideIn]="subMenuState">
     <div class="bj-sort-devices">
-        <select class="dropdown-sortby" name="sorttype" 
-                [(ngModel)]="selectedSortType"
-                (ngModelChange)="sortDetectors()">
-                <option *ngFor="let sortType of sortUITypes" [ngValue]="sortType" [disabled]="sortType =='sort by'">{{sortType}}</option>
+        <select class="dropdown-sortby" name="sorttype" (ngModelChange)="sortDetectors()" [(ngModel)]="selectedSortType">
+            <option *ngFor="let sortType of sortUITypes" [ngValue]="sortType" [ngClass]="{'hideoption': sortType=='Sort by'}">{{sortType}}</option>
         </select>
     </div>
     <div class="bj-search-tab">
         <div class="bj-search-tab-wrap">
-            <input type="text" id="search-control" (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search" i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0"/><i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="search-control" (ngModelChange)="sortedMapValues()" [(ngModel)]='searchText' placeholder="Search"
+                i18n-placeholder="Search Placeholder" [disabled]="detectors.length == 0" /><i class="glyphicon glyphicon-search"></i>
         </div>
     </div>
 
     <div id="bj-empty-list" *ngIf="detectors">{{emptyListText}}</div>
 
-    <div class="bj-installed-detectors" >
-        <div  class="bj-grouping-block" *ngFor="let item of sortedMapValues()">
-            <div class= "bj-grouping" *ngIf="getIfName(item) === false">{{item}}</div>
+    <div class="bj-installed-detectors">
+        <div class="bj-grouping-block" *ngFor="let item of sortedMapValues()">
+            <div class="bj-grouping" *ngIf="getIfName(item) === false">{{item}}</div>
             <ul class="bj-detectors-list" *ngIf="getIfName(item) === true" (click)="InstallerItemClick(item)">
                 <div class="installed-detector-icon"><span class="glyphicon glyphicon-modal-window"></span></div>
                 <li class="bj-detector-name">{{ item.btDeviceName}}<span id="nav-right-sorted" class="glyphicon glyphicon-menu-right"></span>
@@ -67,57 +70,57 @@
 </div>
 
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'sync' && isUserLoggedIn() == false" [@subMenuSlideIn]="subMenuState">
-  <div id="#bj-sync-my-bj-div">
-    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> my Busch-jaeger </label>  
-    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account </label>        
-  </div>
-  <div class="bj-sync-my-bj">
-    <label class="info"> Please fill in login information</label> 
-    <label class="field" >{{ this.data.getTranslatedString("Username") }}</label>
-    <input type="text" [(ngModel)]="username">
+    <div id="#bj-sync-my-bj-div">
+        <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> myBusch-jaeger </label>
+        <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account </label>
+    </div>
+    <div class="bj-sync-my-bj">
+        <label class="info"> Please fill in login information</label>
+        <label class="field">{{ this.data.getTranslatedString("Username") }}</label>
+        <input type="text" [(ngModel)]="username">
 
-    <label class="field" >{{ this.data.getTranslatedString("Password") }}</label>
-    <input type="password" [(ngModel)]="password">
-    <input type="button" value="Log in" (click)="logmeIn()">
-  </div>
+        <label class="field">{{ this.data.getTranslatedString("Password") }}</label>
+        <input type="password" [(ngModel)]="password">
+        <input type="button" value="Log in" (click)="logmeIn()">
+    </div>
 </div>
 <div class="bj-submenu-container" *ngIf="subMenuVal()== 'sync' && isUserLoggedIn() == true" [@subMenuSlideIn]="subMenuState">
-  <div id="#bj-sync-my-bj-div">
-    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> my Busch-jaeger </label>
-    <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account  </label>      
-  </div>
-  <div class="bj-sync-my-bj">
-    <label class="info" >{{ this.data.getTranslatedString("You are now logged in") }}</label> 
-    <div class="bj-user-info">
-        <label class="userInfo"> {{username}} </label> 
+    <div id="#bj-sync-my-bj-div">
+        <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == false"> myBusch-jaeger </label>
+        <label class="bj-config-lbl" *ngIf="data.getIsAbbFlavor() == true"> myABB account  </label>
     </div>
-    <div class="bj-config-setting  logout" (click)="logmeOut()" >
-        <label class="bj-config-setting logout-inner-block" >{{ this.data.getTranslatedString("Logout") }}</label><span class="glyphicon glyphicon-stop"></span>
-    </div>
-    <div class="bj-config-setting  syncstatus" >
-        <label class="bj-config-setting syncstatus-inner-block" >Synchronization</label>
-    </div>
-    <div class="bj-config-setting  lastsync" >
-        <label class="bj-config-setting lastsync-inner-block" >Last synchronization</label>
-    </div>
-    <div class="bj-config-setting  lastsync" >
-        <label class="bj-config-setting lastsync-inner-block-val" > {{lastSynced}} </label>
-    </div>
-            
-    <div class="bj-config-setting-div auto-sync" >
-        <label class="bj-config-setting auto-sync">Automatic synchronization</label>
-        <span class="bj-config-toggle-switch">
+    <div class="bj-sync-my-bj">
+        <label class="info">{{ this.data.getTranslatedString("You are now logged in") }}</label>
+        <div class="bj-user-info">
+            <label class="userInfo"> {{username}} </label>
+        </div>
+        <div class="bj-config-setting  logout" (click)="logmeOut()">
+            <label class="bj-config-setting logout-inner-block">{{ this.data.getTranslatedString("Logout") }}</label>
+            <span class="glyphicon glyphicon-stop"></span>
+        </div>
+        <div class="bj-config-setting  syncstatus">
+            <label class="bj-config-setting syncstatus-inner-block">Synchronization</label>
+        </div>
+        <div class="bj-config-setting  lastsync">
+            <label class="bj-config-setting lastsync-inner-block">Last synchronization</label>
+        </div>
+        <div class="bj-config-setting  lastsync">
+            <label class="bj-config-setting lastsync-inner-block-val"> {{lastSynced}} </label>
+        </div>
+
+        <div class="bj-config-setting-div auto-sync">
+            <label class="bj-config-setting auto-sync">Automatic synchronization</label>
+            <span class="bj-config-toggle-switch">
                 <div class="track"  (click)="toggleAS()" [(ngModel)]="autoSync" [ngStyle]="{'border-color': autoSync == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="autoSync == true">{{onLabel}}</label>
                     <label class="switch-offlabel" *ngIf="autoSync == false">{{offLabel}}</label>
                     <div class="switch" [ngClass]="{'switch-on':autoSync == true,'switch-off':autoSync == false}" [ngStyle]="{'background-color':autoSync== true ? '#26394f':'#ccc'}"></div>
                 </div>
         </span>
+        </div>
+        <div class="bj-config-setting  sync" (click)="syncNow()">
+            <label class="bj-config-setting sync-inner-block">{{ this.data.getTranslatedString("Sync now") }}</label>
+            <span class="glyphicon glyphicon-stop"></span>
+        </div>
     </div>
-    <div class="bj-config-setting  sync" (click)="syncNow()">
-        <label class="bj-config-setting sync-inner-block" >{{ this.data.getTranslatedString("Sync now") }}</label><span class="glyphicon glyphicon-stop"></span>
-    </div>
-  </div>
 </div>
-
-

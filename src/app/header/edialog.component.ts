@@ -12,16 +12,28 @@ import { i18nService } from '../i18n.service';
 
 export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     inputtext = '';
+    retryWait:number;
   constructor(public logger: LoggerService,private router:Router,public data:DataService,private translater:i18nService) {     
   }
   ngOnChanges(changes) { 
   }
   ngOnInit() { 
+        this.retryWait = 10;      
        this.inputtext = this.data.getProfileName();
+       if(this.wrongPWEnteredMoreThanOnce()){
+        var timer = setInterval(()=>{
+            this.retryWait= this.retryWait-1;
+            if(this.retryWait<=0){
+                clearInterval(timer);
+            }
+        },1000);        
+    }
+
   }
   ngDoCheck() { 
   }
   ngAfterContentInit() { 
+  
   }
   ngAfterContentChecked() { 
   }
@@ -51,19 +63,42 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
     this.data.disConnectDevice()
   }
   doStuff() {
-      this.data.setShowEModal(false);
-      this.data.setEOptionText(this.translater.translate('Save'));
+      
+      if(this.inputtext != ''){
+        this.data.setShowEModal(false);  
+        this.data.setEOptionText(this.translater.translate('Save'));   
+        
 		if(this.data.getEDialogInputHint() == this.translater.translate('Enter password')){
-            this.data.authenticateDevice(this.inputtext);
-      }else {
+            
+            if (!this.wrongPWEnteredMoreThanOnce()) {
+                
+                this.data.authenticateDevice(this.inputtext);
+            }
+            else if (this.retryWait == 0 && this.wrongPWEnteredMoreThanOnce()) {
+                
+                this.data.authenticateDevice(this.inputtext);
+            }
+            else if (this.retryWait > 0 && this.wrongPWEnteredMoreThanOnce()) {   /*Added by BikashV*/
+                
+                this.data.authenticateDevice(this.inputtext);
+            }
+            
+        }else {
 		  if(this.data.getEDialogInputHint() == this.translater.translate('Name of new profile')){
+            
 		      this.data.addProfile()
 		  }else {
+            
 		      this.data.updateProfile();
 		  }
-		}
-      	this.data.setEDialogInputHint('');
+        }
+        
+          this.data.setEDialogInputHint(''); 
+          
+      }
+      
   }
+
   
   getIfShowCancel(){
   }
@@ -72,6 +107,9 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   getOptionText(){
       return this.data.getEOptionText();
   }
+  getRetypeText(){
+      return this.data.getRetypeText();
+  }
   getDialiogTitleColor(){
   }
   getDialogOptionColor(){
@@ -79,4 +117,25 @@ export class EDialogComponent  implements  OnChanges,OnInit ,DoCheck,AfterConten
   getProfile() {
     return this.data.getProfile();
   }
+  isWrongPWEntered(){
+      return this.data.isWrongPWEntered();
+  }
+  wrongPWEnteredMoreThanOnce(){
+      if(this.data.uiParams.numberOfPasswordMistakes >= 2){
+        return true;
+      }
+      else
+        return false;
+  }
+   
+  disableOk(){
+    
+    if((this.retryWait > 0 && this.wrongPWEnteredMoreThanOnce()) || (this.inputtext=='')){
+        return true;
+    }
+     else{
+         return false;        
+     }
+   }
+
 }

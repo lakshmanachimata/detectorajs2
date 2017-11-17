@@ -47,7 +47,7 @@ export class EAddParamsComponent implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Additional sensor parameters'));
-
+    this.data.setShowHomeButton(false);//PDAL-2577
       // if(this.data.gettestmodetest() == 0){
       //   this.data.testTestMode();
       //   this.data.settestmodetest(1);

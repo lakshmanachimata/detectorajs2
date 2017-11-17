@@ -1,142 +1,219 @@
 <img id="mySpinner" src="assets/icons/spinner.gif" *ngIf="this.data.DeviceBuild == 1 && !loadingDataDone" />
 <div class="bj-config-container" *ngIf="(loadingDataDone || this.data.DeviceBuild == 0)">
-<div id="bj-actuator1-sub-settings-div">
-    <!--circuit-logic-->
-    <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'relay1c' || ad.deviceType == 'mosfet1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-circuit-logic-lbl" >{{ this.data.getTranslatedString("Circuit logic") }}</label>
-            <div class="bj-actuator-toggle" (click)="showCircuitSettings = !showCircuitSettings">
-                <down-nav *ngIf="!showCircuitSettings"></down-nav>
-                <up-nav *ngIf="showCircuitSettings"></up-nav>
-            </div>
-        </div>
-        <div *ngIf="showCircuitSettings">
-            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NC-lbl" >{{ this.data.getTranslatedString("NC contact") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch1CircuitLogic" (ngModelChange)="circuitModeChange()"  [checked]="ad.ch1CircuitLogic === 0" name="circuit_logic" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="circuit-logic-NO-lbl" >{{ this.data.getTranslatedString("NO contact") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.ch1CircuitLogic" (ngModelChange)="circuitModeChange()"  [checked]="ad.ch1CircuitLogic === 1" name="circuit_logic" [value]="1"/></div>
-        </div>
-    </div>
-    <!--durable switching-->
-    <div class="bj-config-setting-div actuator1-durable-switching-div" style="border-bottom:none;">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-durable-switching-lbl" >{{ this.data.getTranslatedString("Permanent light ON/OFF") }}</label>
-            <div class="bj-actuator-toggle" (click)="showDurableSwitchingSettings = !showDurableSwitchingSettings">
-                <down-nav *ngIf="!showDurableSwitchingSettings"></down-nav>
-                <up-nav *ngIf="showDurableSwitchingSettings"></up-nav>
-            </div>
-        </div>
-        <div *ngIf="showDurableSwitchingSettings">
-             <div class="bj-config-setting inner-setting actuator1 fluorescent-function" *ngIf="ad.deviceType == 'daliMaster1c'">
-                <label class="actuator-fluorescent-lbl" >{{ this.data.getTranslatedString("Enabled by push button") }}</label>
-                 <span class="bj-config-toggle-switch actuator1">
-                          <div class="track"   (click)="togglepb()"  [(ngModel)]="ad.permanentLightByPushButtonEnable" [ngStyle]="{'border-color': ad.permanentLightByPushButtonEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.permanentLightByPushButtonEnable  == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.permanentLightByPushButtonEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.permanentLightByPushButtonEnable  == true,'switch-off':ad.permanentLightByPushButtonEnable  == false }" [ngStyle]="{'background-color':ad.permanentLightByPushButtonEnable  == true ? '#26394f':'#ccc'}">
-                        </div>
-                          </div>
-                 </span>
-            </div>
-            <div class="bj-config-setting inner-setting actuator1">
-                <label class="actuator-durable-switching-lbl"><ng-container >{{ this.data.getTranslatedString("Permanent ON for…") }}</ng-container> ({{ad.ch1PermanentOnDurationMin}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOnDurationMax}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
-                <div class="bj-config-setting-adjust durable-switching-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('peron',true)" (onLongPressEnd)="reduceCount('peron',true)" (onLongPressing)="reduceCount('peron',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" type="number" (keyup)="setPERON($event)" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text"> <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> </div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('peron',true)" (onLongPressEnd)="increaseCount('peron',true)" (onLongPressing)="increaseCount('peron',false)" ><span class="glyphicon glyphicon-plus"></span></div>
+    <div id="bj-actuator1-sub-settings-div">
+        <!--circuit-logic-->
+        <div class="bj-config-setting-div actuator1-circuit-logic-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'relay1c' || ad.deviceType == 'mosfet1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-circuit-logic-lbl">{{ this.data.getTranslatedString("Circuit logic") }}</label>
+                <div class="bj-actuator-toggle" (click)="showCircuitSettings = !showCircuitSettings">
+                    <down-nav *ngIf="!showCircuitSettings"></down-nav>
+                    <up-nav *ngIf="showCircuitSettings"></up-nav>
                 </div>
             </div>
+            <div *ngIf="showCircuitSettings">
                 <div class="bj-config-setting inner-setting actuator1">
-                    <label class="actuator-durable-switching-lbl"><ng-container >{{ this.data.getTranslatedString("Permanent OFF for…") }}</ng-container> ({{ad.ch1PermanentOffDurationMin}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOffDurationMax}} <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
+                    <label id="circuit-logic-NC-lbl">{{ this.data.getTranslatedString("NC contact") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.ch1CircuitLogic"
+                        (ngModelChange)="circuitModeChange()" [checked]="ad.ch1CircuitLogic === 0" name="circuit_logic" [value]="0"
+                    />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="circuit-logic-NO-lbl">{{ this.data.getTranslatedString("NO contact") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.ch1CircuitLogic"
+                        (ngModelChange)="circuitModeChange()" [checked]="ad.ch1CircuitLogic === 1" name="circuit_logic" [value]="1"
+                    />
+                </div>
+            </div>
+        </div>
+        <!--durable switching-->
+        <div class="bj-config-setting-div actuator1-durable-switching-div" style="border-bottom:none;">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-durable-switching-lbl">{{ this.data.getTranslatedString("Permanent light ON/OFF") }}</label>
+                <div class="bj-actuator-toggle" (click)="showDurableSwitchingSettings = !showDurableSwitchingSettings">
+                    <down-nav *ngIf="!showDurableSwitchingSettings"></down-nav>
+                    <up-nav *ngIf="showDurableSwitchingSettings"></up-nav>
+                </div>
+            </div>
+            <div *ngIf="showDurableSwitchingSettings">
+                <div class="bj-config-setting inner-setting actuator1 fluorescent-function" *ngIf="ad.deviceType == 'daliMaster1c'">
+                    <label class="actuator-fluorescent-lbl">{{ this.data.getTranslatedString("Enabled by push button") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglepb()" [(ngModel)]="ad.permanentLightByPushButtonEnable" [ngStyle]="{'border-color': ad.permanentLightByPushButtonEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.permanentLightByPushButtonEnable  == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.permanentLightByPushButtonEnable  == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.permanentLightByPushButtonEnable  == true,'switch-off':ad.permanentLightByPushButtonEnable  == false }"
+                                [ngStyle]="{'background-color':ad.permanentLightByPushButtonEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label class="actuator-durable-switching-lbl">
+                        <ng-container>{{ this.data.getTranslatedString("Permanent ON for…") }}</ng-container> ({{ad.ch1PermanentOnDurationMin}}
+                        <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOnDurationMax}}
+                        <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"(onLongPressing)="reduceCount('peroff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" (keyup)="setPEROFF($event)" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("min") }}</ng-container> </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('peroff',true)" (onLongPressEnd)="increaseCount('peroff',true)" (onLongPressing)="increaseCount('peroff',false)" ><span class="glyphicon glyphicon-plus"></span>
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('peron',true)" (onLongPressEnd)="reduceCount('peron',true)"
+                            (onLongPressing)="reduceCount('peron',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <div class="value-updated">
+                            <input class="adjust" type="number" type="number" (keyup)="setPERON($event)" [(ngModel)]="ad.ch1PermanentOnDuration" [ngStyle]="{'color':perOn ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text">
+                                <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container>
+                            </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('peron',true)" (onLongPressEnd)="increaseCount('peron',true)"
+                            (onLongPressing)="increaseCount('peron',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label class="actuator-durable-switching-lbl">
+                        <ng-container>{{ this.data.getTranslatedString("Permanent OFF for…") }}</ng-container> ({{ad.ch1PermanentOffDurationMin}}
+                        <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container> - {{ad.ch1PermanentOffDurationMax}}
+                        <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container>)</label>
+                    <div class="bj-config-setting-adjust durable-switching-function">
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('peroff',true)" (onLongPressEnd)="reduceCount('peroff',true)"
+                            (onLongPressing)="reduceCount('peroff',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <div class="value-updated">
+                            <input class="adjust" type="number" (keyup)="setPEROFF($event)" [(ngModel)]="ad.ch1PermanentOffDuration" [ngStyle]="{'color':perOff ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text">
+                                <ng-container>{{ this.data.getTranslatedString("min") }}</ng-container>
+                            </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('peroff',true)" (onLongPressEnd)="increaseCount('peroff',true)"
+                            (onLongPressing)="increaseCount('peroff',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <!--soft switching-->
-    <div class="bj-config-setting-div actuator1-soft-switching-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'mosfet1c' || ad.deviceType == 'daliMaster1c'" >
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-soft-switching-lbl">Soft switching of ON/OFF</label>
-            <div class="bj-actuator-toggle" (click)="showSoftSwitchingSettings = !showSoftSwitchingSettings">
-                <down-nav *ngIf="!showSoftSwitchingSettings"></down-nav>
-                <up-nav *ngIf="showSoftSwitchingSettings"></up-nav>
+        <!--soft switching-->
+        <div class="bj-config-setting-div actuator1-soft-switching-div" style="border-bottom:none;" *ngIf="((ad.deviceType == 'mosfet1c') || (ad.deviceType == 'daliMaster1c')) && (shortTimePulseEnable == false)">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-soft-switching-lbl">Soft switching of ON/OFF</label>
+                <div class="bj-actuator-toggle" (click)="showSoftSwitchingSettings = !showSoftSwitchingSettings">
+                    <down-nav *ngIf="!showSoftSwitchingSettings"></down-nav>
+                    <up-nav *ngIf="showSoftSwitchingSettings"></up-nav>
+                </div>
             </div>
-        </div>
-        <div class="bj-config-setting inner-setting actuator1 soft-on" *ngIf="showSoftSwitchingSettings">
-            <label class="actuator-soft-switching-lbl" >{{ this.data.getTranslatedString("Soft ON") }}</label><label class="dali-soft-switching-unit" >({{ad.softOnDurationMin}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.softOnDurationMax}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
+            <div class="bj-config-setting inner-setting actuator1 soft-on" *ngIf="showSoftSwitchingSettings">
+                <label class="actuator-soft-switching-lbl">{{ this.data.getTranslatedString("Soft ON") }}</label>
+                <label class="dali-soft-switching-unit">({{ad.softOnDurationMin}}
+                    <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.softOnDurationMax}}
+                    <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
                 <span class="bj-config-toggle-switch actuator1">
-                   <div class="track"   (click)="togglesn()"  [(ngModel)]="ad.softOnEnable" [ngStyle]="{'border-color': ad.softOnEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                         <label class="switch-onlabel" *ngIf="ad.softOnEnable == true">{{onLabel}}</label>
-                         <label class="switch-offlabel" *ngIf="!ad.softOnEnable == true">{{offLabel}}</label>
+                    <div class="track" (click)="togglesn()" [(ngModel)]="ad.softOnEnable" [ngStyle]="{'border-color': ad.softOnEnable == true ? '#26394f':'#c0c1c3'}"
+                        ngDefaultControl>
+                        <label class="switch-onlabel" *ngIf="ad.softOnEnable == true">{{onLabel}}</label>
+                        <label class="switch-offlabel" *ngIf="!ad.softOnEnable == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':ad.softOnEnable == true,'switch-off':ad.softOnEnable == false }" [ngStyle]="{'background-color':ad.softOnEnable == true ? '#26394f':'#ccc'}"></div>
-                   </div>
+                    </div>
                 </span>
-            <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.softOnEnable && ad.deviceType == 'daliMaster1c'" >
-                <div class="adjust-minus" long-press (click)="reduceCount('softon',true)" (onLongPressEnd)="reduceCount('softon',true)" (onLongPressing)="reduceCount('softon',false)"><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number" (keyup)="setSSON($event)" [(ngModel)]="ad.softOnDuration" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
-                <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
-                <div class="adjust-plus" long-press (click)="increaseCount('softon',true)" (onLongPressEnd)="increaseCount('softon',true)" (onLongPressing)="increaseCount('softon',false)" ><span class="glyphicon glyphicon-plus"></span>
+                <div class="bj-config-setting-adjust soft-switching-on-function" *ngIf="ad.softOnEnable && ad.deviceType == 'daliMaster1c'">
+                    <div class="adjust-minus minus-updated" long-press (click)="reduceCount('softon',true)" (onLongPressEnd)="reduceCount('softon',true)"
+                        (onLongPressing)="reduceCount('softon',false)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </div>
+                    <div class="value-updated">
+                        <input class="adjust" type="number" (keyup)="setSSON($event)" [(ngModel)]="ad.softOnDuration" [ngStyle]="{'color':softOn ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text">
+                            <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>
+                        </div>
+                    </div>
+                    <div class="adjust-plus plus-updated" long-press (click)="increaseCount('softon',true)" (onLongPressEnd)="increaseCount('softon',true)"
+                        (onLongPressing)="increaseCount('softon',false)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bj-config-setting inner-setting actuator1 soft-off" *ngIf="showSoftSwitchingSettings">
-            <label class="actuator-soft-switching-lbl" >{{ this.data.getTranslatedString("Soft OFF") }}</label><label class="dali-soft-switching-unit">({{ad.softOffDurationMin}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.softOffDurationMax}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
+            <div class="bj-config-setting inner-setting actuator1 soft-off" *ngIf="showSoftSwitchingSettings">
+                <label class="actuator-soft-switching-lbl">{{ this.data.getTranslatedString("Soft OFF") }}</label>
+                <label class="dali-soft-switching-unit">({{ad.softOffDurationMin}}
+                    <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.softOffDurationMax}}
+                    <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
                 <span class="bj-config-toggle-switch actuator1">
-                   <div class="track"   (click)="togglesf()"  [(ngModel)]="ad.softOffEnable" [ngStyle]="{'border-color': ad.softOffEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                         <label class="switch-onlabel" *ngIf="ad.softOffEnable == true">{{onLabel}}</label>
-                         <label class="switch-offlabel" *ngIf="!ad.softOffEnable == true">{{offLabel}}</label>
+                    <div class="track" (click)="togglesf()" [(ngModel)]="ad.softOffEnable" [ngStyle]="{'border-color': ad.softOffEnable == true ? '#26394f':'#c0c1c3'}"
+                        ngDefaultControl>
+                        <label class="switch-onlabel" *ngIf="ad.softOffEnable == true">{{onLabel}}</label>
+                        <label class="switch-offlabel" *ngIf="!ad.softOffEnable == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':ad.softOffEnable == true,'switch-off':ad.softOffEnable == false }" [ngStyle]="{'background-color':ad.softOffEnable == true ? '#26394f':'#ccc'}"></div>
-                   </div>
+                    </div>
                 </span>
-            <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.softOffEnable && ad.deviceType == 'daliMaster1c'">
-                <div class="adjust-minus" long-press (click)="reduceCount('softoff',true)" (onLongPressEnd)="reduceCount('softoff',true)" (onLongPressing)="reduceCount('softoff',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                <input class="adjust" type="number"  (keyup)="setSSOFF($event)"  [(ngModel)]="ad.softOffDuration" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
-                <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
-                <div class="adjust-plus" long-press (click)="increaseCount('softoff',true)" (onLongPressEnd)="increaseCount('softoff',true)" (onLongPressing)="increaseCount('softoff',false)" ><span class="glyphicon glyphicon-plus"></span>
+                <div class="bj-config-setting-adjust soft-switching-off-function" *ngIf="ad.softOffEnable && ad.deviceType == 'daliMaster1c'">
+                    <div class="adjust-minus minus-updated" long-press (click)="reduceCount('softoff',true)" (onLongPressEnd)="reduceCount('softoff',true)"
+                        (onLongPressing)="reduceCount('softoff',false)">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </div>
+                    <div class="value-updated">
+                        <input class="adjust" type="number" (keyup)="setSSOFF($event)" [(ngModel)]="ad.softOffDuration" [ngStyle]="{'color':softOff ==true ? 'red' : '#26394f'}">
+                        <div class="static-unit-text">
+                            <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>
+                        </div>
+                    </div>
+                    <div class="adjust-plus plus-updated" long-press (click)="increaseCount('softoff',true)" (onLongPressEnd)="increaseCount('softoff',true)"
+                        (onLongPressing)="increaseCount('softoff',false)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="((ad.softOffEnable || ad.softOnEnable) && ad.deviceType == 'mosfet1c') && showSoftSwitchingSettings">
+                <label class="actuator-phase-load-lbl" style="margin-left: 18px;">{{ this.data.getTranslatedString("Dimming mode") }}</label>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="phase-load-leading">{{ this.data.getTranslatedString("Leading edge") }}</label>
+                    <input type="radio" class="circuit-radio"
+                        [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()" [checked]="ad.phaseCutMode === 0"
+                        name="phase_load" [value]="0" />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="phase-load-trailing">{{ this.data.getTranslatedString("Trailing edge") }}</label>
+                    <input type="radio" class="circuit-radio"
+                        [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()" [checked]="ad.phaseCutMode === 1"
+                        name="phase_load" [value]="1" />
                 </div>
             </div>
         </div>
-
-        <div class="bj-config-setting inner-setting phase-load" style="padding-left: 0;" *ngIf="((ad.softOffEnable || ad.softOnEnable) && ad.deviceType == 'mosfet1c') && showSoftSwitchingSettings" >
-            <label class="actuator-phase-load-lbl" style="margin-left: 18px;" >{{ this.data.getTranslatedString("Dimming mode") }}</label> 
-            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-leading" >{{ this.data.getTranslatedString("Leading edge") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()" [checked]="ad.phaseCutMode === 0" name="phase_load" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="phase-load-trailing" >{{ this.data.getTranslatedString("Trailing edge") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.phaseCutMode" (ngModelChange)="phaseCutModeChange()"  [checked]="ad.phaseCutMode === 1" name="phase_load" [value]="1"/></div>
-        </div>
-    </div>
-    <!--misc settings-->
-    <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;" >
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-misc-settings-lbl" >{{ this.data.getTranslatedString("Additional Settings") }}</label>
-            <div class="bj-actuator-toggle" (click)="showMiscSettings = !showMiscSettings">
-                <down-nav *ngIf="!showMiscSettings"></down-nav>
-                <up-nav *ngIf="showMiscSettings"></up-nav>
+        <!--misc settings-->
+        <div class="bj-config-setting-div actuator1-misc-settings-div" style="border-bottom:none;">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-misc-settings-lbl">{{ this.data.getTranslatedString("Additional Settings") }}</label>
+                <div class="bj-actuator-toggle" (click)="showMiscSettings = !showMiscSettings">
+                    <down-nav *ngIf="!showMiscSettings"></down-nav>
+                    <up-nav *ngIf="showMiscSettings"></up-nav>
+                </div>
             </div>
-        </div>
-        <div *ngIf="showMiscSettings">
-                <div class="bj-config-setting inner-setting actuator1 memory-function">
+            <div *ngIf="showMiscSettings">
+                <div class="bj-config-setting inner-setting actuator1 memory-function" *ngIf="ad.shortTimePulseEnable == false">
                     <label class="actuator-memory-function-lbl">Switch-off pre-warning</label>
-                     <span class="bj-config-toggle-switch actuator1">
-                         <div class="track"   (click)="togglePW()"  [(ngModel)]="ad.ch1SwitchOffPreWarning" [ngStyle]="{'border-color': ad.ch1SwitchOffPreWarning== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                         <label class="switch-onlabel" *ngIf="ad.ch1SwitchOffPreWarning == true">{{onLabel}}</label>
-                         <label class="switch-offlabel" *ngIf="!ad.ch1SwitchOffPreWarning == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.ch1SwitchOffPreWarning == true,'switch-off':ad.ch1SwitchOffPreWarning == false }" [ngStyle]="{'background-color':ad.ch1SwitchOffPreWarning == true ? '#26394f':'#ccc'}"></div>
-                   </div>
-                     </span>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglePW()" [(ngModel)]="ad.ch1SwitchOffPreWarning" [ngStyle]="{'border-color': ad.ch1SwitchOffPreWarning== true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.ch1SwitchOffPreWarning == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.ch1SwitchOffPreWarning == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.ch1SwitchOffPreWarning == true,'switch-off':ad.ch1SwitchOffPreWarning == false }"
+                                [ngStyle]="{'background-color':ad.ch1SwitchOffPreWarning == true ? '#26394f':'#ccc'}"></div>
+                        </div>
+                    </span>
                 </div>
                 <div class="bj-config-setting inner-setting actuator1 memory-function" *ngIf="ad.deviceType == 'daliMaster1c'">
-                    <label class="actuator-memory-function-lbl" >{{ this.data.getTranslatedString("Memory function") }}</label>
-                     <span class="bj-config-toggle-switch actuator1">
-                        <div class="track"   (click)="togglemf()"  [(ngModel)]="ad.ch1MemoryFunctionEnable" [ngStyle]="{'border-color': ad.ch1MemoryFunctionEnable== true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.ch1MemoryFunctionEnable == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.ch1MemoryFunctionEnable == true">{{offLabel}}</label>
-                            <div class="switch" [ngClass]="{'switch-on':ad.ch1MemoryFunctionEnable == true,'switch-off':ad.ch1MemoryFunctionEnable == false }" [ngStyle]="{'background-color':ad.ch1MemoryFunctionEnable == true ? '#26394f':'#ccc'}">
+                    <label class="actuator-memory-function-lbl">{{ this.data.getTranslatedString("Memory function") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglemf()" [(ngModel)]="ad.ch1MemoryFunctionEnable" [ngStyle]="{'border-color': ad.ch1MemoryFunctionEnable== true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.ch1MemoryFunctionEnable == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.ch1MemoryFunctionEnable == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.ch1MemoryFunctionEnable == true,'switch-off':ad.ch1MemoryFunctionEnable == false }"
+                                [ngStyle]="{'background-color':ad.ch1MemoryFunctionEnable == true ? '#26394f':'#ccc'}">
+                            </div>
                         </div>
-                        </div>
-                     </span>
+                    </span>
                 </div>
                 <!-- <div class="bj-config-setting inner-setting actuator1 delimit-lighting"  *ngIf="ad.deviceType == 'daliMaster1c'">
                     <label class="actuator-delimit-lighting-lbl" >{{ this.data.getTranslatedString("Limit room brightness") }}</label>
@@ -150,55 +227,77 @@
                      </span>
                 </div> -->
 
-            <div class="bj-config-setting inner-setting actuator1 min-load" *ngIf="ad.deviceType == 'daliMaster1c'">
-                <label class="actuator-min-load-lbl" >{{ this.data.getTranslatedString("Minimum load") }}</label>
-                <span class="bj-config-toggle-switch actuator1">
-                    <div class="track"   (click)="toggleminl()"  [(ngModel)]="ad.ch1MinLevelEnable " [ngStyle]="{'border-color': ad.ch1MinLevelEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.ch1MinLevelEnable  == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.ch1MinLevelEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.ch1MinLevelEnable  == true,'switch-off':ad.ch1MinLevelEnable  == false }" [ngStyle]="{'background-color':ad.ch1MinLevelEnable  == true ? '#26394f':'#ccc'}">
+                <div class="bj-config-setting inner-setting actuator1 min-load" *ngIf="ad.deviceType == 'daliMaster1c'">
+                    <label class="actuator-min-load-lbl">{{ this.data.getTranslatedString("Minimum load output value") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="toggleminl()" [(ngModel)]="ad.ch1MinLevelEnable " [ngStyle]="{'border-color': ad.ch1MinLevelEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.ch1MinLevelEnable  == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.ch1MinLevelEnable  == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.ch1MinLevelEnable  == true,'switch-off':ad.ch1MinLevelEnable  == false }"
+                                [ngStyle]="{'background-color':ad.ch1MinLevelEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
                         </div>
+                    </span>
+                    <div class="bj-config-setting-adjust min-load-function" *ngIf="ad.ch1MinLevelEnable && ad.deviceType == 'daliMaster1c'">
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('minload',true)" (onLongPressEnd)="reduceCount('minload',true)"
+                            (onLongPressing)="reduceCount('minload',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
                         </div>
-                </span>
-                <div class="bj-config-setting-adjust min-load-function" *ngIf="ad.ch1MinLevelEnable && ad.deviceType == 'daliMaster1c'">
-                    <div class="adjust-minus" long-press (click)="reduceCount('minload',true)" (onLongPressEnd)="reduceCount('minload',true)" (onLongPressing)="reduceCount('minload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number"  (keyup)="setMinLoad($event)"  [(ngModel)]="ad.ch1MinLevel" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("%") }}</ng-container> </div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('minload',true)" (onLongPressEnd)="increaseCount('minload',true)" (onLongPressing)="increaseCount('minload',false)" ><span class="glyphicon glyphicon-plus"></span>
+                        <div class="value-updated">
+                            <input class="adjust" type="number" (keyup)="setMinLoad($event)" [(ngModel)]="ad.ch1MinLevel" [ngStyle]="{'color':minLoad ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text">
+                                <ng-container>{{ this.data.getTranslatedString("%") }}</ng-container>
+                            </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('minload',true)" (onLongPressEnd)="increaseCount('minload',true)"
+                            (onLongPressing)="increaseCount('minload',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="bj-config-setting inner-setting actuator1 max-load" *ngIf="ad.deviceType == 'daliMaster1c'">
-                <label class="actuator-max-load-lbl" >{{ this.data.getTranslatedString("Maximum load") }}</label>
-                <span class="bj-config-toggle-switch actuator1">
-                   <div class="track"   (click)="togglemaxl()"  [(ngModel)]="ad.ch1MaxLevelEnable" [ngStyle]="{'border-color': ad.ch1MaxLevelEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.ch1MaxLevelEnable  == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.ch1MaxLevelEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.ch1MaxLevelEnable  == true,'switch-off':ad.ch1MaxLevelEnable  == false }" [ngStyle]="{'background-color':ad.ch1MaxLevelEnable  == true ? '#26394f':'#ccc'}">
+                <div class="bj-config-setting inner-setting actuator1 max-load" *ngIf="ad.deviceType == 'daliMaster1c'">
+                    <label class="actuator-max-load-lbl">{{ this.data.getTranslatedString("Maximum load output value") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglemaxl()" [(ngModel)]="ad.ch1MaxLevelEnable" [ngStyle]="{'border-color': ad.ch1MaxLevelEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.ch1MaxLevelEnable  == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.ch1MaxLevelEnable  == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.ch1MaxLevelEnable  == true,'switch-off':ad.ch1MaxLevelEnable  == false }"
+                                [ngStyle]="{'background-color':ad.ch1MaxLevelEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
                         </div>
+                    </span>
+                    <div class="bj-config-setting-adjust max-load-function" *ngIf="ad.ch1MaxLevelEnable && ad.deviceType == 'daliMaster1c'">
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('maxload',true)" (onLongPressEnd)="reduceCount('maxload',true)"
+                            (onLongPressing)="reduceCount('maxload',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
                         </div>
-                </span>
-                <div class="bj-config-setting-adjust max-load-function" *ngIf="ad.ch1MaxLevelEnable && ad.deviceType == 'daliMaster1c'">
-                    <div class="adjust-minus" long-press (click)="reduceCount('maxload',true)" (onLongPressEnd)="reduceCount('maxload',true)" (onLongPressing)="reduceCount('maxload',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                    <input class="adjust" type="number" (keyup)="setMaxLoad($event)"  [(ngModel)]="ad.ch1MaxLevel" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
-                    <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("%") }}</ng-container> </div>
-                    <div class="adjust-plus" long-press (click)="increaseCount('maxload',true)" (onLongPressEnd)="increaseCount('maxload',true)" (onLongPressing)="increaseCount('maxload',false)" ><span class="glyphicon glyphicon-plus"></span>
+                        <div class="value-updated">
+                            <input class="adjust" type="number" (keyup)="setMaxLoad($event)" [(ngModel)]="ad.ch1MaxLevel" [ngStyle]="{'color':maxLoad ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text">
+                                <ng-container>{{ this.data.getTranslatedString("%") }}</ng-container>
+                            </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('maxload',true)" (onLongPressEnd)="increaseCount('maxload',true)"
+                            (onLongPressing)="increaseCount('maxload',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--DALI settings-->
-    <div class="bj-config-setting-div actuator1-dali-settings-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-dali-settings-lbl" >{{ this.data.getTranslatedString("DALI settings") }}</label>
-            <div class="bj-actuator-toggle" (click)="showDaliSettings = !showDaliSettings">
-                <down-nav *ngIf="!showDaliSettings"></down-nav>
-                <up-nav *ngIf="showDaliSettings"></up-nav>
+        <!--DALI settings-->
+        <div class="bj-config-setting-div actuator1-dali-settings-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-dali-settings-lbl">{{ this.data.getTranslatedString("DALI settings") }}</label>
+                <div class="bj-actuator-toggle" (click)="(showDaliSettings = !showDaliSettings) && getColorTemperatureValue()">
+                    <down-nav *ngIf="!showDaliSettings"></down-nav>
+                    <up-nav *ngIf="showDaliSettings"></up-nav>
+                </div>
             </div>
-        </div>
-        <div *ngIf="showDaliSettings">
-            <!-- <div class="bj-config-setting inner-setting actuator1 master-slave-function">
+            <div *ngIf="showDaliSettings">
+                <!-- <div class="bj-config-setting inner-setting actuator1 master-slave-function">
                 <label class="actuator-master-slave-lbl">Use master in slave operation</label>
                  <span class="bj-config-toggle-switch actuator1">
                          <div class="track"   (click)="togglemsd()"  [(ngModel)]="ad.slaveModeEnable" [ngStyle]="{'border-color': ad.slaveModeEnable == 1 ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -209,106 +308,223 @@
                         </div>
                  </span>
             </div> -->
-            <label class="bj-config-lbl sensor-div" >{{ this.data.getTranslatedString("Power ON level") }}</label>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-off-lbl" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 0"  name="power_level" [value]="0"/></div>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-memo-lbl" >{{ this.data.getTranslatedString("Memo") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 255" name="power_level" [value]="255"/></div>
-                <div class="bj-config-setting inner-setting actuator1"><label id="power-100-lbl" >{{ this.data.getTranslatedString("100%") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.daliPowerOnLevel" (ngModelChange)="powerOnChange()"[checked]="ad.daliPowerOnLevel === 254" name="power_level" [value]="254"/></div>
-                <div class="bj-config-setting inner-setting actuator1 burnInTime" >
-                    <label class="actuator-burinin-switching-lbl" >Color Temperature({{getMinColorTemp()}} K - {{getMaxColorTemp()}} K)</label>
+                <label class="bj-config-lbl sensor-div">{{ this.data.getTranslatedString("Power ON level") }}</label>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="power-off-lbl" (click)="(ad.daliPowerOnLevel = 0)">{{ this.data.getTranslatedString("OFF") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel"
+                        (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 0" name="power_level" [value]="0"
+                    />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="power-memo-lbl" (click)="(ad.daliPowerOnLevel = 255)">{{ this.data.getTranslatedString("Memo") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel"
+                        (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 255" name="power_level" [value]="255"
+                    />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="power-100-lbl" (click)="(ad.daliPowerOnLevel = 254)">{{ this.data.getTranslatedString("100%") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.daliPowerOnLevel"
+                        (ngModelChange)="powerOnChange()" [checked]="ad.daliPowerOnLevel === 254" name="power_level" [value]="254"
+                    />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1 burnInTime">
+                    <label class="actuator-burinin-switching-lbl">Color Temperature({{getMinColorTemp()}} - {{getMaxColorTemp()}} K)</label>
                     <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('colorTemp',true)" (onLongPressEnd)="reduceCount('colorTemp',true)" (onLongPressing)="reduceCount('colorTemp',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <div class="adjust-value-input">{{ad.colorTempVal}} K </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('colorTemp',true)" (onLongPressEnd)="increaseCount('colorTemp',true)" (onLongPressing)="increaseCount('colorTemp',false)" ><span class="glyphicon glyphicon-plus"></span>
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('colorTemp',true)" (onLongPressEnd)="reduceCount('colorTemp',true)"
+                            (onLongPressing)="reduceCount('colorTemp',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <div class="value-updated">
+                            <input class="adjust" (blur)="setColTemp($event)" type="number" [(ngModel)]="ad.colorTempVal" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}"
+                            />
+                            <div class="static-unit-text"> K </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('colorTemp',true)" (onLongPressEnd)="increaseCount('colorTemp',true)"
+                            (onLongPressing)="increaseCount('colorTemp',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bj-config-setting actuator1 reset"   (click)="resetDali()" *ngIf="ad.deviceType == 'daliMaster1c'">
-                <label class="bj-config-setting reset-inner-block"  >{{ this.data.getTranslatedString("Reset control gear") }}</label><span class="glyphicon glyphicon-stop"></span>
+
+                <div class="bj-config-setting actuator1 reset" (click)="resetDali()" *ngIf="ad.deviceType == 'daliMaster1c'">
+                    <label class="bj-config-setting reset-inner-block">{{ this.data.getTranslatedString("Reset control gear") }}</label>
+                    <span class="glyphicon glyphicon-stop"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <!--fluorescent lamp settings-->
-    <div class="bj-config-setting-div actuator1-fluorescent-settings-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-fluorescent-settings-lbl" >{{ this.data.getTranslatedString("Fluorescent lamps") }}</label>
-            <div class="bj-actuator-toggle" (click)="showFluorescentSettings =!showFluorescentSettings">
-                <down-nav *ngIf="!showFluorescentSettings"></down-nav>
-                <up-nav *ngIf="showFluorescentSettings"></up-nav>
+        <!--fluorescent lamp settings-->
+        <div class="bj-config-setting-div actuator1-fluorescent-settings-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-fluorescent-settings-lbl">{{ this.data.getTranslatedString("Fluorescent lamps") }}</label>
+                <div class="bj-actuator-toggle" (click)="showFluorescentSettings =!showFluorescentSettings">
+                    <down-nav *ngIf="!showFluorescentSettings"></down-nav>
+                    <up-nav *ngIf="showFluorescentSettings"></up-nav>
+                </div>
             </div>
-        </div>
-        <div *ngIf="showFluorescentSettings">
-            <div class="bj-config-setting inner-setting actuator1 fluorescent-function">
-                <label class="actuator-fluorescent-lbl" >{{ this.data.getTranslatedString("Burn in function") }}</label>
-                 <span class="bj-config-toggle-switch actuator1">
-                          <div class="track"   (click)="togglebn()"  [(ngModel)]="ad.burnInEnable" [ngStyle]="{'border-color': ad.burnInEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.burnInEnable  == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.burnInEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.burnInEnable  == true,'switch-off':ad.burnInEnable  == false }" [ngStyle]="{'background-color':ad.burnInEnable  == true ? '#26394f':'#ccc'}">
+            <div *ngIf="showFluorescentSettings">
+                <div class="bj-config-setting inner-setting actuator1 fluorescent-function">
+                    <label class="actuator-fluorescent-lbl">{{ this.data.getTranslatedString("Burn in function") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglebn()" [(ngModel)]="ad.burnInEnable" [ngStyle]="{'border-color': ad.burnInEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.burnInEnable  == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.burnInEnable  == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.burnInEnable  == true,'switch-off':ad.burnInEnable  == false }" [ngStyle]="{'background-color':ad.burnInEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
                         </div>
-                          </div>
-                 </span>
-            </div>
-            <div *ngIf="ad.burnInEnable && ad.deviceType == 'daliMaster1c'">
-                    <label class="bj-config-lbl sensor-div" >{{ this.data.getTranslatedString("Burn in mode") }}</label>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-steady-lbl" >{{ this.data.getTranslatedString("Steady") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.burnInMode" (ngModelChange)="burnInModeChange()"  [checked]="ad.burnInMode === 0" name="burn_in_mode" [value]="0"/></div>
-                    <div class="bj-config-setting inner-setting actuator1" ><label id="burn-accumulated-lbl" >{{ this.data.getTranslatedString("Accumulated") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.burnInMode"  (ngModelChange)="burnInModeChange()"  [checked]="ad.burnInMode === 1" name="burn_in_mode" [value]="1"/></div>
-                <div class="bj-config-setting inner-setting actuator1 burnInTime" >
-                    <label class="actuator-burinin-switching-lbl">Duration for burn in({{ad.burnInDurationMin}} h - {{ad.burnInDurationMax}} h)</label>
-                    <div class="bj-config-setting-adjust durable-switching-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('burnduration',true)" (onLongPressEnd)="reduceCount('burnduration',true)" (onLongPressing)="reduceCount('burnduration',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" type="number" [(ngModel)]="ad.burnInDuration" [ngStyle]="{'color':burnHours ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > h </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('burnduration',true)" (onLongPressEnd)="increaseCount('burnduration',true)" (onLongPressing)="increaseCount('burnduration',false)" ><span class="glyphicon glyphicon-plus"></span>
+                    </span>
+                </div>
+                <div *ngIf="ad.burnInEnable && ad.deviceType == 'daliMaster1c'">
+                    <label class="bj-config-lbl sensor-div bj-burn-in-lbl">{{ this.data.getTranslatedString("Burn in mode") }}</label>
+                    <div class="bj-config-setting inner-setting actuator1 bi-div">
+                        <label id="burn-steady-lbl" (click)="(ad.burnInMode = 0)">{{ this.data.getTranslatedString("Steady") }}</label>
+                        <input type="radio" class="circuit-radio" [(ngModel)]="ad.burnInMode"
+                            (ngModelChange)="burnInModeChange()" [checked]="ad.burnInMode === 0" name="burn_in_mode" [value]="0"
+                        />
+                    </div>
+                    <div class="bj-config-setting inner-setting actuator1 bi-div">
+                        <label id="burn-accumulated-lbl" (click)="(ad.burnInMode = 1)">{{ this.data.getTranslatedString("Accumulated") }}</label>
+                        <input type="radio" class="circuit-radio"
+                            [(ngModel)]="ad.burnInMode" (ngModelChange)="burnInModeChange()" [checked]="ad.burnInMode === 1"
+                            name="burn_in_mode" [value]="1" />
+                    </div>
+                    <div class="bj-config-setting inner-setting actuator1 burnInTime">
+                        <label class="actuator-burinin-switching-lbl">Duration for burn in ({{ad.burnInDurationMin}} - {{ad.burnInDurationMax}} h)</label>
+                        <div class="bj-config-setting-adjust durable-switching-function">
+                            <div class="adjust-minus minus-updated" long-press (click)="reduceCount('burnduration',true)" (onLongPressEnd)="reduceCount('burnduration',true)"
+                                (onLongPressing)="reduceCount('burnduration',false)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </div>
+                            <div class="value-updated">
+                                <input class="adjust" type="number" [(ngModel)]="ad.burnInDuration" [ngStyle]="{'color':burnHours ==true ? 'red' : '#26394f'}">
+                                <div class="static-unit-text"> h </div>
+                            </div>
+                            <div class="adjust-plus plus-updated" long-press (click)="increaseCount('burnduration',true)" (onLongPressEnd)="increaseCount('burnduration',true)"
+                                (onLongPressing)="increaseCount('burnduration',false)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="bj-config-setting actuator1 reset" (click)="resetHours()">
-                    <label class="bj-config-setting reset-inner-block" >{{ this.data.getTranslatedString("Reset operating hours") }}</label><span class="glyphicon glyphicon-stop" ></span>
+                    <div class="bj-config-setting actuator1 reset" (click)="resetHours()">
+                        <label class="bj-config-setting reset-inner-block">{{ this.data.getTranslatedString("Reset operating hours") }}</label>
+                        <span class="glyphicon glyphicon-stop"></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--basic illumination settings-->
-    <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-basic-illumination-lbl" >{{ this.data.getTranslatedString("Basic brightness") }}</label>
-            <div class="bj-actuator-toggle" (click)="showBasicIlluminationSettings = !showBasicIlluminationSettings">
-                <down-nav *ngIf="!showBasicIlluminationSettings"></down-nav>
-                <up-nav *ngIf="showBasicIlluminationSettings"></up-nav>
+        <!--basic illumination settings-->
+        <div class="bj-config-setting-div actuator1-basic-illumination-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-basic-illumination-lbl">{{ this.data.getTranslatedString("Basic brightness") }}</label>
+                <div class="bj-actuator-toggle" (click)="showBasicIlluminationSettings = !showBasicIlluminationSettings">
+                    <down-nav *ngIf="!showBasicIlluminationSettings"></down-nav>
+                    <up-nav *ngIf="showBasicIlluminationSettings"></up-nav>
+                </div>
             </div>
-        </div>
-        <div *ngIf="showBasicIlluminationSettings"> 
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-off" >{{ this.data.getTranslatedString("OFF") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChange()"  [checked]="ad.basicBrightnessMode === 0"  name="illuminiation-mode" [value]="0"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-time" >{{ this.data.getTranslatedString("Determined by time") }}</label><input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChange()"  [checked]="ad.basicBrightnessMode === 1"  name="illuminiation-mode" [value]="1"/></div>
-            <div class="bj-config-setting inner-setting actuator1"><label id="illumination-mode-brigtness" >{{ this.data.getTranslatedString("Determined by brightness") }}</label><input type="radio" class="circuit-radio"  [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChange()"  [checked]="ad.basicBrightnessMode === 2" name="illuminiation-mode" [value]="2"/></div>
-            <div class="bj-config-setting inner-setting actuator1" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2" >
-                <label class="actuator-basic-illumniation-lbl" >{{ this.data.getTranslatedString("Basic illumination level") }}</label>
-                <div class="bj-actuator1-slider">
+            <div *ngIf="showBasicIlluminationSettings">
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="illumination-mode-off" (click)="(ad.basicBrightnessMode = 0)">{{ this.data.getTranslatedString("OFF") }}</label>
+                    <input type="radio" class="circuit-radio" [(ngModel)]="ad.basicBrightnessMode"
+                        (ngModelChange)="basicBrModeChange()" [checked]="ad.basicBrightnessMode === 0" name="illuminiation-mode"
+                        [value]="0" />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="illumination-mode-time" (click)="(ad.basicBrightnessMode = 2)">{{ this.data.getTranslatedString("Determined by time") }}</label>
+                    <input type="radio" class="circuit-radio"
+                        [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChange()" [checked]="ad.basicBrightnessMode === 2"
+                        name="illuminiation-mode" [value]="2" />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1">
+                    <label id="illumination-mode-brigtness" (click)="(ad.basicBrightnessMode = 1)">{{ this.data.getTranslatedString("Determined by brightness") }}</label>
+                    <input type="radio" class="circuit-radio"
+                        [(ngModel)]="ad.basicBrightnessMode" (ngModelChange)="basicBrModeChange()" [checked]="ad.basicBrightnessMode === 1"
+                        name="illuminiation-mode" [value]="1" />
+                </div>
+                <div class="bj-config-setting inner-setting actuator1" *ngIf="ad.basicBrightnessMode == 1 || ad.basicBrightnessMode == 2">
+                    <label class="actuator-basic-illumniation-lbl">{{ this.data.getTranslatedString("Basic brightness level") }}</label>
+                    <!-- <div class="bj-actuator1-slider">
                     <input class = "illumination-range" type="range" name="points" min="0" max="100" step="1" (ngModelChange)="basicBrLevelChange()"  [(ngModel)]="ad.basicBrightnessLevel" >
                     <div class="illumination-value-disp">{{ad.basicBrightnessLevel}} %</div>
+                </div> -->
+                    <div class="bj-config-setting-adjust durable-switching-function">
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('basicIllu',true)" (onLongPressEnd)="reduceCount('basicIllu',true)"
+                            (onLongPressing)="reduceCount('basicIllu',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <div class="value-updated">
+                            <input class="adjust" (keyup)="setBaIllum($event)" type="number" [(ngModel)]="ad.basicBrightnessLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text"> % </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('basicIllu',true)" (onLongPressEnd)="increaseCount('basicIllu',true)"
+                            (onLongPressing)="increaseCount('basicIllu',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="bj-config-setting inner-setting actuator1" *ngIf=" ad.basicBrightnessMode == 2">
-                <label class="actuator-ambient-brightness-lbl" >{{ this.data.getTranslatedString("Ambient brightness threshold") }}</label>
-                <div class="bj-actuator1-slider">
+                <div class="bj-config-setting inner-setting actuator1" *ngIf=" ad.basicBrightnessMode == 2">
+                    <label class="actuator-ambient-brightness-lbl">{{ this.data.getTranslatedString("Ambient brightness threshold")}} ({{ad.basicBrightnessAmbientBrightnessThresholdMin}}-{{ad.basicBrightnessAmbientBrightnessThresholdMax}}
+                        lx)</label>
+                    <!-- <div class="bj-actuator1-slider">
                     <input class = "ambient-brightness-range" type="range" name="points" min="ad.basicBrightnessAmbientBrightnessThresholdMin" max="ad.basicBrightnessAmbientBrightnessThresholdMax" step="1" (ngModelChange)="ambientBrChange()" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold">
                     <div class="ambient-brightness-value-disp">{{ad.basicBrightnessAmbientBrightnessThreshold}} <ng-container >{{ this.data.getTranslatedString("lx") }}</ng-container></div>
+                </div> -->
+                    <div class="bj-config-setting-adjust durable-switching-function">
+                        <div class="adjust-minus minus-updated" long-press (click)="reduceCount('amBrThresh',true)" (onLongPressEnd)="reduceCount('amBrThresh',true)"
+                            (onLongPressing)="reduceCount('amBrThresh',false)">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                        <div class="value-updated">
+                            <input class="adjust" (blur)="setAmBrThresh($event)" type="number" [(ngModel)]="ad.basicBrightnessAmbientBrightnessThreshold"
+                                [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                            <div class="static-unit-text"> lx </div>
+                        </div>
+                        <div class="adjust-plus plus-updated" long-press (click)="increaseCount('amBrThresh',true)" (onLongPressEnd)="increaseCount('amBrThresh',true)"
+                            (onLongPressing)="increaseCount('amBrThresh',false)">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="bj-config-setting inner-setting actuator1"  *ngIf=" ad.basicBrightnessMode == 1">
-                <div class="bj-config-setting-adjust illumination-start-function">
-                    <label class="actuator-illumination-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
-                    <timeinput [timeHours]="this.BRStartTimeHH" [timeMins]="this.BRStartTimeMM" [timeSecs]=-1  [timeType]='brstarttime' (setTimeBack)="setTime('brstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput> 
+                <div class="bj-config-setting inner-setting actuator1" *ngIf=" ad.basicBrightnessMode == 1">
+                    <div class="bj-config-setting-adjust illumination-start-function">
+                        <label class="actuator-illumination-start-time-lbl">{{ this.data.getTranslatedString("Start time") }}</label>
+                        <timeinput [timeHours]="this.BRStartTimeHH" [timeMins]="this.BRStartTimeMM" [timeSecs]=-1 [timeType]='brstarttime' (setTimeBack)="setTime('brstarttime')"
+                            style="width:50%; position:absolute; right:10px;"></timeinput>
+                    </div>
+                    <div class="bj-start-astro-fn">
+                        <label class="astro-function-lbl">{{ this.data.getTranslatedString("Astro function") }}</label>
+                        <span class="bj-config-toggle-switch actuator1">
+                            <div class="track" (click)="toggleAs('start')" [(ngModel)]="ad.basicBrightnessStartTimeAstroFunctionEnable" [ngStyle]="{'border-color': ad.basicBrightnessStartTimeAstroFunctionEnable == true ? '#26394f':'#c0c1c3'}"
+                                ngDefaultControl>
+                                <label class="switch-onlabel" *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable == true">{{onLabel}}</label>
+                                <label class="switch-offlabel" *ngIf="!ad.basicBrightnessStartTimeAstroFunctionEnable  == true">{{offLabel}}</label>
+                                <div class="switch" [ngClass]="{'switch-on':ad.basicBrightnessStartTimeAstroFunctionEnable  == true,'switch-off':ad.basicBrightnessStartTimeAstroFunctionEnable  == false }"
+                                    [ngStyle]="{'background-color':ad.basicBrightnessStartTimeAstroFunctionEnable  == true ? '#26394f':'#ccc'}">
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="bj-config-setting-adjust illumination-end-function">
+                        <label class="actuator-illumination-end-time-lbl">{{ this.data.getTranslatedString("End time") }}</label>
+                        <timeinput [timeHours]="this.BREndTimeHH" [timeMins]="this.BREndTimeMM" [timeSecs]=-1 [timeType]='brendtime' (setTimeBack)="setTime('brendtime')"
+                            style="width:50%; position:absolute; right:10px;"></timeinput>
+                    </div>
+                    <div class="bj-end-astro-fn">
+                        <label class="astro-function-lbl">{{ this.data.getTranslatedString("Astro function") }}</label>
+                        <span class="bj-config-toggle-switch actuator1">
+                            <div class="track" (click)="toggleAs('end')" [(ngModel)]="ad.basicBrightnessEndTimeAstroFunctionEnable" [ngStyle]="{'border-color': ad.basicBrightnessEndTimeAstroFunctionEnable == true ? '#26394f':'#c0c1c3'}"
+                                ngDefaultControl>
+                                <label class="switch-onlabel" *ngIf="ad.basicBrightnessEndTimeAstroFunctionEnable == true">{{onLabel}}</label>
+                                <label class="switch-offlabel" *ngIf="!ad.basicBrightnessEndTimeAstroFunctionEnable  == true">{{offLabel}}</label>
+                                <div class="switch" [ngClass]="{'switch-on':ad.basicBrightnessEndTimeAstroFunctionEnable  == true,'switch-off':ad.basicBrightnessEndTimeAstroFunctionEnable  == false }"
+                                    [ngStyle]="{'background-color':ad.basicBrightnessEndTimeAstroFunctionEnable  == true ? '#26394f':'#ccc'}">
+                                </div>
+                            </div>
+                        </span>
+                    </div>
                 </div>
-                <div class="bj-config-setting-adjust illumination-end-function">
-                <label class="actuator-illumination-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
-                    <timeinput [timeHours]="this.BREndTimeHH" [timeMins]="this.BREndTimeMM" [timeSecs]=-1  [timeType]='brendtime' (setTimeBack)="setTime('brendtime')"  style="width:50%; position:absolute; right:10px;"></timeinput> 
-                </div>
-            </div>
-            <div class="bj-config-setting inner-setting actuator1 astro-function" *ngIf=" ad.basicBrightnessMode == 1" >
-                <label class="astro-function-lbl" >{{ this.data.getTranslatedString("Astro function") }}</label>
-                 <span class="bj-config-toggle-switch actuator1">
+                <!-- <div class="bj-config-setting inner-setting actuator1 astro-function" *ngIf=" ad.basicBrightnessMode == 1">
+                    <label class="astro-function-lbl">{{ this.data.getTranslatedString("Astro function") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
                           <div class="track"   (click)="toggleAs()"  [(ngModel)]="ad.basicBrightnessStartTimeAstroFunctionEnable" [ngStyle]="{'border-color': ad.basicBrightnessStartTimeAstroFunctionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                         <label class="switch-onlabel" *ngIf="ad.basicBrightnessStartTimeAstroFunctionEnable == true">{{onLabel}}</label>
                         <label class="switch-offlabel" *ngIf="!ad.basicBrightnessStartTimeAstroFunctionEnable  == true">{{offLabel}}</label>
@@ -316,91 +532,136 @@
                         </div>
                           </div>
                  </span>
+                </div> -->
             </div>
         </div>
-    </div>
-  <!--night time anti-glare-->
-    <div class="bj-config-setting-div actuator1-night-anti-glare-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-night-anti-glare-lbl" >{{ this.data.getTranslatedString("Night light ") }}</label>
-            <div class="bj-actuator-toggle"(click)="showNightAntiGlareSettings = !showNightAntiGlareSettings" >
-                <down-nav *ngIf="!showNightAntiGlareSettings"></down-nav>
-                <up-nav *ngIf="showNightAntiGlareSettings"></up-nav>
-            </div>
-        </div>
-        <div class="bj-config-setting inner-setting actuator1 anti-glare-function" *ngIf="showNightAntiGlareSettings" >
-           <div class="anti-glare-function-div">
-            <label class="anti-glare-function-lbl" >{{ this.data.getTranslatedString("Night light ") }}</label>
-                 <span class="bj-config-toggle-switch actuator1">
-                          <div class="track"   (click)="toggleNl()"  [(ngModel)]="ad.nightLightFunctionEnable" [ngStyle]="{'border-color': ad.nightLightFunctionEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.nightLightFunctionEnable == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.nightLightFunctionEnable  == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.nightLightFunctionEnable  == true,'switch-off':ad.nightLightFunctionEnable  == false }" [ngStyle]="{'background-color':ad.nightLightFunctionEnable  == true ? '#26394f':'#ccc'}">
-                        </div>
-                          </div>
-                 </span>
-           </div>
-           <div *ngIf="ad.nightLightFunctionEnable ">
-                <div class="anti-glare-start-end-time-div">
-                    <div class="bj-config-setting-time-adjust anti-glare-start-function">
-                        <label class="actuator-anti-glare-start-time-lbl" >{{ this.data.getTranslatedString("Start time") }}</label>
-                          <timeinput [timeHours]="this.NLStartTimeHH" [timeMins]="this.NLStartTimeMM" [timeSecs]=-1  [timeType]='nlstarttime' (setTimeBack)="setTime('nlstarttime')"  style="width:50%; position:absolute; right:10px;"></timeinput>  
-                    </div>
-                    <div class="bj-config-setting-time-adjust anti-glare-end-function">
-                        <label class="actuator-anti-glare-end-time-lbl" >{{ this.data.getTranslatedString("End time") }}</label>
-                          <timeinput [timeHours]="this.NLEndTimeHH" [timeMins]="this.NLEndTimeMM" [timeSecs]=-1  [timeType]='nlendtime'  (setTimeBack)="setTime('nlendtime')" style="width:50%; position:absolute; right:10px;"></timeinput>  
-                    </div>
+        <!--night time anti-glare-->
+        <div class="bj-config-setting-div actuator1-night-anti-glare-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-night-anti-glare-lbl">{{ this.data.getTranslatedString("Night light function") }}</label>
+                <div class="bj-actuator-toggle" (click)="showNightAntiGlareSettings = !showNightAntiGlareSettings">
+                    <down-nav *ngIf="!showNightAntiGlareSettings"></down-nav>
+                    <up-nav *ngIf="showNightAntiGlareSettings"></up-nav>
                 </div>
-                <div class="anti-glare-level-div">
-                    <label class="actuator-anti-glare-level-lbl">Illumination level</label>
-                    <div class="bj-actuator1-slider">
+            </div>
+            <div class="bj-config-setting inner-setting actuator1 anti-glare-function" *ngIf="showNightAntiGlareSettings">
+                <div class="anti-glare-function-div">
+                    <label class="anti-glare-function-lbl">{{ this.data.getTranslatedString("Night light function") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="toggleNl()" [(ngModel)]="ad.nightLightFunctionEnable" [ngStyle]="{'border-color': ad.nightLightFunctionEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.nightLightFunctionEnable == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.nightLightFunctionEnable  == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.nightLightFunctionEnable  == true,'switch-off':ad.nightLightFunctionEnable  == false }"
+                                [ngStyle]="{'background-color':ad.nightLightFunctionEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="night-light-properties" *ngIf="ad.nightLightFunctionEnable ">
+                    <div class="anti-glare-start-end-time-div">
+                        <div class="bj-config-setting-time-adjust anti-glare-start-function">
+                            <label class="actuator-anti-glare-start-time-lbl">{{ this.data.getTranslatedString("Start time") }}</label>
+                            <timeinput [timeHours]="this.NLStartTimeHH" [timeMins]="this.NLStartTimeMM" [timeSecs]=-1 [timeType]='nlstarttime' (setTimeBack)="setTime('nlstarttime')"
+                                style="width:50%; position:absolute; right:10px;"></timeinput>
+                        </div>
+                        <div class="bj-config-setting-time-adjust anti-glare-end-function">
+                            <label class="actuator-anti-glare-end-time-lbl">{{ this.data.getTranslatedString("End time") }}</label>
+                            <timeinput [timeHours]="this.NLEndTimeHH" [timeMins]="this.NLEndTimeMM" [timeSecs]=-1 [timeType]='nlendtime' (setTimeBack)="setTime('nlendtime')"
+                                style="width:50%; position:absolute; right:10px;"></timeinput>
+                        </div>
+                    </div>
+
+                    <div class="anti-glare-level-div">
+                        <label class="actuator-anti-glare-level-lbl">Brightness level</label>
+                        <div class="bj-config-setting-adjust durable-switching-function">
+                            <div class="adjust-minus minus-updated" long-press (click)="reduceCount('nightLigLevel',true)" (onLongPressEnd)="reduceCount('nightLigLevel',true)"
+                                (onLongPressing)="reduceCount('nightLigLevel',false)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </div>
+                            <div class="value-updated">
+                                <input class="adjust" (keyup)="setNightLigLevel($event)" type="number" [(ngModel)]="ad.nightLightLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                                <div class="static-unit-text"> % </div>
+                            </div>
+                            <div class="adjust-plus plus-updated" long-press (click)="increaseCount('nightLigLevel',true)" (onLongPressEnd)="increaseCount('nightLigLevel',true)"
+                                (onLongPressing)="increaseCount('nightLigLevel',false)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                            <!-- <div>
+                     <div class="bj-actuator1-slider">
                         <input class = "anti-glare-level-range" type="range" name="points" min="0" max="100" step="1" (ngModelChange)="nightLightLevelChange()" [(ngModel)]="ad.nightLightLevel">
                         <div class="anti-glare-level-value-disp">{{ad.nightLightLevel}}%</div>
+                    </div> -->
+                        </div>
                     </div>
                 </div>
-           </div>
-        </div>
-    </div>
-    <!--time-shifted switch off-->
-    <div class="bj-config-setting-div actuator1-time-shifted-switchoff-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
-        <div class="bj-config-setting inner-setting actuator1 heading">
-            <label class="actuator-time-shifted-switchoff-lbl" >{{ this.data.getTranslatedString("Stepwise switch-off") }}</label>
-            <div class="bj-actuator-toggle" (click)="showTimeShiftedSwitchOffSettings =!showTimeShiftedSwitchOffSettings">
-                <down-nav *ngIf="!showTimeShiftedSwitchOffSettings"></down-nav>
-                <up-nav *ngIf="showTimeShiftedSwitchOffSettings"></up-nav>
             </div>
         </div>
-        <div class="bj-config-setting inner-setting actuator1 time-shift-function" *ngIf="showTimeShiftedSwitchOffSettings">
-            <div class="time-shift-function-div">
-                <label class="time-shift-function-lbl" >{{ this.data.getTranslatedString("Stepwise switch-off") }}</label>
-                 <span class="bj-config-toggle-switch actuator1">
-                          <div class="track"   (click)="togglesso()"  [(ngModel)]="ad.stepwiseSwitchOffDelayEnable" [ngStyle]="{'border-color': ad.stepwiseSwitchOffDelayEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
-                        <label class="switch-onlabel" *ngIf="ad.stepwiseSwitchOffDelayEnable == true">{{onLabel}}</label>
-                        <label class="switch-offlabel" *ngIf="!ad.stepwiseSwitchOffDelayEnable == true">{{offLabel}}</label>
-                        <div class="switch" [ngClass]="{'switch-on':ad.stepwiseSwitchOffDelayEnable  == true,'switch-off':ad.stepwiseSwitchOffDelayEnable  == false }" [ngStyle]="{'background-color':ad.stepwiseSwitchOffDelayEnable  == true ? '#26394f':'#ccc'}">
-                        </div>
-                          </div>
-                 </span>
-            </div>
-            <div class="time-shift-settings-div" *ngIf="ad.stepwiseSwitchOffDelayEnable" >
-                <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}} <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.stepwiseSwitchOffDelayMax}}  <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
-                <div class="bj-config-setting-adjust time-shift-switchoff-function">
-                        <div class="adjust-minus" long-press (click)="reduceCount('sstime',true)" (onLongPressEnd)="reduceCount('sstime',true)" (onLongPressing)="reduceCount('sstime',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust" (keyup)="setSsOt($event)"  type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > <ng-container >{{ this.data.getTranslatedString("s") }}</ng-container> </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('sstime',true)" (onLongPressEnd)="increaseCount('sstime',true)" (onLongPressing)="increaseCount('sstime',false)" ><span class="glyphicon glyphicon-plus"></span>
-                        </div>
-                </div>
-                <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate state</label>
-                <div class="bj-config-setting-adjust time-shift-brightness-function">
-                    <div class="adjust-minus" long-press (click)="reduceCount('ssinter',true)" (onLongPressEnd)="reduceCount('ssinter',true)" (onLongPressing)="reduceCount('ssinter',false)" ><span class="glyphicon glyphicon-minus"></span></div>
-                        <input class="adjust"  (keyup)="setBrIs($event)"  type="number" [(ngModel)]="ad.stepwiseSwitchOffLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text" > % </div>
-                        <div class="adjust-plus" long-press (click)="increaseCount('ssinter',true)" (onLongPressEnd)="increaseCount('ssinter',true)" (onLongPressing)="increaseCount('ssinter',false)" ><span class="glyphicon glyphicon-plus"></span>
-                        </div>
+        <!--time-shifted switch off-->
+        <div class="bj-config-setting-div actuator1-time-shifted-switchoff-div" style="border-bottom:none;" *ngIf="ad.deviceType == 'daliMaster1c'">
+            <div class="bj-config-setting inner-setting actuator1 heading">
+                <label class="actuator-time-shifted-switchoff-lbl">{{ this.data.getTranslatedString("Stepwise switch off") }}</label>
+                <div class="bj-actuator-toggle" (click)="showTimeShiftedSwitchOffSettings =!showTimeShiftedSwitchOffSettings">
+                    <down-nav *ngIf="!showTimeShiftedSwitchOffSettings"></down-nav>
+                    <up-nav *ngIf="showTimeShiftedSwitchOffSettings"></up-nav>
                 </div>
             </div>
-         </div>
+            <div class="bj-config-setting inner-setting actuator1 time-shift-function" *ngIf="showTimeShiftedSwitchOffSettings">
+                <div class="time-shift-function-div">
+                    <label class="time-shift-function-lbl">{{ this.data.getTranslatedString("Stepwise switch off") }}</label>
+                    <span class="bj-config-toggle-switch actuator1">
+                        <div class="track" (click)="togglesso()" [(ngModel)]="ad.stepwiseSwitchOffDelayEnable" [ngStyle]="{'border-color': ad.stepwiseSwitchOffDelayEnable == true ? '#26394f':'#c0c1c3'}"
+                            ngDefaultControl>
+                            <label class="switch-onlabel" *ngIf="ad.stepwiseSwitchOffDelayEnable == true">{{onLabel}}</label>
+                            <label class="switch-offlabel" *ngIf="!ad.stepwiseSwitchOffDelayEnable == true">{{offLabel}}</label>
+                            <div class="switch" [ngClass]="{'switch-on':ad.stepwiseSwitchOffDelayEnable  == true,'switch-off':ad.stepwiseSwitchOffDelayEnable  == false }"
+                                [ngStyle]="{'background-color':ad.stepwiseSwitchOffDelayEnable  == true ? '#26394f':'#ccc'}">
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="time-shift-settings-div" *ngIf="ad.stepwiseSwitchOffDelayEnable">
+                    <div class="ssso-so-time">
+                        <label class="actuator-time-shift-switchoff-time-lbl">Switch-off time ({{ad.stepwiseSwitchOffDelayMin}}
+                            <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container> - {{ad.stepwiseSwitchOffDelayMax}}
+                            <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>)</label>
+                        <div class="bj-config-setting-adjust time-shift-switchoff-function">
+                            <div class="adjust-minus minus-updated" long-press (click)="reduceCount('sstime',true)" (onLongPressEnd)="reduceCount('sstime',true)"
+                                (onLongPressing)="reduceCount('sstime',false)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </div>
+                            <div class="value-updated">
+                                <input class="adjust" (keyup)="setSsOt($event)" type="number" [(ngModel)]="ad.stepwiseSwitchOffDelay" [ngStyle]="{'color':ssOffTime ==true ? 'red' : '#26394f'}">
+                                <div class="static-unit-text">
+                                    <ng-container>{{ this.data.getTranslatedString("s") }}</ng-container>
+                                </div>
+                            </div>
+                            <div class="adjust-plus plus-updated" long-press (click)="increaseCount('sstime',true)" (onLongPressEnd)="increaseCount('sstime',true)"
+                                (onLongPressing)="increaseCount('sstime',false)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ssso-bis">
+                        <label class="actuator-time-shift-brightness-lbl">Brightness of intermediate step</label>
+                        <div class="bj-config-setting-adjust time-shift-brightness-function">
+                            <div class="adjust-minus minus-updated" long-press (click)="reduceCount('ssinter',true)" (onLongPressEnd)="reduceCount('ssinter',true)"
+                                (onLongPressing)="reduceCount('ssinter',false)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </div>
+                            <div class="value-updated">
+                                <input class="adjust" (keyup)="setBrIs($event)" type="number" [(ngModel)]="ad.stepwiseSwitchOffLevel" [ngStyle]="{'color':ssInter ==true ? 'red' : '#26394f'}">
+                                <div class="static-unit-text"> % </div>
+                            </div>
+                            <div class="adjust-plus plus-updated" long-press (click)="increaseCount('ssinter',true)" (onLongPressEnd)="increaseCount('ssinter',true)"
+                                (onLongPressing)="increaseCount('ssinter',false)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>

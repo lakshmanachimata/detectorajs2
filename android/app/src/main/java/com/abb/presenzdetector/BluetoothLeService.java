@@ -312,6 +312,7 @@ public class BluetoothLeService extends Service {
                     }
                 }
             }else{
+
                 if (status == BluetoothGatt.GATT_SUCCESS){
 
                 }
@@ -593,6 +594,9 @@ public class BluetoothLeService extends Service {
         else {
             Log.d(MainActivity.LOG_TAG," writeCharacteristic fail    " + getGatt().getDevice().getAddress());
             MainActivity.getInstance().disConnectDevice();
+
+
+
         }
     }
 

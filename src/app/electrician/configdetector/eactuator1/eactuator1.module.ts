@@ -4,6 +4,8 @@ import { DataService } from '../../../data.service';
 import { RouterModule, Routes,Router }  from '@angular/router';
 import { EActuator1Component } from './eactuator1.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { FormsModule } from '@angular/forms';
+
 
 const EActuator1Routes: Routes = [
   { path: '', component: EActuator1Component },
@@ -15,6 +17,7 @@ const EActuator1Routes: Routes = [
   ],
   imports: [
     SharedModule,
+    FormsModule,
     RouterModule.forChild(EActuator1Routes)
   ],
 })

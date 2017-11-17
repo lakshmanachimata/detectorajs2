@@ -10,10 +10,17 @@
 #define blescann_bridge_h
 
 #import "FreehomeInterface.h"
-#import "CkoCert.h"
-#import "CkoPublicKey.h"
-#import "CkoCertChain.h"
-#import "CkoPfx.h"
-#import "CkoPrivateKey.h"
+#import "BluetoothManager.h"
+#import "DeviceStorage.h"
+#import "GenericServiceManager.h"
+#import "SUOTAServiceManager.h"
+#import "ParamaterStorage.h"
+#import "FirmWareUpdate.h"
+
+//#import "CkoCert.h"
+//#import "CkoPublicKey.h"
+//#import "CkoCertChain.h"
+//#import "CkoPfx.h"
+//#import "CkoPrivateKey.h"
 
 #endif /* blescann_bridge_h */

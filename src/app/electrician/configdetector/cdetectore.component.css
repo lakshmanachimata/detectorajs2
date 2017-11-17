@@ -20,7 +20,7 @@
 	font-weight: 600;
 	padding-top: 14px;
     padding-bottom: 14px;
-    border: 1px solid #212e40;
+    border-bottom: 1px solid #d0d6dc;
 	padding-left: 18px;
 }
 
@@ -29,7 +29,11 @@
 	font-size: 16px;
 	font-weight: 600;
 	padding-top: 14px;
-	padding-left: 18px;
+	/* padding-left: 18px; */
+}
+
+.bj-config-setting label, .bj-config-setting-div label, div label{
+    padding-left: 18px;
 }
 
 .bj-config-setting-label{
@@ -50,7 +54,7 @@
 } 
 
 .bj-config-setting.brightness-function{
-    /* font-size: 4vw; */
+    padding-top: 6px;
 }
 .bj-service-setting-div{
 	width:100%;
@@ -166,20 +170,24 @@ span.bj-actuator-bulb{
     transition: width .6s ease;
 }
 
+
+/* Modified for UI change in Light control section G0p@L*/
+
 .bj-actuator-brightness {
 	margin-left: 4%;
 	width: 92%;
-	height: 134px;
+    /*## height: 134px; */
+    height: 200px;
 	display: inline-flex;
 	margin-bottom: 1.5%;
 	margin-top: 3%;
 	z-index:3;
     position:relative;
-    border-top: 2px solid #ffff00;/*PDAL-2143*/
+    border-top: 4px outset #FFEB3B;/*PDAL-2143*/
 }
-
 img.bulb-off{
-    margin-left: 126px;
+    /*## margin-left: 126px; */
+    /* margin-right: 100px; */
 }
 img.bulb-glow{
     height: 166px;
@@ -209,6 +217,7 @@ img.bulb-on.light2{
     text-align: center;
     margin-left: 44px;
     margin-right: 20px;
+    transform: scale(1.2);    
 }
 
 label.actuator-name {
@@ -223,7 +232,7 @@ label.actuator-name {
 .bj-actuator-bulb {
 	height: 100%;
 	/* border-top:3px solid #ffff00; *//*PDAL-2143*/
-	border-right:1px solid #000000;
+	/* border-right:1px solid #000000; */
 	background-color: #233348;
 	border-bottom-left-radius: 6px;
 }
@@ -232,14 +241,14 @@ label.actuator-name {
 	border-bottom-right-radius: 6px;
 }
 .bj-actuator-bulb.actuator1{
-	width: 76%;
+	width: 50%;
 }
 .bj-actuator-slider {
-	width: 24%;
+	width: 50%;
 	height: 100%;
 	/* border-top:3px solid #ffff00; */ /*PDAL-2143*/
-	border-left:1px solid #667a93;
-	background-color:#212e40;
+	/* border-left:1px solid #667a93; */
+	background-color:#233348;
 	border-bottom-right-radius: 6px;
 
 }
@@ -261,15 +270,16 @@ span.slide-open {
 }
 
 .bj-brightness-slider{
-	display:inline-block;
-	z-index:4;
-	height:84px;
-	width:0;
-	right:0;
-	bottom:0;
-	position:absolute;
-	background-color:#212e40;
-	border-bottom-right-radius: 6px;
+    text-align: center;
+    display: inline-block;
+    z-index: 4;
+    height: 68px;
+    width: 75%;
+    left: 8px;
+    bottom: 0;
+    position: absolute;
+    background-color: #212e40;
+    border-bottom-right-radius: 6px;
 }
 
 div.bj-actuator-slider div.slide-open {
@@ -301,20 +311,20 @@ div.slide-close {
 
 .bj-slider-control{
     position: absolute;
-	height: 72px;
-    width: 200px;
-    margin-left: 50px;
-    margin-top: 12px;
-    float: left;
+    height: 48px;
+    width: 97%;
+    /* margin-left: 16px; */
+    margin: 10px 0px;
+    /* float: left; */
 }
 .bj-slider-control input[type="range"]:active {
 }
 .bj-slider-control input[type="range"] {
     -webkit-appearance: none;
     outline: none;
-    height: 70px;
-    background:transparent;
-    pointer-events: none;
+    height: 46px;
+    background: transparent;
+    /* pointer-events: none; */
 }
 .bj-slider-control input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -399,8 +409,8 @@ label.set-pins-subtext {
 
 .bj-sensor-toggle.dynamic-delay {
 	border-bottom: solid 1px #9eabbb;
-	border-top: solid 1px #9eabbb;
-	margin-top: 20px;
+	/* border-top: solid 1px #9eabbb; */
+	margin-top:10px;
 	padding-bottom: 14px;
 	padding-top: 6px;
 }
@@ -474,9 +484,9 @@ label.bj-config-setting.burn-in-mode {
 }
 
 label.bj-config-setting.reset-inner-block {
-	padding-left: 0 !Important;
+	/* padding-left: 0 !Important; */
 	padding-top: 10px;
-    color: #9eabbb;
+    color: #0c4264;
 }
 
 .bj-config-setting.actuator1.reset {
@@ -491,7 +501,7 @@ label.actuator-anti-glare-level-lbl{
 }
 
 .anti-glare-level-div {
-	margin-top: 30px;
+	margin-top: 18px;
 }
 
 .bj-actuator1-slider{
@@ -554,11 +564,23 @@ label.actuator-anti-glare-level-lbl{
 	margin-top: 12px;
 }
 
-.bj-config-setting-adjust.illumination-start-function,
-.bj-config-setting-adjust.anti-glare-start-function,
-.bj-config-setting-adjust.time-shift-switchoff-function{
+.bj-config-setting-adjust.anti-glare-start-function{
 	margin-bottom: 32px;
 	margin-top: 12px;
+}
+
+.bj-config-setting-adjust.time-shift-switchoff-function{
+    margin-bottom: 16px;
+	margin-top: 12px;
+}
+
+.bj-config-setting-adjust.illumination-end-function{
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.bj-config-setting-adjust.illumination-start-function{
+    margin-bottom: 12px;
+    margin-top: 0px;
 }
 
 /* label.actuator-anti-glare-start-time-lbl {
@@ -566,7 +588,7 @@ label.actuator-anti-glare-level-lbl{
 } */
 
 .time-shift-settings-div {
-	margin-top: 22px;
+	margin-top: 16px;
 }
 
 
@@ -677,7 +699,7 @@ img.user-active {
 }
 
 .bj-config-setting-adjust.switch-on-delay-actuator2 {
-	margin-bottom: 28px;
+	margin-bottom: 14px;
 }
 
 .bj-config-setting.inner-setting.energy-monitor-reference-load,
@@ -1103,21 +1125,21 @@ div#bj-user-sensor-div {
 	margin-right:10px;
 }
 .bj-current-val{
-	display:inline-flex;
+    display:flex;
+    margin-top: 30px;
+    margin-bottom: 10px;
 	left:0;
 	right:0;
-    min-height: 60px;
+	height: 40px;
 }
 
 .bj-config-setting-adjust .adjust{
-	width: 100%;
-    border: solid 1px;
-    border-color: #9eabbb;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 8px;
     text-align: center;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+    border: none;
+    height: 70%;
+    margin-left: 20%;
 }
 
 .adjust-value-input{
@@ -1160,7 +1182,7 @@ div#bj-user-sensor-div {
 }
 
 .adjust-value{
-    width: 112px;
+    width: 84px;
     height: 34px;
     border-radius: 7px;
     background: #e6e8ed;
@@ -1170,7 +1192,7 @@ div#bj-user-sensor-div {
     font-size: 15px;
     float:right;
     font-weight: 400;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     /*margin-left: 8px;*/
     margin-right: 12px;
     text-align:center;
@@ -1187,7 +1209,8 @@ div#bj-user-sensor-div {
 	left:0;
 	right:0;
 	height:50px;
-	display:flex;
+    display:flex;
+    margin-top: 10px;
 }
 
 label.bj-config-setting.presence-simulation-block {
@@ -1224,7 +1247,7 @@ label.bj-config-setting.presence-simulation-block {
     border-bottom: 2px solid #131b25;
 }
 .bj-config-setting-block-lbl{
-	color: #9eabbb;
+	color: #0c4264;
 	font-size: 14px;
 	font-weight: 600;
 	padding-top: 8px;
@@ -1320,7 +1343,7 @@ div#bj-user-basic-illumination-div {
     text-align: center;
     float: left;
     padding-top: 8px;
-    padding-left: 8px;
+    padding-left: 8px !important;
     font-weight:400;
     color:#26394f;
 }
@@ -1334,6 +1357,7 @@ div#bj-user-basic-illumination-div {
     padding-right: 32px;
     font-weight: 400;
     color: #5e738e;
+    padding-left: 0px !important;
 }
 
 .switch.switch-off{
@@ -1399,17 +1423,15 @@ label.switch-offlabel.user{
     border-right: 1px solid #7a7f85;
 }
 .static-unit-text{
-    font-size: 17px;
+    font-size: 18px;
     height: 40px;
     width: 80px;
-    text-align: center;
-    margin-top: 10px;
+    text-align: left;
+    margin-top: 4px;
     color: #26394f;
-    border: solid 1px #9eabbb;
     padding-top: 6px;
-    border-right: none;
-    border-left: none;
     padding-right: 5px;
+    margin-right: 20px;
 }
 
 
@@ -1861,4 +1883,348 @@ label.bj-config-lbl.energy-monitor-reference-div.user {
     border-radius: 4px;
     height: 32px;
     margin-top: 20px;
+}
+
+
+.minus-updated{
+	background: none;
+    border:none;
+    padding-left:unset;
+}
+
+.plus-updated{
+	background: none;
+    border:none;
+    padding-right:20px;
+}
+
+.value-updated{
+    border: solid 1px #9eabbb;
+    border-radius: 8px;
+    display: flex;
+    /*margin-top: 6px;*/
+    margin-top: 0px;
+    font-weight:400;
+    width: 100%;
+}
+
+
+/* Modification for Actuator section */
+
+.bj-actuator-auto{
+    width: 74px;
+}
+
+.bj-actuator-auto .bulb-auto{
+    position: relative;
+    left: 38px;
+    float: right;
+}
+
+.bj-actuator-timed{
+    width: 100%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+.bj-actuator-timed .bj-actuator-timed-on, .bj-actuator-timed .bj-actuator-timed-off{
+    width: 60px;
+    text-align: center;
+    margin-left: 1em;
+}
+
+.bj-actuator-timed .bj-actuator-timed-off{
+    right: 16px;
+    position: relative;
+}
+
+.bj-slider-level label{
+    width: 100%;
+    height: 36px;
+    text-align: right;
+    font-size: 1.1em;
+    color: #ffffff;
+    position: relative;
+    top: 1.5em;
+    right: 0.5em;
+}
+
+.bj-slider-level{
+    width: 74px;
+    float: right;
+    margin: 20px 0px;
+}
+
+/*HVAC STYLES*/
+.bj-hvac-status{
+    margin-left: 4%;
+    width: 92%;
+    height: 200px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 1.5%;
+    margin-top: 3%;
+    z-index: 3;
+    position: relative;
+    border-top: 4px outset #F44336;
+}
+
+.bj-bbl-status{
+    margin-left: 4%;
+    width: 92%;
+    height: 200px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 1.5%;
+    margin-top: 3%;
+    z-index: 3;
+    position: relative;
+    border-top: 4px outset #FFEB3B;
+}
+
+.bj-actuator-hvac{
+    width: 100%;
+    height: 100%;
+    background-color: #233348;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.hvac-state-holder{
+    border-radius: 45px;
+    width: 74px;
+    height: 74px;
+    text-align: center;
+    margin-left: 18%;
+    transform: scale(2.5);
+    position: relative;
+    top: 50px;
+}
+
+.hvac-state-icon{
+    margin-left: 2em;
+}
+
+.bbl-state-icon{
+    margin-left: 1.5em;
+    position: relative;
+    left: .5em;
+    top: 4px;
+}
+
+/*PDAL503*/
+.btn-push {
+    position: relative;
+    top: 0px;
+    text-decoration: none;
+    background: #f7f7f7fb;
+    padding: 4px 8px;
+    margin: 0 -11px;
+    border: 1px solid #c4c4c4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 0px #c4c4c4;
+    -moz-box-shadow: 0px 0px 0px #c4c4c4;
+    -ms-box-shadow: 0px 0px 0px #c4c4c4;
+    -o-box-shadow: 0px 0px 0px #c4c4c4;
+    box-shadow: 0px 0px 0px #c4c4c4;
+    color: #0c4264;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px #fff;
+    -webkit-transition: All 250ms ease;
+    -moz-transition: All 250ms ease;
+    -o-transition: All 250ms ease;
+    -ms-transition: All 250ms ease;
+    transition: All 250ms ease;
+  }
+  /*==========  Active State  ==========*/
+  .btn-push:active {
+    position: relative;
+    top: 5px;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -ms-box-shadow: none !important;
+    -o-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition: All 250ms ease;
+    -moz-transition: All 250ms ease;
+    -o-transition: All 250ms ease;
+    -ms-transition: All 250ms ease;
+    transition: All 250ms ease;
+  }
+
+  .btn-push-unit {
+    font-weight: 600 !important;
+    color: #0c4264 !important;
+    margin-left: -14px !important;
+    z-index: 1 !important;
+    margin-right: 29px !important;
+    margin-top: 3px !important;
+  }
+
+  .bj-burn-in-lbl{
+    display: block;
+    left: 0;
+    right: 0;
+    height: 42px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color:transparent;
+    color: #0c4264;
+    border-bottom: none;
+    padding: 0px 20px;
+    top: 9px;
+    position: relative;
+  }
+
+  .bi-div{
+      border-bottom: none !important;
+  }
+
+  .burnInTime{
+      border-top: 1px solid #9eabbb;
+  }
+
+  hr{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #9eabbb;
+    position: relative;
+    right: 18px;
+    width: 49em;
+  }
+
+  label.actuator-anti-glare-level-lbl{
+      padding-bottom: 0px;
+  }
+
+  label.actuator-basic-illumniation-lbl{
+      padding-bottom: 0px;
+  }
+  
+  /*added by gopal:) PDAL-535*/
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    rgb(187, 187, 187);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    rgb(187, 187, 187);
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    rgb(187, 187, 187);
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    rgb(187, 187, 187);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:    rgb(187, 187, 187);
+}
+
+
+/**/
+.sensor-params-function, .sensor-params-lbl, .outdoor-application-function{
+    color: #0c4264 !important;
+}
+
+label{
+	color: #0c4264;
+}
+
+.bj-start-astro-fn {
+    border-bottom: 1px solid;
+    padding-bottom: 12px;
+}
+
+.anti-glare-function-div{
+    margin-bottom: 0.5em;
+}
+
+.night-light-properties{
+    border-top:1px solid #9eabbb;
+}
+
+.anti-glare-start-end-time-div{
+    border-bottom: 1px solid #9eabbb;
+}
+
+.time-shift-function-div{
+    border-bottom: 1px solid #9eabbb;
+    padding-bottom: 0.5em;
+}
+
+.ssso-bis{
+    border-top: 1px solid #9eabbb;
+    border-bottom: 1px solid #9eabbb;
+    position: relative;
+    top: 0.5em;
+    padding: 16px 0px;
+}
+
+.time-shift-function{
+    border-bottom:none !important;
+}
+
+.dynamic-control-soff{
+    border-top: 1px solid;
+    padding-top: 1em;
+}
+
+/**/
+
+.testmode-slave-div{
+    border-top:solid 1px #9eabbb;
+}
+
+.testmode-slave-div .glyphicon{
+    margin-left: 8px;
+    font-size: 1.2em;
+    position: relative;
+    top: 6px;
+}
+
+.bj-config-setting label{
+    padding-left: 18px;
+}
+
+
+/**/
+.energy-monitor-con-load{
+    width: 50% !important;
+    margin-top: 8px !important;
+    text-align: right !important;
+    border: none !important;
+    height: 30px !important;
+    border: none !important;
+    margin-top: 0px !important;
+    font-size: 20px !important;
+    margin-left: 4px !important;
+    color: #0171af !important;
+    padding-left: 0px !important;
+}
+
+.energy-monitor-con-load-unit{
+    margin: auto 0px;
+    position: relative;
+    left: 5px;
+    font-size: 19px;
+    color: #0171af;
+}
+
+.password-setting{
+    color: #0c4264 !important;
+}
+
+.set-pins-fitter-div, .set-pins-user-div{
+    background-color: transparent !important;
+    border-bottom: none !important;
+    color:#0c4264 !important;
+}
+
+.sub-menu-head{
+    background: #f9fafc;
 }

@@ -16,6 +16,14 @@ export class LongPress {
   @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
   @Output() onLongPressEnd: EventEmitter<any> = new EventEmitter();
 
+  /**
+   * Touch start end events 
+   * added by gopal:)
+   * PDAL-2500
+   */
+  @Output() onTouchStart: EventEmitter<any> = new EventEmitter();
+  @Output() onTouchEnd: EventEmitter<any> = new EventEmitter();
+
   private pressing: boolean;
   private longPressing: boolean;
   private timeout: any;
@@ -23,9 +31,9 @@ export class LongPress {
   private mouseY: number = 0;
 
   @HostBinding('class.press')
-  get press() { 
-      return this.pressing; 
-    }
+  get press() {
+    return this.pressing;
+  }
 
   @HostBinding('class.longpress')
   get longPress() { return this.longPressing; }
@@ -33,6 +41,10 @@ export class LongPress {
   @HostListener('touchstart', ['$event'])
   onTouchDown(event) {
 
+    //addedy by gopal:)
+    this.onTouchStart.emit(event);
+    //
+
     this.pressing = true;
     this.longPressing = false;
 
@@ -45,16 +57,20 @@ export class LongPress {
     this.loop(event);
   }
 
-  @HostListener('touchend')
-  onTouchUp() { 
-      this.endPress(); 
-    }
+  @HostListener('touchend', ['$event'])
+  onTouchUp(event) {
+
+    //addedy by gopal:)
+    this.onTouchEnd.emit(event);
+    //
+    this.endPress();
+  }
 
 
   @HostListener('mousedown', ['$event'])
   onMouseDown(event) {
     // don't do right/middle clicks
-    if(event.which !== 1) return;
+    if (event.which !== 1) return;
 
     this.pressing = true;
     this.longPressing = false;
@@ -68,19 +84,19 @@ export class LongPress {
     this.loop(event);
   }
 
-//   @HostListener('mousemove', ['$event'])
-//   onMouseMove(event) {
-//     if(this.pressing && !this.longPressing) {
-//       const xThres = (event.clientX - this.mouseX) > 10;
-//       const yThres = (event.clientY - this.mouseY) > 10;
-//       if(xThres || yThres) {
-//         this.endPress();
-//       }
-//     }
-//   }
+  //   @HostListener('mousemove', ['$event'])
+  //   onMouseMove(event) {
+  //     if(this.pressing && !this.longPressing) {
+  //       const xThres = (event.clientX - this.mouseX) > 10;
+  //       const yThres = (event.clientY - this.mouseY) > 10;
+  //       if(xThres || yThres) {
+  //         this.endPress();
+  //       }
+  //     }
+  //   }
 
   loop(event) {
-    if(this.longPressing) {
+    if (this.longPressing) {
       this.timeout = setTimeout(() => {
         this.onLongPressing.emit(event);
         this.loop(event);
@@ -90,7 +106,7 @@ export class LongPress {
 
   endPress() {
     clearTimeout(this.timeout);
-    if(this.longPressing)
+    if (this.longPressing)
       this.onLongPressEnd.emit(true);
     this.longPressing = false;
     this.pressing = false;

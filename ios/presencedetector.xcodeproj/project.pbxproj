@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A58B3941F304AF100FF3B75 /* libchilkatIos_arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58B38F1F304AF100FF3B75 /* libchilkatIos_arm64.a */; };
-		2A58B3951F304AF100FF3B75 /* libchilkatIos_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58B3901F304AF100FF3B75 /* libchilkatIos_i386.a */; };
-		2A58B3961F304AF100FF3B75 /* libchilkatIos_x86_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58B3911F304AF100FF3B75 /* libchilkatIos_x86_64.a */; };
-		2A58B3971F304AF100FF3B75 /* libchilkatIos_armv7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58B3921F304AF100FF3B75 /* libchilkatIos_armv7.a */; };
-		2A58B3981F304AF100FF3B75 /* libchilkatIos_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A58B3931F304AF100FF3B75 /* libchilkatIos_armv7s.a */; };
+		1801D1621FB9B8E100101BF1 /* FirmWareUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D1611FB9B8E100101BF1 /* FirmWareUpdate.m */; };
+		1801D1651FB9B94500101BF1 /* GenericSUOTAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D1641FB9B94500101BF1 /* GenericSUOTAViewController.m */; };
+		1801D1711FB9BA1700101BF1 /* BluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D1681FB9BA1700101BF1 /* BluetoothManager.m */; };
+		1801D1721FB9BA1700101BF1 /* DeviceStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D16A1FB9BA1700101BF1 /* DeviceStorage.m */; };
+		1801D1731FB9BA1700101BF1 /* GenericServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D16C1FB9BA1700101BF1 /* GenericServiceManager.m */; };
+		1801D1741FB9BA1700101BF1 /* ParamaterStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D16E1FB9BA1700101BF1 /* ParamaterStorage.m */; };
+		1801D1751FB9BA1700101BF1 /* SUOTAServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801D1701FB9BA1700101BF1 /* SUOTAServiceManager.m */; };
 		2A6943E71F276CA500639B35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6943E51F276CA500639B35 /* Main.storyboard */; };
 		2A6943EA1F276CA500639B35 /* presencedetector.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2A6943E81F276CA500639B35 /* presencedetector.xcdatamodeld */; };
 		2A6943EC1F276CA500639B35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6943EB1F276CA500639B35 /* Assets.xcassets */; };
@@ -38,12 +40,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1801D1601FB9B8E100101BF1 /* FirmWareUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirmWareUpdate.h; path = presencedetector/FirmWareUpdate.h; sourceTree = "<group>"; };
+		1801D1611FB9B8E100101BF1 /* FirmWareUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirmWareUpdate.m; path = presencedetector/FirmWareUpdate.m; sourceTree = "<group>"; };
+		1801D1631FB9B94500101BF1 /* GenericSUOTAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericSUOTAViewController.h; path = presencedetector/GenericSUOTAViewController.h; sourceTree = "<group>"; };
+		1801D1641FB9B94500101BF1 /* GenericSUOTAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericSUOTAViewController.m; path = presencedetector/GenericSUOTAViewController.m; sourceTree = "<group>"; };
+		1801D1661FB9B99700101BF1 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = presencedetector/Defines.h; sourceTree = "<group>"; };
+		1801D1671FB9BA1700101BF1 /* BluetoothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BluetoothManager.h; path = presencedetector/BluetoothManager.h; sourceTree = "<group>"; };
+		1801D1681FB9BA1700101BF1 /* BluetoothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BluetoothManager.m; path = presencedetector/BluetoothManager.m; sourceTree = "<group>"; };
+		1801D1691FB9BA1700101BF1 /* DeviceStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceStorage.h; path = presencedetector/DeviceStorage.h; sourceTree = "<group>"; };
+		1801D16A1FB9BA1700101BF1 /* DeviceStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceStorage.m; path = presencedetector/DeviceStorage.m; sourceTree = "<group>"; };
+		1801D16B1FB9BA1700101BF1 /* GenericServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericServiceManager.h; path = presencedetector/GenericServiceManager.h; sourceTree = "<group>"; };
+		1801D16C1FB9BA1700101BF1 /* GenericServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericServiceManager.m; path = presencedetector/GenericServiceManager.m; sourceTree = "<group>"; };
+		1801D16D1FB9BA1700101BF1 /* ParamaterStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParamaterStorage.h; path = presencedetector/ParamaterStorage.h; sourceTree = "<group>"; };
+		1801D16E1FB9BA1700101BF1 /* ParamaterStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParamaterStorage.m; path = presencedetector/ParamaterStorage.m; sourceTree = "<group>"; };
+		1801D16F1FB9BA1700101BF1 /* SUOTAServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUOTAServiceManager.h; path = presencedetector/SUOTAServiceManager.h; sourceTree = "<group>"; };
+		1801D1701FB9BA1700101BF1 /* SUOTAServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUOTAServiceManager.m; path = presencedetector/SUOTAServiceManager.m; sourceTree = "<group>"; };
 		2A58B38F1F304AF100FF3B75 /* libchilkatIos_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchilkatIos_arm64.a; path = presencedetector/chilkat/lib/libchilkatIos_arm64.a; sourceTree = "<group>"; };
 		2A58B3901F304AF100FF3B75 /* libchilkatIos_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchilkatIos_i386.a; path = presencedetector/chilkat/lib/libchilkatIos_i386.a; sourceTree = "<group>"; };
 		2A58B3911F304AF100FF3B75 /* libchilkatIos_x86_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchilkatIos_x86_64.a; path = presencedetector/chilkat/lib/libchilkatIos_x86_64.a; sourceTree = "<group>"; };
 		2A58B3921F304AF100FF3B75 /* libchilkatIos_armv7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchilkatIos_armv7.a; path = presencedetector/chilkat/lib/libchilkatIos_armv7.a; sourceTree = "<group>"; };
 		2A58B3931F304AF100FF3B75 /* libchilkatIos_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchilkatIos_armv7s.a; path = presencedetector/chilkat/lib/libchilkatIos_armv7s.a; sourceTree = "<group>"; };
-		2A58B3991F304CB900FF3B75 /* chilkat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = chilkat; sourceTree = "<group>"; };
 		2A6943DE1F276CA500639B35 /* presencedetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = presencedetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6943E61F276CA500639B35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A6943E91F276CA500639B35 /* presencedetector.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = presencedetector.xcdatamodel; sourceTree = "<group>"; };
@@ -80,11 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A58B3941F304AF100FF3B75 /* libchilkatIos_arm64.a in Frameworks */,
-				2A58B3951F304AF100FF3B75 /* libchilkatIos_i386.a in Frameworks */,
-				2A58B3961F304AF100FF3B75 /* libchilkatIos_x86_64.a in Frameworks */,
-				2A58B3971F304AF100FF3B75 /* libchilkatIos_armv7.a in Frameworks */,
-				2A58B3981F304AF100FF3B75 /* libchilkatIos_armv7s.a in Frameworks */,
 				2AE462701F277B4D0039803C /* libxml2.2.tbd in Frameworks */,
 				2AE4626E1F277B450039803C /* libz.1.1.3.tbd in Frameworks */,
 				2AE4626C1F277B3E0039803C /* libstdc++.6.tbd in Frameworks */,
@@ -100,6 +111,21 @@
 		2A6943D51F276CA500639B35 = {
 			isa = PBXGroup;
 			children = (
+				1801D1671FB9BA1700101BF1 /* BluetoothManager.h */,
+				1801D1681FB9BA1700101BF1 /* BluetoothManager.m */,
+				1801D1691FB9BA1700101BF1 /* DeviceStorage.h */,
+				1801D16A1FB9BA1700101BF1 /* DeviceStorage.m */,
+				1801D16B1FB9BA1700101BF1 /* GenericServiceManager.h */,
+				1801D16C1FB9BA1700101BF1 /* GenericServiceManager.m */,
+				1801D16D1FB9BA1700101BF1 /* ParamaterStorage.h */,
+				1801D16E1FB9BA1700101BF1 /* ParamaterStorage.m */,
+				1801D16F1FB9BA1700101BF1 /* SUOTAServiceManager.h */,
+				1801D1701FB9BA1700101BF1 /* SUOTAServiceManager.m */,
+				1801D1661FB9B99700101BF1 /* Defines.h */,
+				1801D1631FB9B94500101BF1 /* GenericSUOTAViewController.h */,
+				1801D1641FB9B94500101BF1 /* GenericSUOTAViewController.m */,
+				1801D1601FB9B8E100101BF1 /* FirmWareUpdate.h */,
+				1801D1611FB9B8E100101BF1 /* FirmWareUpdate.m */,
 				2A6944291F276E4700639B35 /* www */,
 				2A69442A1F276E4700639B35 /* fwfiles */,
 				2A6943E01F276CA500639B35 /* presencedetector */,
@@ -119,7 +145,6 @@
 		2A6943E01F276CA500639B35 /* presencedetector */ = {
 			isa = PBXGroup;
 			children = (
-				2A58B3991F304CB900FF3B75 /* chilkat */,
 				2AE462601F2778510039803C /* freehome */,
 				2A6944271F276DD300639B35 /* Images.xcassets */,
 				2A69440F1F276D9700639B35 /* SuOTAManager.swift */,
@@ -194,7 +219,7 @@
 				TargetAttributes = {
 					2A6943DD1F276CA500639B35 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = JAWB2S5NHB;
+						DevelopmentTeam = MGK344U734;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -240,16 +265,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A6944221F276D9700639B35 /* AppDelegate.swift in Sources */,
+				1801D1741FB9BA1700101BF1 /* ParamaterStorage.m in Sources */,
 				2A69441E1F276D9700639B35 /* SCCPHelper.swift in Sources */,
 				2A6944211F276D9700639B35 /* BLEHelper.swift in Sources */,
+				1801D1751FB9BA1700101BF1 /* SUOTAServiceManager.m in Sources */,
 				2A6944261F276D9700639B35 /* CRCCCITT.swift in Sources */,
+				1801D1651FB9B94500101BF1 /* GenericSUOTAViewController.m in Sources */,
 				2A6944241F276D9700639B35 /* ViewController.swift in Sources */,
 				2A69441C1F276D9700639B35 /* SuOTAManager.swift in Sources */,
 				2A6944201F276D9700639B35 /* FreehomeInterface.m in Sources */,
 				2A69441F1F276D9700639B35 /* SCCPEnumerations.swift in Sources */,
 				2A69441D1F276D9700639B35 /* SUOTADefines.swift in Sources */,
+				1801D1711FB9BA1700101BF1 /* BluetoothManager.m in Sources */,
+				1801D1731FB9BA1700101BF1 /* GenericServiceManager.m in Sources */,
 				2A6944251F276D9700639B35 /* Utilities.swift in Sources */,
+				1801D1721FB9BA1700101BF1 /* DeviceStorage.m in Sources */,
 				2A6943EA1F276CA500639B35 /* presencedetector.xcdatamodeld in Sources */,
+				1801D1621FB9B8E100101BF1 /* FirmWareUpdate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = JAWB2S5NHB;
+				DEVELOPMENT_TEAM = MGK344U734;
 				HEADER_SEARCH_PATHS = (
 					"\"${SDK_DIR}\"/../../../../usr/include/libxml2/**",
 					"$(PROJECT_DIR)/presencedetector/freehome/include/**",
@@ -398,12 +430,7 @@
 					"-lssl",
 					"-lsodium",
 					"-lc++",
-					"-lchilkatIos_x86_64",
-					"-lchilkatIos_i386",
 					"-v",
-					"-lchilkatIos_armv7",
-					"-lchilkatIos_arm64",
-					"-lchilkatIos_armv7s",
 					"-lpthread",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;
@@ -421,7 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = JAWB2S5NHB;
+				DEVELOPMENT_TEAM = MGK344U734;
 				HEADER_SEARCH_PATHS = (
 					"\"${SDK_DIR}\"/../../../../usr/include/libxml2/**",
 					"$(PROJECT_DIR)/presencedetector/freehome/include/**",
@@ -445,12 +472,7 @@
 					"-lssl",
 					"-lsodium",
 					"-lc++",
-					"-lchilkatIos_x86_64",
-					"-lchilkatIos_i386",
 					"-v",
-					"-lchilkatIos_armv7",
-					"-lchilkatIos_arm64",
-					"-lchilkatIos_armv7s",
 					"-lpthread",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abb.presencedetector;

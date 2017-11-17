@@ -76,6 +76,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -272,6 +273,7 @@ public class MainActivity extends Activity {
     String daliFWFile = "";
     String mosfetFWFile = "";
     String relaisFWFile = "";
+    boolean backPressEmit=false;
 
     static public BJBLEManager suotaManager;
     //static public SpotaManager spotaManager;
@@ -539,6 +541,39 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+//    public  void sendBackPressed(boolean backEmit){
+//     // backPressEmit=backEmit;
+//      if(backEmit==true){
+//        setBackPressed();
+//        return;
+//      }else {
+//        if (webview.canGoBack()) {
+//          setBackPressed();
+//          webview.goBack();
+//        } else {
+//          super.onBackPressed();
+//        }
+//      }
+//
+//    }
+  public  void setBackPressed(){
+    runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          JSONObject demoData = new JSONObject();
+          String demoSData = "";
+          demoSData = demoSData + "sendBackPressed(";
+          demoSData =  demoSData + demoData.toString()+ ")";
+          webview.evaluateJavascript(demoSData,null);
+
+        }catch (Exception e){
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
     public void showMessageIfNoDevicesAreAvailable(){
         scanDevicesMessagesHandler.postDelayed(new Runnable() {
@@ -1031,15 +1066,15 @@ public class MainActivity extends Activity {
                     int verstlen = versionst.length();
                     versionst  = versionst.substring(1,verstlen);
                     versionst  = versionst.substring(0,verstlen-5);
-                    if (fileName.contains("relais")) {
+                    if (fileName.toLowerCase().contains("relais")) {
                         relaisFWVersion = versionst;
                         relaisFWFile =fileName;
                     }
-                    if (fileName.contains("mosfet")) {
+                    if (fileName.toLowerCase().contains("mosfet")) {
                         mosfetFWVersion = versionst;
                         mosfetFWFile = fileName;
                     }
-                    if (fileName.contains("DALI")) {
+                    if (fileName.toUpperCase().contains("DALI")) {
                         daliFWVersion = versionst;
                         daliFWFile = fileName;
                     }
@@ -1059,6 +1094,8 @@ public class MainActivity extends Activity {
             public void run() {
                 getDeviceInfo = true;
                 mBluetoothLeService.connect(address);
+
+              Log.e("connectDevice",address);
             }
         });
     }
@@ -1070,6 +1107,8 @@ public class MainActivity extends Activity {
             public void run() {
                 getDeviceInfo = false;
                 mBluetoothLeService.disconnect();
+              Log.e("connectDevice","discoonnect");
+
             }
         });
         if(scannedDevices.size() > 0){
@@ -1119,6 +1158,9 @@ public class MainActivity extends Activity {
                     }
                     else {
                         deviceData = deviceData + "onDeviceDisconnected(";
+                        //TODO:device disconnect close dailogbox   //added by lakshmi
+                        closeConnectingDialog();
+
                     }
                     deviceData = deviceData + jsonObject.toString() + ")";
                     webview.evaluateJavascript(deviceData, null);
@@ -1144,6 +1186,7 @@ public class MainActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
+          Log.e("BroadcastReceiver",action);
             if (ACTION_GATT_CONNECTED.equals(action)) {
                 for (int di = 0; di < scannedDevices.size(); di++) {
                     if (getGatt().getDevice().getAddress().equalsIgnoreCase(scannedDevices.get(di).btAddress)) {
@@ -1209,12 +1252,12 @@ public class MainActivity extends Activity {
             public void run() {
                 byte[] data = intent.getByteArrayExtra(EXTRA_DATA);
                 String charecterstic = intent.getStringExtra(EXTRA_CHARECTERSTIC);
-
+                Log.d(MainActivity.LOG_TAG, "Recieving data characteristic - "+charecterstic);
                 if (charecterstic.equalsIgnoreCase(SERVER_TX_DATA) ||
                         charecterstic.equalsIgnoreCase(NEW_SERVER_TX_DATA)) {
 
                     byte[] rawdata = data;
-
+                  Log.d(MainActivity.LOG_TAG, "Recieving data"+Arrays.toString(rawdata));
                     if (rawdata[0] == (byte) 126) {
                         rawdata = removeEscapeChars(rawdata);
                         blePacketStart = true;
@@ -1233,6 +1276,7 @@ public class MainActivity extends Activity {
                             e.printStackTrace();
                         }
                         bleDataLengthReceived = rawdata.length;
+
                         if (rawdata[rawdata.length - 1] == (byte) 126) {
                             blePacketEnd = true;
 
@@ -1286,31 +1330,35 @@ public class MainActivity extends Activity {
 
    void sendBLEAppFrame(byte[] data) {
        boolean escapeCharloc = false;
-
+     Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 1"+ Arrays.toString(data));
 
        Byte[] bytes = new Byte[data.length];
        int i = 0;
        for (byte b : data) bytes[i++] = b; // Autoboxing
        ArrayList<Byte> indata = new ArrayList<Byte>(Arrays.asList(bytes));
-
+     Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 2");
+     Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame data"+ Arrays.toString(data));
        for(int j =1; j<data.length -1;j++){
            if(data[j] == (byte) 126 || data[j] == (byte) 125){
                escapeCharloc =true;
                indata.add(j,(byte) 125);
            }
        }
-
+     Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 3");
        if(escapeCharloc) {
            byte[] obytes = new byte[indata.size()];
            for(int k = 0; k < indata.size(); k++) {
                obytes[k] = indata.get(k);
            }
            sendBLEFrame(obytes);
+         Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 4");
        }else {
+
            sendBLEFrame(data);
+         Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 5");
        }
 
-
+     Log.d(MainActivity.LOG_TAG, "sendBLEAppFrame Step 6");
    }
 
 
@@ -1378,7 +1426,10 @@ public class MainActivity extends Activity {
 
     public void getDeviceInfo() {
         for(int i =0; i < mGattServices.size(); i++) {
-            //if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE))
+          //TODO:different identify device connection issue solved by adding if condition(DSPS_SERVICE and NEW_DSPS_SERVICE)   //added by lakshmi
+
+          if(mGattServices.get(i).getUuid().toString().equalsIgnoreCase(DSPS_SERVICE) ||
+              mGattServices.get(i).getUuid().toString().equalsIgnoreCase(NEW_DSPS_SERVICE))
             {
                     final List<BluetoothGattCharacteristic> gattCharacteristics =
                             mGattServices.get(i).getCharacteristics();
@@ -1516,6 +1567,29 @@ public class MainActivity extends Activity {
         return uuids;
     }
 
+    // This method will return the manufacturer specific data from
+    // scan record.
+  /*
+    private byte[] getManufacturerSpecificData1(byte[] scanRecord)
+    {
+
+    }
+    */
+    //This method will return the manufacturer specific data 2 from
+    //scan record.
+    private byte[] getManufacturerSpecificData2(byte[] scanRecord) {
+      int manf_rec1_index = 27;
+      int manf_rec2_index = manf_rec1_index + scanRecord[manf_rec1_index]+1;//Length of device Name, including this index.
+      byte[] manf_record2 = new byte[13];  //12 is the maximum lenght of the manufacturer record 2
+      for (int i = 0; i < 13; i++) {
+        manf_record2[i] = scanRecord[manf_rec2_index];
+        manf_rec2_index++;
+      }
+
+      return manf_record2;
+    }
+
+
     private BluetoothAdapter.LeScanCallback bleCallback = new BluetoothAdapter.LeScanCallback()  {
         @Override
         public void onLeScan(final BluetoothDevice device, final int rssi,
@@ -1527,6 +1601,7 @@ public class MainActivity extends Activity {
                     List<UUID> sUUIDs = parseFromAdvertisementData(scanRecord);
                     boolean isABBPresenseDetector = false;
                     boolean isSUOTASupported = false;
+                    int deviceNameStartIndex =  27;
                     if (sUUIDs != null) {
                         for (UUID uuid : sUUIDs) {
                             {
@@ -1550,7 +1625,7 @@ public class MainActivity extends Activity {
                                             break;
                                         }
                                     }
-                                    if (deviceExists == false) {
+                                    if ((deviceExists == false) && (isABBPresenseDetector == true)) {
                                         DetectorInfo deviceInfo = new DetectorInfo();
                                         deviceInfo.hashCode = Integer.toString(device.hashCode());
                                         deviceInfo.btAddress = device.getAddress();
@@ -1558,22 +1633,76 @@ public class MainActivity extends Activity {
                                         deviceInfo.rssi = Integer.toString(rssi);
                                         deviceInfo.OTASupported = isSUOTASupported;
 
-                                        byte[] manufactureDataBytes = scanRecord;
+                                        byte[] manufactureDataBytes = getManufacturerSpecificData2(scanRecord);
+
                                         StringBuilder firmwareVersionStr = new StringBuilder();
                                         StringBuilder modelNumber = new StringBuilder();
+                                        //Scan record is including the following
+
                                         try {
-                                            for (int j = 50; j >= 48; j--) {
+                                            if (manufactureDataBytes[0] == 0x0c)    //Lenght of the manufactuer byte data is 12.
+                                            {
+
+                                              for(int i =0 ;i<12;)
+                                              {
+                                                  int  manufactuerdata =  0;
+
+                                                  manufactuerdata =  (int)manufactureDataBytes[i];
+
+                                                  if (manufactuerdata < 0)
+                                                  {
+                                                    manufactuerdata = (256+manufactuerdata);
+                                                  }
+
+                                                  if ( manufactuerdata== 0x0c) {
+                                                    i++;
+                                                    continue;  //Continue if it is length.
+                                                  }
+
+                                                  if ( manufactuerdata== 0xff) {
+                                                    i++;
+                                                    continue;
+                                                  }  //Identify it as manufacturer specific data.
+
+                                                  if (manufactuerdata == 0x04) {
+                                                    i++;
+                                                    continue;
+                                                  }  // Company data
+
+                                                  if (manufactuerdata == 0xe9) {//0xe9
+                                                    i++;
+                                                    continue;  //Continue if it is length.
+                                                  }  // Company data
+
+                                                  // Decode Firmware version
+                                                  if (manufactuerdata == 0x05)
+                                                  {
+                                                      //Frimware version.
+                                                      for(int j = i+1; j< i+manufactureDataBytes[i];j++)
+                                                      {
+                                                        if (manufactureDataBytes[j] == 0x01 ) continue;
                                                 firmwareVersionStr.append(manufactureDataBytes[j]);
-                                                if (j != 48)
                                                     firmwareVersionStr.append(".");
                                             }
-                                            modelNumber.append(String.format("%02X", manufactureDataBytes[52]));
-                                            modelNumber.append(String.format("%02X", manufactureDataBytes[53]));
+                                                      i =  i+5;
+                                                  }
+                                                  //Model No.
+                                                  if (manufactureDataBytes[i] == 0x04)
+                                                  {
+                                                    modelNumber.append(String.format("%02X", manufactureDataBytes[i+1]));
+                                                    modelNumber.append(String.format("%02X", manufactureDataBytes[i+3]));
                                             modelNumber.append("/");
-                                            modelNumber.append(String.format("%02X", manufactureDataBytes[54]));
+                                                    modelNumber.append(String.format("%02X", manufactureDataBytes[i+2]));
+
+                                                  }
+                                                  i += 4;
+                                              }
+                                           }
+
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+
                                         deviceInfo.fwupdate = "0";
                                         String llfw = firmwareVersionStr.toString();
                                         String devVersion[] = llfw.split("\\.");
@@ -1641,12 +1770,13 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(webview.canGoBack()){
-            webview.goBack();
-        }
-        else {
-            super.onBackPressed();
-        }
+      if (webview.canGoBack()) {
+         setBackPressed();
+
+      }
+     else {
+      super.onBackPressed();
+    }
 
     }
 
@@ -1671,7 +1801,7 @@ public class MainActivity extends Activity {
 
             if(scanner != null) {
                 settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).setReportDelay(0).build();
-//                scanner.flushPendingScanResults(bleCallback);
+              // scanner.flushPendingScanResults(bleCallback);
                 isScanning = true;
 
                 callback = new ScanCallback() {
@@ -1718,16 +1848,16 @@ public class MainActivity extends Activity {
         for(int jj =0; jj <fwFilesList.size(); jj++){
             String iFile = fwFilesList.get(jj);
             if(deviceType.contains("01")){
-                if(iFile.contains("relais")){
+                if(iFile.toLowerCase().contains("relais")){
                     fileName = fwFilesList.get(jj);
                 }
 
             }else if(deviceType.contains("03")){
-                if(iFile.contains("mosfet")){
+                if(iFile.toLowerCase().contains("mosfet")){
                     fileName = fwFilesList.get(jj);
                 }
             }else if(deviceType.contains("05")){
-                if(iFile.contains("DALI")){
+                if(iFile.toUpperCase().contains("DALI")){
                     fileName = fwFilesList.get(jj);
                 }
             }

@@ -19,6 +19,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   activeDevice:any;
   ad:any;
   loadingDataDone = false;
+  electricityPrice:number;
   constructor(public logger: LoggerService,public data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
@@ -34,6 +35,8 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
   }
   ngOnInit() {
     this.data.setProfileSwitch(true)
+    this.data.setOtherParam('energymonRef','Energy Monitor');
+    this.data.setShowHomeButton(true);//PDAL-2577
   }
   ngAfterContentInit() { 
   }
@@ -81,7 +84,7 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
 
 
 
-  reduceCount(item,isClick) {
+  reduceCount(item,isClick,isLong) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad -1;
       if(this.ad.energyMonitorConnectedLoad <= this.ad.energyMonitorConnectedLoadMin){
@@ -97,15 +100,68 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice -1;
-      if(this.ad.energyMonitor.electricityPrice <= 0){
-        this.ad.energyMonitor.electricityPrice = 0;
+      this.electricityPrice = this.ad.energyMonitor.electricityPrice;
+      if(isLong){
+        if(this.ad.energyMonitor.electricityPrice <= 0){
+          this.electricityPrice = 0;
+        }
+        else if((this.ad.energyMonitor.electricityPrice > 0) && (this.ad.energyMonitor.electricityPrice <= 0.1)){
+          this.electricityPrice -= 0.01;
+        }
+        else if((this.ad.energyMonitor.electricityPrice > 0.1) && (this.ad.energyMonitor.electricityPrice <= 1)){
+          this.electricityPrice -= 0.10;
+        }
+        else if((this.ad.energyMonitor.electricityPrice > 1) && (this.ad.energyMonitor.electricityPrice <= 10)){
+          this.electricityPrice -= 1;
+        }
+        else{
+          this.electricityPrice -= 10;
+        }
+      }else{
+        this.electricityPrice = this.electricityPrice -0.01;
+        if(this.ad.energyMonitor.electricityPrice <= 0){
+          this.electricityPrice = 0;
+        }
       }
+
+      this.ad.energyMonitor.electricityPrice = +(this.electricityPrice).toFixed(2);
+      this.data.deviceParams.electricityPrice = this.ad.energyMonitor.electricityPrice;
+      this.data.setEDevParamsState(1);
+      
     }
   }
 
+  formatCurrency(val) {
+    if(val.toString().indexOf('.') != -1){
+      var price = val.toString().split('.');
+      var euro = price[0];
+      var cent = price[1];
+      console.log('val: '+ val);
+      console.log('cent: '+ cent);
+      if (euro < 10){
+        euro =  '0' + euro.toString();
+      }
+      switch(cent){
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          cent = cent + '0';
+      }
+        return euro.toString() + '.' + cent;
+    }
+    else{
+      return val.toString();
+    }
 
-  increaseCount(item,isClick) {
+  }
+
+  increaseCount(item,isClick,isLong) {
     if(item == 'cload') {
       this.ad.energyMonitorConnectedLoad = this.ad.energyMonitorConnectedLoad + 1;
       if(this.ad.energyMonitorConnectedLoad >= this.ad.energyMonitorConnectedLoadMax){
@@ -121,7 +177,28 @@ export class EMReferenceComponent implements OnChanges,OnInit ,DoCheck,AfterCont
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.ENERGY_MONITOR_LIGHTING_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.energyMonitorLightingDuration])
     }else if(item == 'eprice') {
-      this.ad.energyMonitor.electricityPrice = this.ad.energyMonitor.electricityPrice + 1;
+      this.electricityPrice = this.ad.energyMonitor.electricityPrice;
+      if(isLong){
+        if((this.ad.energyMonitor.electricityPrice > 0) && (this.ad.energyMonitor.electricityPrice < 0.1)){
+          this.electricityPrice += 0.01;
+        }
+        else if((this.ad.energyMonitor.electricityPrice >= 0.1) && (this.ad.energyMonitor.electricityPrice < 1)){
+          this.electricityPrice += 0.10;
+        }
+        else if((this.ad.energyMonitor.electricityPrice >= 1) && (this.ad.energyMonitor.electricityPrice < 10)){
+          this.electricityPrice += 1;
+        }
+        else{
+          this.electricityPrice += 10;
+        }
+      }else{
+          this.electricityPrice = this.electricityPrice + 0.01;          
+        
+      }
+      
+      this.ad.energyMonitor.electricityPrice = +(this.electricityPrice.toFixed(2));
+      this.data.deviceParams.electricityPrice = this.ad.energyMonitor.electricityPrice;
+      this.data.setEDevParamsState(1);     
     }
   }
   

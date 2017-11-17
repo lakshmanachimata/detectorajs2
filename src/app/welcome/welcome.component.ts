@@ -19,6 +19,7 @@ export class WelcomeComponent implements OnInit {
       }
   ngOnInit() {
     this.data.setPKTExchangeCount(10);
+    this.data.setShowHomeButton(false);//PDAL-2577
   }
   gotoProfile(item) {
     this.data.setProfile(item);

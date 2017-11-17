@@ -1,0 +1,28 @@
+diff --git a/src/app/app.routing.module.ts b/src/app/app.routing.module.ts
+index f4297d2..6d7132e 100644
+--- a/src/app/app.routing.module.ts
++++ b/src/app/app.routing.module.ts
+@@ -10,8 +10,8 @@ const AppRoutes: Routes = [
+ ];
+ @NgModule({
+   imports: [
+-    // RouterModule.forRoot(AppRoutes,{ useHash: true,enableTracing: true })
+-    RouterModule.forRoot(AppRoutes,{ enableTracing: true })
++    RouterModule.forRoot(AppRoutes,{ useHash: true,enableTracing: true })
++    // RouterModule.forRoot(AppRoutes,{ enableTracing: true })
+   ],
+   exports: [
+     RouterModule
+diff --git a/src/index.html b/src/index.html
+index edb145d..3f92392 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -18,7 +18,7 @@ html {
+    -webkit-touch-callout: none; 
+    }
+   </style>
+-              <base href="/">                   
++              <!-- <base href="/">                    -->
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
+ </head>

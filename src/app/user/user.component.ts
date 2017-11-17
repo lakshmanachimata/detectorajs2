@@ -1,102 +1,117 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
-import {LoggerService} from '../logger.service';
+import { Component, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, NgZone } from '@angular/core';
+import { LoggerService } from '../logger.service';
 import { DataService } from '../data.service';
-import { RouterModule, Routes ,Router,RouterStateSnapshot,ActivatedRoute} from '@angular/router';
+import { RouterModule, Routes, Router, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { i18nService } from '../i18n.service';
 declare var connectDevice;
 
 export class DetectorInfo {
-        public hashCode;
-        public btDeviceName;
-        public modelNumber;
-        public manufacturerName;
-        public deviceType;
-        public firmwareVersion;
-        public softwareVersion;
-        public btAddress;
-        public btIAddress;
-        public rssi;
-        public fwupdate;
-        public createdDate;
-        public updatedDate;
-        public identify;
-    }
+  public hashCode;
+  public btDeviceName;
+  public modelNumber;
+  public manufacturerName;
+  public deviceType;
+  public firmwareVersion;
+  public softwareVersion;
+  public btAddress;
+  public btIAddress;
+  public rssi;
+  public fwupdate;
+  public createdDate;
+  public updatedDate;
+  public identify;
+}
 
 @Component({
   selector: 'user-root',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy {
+export class UserComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
-    detectors:Array<any>;
-    jsonLoadObserve: any;
-    scannedData:Array<any>;
-    snap:RouterStateSnapshot;
-    selectedDevice = false;
-    identifyingDevice:any;
-    constructor(public logger: LoggerService,public data: DataService, private router:Router,
-    private route: ActivatedRoute,private zone:NgZone,private translater:i18nService) {
-      this.selectedDevice = false;
-    }
-  configureDetectorUser(item){
-    if(this.data.getAccessLevel() == 2){
+  detectors: Array<any>;
+  jsonLoadObserve: any;
+  scannedData: Array<any>;
+  snap: RouterStateSnapshot;
+  selectedDevice = false;
+  identifyingDevice: any;
+  constructor(public logger: LoggerService, public data: DataService, private router: Router,
+    private route: ActivatedRoute, private zone: NgZone, private translater: i18nService) {
+    this.selectedDevice = false;
+  }
+  configureDetectorUser(item) {
+    if (this.data.getAccessLevel() == 2) {
       this.selectedDevice = true;
       this.jsonOnLoad(this);
-    }else {
+    } else {
       this.selectedDevice = true;
-        this.data.setSelectedDevice(item,false);
-        if(this.data.DeviceBuild == 1) {
-          if(this.data.getDeviceConnectionState() == false)
-            if(this.data.isIPhone == 1)
-              this.data.connectDevice(item.btIAddress);
-            else
-              this.data.connectDevice(item.btAddress); 
-          else 
-            this.data.setAccessLevel();
-        }
-        else {
-          this.data.initDeviceData(false);
-        }
+      this.data.setSelectedDevice(item, false);
+      if (this.data.DeviceBuild == 1) {
+        if (this.data.getDeviceConnectionState() == false)
+          if (this.data.isIPhone == 1)
+            this.data.connectDevice(item.btIAddress);
+          else
+            this.data.connectDevice(item.btAddress);
+        else
+          this.data.setAccessLevel();
+      }
+      else {
+        console.log("init device 1 called - user");
+        this.data.initDeviceData(false);
+      }
     }
   }
 
-  clearDevicesForRescan(){
-    this.zone.run( () => {
+  clearDevicesForRescan() {
+    this.zone.run(() => {
       this.detectors = [];
     });
   }
 
-  showPWDDialog(){
-        this.data.setEOptionText(this.translater.translate('OK'));
-        this.data.setEDialogInputHint(this.translater.translate('Enter password'));
-        this.data.setDialogTitle(this.translater.translate('Enter password for detector'));
-        this.data.setShowEModal(true);
+  showPWDDialog() {
+    console.log("show pwd dialog called!! - user"); 
+    this.data.setEOptionText(this.translater.translate('OK'));
+    this.data.setEDialogInputHint(this.translater.translate('Enter password'));
+    if (this.data.isWrongPWEntered() && this.data.uiParams.numberOfPasswordMistakes < 2) {
+      this.data.setDialogTitle(this.translater.translate('Wrong password'));
+    } else if (this.data.isWrongPWEntered() && this.data.uiParams.numberOfPasswordMistakes >= 2) {
+      this.data.setDialogTitle(this.translater.translate('Wrong password'));
+      this.data.setRetypeText(this.translater.translate('Retype password in'));
+    }
+    else {
+      this.data.setDialogTitle(this.translater.translate('Enter password for device'));
+    }
+    this.data.setShowEModal(true);
+
   }
-  updateDemoDevices(){
-      this.zone.run( () => {
-        this.detectors = this.data.getDevices(false);
-        this.ngOnChanges(''); 
-      });
+  updateDemoDevices() {
+    this.zone.run(() => {
+      this.detectors = this.data.getDevices(false);
+      this.ngOnChanges('');
+    });
   }
-   onUserAccessSuccess(){
-     if(this.data.getDeviceConnectionState() ==  true)
-      this.data.initDeviceData(false);
+  onUserAccessSuccess() {
+    console.log("on user access success!!"); 
+    if (this.data.getDeviceConnectionState() == true)
+      this.data.wrongPWEntered(false);  /*Added by BikashV*/
+    this.data.initDeviceData(false);
   }
-  onUserAccessDenied(){
-      this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.showPWDDialog();
-         this.data.setEDevParamsState(0);
-      });
+  onUserAccessDenied() {
+    console.log("on user access denied!!"); 
+    this.zone.run(() => { // Change the property within the zone, CD will run after
+      this.data.wrongPWEntered(true);
+      this.data.uiParams.numberOfPasswordMistakes += 1;
+      this.showPWDDialog();
+      this.data.setEDevParamsState(0);
+    });
   }
- setScannedData(){
-   if(this.data.getDemoMode() == 0){
-    this.detectors = [];
+  setScannedData() {
+    if (this.data.getDemoMode() == 0) {
+      this.detectors = [];
       this.scannedData = this.data.getScannedData();
-      if(this.scannedData != undefined) {
-        for(let i =0; i < this.scannedData.length; i++)
-        {
-          let detectorInfo =  new DetectorInfo()
+      if (this.scannedData != undefined) {
+        for (let i = 0; i < this.scannedData.length; i++) {
+          let detectorInfo = new DetectorInfo()
           detectorInfo.btDeviceName = this.scannedData[i].btDeviceName;
           detectorInfo.firmwareVersion = this.scannedData[i].firmwareRevision;
           detectorInfo.modelNumber = this.scannedData[i].modelNumber;
@@ -105,24 +120,24 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
           detectorInfo.deviceType = this.scannedData[i].deviceType;
           detectorInfo.rssi = this.scannedData[i].rssi;
           detectorInfo.fwupdate = this.scannedData[i].fwupdate;
-          detectorInfo.createdDate=this.data.getFormattedDate();
+          detectorInfo.createdDate = this.data.getFormattedDate();
           detectorInfo.updatedDate = this.data.getUTCDateFormat();
           detectorInfo.identify = "0";
           this.detectors.push(detectorInfo);
         }
       }
-   }
-      this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.data.setMainTitle(this.translater.translate('Detectors'));
-         this.data.setEDevParamsState(0);
-      });
+    }
+    this.zone.run(() => { // Change the property within the zone, CD will run after
+      this.data.setMainTitle(this.translater.translate('Devices'));
+      this.data.setEDevParamsState(0);
+    });
   }
 
 
-    getSignalRange(item){
-    if(this.data.DeviceBuild == 1){
+  getSignalRange(item) {
+    if (this.data.DeviceBuild == 1) {
       let range = (parseInt(item.rssi) + 90) / 3.5;
-      if(range != 0){
+      if (range != 0) {
         return Math.round(range);
       }
       return -4;
@@ -132,64 +147,69 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     }
   }
 
-  ngOnChanges(changes) { 
+  ngOnChanges(changes) {
   }
-  ngDoCheck() { 
+  ngDoCheck() {
   }
-  ngAfterContentInit() { 
+  ngAfterContentInit() {
   }
-  ngAfterContentChecked() { 
+  ngAfterContentChecked() {
   }
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
   }
-  ngAfterViewChecked() { 
+  ngAfterViewChecked() {
     this.snap = this.router.routerState.snapshot;
   }
-  ngOnInit () {
+  ngOnInit() {
     this.data.setActiveComponent(this);
-    if(this.data.demoMode == 1){
+    if (this.data.demoMode == 1) {
       this.updateDemoDevices();
-    }else{
-      if(this.data.DeviceBuild == 1){
+    } else {
+      if (this.data.DeviceBuild == 1) {
         this.setScannedData();
         this.data.resetSendData();
       }
-      else{
+      else {
         this.detectors = this.data.getDevices(false);
       }
     }
 
-    this.data.setMainTitle(this.translater.translate('Detectors'));
+    this.data.setMainTitle(this.translater.translate('Devices'));
     this.data.setHeader(true);
     this.data.setMenuArrow(0);
     this.data.setProfile('user');
     this.data.setProfileSwitch(true);
     this.data.setEDevParamsState(0);
+    console.log("B4 HOME BUTTON STATE || " + this.data.getShowHomeButton())
+    this.data.setShowHomeButton(true);//PDAL-2577
+    console.log("A4 HOME BUTTON STATE || " + this.data.getShowHomeButton())
   }
 
   jsonOnLoad(component) {
-     //if(this.data.getDeviceConnectionState() == true)
-      {
+    console.log("user page redirect called!!"); 
+    
+    //if(this.data.getDeviceConnectionState() == true)
+    {
       this.data.setFromRoot(true);
-      component.router.navigate(['uconfigdetector'],{relativeTo: component.route});
-     }
+      component.router.navigate(['uconfigdetector'], { relativeTo: component.route });
+    }
   }
   ngOnDestroy() {
     this.data.resetSendData();
-    if(this.selectedDevice == false &&  !(this.data.getProfile() == 'electrician'))
-      this.data.killMe();  
+    if (this.selectedDevice == false && !(this.data.getProfile() == 'electrician'))
+      this.data.killMe();
   }
 
   getMystyle(identify) {
-    if(identify == '1'){
-      let mystyles =  {
-        'background-color': '#94b3d7' ,
+    if (identify == '1') {
+      let mystyles = {
+        'background-color': '#94b3d7',
         'color': '#2d425b',
       }
       return mystyles;
-    }else{
-      let mystyles =  {
-        'background-color': '#2d425b' ,
+    } else {
+      let mystyles = {
+        'background-color': '#2d425b',
         'color': '#94b3d7',
       }
       return mystyles;
@@ -197,55 +217,55 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
   }
 
 
-  removeIdentifyingDevice(){
-    if(this.data.getIdentifyDevicePending() == 2){
-        this.data.sendRemoveIdentifyCommand()
-        this.data.setIdentifyDeviceState(0)
-        if(this.data.isIPhone == 1){
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
-              this.detectors[i].identify = '0';
-            }
-          }
-        }else {
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
-              this.detectors[i].identify = '0';
-            }
+  removeIdentifyingDevice() {
+    if (this.data.getIdentifyDevicePending() == 2) {
+      this.data.sendRemoveIdentifyCommand()
+      this.data.setIdentifyDeviceState(0)
+      if (this.data.isIPhone == 1) {
+        for (let i = 0; i < this.detectors.length; i++) {
+          if (this.detectors[i].btIAddress == this.identifyingDevice.btIAddress) {
+            this.detectors[i].identify = '0';
           }
         }
-        this.identifyingDevice.identify = '0';
-        this.identifyingDevice = undefined;
+      } else {
+        for (let i = 0; i < this.detectors.length; i++) {
+          if (this.detectors[i].btAddress == this.identifyingDevice.btAddress) {
+            this.detectors[i].identify = '0';
+          }
+        }
+      }
+      this.identifyingDevice.identify = '0';
+      this.identifyingDevice = undefined;
     }
   }
 
-  setIdentify(state){
-    this.zone.run( () => { // Change the property within the zone, CD will run after
-      if(state == 1){
-        if(this.data.isIPhone == 1){
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+  setIdentify(state) {
+    this.zone.run(() => { // Change the property within the zone, CD will run after
+      if (state == 1) {
+        if (this.data.isIPhone == 1) {
+          for (let i = 0; i < this.detectors.length; i++) {
+            if (this.detectors[i].btIAddress == this.identifyingDevice.btIAddress) {
               this.detectors[i].identify = '1';
             }
           }
-        }else {
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+        } else {
+          for (let i = 0; i < this.detectors.length; i++) {
+            if (this.detectors[i].btAddress == this.identifyingDevice.btAddress) {
               this.detectors[i].identify = '1';
             }
           }
         }
         this.identifyingDevice.identify = '1';
-      }else{
-        if(this.data.isIPhone == 1){
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btIAddress == this.identifyingDevice.btIAddress){
+      } else {
+        if (this.data.isIPhone == 1) {
+          for (let i = 0; i < this.detectors.length; i++) {
+            if (this.detectors[i].btIAddress == this.identifyingDevice.btIAddress) {
               this.detectors[i].identify = '0';
             }
           }
-        }else {
-          for(let i =0; i<this.detectors.length; i++){
-            if(this.detectors[i].btAddress == this.identifyingDevice.btAddress){
+        } else {
+          for (let i = 0; i < this.detectors.length; i++) {
+            if (this.detectors[i].btAddress == this.identifyingDevice.btAddress) {
               this.detectors[i].identify = '0';
             }
           }
@@ -256,34 +276,36 @@ export class UserComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     });
   }
 
-  identifyDevice(item){
+  identifyDevice(item) {
     this.removeIdentifyingDevice()
-    if(this.data.getIdentifyDevicePending() > 0 ){
+    if (this.data.getIdentifyDevicePending() > 0) {
       return;
-    }else {
+    } else {
       this.data.setIdentifyDeviceState(1);
       this.identifyingDevice = item;
-      if(this.data.isIPhone == 1)
+      if (this.data.isIPhone == 1)
         this.data.connectDevice(item.btIAddress);
       else
-        this.data.connectDevice(item.btAddress); 
+        this.data.connectDevice(item.btAddress);
     }
   }
 
-  
 
-  onDeviceConnected(address){
+
+  onDeviceConnected(address) {
   }
-  onAccessLevelUpdate(accessLevel){
-     if(accessLevel == -1){
-      this.zone.run( () => { // Change the property within the zone, CD will run after
+  onAccessLevelUpdate(accessLevel) {
+    console.log("on user access level update");
+    if ((accessLevel == -1) || (this.data.isWrongPWEntered())) {  /*Added by BikashV*/
+      this.zone.run(() => { // Change the property within the zone, CD will run after
         this.showPWDDialog();
-         this.data.setEDevParamsState(0);
+        this.data.setEDevParamsState(0);
       });
-    }else {
-      if(this.data.getDeviceConnectionState() ==  true)
+    } else {
+      if (this.data.getDeviceConnectionState() == true)
+      console.log("init device 3 called - user");
         this.data.initDeviceData(false);
-      }
-      //this.data.setAccessLevelRequsetedAddress('')
+    }
+    //this.data.setAccessLevelRequsetedAddress('')
   }
 }

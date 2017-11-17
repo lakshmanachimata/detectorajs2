@@ -893,6 +893,6 @@ div.bj-config-setting.sync span.glyphicon.glyphicon-stop
 	padding-left: 20px;
 }
 
-
+.hideoption { display:none; visibility:hidden; height:0; font-size:0; }
 
 

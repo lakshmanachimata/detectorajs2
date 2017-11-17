@@ -1,9 +1,9 @@
-import { Component , OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy,NgZone} from '@angular/core';
+import { Component, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, NgZone } from '@angular/core';
 import { LoggerService } from '../../../logger.service';
 import { DataService } from '../../../data.service';
-import { RouterModule, Routes ,Router,RouterStateSnapshot} from '@angular/router';
-import {SCCP_DATATYPES} from'../../../data.service';
-import {SCCP_ATTRIBUTES} from'../../../data.service';
+import { RouterModule, Routes, Router, RouterStateSnapshot } from '@angular/router';
+import { SCCP_DATATYPES } from '../../../data.service';
+import { SCCP_ATTRIBUTES } from '../../../data.service';
 import { i18nService } from '../../../i18n.service';
 
 @Component({
@@ -11,468 +11,594 @@ import { i18nService } from '../../../i18n.service';
   templateUrl: './eactuator1.component.html',
   styleUrls: ['../cdetectore.component.css']
 })
-export class EActuator1Component implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
+export class EActuator1Component implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
 
-    activeDevice:any;
-    ad:any;
-    loadingDataDone = false;
-    showSoftSwitchingSettings = true;
-    NLStartTimeHH:number = 0;
-    NLStartTimeMM:number = 0;
-    NLEndTimeHH:number  = 0;
-    NLEndTimeMM:number = 0;
-    BRStartTimeHH : number = 0;
-    BRStartTimeMM : number = 0;
-    BREndTimeHH : number = 0;
-    BREndTimeMM : number = 0;
-    colorNumerator: any = Math.pow(10, 6);
-    colorTempMax : any;
-    colorTempMin: any;
-    colorTempVal:any;
+  activeDevice: any;
+  ad: any;
+  loadingDataDone = false;
+  showSoftSwitchingSettings = true;
+  NLStartTimeHH: number = 0;
+  NLStartTimeMM: number = 0;
+  NLEndTimeHH: number = 0;
+  NLEndTimeMM: number = 0;
+  BRStartTimeHH: number = 0;
+  BRStartTimeMM: number = 0;
+  BREndTimeHH: number = 0;
+  BREndTimeMM: number = 0;
+  colorNumerator: any = Math.pow(10, 6);
+  colorTempMax: any;
+  colorTempMin: any;
+  colorTempVal: any;
 
-      readAttrs =[
-                SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, 
-                SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,                                        
-                SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,                                
-                SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN,                            
-                SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX,                                        
-                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,                               
-                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN,                           
-                SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX,                           
-                SCCP_ATTRIBUTES.SOFT_ON_ENABLE,                                        
-                SCCP_ATTRIBUTES.SOFT_ON_DURATION,                                        
-                SCCP_ATTRIBUTES.SOFT_ON_DURATION_MIN,                                    
-                SCCP_ATTRIBUTES.SOFT_ON_DURATION_MAX,                                     
-                SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,                                          
-                SCCP_ATTRIBUTES.SOFT_OFF_DURATION,                                        
-                SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN,                                    
-                SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MAX,
-                SCCP_ATTRIBUTES.PHASE_CUT_MODE,                                           
-                SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,                               
-                SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,                            
-                SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,                                     
-                SCCP_ATTRIBUTES.CH1_MIN_LEVEL,                                            
-                SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,                                     
-                SCCP_ATTRIBUTES.CH1_MAX_LEVEL,                                            
-                SCCP_ATTRIBUTES.LEVEL_MIN,                                                
-                SCCP_ATTRIBUTES.LEVEL_MAX,                                                
-                SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,                                      
-                // SCCP_ATTRIBUTES.COLOR_TEMPERATURE,
-                // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,                                                                            
-                // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX,                                    
-                SCCP_ATTRIBUTES.BURN_IN_ENABLE,                                           
-                SCCP_ATTRIBUTES.BURN_IN_MODE,                                             
-                SCCP_ATTRIBUTES.BURN_IN_DURATION,                                         
-                SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN,                                     
-                SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX,                                     
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,                                    
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,                                   
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,            
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,        
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,        
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,                              
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,                                
-                SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,                  
-                SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,                              
-                SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,                                   
-                SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
-                SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,                                        
-                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,                         
-                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,                                
-                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN,                            
-                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX,                            
-                SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL                                
-                ]
+  readAttrs = [
+    SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,
+    SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MIN,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION_MAX,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MIN,
+    SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION_MAX,
+    SCCP_ATTRIBUTES.SOFT_ON_ENABLE,
+    SCCP_ATTRIBUTES.SOFT_ON_DURATION,
+    SCCP_ATTRIBUTES.SOFT_ON_DURATION_MIN,
+    SCCP_ATTRIBUTES.SOFT_ON_DURATION_MAX,
+    SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,
+    SCCP_ATTRIBUTES.SOFT_OFF_DURATION,
+    SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MIN,
+    SCCP_ATTRIBUTES.SOFT_OFF_DURATION_MAX,
+    SCCP_ATTRIBUTES.PHASE_CUT_MODE,
+    SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,
+    SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,
+    SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,
+    SCCP_ATTRIBUTES.CH1_MIN_LEVEL,
+    SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,
+    SCCP_ATTRIBUTES.CH1_MAX_LEVEL,
+    SCCP_ATTRIBUTES.LEVEL_MIN,
+    SCCP_ATTRIBUTES.LEVEL_MAX,
+    SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,
+    // SCCP_ATTRIBUTES.COLOR_TEMPERATURE,
+    // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MIN,                                                                            
+    // SCCP_ATTRIBUTES.COLOR_TEMPERATURE_MAX,                                    
+    SCCP_ATTRIBUTES.BURN_IN_ENABLE,
+    SCCP_ATTRIBUTES.BURN_IN_MODE,
+    SCCP_ATTRIBUTES.BURN_IN_DURATION,
+    SCCP_ATTRIBUTES.BURN_IN_DURATION_MIN,
+    SCCP_ATTRIBUTES.BURN_IN_DURATION_MAX,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MIN,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD_MAX,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,
+    SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,
+    SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,
+    SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,
+    SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,
+    SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,
+    SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,
+    SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,
+    SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MIN,
+    SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_MAX,
+    SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL
+  ]
 
   onLabel = this.translater.translate('ON');
   offLabel = this.translater.translate('OFF');
-  constructor(public logger: LoggerService,public data: DataService, private router:Router,
-              private zone:NgZone,private translater:i18nService) {
-      this.activeDevice = this.data.getSelectedDevice(false);
-      this.ad = this.data.getDevicedata(false);
-      this.data.setActiveComponent(this);
-      this.loadingDataDone = true;
-      this.ad.deviceType = this.activeDevice.deviceType;
+  constructor(public logger: LoggerService, public data: DataService, private router: Router,
+    private zone: NgZone, private translater: i18nService) {
+    this.activeDevice = this.data.getSelectedDevice(false);
+    this.ad = this.data.getDevicedata(false);
+    this.data.setActiveComponent(this);
+    this.loadingDataDone = true;
+    this.ad.deviceType = this.activeDevice.deviceType;
   }
-  ngOnChanges(changes) { 
+  ngOnChanges(changes) {
   }
-  ngDoCheck() { 
+  ngDoCheck() {
   }
   ngOnInit() {
     this.data.setMainTitle(this.translater.translate('Settings of actuator 1'));
-    this.secondsToTimeValues(this.ad.nightLightStartTime,'nlstarttime')
-    this.secondsToTimeValues(this.ad.nightLightEndTime,'nlendtime')
-    this.secondsToTimeValues(this.ad.basicBrightnessStartTime,'brstarttime')
-    this.secondsToTimeValues(this.ad.basicBrightnessEndTime,'brendtime')
+    this.secondsToTimeValues(this.ad.nightLightStartTime, 'nlstarttime')
+    this.secondsToTimeValues(this.ad.nightLightEndTime, 'nlendtime')
+    this.secondsToTimeValues(this.ad.basicBrightnessStartTime, 'brstarttime')
+    this.secondsToTimeValues(this.ad.basicBrightnessEndTime, 'brendtime')
     this.data.setProfileSwitch(true)
-    this.data.setOtherParam('','');
+    this.data.setOtherParam('', '');
+    this.data.setShowHomeButton(true);
   }
-  ngAfterContentInit() { 
+  ngAfterContentInit() {
   }
-  ngAfterContentChecked() { 
+  ngAfterContentChecked() {
+    /* ::Start:: Added by BikashV - PDAL2810*/
+    if (this.ad.colorTempVal > this.ad.colorTempMax) {
+      this.ad.colorTempVal = this.ad.colorTempMax;
+    }
+    else if (this.ad.colorTempVal < this.ad.colorTempMin) {
+      this.ad.colorTempVal = this.ad.colorTempMin;
+    }
+    /* ::End:: Added by BikashV - PDAL2810*/
   }
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
   }
-  ngAfterViewChecked() { 
+  ngAfterViewChecked() {
   }
   ngOnDestroy() {
   }
 
 
-  setPEROFF(event : any){
-    if(event.target.value <= this.ad.ch1PermanentOffDurationMin ){
+  setPEROFF(event: any) {
+    if (event.target.value <= this.ad.ch1PermanentOffDurationMin) {
       this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMin;
       event.target.value = this.ad.ch1PermanentOffDurationMin;
     }
-    if(event.target.value >= this.ad.ch1PermanentOffDurationMax) {
-        this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMax;
-        event.target.value = this.ad.ch1PermanentOffDurationMax;
+    if (event.target.value >= this.ad.ch1PermanentOffDurationMax) {
+      this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMax;
+      event.target.value = this.ad.ch1PermanentOffDurationMax;
     }
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1PermanentOffDuration) ])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1PermanentOffDuration)])
   }
 
 
-  setPERON(event : any){
-    if(event.target.value <= this.ad.ch1PermanentOnDurationMin ){
+  setPERON(event: any) {
+    if (event.target.value <= this.ad.ch1PermanentOnDurationMin) {
       this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMin;
       event.target.value = this.ad.ch1PermanentOnDurationMin;
     }
-    if(event.target.value >= this.ad.ch1PermanentOnDurationMax) {
-        this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMax;
-        event.target.value = this.ad.ch1PermanentOnDurationMax;
+    if (event.target.value >= this.ad.ch1PermanentOnDurationMax) {
+      this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMax;
+      event.target.value = this.ad.ch1PermanentOnDurationMax;
     }
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.ch1PermanentOnDuration])
   }
 
-  setMinLoad(event: any){
+  setMinLoad(event: any) {
 
-    if(event.target.value <= this.ad.levelMin ){
+    if (event.target.value <= this.ad.levelMin) {
       this.ad.ch1MinLevel = this.ad.levelMin;
       event.target.value = this.ad.levelMin;
     }
-    if(event.target.value >= this.ad.levelMax) {
-        this.ad.ch1MinLevel = this.ad.levelMax;
-        event.target.value = this.ad.levelMax;
+    if (event.target.value >= this.ad.levelMax) {
+      this.ad.ch1MinLevel = this.ad.levelMax;
+      event.target.value = this.ad.levelMax;
     }
 
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel)])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MinLevel)])
 
   }
-  setMaxLoad(event: any){
-    
-    if(event.target.value <= this.ad.levelMin ){
+  setMaxLoad(event: any) {
+
+    if (event.target.value <= this.ad.levelMin) {
       this.ad.ch1MaxLevel = this.ad.levelMin;
       event.target.value = this.ad.levelMin;
     }
-    if(event.target.value >= this.ad.levelMax) {
-        this.ad.ch1MaxLevel = this.ad.levelMax;
-        event.target.value = this.ad.levelMax;
+    if (event.target.value >= this.ad.levelMax) {
+      this.ad.ch1MaxLevel = this.ad.levelMax;
+      event.target.value = this.ad.levelMax;
     }
 
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel)])
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MaxLevel)])
 
   }
 
-getMinColorTemp(){
-  if(this.ad.colorTemperatureMin > 0){
-    this.ad.colorTempMin = this.colorNumerator/this.ad.colorTemperatureMin;
+  getMinColorTemp() {
+    /*if(this.ad.colorTemperatureMin > 0){
+      this.ad.colorTempMin = Math.floor(this.colorNumerator/this.ad.colorTemperatureMin);
+    }*/
+    /* Added by BikashV - PDAL2810*/
+    if (this.ad.colorTemperatureMax > 0) {
+      this.ad.colorTempMin = Math.floor(this.colorNumerator / this.ad.colorTemperatureMax);
+    }
+    else {
+      this.ad.colorTempMin = 0;
+    }
+    //this.getColorTemperatureValue();
+    return this.ad.colorTempMin;
   }
-  else{
-    this.ad.colorTempMin = 0;
-  }
-  this.getColorTemperatureValue();
-  return this.ad.colorTempMin;
-}
 
-getMaxColorTemp(){
-  if(this.ad.colorTemperatureMax > 0){
-    this.ad.colorTempMax = this.colorNumerator/this.ad.colorTemperatureMax;    
+  getMaxColorTemp() {
+    /*if(this.ad.colorTemperatureMax > 0){
+      this.ad.colorTempMax = Math.floor(this.colorNumerator/this.ad.colorTemperatureMax);    
+    }*/
+    /* Added by BikashV - PDAL2810*/
+    if (this.ad.colorTemperatureMin > 0) {
+      this.ad.colorTempMax = Math.floor(this.colorNumerator / this.ad.colorTemperatureMin);
+    }
+    else {
+      this.ad.colorTempMax = 0;
+    }
+    return this.ad.colorTempMax;
   }
-  else{
-    this.ad.colorTempMax = 0;
+  getColorTemperatureValue() {
+    if (this.ad.colorTemperature > 0) {
+      this.ad.colorTempVal = this.colorNumerator / this.ad.colorTemperature;
+
+    }
+    else {
+      this.ad.colorTempVal = 0;
+    }
   }
-  return this.ad.colorTempMax;
-}
-getColorTemperatureValue(){
-  if(this.ad.colorTemperature > 0){
-    this.ad.colorTempVal = this.colorNumerator/this.ad.colorTemperature;
-  }
-  else{
-    this.ad.colorTempVal = 0;
-  }
-}
-  setSSOFF(event : any){
-    if(event.target.value <= this.ad.softOffDurationMin ){
+  setSSOFF(event: any) {
+    if (event.target.value <= this.ad.softOffDurationMin) {
       this.ad.softOffDuration = this.ad.softOffDurationMin;
       event.target.value = this.ad.softOffDurationMin;
     }
-    if(event.target.value >= this.ad.softOffDurationMax) {
-        this.ad.softOffDuration = this.ad.softOffDurationMax;
-        event.target.value = this.ad.softOffDurationMax;
+    if (event.target.value >= this.ad.softOffDurationMax) {
+      this.ad.softOffDuration = this.ad.softOffDurationMax;
+      event.target.value = this.ad.softOffDurationMax;
     }
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOffDuration) ])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOffDuration)])
   }
 
-  setSSON(event : any){
-    if(event.target.value <= this.ad.softOnDurationMin ){
+  setSSON(event: any) {
+    if (event.target.value <= this.ad.softOnDurationMin) {
       this.ad.softOnDuration = this.ad.softOnDurationMin;
       event.target.value = this.ad.softOnDurationMin;
     }
-    if(event.target.value >= this.ad.softOnDurationMax) {
-        this.ad.softOnDuration = this.ad.softOnDurationMax;
-        event.target.value = this.ad.softOnDurationMax;
+    if (event.target.value >= this.ad.softOnDurationMax) {
+      this.ad.softOnDuration = this.ad.softOnDurationMax;
+      event.target.value = this.ad.softOnDurationMax;
     }
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOnDuration)])
   }
 
 
-  setSsOt(event : any){
-    if(event.target.value < this.ad.stepwiseSwitchOffDelayMin ){
-      this.ad.brightnessThreshold = this.ad.stepwiseSwitchOffDelayMin;
-      event.target.value = this.ad.stepwiseSwitchOffDelayMin;
-    }
-    if(event.target.value > this.ad.stepwiseSwitchOffDelayMax) {
-        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMax;
-        event.target.value = this.ad.stepwiseSwitchOffDelayMax;
-    }
-      this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
-  }
-  setBrIs(event: any){
-    if(event.target.value < 0 ){
-      this.ad.brightnessThreshold = 0;
+  setBaIllum(event: any) {
+    if (!event.target.value || event.target.value < 0) {
+      this.ad.basicBrightnessLevel = 0;
       event.target.value = 0;
     }
-    if(event.target.value > 100) {
-      this.ad.brightnessThreshold = 100;
+    if (event.target.value > 100) {
+      this.ad.basicBrightnessLevel = 100;
       event.target.value = 100;
     }
-    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+    this.basicBrLevelChange();
+  }
+
+  setNightLigLevel(event: any) {
+    //gopal:) PDAL-2922
+    if (!event.target.value || event.target.value < 0) {
+      this.ad.nightLightLevel = 0;
+      event.target.value = 0;
+    }
+    if (event.target.value > 100) {
+      this.ad.nightLightLevel = 100;
+      event.target.value = 100;
+    }
+    this.nightLightLevelChange();
+  }
+
+  setAmBrThresh(event: any) {
+
+    //gopal:) PDAL-2922 - step 15.3
+    if (!event.target.value || event.target.value < this.ad.basicBrightnessAmbientBrightnessThresholdMin) {
+      this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMin;
+      event.target.value = this.ad.basicBrightnessAmbientBrightnessThresholdMin;
+    }
+    if (event.target.value > this.ad.basicBrightnessAmbientBrightnessThresholdMax) {
+      this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMax;
+      event.target.value = this.ad.basicBrightnessAmbientBrightnessThresholdMax;
+    }
+    this.ambientBrChange();
+  }
+
+  setSsOt(event: any) {
+    //gopal:) PDAL-2922 step 17
+    if (!event.target.value || event.target.value < this.ad.stepwiseSwitchOffDelayMin) {
+      this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMin;
+      event.target.value = this.ad.stepwiseSwitchOffDelayMin;
+    }
+    if (event.target.value > this.ad.stepwiseSwitchOffDelayMax) {
+      this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMax;
+      event.target.value = this.ad.stepwiseSwitchOffDelayMax;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.stepwiseSwitchOffDelay])
+  }
+  setBrIs(event: any) {
+
+    //gopal:) PDAL-2922 step 17.2
+    console.log("SET BR INT STEP ", event.target.value);
+    if (!event.target.value || event.target.value < 0) {
+      this.ad.stepwiseSwitchOffLevel = 0;
+      event.target.value = 0;
+    }
+    if (event.target.value > 100) {
+      this.ad.stepwiseSwitchOffLevel = 100;
+      event.target.value = 100;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.data.getHexofMe(this.ad.brightnessThreshold)])
+  }
+  /**
+   * Added by gopal 
+   * PDAL-2922
+   * @param event 
+   */
+  setColTemp(event: any) {
+
+    let min = this.getMinColorTemp();
+    let max = this.getMaxColorTemp();
+    if (event.target.value < min) {
+      this.ad.colorTempVal = min;
+      event.target.value = min;
+    }
+    if (event.target.value > max) {
+      this.ad.colorTempVal = max;
+      event.target.value = max;
+    }
+    this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.data.getHexofMe(this.ad.colorTempVal)])
   }
   togglepb() {
     this.ad.permanentLightByPushButtonEnable = !this.ad.permanentLightByPushButtonEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.permanentLightByPushButtonEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.PERMANENT_LIGHT_BY_PUSH_BUTTON_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.permanentLightByPushButtonEnable ? 1 : 0])
   }
   nightLightLevelChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.nightLightLevel)]);
   }
   powerOnChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.daliPowerOnLevel)]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.DALI_POWER_ON_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.daliPowerOnLevel)]);
   }
-  ambientBrChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.basicBrightnessAmbientBrightnessThreshold]);
+  ambientBrChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_AMBIENT_BRIGHTNESS_THRESHOLD, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.basicBrightnessAmbientBrightnessThreshold]);
   }
-  basicBrLevelChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.basicBrightnessLevel)]);
+  basicBrLevelChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.basicBrightnessLevel)]);
   }
-  basicBrModeChange(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode]);
+  basicBrModeChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE, SCCP_DATATYPES.SCCP_TYPE_ENUM8, this.ad.basicBrightnessMode]);
   }
   burnInModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.burnInMode]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_MODE, SCCP_DATATYPES.SCCP_TYPE_ENUM8, this.ad.burnInMode]);
   }
   circuitModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.ch1CircuitLogic]);
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_CIRCUIT_LOGIC, SCCP_DATATYPES.SCCP_TYPE_ENUM8, this.ad.ch1CircuitLogic]);
   }
-  togglesn(){
+  togglesn() {
     this.ad.softOnEnable = !this.ad.softOnEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.softOnEnable?1:0])
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.softOnEnable ? 1 : 0])
   }
-   togglesf(){
+  togglesf() {
     this.ad.softOffEnable = !this.ad.softOffEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.softOffEnable?1:0])
-   }
-   phaseCutModeChange() {
-    this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.phaseCutMode]);
-   }
-   togglemf(){
-     this.ad.ch1MemoryFunctionEnable = !this.ad.ch1MemoryFunctionEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MemoryFunctionEnable?1:0])
-   }
-   togglelrb() {
-     this.ad.delimitLightingLevelEnable = !this.ad.delimitLightingLevelEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.delimitLightingLevelEnable?1:0])
-   }
-   togglePW(){
-     this.ad.ch1SwitchOffPreWarning = !this.ad.ch1SwitchOffPreWarning
-     this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_PRE_WARNING_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1SwitchOffPreWarning?1:0])
-   }
-   toggleminl() {
-     this.ad.ch1MinLevelEnable = !this.ad.ch1MinLevelEnable
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MinLevelEnable?1:0])
-   }
-   togglemaxl(){
-     this.ad.ch1MaxLevelEnable = !this.ad.ch1MaxLevelEnable
-     this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.ch1MaxLevelEnable?1:0])
-   }
-   togglebn(){
-     this.ad.burnInEnable = !this.ad.burnInEnable;
-    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.burnInEnable?1:0])
-   }
-   toggleAs(){
-     this.ad.basicBrightnessStartTimeAstroFunctionEnable = !this.ad.basicBrightnessStartTimeAstroFunctionEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.basicBrightnessStartTimeAstroFunctionEnable?1:0])
-   }
-   toggleNl() {
-     this.ad.nightLightFunctionEnable = !this.ad.nightLightFunctionEnable
-    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.nightLightFunctionEnable?1:0])
-   }
-   togglesso(){
-     this.ad.stepwiseSwitchOffDelayEnable = !this.ad.stepwiseSwitchOffDelayEnable
-     this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE,SCCP_DATATYPES.SCCP_TYPE_BOOL,this.ad.stepwiseSwitchOffDelayEnable?1:0])
-   }
-  reduceCount(item,isClick) {
-    if(item == 'peron') {
-      this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration - 1;
-      if(this.ad.ch1PermanentOnDuration <= this.ad.ch1PermanentOnDurationMin){
+    this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.softOffEnable ? 1 : 0])
+  }
+  phaseCutModeChange() {
+    this.data.addToSendData([SCCP_ATTRIBUTES.PHASE_CUT_MODE, SCCP_DATATYPES.SCCP_TYPE_ENUM8, this.ad.phaseCutMode]);
+  }
+  togglemf() {
+    this.ad.ch1MemoryFunctionEnable = !this.ad.ch1MemoryFunctionEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MEMORY_FUNCTION_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.ch1MemoryFunctionEnable ? 1 : 0])
+  }
+  togglelrb() {
+    this.ad.delimitLightingLevelEnable = !this.ad.delimitLightingLevelEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.DELIMIT_LIGHTING_LEVEL_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.delimitLightingLevelEnable ? 1 : 0])
+  }
+  togglePW() {
+    this.ad.ch1SwitchOffPreWarning = !this.ad.ch1SwitchOffPreWarning
+    this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_PRE_WARNING_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.ch1SwitchOffPreWarning ? 1 : 0])
+  }
+  toggleminl() {
+    this.ad.ch1MinLevelEnable = !this.ad.ch1MinLevelEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.ch1MinLevelEnable ? 1 : 0])
+  }
+  togglemaxl() {
+    this.ad.ch1MaxLevelEnable = !this.ad.ch1MaxLevelEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.ch1MaxLevelEnable ? 1 : 0])
+  }
+  togglebn() {
+    this.ad.burnInEnable = !this.ad.burnInEnable;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.burnInEnable ? 1 : 0])
+  }
+  toggleAs(type) {
+    /*gopal:) PDAL-2922*/
+    //Only start time function was being enabled -- added endtime behaviour as wee
+    /**/
+    if (type == 'start') {
+      this.ad.basicBrightnessStartTimeAstroFunctionEnable = !this.ad.basicBrightnessStartTimeAstroFunctionEnable
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME_ASTRO_FUNCTION_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.basicBrightnessStartTimeAstroFunctionEnable ? 1 : 0])
+    } else if (type == 'end') {
+      this.ad.basicBrightnessEndTimeAstroFunctionEnable = !this.ad.basicBrightnessEndTimeAstroFunctionEnable
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME_ASTRO_FUNCTION_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.basicBrightnessEndTimeAstroFunctionEnable ? 1 : 0])
+    }
+
+
+
+  }
+  toggleNl() {
+    this.ad.nightLightFunctionEnable = !this.ad.nightLightFunctionEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_FUNCTION_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.nightLightFunctionEnable ? 1 : 0])
+  }
+  togglesso() {
+    this.ad.stepwiseSwitchOffDelayEnable = !this.ad.stepwiseSwitchOffDelayEnable
+    this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY_ENABLE, SCCP_DATATYPES.SCCP_TYPE_BOOL, this.ad.stepwiseSwitchOffDelayEnable ? 1 : 0])
+    console.log("STEWISE SO DATA", this.data.sendData);
+  }
+  reduceCount(item, isClick) {
+    if (item == 'peron') {
+      // this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration - 1;
+      this.ad.ch1PermanentOnDuration = this.data.getStepTapVal("decrease", this.data.StepArrPermanentOnOff,this.ad.ch1PermanentOnDuration);
+      if (this.ad.ch1PermanentOnDuration <= this.ad.ch1PermanentOnDurationMin) {
         this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
-    } else if(item == 'peroff') {
-      this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration - 1;
-      if(this.ad.ch1PermanentOffDuration <= this.ad.ch1PermanentOffDurationMin){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.ch1PermanentOnDuration])
+    } else if (item == 'peroff') {
+      //this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration - 1;
+      this.ad.ch1PermanentOffDuration = this.data.getStepTapVal("decrease", this.data.StepArrPermanentOnOff,this.ad.ch1PermanentOffDuration);
+      if (this.ad.ch1PermanentOffDuration <= this.ad.ch1PermanentOffDurationMin) {
         this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
-    } else if(item == 'softon'){
-      this.ad.softOnDuration = this.ad.softOnDuration - 1;
-      if(this.ad.softOnDuration <= this.ad.softOnDurationMin){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.ch1PermanentOffDuration])
+    } else if (item == 'softon') {
+      //this.ad.softOnDuration = this.ad.softOnDuration - 1;
+      this.ad.softOnDuration = this.data.getStepTapVal("decrease", this.data.StepArrSoftOnOff,this.ad.softOnDuration);
+      if (this.ad.softOnDuration <= this.ad.softOnDurationMin) {
         this.ad.softOnDuration = this.ad.softOnDurationMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
-    } else if(item == 'softoff'){
-      this.ad.softOffDuration = this.ad.softOffDuration - 1;
-      if(this.ad.softOffDuration <= this.ad.softOffDurationMin){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOnDuration)])
+    } else if (item == 'softoff') {
+      // this.ad.softOffDuration = this.ad.softOffDuration - 1;
+      this.ad.softOffDuration = this.data.getStepTapVal("decrease", this.data.StepArrSoftOnOff,this.ad.softOffDuration);
+      if (this.ad.softOffDuration <= this.ad.softOffDurationMin) {
         this.ad.softOffDuration = this.ad.softOffDurationMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration) ])
-    } else if(item == 'minload') {
-        this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
-        if(this.ad.ch1MinLevel <= this.ad.levelMin){
-          this.ad.ch1MinLevel = this.ad.levelMin;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel)])
-    } else if(item == 'maxload') {
-        this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
-        if(this.ad.ch1MaxLevel <= this.ad.levelMin){
-          this.ad.ch1MaxLevel = this.ad.levelMin;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel)])
-    } else if(item == 'burnduration'){
-      this.ad.burnInDuration = this.ad.burnInDuration - 1;
-      if(this.ad.burnInDuration <= this.ad.burnInDurationMin){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOnDuration)])
+    } else if (item == 'minload') {
+      this.ad.ch1MinLevel = this.data.getPermanentTapVal(isClick, this.ad.ch1MinLevel, 'decrease', this.data.permanentTapStep_10);
+      //  this.ad.ch1MinLevel = this.ad.ch1MinLevel - 1;
+      if (this.ad.ch1MinLevel <= this.ad.levelMin) {
+        this.ad.ch1MinLevel = this.ad.levelMin;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MinLevel)])
+    } else if (item == 'maxload') {
+      this.ad.ch1MaxLevel = this.data.getPermanentTapVal(isClick, this.ad.ch1MaxLevel, 'decrease', this.data.permanentTapStep_10);
+      //  this.ad.ch1MaxLevel = this.ad.ch1MaxLevel - 1;
+      if (this.ad.ch1MaxLevel <= this.ad.levelMin) {
+        this.ad.ch1MaxLevel = this.ad.levelMin;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MaxLevel)])
+    } else if (item == 'burnduration') {
+      //this.ad.burnInDuration = this.ad.burnInDuration - 1;
+      this.ad.burnInDuration = this.data.getStepTapVal("decrease", this.data.StepArrBurninDuration,this.ad.burnInDuration);
+      if (this.ad.burnInDuration <= this.ad.burnInDurationMin) {
         this.ad.burnInDuration = this.ad.burnInDurationMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration)])
-    }else if(item == 'brightstart') {
-        this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
-        if(this.ad.basicBrightnessStartTime <= 0){
-          this.ad.basicBrightnessStartTime = 86400;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
-          this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    } else if(item == 'brightend') {
-        this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 60;
-        if(this.ad.basicBrightnessEndTime <= 0){
-          this.ad.basicBrightnessEndTime = 86400;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
-          this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    }else if(item == 'glarestart') {
-        this.ad.nightLightStartTime = this.ad.nightLightStartTime - 60;
-        if(this.ad.nightLightStartTime <= 0){
-          this.ad.nightLightStartTime = 86400;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
-          this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    } else if(item == 'glareend') {
-        this.ad.nightLightEndTime = this.ad.nightLightEndTime - 60;
-        if(this.ad.nightLightEndTime <= 0){
-          this.ad.nightLightEndTime = 86400;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
-          this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    }else if(item == 'sstime') {
-        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay - 1;
-        if(this.ad.stepwiseSwitchOffDelay <= this.ad.stepwiseSwitchOffDelayMin){
-          this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMin;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
-    } else if(item == 'ssinter') {
-        this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel - 1;
-        if(this.ad.stepwiseSwitchOffLevel <= 0){
-          this.ad.stepwiseSwitchOffLevel = 0;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
-    }else if(item == 'colorTemp'){
-      this.ad.colorTempVal = this.ad.colorTempVal - 1;
-      if(this.ad.colorTempVal <= this.ad.colorTempMin){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.burnInDuration)])
+    } else if (item == 'brightstart') {
+      this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
+      if (this.ad.basicBrightnessStartTime <= 0) {
+        this.ad.basicBrightnessStartTime = 86400;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'brightend') {
+      this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime - 60;
+      if (this.ad.basicBrightnessEndTime <= 0) {
+        this.ad.basicBrightnessEndTime = 86400;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'glarestart') {
+      this.ad.nightLightStartTime = this.ad.nightLightStartTime - 60;
+      if (this.ad.nightLightStartTime <= 0) {
+        this.ad.nightLightStartTime = 86400;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'glareend') {
+      this.ad.nightLightEndTime = this.ad.nightLightEndTime - 60;
+      if (this.ad.nightLightEndTime <= 0) {
+        this.ad.nightLightEndTime = 86400;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'sstime') {
+      //this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay - 1;
+      this.ad.stepwiseSwitchOffDelay = this.data.getStepTapVal("decrease", this.data.StepArrStepWiseSwitchOffDelay,this.ad.stepwiseSwitchOffDelay);
+      if (this.ad.stepwiseSwitchOffDelay <= this.ad.stepwiseSwitchOffDelayMin) {
+        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMin;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.stepwiseSwitchOffDelay])
+    } else if (item == 'ssinter') {
+      this.ad.stepwiseSwitchOffLevel = this.data.getPermanentTapVal(isClick, this.ad.stepwiseSwitchOffLevel, 'decrease', this.data.permanentTapStep_10);
+      //  this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel - 1;
+      if (this.ad.stepwiseSwitchOffLevel <= 0) {
+        this.ad.stepwiseSwitchOffLevel = 0;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
+    } else if (item == 'colorTemp') {
+      this.ad.colorTempVal = this.data.getPermanentTapVal(isClick, this.ad.colorTempVal, 'decrease', this.data.permanentTapStep_1_10_50_100);
+      if (this.ad.colorTempVal <= this.ad.colorTempMin) {
         this.ad.colorTempVal = this.ad.colorTempMin;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.colorTempVal)])
+      if (isClick)
+        //gopal:) changed datatype from UINT8 to UINT16 - PDAL2922
+        this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.data.getHexofMe(this.colorNumerator/this.ad.colorTempVal)])
+    } else if (item == 'basicIllu') {
+      this.ad.basicBrightnessLevel = this.data.getPermanentTapVal(isClick, this.ad.basicBrightnessLevel, 'decrease', this.data.permanentTapStep_10);
+      //this.ad.basicBrightnessLevel = this.ad.basicBrightnessLevel - 1;
+      if (this.ad.basicBrightnessLevel <= 0) {
+        this.ad.basicBrightnessLevel = 0;
+      }
+      if (isClick)
+        this.basicBrLevelChange();
+    } else if (item == 'amBrThresh') {
+      this.ad.basicBrightnessAmbientBrightnessThreshold = this.data.getPermanentTapVal(isClick, this.ad.basicBrightnessAmbientBrightnessThreshold, 'decrease', this.data.permanentTapStep_1_10_50);
+      // this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThreshold - 1;
+      if (this.ad.basicBrightnessAmbientBrightnessThreshold <= this.ad.basicBrightnessAmbientBrightnessThresholdMin) {
+        this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMin;
+      }
+      if (isClick)
+        this.ambientBrChange();
+    } else if (item == 'nightLigLevel') {
+      this.ad.nightLightLevel = this.data.getPermanentTapVal(isClick, this.ad.nightLightLevel, 'decrease', this.data.permanentTapStep_10);
+      //  this.ad.nightLightLevel = this.ad.nightLightLevel - 1;
+      if (this.ad.nightLightLevel <= 0) {
+        this.ad.nightLightLevel = 0;
+      }
+      if (isClick)
+        this.nightLightLevelChange();
     }
   }
 
-  setTime(timetype){
+  setTime(timetype) {
     let byteData = []
     byteData.push(0);
-   if(timetype == 'nlstarttime'){
+    if (timetype == 'nlstarttime') {
       this.NLStartTimeHH = this.data.getTimeHours();
       this.NLStartTimeMM = this.data.getTimeMins();
       byteData.push(this.NLStartTimeHH);
       byteData.push(this.NLStartTimeMM);
       byteData.push(0);
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
-   }if(timetype == 'nlendtime'){
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, byteData[3], byteData[2], byteData[1], byteData[0]])
+    } if (timetype == 'nlendtime') {
       this.NLEndTimeHH = this.data.getTimeHours();
       this.NLEndTimeMM = this.data.getTimeMins();
       byteData.push(this.NLEndTimeHH);
       byteData.push(this.NLEndTimeMM);
       byteData.push(0);
-      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
-   }
-  if(timetype == 'brstarttime'){
+      this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, byteData[3], byteData[2], byteData[1], byteData[0]])
+    }
+    if (timetype == 'brstarttime') {
       this.BRStartTimeHH = this.data.getTimeHours();
       this.BRStartTimeMM = this.data.getTimeMins();
       byteData.push(this.BRStartTimeHH);
       byteData.push(this.BRStartTimeMM);
       byteData.push(0);
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
-   }if(timetype == 'brendtime'){
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, byteData[3], byteData[2], byteData[1], byteData[0]])
+    } if (timetype == 'brendtime') {
       this.BREndTimeHH = this.data.getTimeHours();
       this.BREndTimeMM = this.data.getTimeMins();
       byteData.push(this.BREndTimeHH);
       byteData.push(this.BREndTimeMM);
       byteData.push(0);
-      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,byteData[3],byteData[2],byteData[1],byteData[0]])
-   }
+      this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, byteData[3], byteData[2], byteData[1], byteData[0]])
+    }
   }
 
-  getBytesFromTime(sec_num){
+  getBytesFromTime(sec_num) {
     let byteData = []
-    var hours   = Math.floor(sec_num / 3600);
+    var hours = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
     byteData.push(0);
@@ -482,138 +608,172 @@ getColorTemperatureValue(){
     return byteData;
   }
 
-  secondsToTimeValues (sec_num,timetype) {
-    var hours   = Math.floor(sec_num / 3600);
+  secondsToTimeValues(sec_num, timetype) {
+    var hours = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
 
-    if(timetype == 'nlstarttime'){
+    if (timetype == 'nlstarttime') {
       this.NLStartTimeHH = hours
       this.NLStartTimeMM = minutes
-   }if(timetype == 'nlendtime'){
+    } if (timetype == 'nlendtime') {
       this.NLEndTimeHH = hours
       this.NLEndTimeMM = minutes
-   }
-  if(timetype == 'brstarttime'){
+    }
+    if (timetype == 'brstarttime') {
       this.BRStartTimeHH = hours
       this.BRStartTimeMM = minutes
-   }if(timetype == 'brendtime'){
+    } if (timetype == 'brendtime') {
       this.BREndTimeHH = hours
       this.BREndTimeMM = minutes
-   }
+    }
   }
 
   increaseCount(item, isClick) {
-    if(item == 'peron') {
-      this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;
-      if(this.ad.ch1PermanentOnDuration >= this.ad.ch1PermanentOnDurationMax){
+    if (item == 'peron') {
+      //this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDuration + 1;
+      this.ad.ch1PermanentOnDuration = this.data.getStepTapVal("increase", this.data.StepArrPermanentOnOff,this.ad.ch1PermanentOnDuration);
+
+      if (this.ad.ch1PermanentOnDuration >= this.ad.ch1PermanentOnDurationMax) {
         this.ad.ch1PermanentOnDuration = this.ad.ch1PermanentOnDurationMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOnDuration])
-    }  else if(item == 'peroff') {
-      this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration + 1;
-      if(this.ad.ch1PermanentOffDuration >= this.ad.ch1PermanentOffDurationMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.ch1PermanentOnDuration])
+    } else if (item == 'peroff') {
+      //this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDuration + 1;
+      this.ad.ch1PermanentOffDuration = this.data.getStepTapVal("increase", this.data.StepArrPermanentOnOff,this.ad.ch1PermanentOffDuration);
+      if (this.ad.ch1PermanentOffDuration >= this.ad.ch1PermanentOffDurationMax) {
         this.ad.ch1PermanentOffDuration = this.ad.ch1PermanentOffDurationMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.ch1PermanentOffDuration])
-    } else if(item == 'softon') {
-      this.ad.softOnDuration = this.ad.softOnDuration + 1;
-      if(this.ad.softOnDuration >= this.ad.softOnDurationMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_PERMANENT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.ch1PermanentOffDuration])
+    } else if (item == 'softon') {
+      //this.ad.softOnDuration = this.ad.softOnDuration + 1;
+      this.ad.softOnDuration = this.data.getStepTapVal("increase", this.data.StepArrSoftOnOff,this.ad.softOnDuration);
+      if (this.ad.softOnDuration >= this.ad.softOnDurationMax) {
         this.ad.softOnDuration = this.ad.softOnDurationMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOnDuration)])
-    } else if(item == 'softoff'){
-      this.ad.softOffDuration = this.ad.softOffDuration + 1;
-       if(this.ad.softOffDuration >= this.ad.softOffDurationMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_ON_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOnDuration)])
+    } else if (item == 'softoff') {
+      //this.ad.softOffDuration = this.ad.softOffDuration + 1;
+      this.ad.softOffDuration = this.data.getStepTapVal("decrease", this.data.StepArrSoftOnOff,this.ad.softOffDuration);
+      if (this.ad.softOffDuration >= this.ad.softOffDurationMax) {
         this.ad.softOffDuration = this.ad.softOffDurationMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.softOffDuration) ])
-    } else if(item == 'minload') {
-        this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
-        if(this.ad.ch1MinLevel >= this.ad.levelMax){
-          this.ad.ch1MinLevel = this.ad.levelMax;
-        }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MinLevel) ])
-    } else if(item == 'maxload') {
-        this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
-        if(this.ad.ch1MaxLevel >= this.ad.levelMax){
-          this.ad.ch1MaxLevel = this.ad.levelMax;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.ch1MaxLevel) ])
-    } else if(item == 'burnduration'){
-      this.ad.burnInDuration = this.ad.burnInDuration + 1;
-      if(this.ad.burnInDuration >= this.ad.burnInDurationMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.SOFT_OFF_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.softOffDuration)])
+    } else if (item == 'minload') {
+      this.ad.ch1MinLevel = this.data.getPermanentTapVal(isClick, this.ad.ch1MinLevel, 'increase', this.data.permanentTapStep_10);
+      //  this.ad.ch1MinLevel = this.ad.ch1MinLevel + 1;
+      if (this.ad.ch1MinLevel >= this.ad.levelMax) {
+        this.ad.ch1MinLevel = this.ad.levelMax;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MIN_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MinLevel)])
+    } else if (item == 'maxload') {
+      this.ad.ch1MaxLevel = this.data.getPermanentTapVal(isClick, this.ad.ch1MaxLevel, 'increase', this.data.permanentTapStep_10);
+      //  this.ad.ch1MaxLevel = this.ad.ch1MaxLevel + 1;
+      if (this.ad.ch1MaxLevel >= this.ad.levelMax) {
+        this.ad.ch1MaxLevel = this.ad.levelMax;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.CH1_MAX_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.ch1MaxLevel)])
+    } else if (item == 'burnduration') {
+      //this.ad.burnInDuration = this.ad.burnInDuration + 1;
+      this.ad.burnInDuration = this.data.getStepTapVal("increase", this.data.StepArrBurninDuration,this.ad.burnInDuration);
+      if (this.ad.burnInDuration >= this.ad.burnInDurationMax) {
         this.ad.burnInDuration = this.ad.burnInDurationMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.burnInDuration) ])
-    }else if(item == 'brightstart') {
-        this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 60;
-        if(this.ad.basicBrightnessStartTime >= 86400 ){
-          this.ad.basicBrightnessStartTime = 0;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
-        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0] ])
-        }
-    } else if(item == 'brightend') {
-        this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 60;
-         if(this.ad.basicBrightnessEndTime >= 86400 ){
-          this.ad.basicBrightnessEndTime = 0;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
-        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    }else if(item == 'glarestart') {
-        this.ad.nightLightStartTime = this.ad.nightLightStartTime +  60;
-        if(this.ad.nightLightStartTime >= 86400 ){
-          this.ad.nightLightStartTime = 0;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
-        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0]])
-        }
-    } else if(item == 'glareend') {
-        this.ad.nightLightEndTime = this.ad.nightLightEndTime + 60;
-        if(this.ad.nightLightEndTime >= 86400 ){
-          this.ad.nightLightEndTime = 0;
-        }
-        if(isClick){
-          let timeBytes = []
-          timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
-        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME,SCCP_DATATYPES.SCCP_TYPE_TIME,timeBytes[3],timeBytes[2],timeBytes[1],timeBytes[0] ])
-        }
-    }else if(item == 'sstime') {
-        this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay +  1;
-      if(this.ad.stepwiseSwitchOffDelay >= this.ad.stepwiseSwitchOffDelayMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BURN_IN_DURATION, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.burnInDuration)])
+    } else if (item == 'brightstart') {
+      this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime + 60;
+      if (this.ad.basicBrightnessStartTime >= 86400) {
+        this.ad.basicBrightnessStartTime = 0;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.basicBrightnessStartTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'brightend') {
+      this.ad.basicBrightnessEndTime = this.ad.basicBrightnessEndTime + 60;
+      if (this.ad.basicBrightnessEndTime >= 86400) {
+        this.ad.basicBrightnessEndTime = 0;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.basicBrightnessEndTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'glarestart') {
+      this.ad.nightLightStartTime = this.ad.nightLightStartTime + 60;
+      if (this.ad.nightLightStartTime >= 86400) {
+        this.ad.nightLightStartTime = 0;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.nightLightStartTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_START_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'glareend') {
+      this.ad.nightLightEndTime = this.ad.nightLightEndTime + 60;
+      if (this.ad.nightLightEndTime >= 86400) {
+        this.ad.nightLightEndTime = 0;
+      }
+      if (isClick) {
+        let timeBytes = []
+        timeBytes = this.getBytesFromTime(this.ad.nightLightEndTime)
+        this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_END_TIME, SCCP_DATATYPES.SCCP_TYPE_TIME, timeBytes[3], timeBytes[2], timeBytes[1], timeBytes[0]])
+      }
+    } else if (item == 'sstime') {
+      //this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelay +  1;
+      this.ad.stepwiseSwitchOffDelay = this.data.getStepTapVal("increase", this.data.StepArrStepWiseSwitchOffDelay,this.ad.stepwiseSwitchOffDelay);
+      if (this.ad.stepwiseSwitchOffDelay >= this.ad.stepwiseSwitchOffDelayMax) {
         this.ad.stepwiseSwitchOffDelay = this.ad.stepwiseSwitchOffDelayMax;
       }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.ad.stepwiseSwitchOffDelay ])
-    } else if(item == 'ssinter') {
-        this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel + 1;
-        if(this.ad.stepwiseSwitchOffLevel >= 100){
-          this.ad.stepwiseSwitchOffLevel = 100;
-        }
-        if(isClick)
-        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel) ])
-    }else if(item == 'colorTemp'){
-      this.ad.colorTempVal = this.ad.colorTempVal + 1;
-      if(this.ad.colorTempVal >= this.ad.colorTempMax){
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_DELAY, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.ad.stepwiseSwitchOffDelay])
+    } else if (item == 'ssinter') {
+      this.ad.stepwiseSwitchOffLevel = this.data.getPermanentTapVal(isClick, this.ad.stepwiseSwitchOffLevel, 'increase', this.data.permanentTapStep_10);
+      //  this.ad.stepwiseSwitchOffLevel = this.ad.stepwiseSwitchOffLevel + 1;
+      if (this.ad.stepwiseSwitchOffLevel >= 100) {
+        this.ad.stepwiseSwitchOffLevel = 100;
+      }
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.STEPWISE_SWITCH_OFF_LEVEL, SCCP_DATATYPES.SCCP_TYPE_UINT8, this.data.getHexofMe(this.ad.stepwiseSwitchOffLevel)])
+    } else if (item == 'colorTemp') {
+      this.ad.colorTempVal = this.data.getPermanentTapVal(isClick, this.ad.colorTempVal, 'increase', this.data.permanentTapStep_1_10_50_100);
+      if (this.ad.colorTempVal >= this.ad.colorTempMax) {
         this.ad.colorTempVal = this.ad.colorTempMax;
       }
-      if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.colorTempVal)])
+      if (isClick)
+        this.data.addToSendData([SCCP_ATTRIBUTES.COLOR_TEMPERATURE, SCCP_DATATYPES.SCCP_TYPE_UINT16, this.data.getHexofMe(this.colorNumerator/this.ad.colorTempVal)])
+    } else if (item == 'basicIllu') {
+      this.ad.basicBrightnessLevel = this.data.getPermanentTapVal(isClick, this.ad.basicBrightnessLevel, 'increase', this.data.permanentTapStep_10);
+      // this.ad.basicBrightnessLevel = this.ad.basicBrightnessLevel + 1;
+      if (this.ad.basicBrightnessLevel >= 100) {
+        this.ad.basicBrightnessLevel = 100;
+      }
+      if (isClick)
+        this.basicBrLevelChange();
+    } else if (item == 'amBrThresh') {
+      this.ad.basicBrightnessAmbientBrightnessThreshold = this.data.getPermanentTapVal(isClick, this.ad.basicBrightnessAmbientBrightnessThreshold, 'increase', this.data.permanentTapStep_1_10_50);
+      //this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThreshold + 1;
+      if (this.ad.basicBrightnessAmbientBrightnessThreshold >= this.ad.basicBrightnessAmbientBrightnessThresholdMax) {
+        this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMax;
+      }
+      if (isClick)
+        this.ambientBrChange();
+    } else if (item == 'nightLigLevel') {
+      this.ad.nightLightLevel = this.data.getPermanentTapVal(isClick, this.ad.nightLightLevel, 'increase', this.data.permanentTapStep_10);
+      //this.ad.nightLightLevel = this.ad.nightLightLevel + 1;
+      if (this.ad.nightLightLevel >= 100) {
+        this.ad.nightLightLevel = 100;
+      }
+      if (isClick)
+        this.nightLightLevelChange();
     }
   }
 
@@ -634,22 +794,22 @@ getColorTemperatureValue(){
     this.data.setResetCommand(0x44)
   }
 
-  onBLEdata(isread,iswrite) {
-    if(iswrite == true){
-      this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
+  onBLEdata(isread, iswrite) {
+    if (iswrite == true) {
+      this.zone.run(() => { // Change the property within the zone, CD will run after
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold;
         this.data.setEDevParamsState(0);
-        this.loadingDataDone =  true;
+        this.loadingDataDone = true;
       });
-      this.loadingDataDone =  true;
+      this.loadingDataDone = true;
     }
-    this.loadingDataDone =  true;
-    this.zone.run( () => { // Change the property within the zone, CD will run after
-        this.ad.softOnEnable = this.ad.softOnEnable;
-        this.data.setEDevParamsState(0);
+    this.loadingDataDone = true;
+    this.zone.run(() => { // Change the property within the zone, CD will run after
+      this.ad.softOnEnable = this.ad.softOnEnable;
+      this.data.setEDevParamsState(0);
     });
   }
-  setLoadingDataDone(value){
+  setLoadingDataDone(value) {
     this.loadingDataDone = value;
   }
 }

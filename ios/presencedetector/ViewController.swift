@@ -50,6 +50,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         
         //let userScript = WKUserScript(source: routeScript, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: true);
         
+     
         webView = WKWebView();
         uiImageView = UIImageView();
         
@@ -69,6 +70,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         webView.scrollView.bounces = false;
         webView.navigationDelegate = self
         webView.configuration.websiteDataStore = WKWebsiteDataStore.default();
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "webapi")
         //webView.configuration.userContentController.addUserScript(userScript);
         webView.configuration.userContentController.add(self, name: "webapi");
         webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs");
@@ -124,73 +126,73 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     
     func setCertCreateState(certState: Bool){
         self.isCertCreateSuccess = certState;
-        if(certState ==  true){
-
-            let fm = FileManager.default
-            let docsurl = try! fm.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let certFilePath = docsurl.appendingPathComponent("client.cert")
-            let keyFilePath = docsurl.appendingPathComponent("client.private")
-            
-            
-            
-            var success: Bool
-            let cert = CkoCert()
-            success = cert!.load(fromFile: certFilePath.path)
-            if success != true {
-                print("\(String(describing: cert?.lastErrorText))")
-                return
-            }
-            
-            var certChain: CkoCertChain? = cert?.getChain()
-            if cert?.lastMethodSuccess != true {
-                print("\(String(describing: cert?.lastErrorText))")
-                return
-            }
-            
-            let privKey = CkoPrivateKey()
-            success = (privKey?.loadPemFile(keyFilePath.path))!
-            if success != true {
-                print("\(privKey?.lastErrorText)")
-                certChain = nil
-                return
-            }
-            
-            let pfx = CkoPfx()
-            success = (pfx?.add(privKey, certChain: certChain))!
-            if success != true {
-                print("\(pfx?.lastErrorText)")
-                certChain = nil
-                return
-            }
-            
-            certChain = nil
-            
-            pfxFilePath = docsurl.appendingPathComponent("client.pfx")
-            
-            //  Finally, write the PFX w/ a password.
-            success = (pfx?.toFile(pfxpwd, path: pfxFilePath.path))!
-            if success != true {
-                print("\(String(describing: pfx?.lastErrorText))")
-                return
-            }
-
-            
-            
-            do{
-                let directoryContents = try FileManager.default.contentsOfDirectory(at: docsurl, includingPropertiesForKeys: nil, options: [])
-                print(directoryContents)
-
-            }
-            catch let error as NSError {
-                print(error.localizedDescription)
-            }
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
-//                self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
+//        if(certState ==  true){
+//
+//            let fm = FileManager.default
+//            let docsurl = try! fm.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+//            let certFilePath = docsurl.appendingPathComponent("client.cert")
+//            let keyFilePath = docsurl.appendingPathComponent("client.private")
+//            
+//            
+//            
+//            var success: Bool
+//            let cert = CkoCert()
+//            success = cert!.load(fromFile: certFilePath.path)
+//            if success != true {
+//                print("\(String(describing: cert?.lastErrorText))")
+//                return
 //            }
-
-            
-        }
+//            
+//            var certChain: CkoCertChain? = cert?.getChain()
+//            if cert?.lastMethodSuccess != true {
+//                print("\(String(describing: cert?.lastErrorText))")
+//                return
+//            }
+//            
+//            let privKey = CkoPrivateKey()
+//            success = (privKey?.loadPemFile(keyFilePath.path))!
+//            if success != true {
+//                print("\(privKey?.lastErrorText)")
+//                certChain = nil
+//                return
+//            }
+//            
+//            let pfx = CkoPfx()
+//            success = (pfx?.add(privKey, certChain: certChain))!
+//            if success != true {
+//                print("\(pfx?.lastErrorText)")
+//                certChain = nil
+//                return
+//            }
+//            
+//            certChain = nil
+//            
+//            pfxFilePath = docsurl.appendingPathComponent("client.pfx")
+//            
+//            //  Finally, write the PFX w/ a password.
+//            success = (pfx?.toFile(pfxpwd, path: pfxFilePath.path))!
+//            if success != true {
+//                print("\(String(describing: pfx?.lastErrorText))")
+//                return
+//            }
+//
+//            
+//            
+//            do{
+//                let directoryContents = try FileManager.default.contentsOfDirectory(at: docsurl, includingPropertiesForKeys: nil, options: [])
+//                print(directoryContents)
+//
+//            }
+//            catch let error as NSError {
+//                print(error.localizedDescription)
+//            }
+//            
+////            DispatchQueue.main.asyncAfter(deadline: .now() + (10)) {
+////                self.sendToServer(serverAddr: "https://api.my-staging.busch-jaeger.de/api/user/key-value/presence-detector-backup/devices");
+////            }
+//
+//            
+//        }
     }
     
     
@@ -235,27 +237,27 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void) {
         
-        
-        let localCertData = try?  Data(contentsOf: self.pfxFilePath)
-        
-            
-            let identityAndTrust:IdentityAndTrust = extractIdentity(certData: localCertData as! NSData, certPassword: pfxpwd)
-            
-            if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate {
-                
-                let urlCredential:URLCredential = URLCredential(
-                    identity: identityAndTrust.identityRef,
-                    certificates: identityAndTrust.certArray as! [AnyObject],
-                    persistence: URLCredential.Persistence.forSession);
-                
-                completionHandler(URLSession.AuthChallengeDisposition.useCredential, urlCredential);
-                
-                return
-            }
-        
-        
-        challenge.sender?.cancel(challenge)
-        completionHandler(URLSession.AuthChallengeDisposition.rejectProtectionSpace, nil)
+//        
+//        let localCertData = try?  Data(contentsOf: self.pfxFilePath)
+//        
+//            
+//            let identityAndTrust:IdentityAndTrust = extractIdentity(certData: localCertData as! NSData, certPassword: pfxpwd)
+//            
+//            if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate {
+//                
+//                let urlCredential:URLCredential = URLCredential(
+//                    identity: identityAndTrust.identityRef,
+//                    certificates: identityAndTrust.certArray as! [AnyObject],
+//                    persistence: URLCredential.Persistence.forSession);
+//                
+//                completionHandler(URLSession.AuthChallengeDisposition.useCredential, urlCredential);
+//                
+//                return
+//            }
+//        
+//        
+//        challenge.sender?.cancel(challenge)
+//        completionHandler(URLSession.AuthChallengeDisposition.rejectProtectionSpace, nil)
 
     }
     
@@ -408,7 +410,8 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 let webMessageData = message.body as! String
                 let dict = self.convertToDictionary(text: webMessageData)
                 let firstKey = Array(dict!.keys)[0]
-        
+                print( "firstKey\(firstKey)")
+                
                 switch firstKey {
                 case "connect":
                     let firstValue = Array(dict!.values)[0] as? String
@@ -418,6 +421,8 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                     let firstValue = Array(dict!.values)[0] as? [UInt8]
                     var isEscapeExists:Bool =  false;
                     var newBleData: [UInt8] = []
+                    
+                    
                     for (index, element) in (firstValue?.enumerated())!{
                         if(element == 125 || element == 126 )
                         {
@@ -445,8 +450,11 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 case "disconnect":
                     let firstValue = Array(dict!.values)[0] as? String
                     self.bleHelper?.disConnect(device: firstValue!)
+                    print("diconnect")
                     break;
                 case "updateDeviceFW":
+                    self.bleHelper?.frmUpdate()
+                    print("Update Firmware got CALLED!!")
                     break;
                 default:
                     print("Unknown command")

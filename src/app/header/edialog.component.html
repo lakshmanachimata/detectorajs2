@@ -1,13 +1,17 @@
 <div class="edit-dialog-overlay" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
     <div class="edit-dialog" [ngClass]="{'bj-user-view': getProfile() == 'user'}">
-        <div class="edit-dialog-header"><label class="dialog-heading"> {{getDialogTitle()}} </label></div>
+        <div class="edit-dialog-header"><label class="dialog-heading" [ngClass]="{'retry-dialog':isWrongPWEntered()}"> {{getDialogTitle()}} </label></div>
+        <div class="edit-dialog-retype-password" *ngIf="wrongPWEnteredMoreThanOnce() && (retryWait > 0)">
+            <label class="retype-password-lbl">{{getRetypeText()}} ...</label>
+        </div>
         <div class="edit-dialog-body">
             <input class="edialog-text" type="text" [(ngModel)]="inputtext" placeholder="{{getInputHint()}}"/>
         </div>
+        <div class="retype-password-timer" *ngIf="wrongPWEnteredMoreThanOnce() && (retryWait > 0)">{{retryWait}}s</div>
         <div class="edit-dialog-footer">
             <div class="edialog-cancel-btn" (click)="cancelStuff()"><img class="edit-cancel" src="assets/icons/05_017_button_delete_prs.svg" alt="cancel_btn"></div>
-            <div class="edialog-ok-btn" (click)="doStuff()" >
-                <label class="edit-save"> {{getOptionText()}} </label>
+            <div class="edialog-ok-btn" (click)="disableOk()==false && doStuff()">
+                <label class="edit-save"  [ngStyle]="{'color': disableOk() ? '#A9A9A9':'#ffffff'}"> {{getOptionText()}} </label>
             </div>
         </div>
     </div>

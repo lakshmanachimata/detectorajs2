@@ -39,6 +39,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
               private zone:NgZone,private translater:i18nService) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
+      
       this.data.setActiveComponent(this);
       this.data.setOtherParam('','');
       // if(this.data.getDeviceConnectionState() == true){
@@ -55,6 +56,7 @@ export class EActuator2Component implements OnChanges,OnInit ,DoCheck,AfterConte
   }
   ngOnInit() {
       this.data.setMainTitle(this.translater.translate('Settings of actuator 2'));
+      this.data.setShowHomeButton(false);//PDAL-2577
   }
   ngAfterContentInit() { 
   }

@@ -26,8 +26,11 @@
                 </div>
             </div>
         </div>
-        <div class="bj-config-setting-div testmode-slave-div" >
-            <label class="bj-config-setting testmode-slave-block">{{ this.data.getTranslatedString("Slaves") }}</label>
+        <div class="bj-config-setting-div testmode-slave-div">
+            <span class="glyphicon glyphicon-modal-window"></span>
+            <label class="bj-config-setting testmode-slave-block" [ngStyle]="{'padding-left':'4px'}">
+                    {{ this.data.getTranslatedString("Slaves") }}
+                </label>
             <img class="slave-dis" *ngIf="SlaveMovement == true" src="assets/icons/14_004_user_dis.svg" alt="slave_disabled">
         </div>
         <div id="testmode-settings-block">
@@ -44,13 +47,14 @@
                     <label class="bj-config-setting testmode-settings-test-actuator1-block">{{ this.data.getTranslatedString("Identify load on actuator 1") }}</label>
                     <span class="glyphicon glyphicon-stop"></span>
                 </div>
-                <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c' && showTestModeSettings" (click)="identifyLoadCh2()">
+                <div class="bj-config-setting-div testmode-settings-test-actuator2-div" *ngIf="ad.deviceType == 'daliMaster1c' && showTestModeSettings"
+                    (click)="identifyLoadCh2()">
                     <label class="bj-config-setting testmode-settings-test-actuator2-block">{{ this.data.getTranslatedString("Identify load on actuator 2") }}</label>
                     <span class="glyphicon glyphicon-stop"></span>
                 </div>
             </div>
             <div class="bj-config-setting-div testmode-settings-test-deactivate-div">
-                <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivation of outputs</label>
+                <label class="bj-config-setting testmode-settings-test-deactivate-block">Deactivate outputs</label>
                 <span class="bj-config-toggle-switch">
                   <div class="track"  (click)="toggleDP()"  [(ngModel)]="ad.testModeDeactivateOutputsEnable" [ngStyle]="{'border-color': ad.testModeDeactivateOutputsEnable == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                     <label class="switch-onlabel" *ngIf="ad.testModeDeactivateOutputsEnable == true">{{onLabel}}</label>
@@ -78,7 +82,7 @@
         </div>
         <div class="bj-config-setting-div predefined-profiles-div" style="border-bottom:none;">
             <div class="bj-config-setting inner-setting profiles heading">
-                <label class="predefined-profiles-lbl">{{ this.data.getTranslatedString("Predefined profiles") }}</label>
+                <label class="predefined-profiles-lbl">{{ this.data.getTranslatedString("Factory profiles") }}</label>
                 <div class="bj-actuator-toggle" (click)="showPredefinedProfiles = !showPredefinedProfiles">
                     <down-nav *ngIf="!showPredefinedProfiles"></down-nav>
                     <up-nav *ngIf="showPredefinedProfiles"></up-nav>
@@ -106,6 +110,11 @@
                         <label class="pre-profile-lbl">{{ item }}</label>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div *ngIf="userProfiles.length == 0">
+            <div class="bj-config-setting-load-detector-profiles inner-setting pre-profiles">
+                <label class="pre-profile-lbl">{{ this.data.getTranslatedString("No Profile") }}</label>
             </div>
         </div>
     </div>
@@ -138,18 +147,17 @@
             <div id="bj-detector-icon-update"><span class="glyphicon glyphicon-modal-window"></span></div>
             <li class="bj-detector-name update">{{ad.btDeviceName}}
                 <div class="bj-detector-version-num update">Version {{ad.firmwareVersion}}
-                    <span class="bje-percent-text"> {{this.fwpercentage}} %</span>
+                    <span class="bje-percent-text" *ngIf="ad.fwpercentage"> {{ad.fwpercentage}} %</span>
                 </div>
             </li>
             <div id="bj-detector-icon-signal-update"><span class="glyphicon glyphicon-signal"></span></div>
         </div>
-        <div class="bje-progress" *ngIf="this.ad.fwupdate == '1'">
-            <div class="progress-bar" role="progressbar" aria-valuenow="this.fwpercentage" aria-valuemin="0" aria-valuemax="100" [ngStyle]="getPercentageStyle()">
-        </div>
-            
+        <div class="bje-progress" *ngIf="ad.fwupdate == '1'">
+            <div class="progress-bar" role="progressbar" aria-valuenow="ad.fwpercentage" aria-valuemin="0" aria-valuemax="100" [ngStyle]="getPercentageStyle()">
+            </div>
         </div>
         <div id="bj-update-firmware-statusbar" *ngIf="ad.fwupdate=='0'">
-            <label class="bj-config-lbl no-update-status-div">No firmware update available</label>
+            <label class="bj-config-lbl no-update-status-div">No firmware updates available</label>
         </div>
     </div>
     <div id="bj-energy-monitor-div" *ngIf="getOtherParam()=='energymonitor'">
@@ -164,10 +172,12 @@
             <div class="bj-config-setting inner-setting energy-monitor-reference-load emreference-div" *ngIf="showEnergyMonitorRefSettings">
                 <label class="energy-monitor-reference-load-lbl">{{ this.data.getTranslatedString("Connected load")}} ({{ad.energyMonitorConnectedLoadMin}} - {{ad.energyMonitorConnectedLoadMax}}W)</label>
                 <div class="bj-config-setting-adjust energy-monitor-reference-load-function">
-                    <div class="adjust-minus rev-button" long-press (click)="reduceCount('cload',true)" (onLongPressEnd)="reduceCount('cload',true)" (onLongPressing)="reduceCount('cload',false)"><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="adjust-minus rev-button" long-press (click)="reduceCount('cload',true)" (onLongPressEnd)="reduceCount('cload',true)"
+                        (onLongPressing)="reduceCount('cload',false)"><span class="glyphicon glyphicon-minus"></span></div>
                     <div class="input-container-div">
-                        <input class="adjust input-val" type="number" (keyup)="setCLoad($event)" [(ngModel)]="ad.energyMonitorConnectedLoad" [ngStyle]="{'color':cLoad ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text input-val-unit"> W </div>
+                        <input class="adjust input-val energy-monitor-con-load" type="number" (blur)="setCLoad($event)" [(ngModel)]="ad.energyMonitorConnectedLoad"
+                            [ngStyle]="{'color':cLoad ==true ? 'red' : '#26394f'}">
+                        <span class="energy-monitor-con-load-unit">W</span>
                     </div>
                     <div class="adjust-plus rev-button" long-press (click)="increaseCount('cload',true)" (onLongPressEnd)="increaseCount('cload',true)"
                         (onLongPressing)="increaseCount('cload',false)"><span class="glyphicon glyphicon-plus"></span>
@@ -180,8 +190,9 @@
                     <div class="adjust-minus rev-button" long-press (click)="reduceCount('lduration',true)" (onLongPressEnd)="reduceCount('lduration',true)"
                         (onLongPressing)="reduceCount('lduration',false)"><span class="glyphicon glyphicon-minus"></span></div>
                     <div class="input-container-div">
-                        <input class="adjust input-val" type="number" (keyup)="setLduration($event)" [(ngModel)]="ad.energyMonitorLightingDuration" [ngStyle]="{'color':lDuration ==true ? 'red' : '#26394f'}">
-                        <div class="static-unit-text input-val-unit"> h </div>
+                        <input class="adjust input-val energy-monitor-con-load" type="number" (keyup)="setLduration($event)" [(ngModel)]="ad.energyMonitorLightingDuration"
+                            [ngStyle]="{'color':lDuration ==true ? 'red' : '#26394f'}">
+                        <span class="energy-monitor-con-load-unit">h</span>
                     </div>
                     <div class="adjust-plus rev-button" long-press (click)="increaseCount('lduration',true)" (onLongPressEnd)="increaseCount('lduration',true)"
                         (onLongPressing)="increaseCount('lduration',false)"><span class="glyphicon glyphicon-plus"></span>
@@ -221,28 +232,28 @@
         </div> -->
     </div>
     <div id="bj-set-pins-settings-div" *ngIf="getOtherParam()=='setpins'">
-        <label class="bj-config-lbl set-pins-fitter-div">Installer PIN</label>
+        <label class="bj-config-lbl set-pins-fitter-div">Installer password</label>
         <div id="bj-set-pins-fitter">
             <input class="bj-configure-input" maxlength="16" type="{{showFitterPin == true ? 'text' : 'password'}}" [(ngModel)]="installer_pwd"
                 (ngModelChange)="onFitterPinChanged()" [maxlength]="16">
             <label class="set-pins-subtext">{{ this.data.getTranslatedString("With this password you gain access to all settings of the device") }}</label>
-            <label class="bj-config-setting inner-setting set-pins-fitter-block">{{ this.data.getTranslatedString("Show password") }}</label>
+            <label class="bj-config-setting inner-setting set-pins-fitter-block password-setting">{{ this.data.getTranslatedString("Show password") }}</label>
             <span class="bj-config-toggle-switch">
-                 <div class="track"  (click)="showFitterPin=!showFitterPin"  [ngStyle]="{'border-color': showFitterPin ==true ? '#26394f':'#c0c1c3'}">
+                 <div class="track" (click)="installer_pwd!='' && showFitterPin=!showFitterPin"  [ngStyle]="{'border-color': showFitterPin ==true ? '#26394f':'#c0c1c3'}">
                        <label class="switch-onlabel" *ngIf="showFitterPin == true">{{onLabel}}</label>
                        <label class="switch-offlabel" *ngIf="!showFitterPin == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':showFitterPin == true,'switch-off':showFitterPin == false}" [ngStyle]="{'background-color':showFitterPin == true ? '#26394f':'#ccc'}"></div>
                  </div>
             </span>
         </div>
-        <label class="bj-config-lbl set-pins-user-div">{{ this.data.getTranslatedString("Standard User password") }}</label>
+        <label class="bj-config-lbl set-pins-user-div">{{ this.data.getTranslatedString("Standard user password") }}</label>
         <div id="bj-set-pins-user">
             <input class="bj-configure-input" maxlength="16" type="{{showUserPin == true ? 'text' : 'password'}}" [(ngModel)]="user_pwd"
                 (ngModelChange)="onUserPinChanged()" [maxlength]="16">
             <label class="set-pins-subtext">{{ this.data.getTranslatedString("With this password you gain access to light settings") }}</label>
-            <label class="bj-config-setting inner-setting set-pins-user-block">{{ this.data.getTranslatedString("Show password") }}</label>
+            <label class="bj-config-setting inner-setting set-pins-user-block password-setting">{{ this.data.getTranslatedString("Show password") }}</label>
             <span class="bj-config-toggle-switch">
-                 <div class="track"  (click)="showUserPin=!showUserPin"  [ngStyle]="{'border-color': showUserPin ==true ? '#26394f':'#c0c1c3'}">
+                 <div class="track"  (click)="user_pwd!='' && showUserPin=!showUserPin"  [ngStyle]="{'border-color': showUserPin ==true ? '#26394f':'#c0c1c3'}">
                        <label class="switch-onlabel" *ngIf="showUserPin == true">{{onLabel}}</label>
                        <label class="switch-offlabel" *ngIf="!showUserPin == true">{{offLabel}}</label>
                         <div class="switch" [ngClass]="{'switch-on':showUserPin == true,'switch-off':showUserPin == false}" [ngStyle]="{'background-color':showUserPin == true ? '#26394f':'#ccc'}"></div>
@@ -250,19 +261,22 @@
             </span>
         </div>
     </div>
+    <!-- gopal:) changed the keypress event to keyup #PDAL-2818 -->
     <div id="bj-building-alloc-settings-div" *ngIf="getOtherParam()=='buildingallocation'">
         <label class="bj-config-lbl building-alloc-contact-div">{{ this.data.getTranslatedString("Contact Name") }}</label>
         <div id="bj-building-alloc-contact">
-            <input class="bj-configure-input"  type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setCName($event)" [(ngModel)]="contactName"    maxlength="19"  [maxlength]="19">
+            <input placeholder="Contact name" class="bj-configure-input" type="text" [ngStyle]="{'color': '#26394f'}" (keyup)="setCName($event)"
+                [(ngModel)]="contactName" maxlength="19" [maxlength]="19">
         </div>
         <label class="bj-config-lbl building-alloc-building-div">{{ this.data.getTranslatedString("Building") }}</label>
         <div id="bj-building-alloc-building">
-            <input class="bj-configure-input"   type="text" [ngStyle]="{'color': '#bbbbbb'}" (keyup)="setBName($event)" [(ngModel)]="buildingName"  maxlength="19"  [maxlength]="19">
+            <input placeholder="Building" class="bj-configure-input" type="text" [ngStyle]="{'color': '#26394f'}" (keyup)="setBName($event)"
+                [(ngModel)]="buildingName" maxlength="19" [maxlength]="19">
         </div>
     </div>
     <div id="bj-release-to-user-dev" *ngIf="getOtherParam()=='releasetouser'">
         <div class="bj-config-setting-div prog-brightness-div">
-            <label class="bj-config-setting prog-brightness-block">Programming brightness</label>
+            <label class="bj-config-setting prog-brightness-block">Set brightness threshold</label>
             <span class="bj-config-toggle-switch">
             <div class="track"  (click)="togglepbr()"  [(ngModel)]="ad.enableUserSetBrightnessThreshold" [ngStyle]="{'border-color': ad.enableUserSetBrightnessThreshold == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.enableUserSetBrightnessThreshold == true">{{onLabel}}</label>
@@ -272,8 +286,8 @@
             </div>
            </span>
         </div>
-        <div class="bj-config-setting-div switch-off-delay-div">
-            <label class="bj-config-setting switch-off-delay-block"><ng-container >{{ this.data.getTranslatedString("Settings") }}</ng-container> <ng-container >{{ this.data.getTranslatedString("Switch-off delay") }}</ng-container></label>
+        <div class="bj-config-setting-div switch-off-delay-div" *ngIf="ad.shortTimePulseEnable == false">
+            <label class="bj-config-setting switch-off-delay-block"><ng-container >{{ this.data.getTranslatedString("Set") }}</ng-container> <ng-container >{{ this.data.getTranslatedString("Switch-off delay") }}</ng-container></label>
             <span class="bj-config-toggle-switch">
                <div class="track"  (click)="togglessod()"  [(ngModel)]="ad.enableUserSetSwitchOffDelay" [ngStyle]="{'border-color': ad.enableUserSetSwitchOffDelay == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.enableUserSetSwitchOffDelay == true">{{onLabel}}</label>
@@ -283,7 +297,7 @@
             </div>
            </span>
         </div>
-        <div class="bj-config-setting-div energy-monitor-div">
+        <div class="bj-config-setting-div energy-monitor-div" *ngIf="ad.shortTimePulseEnable == false">
             <label class="bj-config-setting energy-monitor-block">{{ this.data.getTranslatedString("Energy monitor") }}</label>
             <span class="bj-config-toggle-switch">
                <div class="track"  (click)="toggleem()"  [(ngModel)]="ad.enableUserEnergyMonitor" [ngStyle]="{'border-color': ad.enableUserEnergyMonitor == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
@@ -294,8 +308,8 @@
             </div>
            </span>
         </div>
-        <div class="bj-config-setting-div ground-illumination-div" *ngIf="ad.deviceType == 'daliMaster1c'">
-            <label class="bj-config-setting ground-illumination-block">Basic brigthtness</label>
+        <div class="bj-config-setting-div ground-illumination-div" *ngIf="ad.deviceType == 'daliMaster1c' && ad.basicBrightnessMode != 0">
+            <label class="bj-config-setting ground-illumination-block">Basic brightness</label>
             <span class="bj-config-toggle-switch">
                <div class="track"  (click)="togglebi()"  [(ngModel)]="ad.enableUserBasicBrightness" [ngStyle]="{'border-color': ad.enableUserBasicBrightness == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.enableUserBasicBrightness == true">{{onLabel}}</label>
@@ -305,8 +319,8 @@
             </div>
            </span>
         </div>
-        <div class="bj-config-setting-div anti-night-glare-div" *ngIf="ad.deviceType == 'daliMaster1c'">
-            <label class="bj-config-setting anti-night-glare-block">Nightlight function</label>
+        <div class="bj-config-setting-div anti-night-glare-div" *ngIf="ad.deviceType == 'daliMaster1c' && ad.nightLightFunctionEnable">
+            <label class="bj-config-setting anti-night-glare-block">Night light function</label>
             <span class="bj-config-toggle-switch">
                 <div class="track"  (click)="togglenf()"  [(ngModel)]="ad.enableUserNightLightFunction" [ngStyle]="{'border-color': ad.enableUserNightLightFunction == true ? '#26394f':'#c0c1c3'}" ngDefaultControl>
                 <label class="switch-onlabel" *ngIf="ad.enableUserNightLightFunction == true">{{onLabel}}</label>

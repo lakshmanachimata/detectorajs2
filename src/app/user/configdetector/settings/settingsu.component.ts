@@ -19,6 +19,9 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   onLabel = 'ON';
   offLabel = 'OFF';
   loadingDataDone = false;
+  switchOffDelayInMinutes:number;
+  switchOffDelayInSeconds:number;
+  switchOffDelayUnit: any;
 
   PEStartTimeHH = 0
   PEStartTimeMM = 0
@@ -59,6 +62,13 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
             ]
 
   brightnessError = false;
+
+  updateSubcribeAttrs = [
+    SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,
+    SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,
+  ]
+
+
   constructor(public logger: LoggerService,public data: DataService, private router:Router,private route:ActivatedRoute,private zone:NgZone) {
       this.activeDevice = this.data.getSelectedDevice(false);
       this.ad = this.data.getDevicedata(false);
@@ -81,6 +91,7 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     this.secondsToTimeValues(this.ad.presenceSimulationEndTime,'peendtime')
     this.data.setProfileSwitch(true)
     this.data.setOtherParam('','');
+    this.data.setShowHomeButton(true);//PDAL-2577
       // if(this.data.getDeviceConnectionState() == true){
       //   this.data.readData(this.readAttrs);
       // }
@@ -88,9 +99,40 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
       {
         this.loadingDataDone = true;
       }
+      
+      setTimeout(() =>
+      this.subcribeForDetails(), 1000
+      )
+
+
+
+      if(this.ad.switchOffDelayMax>60){
+        this.ad.switchOffDelayMax = Math.floor(this.ad.switchOffDelayMax / 60);//assuming that max value is in seconds.        
+      }
+      
+      this.formatSwitchOffDelay(this.ad.switchOffDelay);
   }
+
+  formatSwitchOffDelay(delay){
+    //assuming that the delay from device is in seconds;
+    this.switchOffDelayInMinutes = +Math.floor(delay/60);
+    this.switchOffDelayInSeconds = +Math.floor(delay%60);
+    /*Commented by BikashV*/
+    /*if(this.switchOffDelayInMinutes ==  0){
+      this.switchOffDelayUnit = "s";
+    }else{
+      this.switchOffDelayUnit = "min";
+    }*/
+    /*Added by BikashV*/
+    this.switchOffDelayUnit = "min";
+  }
+
+  formatTimeValue(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
+  }
+
   basicBrModeChanged(){
-    this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode])
+    this.data.addToSendData([SCCP_ATTRIBUTES.BASIC_BRIGHTNESS_MODE,SCCP_DATATYPES.SCCP_TYPE_ENUM8,this.ad.basicBrightnessMode])
   }
   nightLevelChange() {
     this.data.addToSendData([SCCP_ATTRIBUTES.NIGHT_LIGHT_LEVEL,SCCP_DATATYPES.SCCP_TYPE_UINT8,this.data.getHexofMe(this.ad.nightLightLevel)])
@@ -119,7 +161,8 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   ngAfterViewChecked() { 
   }
   ngOnDestroy() {
-    this.data.setProfileSwitch(false)
+    this.data.setProfileSwitch(false);
+    this.data.unConfigureData(this.updateSubcribeAttrs);
   }
   setTime(timetype){
      let byteData = []
@@ -197,22 +240,71 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
   }
 
   
-  reduceCount(item,isClick) {
+  reduceCount(item,isClick,isLong) {
     if(item == 'brightness') {
-      this.ad.brightnessThreshold = this.ad.brightnessThreshold- 1;
-      if(this.ad.brightnessThreshold <=this.ad.brightnessThresholdMin){
-        this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+      if(isLong){
+        this.ad.brightnessThreshold = this.reduceLux(this.ad.brightnessThreshold,this.ad.brightnessThresholdMin);
+      }
+      else{
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold- 1;
+        if(this.ad.brightnessThreshold <=this.ad.brightnessThresholdMin){
+          this.ad.brightnessThreshold = this.ad.brightnessThresholdMin;
+        }
       }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
-      this.ad.switchOffDelay = this.ad.switchOffDelay- 1;
-      if(this.ad.switchOffDelay <=this.ad.switchOffDelayMin){
-        this.ad.switchOffDelay = this.ad.switchOffDelayMin;
+      this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
+      if(isLong){
+        this.reduceTime(this.switchOffDelayInMinutes,this.switchOffDelayInSeconds,this.ad.switchOffDelayMin);
+        this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
+      }
+      else{
+        //this.ad.switchOffDelay = this.ad.switchOffDelay- 1;
+        this.ad.switchOffDelay = this.data.getStepTapVal("decrease",this.data.StepArrSwitchOffDelay,this.ad.switchOffDelay);
+        if(this.ad.switchOffDelay <= this.ad.switchOffDelayMin){
+          this.ad.switchOffDelay = this.ad.switchOffDelayMin;
+        }
+        this.formatSwitchOffDelay(this.ad.switchOffDelay);
+        this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
       }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
-    }else if(item == 'illuminationstart') {
+    }else if(item == 'basicIlluminationLevel'){
+      if(isLong){
+        this.ad.basicBrightnessLevel = this.reducePercentage(this.ad.basicBrightnessLevel);
+      }else{
+        this.ad.basicBrightnessLevel -= 1;
+        if(this.ad.basicBrightnessLevel <= 0){
+          this.ad.basicBrightnessLevel = 0;
+        }
+      }
+      if(isClick)
+        this.basicBrightnessLevelChange();
+    }else if(item == 'ambientBrightnessThreshold'){
+      if(isLong){
+          this.ad.basicBrightnessAmbientBrightnessThreshold = this.reduceLux(this.ad.basicBrightnessAmbientBrightnessThreshold,this.ad.basicBrightnessAmbientBrightnessThresholdMin);
+      }else{
+        this.ad.basicBrightnessAmbientBrightnessThreshold -=1;
+        if(this.ad.basicBrightnessAmbientBrightnessThreshold <= this.ad.basicBrightnessAmbientBrightnessThresholdMin){
+          this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMin;
+        }
+      }
+      if(isClick)
+        this.basicBrightnessAmbientBrightnessThresholdChange();
+    }else if(item == 'nightLevel'){
+      if(isLong){
+          this.ad.nightLightLevel = this.reducePercentage(this.ad.nightLightLevel);
+      }else{
+        this.ad.nightLightLevel -=1;
+        if(this.ad.nightLightLevel <= 0){
+          this.ad.nightLightLevel = 0;
+        }
+      }
+      if(isClick)
+        this.nightLevelChange();
+    }
+    else if(item == 'illuminationstart') {
       this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime - 60;
       if(this.ad.basicBrightnessStartTime <= 0 ){
           this.ad.basicBrightnessStartTime = 86400;
@@ -246,22 +338,179 @@ export class SettingsuComponent implements OnChanges,OnInit ,DoCheck,AfterConten
     }
   }
 
-  increaseCount(item,isClick) {
+  increasePercentage(value){
+    value += 10;
+    if(value>=100){
+      value = 100;
+    }
+    return value;
+  }
+
+  reducePercentage(value){
+    value -=10;
+    if(value <=0){
+      value=0;
+    }
+    return value;
+  }
+
+  increaseTime(delayMin,delaySec,delayMaximumValue){
+    var delay = delayMin*60 + delaySec; // convert into seconds
+    if(delay < 10){
+      delay += 1;
+    }
+    else if((delay>= 10) && (delay <30)){
+      delay += 10;
+    }
+    else if((delay>= 30) && (delay < 120)){
+      delay += 30;
+    }
+    else if((delay>= 120) && (delay <300)){
+      delay += 60;
+    }
+    else if((delay>= 300) && (delay <900)){
+      delay += 300;
+    }
+    else if((delay >= 900)){
+      delay += 600;
+    }
+    if(delay >= (delayMaximumValue*60)){
+      delay = delayMaximumValue * 60;
+    } 
+    this.formatSwitchOffDelay(delay);
+
+  }
+
+  reduceTime(delayMin,delaySec,delayMinimumValue){
+    var delay = delayMin*60 + delaySec;
+    
+      if(delay <= 10){
+        delay -= 1;
+      }
+      else if((delay> 10) && (delay <=30)){
+        delay -= 10;
+      }
+      else if((delay> 30) && (delay <= 120)){
+        delay -= 30;
+      }
+      else if((delay> 120) && (delay <=300)){
+        delay -= 60;
+      }
+      else if((delay> 300) && (delay <=900)){
+        delay -= 300;
+      }
+      else if((delay > 900)){
+        delay -= 600;
+      }
+      if(delay <= (delayMinimumValue)){
+        delay = delayMinimumValue;//assumin the min value is in seconds
+      } 
+  
+      this.formatSwitchOffDelay(delay);
+  }
+
+  increaseLux(threshold,maxValue){
+   
+    if(threshold < 10){
+      threshold +=1;
+    }
+    else if(threshold >=10 && threshold < 50){
+      threshold += 10;
+    }
+    else{
+      threshold += 50;
+    }
+
+    if(threshold >= maxValue){
+      threshold = maxValue;
+    }
+    return threshold;
+  }
+
+  reduceLux(threshold,minValue){
+    
+    if(threshold <= 10){
+       threshold -=1;
+     }
+     else if(threshold >10 && threshold <= 50){
+       threshold -= 10;
+     }
+     else{
+       threshold -= 50;
+     }
+ 
+     if(threshold <= minValue){
+       threshold = minValue;
+     }
+     return threshold;
+   }
+
+  increaseCount(item,isClick,isLong) {
     if(item == 'brightness') {
-      this.ad.brightnessThreshold = this.ad.brightnessThreshold+ 1;
-      if(this.ad.brightnessThreshold >= this.ad.brightnessThresholdMax){
-        this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+      if(isLong){
+        this.ad.brightnessThreshold = this.increaseLux(this.ad.brightnessThreshold,this.ad.brightnessThresholdMax);
+      }
+      else{
+        this.ad.brightnessThreshold = this.ad.brightnessThreshold+ 1;
+        if(this.ad.brightnessThreshold >= this.ad.brightnessThresholdMax){
+          this.ad.brightnessThreshold = this.ad.brightnessThresholdMax;
+        }
       }
       if(isClick)
-      this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
+        this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.brightnessThreshold)])
     }else if(item == 'soff') {
-      this.ad.switchOffDelay = this.ad.switchOffDelay+ 1;
-      if(this.ad.switchOffDelay >= this.ad.switchOffDelayMax){
-        this.ad.switchOffDelay = this.ad.switchOffDelayMax;
+      this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
+      if(isLong){
+        this.increaseTime(this.switchOffDelayInMinutes,this.switchOffDelayInSeconds,this.ad.switchOffDelayMax);
+        this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
+      }
+      else{
+        this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
+        //this.ad.switchOffDelay +=1;
+        this.ad.switchOffDelay = this.data.getStepTapVal("increase",this.data.StepArrSwitchOffDelay,this.ad.switchOffDelay);
+        if(this.ad.switchOffDelay >= this.ad.switchOffDelayMax*60){
+          this.ad.switchOffDelay = this.ad.switchOffDelayMax*60;
+        }
+        this.formatSwitchOffDelay(this.ad.switchOffDelay);
+        this.ad.switchOffDelay = this.switchOffDelayInMinutes*60 + this.switchOffDelayInSeconds;
       }
       if(isClick)
       this.data.addToSendData([SCCP_ATTRIBUTES.SWITCH_OFF_DELAY,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.switchOffDelay)])
-    }else if(item == 'illuminationstart') {
+    }else if(item == 'basicIlluminationLevel'){
+      if(isLong){
+        this.ad.basicBrightnessLevel = this.increasePercentage(this.ad.basicBrightnessLevel);
+      }else{
+        this.ad.basicBrightnessLevel += 1;
+        if(this.ad.basicBrightnessLevel >= 100){
+          this.ad.basicBrightnessLevel = 100;
+        }
+      }
+      if(isClick)
+        this.basicBrightnessLevelChange();
+    }else if(item == 'ambientBrightnessThreshold'){
+      if(isLong){
+          this.ad.basicBrightnessAmbientBrightnessThreshold = this.increaseLux(this.ad.basicBrightnessAmbientBrightnessThreshold,this.ad.basicBrightnessAmbientBrightnessThresholdMax);
+      }else{
+        this.ad.basicBrightnessAmbientBrightnessThreshold +=1;
+        if(this.ad.basicBrightnessAmbientBrightnessThreshold >= this.ad.basicBrightnessAmbientBrightnessThresholdMax){
+          this.ad.basicBrightnessAmbientBrightnessThreshold = this.ad.basicBrightnessAmbientBrightnessThresholdMax;
+        }
+      }
+      if(isClick)
+        this.basicBrightnessAmbientBrightnessThresholdChange();
+    }else if(item == 'nightLevel'){
+      if(isLong){
+          this.ad.nightLightLevel = this.increasePercentage(this.ad.nightLightLevel);
+      }else{
+        this.ad.nightLightLevel +=1;
+        if(this.ad.nightLightLevel >= 100){
+          this.ad.nightLightLevel = 100;
+        }
+      }
+      if(isClick)
+        this.nightLevelChange();
+    }
+    else if(item == 'illuminationstart') {
       this.ad.basicBrightnessStartTime = this.ad.basicBrightnessStartTime +60;
       if(this.ad.basicBrightnessStartTime >= 86400 ){
           this.ad.basicBrightnessStartTime = 0;
@@ -327,12 +576,14 @@ secondsToTimeValues (sec_num,timetype) {
   }
 
   setCurrentBr(event: any) { // without type info
-    this.ad.currentBrightness = event.target.value;
-    this.data.addToSendData([SCCP_ATTRIBUTES.CURRENT_BRIGHTNESS,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
+    //this.ad.currentBrightness = event.target.value;
+    this.ad.brightnessThreshold = event.target.value;
+    this.data.addToSendData([SCCP_ATTRIBUTES.BRIGHTNESS_THRESHOLD,SCCP_DATATYPES.SCCP_TYPE_UINT16,this.data.getHexofMe(this.ad.currentBrightness)])
   }
 
   onBLEdata(isread,iswrite) {
     if(iswrite == true){
+
       this.zone.run( () => { // Change the property within the zone, CD will run after
         this.ad.brightnessThreshold = this.ad.brightnessThreshold ;
         this.data.setEDevParamsState(0);
@@ -348,6 +599,16 @@ secondsToTimeValues (sec_num,timetype) {
   }
     setLoadingDataDone(value){
     this.loadingDataDone = value;
+  }
+
+  subcribeForDetails() {
+    this.data.configureData(this.updateSubcribeAttrs)
+  }
+
+  onReportBLEdata() {
+    this.zone.run(() => { // Change the property within the zone, CD will run after
+      this.ad.brightnessThreshold = this.ad.brightnessThreshold;
+    });
   }
 
 }

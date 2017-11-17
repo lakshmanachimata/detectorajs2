@@ -24,6 +24,7 @@ export class UTestmodeComponent  implements  OnChanges,OnInit ,DoCheck,AfterCont
         this.ad = this.data.getDevicedata(false);
         this.data.setActiveComponent(this);
         this.data.setEDevParamsState(0);
+        this.data.setShowHomeButton(false);//PDAL-2577
     }
     ngDoCheck() { 
     }

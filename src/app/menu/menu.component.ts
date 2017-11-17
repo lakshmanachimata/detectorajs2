@@ -26,6 +26,7 @@ import { i18nService } from '../i18n.service';
 })
 export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
     private menuItems:Array<any>;
+    private menuIcons:Array<any>;
     menuState = 'none';
     arrowStateObserve: any;
      private snap:RouterStateSnapshot;
@@ -37,12 +38,14 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
 
     animationStarted($event) {  
         this.data.setSMMainTitle(this.translater.translate('Menu'));
+        this.data.setMenuActive(true);//PDAL-2577
     }
 
     animationDone($event) {
         if(this.menuState  == 'topout'){
             this.data.setMenuArrow(0);
             this.data.setSMMainTitle('');
+            this.data.setMenuActive(false);//PDAL-2577
         }
     }
 
@@ -76,6 +79,16 @@ export class MenuComponent implements OnChanges,OnInit ,DoCheck,AfterContentInit
     getMenuItems() {
         this.menuItems = this.data.getSubMenuItems();
         return this.menuItems;
+    }
+
+    getMenuIcons(item){
+        this.menuIcons = this.data.getSubMenuIcons();
+        for(var i=0; i< this.menuIcons.length; i++) {
+            if(this.menuIcons[i].name == item.name){
+                return this.menuIcons[i].icon;
+            }
+        }
+        
     }
     menuItemClick(item) {
         this.data.setMenuArrow(2);

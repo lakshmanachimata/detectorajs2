@@ -255,12 +255,12 @@ export class i18n_Lang_Defs
         <target>Limit room brightness</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
-        <target>Minimum load</target>
+        <source>Minimum load output value</source>
+        <target>Minimum load output value</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
-        <target>Maximum load</target>
+        <source>Maximum load output value</source>
+        <target>Maximum load output value</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
         <source>DALI settings</source>
@@ -303,8 +303,8 @@ export class i18n_Lang_Defs
         <target>Basic brightness</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
-        <target>Basic illumination level</target>
+        <source>Basic Brightness level</source>
+        <target>Basic Brightness level</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
         <source>Start time</source>
@@ -539,8 +539,8 @@ export class i18n_Lang_Defs
         <target>Test mode</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -599,12 +599,12 @@ export class i18n_Lang_Defs
         <target>Ambient brightness threshold</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
-        <target>Night light</target>
+        <source>Night light function </source>
+        <target>Night light function</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
-        <target>Stepwise switch-off</target>
+        <source>Stepwise switch off</source>
+        <target>Stepwise switch off</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
         <source>Master</source>
@@ -924,11 +924,11 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Raumhelligkeit begrenzen</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Mindestlast</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maximallast</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -972,7 +972,7 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Grundhelligkeit</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Grundhelligkeit</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -1208,8 +1208,8 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testbetrieb</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -1268,11 +1268,11 @@ this.langTranslations['de'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Helligkeitsschaltschwelle</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Nachtlicht</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Stufenweise ausschalten</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -1593,11 +1593,11 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Helderheid in ruimte begrenzen</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimale belasting</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maximale belasting</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -1641,7 +1641,7 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Basishelderheid</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Basishelderheid</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -1877,8 +1877,8 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testbedrijf</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -1937,11 +1937,11 @@ this.langTranslations['nl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Helderheidsschakeldrempel</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Nachtlicht</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Stapsgewijs uitschakelen</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -2262,11 +2262,11 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Limiter la luminosité ambiante</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Charge minimale</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Charge maximale</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -2310,7 +2310,7 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Luminosité de base</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Luminosité de base</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -2546,8 +2546,8 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Mode Test</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -2606,11 +2606,11 @@ this.langTranslations['fr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Seuil de commutation en fonction de la luminosité</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Lumière nocturne</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Mise à l'arrêt progressive</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -2931,11 +2931,11 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Limita luminosità ambiente</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Carico minimo</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Carico massimo</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -2979,7 +2979,7 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Luminosità di base</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Luminosità di base</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -3215,8 +3215,8 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Prova di funzionamento</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -3275,11 +3275,11 @@ this.langTranslations['it'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Soglia della luminosità di intervento</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target> Luce notturna</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Disattivazione graduale</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -3600,11 +3600,11 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Ограничение освещенности помещения</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Минимальная нагрузка</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Максимальная нагрузка</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -3648,7 +3648,7 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Базовая освещенность</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Базовая освещенность</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -3884,8 +3884,8 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Тестовый режим</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -3944,11 +3944,11 @@ this.langTranslations['ru'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Порог освещенности</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Ночник</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Ступенчатое выключение</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -4269,11 +4269,11 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Ogranicz jasność pomieszczenia</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Obciążenie minimalne</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maksymalne obciążenie</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -4317,7 +4317,7 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Jasność podstawowa</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Jasność podstawowa</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -4553,8 +4553,8 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Tryb testowy</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -4613,11 +4613,11 @@ this.langTranslations['pl'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Próg jasności przełączania</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Oświetlenie nocne</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Wyłącz stopniowo</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -4938,11 +4938,11 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Begränsa ljusstyrkan i rummet</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimilast</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maximal last</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -4986,7 +4986,7 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Ljusstyrka</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Ljusstyrka</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -5222,8 +5222,8 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testdrift</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -5282,11 +5282,11 @@ this.langTranslations['sv'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Ljuskopplingströskel</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Nattljus</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Koppla från stegvis</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -5607,11 +5607,11 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Begrense lysstyrken i rommet</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minstelast:</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maksimallast</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -5655,7 +5655,7 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Grunnbelysning</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Grunnbelysning</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -5891,8 +5891,8 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testdrift</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -5951,11 +5951,11 @@ this.langTranslations['no'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Reaksjonsterskel</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Nattlys</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Trinnvis utkobling</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -6276,11 +6276,11 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Tilan valovoimakkuuden rajoittaminen</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimikuormitus</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Enimmäiskuorma</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -6324,7 +6324,7 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Perusvalovoimakkuus</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Perusvalovoimakkuus</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -6560,8 +6560,8 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testikäyttö</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -6620,11 +6620,11 @@ this.langTranslations['fi'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Valokytkentäkynnys</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Yövalo</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Porrastettu poiskytkentä</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -6945,11 +6945,11 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Limitar luminosidad de estancia</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Carga mínima</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Carga máxima</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -6993,7 +6993,7 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Luminosidad básica</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Luminosidad básica</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -7229,8 +7229,8 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Modo test</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -7289,11 +7289,11 @@ this.langTranslations['es'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Umbral de conmutación por luminosidad</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Luz de noche</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Desconexión progresiva</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -7614,11 +7614,11 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>限制房间亮度</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>最小负载</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>最大负荷</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -7662,7 +7662,7 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>基本亮度</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>基本亮度</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -7898,8 +7898,8 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>试运行</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -7958,11 +7958,11 @@ this.langTranslations['zh'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>亮度开关阈</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target> 夜灯</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>逐步关闭</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -8283,11 +8283,11 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Begræns rumlysstyrke</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimumsbelastning</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maksimal belastning</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -8331,7 +8331,7 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Grundlysstyrke</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Grundlysstyrke</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -8567,8 +8567,8 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testdrift</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -8627,11 +8627,11 @@ this.langTranslations['da'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Lysstyrkeomskiftningstærskel</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Natlys</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Trinvis frakobling</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -8952,11 +8952,11 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Oda parlaklığını sınırla</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimum yük</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maksimum yük</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -9000,7 +9000,7 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Temel parlaklık</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Temel parlaklık</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -9236,8 +9236,8 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Test işletimi</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -9296,11 +9296,11 @@ this.langTranslations['tr'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Parlaklık devreye girme eşiği</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target> Gece ışığı</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Kademeli kapat</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -9621,11 +9621,11 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Limitar a luminos. do espaço</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Carga mínima</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Carga máxima</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -9669,7 +9669,7 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Luminos. básica</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Luminos. básica</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -9905,8 +9905,8 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Operação teste</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -9965,11 +9965,11 @@ this.langTranslations['pt'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Limite comut. luminosidade</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Luz noturna</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Desligar gradativamente</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -10290,11 +10290,11 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Περιορισμός φωτεινότητας οθόνης</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Ελάχιστο φορτίο</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Μέγιστο φορτίο</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -10338,7 +10338,7 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Βασική φωτεινότητα</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Βασική φωτεινότητα</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -10574,8 +10574,8 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Δοκιμαστική λειτουργία</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -10634,11 +10634,11 @@ this.langTranslations['el'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Κατώφλι μεταγωγής φωτεινότητας</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Νυχτερινός φωτισμός</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Σταδιακή απενεργοποίηση</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -10959,11 +10959,11 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Obmedziť jas v miestnosti</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimálna záťaž</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maximálna záťaž</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -11007,7 +11007,7 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Základný jas</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Základný jas</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -11243,8 +11243,8 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testovacia prevádzka</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -11303,11 +11303,11 @@ this.langTranslations['sk'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Spínací prah jasu</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Nočné svetlo</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Vypnúť postupne</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
@@ -11628,11 +11628,11 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Omezit prostorový jas</target>
       </trans-unit>
       <trans-unit id="e3bb9042b9779a5c93b3293cba85637d112fdf2e" datatype="html">
-        <source>Minimum load</source>
+        <source>Minimum load output value</source>
         <target>Minimální zatížení</target>
       </trans-unit>
       <trans-unit id="721ac66d28da4336aa6f230db6ec367097ff4dad" datatype="html">
-        <source>Maximum load</source>
+        <source>Maximum load output value</source>
         <target>Maximální zatížení</target>
       </trans-unit>
       <trans-unit id="cb037519956d71aa2cdfe1625c4c845efea87923" datatype="html">
@@ -11676,7 +11676,7 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Základní jas</target>
       </trans-unit>
       <trans-unit id="a1bca3d61c90e5b7516e5b266e1e6f1f48bb1417" datatype="html">
-        <source>Basic illumination level</source>
+        <source>Basic Brightness level</source>
         <target>Základní jas</target>
       </trans-unit>
       <trans-unit id="4c11aad490b2d53fdae30b3807beabf79306752c" datatype="html">
@@ -11912,8 +11912,8 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Testovací provoz</target>
       </trans-unit>
       <trans-unit id="f07595a505b840cb85c2e9bf903a081b5816f670" datatype="html">
-        <source>Load detector profile</source>
-        <target>Load detector profile</target>
+        <source>Load profile</source>
+        <target>Load profile</target>
       </trans-unit>
       <trans-unit id="850b78a126ef4e85c2e9d74d9ca74394ec9d05cf" datatype="html">
         <source>Save as user profile</source>
@@ -11972,11 +11972,11 @@ this.langTranslations['cs'] = `<?xml version="1.0" encoding="UTF-8"?>
         <target>Spínací práh jasu</target>
       </trans-unit>
       <trans-unit id="caed47aad9282737a20ed401bc5f674f733a07bc" datatype="html">
-        <source>Night light </source>
+        <source>Night light function </source>
         <target>Noční světlo</target>
       </trans-unit>
       <trans-unit id="2a71cc3bbc868ae3c405519d939e0ff0432553f7" datatype="html">
-        <source>Stepwise switch-off</source>
+        <source>Stepwise switch off</source>
         <target>Vypnout postupně</target>
       </trans-unit>
       <trans-unit id="bceb00c745ce685e6f6f3eda4fd9a4dab5279296" datatype="html">
